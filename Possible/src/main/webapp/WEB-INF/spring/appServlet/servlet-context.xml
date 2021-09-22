@@ -13,7 +13,7 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
-	
+
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 
@@ -26,20 +26,22 @@
 		<beans:property name="suffix" value=".jsp" />
 		<beans:property name="order" value="2" />
 	</beans:bean>
-	
-	<beans:bean class="org.springframework.web.servlet.view.UrlBasedViewResolver" p:order="1"
- 		p:viewClass="org.springframework.web.servlet.view.tiles3.TilesView" />
+
+	<beans:bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<beans:property name="order" value="1"/>
+		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	</beans:bean>
 		<!--Don't add suffix or prefix like you do with .jsp files-->
 	<beans:bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer" >
 		<beans:property name="definitions" value="/WEB-INF/tiles.xml" />
 	</beans:bean>
-	
-	<context:component-scan base-package="com.yedam.pos" />
+
+	<context:component-scan base-package="com.yedam.possable.app" />
 
 	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<beans:property name="dataSource" ref="dataSource"></beans:property>
+		<beans:property name="dataSource" ref="dataSource" />
 	</beans:bean>
-	
+
 	<!-- Transaction Advice 설정 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>
@@ -47,22 +49,22 @@
 			<tx:method name="*"/>
 		</tx:attributes>
 	</tx:advice>
-	
+
 	<!-- Transaction AOP 설정 -->
  	<aop:config>
-		<aop:pointcut expression="execution(* com.yedam.pos..*ServiceImpl.*(..))" id="txPointCut"/>
+		<aop:pointcut expression="execution(* com.yedam.possable.app..*ServiceImpl.*(..))" id="txPointCut"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointCut"/>
-	</aop:config> 
-	
+	</aop:config>
+
 	<!-- Transaction 처리 -->
 	<tx:annotation-driven/>
-	
-	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>	
-	
+
+	<aop:aspectj-autoproxy />
+
 	<!-- 파일업로드 관련 설정 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<beans:property name="maxUploadSize" value="100000000" />
 		<beans:property name="maxInMemorySize" value="1000000" />
-	</beans:bean>	
-	
+	</beans:bean>
+
 </beans:beans>
