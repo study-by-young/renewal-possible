@@ -41,4 +41,10 @@ public class HomeController {
 	public String test() {
 		return "test/test";
 	}
+	
+	@GetMapping("/mypage")
+	public String dashboard() {
+		return "mypage/dashboard";
+	}
 }
+
