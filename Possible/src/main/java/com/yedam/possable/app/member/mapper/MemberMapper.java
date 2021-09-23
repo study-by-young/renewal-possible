@@ -1,4 +1,4 @@
-package com.yedam.possable.app.member.Mapper;
+package com.yedam.possable.app.member.mapper;
 
 import java.util.List;
 

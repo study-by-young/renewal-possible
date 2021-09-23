@@ -249,6 +249,8 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>${org.springframework.security-version}</version>
 		</dependency>
+		<!-- Spring Security the End -->
+		
 	</dependencies>
 	<build>
 		<plugins>

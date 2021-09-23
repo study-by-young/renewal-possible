@@ -5,12 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yedam.possable.app.member.Mapper.MemberMapper;
 import com.yedam.possable.app.member.domain.MemberVO;
+import com.yedam.possable.app.member.mapper.MemberMapper;
 @Service
-public class MemberServiceImpl implements memberService {
+public class MemberServiceImpl implements MemberService {
 
 	@Autowired MemberMapper memberMapper;
+	
 	@Override
 	public List<MemberVO> memberList() {
 		// TODO Auto-generated method stub

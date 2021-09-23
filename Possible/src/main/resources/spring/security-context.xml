@@ -6,8 +6,38 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
 	<!-- security 적용 제외 -->
+	
 	<security:http pattern="/css/**" security="none" />
 	<security:http pattern="/resources/**" security="none" />
+	
+	<security:http auto-config="true" use-expressions="true">
+		<security:intercept-url pattern="/all" access="permitAll()" />
+		<security:intercept-url pattern="/loginTest/member" access="hasRole('ROLE_MEMBER')" />
+		
+		<security:intercept-url pattern="/loginTest/admin" access="hasRole('ROLE_ADMIN')" />
+		
+		<security:form-login
+							login-page="/loginForm"/>
+		
+		<security:access-denied-handler error-page="/errorPage"/>
+	</security:http>
+	
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				
+				<security:user name="member" password="{noop}member" 
+							   authorities="ROLE_MEMBER" />
+				
+				<security:user name="admin" password="{noop}admin" 
+				               authorities="ROLE_MEMBER, ROLE_ADMIN"/>
+
+			</security:user-service>
+
+		</security:authentication-provider>
+
+	</security:authentication-manager>
+	
 	
 	<!-- pattern: 앞에 반드시 / 붙여줘야 한다. 
 	<security:http>

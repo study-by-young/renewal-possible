@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.yedam.possable.app.member.domain.MemberVO;
 
-public interface memberService {
+public interface MemberService {
 	//회원 전체 목록
 		public List<MemberVO> memberList(); 
 		
