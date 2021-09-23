@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import lombok.extern.java.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Handles requests for the application home page.
  */
 @Controller
+@Log
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -32,7 +34,8 @@ public class HomeController {
 
 		String formattedDate = dateFormat.format(date);
 
-		model.addAttribute("serverTime", formattedDate );
+        model.addAttribute("serverTime", formattedDate );
+
 
 		return "home";
 	}
