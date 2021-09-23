@@ -1,9 +1,10 @@
 @charset "utf-8";
-@import url("../css/animate.css");
-@import url("../css/bootstrap.min.css");
-@import url("../css/fonts.css");
-@import url("../css/flaticon.css");
-@import url("../css/font-awesome.css");
+@import url("./animate.css");
+@import url("./bootstrap.min.css");
+@import url("./fonts.css");
+@import url("https://fonts.googleapis.com/css2?family=Material+Icons");
+@import url("./flaticon.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
 @import url("../css/select2.min.css");
 @import url("../css/nice-select.css");
 @import url("../css/owl.carousel.css");

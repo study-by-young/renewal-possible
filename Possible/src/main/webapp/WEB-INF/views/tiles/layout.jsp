@@ -4,57 +4,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>layout.jsp</title>
+    <title>여행갈카</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=yes">
-    '
     <meta name="HandheldFriendly" content="true">
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+    <!-- common -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/animate.css"/>
+    <script src="${pageContext.request.contextPath}/resources/js/modernizr.js"></script>
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"/>
+    <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
+
+    <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.menu-aim.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
 
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <meta name="description" content="Xpedia"/>
-    <meta name="keywords" content="Xpedia"/>
-    <meta name="author" content=""/>
-    <meta name="MobileOptimized" content="320"/>
-    <!--Template style -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/xpedia.css"/>
-    <!--favicon-->
-    <link rel="shortcut icon" type="image/png" href="${pageContext.request.contextPath}/resources/${pageContext.request.contextPath}/resources/images/fevicon.png"/>
+    <!-- fonts -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/flaticon.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Material+Icons"/>
 
+    <!-- select 2 js -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/select2.min.css"/>
+    <script src="${pageContext.request.contextPath}/resources/js/select2.min.js"></script>
+
+    <!-- nice-select js -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/nice-select.css"/>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
+
+    <!-- owl carousel js -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/owl.carousel.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/owl.theme.default.css"/>
+    <script src="${pageContext.request.contextPath}/resources/js/owl.carousel.js"></script>
+
+    <!-- magnific-popup js -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/magnific-popup.css"/>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.magnific-popup.js"></script>
+
+    <!-- bxslider -->
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.bxslider.min.js"></script>
+
+    <!-- custom css -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style_II.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/responsive_II.css"/>
+
+    <!-- custom js -->
+    <script src="${pageContext.request.contextPath}/resources/js/own-menu.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/xpedia.js"></script>
 </head>
 <body>
-<tiles:insertAttribute name="header"></tiles:insertAttribute>
-<tiles:insertAttribute name="content"></tiles:insertAttribute>
-
-<header>
-    <h2>Cities</h2>
-</header>
-
-<section>
-    <nav>
-        <ul>
-            <li><a href="${pageContext.request.contextPath}">Home</a></li>
-            <li><a href="${pageContext.request.contextPath}/emp/empList">Employees</a></li>
-            <li><a href="${pageContext.request.contextPath}/dept">Departments</a></li>
-            <li><a href="${pageContext.request.contextPath}/top.jsp">Top</a></li>
-            <li><a href="#">London</a></li>
-            <li><a href="#">Paris</a></li>
-            <li><a href="#">Tokyo</a></li>
-        </ul>
-    </nav>
-
-    <article>
-        <!-- 컨텐츠 -->
-        <tiles:insertAttribute name="content"></tiles:insertAttribute>
-    </article>
-</section>
-
-<footer>
-    <p>Footer</p>
-</footer>
-
+    <tiles:insertAttribute name="header"></tiles:insertAttribute>
+    <tiles:insertAttribute name="sidebar"></tiles:insertAttribute>
+    <tiles:insertAttribute name="content"></tiles:insertAttribute>
+    <tiles:insertAttribute name="footer"></tiles:insertAttribute>
 </body>
 </html>

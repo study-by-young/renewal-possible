@@ -6,31 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
-
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-	<!--Template style -->
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/xpedia.css" />
-
-	<!--favicon-->
-	<link rel="shortcut icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/fevicon.png" />
-
-	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/modernizr.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/select2.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery.menu-aim.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/owl.carousel.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/own-menu.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery.bxslider.min.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/jquery.magnific-popup.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/xpedia.js"></script>
-	<!-- custom js-->
-	
-	
 	<!-- preloader Start -->
 	<div id="preloader">
 		<div id="status">
@@ -47,7 +22,7 @@
 			</form>
 		</div>
 	</div>
-	
+
 	<!-- x top header_wrapper Start -->
 	<div class="x_top_header_wrapper float_left">
 		<div class="container">
@@ -312,4 +287,4 @@
 			</div>
 		</div>
 	</div>
-	<!-- hs Navigation End -->	
+	<!-- hs Navigation End -->
