@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	
-
 <!-- x blog main and sidebar Wrapper Start -->
 	<div class="x_blog_sidebar_main_wrapper float_left padding_tb_100">
 		<div class="container">
@@ -10,296 +9,76 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="lr_bc_first_box_main_wrapper">
-									<div class="lr_bc_first_box_img_wrapper">
-										<img src="images/bc1.jpg" alt="blog_img">
-									</div>
-									<div class="lr_bc_first_box_img_cont_wrapper">
-										<h2>WANNA PLAY?</h2>
+								
+								<div class="lr_bc_first_box_img_cont_wrapper">
 										<ul>
-											<li><i class="fa fa-calendar"></i>&nbsp; <a href="#">September 19, 2017</a>
-											</li>
-											<li><i class="fa fa-user-o"></i>&nbsp; <a href="#">by Admin</a>
-											</li>
-											<li><i class="fa fa-comments-o"></i>&nbsp; <a href="#">04 comments</a>
-											</li>
+											<li><a href="#">회원정보수정</a></li>
+											<li><a href="#">견적관리</a></li>
+											<li><a href="#">렌트관리</a></li>
+											<li><a href="#">커뮤니티관리</a></li>
+											<li><a href="#">나의문의</a></li>
 										</ul>
-										<p>What's your favorite game? Nam a diam tincidunt, condimentum nisi et, fringilla lectus. Nullam nec lectus eu erat temus pulvinar. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud citation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-											<br>
-											<br>What's your favorite game? Nam a diam tincidunt, condimentum nisi et, fringilla lectus. Nullam nec lectus eu erat temus pulvinar. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud citation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+								</div>
+								<br><br><br>
+							
+								<div class="col-md-12">
+									<div class="blog_single_comment_heading">
+										<h4>렌트현황</h4>
 									</div>
-									<div class="gc_blog_index_slider_post_wrapper gc_blog_single_index_slider_post_wrapper">
-										<div class="gc_blog_letest_week_wrapper">
-											<div class="gc_blog_quote_wrapper">
-												<img src="images/quote.png" alt="quote" />
-												<h3>" The Education of Tomorrow, Rooted in Tradition Invite You
-Learning Management System"</h3>
-												<p>- by Jhon Doe</p>
-											</div>
-										</div>
-										<p>What's your favorite game? Nam a diam tincidunt, condimentum nisi et, fringilla lectus. Nlam nec lectus eu erat tempus pulvinar. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud citation ullamco laboris nisi ut aliquip ex ea commodo consequat</p>
-									</div>
-									<div class="blog_single_social_icon float_left">
-										<h3>Share Post :</h3>
-										<ul>
-											<li><a href="#"><i class="fa fa-facebook"></i></a>
-											</li>
-											<li><a href="#"><i class="fa fa-twitter"></i></a>
-											</li>
-											<li><a href="#"><i class="fa fa-rss"></i></a>
-											</li>
-											<li><a href="#"><i class="fa fa-linkedin"></i></a>
-											</li>
-										</ul>
+									<div class="card">
+									    <div class="card-body"
+									    style="background: #ffffff; box-shadow: 0px 0 8px rgba(0, 0, 0, 0.1); -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;">렌트현황 테이블로?</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="blog_single_admin_sec_wrapper">
-									<div class="blog_single_admin_sec">
-										<div class="admin_img_wrapper">
-											<img src="images/admin_img.jpg" alt="admin_img" class="img-responsive" />
-										</div>
-										<div class="admin_cont_wrapper">
-											<h3>About Admin : Jhon Doe <a href="#">MORE</a></h3>
-											<p>Porttitor fringilla vestibulum. Phasellus curs our tinnt nulla, ut ttis augue finibus ac Vivamus elementum enim ac enim ces rhoncus.</p>
-										</div>
+
+								<div class="col-md-12">
+									<div class="blog_single_comment_heading">
+										<h4>나의후기</h4>
+									</div>
+									<div class="card">
+										<div class="card-body" 
+											style="background: #ffffff; box-shadow: 0px 0 8px rgba(0, 0, 0, 0.1); -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;">후기사진도</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="blog_single_comment_wrapper">
-											<div class="blog_single_comment_heading_wrapper">
-												<div class="blog_single_comment_heading">
-													<h4>Comments (04)</h4>
-												</div>
-											</div>
-											<div class="blog_comment1_wrapper">
-												<div class="blog_comment1_img">
-													<img src="images/comment_img1.jpg" alt="comment_img" class="img-responsive img-circle" />
-												</div>
-												<div class="blog_comment1_cont">
-													<h3>Jhon Doe <i class="fa fa-circle"></i> <span>July 1, 2016 - <a href="#">Reply</a></span></h3>
-													<p>Integer porttitor fringilla vestibulum. Phasellus curs our tinnt nulla, ut mattis augue finibus ac. Vivamus elementum enim ac enim ultrices rhoncus.</p>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<div class="comment_cont2_border">
-												<div class="col-xl-11 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-12">
-													<div class="blog_single_comment_wrapper">
-														<div class="blog_comment2_wrapper">
-															<div class="blog_comment1_img">
-																<img src="images/comment_img2.jpg" alt="comment_img" class="img-responsive img-circle" />
-															</div>
-															<div class="blog_comment1_cont">
-																<h3>Jhon Doe <i class="fa fa-circle"></i> <span>July 1, 2016 - <a href="#">Reply</a></span></h3>
-																<p>Integer porttitor fringilla vestibulum. Phasellus curs our tinnt nulla, ut mattis augue finibus ac. Vivamus elementum enim ac enim ultrices rhoncus.</p>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="blog_single_comment_wrapper">
-											<div class="blog_comment3_wrapper">
-												<div class="blog_comment1_img">
-													<img src="images/comment_img3.jpg" alt="comment_img" class="img-responsive img-circle" />
-												</div>
-												<div class="blog_comment1_cont">
-													<h3>Jhon Doe <i class="fa fa-circle"></i> <span>July 1, 2016 - <a href="#">Reply</a></span></h3>
-													<p>Integer porttitor fringilla vestibulum. Phasellus curs our tinnt nulla, ut mattis augue finibus ac. Vivamus elementum enim ac enim ultrices rhoncus.</p>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-12">
-										<div class="blog_single_comment_wrapper">
-											<div class="blog_comment3_wrapper">
-												<div class="blog_comment1_img">
-													<img src="images/comment_img4.jpg" alt="comment_img" class="img-responsive img-circle" />
-												</div>
-												<div class="blog_comment1_cont">
-													<h3>Jhon Doe <i class="fa fa-circle"></i> <span>July 1, 2016 - <a href="#">Reply</a></span></h3>
-													<p>Integer porttitor fringilla vestibulum. Phasellus curs our tinnt nulla, ut mattis augue finibus ac. Vivamus elementum enim ac enim ultrices rhoncus.</p>
-												</div>
-											</div>
-										</div>
-									</div>
+							
 								</div>
 							</div>
-							<div class="col-md-12">
-								<div class="row">
-									<div class="col-md-12">
-										<div class="contect_heading_wrapper">
-											<div class="gc_blog_single_form_heading">
-												<h4>Leave A Comments</h4>
-											</div>
-										</div>
-									</div>
-									<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-										<div class="contect_form1">
-											<input type="text" placeholder="Full Name *"><i class="fa fa-user"></i>
-										</div>
-									</div>
-									<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-										<div class="contect_form2">
-											<input type="email" placeholder="Email *"><i class="fa fa-envelope"></i>
-										</div>
-									</div>
-									<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="contect_form4">
-											<textarea rows="4" placeholder="Write Comment"></textarea><i class="fa fa-pencil-square-o"></i>
-										</div>
-									</div>
-									<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-										<div class="contect_btn">
-											<ul>
-												<li><a href="#">Submit <i class="fa fa-arrow-right"></i></a>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
+						
+						
 						</div>
 					</div>
 				</div>
 				<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
 					<div class="x_blog_right_side_wrapper float_left">
 						<div class="row">
-							<div class="col-md-12">
-								<div class="jp_rightside_job_categories_wrapper jp_blog_right_box_search">
-									<div class="jp_rightside_job_categories_heading">
-										<h4>Search</h4>
-									</div>
-									<div class="jp_blog_right_search_wrapper">
-										<input type="text" placeholder="Search">
-										<button type="submit"><i class="fa fa-search"></i>
-										</button>
-									</div>
-								</div>
-							</div>
+						
 							<div class="col-md-12">
 								<div class="jp_rightside_job_categories_wrapper jp_rightside_job_categories_wrapper2">
 									<div class="jp_rightside_job_categories_heading">
-										<h4>Categories</h4>
+										<div class="blog_comment1_img">
+												<img src="${pageContext.request.contextPath}/resources/images/comment_img1.jpg" alt="comment_img" class="img-responsive img-circle" />
+										</div>
 									</div>
 									<div class="jp_rightside_job_categories_content">
 										<ul>
-											<li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a href="#">Car Rental (22) </a>
-											</li>
-											<li><i class="fa fa-long-arrow-right"></i>  <a href="#"> &nbsp;&nbsp;New Cars Model (35)</a>
-											</li>
-											<li><i class="fa fa-long-arrow-right"></i>  <a href="#"> &nbsp;&nbsp;Hotels (145) </a>
-											</li>
-											<li><i class="fa fa-long-arrow-right"></i>  <a href="#"> &nbsp;&nbsp;Trips (21)</a>
-											</li>
-											<li><i class="fa fa-long-arrow-right"></i>  <a href="#"> &nbsp;&nbsp;Others (541)</a>
-											</li>
-										</ul>
+											<li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a href="#">예약완료 </a></li>
+											<li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a href="#">쿠폰함 </a></li>
+											<li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a href="#">포인트 </a></li>
+							
+					   					</ul>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-12">
 								<div class="jp_rightside_job_categories_wrapper jp_rightside_job_categories_wrapper2">
 									<div class="jp_rightside_job_categories_heading">
-										<h4>Latest Post</h4>
+										<h4>고객센터</h4>
+										<div class="blog_comment1_img">
+												<img src="${pageContext.request.contextPath}/resources/images/comment_img1.jpg" alt="comment_img" class="img-responsive img-circle" />
+										</div>
 									</div>
 									<div class="jp_rightside_career_main_content">
-										<div class="jp_rightside_career_content_wrapper">
-											<div class="jp_rightside_career_img">
-												<img src="images/bs1.jpg" alt="career_img" />
-											</div>
-											<div class="jp_rightside_career_img_cont">
-												<h4><a href="#">Image Blog
-Post Formate</a></h4>
-												<p><i class="fa fa-calendar-o"></i> &nbsp;20 OCT, 2017</p>
-											</div>
-										</div>
-										<div class="jp_rightside_career_content_wrapper">
-											<div class="jp_rightside_career_img">
-												<img src="images/bs2.jpg" alt="career_img" />
-											</div>
-											<div class="jp_rightside_career_img_cont">
-												<h4><a href="#">Image Blog
-Post Formate</a></h4>
-												<p><i class="fa fa-calendar-o"></i> &nbsp;20 OCT, 2017</p>
-											</div>
-										</div>
-										<div class="jp_rightside_career_content_wrapper">
-											<div class="jp_rightside_career_img">
-												<img src="images/bs3.jpg" alt="career_img" />
-											</div>
-											<div class="jp_rightside_career_img_cont">
-												<h4><a href="#">Image Blog
-Post Formate</a></h4>
-												<p><i class="fa fa-calendar-o"></i> &nbsp;20 OCT, 2017</p>
-											</div>
-										</div>
-										<div class="jp_rightside_career_content_wrapper">
-											<div class="jp_rightside_career_img">
-												<img src="images/bs4.jpg" alt="career_img" />
-											</div>
-											<div class="jp_rightside_career_img_cont">
-												<h4><a href="#">Image Blog
-Post Formate</a></h4>
-												<p><i class="fa fa-calendar-o"></i> &nbsp;20 OCT, 2017</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="jp_rightside_job_categories_wrapper jp_rightside_job_categories_wrapper2">
-									<div class="jp_rightside_job_categories_heading">
-										<h4>Archives</h4>
-									</div>
-									<div class="jp_rightside_job_categories_content">
-										<ul>
-											<li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a href="#">January 2018 </a>
-											</li>
-											<li><i class="fa fa-long-arrow-right"></i>  <a href="#"> &nbsp;&nbsp;February 2018</a>
-											</li>
-											<li><i class="fa fa-long-arrow-right"></i>  <a href="#"> &nbsp;&nbsp;March 2018 </a>
-											</li>
-											<li><i class="fa fa-long-arrow-right"></i>  <a href="#"> &nbsp;&nbsp;April 2018</a>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-12">
-								<div class="jp_rightside_job_categories_wrapper jp_rightside_job_categories_wrapper2">
-									<div class="jp_rightside_job_categories_heading">
-										<h4>Tag Cloud</h4>
-									</div>
-									<div class="blog_category_side_menu">
-										<ul>
-											<li><a href="#">Car</a>
-											</li>
-											<li><a href="#">Rental</a>
-											</li>
-											<li><a href="#">Drive</a>
-											</li>
-											<li><a href="#">Insurance</a>
-											</li>
-											<li><a href="#">Offer</a>
-											</li>
-											<li><a href="#">Car</a>
-											</li>
-											<li><a href="#">Rental</a>
-											</li>
-											<li><a href="#">Drive</a>
-											</li>
-											<li><a href="#">Money</a>
-											</li>
-										</ul>
+								
 									</div>
 								</div>
 							</div>
