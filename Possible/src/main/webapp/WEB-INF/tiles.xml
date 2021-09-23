@@ -4,11 +4,12 @@
 "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 <tiles-definitions>
 	<definition name="mainTemplate" template="/WEB-INF/views/tiles/layout.jsp">
-		<put-attribute name="content" value="/WEB-INF/views/tiles/content.jsp" />
-		<!-- <put-attribute name="header" value="/WEB-INF/jsp/tiles/header.jsp" /> -->
-		<!-- <put-attribute name="footer" value="/WEB-INF/jsp/tiles/footer.jsp" /> -->
+        <put-attribute name="header" value="/WEB-INF/views/tiles/header.jsp" />
+        <put-attribute name="sidebar" value="/WEB-INF/views/tiles/sidebar.jsp" />
+        <put-attribute name="content" value="/WEB-INF/views/tiles/content.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/tiles/footer.jsp" />
 	</definition>
-	
+
 	<!-- 타일즈 적용하고 싶지 않을 때 설정 -->
 	<definition name="no/*/*" template="/WEB-INF/views/tiles/nolayout.jsp">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
@@ -17,13 +18,13 @@
 	<definition name="*/*" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
 	</definition>
-	
+
 	<definition name="*/*/*" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp" />
 	</definition>
-	
+
 	<definition name="*" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/views/{1}.jsp" />
 	</definition>
-		
+
 </tiles-definitions>
