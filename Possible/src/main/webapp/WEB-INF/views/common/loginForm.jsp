@@ -13,9 +13,9 @@
 	<h2><c:out value="${error }"/></h2>
 	<h2><c:out value="${logout }"/></h2>
 	
-	<form id="frm" name="frm" action="/login">
+	<form id="frm" name="frm" action="login" method="post">
 		<div>
-			<input type="text" name="id" value="admin">
+			<input type="text" name="username" value="admin">
 		</div>
 		<div>
 			<input type="password" name="password" value="admin">
@@ -27,10 +27,10 @@
 	</form>
 
 <script>
-$(document).ready(function(){
+$(function(){
 	$('#loginBtn').on("click",function(){
 		frm.submit();
-	})
+	});
 });
 </script>	
 </body>

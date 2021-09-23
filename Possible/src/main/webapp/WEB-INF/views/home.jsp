@@ -59,7 +59,7 @@ Version: 1.0.0
 											<ul>
 												<li data-animation="animated flipInX">
 													<a rel='external' href='https://www.youtube.com/embed/ryzOXAO0Ss0' title='title' class="test-popup-link">
-														<img src="${pageContext.request.contextPath}/resources/${pageContext.request.contextPath}/resources/images/play.png" alt="olay_icon">&nbsp;&nbsp;Play Video</a>
+														<img src="${pageContext.request.contextPath}/resources/images/play.png" alt="olay_icon">&nbsp;&nbsp;Play Video</a>
 												</li>
 												<li data-animation="animated flipInX"><a href="#">Book Car<i class="fa fa-arrow-right"></i></a>
 												</li>
@@ -85,7 +85,7 @@ Version: 1.0.0
 											<ul>
 												<li data-animation="animated flipInX">
 													<a rel='external' href='https://www.youtube.com/embed/ryzOXAO0Ss0' title='title' class="test-popup-link">
-														<img src="${pageContext.request.contextPath}/resources/${pageContext.request.contextPath}/resources/images/play.png" alt="olay_icon">&nbsp;&nbsp;Play Video</a>
+														<img src="${pageContext.request.contextPath}/resources/images/play.png" alt="olay_icon">&nbsp;&nbsp;Play Video</a>
 												</li>
 												<li data-animation="animated flipInX"><a href="#">Book Car<i class="fa fa-arrow-right"></i></a>
 												</li>
