@@ -18,6 +18,7 @@ public class CommonController {
 		
 		model.addAttribute("massage", "연결 거부되었습니다. 관리자에게 문의해주세요.");
 	}
+	
 	@GetMapping("/loginForm")
 	public String loginForm(String error, String logout, Model model) {
 		
