@@ -29,32 +29,6 @@
 <tiles:insertAttribute name="header"></tiles:insertAttribute>
 <tiles:insertAttribute name="content"></tiles:insertAttribute>
 
-<header>
-    <h2>Cities</h2>
-</header>
-
-<section>
-    <nav>
-        <ul>
-            <li><a href="${pageContext.request.contextPath}">Home</a></li>
-            <li><a href="${pageContext.request.contextPath}/emp/empList">Employees</a></li>
-            <li><a href="${pageContext.request.contextPath}/dept">Departments</a></li>
-            <li><a href="${pageContext.request.contextPath}/top.jsp">Top</a></li>
-            <li><a href="#">London</a></li>
-            <li><a href="#">Paris</a></li>
-            <li><a href="#">Tokyo</a></li>
-        </ul>
-    </nav>
-
-    <article>
-        <!-- 컨텐츠 -->
-        <tiles:insertAttribute name="content"></tiles:insertAttribute>
-    </article>
-</section>
-
-<footer>
-    <p>Footer</p>
-</footer>
 
 </body>
 </html>
