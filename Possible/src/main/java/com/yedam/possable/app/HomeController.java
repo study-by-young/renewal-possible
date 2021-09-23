@@ -4,8 +4,13 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import com.yedam.possable.app.admin.mapper.TestMapper;
+import lombok.extern.java.Log;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +21,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * Handles requests for the application home page.
  */
 @Controller
+@Log
 public class HomeController {
+
+    @Autowired
+    TestMapper testMapper;
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 
@@ -32,7 +41,11 @@ public class HomeController {
 
 		String formattedDate = dateFormat.format(date);
 
-		model.addAttribute("serverTime", formattedDate );
+        log.info("===========================");
+        log.info(testMapper.getList().toString());
+
+        model.addAttribute("serverTime", formattedDate );
+
 
 		return "home";
 	}
