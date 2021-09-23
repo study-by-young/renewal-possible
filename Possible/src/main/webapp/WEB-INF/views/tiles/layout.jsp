@@ -14,6 +14,7 @@
     <!-- common -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/animate.css"/>
     <script src="${pageContext.request.contextPath}/resources/js/modernizr.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.inview.min.js"></script>
 
     <!-- bootstrap -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"/>
@@ -56,7 +57,7 @@
 
     <!-- custom js -->
     <script src="${pageContext.request.contextPath}/resources/js/own-menu.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/xpedia.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/xpedia_II.js"></script>
 </head>
 <body>
     <tiles:insertAttribute name="header"></tiles:insertAttribute>
