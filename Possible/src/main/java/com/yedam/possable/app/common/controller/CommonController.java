@@ -29,7 +29,12 @@ public class CommonController {
 			model.addAttribute("logout", "logout!");						
 		}
 		
-		return "common/loginForm";
+		return "login/loginForm";
 	}
-
+	//회원가입 폼
+	@GetMapping("/register")
+	public String registerForm(Model model) {
+		
+		return "login/register";
+	}
 }

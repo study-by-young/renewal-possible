@@ -64,7 +64,7 @@
                             </div>
                             
                             <div class="login_message">
-                                <p>아이디가 아직 없으신가요? <a href="register.html"> Register Now </a> </p>
+                                <p>아이디가 아직 없으신가요? <a href="register"> Register Now </a> </p>
                             </div>
                         </div>
                         <p>In case you are using a public/shared computer we recommend that you logout to prevent any un-authorized access to your account</p>
