@@ -10,7 +10,12 @@
     <meta name="HandheldFriendly" content="true">
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+    
+	<!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.menu-aim.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
+	
     <!-- common -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/animate.css"/>
     <script src="${pageContext.request.contextPath}/resources/js/modernizr.js"></script>
@@ -20,11 +25,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"/>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.menu-aim.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
-
+    
     <!-- fonts -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/flaticon.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
