@@ -45,9 +45,29 @@ public class HomeController {
 		return "test/test";
 	}
 	
-	@GetMapping("/mypage")
+	@GetMapping("/dash")
 	public String dashboard() {
 		return "mypage/dashboard";
+	}
+	
+	@GetMapping("/eslist")
+	public String eslist() {
+		return "mypage/estimate/list";
+	}
+	
+	@GetMapping("/esinfo")
+	public String esinfo() {
+		return "mypage/estimate/info";
+	}
+	
+	@GetMapping("/history")
+	public String rentHistory() {
+		return "mypage/rentHistory";
+	}
+	
+	@GetMapping("/review")
+	public String review() {
+		return "mypage/review/write";
 	}
 }
 
