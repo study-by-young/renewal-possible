@@ -69,5 +69,11 @@ public class HomeController {
 	public String review() {
 		return "mypage/review/write";
 	}
+	
+	@GetMapping("/mycom")
+	public String mycom() {
+		return "mypage/community";
+	}
+	
 }
 

@@ -17,7 +17,7 @@
 										<li><a href="#">회원정보수정</a></li>
 										<li><a href="${pageContext.request.contextPath}/eslist">견적관리</a></li>
 										<li><a href="${pageContext.request.contextPath}/history">렌트관리</a></li>
-										<li><a href="#">커뮤니티관리</a></li>
+										<li><a href="${pageContext.request.contextPath}/mycom">커뮤니티관리</a></li>
 										<li><a href="#">나의문의</a></li>
 									</ul>
 								</div>
@@ -62,8 +62,11 @@
 												</td>
 												<td><select class="selectpicker">
 														<option>별점 선택</option>
-														<option>Ketchup</option>
-														<option>Relish</option>
+														<option>5</option>
+														<option>4</option>
+														<option>3</option>
+														<option>2</option>
+														<option>1</option>
 												</select>
 												</td>
 											</tr>

@@ -17,7 +17,7 @@
 										<li><a href="#">회원정보수정</a></li>
 										<li><a href="${pageContext.request.contextPath}/eslist">견적관리</a></li>
 										<li><a href="${pageContext.request.contextPath}/history">렌트관리</a></li>
-										<li><a href="#">커뮤니티관리</a></li>
+										<li><a href="${pageContext.request.contextPath}/mycom">커뮤니티관리</a></li>
 										<li><a href="#">나의문의</a></li>
 									</ul>
 								</div>

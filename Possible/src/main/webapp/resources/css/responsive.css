@@ -1,17 +1,7 @@
 @media (max-width: 1199px) and (min-width: 991px){
-	.x_car_acc_price_dollar_wrapper{
-		padding-bottom:60px;
-	}
-	.x_car_offer_heading_avanti li:nth-child(2){
-		display:none;
-	}
-	.x_car_offer_heading_avanti li{
-		width:33.33%;
-	}
-	.hs_main_menu a{
-		    padding: 35px 17px 36px;
-	}
-	
+	.hs_main_menu a {
+    padding: 35px 12px 36px;
+}
 }
 @media (max-width: 1700px){
 	.x_why_left_main_wrapper{
@@ -21,11 +11,6 @@
 @media (max-width: 1500px){
 	.x_why_left_main_wrapper{
 		left:-500px;
-	}
-}
-@media (max-width: 1400px){
-	.x_slider_bottom_box_wrapper{
-		padding-left:20px;
 	}
 }
 @media (max-width: 1199px){
@@ -62,24 +47,12 @@
 	.x_footer_top_title_box_icon_cont{
 		margin-left:30px;
 	}
-	.x_car_offer_starts_list_img{
-	float:left;
-	width:200px;
-	border-right: 1px solid #eeeeee;
-	}
-	.x_car_offer_starts_list_img_cont{
-		float:left;
-		width:calc(100% - 200px);
-		padding-top:38px;
-	}
-	.x_car_offer_img_list img{
-		width:100%;
+	.x_slider_select2 {
+		margin-left: 15px;
 	}
 }
 @media(min-width: 768px) and (max-width: 992px){
-	.x_slider_form_main_wrapper{
-		margin-top:0 !important;
-	}
+
 }
 @media (max-width: 991px){
 	.btc_team_left_wrapper{
@@ -107,7 +80,7 @@
 		display:none;
 	}
 	.hs_main_menu a{
-		        padding: 35px 5px 36px;
+		    padding: 35px 5px 36px;
 			font-size:14px;
 	}
 	.slider-area .carousel-inner .carousel-item .carousel-captions .content{
@@ -125,7 +98,6 @@
 	.x_slider_bottom_box_wrapper{
 		width:50%;
 		border-top: 1px solid #eeeeee;
-		text-align:center;
 	}
 	.x_cou_main_box_wrapper:after,.x_cou_main_box_wrapper:before{
 		display:none;
@@ -158,66 +130,12 @@
 	.x_footer_top_right{
 		display:none;
 	}
-	.x_title_num_heading:after{
-		display:none;
+	.x_slider_checkbox{
+		padding-top:20px;
 	}
-	.x_title_num_heading{
-		width:100%;
+	.x_slider_select2 {
+		margin-left: 10px;
 	}
-	.x_title_num_heading_cont{
-		width:100%;
-	}
-	.x_title_inner_num_wrapper{
-		padding:30px;
-	}
-	.x_title_num_main_box_wrapper{
-		margin-top:30px;
-	}
-	.x_carbooking_right_section_wrapper{
-		margin-top:60px;
-	}
-	.x_about_seg_img_cont_wrapper{
-		padding-top:40px;
-	}
-	.cont2:after, .cont2:before{
-		display:none;
-	}
-	.x_serv_progress_img{
-		margin-top:60px;
-	}
-	.x_blog_right_side_wrapper{
-		margin-top:60px;
-	}
-	.admin_img_wrapper{
-		width:100%;
-	}
-	.admin_cont_wrapper{
-		width:100%;
-		padding-left:30px;
-		margin-left:0;
-		float:left;
-		padding-top:30px;
-		padding-right:30px;
-	}
-	.admin_img_wrapper{
-		margin-top:0;
-	}
-	.x_car_detail_main_wrapper{
-		margin-top:40px;
-	}
-	.x_slider_form_main_wrapper{
-		margin-top:0;
-	}
-	.x_responsive_form_wrapper2{
-		margin-top:30px;
-	}
-	.x_service_inner_main_box{
-		padding-left:20px !important;
-	}
-	.x_car_offer_starts_list_img_cont{
-		padding-top:22px;
-	}
-	
 }
 @media (max-width: 767px){
 	.language, .usd{
@@ -245,117 +163,16 @@
 	.x_book_logo_heading_wrapper,.x_book_logo_btn {
 		margin-top:30px;
 	}
-	.x_title_inner_num_wrapper {
-		display:none;
+	.hs_logo {
+		padding-top: 8px;
 	}
-	.x_car_book_left_siderbar_wrapper {
-		padding-top:70px;
+	.hs_logo {
+		padding-top: 23px;
 	}
-	.x_carbook_right_tabs_box_wrapper p{
-		display:none;
-	}
-	.x_carbook_right_tabs_box_wrapper .nav-tabs{
-		float:left;
-		margin-top:30px;
-	}
-	.x_carbook_right_tabs_box_wrapper .nav-tabs .nav-item:first-child{
-		margin-left:0;
-	}
-	.btc_tittle_left_heading{
-		text-align:center;
-	}
-	.btc_tittle_right_heading{
-		text-align:center;
-		    margin-top: 20px;
-	}
-	.btc_tittle_right_cont_wrapper ul{
-		float:none;
-		display:inline-block;
-		    margin-left: 0;
-	}
-	.btc_third_pegi, .btc_four_pegi{
-		display:none;
-	}
-	.pagination > li:first-child > a{
-		width:50px;
-		margin-right:5px;
-	}
-	.pagination > li > a{
-		margin-right:5px;
-	}
-	.pagination > li:last-child > a{
-		margin-left:0;
-		width:50px;
-	}
-	.x_car_offer_starts_list_img{
-		width:100%;
-	}
-	.x_car_offer_starts_list_img_cont{
-		width:100%;
-	}
-	.x_car_access_right_price_main_box_inner_left_wrapper{
-		width:100%;
-	}
-	.x_car_access_right_price_main_box_inner_right_wrapper{
-		width:100%;
-	}
-	.x_car_access_right_price_img_wrapper{
-		width:100%;
-		padding-bottom:20px;
-	}
-	.x_car_access_right_price_img_cont_wrapper, .x_car_acc_price_dollar_wrapper,.x_car_acc_price_dollar_count_wrapper{
-		width:100%;
-		padding-top:0;
-		text-align:left;
-		padding-left:30px;
-		padding-bottom:10px;
-	}
-	.x_car_access_right_price_main_box_wrapper{
-		padding-bottom:20px;
-	}
-	.heading-block h4{
-		display:block;
-	}
-	.checkout_login_btn{
-		float:left;
-		    padding-top: 60px;
-    padding-bottom: 30px;
-	}
-	.checkout_login_btn p{
-		width:100%;
-		float:left;
-		padding-top:10px;
-	}
-	.checkout_login_btn ul{
-		width:100%;
-		float:left;
-	}
-	.btc_ln_slider_wrapper_cs{
-		margin-top:40px;
-	}
-	.x_ln_car_heading_wrapper h3{
-		padding-top:0;
-	}
-	.hs_logo{
-		padding-top:23px;
-	}
-	.x_car_offer_starts_list_img_cont{
-		padding-top:0;
-	}
-	.x_car_offer_img_list img {
-    width: auto;
-}
-.x_css_skills_wrapper{
-	width:100%;
-}
-.x_css_skills_form_wrapper{
-	width:100%;
-	padding-left:0;
-	padding-top:10px;
-}
 }
 @media (max-width: 580px){
-	
+
+
 	.x_slider_bottom_box_wrapper{
 		width:100%;
 		border-left:0;
@@ -402,6 +219,18 @@
 	margin-left:0;
 	margin-top:20px;
 }
+.slider-area .carousel-inner .carousel-item .caption-1, .slider-area .carousel-inner .carousel-item .caption-2, .slider-area .carousel-inner .carousel-item .caption-3 {
+    min-height: 600px;
+}
+.x_responsive_form_wrapper{
+	margin-top:30px;
+}
+.slider-area .carousel-inner .carousel-item .carousel-captions .content li:first-child{
+	float:none;
+}
+.slider-area .carousel-inner .carousel-item .carousel-captions .content li:last-child{
+	margin-top:20px;
+}
 }
 @media (max-width: 480px){
 	.login, .register{
@@ -413,46 +242,10 @@
 	.x_slider_checout_right{
 		width:100%;
 	}
-	.blog_comment1_img{
-		width:100%;
-		float:left;
-	}
-	.blog_comment1_img img{
-		width:auto;
-	}
-	.blog_comment1_cont{
-		width:100%;
-		float:left;
-		margin-left:0;
-	}
-	.gc_blog_quote_wrapper h3{
-		top:21%;
-	}
-	.x_car_offer_heading_list{
-		width:100%;
-	}
-	.x_car_offer_bottom_btn_list{
-		width:100%;
-		padding-top: 0;
-	}
-	.x_car_offer_heading_list{
-		text-align:center;
-	}
-	.x_car_offer_heading_listing li{
-		width:50%;
-	}
-	.x_car_offer_heading_listing li:nth-child(3){
-		border-left:0;
-		border-right:1px solid #eeeeee;
-		border-top:1px solid #eeeeee;
-	}
-	.x_car_offer_heading_listing li:nth-child(5){
-		border-left:0;
-	}
 }
 @media (max-width: 380px){
-	
+
 }
 @media (max-width: 320px){
-	
+
 }
