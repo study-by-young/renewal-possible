@@ -7,6 +7,25 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+	<!-- x news letter Wrapper Start -->
+	<div class="x_news_letter_main_wrapper">
+		<div class="container">
+			<div class="x_news_contact_wrapper">
+				<img src="images/nl1.png" alt="news_img">
+				<h4>Call Us <br> <span>+1 800 123 4567</span></h4>
+			</div>
+			<div class="x_news_contact_second_wrapper">
+				<h4>Newsletter</h4>
+			</div>
+			<div class="x_news_contact_search_wrapper">
+				<input type="text" placeholder="Email Address">
+				<button>read more <i class="fa fa-arrow-right"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+	<!-- x news letter Wrapper End -->
+
 	<!-- x footer Wrapper Start -->
 	<div class="x_footer_top_main_wrapper float_left">
 		<div class="container">
