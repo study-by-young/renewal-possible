@@ -12,6 +12,7 @@
     </div>
 </div>
 <!-- hs Navigation Start -->
+<div class="fake-header-space d-none"></div>
 <div class="hs_navigation_header_wrapper">
     <div class="container">
         <div class="row">

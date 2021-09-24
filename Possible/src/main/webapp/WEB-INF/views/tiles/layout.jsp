@@ -59,7 +59,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/colors.min.css"/>
 
     <!-- custom js -->
-    <script src="${pageContext.request.contextPath}/resources/js/own-menu.js"></script>
+<%--    <script src="${pageContext.request.contextPath}/resources/js/own-menu.js"></script>--%>
     <script src="${pageContext.request.contextPath}/resources/js/xpedia.js"></script>
 </head>
 <body>
