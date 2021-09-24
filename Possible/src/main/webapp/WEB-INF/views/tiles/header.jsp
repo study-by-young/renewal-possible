@@ -60,6 +60,10 @@
 						</li>
 						<li class="login">	<a href="login.html"><i class="fa fa-power-off"></i> &nbsp;&nbsp;login</a>
 						</li>
+						<li class="logout">	<form method="post" action="logout"><input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"/><button >logout</button></form>
+						
+						</li>
+						
 						<li class="register">	<a href="register.html"><i class="fa fa-plus-circle"></i> &nbsp;&nbsp;register</a>
 						</li>
 						<li>
