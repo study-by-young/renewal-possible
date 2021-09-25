@@ -1,13 +1,13 @@
 /*-------------------------------------
-    
-	Author: Xpedia 
+
+	Author: Xpedia
 	Copyright © 2019
-	
+
 ---------------------------------------
-    
+
     CSS INDEX
     ===================
-	
+
     1. BODY
 	2. CUSTOM CSS / A
 	3. PRELOADER
@@ -526,7 +526,7 @@ ul {
 
 .hs_main_menu a {
     text-align: center;
-    padding: 35px 20px 36px;
+    padding: 40px 20px 41px;
     text-transform: uppercase;
     display: inline-block;
     border: 0;
@@ -685,6 +685,7 @@ ul {
 
 .hs_main_menu ul {
     display: inline-block;
+    font-size:18px;
 }
 
 .dropdown-wrapper .drop-menu {
@@ -716,7 +717,7 @@ ul {
 
 .hs_navi_cart_wrapper {
     float: right;
-    width: 30px;
+    width:60px;
 }
 
 .hs_navi_searchbar_wrapper input {
@@ -767,8 +768,10 @@ ul {
 }
 
 .hs_navi_cart_wrapper .menu-button {
-    padding: 35px 0 35px 0;
+    padding: 40px 0 41px 0;
     text-align: right;
+    font-size:18px;
+    font-weight: bold;
 }
 
 .hs_navi_cart_wrapper .drop-menu {
@@ -1077,7 +1080,7 @@ ul {
 .hs_logo_wrapper {
     float: left;
     width: auto;
-    padding-top: 23px;
+    padding-top: 15px;
 }
 
 .hs_main_menu {
