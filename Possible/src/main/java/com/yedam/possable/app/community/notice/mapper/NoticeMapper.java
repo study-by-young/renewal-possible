@@ -1,18 +1,18 @@
-package com.yedam.possable.app.notice.service;
+package com.yedam.possable.app.community.notice.mapper;
 
 import java.util.List;
 
-import com.yedam.possable.app.notice.domain.NoticeVO;
+import com.yedam.possable.app.community.notice.domain.NoticeVO;
 
-public interface NoticeService {
+public interface NoticeMapper {
 
 	public List<NoticeVO> getList();
-	
+
 	public NoticeVO read(NoticeVO vo);
-	
+
 	public int insert(NoticeVO vo);
-	
+
 	public int update(NoticeVO vo);
-	
+
 	public int delete(NoticeVO vo);
 }

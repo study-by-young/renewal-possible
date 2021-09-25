@@ -6,11 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<div id="preloader">
-    <div id="status">
-        <img src="${pageContext.request.contextPath}/resources/images/loader.gif" id="preloader_image" alt="loader">
-    </div>
-</div>
+<%--<div id="preloader">--%>
+<%--    <div id="status">--%>
+<%--        <img src="${pageContext.request.contextPath}/resources/images/loader.gif" id="preloader_image" alt="loader">--%>
+<%--    </div>--%>
+<%--</div>--%>
 <!-- hs Navigation Start -->
 <div class="fake-header-space d-none"></div>
 <div class="hs_navigation_header_wrapper">
@@ -19,7 +19,7 @@
             <div class=" col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
                 <div class="hs_logo_wrapper d-none d-sm-none d-xs-none d-md-block text-center">
                     <a href="${pageContext.request.contextPath}/">
-                        <img src="${pageContext.request.contextPath}/resources/images/logo.png" class="img-responsive" alt="logo" title="Logo" style="width: 80px;" />
+                        <img src="${pageContext.request.contextPath}/resources/images/Logo.svg" class="img-responsive" alt="logo" title="Logo" style="width: 80px;" />
                     </a>
                 </div>
             </div>

@@ -200,6 +200,7 @@ ul {
     z-index: 1000;
     left: 0;
     right: 0;
+    top: 0;
 }
 
 .float_left {
@@ -1526,6 +1527,12 @@ ul {
     bottom: -17px;
 }
 
+.x_responsive_form_wrapper{
+    position: relative;
+    bottom: 200px;
+    z-index: 100;
+}
+
 .x_slider_form_main_wrapper {
     padding: 30px;
     background: #ffffff;
@@ -2611,6 +2618,7 @@ html .ui-button.ui-state-disabled:active {
 .btc_team_left_wrapper {
     float: left;
     width: 30%;
+    padding-right:10px;
 }
 
 .btc_team_right_wrapper {
@@ -2888,7 +2896,6 @@ html .ui-button.ui-state-disabled:active {
     width: 100%;
     padding-top: 100px;
     padding-bottom: 100px;
-    background: url('../images/counto_img.jpg') 50% 0 repeat-y;
     background-position: center 0;
     background-size: cover;
     position: relative;
@@ -2900,7 +2907,6 @@ html .ui-button.ui-state-disabled:active {
     right: 0;
     top: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.8);
 }
 
 .x_counter_car_heading_wrapper {
@@ -3064,7 +3070,9 @@ html .ui-button.ui-state-disabled:active {
 
 .x_cou_main_box_wrapper h5 span,
 .x_cou_main_box_wrapper h5 a:hover {
-    color: #4f5dec;
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold
 }
 
 .x_cou_main_box_wrapper p {

@@ -1,8 +1,8 @@
-package com.yedam.possable.app.notice.service;
+package com.yedam.possable.app.community.notice.service;
 
 import java.util.List;
 
-import com.yedam.possable.app.notice.domain.NoticeVO;
+import com.yedam.possable.app.community.notice.domain.NoticeVO;
 
 public class NoticeServiceImpl implements NoticeService {
 

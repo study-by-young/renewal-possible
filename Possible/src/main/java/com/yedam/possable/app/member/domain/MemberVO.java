@@ -6,17 +6,18 @@ import lombok.Data;
 
 @Data
 public class MemberVO {
-	
+	private Long seq;
 	private String id;
 	private String password;
 	private String name;
 	private Date birth;
 	private String email;
 	private String phone;
-	private String addr;
+	private String addrCode;
+	private String addrBasic;
+	private String addrDetail;
 	private String author;
 	private String status;
-	private Date gen_date;
-	private Date upt_date;
-
+	private Date genDate;
+	private Date uptDate;
 }
