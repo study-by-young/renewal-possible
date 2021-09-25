@@ -1,5 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<style type="text/css">
+.dash{
+	background: #ffffff;
+    box-shadow: 0px 0 8px rgb(0 0 0 / 10%);
+    float: left;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+</style>
+
 <!-- x blog main and sidebar Wrapper Start -->
 <div class="x_blog_sidebar_main_wrapper float_left padding_tb_100">
 	<div class="container">
@@ -29,7 +46,7 @@
 										<h4>후기 작성</h4>
 									</div>
 									<!-- 내역 -->
-									<div class="card">
+									<div class="dash">
 										<div class="row no-gutters">
 											<div class="col-4">
 												<img
@@ -38,7 +55,7 @@
 											</div>
 
 											<div class="col-8">
-												<div class="col-12" style="border-bottom: none solid black">
+												<div class="col-12">
 													<div class="card-body">
 													<p>
 														차량명, 대여날짜 표시
@@ -55,7 +72,7 @@
 										<table>
 											<tr>
 												<td><select>
-														<option>여행코스 게시글 선택</option>
+														<option>여행코스 게시글 선택 (옆으로 늘리고 싶은데 왜 안늘려지냐구..)</option>
 														<option>Ketchup</option>
 														<option>Relish</option>
 												</select>

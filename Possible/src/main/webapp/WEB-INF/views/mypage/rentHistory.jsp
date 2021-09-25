@@ -1,5 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<style type="text/css">
+.dash{
+	background: #ffffff;
+    box-shadow: 0px 0 8px rgb(0 0 0 / 10%);
+    float: left;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 0px;
+    margin-bottom: 70px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+</style>
+
 <!-- x blog main and sidebar Wrapper Start -->
 <div class="x_blog_sidebar_main_wrapper float_left padding_tb_100">
 	<div class="container">
@@ -28,7 +45,7 @@
 									<div class="blog_single_comment_heading">
 										<h4>렌트내역</h4>
 									</div>
-									<div class="card">
+									<div class="dash">
 										<div class="row no-gutters">
 											<div class="col-4">
 												<img
@@ -41,7 +58,7 @@
 													<div class="card-body">
 														<div style="float: right;">
 															<div style="float: right;">
-																<button type="button" class="btn" onclick="location.href='#'"
+																<button type="button" class="btn" onClick="alert('취소하시겠습니까?')"
 																	style="text-align: center; background: #4f5dec; color: #ffffff; border: 1px solid transparent;">
 																	취소
 																</button>
