@@ -9,6 +9,166 @@
 <title>렌터카 목록 페이지</title>
 <meta charset="utf-8" />
 
+<style>
+
+	ul li {
+		list-style: none;
+	}
+	
+	.select_tit {
+		font-size: 14px;
+	    font-weight: 800;
+	    color: #111111;
+	    text-transform: uppercase;
+	    padding-top: 15px;
+	    padding-bottom: 15px;
+	}
+	
+	.rent_select {
+	    cursor: pointer;
+	    display: block;
+	    padding: 5px;
+	}
+	
+	.dropdown {
+	    display: inline-block;
+	    background-color: #fff;
+	    transition: all .5s ease;
+	    position: relative;
+	    font-size: 16px;
+	    color: #444;
+	    height: 100%;
+	    text-align: left;
+	}	
+	
+	.rent_search {
+		float: left;
+	}
+	
+	.rent_search_li {
+		padding-left: 15px;
+		padding-right: 15px;
+		padding-bottom: 10px;
+	}
+	
+	.division {
+		border-right: 1px solid #e6e6e6;
+	}
+	
+	.rent_search_ul {
+	    display: block;
+	    list-style-type: disc;
+	    margin-block-start: 1em;
+	    margin-block-end: 1em;
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	    padding-inline-start: 10px;
+	    padding-inline-end: 10px;
+	    
+	    display: inline-block;
+	    background-color: #fff;
+	    transition: all .5s ease;
+	    position: relative;
+	    font-size: 16px;
+	    color: #444;
+	    height: 100%;
+	    text-align: left;
+	    
+	    float: left;
+	    background: #ffffff;
+	    position: relative;
+	    animation-delay: 2.6s;
+	    -webkit-border-radius: 10px;
+	    -moz-border-radius: 10px;
+	    border-radius: 10px;
+
+	}
+	
+	li {
+		float: left;
+	}	
+
+	.btn_check_wrapper {
+		float: right;
+		margin: 10px;
+		display: block;
+		position: relative;
+	    list-style-type: disc;
+	    margin-block-start: 1em;
+	    margin-block-end: 1em;
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	    padding-inline-start: 10px;
+	    
+	    position: relative;
+	    font-size: 16px;
+	    height: 100%;
+	}
+	
+	.btn_check {
+	    float: left;
+	    width: 110px;
+	    padding-top: 30px;
+	}
+	
+	.btn_check li a {
+	    float: left;
+	    width: 100px;
+	    height: 50px;
+	    line-height: 45px;
+	    text-align: center;
+	    background: #4f5dec;
+	    color: #ffffff;
+	    border: 1px solid transparent;
+	    text-transform: uppercase;
+	    -webkit-border-radius: 10px;
+	    -moz-border-radius: 10px;
+	    border-radius: 10px;	    
+	}
+
+	.btn_check li a:hover {
+	    background: white;
+	    border: 1px solid #4f5dec;
+	    color: #4f5dec;
+	}	
+	
+	.rent_date_ul {
+	    display: block;
+	    list-style-type: disc;
+
+	    margin-inline-start: 0px;
+	    margin-inline-end: 0px;
+	    padding-inline-start: 10px;
+	    padding-inline-end: 10px;
+	    padding: 5px;
+	    
+	    display: inline-block;
+	    background-color: #fff;
+	    transition: all .5s ease;
+	    position: relative;
+	    font-size: 16px;
+	    color: #444;
+	    height: 100%;
+	    text-align: left;
+	    
+	    float: left;
+	    background: #ffffff;
+	    position: relative;
+	    animation-delay: 2.6s;
+	    -webkit-border-radius: 10px;
+	    -moz-border-radius: 10px;
+	    border-radius: 10px;
+
+	}
+	
+	.selectStyle {
+		float: left;
+		width: 100px;
+	    position: relative;
+	    border: none;
+	}
+</style>
+
 <!-- 
 	<meta content="width=device-width, initial-scale=1.0" name="viewport" />
 	<meta name="description" content="Xpedia" />
@@ -33,15 +193,148 @@
 		<div class="container">
 			<div class="row">
 
-				<div class="col-md-4">
-					<div class="x_slider_checkbox_bottom float_left">
-						<div class="x_slider_checout_right">
-							<ul>
-								<li><a href="#">search <i class="fa fa-arrow-right"></i></a></li>
-							</ul>
-						</div>
+
+<!-- 차량검색 및 추천받기 -->
+<div class="rent_search_wrapper">
+	<!-- 차량검색 -->
+	<div class="rent_search">
+		<ul class="rent_search_ul">
+			<!-- 지역: 클릭하면 modal창 뜨도록 -->
+			<li id="placePick" class="rent_search_li division modal_placePick">
+				<div class="select_tit">지역</div> 
+				<span class="date rent_select">{선택한 지역}</span>
+			</li> 
+			<!-- 날짜선택: 클릭하면 modal창(same) -->
+			<li id="datePick" class="rent_search_li division modal_datePick">
+				<div class="select_tit">날짜</div> 
+				<span class="date rent_select">{선택한 날짜}</span>
+			</li>
+			<!-- 인수시간: 클릭하면 modal창(same) -->
+			<li class="rent_search_li division modal_datePick">
+				<div class="dropdown takeover">
+					<div class="select_tit">인수시간</div> 
+					<div class="rent_select">
+						<span class="date-t bz-stime">{선택한 시간}</span>
 					</div>
 				</div>
+			</li>
+			<!-- 반납시간: 클릭하면 modal창(same) -->
+			<li class="rent_search_li division modal_datePick">
+				<div class="dropdown return">
+					<div class="select_tit">반납시간</div> 
+					<div class="rent_select">
+						<span class="date-t bz-etime">{선택한 시간}</span>
+					</div>
+				</div>
+			</li>
+			<!-- 인원수: drop down이 안 먹혀서 select option으로 수정 -->
+			<li class="rent_search_li division people">
+				<div class="select_tit">인원</div> 
+				<div class="rent_select">
+					<span class="selectStyle">
+						<select>
+							<option>선택</option>
+							<option>1인</option>
+							<option>2인</option>
+							<option>3인</option>
+							<option>4인</option>
+							<option>5인이상</option>
+						</select>
+					</span>
+				</div>
+			</li>
+			
+			<!-- 인원수: drop down 
+			<li class="dropdown rent_search_li division people" data-bs-toggle="dropdown">
+				<div class="select_tit">인원</div> 
+				<div class="rent_select"><span>{선택한 인원수}</span></div>
+				<ul class="dropdown-menu">
+						<li class="dropdown-item">
+							<label for="selectPeople0">1인</label>
+						</li>
+						<li class="dropdown-item">
+							<label for="selectPeople1">2인</label>
+						</li>
+						<li class="dropdown-item checked">
+							<label for="selectPeople2">3인</label>
+						</li>
+						<li class="dropdown-item">
+							<label for="selectPeople3">4인</label>
+						</li>
+						<li class="dropdown-item">
+							<label for="selectPeople4">5인이상</label>
+						</li>
+					</ul>
+			</li> -->	
+			
+			<!-- 자차보험: drop down이 안 먹혀서 select option으로 수정 -->
+			<li class="rent_search_li division insure">
+				<div class="select_tit">자차보험</div> 
+				<div class="rent_select">
+					<span class="selectStyle">
+						<select>
+							<option>선택</option>
+							<option>선택안함</option>
+							<option>일반자차</option>
+							<option>완전자차</option>
+						</select>
+					</span>
+				</div>
+			</li>
+			
+			<!-- 자차보험: drop down
+			<li>
+				<div class="dropdown rent_search_li insure" data-bs-toggle="dropdown">
+					<div class="select_tit">자차보험</div>
+					<div class="rent_select"><span>{선택한 보험옵션}</span></div>
+					<ul class="dropdown-menu">
+						<li class="dropdown-item">
+							<label for="selectInsure0">선택안함</label>
+						</li>
+						<li class="dropdown-item">
+							<label for="selectInsure1">일반자차</label>
+						</li>
+						<li class="dropdown-item checked">
+							<label for="selectInsure2">완전자차</label>
+						</li>
+					</ul>
+				</div>
+			</li> -->
+		</ul>
+	
+			<div class="btn_check_wrapper">
+				<div class="btn_check">
+					<ul>
+						<li><a href="#">검색</a></li>
+					</ul>
+				</div>
+				<div class="btn_check">
+					<ul>
+						<li><a href="#">추천받기</a></li>
+					</ul>
+				</div>
+			</div>	
+	</div>
+	
+	
+	<!-- 검색내용 
+	<div class="rent_date">
+		<ul class="rent_date_ul">
+			<li>대여일 : <span>{선택한 날짜} + {인수시간}</span></li>
+			<li><img src=""></li>
+			<li>반납일 : <span>{선택한 날짜} + {반납시간}</span></li>
+			<li>인원 : <span>{선택한 인원수}</span></li>
+			<li>자차보험 : <span>{선택한 보험}</span></li>
+		</ul>	
+	</div>
+	-->
+</div>
+
+
+
+
+
+				
 
 			</div>
 		</div>
@@ -114,238 +407,6 @@
 										<h3>Let’s find your perfect car</h3>
 									</div>
 									<div class="row">
-
-
-										<div class="col-md-12">
-											<div class="js-search-container-filter-insu-type">
-												<div class="text-14 font-weight-bold color-grey-5 mb-2">자차보험</div>
-												<div class="text-center mb-3">
-													<div class="btn-group w-100">
-														<button
-															class="js-tab-insu-type-pc btn py-2 w-25 btn-primary"
-															type="button" data-t="all">
-															<div
-																class="d-flex justify-content-center align-items-center">
-																<span class="text-11 ml-1">전체</span>
-															</div>
-														</button>
-														<button
-															class="js-tab-insu-type-pc btn btn-light py-2 w-25"
-															type="button" data-t="1">
-															<div
-																class="d-flex justify-content-center align-items-center">
-																<span class="text-11 ml-1">일반자차</span>
-															</div>
-														</button>
-														<button
-															class="js-tab-insu-type-pc btn btn-light py-2 w-25"
-															type="button" data-t="2">
-															<div
-																class="d-flex justify-content-center align-items-center">
-																<span class="text-11 ml-1">완전자차</span>
-															</div>
-														</button>
-														<button
-															class="js-tab-insu-type-pc btn btn-light py-2 w-25"
-															type="button" data-t="3">
-															<div
-																class="d-flex justify-content-center align-items-center">
-																<span class="text-11 ml-1">슈퍼자차</span>
-															</div>
-														</button>
-													</div>
-												</div>
-												<hr>
-											</div>
-										</div>
-
-										<div class="col-md-12">
-											<div class="form-group">
-												<div class="text-11 font-weight-bold color-grey-5 mb-2">인기
-													키워드</div>
-												<div class="wordbreak-breakword w-100 text-11 mb-2"
-													id="vf_container_hashtag_pc">
-													<button
-														class="js-btn-vf-hashtag btn btn-category px-2 py-1 mr-1 mb-2 dc-inline-block"
-														data-id="신차">#신차</button>
-													<button
-														class="js-btn-vf-hashtag btn btn-category px-2 py-1 mr-1 mb-2 dc-inline-block"
-														data-id="오픈카">#오픈카</button>
-													<button
-														class="js-btn-vf-hashtag btn btn-category px-2 py-1 mr-1 mb-2 dc-inline-block"
-														data-id="가족여행">#가족여행</button>
-													<button
-														class="js-btn-vf-hashtag btn btn-category px-2 py-1 mr-1 mb-2 dc-inline-block"
-														data-id="커플/우정여행">#커플/우정여행</button>
-												</div>
-												<hr>
-											</div>
-										</div>
-
-
-										<div class="col-md-12">
-											<div class="js-vf-section-car-model">
-												<div class="form-group mb-0">
-													<div class="text-14 font-weight-bold color-grey-5 mb-2">자동차
-														모델</div>
-
-													<div class="dc-flex">
-														<div class="dc-block w-100">
-															<div class="position-relative">
-																<input
-																	class="js-input-deletable form-control form-control-sm"
-																	id="vf_car_model_input_pc"
-																	placeholder="자동차 모델명으로 검색할 수 있습니다" type="text"
-																	maxlength="20" size="1" max="9" pattern=""
-																	autocomplete="off"
-																	data-auto-carmodel="vf_dropdown_car_models_auto_pc">
-																<div
-																	class="js-btn-delete-input btn-input-close-sm clickable"
-																	data-input="vf_car_model_input_pc">
-																	<div class="wrapper">
-																		<img
-																			src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNiIgaGVpZ2h0PSIxNiIgZmlsbD0ibm9uZSIgdmlld0JveD0iMCAwIDE2IDE2Ij4KICAgIDxwYXRoIGZpbGw9IiNDNEM0QzQiIGQ9Ik04IDE1YzMuODY2IDAgNy0zLjEzNCA3LTdzLTMuMTM0LTctNy03LTcgMy4xMzQtNyA3IDMuMTM0IDcgNyA3eiIvPgogICAgPHBhdGggZmlsbD0iI2ZmZiIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNNy4yOTMgOGwtMi4xMjEgMi4xMjIuNzA3LjcwN0w4IDguNzA3bDIuMTIyIDIuMTIyLjcwNy0uNzA3TDguNzA3IDggMTAuODMgNS44OGwtLjcwNy0uNzA3TDggNy4yOTMgNS44OCA1LjE3MmwtLjcwNy43MDdMNy4yOTMgOHoiIGNsaXAtcnVsZT0iZXZlbm9kZCIvPgo8L3N2Zz4K">
-																	</div>
-																</div>
-																<div class="dropdown-menu"
-																	id="vf_dropdown_car_models_auto_pc"
-																	style="max-height: 190px; overflow-y: scroll;"></div>
-															</div>
-														</div>
-
-														<button class="btn btn-primary btn-sm px-3 ml-1"
-															id="js_vf_btn_car_model_apply_pc">검색</button>
-													</div>
-												</div>
-												<hr>
-											</div>
-										</div>
-
-
-
-										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-											<div class="car-filter accordion car_booking_onliy_side">
-												<div class="panel panel-default">
-													<div class="panel-heading">
-														<h5 class="panel-title">
-															<a data-toggle="collapse" href="#collapseOne"
-																class="collapse">세그먼트</a>
-														</h5>
-													</div>
-													<div id="collapseOne" class="collapse show">
-														<div class="panel-body">
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="all" name="segment">
-																<label for="all">전체</label>
-															</div>
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="s1" name="segment"> <label
-																	for="s1">경형</label>
-															</div>
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="s2" name="segment"> <label
-																	for="s2">소형</label>
-															</div>
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="s3" name="segment"> <label
-																	for="s3">준중형</label>
-															</div>
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="s4" name="segment"> <label
-																	for="s4">중형</label>
-															</div>
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="s5" name="segment"> <label
-																	for="s5">대형</label>
-															</div>
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="s6" name="segment"> <label
-																	for="s6">수입</label>
-															</div>
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="s7" name="segment"> <label
-																	for="s7">승합RV</label>
-															</div>
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="s8" name="segment"> <label
-																	for="s8">SUV</label>
-															</div>
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="s9" name="segment"> <label
-																	for="s9">캠핑카</label>
-															</div>
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="s10" name="segment">
-																<label for="s10">카라반</label>
-															</div>
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="s11" name="segment">
-																<label for="s11">차박</label>
-															</div>
-														</div>
-
-													</div>
-												</div>
-												<hr>
-											</div>
-										</div>
-
-
-										<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-											<div class="car-filter accordion car_booking_onliy_side">
-												<div class="panel panel-default">
-													<div class="panel-heading">
-														<h5 class="panel-title">
-															<a data-toggle="collapse" href="#collapseOne"
-																class="collapse">연료</a>
-														</h5>
-													</div>
-													<div id="collapseOne" class="collapse show">
-														<div class="panel-body">
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="all" name="fuel">
-																<label for="all">전체</label>
-															</div>
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="f1" name="fuel"> <label
-																	for="f1">경형</label>
-															</div>
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="f2" name="fuel"> <label
-																	for="f2">소형</label>
-															</div>
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="f3" name="fuel"> <label
-																	for="f3">준중형</label>
-															</div>
-															<div
-																class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-																<input type="checkbox" id="f4" name="fuel"> <label
-																	for="f4">중형</label>
-															</div>
-														</div>
-
-													</div>
-												</div>
-												<hr>
-											</div>
-										</div>
 
 
 
