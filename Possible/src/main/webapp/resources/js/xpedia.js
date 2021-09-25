@@ -1,12 +1,14 @@
 // on ready function
-jQuery(document).ready(function($) {
+$(document).ready(function() {
   'use strict';
 
   // Preloader
-  $('#status').fadeOut();
-  $('#preloader')
-    .delay(350)
-    .fadeOut('slow');
+  jQuery(window).on('load', function() {
+    jQuery('#status').fadeOut();
+    jQuery('#preloader')
+      .delay(350)
+      .fadeOut('slow');
+  });
 
   /**** select2 js ****/
 
@@ -28,17 +30,21 @@ jQuery(document).ready(function($) {
     $('.searchbox').removeClass('open', 1000);
   });
 
+    $('.fake-header-space').height($('.hs_navigation_header_wrapper').height());
+
   // Menu js for Position fixed
   $(window).scroll(function() {
     var window_top = $(window).scrollTop() + 1;
-    if (window_top > 160) {
+    if (window_top > $('.hs_navigation_header_wrapper').height()) {
       $('.hs_navigation_header_wrapper').addClass(
         'menu_fixed animated fadeInDown'
       );
+        $('.fake-header-space').removeClass('d-none');
     } else {
       $('.hs_navigation_header_wrapper').removeClass(
         'menu_fixed animated fadeInDown'
       );
+        $('.fake-header-space').addClass('d-none');
     }
   });
 
@@ -226,33 +232,26 @@ jQuery(document).ready(function($) {
     },
   });
 
-  //-------------------------------------------------------
-  // counter-section
-  //-------------------------------------------------------
-  $('.counter-section').on('inview', function(
-    event,
-    visible,
-    visiblePartX,
-    visiblePartY
-  ) {
-    if (visible) {
-      $(this)
-        .find('.timer')
-        .each(function() {
-          var $this = $(this);
-          $({ Counter: 0 }).animate(
-            { Counter: $this.text() },
-            {
-              duration: 2000,
-              easing: 'swing',
-              step: function() {
-                $this.text(Math.ceil(this.Counter));
-              },
-            }
-          );
-        });
-      $(this).off('inview');
-    }
+  // Magnific popup-video
+
+  $('.test-popup-link').magnificPopup({
+    type: 'iframe',
+    iframe: {
+      markup:
+        '<div class="mfp-iframe-scaler">' +
+        '<div class="mfp-close"></div>' +
+        '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>' +
+        '<div class="mfp-title">Some caption</div>' +
+        '</div>',
+      patterns: {
+        youtube: {
+          index: 'youtube.com/',
+          id: 'v=',
+          src: 'https://www.youtube.com/embed/ryzOXAO0Ss0',
+        },
+      },
+    },
+    // other options
   });
 
   $('.album-slider').bxSlider({
@@ -265,22 +264,6 @@ jQuery(document).ready(function($) {
     speed: 20000,
     useCSS: false,
     infiniteLoop: false,
-  });
-
-  var wind = $(window);
-  $('.loading').fadeOut(500);
-
-  wind.on('scroll', function() {
-    $('.skills-progress span').each(function() {
-      var bottom_of_object = $(this).offset().top + $(this).outerHeight();
-      var bottom_of_window = $(window).scrollTop() + $(window).height();
-      var myVal = $(this).attr('data-value');
-      if (bottom_of_window > bottom_of_object) {
-        $(this).css({
-          width: myVal,
-        });
-      }
-    });
   });
 
   var $loop = $('.screen');
@@ -311,60 +294,4 @@ jQuery(document).ready(function($) {
       },
     });
   }
-
-  $(document).ready(function() {
-    $('.lr_bc_slider_first_wrapper .owl-carousel').owlCarousel({
-      loop: true,
-      margin: 10,
-      autoplay: true,
-      responsiveClass: true,
-      smartSpeed: 1200,
-      navText: [
-        '<i class="flaticon-left-arrow"></i>',
-        '<i class="flaticon-right-arrow"></i>',
-      ],
-      responsive: {
-        0: {
-          items: 1,
-          nav: true,
-        },
-        500: {
-          items: 1,
-          nav: true,
-        },
-        700: {
-          items: 1,
-          nav: true,
-        },
-        1000: {
-          items: 1,
-          nav: true,
-          loop: true,
-          margin: 20,
-        },
-      },
-    });
-  });
-
-  // Magnific popup-video
-
-  $('.test-popup-link').magnificPopup({
-    type: 'iframe',
-    iframe: {
-      markup:
-        '<div class="mfp-iframe-scaler">' +
-        '<div class="mfp-close"></div>' +
-        '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>' +
-        '<div class="mfp-title">Some caption</div>' +
-        '</div>',
-      patterns: {
-        youtube: {
-          index: 'youtube.com/',
-          id: 'v=',
-          src: 'https://www.youtube.com/embed/ryzOXAO0Ss0',
-        },
-      },
-    },
-    // other options
-  });
 });
