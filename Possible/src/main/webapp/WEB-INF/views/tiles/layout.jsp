@@ -63,7 +63,8 @@
     <script src="${pageContext.request.contextPath}/resources/js/xpedia.js"></script>
 </head>
 <body>
-        <tiles:insertAttribute name="header"></tiles:insertAttribute>
+
+      <tiles:insertAttribute name="header"></tiles:insertAttribute>
     <tiles:insertAttribute name="sidebar"></tiles:insertAttribute>
     <tiles:insertAttribute name="content"></tiles:insertAttribute>
     <footer>
