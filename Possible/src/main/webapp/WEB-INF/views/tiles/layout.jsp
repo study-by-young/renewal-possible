@@ -11,6 +11,11 @@
     <meta name="format-detection" content="telephone=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery.menu-aim.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
+
     <!-- common -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/animate.css"/>
     <script src="${pageContext.request.contextPath}/resources/js/modernizr.js"></script>
@@ -19,11 +24,6 @@
     <!-- bootstrap -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"/>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery.menu-aim.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
 
     <!-- fonts -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/flaticon.css"/>
@@ -51,20 +51,23 @@
     <script src="${pageContext.request.contextPath}/resources/js/jquery.bxslider.min.js"></script>
 
     <!-- custom css -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/fonts.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/reset.css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style_II.css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/responsive_II.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/responsive.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/icons/icomoon/styles.min.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/colors.min.css"/>
 
     <!-- custom js -->
-    <script src="${pageContext.request.contextPath}/resources/js/own-menu.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/xpedia_II.js"></script>
+<%--    <script src="${pageContext.request.contextPath}/resources/js/own-menu.js"></script>--%>
+    <script src="${pageContext.request.contextPath}/resources/js/xpedia.js"></script>
 </head>
 <body>
-
-    <tiles:insertAttribute name="header"></tiles:insertAttribute>
+        <tiles:insertAttribute name="header"></tiles:insertAttribute>
     <tiles:insertAttribute name="sidebar"></tiles:insertAttribute>
     <tiles:insertAttribute name="content"></tiles:insertAttribute>
-    <tiles:insertAttribute name="footer"></tiles:insertAttribute>
-
+    <footer>
+        <tiles:insertAttribute name="footer"></tiles:insertAttribute>
+    </footer>
 </body>
 </html>
