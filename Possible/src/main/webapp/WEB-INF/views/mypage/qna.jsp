@@ -40,91 +40,21 @@
 								</div>
 								<br> <br> <br>
 
-								<!-- 렌트내역 -->
+								<!-- 나의문의 -->
 								<div class="col-md-12">
 									<div class="blog_single_comment_heading">
-										<h4>렌트내역</h4>
+										<h4>
+											나의 문의
+										</h4>
 									</div>
 									<div class="dash">
-										<div class="row no-gutters">
-											<div class="col-4">
-												<img
-													src="${pageContext.request.contextPath}/resources/images/comment_img1.jpg"
-													width="210px" height="160" alt="" class="card-img" />
-											</div>
-											<!-- 버튼 (일단 취소, 후기 둘다 보임)-->
-											<div class="col-8">
-												<div class="col-12" style="border-bottom: none solid black">
-													<div class="card-body">
-														<div style="float: right;">
-															<div style="float: right;">
-																<button type="button" class="btn" onClick="alert('취소하시겠습니까?')"
-																	style="text-align: center; background: #4f5dec; color: #ffffff; border: 1px solid transparent;">
-																	취소
-																</button>
-																<button type="button" class="btn" onclick="location.href='review'"
-																	style="text-align: center; background: #4f5dec; color: #ffffff; border: 1px solid transparent;">
-																	후기작성
-																</button>
-															</div>
-															
-														</div>
-													</div>
-													<br>
-													<!-- 렌트내역 누르면 모달창 -->
-														<div class="container mt-3">
-													<!-- Button to Open the Modal -->
-													<a data-toggle="modal" href="#myModal">렌트내역</a>
-
-
-													<!-- The Modal -->
-													<div class="modal fade" id="myModal">
-														<div class="modal-dialog">
-															<div class="modal-content">
-
-																<!-- Modal Header -->
-																<div class="modal-header">
-																	<h4 class="modal-title">렌트내역조회</h4>
-																	<button type="button" class="close"
-																		data-dismiss="modal">×</button>
-																</div>
-
-																<!-- Modal body -->
-																<div class="modal-body">
-																		<table class="table">
-																				<tr>
-																					<td>모델</td>
-																					<td>Doe</td>
-																				</tr>
-																				<tr>
-																					<td>기간</td>
-																					<td>Moe</td>
-																				</tr>
-																				<tr>
-																					<td>지역</td>
-																					<td>등등</td>
-																				</tr>
-																		</table>
-																	</div>
-
-																<!-- Modal footer -->
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-danger"
-																		data-dismiss="modal">Close</button>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												</div>
-												
-											
-
-
-
-
-											</div>
-										</div>
+										<table class="table">
+											<tr>
+												<td>번호</td>
+												<td>질문</td>
+												<td>날짜?</td>
+											</tr>
+										</table>
 									</div>
 								</div>
 

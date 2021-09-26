@@ -51,6 +51,12 @@ public class HomeController {
 		return "mypage/dashboard";
 	}
 	
+	//마이페이지 회원정보수정
+	@GetMapping("/editInfo")
+	public String editInfo() {
+		return "mypage/editInfo";
+	}
+	
 	//마이페이지 견적관리
 	@GetMapping("/eslist")
 	public String eslist() {
@@ -81,5 +87,10 @@ public class HomeController {
 		return "mypage/community";
 	}
 	
+	//마이페이지 나의 문의
+	@GetMapping("/qna")
+	public String qna() {
+		return "mypage/qna";
+	}
 }
 
