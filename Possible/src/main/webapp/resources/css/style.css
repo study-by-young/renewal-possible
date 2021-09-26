@@ -7861,3 +7861,15 @@ input[type=number] {
 }
 
 /**********---------------- CAR LOGIN  END --------------****************/
+
+.main-score-bg {
+    width:100px;
+    height: 15px;
+    background: url("../images/review-star-bg.png") no-repeat left/100px;
+}
+
+.main-score-bg .main-score {
+    display: block;
+    height: 15px;
+    background: url("../images/review-star-fill.png") no-repeat left/100px;
+}
