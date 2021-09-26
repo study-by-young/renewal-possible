@@ -32,6 +32,54 @@
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 }
+
+.select_result_wrapper {
+	float: center;
+}
+
+.select_result_wrapper ul {
+	float: left;
+	margin-bottom: 15px;
+	background-color: white;
+	border-radius: 10px;
+	/* box-shadow: 0px 0 8px rgb(0 0 0 / 10%); */
+}
+
+.first_li a {
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+
+.last_li a {
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
+
+.select_result_wrapper ul li {
+	float: left;
+}
+
+.select_result_wrapper ul li a {
+	float: left;
+	padding: 12px 30px;
+	transition: all 0.2s;
+}
+
+.select_result_wrapper ul li a:hover {
+	background-color: blue;
+	cursor: pointer;
+	color: white;
+}
+
+.select_result_wrapper ul li a:focus {
+	background-color: blue;
+	cursor: pointer;
+	color: white;
+}
+
+.x_car_offer_starts_list_img {
+    border-right: 0px none;
+}
 </style>
 
 
@@ -308,7 +356,7 @@
 									
 									<!-- 차량제조사/브랜드 -->
 									<div class="x_car_book_fillter_select_box">
-										<h5>차량제조사</h5>
+										<h5>제조사</h5>
 										<select class="myselect">
 											<option>- Please Select -</option>
 											<option>현대</option>
@@ -404,32 +452,32 @@
 			</div>
 			
 			
-			<!-- 검색결과/인기순/최저가순 정렬/정렬 형식 지정 -->
+			<!-- 검색결과 -->
 			<div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12">
 				<div class="x_carbooking_right_section_wrapper float_left">
 					<div class="row">
 					
-				
 						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-							<div class="x_carbook_right_select_box_wrapper float_left">
-								<select class="myselect">
-									<option>Sort by Price</option>
-									<option>12$</option>
-									<option>13$</option>
-									<option>14$</option>
-								</select>
+							<div class="form-sec-header">
+								<h3>검색결과</h3>
 							</div>
 						</div>
 						
-						
-						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-							<div class="x_carbook_right_tabs_box_wrapper float_left">
-								<p>
-									<span>Showing 1-12</span> of 256 results
-								</p>
-							</div>
+						<!-- 전체/경차/준형차 등등등 -->
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<div class="select_result_wrapper">
+								<ul>
+									<li class="first_li"><a href="#">전체</a></li>
+									<li><a href="#">경소형</a></li>
+									<li><a href="#">준중형</a></li>
+									<li><a href="#">중대형</a></li>
+									<li><a href="#">승합RV</a></li>
+									<li><a href="#">SUV</a></li>
+									<li><a href="#">수입</a></li>
+									<li class="last_li"><a href="#">캠핑카</a></li>
+								</ul>
+							</div>	
 						</div>
-						
 						
 						
 						<!-- 차량 목록 파트 -->
@@ -441,78 +489,85 @@
 										<div class="row">
 											<div class="col-md-12">
 												<div class="x_car_offer_main_boxes_wrapper float_left">
-													<div
-														class="x_car_offer_starts x_car_offer_starts_list_img float_left">
-														<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-															class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i
-															class="fa fa-star-o"></i>
+													<div class="x_car_offer_starts x_car_offer_starts_list_img float_left">
+														
 														<div
 															class="x_car_offer_img x_car_offer_img_list float_left">
-															<img src="images/c1.png" alt="img">
-														</div>
-														<div
-															class="x_car_offer_price x_car_offer_price_list float_left">
-															<div
-																class="x_car_offer_price_inner x_car_offer_price_inner_list">
-																<h6>
-																	<i class="fa fa-tag"></i> &nbsp;15% off Deal
-																</h6>
-																<h3>$25</h3>
-																<p>
-																	<span>from</span> <br>/ day
-																</p>
-															</div>
+															<img src="${pageContext.request.contextPath}/resources/images/c1.png" alt="img">
 														</div>
 													</div>
 													<div class="x_car_offer_starts_list_img_cont">
 														<div
 															class="x_car_offer_heading x_car_offer_heading_list float_left">
 															<h2>
-																<a href="#">IKCO</a>
+																<a href="#">{모델명}</a>
 															</h2>
-															<p>Extra Small</p>
+															<p>{인원/세그먼트/연료}</p>
 														</div>
 														<div
 															class="x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left">
 															<ul>
-																<li><a href="#">Book now</a></li>
-																<li><a href="#">Details</a></li>
+																<li><a href="#">바로예약</a></li>
+																<li><a href="#">자세히</a></li>
 															</ul>
 														</div>
-														<div
-															class="x_car_offer_heading x_car_offer_heading_listing float_left">
-															<ul class="">
-																<li><a href="#"><i class="fa fa-users"></i>
-																		&nbsp;4 Seats</a></li>
-																<li><a href="#"><i class="fa fa-clone"></i>
-																		&nbsp;4 Doors</a></li>
-																<li><a href="#"><i class="fa fa-shield"></i>
-																		&nbsp;9 Manual</a></li>
-
-																<li><a href="#"><i class="fa fa-briefcase"></i>
-																		&nbsp;4 Bag Space</a></li>
-																<li><a href="#"><i class="fa fa-snowflake-o"></i>&nbsp;2
-																		Air: Yes</a></li>
-																<li>
-																	<div class="nice-select" tabindex="0">
-																		<span class="current"><i class="fa fa-bars"></i>
-																			Others (2)</span>
-																		<ul class="list">
-																			<li class="dpopy_li"><a href="#"><i
-																					class="fa fa-snowflake-o"></i> Air Conditioning</a></li>
-																			<li class="dpopy_li"><a href="#"><i
-																					class="fa fa-code-fork"></i> Transmission</a></li>
-																			<li class="dpopy_li"><a href="#"><i
-																					class="fa fa-user-circle-o"></i> Minimum age</a></li>
-																		</ul>
-																	</div>
-																</li>
-															</ul>
-														</div>
-
 													</div>
+													
+													<div class="x_car_offer_heading x_car_offer_heading_listing float_left">
+														<ul class="">
+															<li><a href="#"><i class="fa fa-users"></i>&nbsp;{연식}</a></li>
+															<li><a href="#"><i class="fa fa-clone"></i>&nbsp;{네비게이션}</a></li>
+															<li><a href="#"><i class="fa fa-shield"></i>&nbsp;{블랙박스}</a></li>
+															<li><a href="#"><i class="fa fa-briefcase"></i>&nbsp;{후방센서}</a></li>
+															<li><a href="#"><i class="fa fa-snowflake-o"></i>&nbsp;{후방카메라}</a></li>
+															<li><a href="#"><i class="fa fa-snowflake-o"></i>&nbsp;{금연차량}</a></li>
+														</ul>
+													</div>
+										
+													<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+														<div class="x_carbooking_right_section_wrapper float_left">
+															<div class="row">
+								
+																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+																	<div class="x_carbook_right_tabs_box_wrapper float_left">
+																		<p>
+																			<span><a href="#">최저가순</a></span>&nbsp;&nbsp;
+																			<span><a href="#">인기순</a></span>&nbsp;&nbsp;
+																		</p>
+																	</div>
+																</div>
+																
+																
+																<!-- 해당 차량 보유 업체 목록 -->
+																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+																	<div class="x_carbook_right_tabs_box_wrapper float_left">
+																		<table>
+																			<tr>
+																				<td>{선택}</td>
+																				<td>{업체이름}</td>
+																				<td>{차량나이}</td>
+																				<td>{완전자차}</td>
+																				<td>{리뷰개수}</td>
+																				<td>{요금}</td>
+																			</tr>
+																			<tr>
+																				<td>{선택}</td>
+																				<td>{업체이름}</td>
+																				<td>{차량나이}</td>
+																				<td>{완전자차}</td>
+																				<td>{리뷰개수}</td>
+																				<td>{요금}</td>
+																			</tr>
+																		</table>
+																	</div>
+																</div>
+																<!-- End 해당 차량 보유 업체 목록 -->
+															</div>
+														</div>
+													</div>			
 												</div>
 											</div>
+											
 											<div class="col-md-12">
 												<div class="x_car_offer_main_boxes_wrapper float_left">
 													<div
