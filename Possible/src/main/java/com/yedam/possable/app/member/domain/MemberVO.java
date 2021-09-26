@@ -16,7 +16,7 @@ public class MemberVO {
 	private String addr;
 	private String author;
 	private String status;
-	private Date gen_date;
-	private Date upt_date;
+	private Date genDate;
+	private Date uptDate;
 
 }
