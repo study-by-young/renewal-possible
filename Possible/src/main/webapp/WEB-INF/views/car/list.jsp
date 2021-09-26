@@ -116,7 +116,7 @@
 
 
 <!-- btc tittle Wrapper End -->
-<div class="float_left" style="margin-top: 3em; margin-bottom: 4em;">
+<div class="float_left" style="margin-top: 3em; margin-bottom: 3em;">
 	<div class="container">
 		<div class="row">
 			<div>
@@ -144,31 +144,149 @@
 
 						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 
-							<!-- 필터 추천 버튼 -->
-							<div class="col-lg-2 col-md-2 col-sm-2 col-2 full_width">
-								<div class="col-md-12">
-									<div
-										class="x_slider_checout_right x_slider_checout_right_carbooking">
-										<ul>
-											<li><a href="#">검색<i class="fa fa-arrow-right"></i></a>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<!-- End 필터 추천 버튼 -->
-
 							<div>
 								<!-- Filter Results -->
 								<div class="car-filter accordion car_booking_onliy_side">
-									<h3>Filter Results</h3>
+									<!-- 필터 추천 버튼, 클릭 시 modal -->
+									<div class="x_slider_checout_right x_slider_checout_right_carbooking" style="padding-top: 0px; margin-bottom: 40px;">
+										<ul>
+											<li><a href="#" style="width: 100%;">차량 추천받기<i class="fa fa-arrow-right"></i></a>
+											</li>
+										</ul>
+									</div>
+									<!-- End 필터 추천 버튼 -->
+								
+									<h3>상세검색</h3>
 									<hr>
-									<!-- Resources -->
+									
+									<!-- Category -->
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<div class="x_slider_form_input_wrapper float_left">
+												<h3>차량모델</h3>
+												<input type="text" placeholder="자동차 모델명으로 검색">
+											</div>
+										</div>
+									</div>
+									<hr>
+									
+									<!-- 세그먼트 -->
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h5 class="panel-title">
+												<a data-toggle="collapse" href="#collapse1"
+													class="collapse">차량등급</a>
+											</h5>
+										</div>
+										<div id="collapse1" class="collapse show">
+											<div class="panel-body">
+												<div
+													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+													<input type="checkbox" id="code1" name="segment"> <label
+														for="code1">전체</label>
+												</div>
+												<div
+													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+													<input type="checkbox" id="code2" name="segment"> <label
+														for="code2">경형</label>
+												</div>
+												<div
+													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+													<input type="checkbox" id="code3" name="segment"> <label
+														for="code3">소형</label>
+												</div>
+												<div
+													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+													<input type="checkbox" id="code4" name="segment"> <label
+														for="code4">준중형</label>
+												</div>
+												<div
+													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+													<input type="checkbox" id="code5" name="segment"> <label
+														for="code5">중형</label>
+												</div>
+												<div
+													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+													<input type="checkbox" id="code6" name="segment"> <label
+														for="code6">대형</label>
+												</div>
+												<div
+													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+													<input type="checkbox" id="code7" name="segment"> <label
+														for="code7">수입</label>
+												</div>
+												<div
+													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+													<input type="checkbox" id="code8" name="segment"> <label
+														for="code8">승합RV</label>
+												</div>
+												<div
+													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+													<input type="checkbox" id="code9" name="segment"> <label
+														for="code9">SUV</label>
+												</div>
+												<div
+													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+													<input type="checkbox" id="code10" name="segment"> <label
+														for="code10">캠핑카</label>
+												</div>
+											</div>
+										</div>
+									</div>
+									<hr>
+									
+									<!-- 연료 -->
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<h5 class="panel-title">
+												<a data-toggle="collapse" href="#collapse2"
+													class="collapse">연료타입</a>
+											</h5>
+										</div>
+										<div id="collapse2" class="collapse show">
+											<div class="panel-body">
+												<div
+													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+													<input type="checkbox" id="code1" name="fuel"> <label
+														for="code1">전체</label>
+												</div>
+												<div
+													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+													<input type="checkbox" id="code2" name="fuel"> <label
+														for="code2">휘발유</label>
+												</div>
+												<div
+													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+													<input type="checkbox" id="code3" name="fuel"> <label
+														for="code3">경유</label>
+												</div>
+												<div
+													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+													<input type="checkbox" id="code4" name="fuel"> <label
+														for="code4">LPG</label>
+												</div>
+												<div
+													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+													<input type="checkbox" id="code5" name="fuel"> <label
+														for="code5">하이브리드</label>
+												</div>
+												<div
+													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+													<input type="checkbox" id="code6" name="fuel"> <label
+														for="code6">전기</label>
+												</div>
+											</div>
+										</div>
+									</div>
+									<hr>
+									
+									
+									<!-- 차량연식 -->
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<h5 class="panel-title">
 												<a data-toggle="collapse" href="#collapseOne"
-													class="collapse"> Resources</a>
+													class="collapse">차량연식</a>
 											</h5>
 										</div>
 										<div id="collapseOne" class="collapse show">
@@ -187,6 +305,21 @@
 										</div>
 									</div>
 									<hr>
+									
+									<!-- 차량제조사/브랜드 -->
+									<div class="x_car_book_fillter_select_box">
+										<h5>차량제조사</h5>
+										<select class="myselect">
+											<option>- Please Select -</option>
+											<option>현대</option>
+											<option>기아</option>
+											<option>삼성</option>
+											<option>수입</option>
+											<option>기타</option>
+										</select>
+									</div>
+									<hr>
+									
 									<!-- Company -->
 									<div class="panel panel-default">
 										<div class="panel-heading">
@@ -255,30 +388,6 @@
 										</select>
 									</div>
 									<hr>
-									<!-- Attributes -->
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h5 class="panel-title">
-												<a data-toggle="collapse" href="#collapseThree"
-													class="collapse"> Attributes</a>
-											</h5>
-										</div>
-										<div id="collapseThree" class="collapse show">
-											<div class="panel-body">
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="c10" name="cb"> <label
-														for="c10">Diesel</label>
-												</div>
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="c11" name="cb"> <label
-														for="c11">Hybrid</label>
-												</div>
-											</div>
-										</div>
-									</div>
-									<hr>
 									<div
 										class="x_slider_checout_right x_slider_checout_right_carbooking x_slider_checout_right_carbooking_fiter">
 										<ul>
@@ -293,9 +402,14 @@
 					</div>
 				</div>
 			</div>
+			
+			
+			<!-- 검색결과/인기순/최저가순 정렬/정렬 형식 지정 -->
 			<div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12">
 				<div class="x_carbooking_right_section_wrapper float_left">
 					<div class="row">
+					
+				
 						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 							<div class="x_carbook_right_select_box_wrapper float_left">
 								<select class="myselect">
@@ -306,706 +420,24 @@
 								</select>
 							</div>
 						</div>
+						
+						
 						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
 							<div class="x_carbook_right_tabs_box_wrapper float_left">
-								<ul class="nav nav-tabs">
-									<li class="nav-item"><a class="nav-link active"
-										data-toggle="tab" href="#home"> <i class="flaticon-menu"></i>
-									</a></li>
-									<li class="nav-item"><a class="nav-link" data-toggle="tab"
-										href="#menu1"><i class="flaticon-list"></i></a></li>
-								</ul>
 								<p>
 									<span>Showing 1-12</span> of 256 results
 								</p>
 							</div>
 						</div>
+						
+						
+						
+						<!-- 차량 목록 파트 -->
 						<div class="col-md-12">
 							<div class="x_car_book_tabs_content_main_wrapper">
-								<div class="tab-content">
-									<div id="home" class="tab-pane active">
-										<div class="row">
-											<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
-												<div class="x_car_offer_main_boxes_wrapper float_left">
-													<div class="x_car_offer_starts float_left">
-														<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-															class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i
-															class="fa fa-star-o"></i>
-													</div>
-													<div class="x_car_offer_img float_left">
-														<img src="images/c1.png" alt="img">
-													</div>
-													<div class="x_car_offer_price float_left">
-														<div class="x_car_offer_price_inner">
-															<h6>
-																<i class="fa fa-tag"></i> &nbsp;15% off Deal
-															</h6>
-															<h3>$25</h3>
-															<p>
-																<span>from</span> <br>/ day
-															</p>
-														</div>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<h2>
-															<a href="#">Irizar</a>
-														</h2>
-														<p>Extra Small</p>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<ul>
-															<li><a href="#"><i class="fa fa-users"></i>
-																	&nbsp;4</a></li>
-															<li><a href="#"><i class="fa fa-clone"></i>
-																	&nbsp;2</a></li>
-															<li><a href="#"><i class="fa fa-briefcase"></i>
-																	&nbsp;9</a></li>
-															<li>
-																<div class="nice-select" tabindex="0">
-																	<span class="current"><i class="fa fa-bars"></i></span>
-																	<ul class="list">
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-snowflake-o"></i> Air Conditioning</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-code-fork"></i> Transmission</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-user-circle-o"></i> Minimum age</a></li>
-																	</ul>
-																</div>
-															</li>
-														</ul>
-													</div>
-													<div class="x_car_offer_bottom_btn float_left">
-														<ul>
-															<li><a href="#">Book now</a></li>
-															<li><a href="#">Details</a></li>
-														</ul>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
-												<div class="x_car_offer_main_boxes_wrapper float_left">
-													<div class="x_car_offer_starts float_left">
-														<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-															class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i
-															class="fa fa-star-o"></i>
-													</div>
-													<div class="x_car_offer_img float_left">
-														<img src="images/c2.png" alt="img">
-													</div>
-													<div class="x_car_offer_price float_left">
-														<div class="x_car_offer_price_inner">
-															<h3>$25</h3>
-															<p>
-																<span>from</span> <br>/ day
-															</p>
-														</div>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<h2>
-															<a href="#">Holden</a>
-														</h2>
-														<p>Extra Small</p>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<ul>
-															<li><a href="#"><i class="fa fa-users"></i>
-																	&nbsp;4</a></li>
-															<li><a href="#"><i class="fa fa-clone"></i>
-																	&nbsp;2</a></li>
-															<li><a href="#"><i class="fa fa-briefcase"></i>
-																	&nbsp;9</a></li>
-															<li>
-																<div class="nice-select" tabindex="0">
-																	<span class="current"><i class="fa fa-bars"></i></span>
-																	<ul class="list">
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-snowflake-o"></i> Air Conditioning</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-code-fork"></i> Transmission</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-user-circle-o"></i> Minimum age</a></li>
-																	</ul>
-																</div>
-															</li>
-														</ul>
-													</div>
-													<div class="x_car_offer_bottom_btn float_left">
-														<ul>
-															<li><a href="#">Book now</a></li>
-															<li><a href="#">Details</a></li>
-														</ul>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
-												<div class="x_car_offer_main_boxes_wrapper float_left">
-													<div class="x_car_offer_starts float_left">
-														<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-															class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i
-															class="fa fa-star-o"></i>
-													</div>
-													<div class="x_car_offer_img float_left">
-														<img src="images/c3.png" alt="img">
-													</div>
-													<div class="x_car_offer_price float_left">
-														<div class="x_car_offer_price_inner">
-															<h3>$25</h3>
-															<p>
-																<span>from</span> <br>/ day
-															</p>
-														</div>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<h2>
-															<a href="#">Elfin</a>
-														</h2>
-														<p>Extra Small</p>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<ul>
-															<li><a href="#"><i class="fa fa-users"></i>
-																	&nbsp;4</a></li>
-															<li><a href="#"><i class="fa fa-clone"></i>
-																	&nbsp;2</a></li>
-															<li><a href="#"><i class="fa fa-briefcase"></i>
-																	&nbsp;9</a></li>
-															<li>
-																<div class="nice-select" tabindex="0">
-																	<span class="current"><i class="fa fa-bars"></i></span>
-																	<ul class="list">
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-snowflake-o"></i> Air Conditioning</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-code-fork"></i> Transmission</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-user-circle-o"></i> Minimum age</a></li>
-																	</ul>
-																</div>
-															</li>
-														</ul>
-													</div>
-													<div class="x_car_offer_bottom_btn float_left">
-														<ul>
-															<li><a href="#">Book now</a></li>
-															<li><a href="#">Details</a></li>
-														</ul>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
-												<div class="x_car_offer_main_boxes_wrapper float_left">
-													<div class="x_car_offer_starts float_left">
-														<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-															class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i
-															class="fa fa-star-o"></i>
-													</div>
-													<div class="x_car_offer_img float_left">
-														<img src="images/c4.png" alt="img">
-													</div>
-													<div class="x_car_offer_price float_left">
-														<div class="x_car_offer_price_inner">
-															<h3>$25</h3>
-															<p>
-																<span>from</span> <br>/ day
-															</p>
-														</div>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<h2>
-															<a href="#">Bowler</a>
-														</h2>
-														<p>Extra Small</p>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<ul>
-															<li><a href="#"><i class="fa fa-users"></i>
-																	&nbsp;4</a></li>
-															<li><a href="#"><i class="fa fa-clone"></i>
-																	&nbsp;2</a></li>
-															<li><a href="#"><i class="fa fa-briefcase"></i>
-																	&nbsp;9</a></li>
-															<li>
-																<div class="nice-select" tabindex="0">
-																	<span class="current"><i class="fa fa-bars"></i></span>
-																	<ul class="list">
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-snowflake-o"></i> Air Conditioning</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-code-fork"></i> Transmission</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-user-circle-o"></i> Minimum age</a></li>
-																	</ul>
-																</div>
-															</li>
-														</ul>
-													</div>
-													<div class="x_car_offer_bottom_btn float_left">
-														<ul>
-															<li><a href="#">Book now</a></li>
-															<li><a href="#">Details</a></li>
-														</ul>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
-												<div class="x_car_offer_main_boxes_wrapper float_left">
-													<div class="x_car_offer_starts float_left">
-														<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-															class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i
-															class="fa fa-star-o"></i>
-													</div>
-													<div class="x_car_offer_img float_left">
-														<img src="images/c5.png" alt="img">
-													</div>
-													<div class="x_car_offer_price float_left">
-														<div class="x_car_offer_price_inner">
-															<h3>$25</h3>
-															<p>
-																<span>from</span> <br>/ day
-															</p>
-														</div>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<h2>
-															<a href="#">Diatto</a>
-														</h2>
-														<p>Extra Small</p>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<ul>
-															<li><a href="#"><i class="fa fa-users"></i>
-																	&nbsp;4</a></li>
-															<li><a href="#"><i class="fa fa-clone"></i>
-																	&nbsp;2</a></li>
-															<li><a href="#"><i class="fa fa-briefcase"></i>
-																	&nbsp;9</a></li>
-															<li>
-																<div class="nice-select" tabindex="0">
-																	<span class="current"><i class="fa fa-bars"></i></span>
-																	<ul class="list">
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-snowflake-o"></i> Air Conditioning</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-code-fork"></i> Transmission</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-user-circle-o"></i> Minimum age</a></li>
-																	</ul>
-																</div>
-															</li>
-														</ul>
-													</div>
-													<div class="x_car_offer_bottom_btn float_left">
-														<ul>
-															<li><a href="#">Book now</a></li>
-															<li><a href="#">Details</a></li>
-														</ul>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
-												<div class="x_car_offer_main_boxes_wrapper float_left">
-													<div class="x_car_offer_starts float_left">
-														<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-															class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i
-															class="fa fa-star-o"></i>
-													</div>
-													<div class="x_car_offer_img float_left">
-														<img src="images/c6.png" alt="img">
-													</div>
-													<div class="x_car_offer_price float_left">
-														<div class="x_car_offer_price_inner">
-															<h3>$25</h3>
-															<p>
-																<span>from</span> <br>/ day
-															</p>
-														</div>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<h2>
-															<a href="#">Lloyd</a>
-														</h2>
-														<p>Extra Small</p>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<ul>
-															<li><a href="#"><i class="fa fa-users"></i>
-																	&nbsp;4</a></li>
-															<li><a href="#"><i class="fa fa-clone"></i>
-																	&nbsp;2</a></li>
-															<li><a href="#"><i class="fa fa-briefcase"></i>
-																	&nbsp;9</a></li>
-															<li>
-																<div class="nice-select" tabindex="0">
-																	<span class="current"><i class="fa fa-bars"></i></span>
-																	<ul class="list">
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-snowflake-o"></i> Air Conditioning</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-code-fork"></i> Transmission</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-user-circle-o"></i> Minimum age</a></li>
-																	</ul>
-																</div>
-															</li>
-														</ul>
-													</div>
-													<div class="x_car_offer_bottom_btn float_left">
-														<ul>
-															<li><a href="#">Book now</a></li>
-															<li><a href="#">Details</a></li>
-														</ul>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
-												<div class="x_car_offer_main_boxes_wrapper float_left">
-													<div class="x_car_offer_starts float_left">
-														<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-															class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i
-															class="fa fa-star-o"></i>
-													</div>
-													<div class="x_car_offer_img float_left">
-														<img src="images/c7.png" alt="img">
-													</div>
-													<div class="x_car_offer_price float_left">
-														<div class="x_car_offer_price_inner">
-															<h3>$25</h3>
-															<p>
-																<span>from</span> <br>/ day
-															</p>
-														</div>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<h2>
-															<a href="#">Genesis</a>
-														</h2>
-														<p>Extra Small</p>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<ul>
-															<li><a href="#"><i class="fa fa-users"></i>
-																	&nbsp;4</a></li>
-															<li><a href="#"><i class="fa fa-clone"></i>
-																	&nbsp;2</a></li>
-															<li><a href="#"><i class="fa fa-briefcase"></i>
-																	&nbsp;9</a></li>
-															<li>
-																<div class="nice-select" tabindex="0">
-																	<span class="current"><i class="fa fa-bars"></i></span>
-																	<ul class="list">
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-snowflake-o"></i> Air Conditioning</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-code-fork"></i> Transmission</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-user-circle-o"></i> Minimum age</a></li>
-																	</ul>
-																</div>
-															</li>
-														</ul>
-													</div>
-													<div class="x_car_offer_bottom_btn float_left">
-														<ul>
-															<li><a href="#">Book now</a></li>
-															<li><a href="#">Details</a></li>
-														</ul>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
-												<div class="x_car_offer_main_boxes_wrapper float_left">
-													<div class="x_car_offer_starts float_left">
-														<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-															class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i
-															class="fa fa-star-o"></i>
-													</div>
-													<div class="x_car_offer_img float_left">
-														<img src="images/c8.png" alt="img">
-													</div>
-													<div class="x_car_offer_price float_left">
-														<div class="x_car_offer_price_inner">
-															<h3>$25</h3>
-															<p>
-																<span>from</span> <br>/ day
-															</p>
-														</div>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<h2>
-															<a href="#">Brammo</a>
-														</h2>
-														<p>Extra Small</p>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<ul>
-															<li><a href="#"><i class="fa fa-users"></i>
-																	&nbsp;4</a></li>
-															<li><a href="#"><i class="fa fa-clone"></i>
-																	&nbsp;2</a></li>
-															<li><a href="#"><i class="fa fa-briefcase"></i>
-																	&nbsp;9</a></li>
-															<li>
-																<div class="nice-select" tabindex="0">
-																	<span class="current"><i class="fa fa-bars"></i></span>
-																	<ul class="list">
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-snowflake-o"></i> Air Conditioning</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-code-fork"></i> Transmission</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-user-circle-o"></i> Minimum age</a></li>
-																	</ul>
-																</div>
-															</li>
-														</ul>
-													</div>
-													<div class="x_car_offer_bottom_btn float_left">
-														<ul>
-															<li><a href="#">Book now</a></li>
-															<li><a href="#">Details</a></li>
-														</ul>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
-												<div class="x_car_offer_main_boxes_wrapper float_left">
-													<div class="x_car_offer_starts float_left">
-														<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-															class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i
-															class="fa fa-star-o"></i>
-													</div>
-													<div class="x_car_offer_img float_left">
-														<img src="images/c1.png" alt="img">
-													</div>
-													<div class="x_car_offer_price float_left">
-														<div class="x_car_offer_price_inner">
-															<h3>$25</h3>
-															<p>
-																<span>from</span> <br>/ day
-															</p>
-														</div>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<h2>
-															<a href="#">AC Cars</a>
-														</h2>
-														<p>Extra Small</p>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<ul>
-															<li><a href="#"><i class="fa fa-users"></i>
-																	&nbsp;4</a></li>
-															<li><a href="#"><i class="fa fa-clone"></i>
-																	&nbsp;2</a></li>
-															<li><a href="#"><i class="fa fa-briefcase"></i>
-																	&nbsp;9</a></li>
-															<li>
-																<div class="nice-select" tabindex="0">
-																	<span class="current"><i class="fa fa-bars"></i></span>
-																	<ul class="list">
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-snowflake-o"></i> Air Conditioning</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-code-fork"></i> Transmission</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-user-circle-o"></i> Minimum age</a></li>
-																	</ul>
-																</div>
-															</li>
-														</ul>
-													</div>
-													<div class="x_car_offer_bottom_btn float_left">
-														<ul>
-															<li><a href="#">Book now</a></li>
-															<li><a href="#">Details</a></li>
-														</ul>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
-												<div class="x_car_offer_main_boxes_wrapper float_left">
-													<div class="x_car_offer_starts float_left">
-														<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-															class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i
-															class="fa fa-star-o"></i>
-													</div>
-													<div class="x_car_offer_img float_left">
-														<img src="images/c2.png" alt="img">
-													</div>
-													<div class="x_car_offer_price float_left">
-														<div class="x_car_offer_price_inner">
-															<h3>$25</h3>
-															<p>
-																<span>from</span> <br>/ day
-															</p>
-														</div>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<h2>
-															<a href="#">BMW</a>
-														</h2>
-														<p>Extra Small</p>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<ul>
-															<li><a href="#"><i class="fa fa-users"></i>
-																	&nbsp;4</a></li>
-															<li><a href="#"><i class="fa fa-clone"></i>
-																	&nbsp;2</a></li>
-															<li><a href="#"><i class="fa fa-briefcase"></i>
-																	&nbsp;9</a></li>
-															<li>
-																<div class="nice-select" tabindex="0">
-																	<span class="current"><i class="fa fa-bars"></i></span>
-																	<ul class="list">
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-snowflake-o"></i> Air Conditioning</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-code-fork"></i> Transmission</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-user-circle-o"></i> Minimum age</a></li>
-																	</ul>
-																</div>
-															</li>
-														</ul>
-													</div>
-													<div class="x_car_offer_bottom_btn float_left">
-														<ul>
-															<li><a href="#">Book now</a></li>
-															<li><a href="#">Details</a></li>
-														</ul>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
-												<div class="x_car_offer_main_boxes_wrapper float_left">
-													<div class="x_car_offer_starts float_left">
-														<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-															class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i
-															class="fa fa-star-o"></i>
-													</div>
-													<div class="x_car_offer_img float_left">
-														<img src="images/c3.png" alt="img">
-													</div>
-													<div class="x_car_offer_price float_left">
-														<div class="x_car_offer_price_inner">
-															<h3>$25</h3>
-															<p>
-																<span>from</span> <br>/ day
-															</p>
-														</div>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<h2>
-															<a href="#">Austin</a>
-														</h2>
-														<p>Extra Small</p>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<ul>
-															<li><a href="#"><i class="fa fa-users"></i>
-																	&nbsp;4</a></li>
-															<li><a href="#"><i class="fa fa-clone"></i>
-																	&nbsp;2</a></li>
-															<li><a href="#"><i class="fa fa-briefcase"></i>
-																	&nbsp;9</a></li>
-															<li>
-																<div class="nice-select" tabindex="0">
-																	<span class="current"><i class="fa fa-bars"></i></span>
-																	<ul class="list">
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-snowflake-o"></i> Air Conditioning</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-code-fork"></i> Transmission</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-user-circle-o"></i> Minimum age</a></li>
-																	</ul>
-																</div>
-															</li>
-														</ul>
-													</div>
-													<div class="x_car_offer_bottom_btn float_left">
-														<ul>
-															<li><a href="#">Book now</a></li>
-															<li><a href="#">Details</a></li>
-														</ul>
-													</div>
-												</div>
-											</div>
-											<div class="col-xl-4 col-lg-6 col-md-6 col-sm-6 col-12">
-												<div class="x_car_offer_main_boxes_wrapper float_left">
-													<div class="x_car_offer_starts float_left">
-														<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-															class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i
-															class="fa fa-star-o"></i>
-													</div>
-													<div class="x_car_offer_img float_left">
-														<img src="images/c4.png" alt="img">
-													</div>
-													<div class="x_car_offer_price float_left">
-														<div class="x_car_offer_price_inner">
-															<h3>$25</h3>
-															<p>
-																<span>from</span> <br>/ day
-															</p>
-														</div>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<h2>
-															<a href="#">Eterniti</a>
-														</h2>
-														<p>Extra Small</p>
-													</div>
-													<div class="x_car_offer_heading float_left">
-														<ul>
-															<li><a href="#"><i class="fa fa-users"></i>
-																	&nbsp;4</a></li>
-															<li><a href="#"><i class="fa fa-clone"></i>
-																	&nbsp;2</a></li>
-															<li><a href="#"><i class="fa fa-briefcase"></i>
-																	&nbsp;9</a></li>
-															<li>
-																<div class="nice-select" tabindex="0">
-																	<span class="current"><i class="fa fa-bars"></i></span>
-																	<ul class="list">
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-snowflake-o"></i> Air Conditioning</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-code-fork"></i> Transmission</a></li>
-																		<li class="dpopy_li"><a href="#"><i
-																				class="fa fa-user-circle-o"></i> Minimum age</a></li>
-																	</ul>
-																</div>
-															</li>
-														</ul>
-													</div>
-													<div class="x_car_offer_bottom_btn float_left">
-														<ul>
-															<li><a href="#">Book now</a></li>
-															<li><a href="#">Details</a></li>
-														</ul>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-12">
-												<div class="pager_wrapper prs_blog_pagi_wrapper">
-													<ul class="pagination">
-														<li><a href="#"><i class="flaticon-left-arrow"></i></a>
-														</li>
-														<li class="btc_shop_pagi"><a href="#">01</a></li>
-														<li class="btc_shop_pagi"><a href="#">02</a></li>
-														<li class="btc_third_pegi btc_shop_pagi"><a href="#">03</a>
-														</li>
-														<li class="btc_four_pegi"><a href="#">...</a></li>
-														<li><a href="#"><i class="flaticon-right-arrow"></i></a>
-														</li>
-													</ul>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div id="menu1" class="tab-pane fade">
+								<div class="">
+									
+									<div id="home">
 										<div class="row">
 											<div class="col-md-12">
 												<div class="x_car_offer_main_boxes_wrapper float_left">
@@ -1507,6 +939,7 @@
 													</div>
 												</div>
 											</div>
+											
 											<div class="col-md-12">
 												<div class="pager_wrapper prs_blog_pagi_wrapper">
 													<ul class="pagination">
@@ -1523,6 +956,8 @@
 													</ul>
 												</div>
 											</div>
+											
+											
 										</div>
 									</div>
 								</div>
