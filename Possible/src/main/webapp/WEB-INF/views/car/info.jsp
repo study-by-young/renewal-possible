@@ -131,13 +131,14 @@
 					<div class="form-sec-header">
 						<h3>인원</h3>
 					</div>
-					<div class="x_slider_select x_slider_select2" style="width: 168px;">
-						<select class="myselect">
-							<option>1인</option>
-							<option>2인</option>
-							<option>3인</option>
-							<option>4인</option>
-							<option>5인이상</option>
+					<div class="x_slider_select x_slider_select2" style="width: 100%;">
+						<select class="myselect" id="passenger1" name="passenger">
+							<option value="">전체</option>
+							<option value="">1인</option>
+							<option value="">2인</option>
+							<option value="">3인</option>
+							<option value="">4인</option>
+							<option value="">5인이상</option>
 						</select>
 					</div>
 				</div>
@@ -146,11 +147,11 @@
 					<div class="form-sec-header">
 						<h3>자차보험</h3>
 					</div>
-					<div class="x_slider_select x_slider_select2" style="width: 168px;">
-						<select class="myselect">
-							<option>선택안함</option>
-							<option>일반자차</option>
-							<option>완전자차</option>
+					<div class="x_slider_select x_slider_select2" style="width: 100%;">
+						<select class="myselect" id="insurance1" name="insurance">
+							<option value="">전체</option>
+							<option value="">일반자차</option>
+							<option value="">완전자차</option>
 						</select>
 					</div>
 				</div>
@@ -207,7 +208,8 @@
 								<div class="car-filter accordion car_booking_onliy_side">
 									<h3>상세검색</h3>
 									<hr>
-									<!-- Category -->
+									
+									<!-- 모델명 -->
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<div class="x_slider_form_input_wrapper float_left">
@@ -219,223 +221,93 @@
 									<hr>
 									
 									<!-- 세그먼트 -->
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h5 class="panel-title">
-												<a data-toggle="collapse" href="#collapse1"
-													class="collapse">차량등급</a>
-											</h5>
-										</div>
-										<div id="collapse1" class="collapse show">
-											<div class="panel-body">
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="code1" name="segment"> <label
-														for="code1">전체</label>
-												</div>
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="code2" name="segment"> <label
-														for="code2">경형</label>
-												</div>
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="code3" name="segment"> <label
-														for="code3">소형</label>
-												</div>
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="code4" name="segment"> <label
-														for="code4">준중형</label>
-												</div>
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="code5" name="segment"> <label
-														for="code5">중형</label>
-												</div>
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="code6" name="segment"> <label
-														for="code6">대형</label>
-												</div>
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="code7" name="segment"> <label
-														for="code7">수입</label>
-												</div>
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="code8" name="segment"> <label
-														for="code8">승합RV</label>
-												</div>
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="code9" name="segment"> <label
-														for="code9">SUV</label>
-												</div>
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="code10" name="segment"> <label
-														for="code10">캠핑카</label>
-												</div>
-											</div>
-										</div>
+									<div class="x_car_book_fillter_select_box">
+										<h5>차량등급</h5>
+										<select class="myselect" id="segment" name="segment">
+											<option value="">전체</option>
+											<option value="">경형</option>
+											<option value="">소형</option>
+											<option value="">중형</option>
+											<option value="">대형</option>
+											<option value="">수입</option>
+											<option value="">승합RV</option>
+											<option value="">SUV</option>
+											<option value="">캠핑카</option>
+										</select>
 									</div>
 									<hr>
 									
 									<!-- 연료 -->
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h5 class="panel-title">
-												<a data-toggle="collapse" href="#collapse2"
-													class="collapse">연료타입</a>
-											</h5>
-										</div>
-										<div id="collapse2" class="collapse show">
-											<div class="panel-body">
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="code1" name="fuel"> <label
-														for="code1">전체</label>
-												</div>
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="code2" name="fuel"> <label
-														for="code2">휘발유</label>
-												</div>
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="code3" name="fuel"> <label
-														for="code3">경유</label>
-												</div>
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="code4" name="fuel"> <label
-														for="code4">LPG</label>
-												</div>
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="code5" name="fuel"> <label
-														for="code5">하이브리드</label>
-												</div>
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="code6" name="fuel"> <label
-														for="code6">전기</label>
-												</div>
-											</div>
-										</div>
+									<div class="x_car_book_fillter_select_box">
+										<h5>연료</h5>
+										<select class="myselect" id="fuel" name="fuel">
+											<option value="">전체</option>
+											<option value="">휘발유</option>
+											<option value="">경유</option>
+											<option value="">LPG</option>
+											<option value="">하이브리드</option>
+											<option value="">전기</option>
+										</select>
 									</div>
 									<hr>
 									
-									
-									<!-- 차량연식 -->
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h5 class="panel-title">
-												<a data-toggle="collapse" href="#collapseOne"
-													class="collapse">차량연식</a>
-											</h5>
-										</div>
-										<div id="collapseOne" class="collapse show">
-											<div class="panel-body">
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="c3" name="cb"> <label
-														for="c3">GPS Device</label>
-												</div>
-												<div
-													class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
-													<input type="checkbox" id="c4" name="cb"> <label
-														for="c4">Babyseats</label>
-												</div>
-											</div>
-										</div>
+									<!-- 연식 -->
+									<div class="x_car_book_fillter_select_box">
+										<h5>차량연식</h5>
+										<select class="myselect" id="year" name="year">
+											<option value="">전체</option>
+											<option value="">2022년</option>
+											<option value="">2021년</option>
+											<option value="">2020년</option>
+											<option value="">2019년</option>
+											<option value="">2018년</option>
+											<option value="">2017년</option>
+											<option value="">2016년</option>
+										</select>
 									</div>
 									<hr>
+									
 									
 									<!-- 차량제조사/브랜드 -->
 									<div class="x_car_book_fillter_select_box">
 										<h5>제조사</h5>
-										<select class="myselect">
-											<option>- Please Select -</option>
-											<option>현대</option>
-											<option>기아</option>
-											<option>삼성</option>
-											<option>수입</option>
-											<option>기타</option>
+										<select class="myselect" id="brand" name="brand">
+											<option value="">전체</option>
+											<option value="">현대</option>
+											<option value="">기아</option>
+											<option value="">르노삼성</option>
+											<option value="">수입</option>
+											<option value="">기타</option>
 										</select>
 									</div>
 									<hr>
 									
-									<!-- Company -->
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<h5 class="panel-title">
-												<a data-toggle="collapse" href="#collapseTwo"
-													class="collapse"> Company</a>
-											</h5>
-										</div>
-										<div id="collapseTwo" class="collapse show">
-											<div class="panel-body">
-												<div class="radio">
-													<div class="fisrt">
-														<input type="radio" name="radio1" id="radio1"
-															value="option1" checked=""> <label for="radio1">Company
-															Name</label>
-													</div>
-													<div class="fisrt">
-														<input type="radio" name="radio1" id="radio2"
-															value="option2"> <label for="radio2">Other
-															One</label>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-									<hr>
-									<!-- Category -->
+									<!-- 인원 -->
 									<div class="x_car_book_fillter_select_box">
-										<h5>Category</h5>
-										<select class="myselect">
-											<option>Please Select</option>
-											<option>Seadan</option>
-											<option>SUV</option>
-											<option>Mini</option>
-											<option>Bus</option>
+										<h5>인원</h5>
+										<select class="myselect" id="passenger2" name="passenger">
+											<option value="">전체</option>
+											<option value="">1인</option>
+											<option value="">2인</option>
+											<option value="">3인</option>
+											<option value="">4인</option>
+											<option value="">5인이상</option>
 										</select>
 									</div>
 									<hr>
+									
+									<!-- 자차보험 -->
 									<div class="x_car_book_fillter_select_box">
-										<h5>Car Brand</h5>
-										<select class="myselect">
-											<option>- Please Select -</option>
-											<option>BMW</option>
-											<option>Honda</option>
-											<option>Toyato</option>
-											<option>Audi</option>
-											<option>Fort</option>
-											<option>Nissan</option>
+										<h5>자차보험</h5>
+										<select class="myselect" id="insurance2" name="insurance">
+											<option value="">전체</option>
+											<option value="">일반자차</option>
+											<option value="">완전자차</option>
 										</select>
 									</div>
 									<hr>
-									<!-- Car Model -->
-									<div class="x_car_book_fillter_select_box">
-										<h5>Car Model</h5>
-										<select class="myselect">
-											<option>- Please Select -</option>
-											<option>- 2010 -</option>
-											<option>- 2011 -</option>
-											<option>- 2012 -</option>
-											<option>- 2013 -</option>
-											<option>- 2014 -</option>
-											<option>- 2015 -</option>
-											<option>- 2016 -</option>
-											<option>- 2017 -</option>
-											<option>- 2018 -</option>
-										</select>
-									</div>
-									<hr>
+									
+									
 									<div
 										class="x_slider_checout_right x_slider_checout_right_carbooking x_slider_checout_right_carbooking_fiter">
 										<ul>
@@ -447,11 +319,11 @@
 							</div>
 							
 							
-							<!-- 가격비교 -->
+							<!-- 가격비교 // 클릭하면 해당 업체의 상세 페이지로 이동 -->
 							<div>
 								<!-- Filter Results -->
 								<div class="car-filter accordion car_booking_onliy_side">
-									<h3>가격비교 ({업체수})</h3>
+									<h3>가격비교</h3>
 									<hr>
 									
 									<div>
