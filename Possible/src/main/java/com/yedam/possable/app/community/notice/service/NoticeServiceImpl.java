@@ -2,38 +2,46 @@ package com.yedam.possable.app.community.notice.service;
 
 import java.util.List;
 
-import com.yedam.possable.app.community.notice.domain.NoticeVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.yedam.possable.app.community.notice.domain.NoticeVO;
+import com.yedam.possable.app.community.notice.mapper.NoticeMapper;
+
+@Service
 public class NoticeServiceImpl implements NoticeService {
 
+	@Autowired
+	NoticeMapper noticeMapper;
+	
 	@Override
 	public List<NoticeVO> getList() {
 		// TODO Auto-generated method stub
-		return null;
+		return noticeMapper.getList();
 	}
 
 	@Override
 	public NoticeVO read(NoticeVO vo) {
 		// TODO Auto-generated method stub
-		return null;
+		return noticeMapper.read(vo);
 	}
 
 	@Override
 	public int insert(NoticeVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return noticeMapper.insert(vo);
 	}
 
 	@Override
 	public int update(NoticeVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return noticeMapper.update(vo);
 	}
 
 	@Override
 	public int delete(NoticeVO vo) {
 		// TODO Auto-generated method stub
-		return 0;
+		return noticeMapper.delete(vo);
 	}
 
 }
