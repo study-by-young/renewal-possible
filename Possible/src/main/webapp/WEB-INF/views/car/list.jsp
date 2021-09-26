@@ -80,6 +80,56 @@
 .x_car_offer_starts_list_img {
     border-right: 0px none;
 }
+
+.cmpn_list {
+	background-color: white;
+	margin: 20px;
+    width: 95%;
+}
+
+.cmpn_list_tr {
+	padding: 10px;
+}
+
+.cmpn_list_tr td {
+	padding: 10px;
+}
+
+.cmpn_list_tr:hover {
+	background-color: skyblue;
+	color: white;
+}
+
+.cmpn_list_tr:focus {
+	background-color: skyblue;
+}
+
+
+.x_car_offer_heading ul {
+    width: 100%;
+    float: left;
+    border-top: 1px solid #eeeeee;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-top-color: rgb(238, 238, 238);
+    border-bottom: 1px solid #eeeeee;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: rgb(238, 238, 238);
+    margin-top: 30px;
+}
+
+span.chkBox {
+    display: inline-block;
+    zoom: 1;
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    background-color: #fff;
+    color: #192028;
+    border-radius: 1px;
+    border: 1px solid #ebebeb;
+}
 </style>
 
 
@@ -439,7 +489,7 @@
 									<div
 										class="x_slider_checout_right x_slider_checout_right_carbooking x_slider_checout_right_carbooking_fiter">
 										<ul>
-											<li><a href="#">filter <i class="fa fa-arrow-right"></i></a>
+											<li><a href="#">상세검색<i class="fa fa-arrow-right"></i></a>
 											</li>
 										</ul>
 									</div>
@@ -513,21 +563,23 @@
 														</div>
 													</div>
 													
+													<!-- 업체를 선택하면 해당 업체가 보유하고 있는 옵션에 표시 (제주패스렌트카 참조) -->
 													<div class="x_car_offer_heading x_car_offer_heading_listing float_left">
 														<ul class="">
-															<li><a href="#"><i class="fa fa-users"></i>&nbsp;{연식}</a></li>
-															<li><a href="#"><i class="fa fa-clone"></i>&nbsp;{네비게이션}</a></li>
-															<li><a href="#"><i class="fa fa-shield"></i>&nbsp;{블랙박스}</a></li>
-															<li><a href="#"><i class="fa fa-briefcase"></i>&nbsp;{후방센서}</a></li>
-															<li><a href="#"><i class="fa fa-snowflake-o"></i>&nbsp;{후방카메라}</a></li>
-															<li><a href="#"><i class="fa fa-snowflake-o"></i>&nbsp;{금연차량}</a></li>
+															<li><a href="#"><i class="fa fa-users"></i>&nbsp;{옵션/연식}</a></li>
+															<li><a href="#"><i class="fa fa-clone"></i>&nbsp;{옵션/네비게이션}</a></li>
+															<li><a href="#"><i class="fa fa-shield"></i>&nbsp;{옵션/블랙박스}</a></li>
+															<li><a href="#"><i class="fa fa-briefcase"></i>&nbsp;{옵션/후방센서}</a></li>
+															<li><a href="#"><i class="fa fa-snowflake-o"></i>&nbsp;{옵션/후방카메라}</a></li>
+															<li><a href="#"><i class="fa fa-snowflake-o"></i>&nbsp;{옵션/금연차량}</a></li>
 														</ul>
 													</div>
 										
 													<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 														<div class="x_carbooking_right_section_wrapper float_left">
 															<div class="row">
-								
+																
+																<!-- 업체 정렬 -->
 																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 																	<div class="x_carbook_right_tabs_box_wrapper float_left">
 																		<p>
@@ -536,29 +588,40 @@
 																		</p>
 																	</div>
 																</div>
-																
+																<!-- End 업체 정렬 -->
 																
 																<!-- 해당 차량 보유 업체 목록 -->
 																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 																	<div class="x_carbook_right_tabs_box_wrapper float_left">
-																		<table>
-																			<tr>
-																				<td>{선택}</td>
-																				<td>{업체이름}</td>
-																				<td>{차량나이}</td>
-																				<td>{완전자차}</td>
-																				<td>{리뷰개수}</td>
-																				<td>{요금}</td>
-																			</tr>
-																			<tr>
-																				<td>{선택}</td>
-																				<td>{업체이름}</td>
-																				<td>{차량나이}</td>
-																				<td>{완전자차}</td>
-																				<td>{리뷰개수}</td>
-																				<td>{요금}</td>
-																			</tr>
-																		</table>
+																		<form>
+																			<table class="cmpn_list">
+																				<!-- 기본으로 첫번째 행이 선택되어 있도록 -->
+																				<tr class="cmpn_list_tr">
+																					<td style="width: 5%;"><span class="chkBox"></span></td>
+																					<td style="width: 30%;">레인보우모빌리티</td>
+																					<td style="width: 15%;">만 26세</td>
+																					<td style="width: 20%;">완전자차</td>
+																					<td style="width: 15%;">리뷰 94</td>
+																					<td style="width: 15%;">25,000원</td>
+																				</tr>
+																				<tr class="cmpn_list_tr">
+																					<td style="width: 5%;"><span class="chkBox"></span></td>
+																					<td style="width: 30%;">{업체이름}</td>
+																					<td style="width: 15%;">{보험나이}</td>
+																					<td style="width: 20%;">{완전자차}</td>
+																					<td style="width: 15%;">{리뷰개수}</td>
+																					<td style="width: 15%;">{요금}</td>
+																				</tr>
+																				<tr class="cmpn_list_tr">
+																					<td style="width: 5%;"><span class="chkBox"></span></td>
+																					<td style="width: 30%;">{업체이름}</td>
+																					<td style="width: 15%;">{보험나이}</td>
+																					<td style="width: 20%;">{완전자차}</td>
+																					<td style="width: 15%;">{리뷰개수}</td>
+																					<td style="width: 15%;">{요금}</td>
+																				</tr>
+																			</table>
+																		</form>
 																	</div>
 																</div>
 																<!-- End 해당 차량 보유 업체 목록 -->
