@@ -26,9 +26,11 @@
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 
     <!-- fonts -->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/fonts.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/flaticon.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Material+Icons"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/icons/icomoon/styles.min.css"/>
 
     <!-- select 2 js -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/select2.min.css"/>
@@ -51,11 +53,9 @@
     <script src="${pageContext.request.contextPath}/resources/js/jquery.bxslider.min.js"></script>
 
     <!-- custom css -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/fonts.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/responsive.css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/icons/icomoon/styles.min.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/colors.min.css"/>
 
     <!-- custom js -->
@@ -63,12 +63,9 @@
     <script src="${pageContext.request.contextPath}/resources/js/xpedia.js"></script>
 </head>
 <body>
-
-      <tiles:insertAttribute name="header"></tiles:insertAttribute>
+    <tiles:insertAttribute name="header"></tiles:insertAttribute>
     <tiles:insertAttribute name="sidebar"></tiles:insertAttribute>
     <tiles:insertAttribute name="content"></tiles:insertAttribute>
-    <footer>
-        <tiles:insertAttribute name="footer"></tiles:insertAttribute>
-    </footer>
+    <tiles:insertAttribute name="footer"></tiles:insertAttribute>
 </body>
 </html>
