@@ -28,7 +28,7 @@
     display: block;
     position: absolute;
     left: 50%;
-    top: -2px;
+    top: -10px;
     margin-left: -25px;
     background-color: #fff;
     width: 50px;
@@ -73,9 +73,10 @@
                         	<h3 class="card-title text-center mb-5 fw-light fs-5">여행갈카 로그인</h3>
                         	<div class="card-body">
 	                          <form id="frm" name="frm" action="login" method="post">
+	                          	<input type="text" name="${_csrf.parameterName }" value="${_csrf.token }" >
 	                            <div class="formsix-pos">
 	                                <div class="form-group i-email">
-	                                    <input type="text" class="form-control"  id="username" name="username" placeholder="Id*" required="">
+	                                    <input type="text" class="form-control"  id="id" name="id" placeholder="Id*" required="">
 	                                </div>
 	                            </div>
 	                            <div class="formsix-e">
@@ -113,7 +114,7 @@
 	                             
 	                            	</div>
 	                            <div class="login_message my-3">
-	                                <p>아이디가 아직 없으신가요? <a href="register"> Register Now </a> </p>
+	                                <p>아이디가 아직 없으신가요? <a href="register"> 회원가입 하러 가기 </a> </p>
 	                            </div>
 	                        </div>
 	                        <!-- /.login_wrapper-->
