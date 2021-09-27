@@ -23,6 +23,7 @@
 
     <!-- bootstrap -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap_limitless.min.css" >
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 
     <!-- fonts -->
@@ -57,6 +58,8 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/responsive.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/colors.min.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/layout.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/components.min.css">
 
     <!-- custom js -->
 <%--    <script src="${pageContext.request.contextPath}/resources/js/own-menu.js"></script>--%>

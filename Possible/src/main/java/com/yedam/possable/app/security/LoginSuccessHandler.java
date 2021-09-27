@@ -28,7 +28,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 			});  //전체 권한
 		String path = request.getContextPath();
 		if(roleNames.contains("ROLE_ADMIN")) {
-			response.sendRedirect(path+"/loginTest/all");
+			response.sendRedirect(path+"/admin/");
 		} else if(roleNames.contains("ROLE_USER")) {
 			response.sendRedirect("/loginTest/member");
 		} else {

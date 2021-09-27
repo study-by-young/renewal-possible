@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<script src="${pageContext.request.contextPath}/resources/js/plugins/loaders/blockui.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/plugins/ui/ripple.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/plugins/media/fancybox.min.js"></script>
+
 <!-- hs Slider Start -->
 <div class="slider-area">
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -219,3 +224,132 @@
         </div>
     </div>
 </div>
+
+<div class="container x_counter_main_wrapper">
+    <!-- Image grid -->
+    <div class="mb-3 text-center">
+        <h1 class="mb-0 font-weight-bold">
+            여행갈카 이용 리뷰
+        </h1>
+        <span class="text-muted d-block">여행갈카의 소중한 고객님들의 리뷰입니다.</span>
+    </div>
+
+    <div class="row">
+        <c:forEach begin="1" end="3">
+            <div class="col-sm-12 col-lg-4">
+                <div class="card">
+                    <div class="card-img-actions mx-1 mt-1">
+                        <img class="card-img img-fluid" src="${pageContext.request.contextPath}/resources/images/placeholder.jpg" alt="">
+                        <div class="card-img-actions-overlay card-img">
+                            <a href="${pageContext.request.contextPath}/resources/images/placeholder.jpg" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round" data-popup="lightbox" rel="group">
+                                <i class="icon-zoomin3"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div>
+                            <div>
+                                <div>
+                                    <h6 class="font-weight-semibold">
+                                        <a href="#">
+                                            너무 좋은 여행이었어요!
+                                        </a>
+                                        <span class="float-right main-score-bg"><span class="main-score" style="width:80%"></span></span>
+                                    </h6>
+                                </div>
+                                <hr>
+                                <span class="small">어디 갔는데 너무 좋았어요. 그냥 좋았어요~</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+    <!-- /image grid -->
+</div>
+<div class="line"></div>
+<div class="x_counter_main_wrapper">
+    <!-- Content area -->
+    <div class="container">
+        <!-- Questions title -->
+        <div class="text-center mb-3 py-2">
+            <h4 class="font-weight-semibold mb-1">자주 하는 질문</h4>
+            <span class="text-muted d-block">원하시는 답변을 찾지 못하셨다면 고객센터로 연락해주세요!</span>
+        </div>
+        <!-- /questions title -->
+
+        <div class="row">
+            <c:forEach begin="1" end="4" varStatus="status">
+                <div class="col-md-6">
+                    <div class="card mb-2">
+                        <div class="card-header">
+                            <h6 class="card-title">
+                                <a class="text-default collapsed" data-toggle="collapse" href="#question${status.index}">
+                                    <i class="icon-help mr-2 text-slate"></i> A without walking some objective?
+                                </a>
+                            </h6>
+                        </div>
+
+                        <div id="question${status.index}" class="collapse">
+                            <div class="card-body">
+                                She exposed painted fifteen are noisier mistake led waiting. Surprise not wandered speedily husbands although yet end. Are court tiled cease young built fat one man taken. We highest ye friends is exposed equally in. Ignorant had too strictly followed. Astonished as travelling assistance or unreserved oh pianoforte ye. Five with seen put need tore add neat.
+                            </div>
+
+                            <div class="card-footer bg-transparent d-sm-flex align-items-sm-center border-top-0 pt-0">
+                                <span class="text-muted">Latest update: May 25, 2015</span>
+
+                                <ul class="list-inline text-nowrap mb-0 ml-auto mt-2 mt-sm-0">
+                                    <li class="list-inline-item"><a href="#" class="text-primary mr-2"><i class="icon-thumbs-up2"></i></a> 320</li>
+                                    <li class="list-inline-item"><a href="#" class="text-muted mr-2"><i class="icon-thumbs-down2"></i></a> 14</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+    </div>
+    <!-- /content area -->
+</div>
+
+<script>
+    // Setup module
+    // ------------------------------
+    var Gallery = function() {
+
+        //
+        // Setup module components
+        //
+
+        // Lightbox
+        var _componentFancybox = function() {
+            if (!$().fancybox) {
+                console.warn('Warning - fancybox.min.js is not loaded.');
+                return;
+            }
+
+            // Image lightbox
+            $('[data-popup="lightbox"]').fancybox({
+                padding: 3
+            });
+        };
+
+        //
+        // Return objects assigned to module
+        //
+
+        return {
+            init: function() {
+                _componentFancybox();
+            }
+        }
+    }();
+
+    // Initialize module
+    // ------------------------------
+    document.addEventListener('DOMContentLoaded', function() {
+        Gallery.init();
+    });
+</script>
