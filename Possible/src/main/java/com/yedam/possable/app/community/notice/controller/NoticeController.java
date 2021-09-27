@@ -59,9 +59,9 @@ public class NoticeController {
 			rttr.addFlashAttribute("updateResult", vo.getSeq());
 		}
 		
-		rttr.addAttribute("title", "¼öÁ¤");
+		rttr.addAttribute("seq", vo.getSeq());
 		
-		return "redirect:/notice/list";
+		return "redirect:/notice/get";
 	}
 
 	@GetMapping("/delete")

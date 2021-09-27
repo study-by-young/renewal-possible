@@ -30,7 +30,9 @@ Version: 1.0.0
 <body>
 	<div class="x_contact_title_main_wrapper float_left padding_tb_100">
 		<div class="container">
-			<form id="insertForm" role="form" action="${pageContext.request.contextPath}/notice/insert" method="post">
+			<form id="insertForm" role="form"
+				action="${pageContext.request.contextPath}/notice/insert"
+				method="post">
 				<div class="row">
 					<div class="col-md-12">
 						<div
@@ -38,26 +40,27 @@ Version: 1.0.0
 							<h3>공지사항 등록</h3>
 						</div>
 					</div>
-
 					<div
 						class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="contect_form1">
-							<input type="text" name="title" placeholder="Title *">
+							<input type="text" name="title" placeholder="제목 무조끈 *" required="required">
 						</div>
 					</div>
 					<div
-						class="col-xl-5 offset-xl-1 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+						class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="contect_form2">
-							<input type="text" name="writer" placeholder="Writer" value="admin" readonly="readonly">
+							<input type="text" name="writer" placeholder="Writer"
+								value="admin" readonly="readonly">
 						</div>
 					</div>
 					<div
 						class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<div class="contect_form4">
-							<textarea rows="5" name="content" placeholder="내용을 입력해주세요."></textarea>
+							<textarea rows="10" name="content" placeholder="내용을 입력해주세요." required="required"></textarea>
 						</div>
+						<br>
 					</div>
-					<div class="lr_bc_first_box_img_cont_wrapper" align="right">
+					<div class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12" align="right">
 						<button type="submit" class="btn btn-primary">등록</button>
 						<button type="reset" class="btn btn-dark">취소</button>
 						<button type="button" class="btn btn-dark"
@@ -67,7 +70,7 @@ Version: 1.0.0
 			</form>
 		</div>
 	</div>
-
+	0
 	<script
 		src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
 	<script

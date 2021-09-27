@@ -3,55 +3,19 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>공지사항</title>
-
-<!-- Global stylesheets -->
-<link
-	href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900"
-	rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/resources/css/admin/global_assets/css/icons/icomoon/styles.min.css"
-	rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/resources/css/admin/css/bootstrap.min.css" rel="stylesheet"
-	type="text/css">
-<link href="${pageContext.request.contextPath}/resources/css/admin/css/bootstrap_limitless.min.css" rel="stylesheet"
-	type="text/css">
-<link href="${pageContext.request.contextPath}/resources/css/admin/css/layout.min.css" rel="stylesheet" type="text/css">
-<link href="${pageContext.request.contextPath}/resources/css/admin/css/components.min.css" rel="stylesheet"
-	type="text/css">
-<link href="${pageContext.request.contextPath}/resources/css/admin/css/colors.min.css" rel="stylesheet" type="text/css">
-<!-- /global stylesheets -->
-
-<!-- Core JS files -->
-<script src="${pageContext.request.contextPath}/resources/css/admin/global_assets/js/main/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/css/admin/global_assets/js/main/bootstrap.bundle.min.js"></script>
-<script
-	src="${pageContext.request.contextPath}/resources/css/admin/global_assets/js/plugins/loaders/blockui.min.js"></script>
-<!-- /core JS files -->
-
-<!-- Theme JS files -->
-<script src="${pageContext.request.contextPath}/resources/css/admin/js/app.js"></script>
-<!-- /theme JS files -->
 
 <style>
 tr:hover {color:blue;
 		  cursor:pointer;}
 </style>
-</head>
 
-<body>
+
 <div class= "container">
 	<div style="margin-top: 50px;">
 		<!-- Striped rows -->
 		<div class="card">
 			<div class="card-header header-elements-inline">
-				<h3 class="card-title">공지사항</h3>
+				<h2 class="card-title">공지사항</h2>
 				<div class="header-elements">
 					<div class="list-icons">
 						<a class="list-icons-item" data-action="collapse"></a> <a
@@ -132,5 +96,3 @@ $(document).ready(function() {
 	} 
 })
 </script>
-</body>
-</html>
