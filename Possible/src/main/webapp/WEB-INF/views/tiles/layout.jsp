@@ -34,8 +34,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/icons/icomoon/styles.min.css"/>
 
     <!-- select 2 js -->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/select2.min.css"/>
-    <script src="${pageContext.request.contextPath}/resources/js/select2.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/plugins/forms/selects/select2.min.js"></script>
 
     <!-- nice-select js -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/nice-select.css"/>
@@ -53,6 +52,9 @@
     <!-- bxslider -->
     <script src="${pageContext.request.contextPath}/resources/js/jquery.bxslider.min.js"></script>
 
+    <!-- editor -->
+    <script src="${pageContext.request.contextPath}/resources/js/plugins/editors/ckeditor/ckeditor.js"></script>
+
     <!-- custom css -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css"/>
@@ -64,6 +66,8 @@
     <!-- custom js -->
 <%--    <script src="${pageContext.request.contextPath}/resources/js/own-menu.js"></script>--%>
     <script src="${pageContext.request.contextPath}/resources/js/xpedia.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/app.js"></script>
+
 </head>
 <body>
     <tiles:insertAttribute name="header"></tiles:insertAttribute>

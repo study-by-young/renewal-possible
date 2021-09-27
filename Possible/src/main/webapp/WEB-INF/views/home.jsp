@@ -296,15 +296,6 @@
                             <div class="card-body">
                                 She exposed painted fifteen are noisier mistake led waiting. Surprise not wandered speedily husbands although yet end. Are court tiled cease young built fat one man taken. We highest ye friends is exposed equally in. Ignorant had too strictly followed. Astonished as travelling assistance or unreserved oh pianoforte ye. Five with seen put need tore add neat.
                             </div>
-
-                            <div class="card-footer bg-transparent d-sm-flex align-items-sm-center border-top-0 pt-0">
-                                <span class="text-muted">Latest update: May 25, 2015</span>
-
-                                <ul class="list-inline text-nowrap mb-0 ml-auto mt-2 mt-sm-0">
-                                    <li class="list-inline-item"><a href="#" class="text-primary mr-2"><i class="icon-thumbs-up2"></i></a> 320</li>
-                                    <li class="list-inline-item"><a href="#" class="text-muted mr-2"><i class="icon-thumbs-down2"></i></a> 14</li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>

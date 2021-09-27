@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yedam.possable.app.common.mapper.CodeMapper">
+    <select id="getNamesByParentCode" resultType="CodeSubVO">
+        SELECT *
+        FROM code_sub
+        WHERE master_code = (SELECT code FROM code_master WHERE name = #{parentCode})
+    </select>
+</mapper>
