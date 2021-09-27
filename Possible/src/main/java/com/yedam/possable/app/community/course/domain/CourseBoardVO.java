@@ -8,7 +8,6 @@ import java.util.Date;
 public class CourseBoardVO {
     private Long seq;
     private String title;
-    private String subTitle;
     private String writer;
     private String content;
     private Long views;
