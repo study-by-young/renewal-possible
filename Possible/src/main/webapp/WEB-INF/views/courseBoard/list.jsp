@@ -3,6 +3,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html lang="en">
 
 <head>
@@ -31,28 +32,33 @@
 						<h4>Tour Course</h4>
 						<h3>나만의 여행 코스</h3>
 						<p>
-							우리, 여행갈카? <br>
-							'여행갈카'와 함께한 나만의 여행 코스를 공유해주세요.
+							우리, 여행갈카? <br> '여행갈카'와 함께한 나만의 여행 코스를 공유해주세요.
 						</p>
 					</div>
 				</div>
-				<c:forEach var="list" items="">
-				<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
-					<div class="btc_team_bot_cont_main_wrapper">
-						<div class="btc_team_img_bot_wrapper">
-							<img src="${pageContext.request.contextPath}/resources/images/tb1.jpg" alt="team_img1">
-							<div class="btc_team_social_tb_wrapper">
-								<h3>${list.startDate } ~ ${list.endDate }</h3>
+				<c:forEach var="list" items="${list }">
+					<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
+						<div class="btc_team_bot_cont_main_wrapper">
+							<div class="btc_team_img_bot_wrapper">
+								<img
+									src="${pageContext.request.contextPath}/resources/images/tb1.jpg"
+									alt="team_img1">
+								<div class="btc_team_social_tb_wrapper">
+									<h3>
+										<fmt:formatDate value="${list.startDate }" pattern="yyyy-MM-dd" />
+										~
+										<fmt:formatDate value="${list.endDate }" pattern="yyyy-MM-dd" />
+									</h3>
+								</div>
+							</div>
+							<div class="btc_team_img_bot_cont_wrapper">
+								<h4>
+									<a href="${pageContext.request.contextPath}/tourCourseSelect">${list.title }</a>
+								</h4>
+								<p>${list.writer }</p>
 							</div>
 						</div>
-						<div class="btc_team_img_bot_cont_wrapper">
-							<h4>
-								<a href="${pageContext.request.contextPath}/tourCourseSelect">${list.title }</a>
-							</h4>
-							<p>${list.writer }</p>
-						</div>
 					</div>
-				</div>
 				</c:forEach>
 			</div>
 		</div>
