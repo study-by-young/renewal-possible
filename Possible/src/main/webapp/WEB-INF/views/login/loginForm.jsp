@@ -11,7 +11,6 @@
 }
 .card {
 	float : left;
-	width: 100%;
 	background: #ffffff;
 	box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
 	padding: 50px;
@@ -73,7 +72,7 @@
                         	<h3 class="card-title text-center mb-5 fw-light fs-5">여행갈카 로그인</h3>
                         	<div class="card-body">
 	                          <form id="frm" name="frm" action="login" method="post">
-	                          	<input type="text" name="${_csrf.parameterName }" value="${_csrf.token }" >
+	                          	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" >
 	                            <div class="formsix-pos">
 	                                <div class="form-group i-email">
 	                                    <input type="text" class="form-control"  id="id" name="id" placeholder="Id*" required="">
@@ -89,9 +88,8 @@
 	                                    <input type="checkbox">
 	                                    <span class="control__indicator"></span>
 	                                </label>
-	                                <a href="#" class="forget_password">
-										Forgot Password
-									</a>
+		                            <a href="#" class="forget_password" data-toggle="modal" data-target="#exampleModal">비밀번호 찾기</a>
+		                            <a href="#" class="forget_password mr-2" data-toggle="modal" data-target="#exampleModal">아이디 찾기</a>
 	                            </div>
 	                            <div class="login_btn_wrapper">
 	                                <button type="button" class="btn btn-primary btn-lg btn-block" id="loginBtn" name="loginBtn">로그인</button>
@@ -123,6 +121,29 @@
                 </div>
 		</div>
 	</div>
+	<!-- 로그인 종료 -->
+	
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal End -->
 <script>
 $(function(){
 	$('#loginBtn').on("click",function(){

@@ -1,6 +1,5 @@
-package com.yedam.possable.app.common.controller;
+package com.yedam.possable.app.login.controller;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,17 +8,18 @@ import lombok.extern.java.Log;
 
 @Log
 @Controller
-public class CommonController {
+public class LoginController {
 	
-	@GetMapping("/errorPage")
-	public void accessDenid(Authentication auth, Model model) {
-		
-		log.info("access Denied : " + auth);
-		
-		model.addAttribute("massage", "연결 거부되었습니다. 관리자에게 문의해주세요.");
-	}
+	/*
+	 * @GetMapping("/errorPage") public void accessDenid(Authentication auth, Model
+	 * model) {
+	 * 
+	 * log.info("access Denied : " + auth);
+	 * 
+	 * model.addAttribute("massage", "연결 거부되었습니다. 관리자에게 문의해주세요."); }
+	 */
 	//로그인 폼으로
-	@GetMapping("/loginForm")
+	@GetMapping("/login")
 	public String loginForm(String error, String logout, Model model) {
 		
 		if (error != null) {
