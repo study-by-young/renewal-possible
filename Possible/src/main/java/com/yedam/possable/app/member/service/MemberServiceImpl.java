@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.possable.app.member.domain.Criteria;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.mapper.MemberMapper;
 @Service
@@ -13,9 +14,15 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired MemberMapper memberMapper;
 	
 	@Override
-	public List<MemberVO> memberList() {
+	public List<MemberVO> memberList(Criteria cri) {
 		// TODO Auto-generated method stub
-		return memberMapper.memberList();
+		return memberMapper.memberList(cri);
+	}
+
+	@Override
+	public int getTotalCount(Criteria cri) {
+		// TODO Auto-generated method stub
+		return memberMapper.getTotalCount(cri);
 	}
 
 	@Override
@@ -41,5 +48,7 @@ public class MemberServiceImpl implements MemberService {
 		// TODO Auto-generated method stub
 		return memberMapper.memberUpdate();
 	}
+
+	
 
 }

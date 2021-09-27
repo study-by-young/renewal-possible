@@ -1,8 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.possable.app.member.mapper.MemberMapper">
-	<select id="memberList" resultType="MemberVO">
-		SELECT * FROM Member
-		ORDER BY id
+	
+	<sql id="criteria">
+				<trim prefix="(" suffix=")" prefixOverrides="OR">
+             		<foreach collection="typeArr" item="type">
+             			<trim prefix="OR">
+             				<choose>
+				             	<when test="type == 'I'.toString()">
+				                   ID LIKE '%' || #{keyword} || '%'
+				                </when>
+				                <when test="type == 'N'.toString()">
+				                   NAME LIKE '%' || #{keyword} || '%'
+				                </when>
+				                <when test="type == 'P'.toString()">
+				                   PHONE LIKE '%' || #{keyword} || '%'
+				                </when>
+             				</choose>
+             			</trim>
+             		</foreach>
+             	</trim>
+	</sql>
+	
+	<select id="getTotalCount" resultType="int">
+			SELECT COUNT(*) 
+			FROM MEMBER
+				<where>
+					<include refid="criteria"></include>
+				</where>
 	</select>
+	
+	<select id="memberList" resultType="MemberVO">
+   
+      SELECT * 
+      FROM (
+             SELECT 
+             /*+ INDEX_DESC(IDX_MEMBER) */ 
+             ROWNUM RN, SEQ, ID, EMAIL, PHONE, NAME
+             FROM MEMBER
+             <where> 
+                <include refid="criteria"></include>
+                <![CDATA[   AND ROWNUM <= #{pageNum} * #{amount} ]]>
+             </where>
+          )
+      WHERE RN > (#{pageNum} - 1) * #{amount}
+   
+   </select>
+	
+		
+	
 </mapper>

@@ -2,11 +2,15 @@ package com.yedam.possable.app.member.service;
 
 import java.util.List;
 
+import com.yedam.possable.app.member.domain.Criteria;
 import com.yedam.possable.app.member.domain.MemberVO;
 
 public interface MemberService {
-	//회원 전체 목록
-		public List<MemberVO> memberList(); 
+		//회원 전체 목록
+		public List<MemberVO> memberList(Criteria cri); 
+		
+		//전체 데이터 건수
+		public int getTotalCount(Criteria cri);
 		
 		//회원 한건조회
 		public MemberVO memberOneSelect(); 

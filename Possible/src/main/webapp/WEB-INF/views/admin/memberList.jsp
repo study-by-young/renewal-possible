@@ -1,402 +1,104 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!-- Basic datatable -->
-<div class="card">
-	<div class="card-header header-elements-inline">
-		<h5 class="card-title">Basic datatable</h5>
-		<div class="header-elements">
-			<div class="list-icons">
-				<a class="list-icons-item" data-action="collapse"></a> <a
-					class="list-icons-item" data-action="reload"></a> <a
-					class="list-icons-item" data-action="remove"></a>
-			</div>
-		</div>
+<style type="text/css">
+.dash {
+	background: #ffffff;
+	box-shadow: 0px 0 8px rgb(0 0 0/ 10%);
+	float: left;
+	width: 100%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-top: 0px;
+	margin-bottom: 70px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+</style>
+
+<!-- 관리자 - 회원관리 -->
+<div class="row">
+	<div class="col-lg-12">
+		<h1 class="page-header">회원관리</h1>
 	</div>
 
-	<div class="card-body">
-		The
-		<code>DataTables</code>
-		is a highly flexible tool, based upon the foundations of progressive
-		enhancement, and will add advanced interaction controls to any HTML
-		table. DataTables has most features enabled by default, so all you
-		need to do to use it with your own tables is to call the construction
-		function. Searching, ordering, paging etc goodness will be immediately
-		added to the table, as shown in this example. <strong>Datatables
-			support all available table styling.</strong>
-	</div>
-
-	<table class="table datatable-basic">
+	<table class="table">
 		<thead>
 			<tr>
-				<th>First Name</th>
-				<th>Last Name</th>
-				<th>Job Title</th>
-				<th>DOB</th>
-				<th>Status</th>
-				<th class="text-center">Actions</th>
+				<th>글번호</th>
+				<th>아이디</th>
+				<th>전화번호</th>
+				<th>이름</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>Marth</td>
-				<td><a href="#">Enright</a></td>
-				<td>Traffic Court Referee</td>
-				<td>22 Jun 1972</td>
-				<td><span class="badge badge-success">Active</span></td>
-				<td class="text-center">
-					<div class="list-icons">
-						<div class="dropdown">
-							<a href="#" class="list-icons-item" data-toggle="dropdown"> <i
-								class="icon-menu9"></i>
-							</a>
+			<c:forEach var="memberList" items="${memberList }">
+				<tr>
+					<td>${memberList.seq }</td>
+					<td><a class="move" href="${memberList.id }">${memberList.id}</a></td>
+					<td>${memberList.phone }</td>
+					<td>${memberList.name }</td>
 
-							<div class="dropdown-menu dropdown-menu-right">
-								<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i>
-									Export to .pdf</a> <a href="#" class="dropdown-item"><i
-									class="icon-file-excel"></i> Export to .csv</a> <a href="#"
-									class="dropdown-item"><i class="icon-file-word"></i> Export
-									to .doc</a>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Jackelyn</td>
-				<td>Weible</td>
-				<td><a href="#">Airline Transport Pilot</a></td>
-				<td>3 Oct 1981</td>
-				<td><span class="badge badge-secondary">Inactive</span></td>
-				<td class="text-center">
-					<div class="list-icons">
-						<div class="dropdown">
-							<a href="#" class="list-icons-item" data-toggle="dropdown"> <i
-								class="icon-menu9"></i>
-							</a>
-
-							<div class="dropdown-menu dropdown-menu-right">
-								<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i>
-									Export to .pdf</a> <a href="#" class="dropdown-item"><i
-									class="icon-file-excel"></i> Export to .csv</a> <a href="#"
-									class="dropdown-item"><i class="icon-file-word"></i> Export
-									to .doc</a>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Aura</td>
-				<td>Hard</td>
-				<td>Business Services Sales Representative</td>
-				<td>19 Apr 1969</td>
-				<td><span class="badge badge-danger">Suspended</span></td>
-				<td class="text-center">
-					<div class="list-icons">
-						<div class="dropdown">
-							<a href="#" class="list-icons-item" data-toggle="dropdown"> <i
-								class="icon-menu9"></i>
-							</a>
-
-							<div class="dropdown-menu dropdown-menu-right">
-								<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i>
-									Export to .pdf</a> <a href="#" class="dropdown-item"><i
-									class="icon-file-excel"></i> Export to .csv</a> <a href="#"
-									class="dropdown-item"><i class="icon-file-word"></i> Export
-									to .doc</a>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Nathalie</td>
-				<td><a href="#">Pretty</a></td>
-				<td>Drywall Stripper</td>
-				<td>13 Dec 1977</td>
-				<td><span class="badge badge-info">Pending</span></td>
-				<td class="text-center">
-					<div class="list-icons">
-						<div class="dropdown">
-							<a href="#" class="list-icons-item" data-toggle="dropdown"> <i
-								class="icon-menu9"></i>
-							</a>
-
-							<div class="dropdown-menu dropdown-menu-right">
-								<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i>
-									Export to .pdf</a> <a href="#" class="dropdown-item"><i
-									class="icon-file-excel"></i> Export to .csv</a> <a href="#"
-									class="dropdown-item"><i class="icon-file-word"></i> Export
-									to .doc</a>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Sharan</td>
-				<td>Leland</td>
-				<td>Aviation Tactical Readiness Officer</td>
-				<td>30 Dec 1991</td>
-				<td><span class="badge badge-secondary">Inactive</span></td>
-				<td class="text-center">
-					<div class="list-icons">
-						<div class="dropdown">
-							<a href="#" class="list-icons-item" data-toggle="dropdown"> <i
-								class="icon-menu9"></i>
-							</a>
-
-							<div class="dropdown-menu dropdown-menu-right">
-								<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i>
-									Export to .pdf</a> <a href="#" class="dropdown-item"><i
-									class="icon-file-excel"></i> Export to .csv</a> <a href="#"
-									class="dropdown-item"><i class="icon-file-word"></i> Export
-									to .doc</a>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Maxine</td>
-				<td><a href="#">Woldt</a></td>
-				<td><a href="#">Business Services Sales Representative</a></td>
-				<td>17 Oct 1987</td>
-				<td><span class="badge badge-info">Pending</span></td>
-				<td class="text-center">
-					<div class="list-icons">
-						<div class="dropdown">
-							<a href="#" class="list-icons-item" data-toggle="dropdown"> <i
-								class="icon-menu9"></i>
-							</a>
-
-							<div class="dropdown-menu dropdown-menu-right">
-								<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i>
-									Export to .pdf</a> <a href="#" class="dropdown-item"><i
-									class="icon-file-excel"></i> Export to .csv</a> <a href="#"
-									class="dropdown-item"><i class="icon-file-word"></i> Export
-									to .doc</a>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Sylvia</td>
-				<td><a href="#">Mcgaughy</a></td>
-				<td>Hemodialysis Technician</td>
-				<td>11 Nov 1983</td>
-				<td><span class="badge badge-danger">Suspended</span></td>
-				<td class="text-center">
-					<div class="list-icons">
-						<div class="dropdown">
-							<a href="#" class="list-icons-item" data-toggle="dropdown"> <i
-								class="icon-menu9"></i>
-							</a>
-
-							<div class="dropdown-menu dropdown-menu-right">
-								<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i>
-									Export to .pdf</a> <a href="#" class="dropdown-item"><i
-									class="icon-file-excel"></i> Export to .csv</a> <a href="#"
-									class="dropdown-item"><i class="icon-file-word"></i> Export
-									to .doc</a>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Lizzee</td>
-				<td><a href="#">Goodlow</a></td>
-				<td>Technical Services Librarian</td>
-				<td>1 Nov 1961</td>
-				<td><span class="badge badge-danger">Suspended</span></td>
-				<td class="text-center">
-					<div class="list-icons">
-						<div class="dropdown">
-							<a href="#" class="list-icons-item" data-toggle="dropdown"> <i
-								class="icon-menu9"></i>
-							</a>
-
-							<div class="dropdown-menu dropdown-menu-right">
-								<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i>
-									Export to .pdf</a> <a href="#" class="dropdown-item"><i
-									class="icon-file-excel"></i> Export to .csv</a> <a href="#"
-									class="dropdown-item"><i class="icon-file-word"></i> Export
-									to .doc</a>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Kennedy</td>
-				<td>Haley</td>
-				<td>Senior Marketing Designer</td>
-				<td>18 Dec 1960</td>
-				<td><span class="badge badge-success">Active</span></td>
-				<td class="text-center">
-					<div class="list-icons">
-						<div class="dropdown">
-							<a href="#" class="list-icons-item" data-toggle="dropdown"> <i
-								class="icon-menu9"></i>
-							</a>
-
-							<div class="dropdown-menu dropdown-menu-right">
-								<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i>
-									Export to .pdf</a> <a href="#" class="dropdown-item"><i
-									class="icon-file-excel"></i> Export to .csv</a> <a href="#"
-									class="dropdown-item"><i class="icon-file-word"></i> Export
-									to .doc</a>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Chantal</td>
-				<td><a href="#">Nailor</a></td>
-				<td>Technical Services Librarian</td>
-				<td>10 Jan 1980</td>
-				<td><span class="badge badge-secondary">Inactive</span></td>
-				<td class="text-center">
-					<div class="list-icons">
-						<div class="dropdown">
-							<a href="#" class="list-icons-item" data-toggle="dropdown"> <i
-								class="icon-menu9"></i>
-							</a>
-
-							<div class="dropdown-menu dropdown-menu-right">
-								<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i>
-									Export to .pdf</a> <a href="#" class="dropdown-item"><i
-									class="icon-file-excel"></i> Export to .csv</a> <a href="#"
-									class="dropdown-item"><i class="icon-file-word"></i> Export
-									to .doc</a>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Delma</td>
-				<td>Bonds</td>
-				<td>Lead Brand Manager</td>
-				<td>21 Dec 1968</td>
-				<td><span class="badge badge-info">Pending</span></td>
-				<td class="text-center">
-					<div class="list-icons">
-						<div class="dropdown">
-							<a href="#" class="list-icons-item" data-toggle="dropdown"> <i
-								class="icon-menu9"></i>
-							</a>
-
-							<div class="dropdown-menu dropdown-menu-right">
-								<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i>
-									Export to .pdf</a> <a href="#" class="dropdown-item"><i
-									class="icon-file-excel"></i> Export to .csv</a> <a href="#"
-									class="dropdown-item"><i class="icon-file-word"></i> Export
-									to .doc</a>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Roland</td>
-				<td>Salmos</td>
-				<td><a href="#">Senior Program Developer</a></td>
-				<td>5 Jun 1986</td>
-				<td><span class="badge badge-secondary">Inactive</span></td>
-				<td class="text-center">
-					<div class="list-icons">
-						<div class="dropdown">
-							<a href="#" class="list-icons-item" data-toggle="dropdown"> <i
-								class="icon-menu9"></i>
-							</a>
-
-							<div class="dropdown-menu dropdown-menu-right">
-								<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i>
-									Export to .pdf</a> <a href="#" class="dropdown-item"><i
-									class="icon-file-excel"></i> Export to .csv</a> <a href="#"
-									class="dropdown-item"><i class="icon-file-word"></i> Export
-									to .doc</a>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Coy</td>
-				<td>Wollard</td>
-				<td>Customer Service Operator</td>
-				<td>12 Oct 1982</td>
-				<td><span class="badge badge-success">Active</span></td>
-				<td class="text-center">
-					<div class="list-icons">
-						<div class="dropdown">
-							<a href="#" class="list-icons-item" data-toggle="dropdown"> <i
-								class="icon-menu9"></i>
-							</a>
-
-							<div class="dropdown-menu dropdown-menu-right">
-								<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i>
-									Export to .pdf</a> <a href="#" class="dropdown-item"><i
-									class="icon-file-excel"></i> Export to .csv</a> <a href="#"
-									class="dropdown-item"><i class="icon-file-word"></i> Export
-									to .doc</a>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Maxwell</td>
-				<td>Maben</td>
-				<td>Regional Representative</td>
-				<td>25 Feb 1988</td>
-				<td><span class="badge badge-danger">Suspended</span></td>
-				<td class="text-center">
-					<div class="list-icons">
-						<div class="dropdown">
-							<a href="#" class="list-icons-item" data-toggle="dropdown"> <i
-								class="icon-menu9"></i>
-							</a>
-
-							<div class="dropdown-menu dropdown-menu-right">
-								<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i>
-									Export to .pdf</a> <a href="#" class="dropdown-item"><i
-									class="icon-file-excel"></i> Export to .csv</a> <a href="#"
-									class="dropdown-item"><i class="icon-file-word"></i> Export
-									to .doc</a>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>Cicely</td>
-				<td>Sigler</td>
-				<td><a href="#">Senior Research Officer</a></td>
-				<td>15 Mar 1960</td>
-				<td><span class="badge badge-info">Pending</span></td>
-				<td class="text-center">
-					<div class="list-icons">
-						<div class="dropdown">
-							<a href="#" class="list-icons-item" data-toggle="dropdown"> <i
-								class="icon-menu9"></i>
-							</a>
-
-							<div class="dropdown-menu dropdown-menu-right">
-								<a href="#" class="dropdown-item"><i class="icon-file-pdf"></i>
-									Export to .pdf</a> <a href="#" class="dropdown-item"><i
-									class="icon-file-excel"></i> Export to .csv</a> <a href="#"
-									class="dropdown-item"><i class="icon-file-word"></i> Export
-									to .doc</a>
-							</div>
-						</div>
-					</div>
-				</td>
-			</tr>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
+	<form id="actionForm" action="memberList" method="get">
+		<select name="type">
+			<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
+			<option value="I" ${pageMaker.cri.type =='I'? 'selected' : "" }>아이디</option>
+			<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>이름</option>
+			<option value="P" ${pageMaker.cri.type =='P'? 'selected' : "" }>전화번호</option>
+			<option value="IN" ${pageMaker.cri.type =='IN'? 'selected' : "" }>아이디
+				OR 이름</option>
+			<option value="IP" ${pageMaker.cri.type =='IP'? 'selected' : "" }>아이디
+				OR 전화번호</option>
+			<option value="INP" ${pageMaker.cri.type =='INP'? 'selected' : "" }>아이디
+				OR 이름 OR 전화번호</option>
+		</select> <input name="keyword" value="${pageMaker.cri.keyword }"> <input
+			type="hidden" name="pageNum" value="1"> <input type="hidden"
+			name="amount" value="${pageMaker.cri.amount }">
+		<button class="btn btn-default">Search</button>
+	</form>
+	<div id="pageButton">
+		<c:if test="${pageMaker.prev }">
+			<a href="${pageMaker.startPage-1}">이전</a>
+		</c:if>
+		<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }"
+			var="num">
+			<a href="${num }">${num }</a>
+		</c:forEach>
+		<c:if test="${pageMaker.next }">
+			<a href="${pageMaker.endPage+1}">다음</a>
+		</c:if>
+	</div>
 </div>
-<!-- /basic datatable -->
+<div>
+	<button type="button" class="btn btn-defult"
+		onclick="location.href='register'">등록페이지</button>
+</div>
+<script>
+	$(function() {
+		var actionForm = $("#actionForm");
+
+		$(".move")
+				.on(
+						"click",
+						function(e) {
+							e.preventDefault();
+							var seq = $(this).attr("href"); //클릭한 게시글의 번호를 읽어와서 
+							actionForm
+									.append('<input type="hidden" name="seq" value="'+ seq +'">') //여기넣어주고
+							actionForm.attr("action", "modify") //바꾸기 앞에는 속성이름 뒤에는 바꾸는거
+							actionForm.submit(); //실행
+						});
+
+		$("#pageButton a").on("click", function(e) {
+			e.preventDefault(); //a, submit 경우에 쓸 수 있음 태그의 원래기능을 막고 정의한 함수 실행
+			var p = $(this).attr("href");
+			$('[name="pageNum"]').val(p);
+			actionForm.submit();
+		});
+	});
+</script>
