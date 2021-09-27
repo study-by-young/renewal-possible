@@ -113,6 +113,8 @@ input[type="radio"] {
 	margin: 0px;
 	padding: initial;
 	border: initial;
+	color: #6495ed;
+	transition: all ease 2s 0s;
 }
 
 .ins_text {
@@ -124,11 +126,11 @@ input[type="radio"] {
 }
 
 .insurance_select:hover {
-	box-shadow: 0 0 0 3px #000 inset;
+	box-shadow: 0 0 0 2px #6495ed inset;
 }
 
 .insurance_select:focus {
-	box-shadow: 0 0 0 3px #000 inset;
+	box-shadow: 0 0 0 2px #6495ed inset;
 }
 
 .order-billing .billing-form li label {
@@ -159,26 +161,8 @@ input[type="radio"] {
 </div>
 <!-- btc tittle Wrapper End -->
 
-<div class="float_left" style="margin-top: 3em; margin-bottom: 3em;">
-	<div class="container">
-		<div class="row">
-			<div>
-				<div class="page_link">
-					<div class="btc_tittle_right_cont_wrapper">
-						<ul>
-							<li><a href="#">Home</a> <i class="fa fa-angle-right"></i></li>
-							<li><a href="#">Cars</a> <i class="fa fa-angle-right"></i></li>
-							<li>Best Offers</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
 <!-- x car book sidebar section Wrapper Start -->
-<div class="x_car_book_sider_main_Wrapper float_left">
+<div class="x_car_book_sider_main_Wrapper float_left" style="margin-top: 100px;">
 	<div class="container">
 		<div class="row">
 			<div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12">
@@ -187,13 +171,13 @@ input[type="radio"] {
 						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<!-- Filter Results -->
 							<div class="car-filter accordion x_inner_car_acc_accor">
-								<h3>예약정보</h3>
+								<h3 style="padding-top: 20px;">예약정보</h3>
 								<hr>
 								<!-- Resources -->
 								<div class="x_car_access_filer_top_img">
 									<img src="images/c2.png" alt="car_img">
-									<h3 style="padding-left: 0px;">{모델명}</h3>
-									<p>{가격}</p>
+									<h3 style="padding-left: 0px;">{model}</h3>
+									<p>{price}</p>
 								</div>
 								<hr>
 								<!-- Company -->
@@ -247,9 +231,9 @@ input[type="radio"] {
 										<div class="panel-body">
 											<div class="x_car_acc_filter_date">
 												<ul>
-													<li>대여업체 <span>{업체명}</span>
+													<li>대여업체 <span>{name}</span>
 													</li>
-													<li>차량 <span>{모델명}{연식}{연료}</span>
+													<li>차량 <span>{model}{year}{fuel}</span>
 													</li>
 												</ul>
 											</div>
@@ -294,7 +278,7 @@ input[type="radio"] {
 								</div>
 								<div class="x_car_acc_filter_bottom_total">
 									<ul>
-										<li>총 결제금액 <span>{300,000}원</span>
+										<li>총 결제금액 <span>{가격+보험} 원</span> <!-- 차량 금액 + 보험 금액 -->
 										</li>
 									</ul>
 								</div>
@@ -328,10 +312,10 @@ input[type="radio"] {
 												<div class="panel-body">
 													<div class="x_car_acc_filter_date">
 														<div class="pay_select" style="padding-bottom: 20px; font-size: 15px;">
-															<div><font style="font-weight: bold;">차량정보</font> <span>{연식}{오토/수동}{문
+															<div><font style="font-weight: bold; color: black;">차량정보</font> <span>{연식}{오토/수동}{문
 																		개수}{배기량}{색상}{mission}{트렁크}</span>
 															</div>
-															<div><font style="font-weight: bold;">차량상세옵션</font> <span>{네비}{금연}{블랙박스}{에어컨}{어쩌구}{저쩌구}</span>
+															<div><font style="font-weight: bold; color: black;">차량상세옵션</font> <span>{네비}{금연}{블랙박스}{에어컨}{어쩌구}{저쩌구}</span>
 															</div>
 														</div>
 													</div>
@@ -345,27 +329,27 @@ input[type="radio"] {
 										<hr>
 									</div>
 
-									<!-- 예약자 정보 -->
+									<!-- form 예약자 정보 -->
 									<form class="billing-form">
 										<ul class="list-unstyled row col-lg-9">
-											<li class="col lg-12 col-md-12"><label>이름 * <input
-													type="text" placeholder="" class="form-style">
+											<li class="col lg-12 col-md-12"><label>이름 * 
+												<input id="name" name="name" placeholder="" class="form-style">
 											</label></li>
-											<li class="col-lg-12 col-md-12"><label>연락처 * <input
-													type="text" placeholder="" class="form-style">
+											<li class="col-lg-12 col-md-12"><label>연락처 * 
+												<input id="phone" name="phone" placeholder="" class="form-style">
 											</label></li>
-											<li class="col-lg-12 col-md-12"><label>생년월일 <input
-													type="text" placeholder="" class="form-style">
+											<li class="col-lg-12 col-md-12"><label>생년월일 
+												<input id="birth" name="birth" placeholder="" class="form-style">
 											</label></li>
-											<li class="col-lg-12 col-md-12"><label>이메일 * <input
-													type="email" placeholder="" class="form-style">
+											<li class="col-lg-12 col-md-12"><label>이메일 * 
+												<input id="email" name="email" placeholder="" class="form-style">
 											</label></li>
 										</ul>
 										
 										<div class="pay_select" style="margin-top: 40px; padding-bottom: 20px; border: 1px solid #363636;">
-											<img src="${pageContext.request.contextPath}/resources/images/licenseimg.svg"  style="align: center; padding: 10px;">
-											<div style="font-size: 14px; font-weight: 800; align: center;">차량 대여 시, 운전자는 운전면허증을 꼭 지참해주세요.</div>
-											<div style="font-size: 14px; align: center;">면허증 확인 및 계약서 작성이 꼭 필요합니다.</div>
+											<div style="text-align: center;"><img src="${pageContext.request.contextPath}/resources/images/licenseimg.svg"  style="align: center; padding: 10px;"></div>
+											<div style="font-size: 14px; font-weight: 800; text-align: center; color: black;">차량 대여 시, 운전자는 운전면허증을 꼭 지참해주세요.</div>
+											<div style="font-size: 14px; text-align: center;">면허증 확인 및 계약서 작성이 꼭 필요합니다.</div>
 										</div>
 										
 										<hr>
@@ -380,7 +364,7 @@ input[type="radio"] {
 												<div class="panel-body">
 													<div class="x_car_acc_filter_date">
 														<div class="insurance_select" id="ins1">
-															<div><div class="ins_text">일반자차</div> <input type="radio" id="ins_code1" name="insurance" value="ins_code1" checked> <span>+{0}원</span>
+															<div><div class="ins_text">일반자차</div>&nbsp;&nbsp;<input type="radio" id="ins_code1" name="insurance" value="ins_code1" checked> <span>+{0}원</span>
 															</div>
 															<div>만 26세 이상 / 면허 취득 1년 이상</div>
 															<hr>
@@ -395,7 +379,7 @@ input[type="radio"] {
 														<div class="panel-body">
 															<div class="x_car_acc_filter_date">
 																<div class="insurance_select" id="ins2">
-																	<div><div class="ins_text">완전자차</div> <input type="radio" id="ins_code2" name="insurance" value="ins_code2"> <span>+{4,850}원</span></div>
+																	<div><div class="ins_text">완전자차</div>&nbsp;&nbsp;<input type="radio" id="ins_code2" name="insurance" value="ins_code2"> <span>+{4,850}원</span></div>
 																	<div>만 26세 이상 / 면허 취득 2년 이상</div>
 																	<div><hr></div>
 																	<div>보상한도 <span>{200}만원</span></div>
@@ -439,7 +423,7 @@ input[type="radio"] {
 										</div>
 										<hr>
 									</form>
-									<!-- End of 예약자 정보 -->
+									<!-- End of form 예약자 정보 -->
 
 									<div class="x_car_detail_slider_bottom_cont float_left"
 										style="padding-top: 40px; padding-bottom: 50px;">
