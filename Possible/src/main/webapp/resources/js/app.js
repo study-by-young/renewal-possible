@@ -123,7 +123,7 @@ var App = function () {
 
             // Opposite sidebar visibility
             $('body').toggleClass('sidebar-right-visible');
-            
+
             // If visible
             if ($('body').hasClass('sidebar-right-visible')) {
                 $('body').addClass('sidebar-main-hidden');
@@ -340,9 +340,9 @@ var App = function () {
             e.preventDefault();
             var $target = $(this),
                 block = $target.closest('.card');
-            
+
             // Block card
-            $(block).block({ 
+            $(block).block({
                 message: '<i class="icon-spinner2 spinner"></i>',
                 overlayCSS: {
                     backgroundColor: '#fff',
@@ -360,7 +360,7 @@ var App = function () {
             // For demo purposes
             window.setTimeout(function () {
                $(block).unblock();
-            }, 2000); 
+            }, 2000);
         });
     };
 
@@ -572,4 +572,75 @@ document.addEventListener('DOMContentLoaded', function() {
 // When page is fully loaded
 window.addEventListener('load', function() {
     App.initAfterLoad();
+});
+
+
+/* ------------------------------------------------------------------------------
+ *
+ *  # CKEditor editor
+ *
+ *  Demo JS code for editor_ckeditor.html page
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+// Setup module
+// ------------------------------
+
+var CKEditor = function() {
+
+
+    //
+    // Setup module components
+    //
+
+    // CKEditor
+    var _componentCKEditor = function() {
+        if (typeof CKEDITOR == 'undefined') {
+            console.warn('Warning - ckeditor.js is not loaded.');
+            return;
+        }
+
+
+        // Full featured editor
+        // ------------------------------
+
+        // Setup
+        CKEDITOR.replace('editor-full', {
+            height: 400,
+            extraPlugins: 'forms'
+        });
+    };
+
+    // Select2
+    var _componentSelect2 = function() {
+        if (!$().select2) {
+            console.warn('Warning - select2.min.js is not loaded.');
+            return;
+        };
+
+        // Default initialization
+        $('.form-control-select2').select2({
+            minimumResultsForSearch: Infinity
+        });
+    };
+
+    //
+    // Return objects assigned to module
+    //
+
+    return {
+        init: function() {
+            _componentCKEditor();
+            _componentSelect2();
+        }
+    }
+}();
+
+
+// Initialize module
+// ------------------------------
+
+document.addEventListener('DOMContentLoaded', function() {
+    CKEditor.init();
 });

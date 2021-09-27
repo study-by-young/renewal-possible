@@ -1,4 +1,4 @@
-package com.yedam.possable.app.rent.domain;
+package com.yedam.possable.app.car.domain;
 
 import lombok.Data;
 

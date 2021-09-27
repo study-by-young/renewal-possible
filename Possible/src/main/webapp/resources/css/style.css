@@ -25,12 +25,11 @@ html {
     line-height: 23px;
     color: #797979;
     background: #f9f9f9;
-    overflow-x: hidden;
-    -webkit-transition: all 0.5s;
-    -o-transition: all 0.5s;
-    -ms-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    transition: all 0.5s;
+    /*-webkit-transition: all 0.5s;*/
+    /*-o-transition: all 0.5s;*/
+    /*-ms-transition: all 0.5s;*/
+    /*-moz-transition: all 0.5s;*/
+    /*transition: all 0.5s;*/
 }
 
 a {
@@ -151,9 +150,9 @@ ul {
 #status img {}
 
 #return-to-top {
-    position: absolute;
-    top: -25px;
-    right: 150px;
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
     background: #4f5dec;
     width: 50px;
     height: 50px;
@@ -162,7 +161,6 @@ ul {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    display: none;
     -webkit-transition: all 0.3s linear;
     -moz-transition: all 0.3s ease;
     -ms-transition: all 0.3s ease;
@@ -3662,9 +3660,8 @@ html .ui-button.ui-state-disabled:active {
 .x_footer_top_main_wrapper {
     float: left;
     width: 100%;
-    background: #111111;
-    padding-top: 60px;
-    padding-bottom: 60px;
+    background: #fff;
+    padding: 15px 0;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
@@ -3679,10 +3676,11 @@ html .ui-button.ui-state-disabled:active {
 }
 
 .x_footer_top_title_box_icon_cont {
-    float: right;
-    text-align: right;
     margin-left: 80px;
-    margin-top: 10px;
+}
+
+.x_footer_top_title_box {
+    display:inline-block;
 }
 
 .x_footer_top_title_box1 {
@@ -3691,7 +3689,7 @@ html .ui-button.ui-state-disabled:active {
 
 .x_footer_top_title_box_icon_cont h3 {
     font-size: 16px;
-    color: #ffffff;
+    color: #222;
     font-weight: 600;
     text-transform: uppercase;
     display: inline-block;
@@ -3923,7 +3921,7 @@ html .ui-button.ui-state-disabled:active {
 /**********---------------- CAR BOOKING CSS START --------------****************/
 /*-- btc Tittle Wrapper Start --*/
 .btc_tittle_main_wrapper {
-    background: url('../images/title_bg.jpg') 50% 0 repeat-y;
+    background: #6495ed;
     background-size: cover;
     background-position: center 0;
     background-repeat: no-repeat;
@@ -3942,7 +3940,6 @@ html .ui-button.ui-state-disabled:active {
     bottom: 0%;
     left: 0%;
     right: 0%;
-    background: rgba(0, 0, 0, 0.6);
 }
 
 .btc_tittle_left_heading {
@@ -4019,7 +4016,6 @@ html .ui-button.ui-state-disabled:active {
     padding: 60px 30px;
     margin-top: 100px;
     margin-bottom: 60px;
-    overflow: hidden;
 }
 
 .x_title_num_heading {

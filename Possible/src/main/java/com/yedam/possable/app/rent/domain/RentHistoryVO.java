@@ -1,5 +1,6 @@
 package com.yedam.possable.app.rent.domain;
 
+import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.member.domain.MemberVO;
 import lombok.Data;
 
