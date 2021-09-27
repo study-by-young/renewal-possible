@@ -32,4 +32,9 @@ public class rentController {
 	public String registration() {
 		return "car/registration";
 	}
+
+	@GetMapping("/listbackup")
+	public String listbackup() {
+		return "car/listbackup";
+	}
 }

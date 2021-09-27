@@ -22,14 +22,46 @@
 	margin-bottom: 20px;
 	border-radius: 5px;
 }
+.bir_dd, .bir_mm, .bir_yy {
+    display: table-cell;
+    table-layout: fixed;
+    width: 147px;
+    vertical-align: middle;
+
+.bir_wrap, .name_wrap {
+    display: table;
+    width: 100%;
+}
+.ps_box, .ps_box_disable {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 51px;
+    border: solid 1px #dadada;
+    padding: 10px 110px 10px 14px;
+    background: #fff;
+    box-sizing: border-box;
+    vertical-align: top;
+
+.bir_wrap {
+    display: table;
+    width: 100%;
+}    
+.register_wrap {
+    margin-top: 15px;
+}
+}
 </style>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+
 <div class="x_partner_main_wrapper float_left padding_tb_100">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="x_offer_car_heading_wrapper float_left">
 						<h4>Register Got Your Account</h4>
-						<h3>회원가입</h3>
+						<h3 class="py-2 my-2">여행갈카 회원가입</h3>
 					</div>
 				</div>
 			</div>
@@ -37,10 +69,13 @@
                <div class="col-xl-8 offset-xl-2 col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-12">
                    <div class="row">
                    		 <div class="card">
-                        	<h3 class="card-title text-center mb-5 fw-light fs-5">여행갈카 회원가입</h3>
+                        	<div class="x_offer_car_heading_wrapper float_left">
+								<div class=" d-none d-sm-none d-xs-none d-md-block text-center">
+                        			<img src="${pageContext.request.contextPath}/resources/images/logo.png" class="img-responsive my-4" alt="logo" title="Logo" style="width: 120px;" />
+                				</div>
+							</div>
                         	<div class="card-body">
                         		<form id="frm" name="frm">
-                        			
                         			<div class="row">
 	                        			<div class="form-group col-md-12 col-sm-6 col-xs-12">
 	                                		<label for="InputEmail">아이디 입력*</label>
@@ -50,115 +85,237 @@
   									<div class="row">
   										<div class="form-group col-md-6 col-sm-3">
   											<label for="InputId">비밀번호</label>
-	                                    	<input type="password" class="form-control"  name="field-name" value="" placeholder="password*">
+	                                    	<input type="password" class="form-control"  id="password" name="password" placeholder="비밀번호입력*">
   										</div>
   										<div class="form-group col-md-6 col-sm-3">
   											<label for="InputId">비밀번호 확인</label>
-	                                    	<input type="password" class="form-control" name="field-name" value="" placeholder="re-enter password*">
+	                                    	<input type="password" class="form-control"  id="passcheck" name="passcheck"  placeholder="비밀번호 확인">
 	                                	</div>
 	                                </div>
-	                                <div class="form-row">
+	                                <!-- 생년월일 Start -->
+	                                <div class="row">
 	                                	<div class="form-group col-md-4 col-sm-6 col-xs-12">
-											<select name="brthdyYear" id="brthdyYear" class="selectpicker">
-												<option value="" selected="selected">선택</option>
-												<option value="1931">1931</option><option value="1932">1932</option><option value="1933">1933</option>
-												<option value="1934">1934</option><option value="1935">1935</option><option value="1936">1936</option>
-												<option value="1937">1937</option><option value="1938">1938</option><option value="1939">1939</option>
-												<option value="1940">1940</option><option value="1941">1941</option><option value="1942">1942</option>
-												<option value="1943">1943</option><option value="1944">1944</option><option value="1945">1945</option>
-												<option value="1946">1946</option><option value="1947">1947</option><option value="1948">1948</option>
-												<option value="1949">1949</option><option value="1950">1950</option><option value="1951">1951</option>
-												<option value="1952">1952</option><option value="1953">1953</option><option value="1954">1954</option>
-												<option value="1955">1955</option><option value="1956">1956</option><option value="1957">1957</option>
-												<option value="1958">1958</option><option value="1959">1959</option><option value="1960">1960</option>
-												<option value="1961">1961</option><option value="1962">1962</option><option value="1963">1963</option>
-												<option value="1964">1964</option><option value="1965">1965</option><option value="1966">1966</option>
-												<option value="1967">1967</option><option value="1968">1968</option><option value="1969">1969</option>
-												<option value="1970">1970</option><option value="1971">1971</option><option value="1972">1972</option>
-												<option value="1973">1973</option><option value="1974">1974</option><option value="1975">1975</option>
-												<option value="1976">1976</option><option value="1977">1977</option><option value="1978">1978</option>
-												<option value="1979">1979</option><option value="1980">1980</option><option value="1981">1981</option>
-												<option value="1982">1982</option><option value="1983">1983</option><option value="1984">1984</option>
-												<option value="1985">1985</option><option value="1986">1986</option><option value="1987">1987</option>
-												<option value="1988">1988</option><option value="1989">1989</option><option value="1990">1990</option>
-												<option value="1991">1991</option><option value="1992">1992</option><option value="1993">1993</option>
-												<option value="1994">1994</option><option value="1995">1995</option><option value="1996">1996</option>
-												<option value="1997">1997</option><option value="1998">1998</option><option value="1999">1999</option>
-												<option value="2000">2000</option><option value="2001">2001</option><option value="2002">2002</option>
-											</select>
-											<span class="letter">년</span>
+	                                		<label for="yy">생년월일</label>
+	                                		<!-- 년 입력 Start -->
+	                                		<div class="bir_yy">
+												<span class="ps_box">
+													<input type="text" class="form-control" id="yy" name="yy" placeholder="년(4자)" aria-label="년(4자)" class="int" maxlength="4">
+												</span>
+                            				</div>
+                            				<!-- 년 입력 End -->
+                            			</div>	
+                            				<!-- 월 입력 Start -->
+                            			<div class="form-group col-md-2 col-sm-6 col-xs-12 my-4">	
+                            				<div class="bir_mm">
+												<span class="ps_box">
+													<select id="mm" class="sel" aria-label="월">
+														<option value="">월</option>
+														<option value="01">1</option>
+														<option value="02">2</option>
+														<option value="03">3</option>
+														<option value="04">4</option>
+														<option value="05">5</option>
+														<option value="06">6</option>
+														<option value="07">7</option>
+														<option value="08">8</option>
+														<option value="09">9</option>
+														<option value="10">10</option>
+														<option value="11">11</option>
+														<option value="12">12</option>
+													</select>
+												</span>
+                            				</div>
+                            			</div>
+                            			<!-- 월 입력 end -->
+	                                		
+	                                	<!-- 일 입력 start -->
+	                                	<div class="form-group col-md-4 col-sm-6 col-xs-12 my-4">	   
+				                            <div class=" bir_dd">
+												<span class="ps_box">
+													<input type="text" id="dd" class="form-control" placeholder="일" aria-label="일" class="int" maxlength="2">
+													<label for="dd" class="lbl"></label>
+												</span>
+				                            </div>
+				                       </div>     
+				                        <!-- 일 입력 end -->
+				                        <span class="error_next_box" id="birthdayMsg" style="display:none" aria-live="assertive"></span>
+	                                </div>
+	                                	<!-- 생년월일 end -->
+	                                	<!-- 이메일 Start -->
+	                                <div class="row">
+	                        			<div class="form-group col-md-12 col-sm-6 col-xs-12">
+	                                		<label for="InputEmail">이메일*</label>
+	                                    	<input type="text" class="form-control" id="email" name="email" value="" placeholder="이메일입력*">
+	                               		</div>
+                        			</div>
+                        				<!-- 이메일 end -->
+                        					
+                        				<!-- 우편번호 Start -->
+                      						<label for="InputAddr">주소*</label>	
+                        				<div class="form-group"> 
+                        					<input type="text" class="form-control" id="addrCode" name="addrCode" placeholder="우편번호" style="width: 60%; display: inline;">
+											 <button type="button" class="btn btn-default" onclick="DaumPostcode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                      
+                        				</div>
+                        				<div class="form-group"> 
+											<input type="text" class="form-control" id="addrBasic" name="addrBasic" placeholder="주소">
 										</div>
-										<div class="form-group col-md-4 col-sm-4 col-xs-12">
-											<select name="brthdyMonth" id="brthdyMonth" class="selectpicker">
-												<option value="" selected="selected">선택</option>
-												<option value="01">1</option><option value="02">2</option><option value="03">3</option>
-												<option value="04">4</option><option value="05">5</option><option value="06">6</option>
-												<option value="07">7</option><option value="08">8</option><option value="09">9</option>
-												<option value="10">10</option><option value="11">11</option><option value="12">12</option>
-											</select>
-											<span class="letter">월</span>
-										</div>
-									
-									<select name="brthdyDay" id="brthdyDay" class="w130"><option value="" selected="selected">선택</option><option value="01">1</option><option value="02">2</option><option value="03">3</option><option value="04">4</option><option value="05">5</option><option value="06">6</option><option value="07">7</option><option value="08">8</option><option value="09">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option><option value="13">13</option><option value="14">14</option><option value="15">15</option><option value="16">16</option><option value="17">17</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option></select><span class="letter">일</span>
-									</div>
-	                                
-  	                      		</form>
+										<div class="form-group"> 
+											<input type="text" class="form-control" id="addrDetail" placeholder="상세주소" style="width: 50%; display: inline;">
+											<input type="text" class="form-control" id="extraAddress" placeholder="참고항목" style="width: 40%; display: inline;">
+  	                      				</div>
+  	                      				<!-- 주소 종료 -->
+  	                      				
+  	                      				<!-- 번호 Start-->
+  	                      				 <div class="row">
+  	                      				 	<div class="form-group col-md-12 col-sm-6 col-xs-12">
+  	                      				 	<label for="InputAddr">휴대전화*</label>
+	  	                      				 	<div class="form-group"> 
+		                        					<input type="text" class="form-control" id="phone" name="phone" placeholder="전화번호 입력" style="width: 60%; display: inline;">
+													 <button type="button" class="btn btn-primary" onclick="">인증번호 받기</button>                      
+	                        					</div>
+                        					</div>
+  	                      				 </div>
+  	                      				<!-- 번호 end -->
+  	                      				  <div class="login_btn_wrapper register_wrap register_wrapper_btn">
+                                			<a href="#" class="btn btn-primary btn-lg btn-block login_btn">회원가입 </a>
+                            			  </div> 
+  	                      			</form>
+	                            		  <div><hr class="hr-or"></div>
+		                                  
+		                                  <div class="login_message">
+                                			<p>이미 회원이신가요? <a href="loginForm"> 로그인 하러 가기 </a> </p>
+                           				  </div>	
+		                                
+	                             	  	  
+	                                </div>
                         	</div>
                    		</div>
-                            
-                               
-                                <!--Form Group-->
-                              
-	                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-	                                    <input type="password" name="field-name" value="" placeholder="password*">
-	                                </div>
-	                                
-	                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-	                                    <input type="password" name="field-name" value="" placeholder="re-enter password*">
-	                                </div>
-                              
+                 </div>
+            </div>
+      </div>
+  </div>    
 
-                                <!--Form Group-->
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="field-name" value="" placeholder="phone">
-                                </div>
 
-                                <!--Form Group-->
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="field-name" value="" placeholder="company name">
-                                </div>
 
-                                <!--Form Group-->
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="field-name" value="" placeholder="website">
-                                </div>
-                                
-                                <!--Form Group-->
-                                <div class="form-group col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="field-name" value="" placeholder="address line">
-                                </div>
 
-                                <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                    <div class="check-box text-center">
-                                        <input type="checkbox" name="shipping-option" id="account-option_2"> &ensp;
-                                        <label for="account-option_2" class="label_2">I agreed to the <a href="#" class="check_box_anchr">Terms and Conditions</a> governing the use of weapon store</label>
-                                    </div>
-                                </div>
-                            </form>
-                            </div>
-                            </div>
-                            </div>
+<script>
+function checkBirthday() {
+	var submitFlag = false;
+    var birthday;
+    var yy = $("#yy").val();
+    var mm = $("#mm option:selected").val();
+    var dd = $("#dd").val();
+    var oMsg = $("#birthdayMsg");
+    var lang = "ko_KR";
 
-                            <div class="login_btn_wrapper register_btn_wrapper login_wrapper register_wrapper_btn">
-                                <a href="#" class="btn btn-primary login_btn"> register </a>
-                            </div>
-                            <div class="login_message">
-                                <p>Already a member? <a href="login.html"> Login Here </a> </p>
-                            </div>
+    var oyy = $("#yy");
+    var omm = $("#mm");
+    var odd = $("#dd");
 
-                        </div>
+    if (yy == "" && mm == "" && dd == "") {
+        showErrorMsg(oMsg,"태어난 년도 4자리를 정확하게 입력하세요.");
+        setFocusToInputObject(oyy);
+        return false;
+    }
 
-                    </div>
-                    <p class="btm_txt_register_form">In case you are using a public/shared computer we recommend that you logout to prevent any un-authorized access to your account</p>
-                        <!-- /.login_wrapper-->
-                
+    if (mm.length == 1) {
+        mm = "0" + mm;
+    }
+    if (dd.length == 1) {
+        dd = "0" + dd;
+    }
+
+    if(yy == "") {
+        showErrorMsg(oMsg,"태어난 년도 4자리를 정확하게 입력하세요.");
+        setFocusToInputObject(oyy);
+        return false;
+    }
+    if(yy.length != 4 || yy.indexOf('e') != -1 || yy.indexOf('E') != -1) {
+        showErrorMsg(oMsg,"태어난 년도 4자리를 정확하게 입력하세요.");
+        setFocusToInputObject(oyy);
+        return false;
+    }
+    if(mm == "") {
+        showErrorMsg(oMsg,"태어난 월을 선택하세요.");
+        setFocusToInputObject(omm);
+        return false;
+    }
+    if(dd == "") {
+        showErrorMsg(oMsg,"태어난 일(날짜) 2자리를 정확하게 입력하세요.");
+        setFocusToInputObject(odd);
+        return false;
+    }
+    if(dd.length != 2 || dd.indexOf('e') != -1 || dd.indexOf('E') != -1) {
+        showErrorMsg(oMsg,"태어난 일(날짜) 2자리를 정확하게 입력하세요.");
+        setFocusToInputObject(odd);
+        return false;
+    }
+
+    birthday = yy + mm + dd;
+    if (!isValidDate(birthday)) {
+        showErrorMsg(oMsg,"생년월일을 다시 확인해주세요.");
+        setFocusToInputObject(oyy);
+        return false;
+    }
+} 
+function showErrorMsg(obj, msg) {
+    obj.attr("class", "error_next_box");
+    obj.html(msg);
+    obj.show();
+}
+function setFocusToInputObject(obj) {
+    if(submitFlag) {
+        submitFlag = false;
+        obj.focus();
+    }
+}
+//지도 api
+   function DaumPostcode() {
+       new daum.Postcode({
+           oncomplete: function(data) {
+               // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+               // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+               // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+               var addr = ''; // 주소 변수
+               var extraAddr = ''; // 참고항목 변수
+
+               //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+               if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                   addr = data.roadAddress;
+               } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                   addr = data.jibunAddress;
+               }
+
+               // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+               if(data.userSelectedType === 'R'){
+                   // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                   // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                   if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                       extraAddr += data.bname;
+                   }
+                   // 건물명이 있고, 공동주택일 경우 추가한다.
+                   if(data.buildingName !== '' && data.apartment === 'Y'){
+                       extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                   }
+                   // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                   if(extraAddr !== ''){
+                       extraAddr = ' (' + extraAddr + ')';
+                   }
+                   // 조합된 참고항목을 해당 필드에 넣는다.
+                   document.getElementById("extraAddress").value = extraAddr;
+               		
+               } else {
+                   document.getElementById("extraAddress").value = '';
+               }
+
+               // 우편번호와 주소 정보를 해당 필드에 넣는다.
+               $("[name=addrCode]").val(data.zonecode);
+               $("[name=addrBasic]").val(addr)
+               // 커서를 상세주소 필드로 이동한다.
+             	$('#addrDetail').focus();
+           }
+       }).open();
+   }
+</script>
+   
