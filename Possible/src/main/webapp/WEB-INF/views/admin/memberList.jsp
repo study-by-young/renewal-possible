@@ -22,7 +22,7 @@
 
 .select {
 	width: 70px; /* 원하는 너비설정 */
-	padding: .4em .4em; /* 여백으로 높이 설정 */
+	padding: .5em .4em; /* 여백으로 높이 설정 */
 	border: 1px solid #999;
 	font-family: inherit; /* 폰트 상속 */
 	-webkit-appearance: none; /* 네이티브 외형 감추기 */
@@ -33,7 +33,7 @@
 
 .input {
 	width: 200px; /* 원하는 너비설정 */
-	padding: .4em .4em; /* 여백으로 높이 설정 */
+	padding: .5em .4em; /* 여백으로 높이 설정 */
 	border: 1px solid #999;
 	font-family: inherit; /* 폰트 상속 */
 	-webkit-appearance: none; /* 네이티브 외형 감추기 */
@@ -42,8 +42,8 @@
 	appearance: none;
 }
 </style>
-
-<div class="col-md-12">
+<div align="center">
+<div class="col-md-8">
 	<div class="blog_single_comment_heading">
 		<h4>회원 관리</h4>
 	</div>
@@ -58,7 +58,7 @@
 			</select> <input class="input" name="keyword" value="${pageMaker.cri.keyword }"> <input
 				type="hidden" name="pageNum" value="1"> <input type="hidden"
 				name="amount" value="${pageMaker.cri.amount }">
-			<button class="btn">Search</button>
+			<button class="btn btn-primary">Search</button>
 		</form>
 	</div>
 	<br>
@@ -106,7 +106,7 @@
 	</div>
 	</div>
 </div>
-
+</div>
 <script>
 	$(function() {
 		var actionForm = $("#actionForm");
