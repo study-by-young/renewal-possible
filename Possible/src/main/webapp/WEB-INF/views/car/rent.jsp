@@ -3,6 +3,27 @@
 	pageEncoding="UTF-8"%>
 
 <style>
+
+.form-style {
+    display: block;
+    width: 100%;
+    height: calc(1.5385em + 1rem + 2px);
+    padding: .5rem 1rem;
+    font-size: .8125rem;
+    font-weight: 400;
+    line-height: 1.5385;
+    color: #333;
+    background-color: transparent;
+    background-clip: padding-box;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    box-shadow: 0 0 0 0 transparent;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    background-clip: border-box;
+    border-width: 1px 0;
+    border-top-color: rgb(238, 238, 238);
+}
+
 .page_link ul {
 	background: #e6e6e6;
 	float: right;
@@ -21,14 +42,12 @@
 	border-radius: 10px;
 	margin-bottom: 15px;
 }
-  
+
 .insurance_select {
 	width: 98%;
 	background-color: white;
-    padding: 15px;
-    padding-top: 10px;
-    padding-bottom: 3px;
-    -webkit-border-radius: 10px;
+	padding: 15px;
+	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 	cursor: pointer;
@@ -37,12 +56,71 @@
 .insurance_select {
 	width: 98%;
 	background-color: white;
-    padding: 15px;
-    padding-top: 10px;
-    padding-bottom: 3px;
-    -webkit-border-radius: 10px;
+	padding: 20px;
+	margin-bottom: 20px;
+	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
+	box-shadow: 0 0 0 1px #e6e6e6 inset;
+}
+
+.pay_select {
+	width: 98%;
+	background-color: white;
+	padding: 20px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	padding-bottom: 47px;
+	box-shadow: 0 0 0 1px #e6e6e6 inset;
+}
+
+.insurance_select hr {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.insurance_select input {
+	opacity: 100%;
+}
+
+.car-filter {
+	float: left;
+	width: 100%;
+	background: #ffffff;
+	position: relative;
+	min-height: 50px;
+	animation-delay: 2.6s;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	padding-top: 0;
+}
+
+.car_booking_onliy_side {
+	padding: 0px;
+	margin-top: 0px;
+}
+
+input[type="radio"] {
+	float: none;
+    width: 14px;
+    height: 14px;
+	background-color: initial;
+	cursor: default;
+	appearance: auto;
+	box-sizing: border-box;
+	margin: 0px;
+	padding: initial;
+	border: initial;
+}
+
+.ins_text {
+    display: block;	
+    font-size: 1rem;
+    font-weight: 800 !important;
+    float: left;
+    color: black;
 }
 
 .insurance_select:hover {
@@ -53,209 +131,18 @@
 	box-shadow: 0 0 0 3px #000 inset;
 }
 
-
-#sii_container_insurance_sel_table {
-    position: relative;
+.order-billing .billing-form li label {
+    line-height: 20px;
+    margin: 0px;
+    text-transform: uppercase;
+    font-weight: 800;
+    font-size: 16px;
+    width: 100%;
+    color: #111;
 }
 
-.clickable {
-    cursor: pointer;
-}
-
-.vreserv-box-insurance.active {
-    -webkit-box-shadow: 0 3px 12px 0 rgb(187 203 225 / 50%);
-    box-shadow: 0 3px 12px 0 rgb(187 203 225 / 50%);
-    border: solid 1px #8ebdff;
-}
-
-.vreserv-box-insurance {
-    background: #fff;
-    border-radius: 16px;
-    border: solid 1px #f3f3f3;
-}
-
-.p-3 {
-    padding: 1rem !important;
-}
-
-.dc-flex {
-    display: -ms-flexbox;
-    display: flex;
-}
-
-
-.align-items-center {
-    -ms-flex-align: center !important;
-    align-items: center !important;
-}
-
-.justify-content-between {
-    -ms-flex-pack: justify !important;
-    justify-content: space-between !important;
-}
-
-
-.checkbox-container {
-    position: relative;
-    padding-left: 16px;
-    font-size: 14px;
-    cursor: pointer;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-.vreserv-box-insurance.active .txt-insurance-title, .vreserv-box-insurance.active .txt-insurance-price {
-    color: #0d6ffc;
-}
-
-.vreserv-box-insurance .txt-insurance-title, .vreserv-box-insurance .txt-insurance-price {
-    color: #666;
-}
-
-.checkbox-container .checkbox-label {
-    margin-left: 4px;
-}
-
-.text-16 {
-    font-size: 1rem;
-}
-
-.font-weight-bold {
-    font-weight: 700 !important;
-}
-
-.ml-2, .mx-2 {
-    margin-left: 0.5rem !important;
-}
-
-.checkbox-container input {
-    position: absolute;
-    opacity: 0;
-}
-
-input[type="radio"], input[type="checkbox"] {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 0;
-}
-
-button, input {
-    overflow: visible;
-}
-
-input, button, select, optgroup, textarea {
-    margin: 0;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-}
-
-input[type="checkbox" i] {
-    background-color: initial;
-    cursor: default;
-    appearance: auto;
-    box-sizing: border-box;
-    margin: 3px 3px 3px 4px;
-    padding: initial;
-    border: initial;
-}
-
-input {
-    -webkit-writing-mode: horizontal-tb !important;
-    font-style: ;
-    font-variant-ligatures: ;
-    font-variant-caps: ;
-    font-variant-numeric: ;
-    font-variant-east-asian: ;
-    font-weight: ;
-    font-stretch: ;
-    font-size: ;
-    font-family: ;
-    text-rendering: auto;
-    color: -internal-light-dark(black, white);
-    letter-spacing: normal;
-    word-spacing: normal;
-    line-height: normal;
-    text-transform: none;
-    text-indent: 0px;
-    text-shadow: none;
-    display: inline-block;
-    text-align: start;
-    appearance: auto;
-    -webkit-rtl-ordering: logical;
-    cursor: text;
-    background-color: -internal-light-dark(rgb(255, 255, 255), rgb(59, 59, 59));
-    margin: 0em;
-    padding: 1px 2px;
-    border-width: 2px;
-    border-style: inset;
-    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
-    border-image: initial;
-}
-
-.checkbox-container .checkmark {
-    position: absolute;
-    top: 2px;
-    left: 0;
-    width: 16px;
-    height: 16px;
-    background-color: #fff;
-    border: solid 1px #999;
-    -webkit-transition: all 0.1s ease-in-out;
-    -o-transition: all 0.1s ease-in-out;
-    transition: all 0.1s ease-in-out;
-}
-
-.mt-1, .my-1 {
-    margin-top: 0.25rem !important;
-}
-
-.checkbox-container input:checked ~ .checkmark {
-    background-color: #0d6ffc;
-    border: solid 1px #0d6ffc;
-    -webkit-transition: all 0.1s ease-in-out;
-    -o-transition: all 0.1s ease-in-out;
-    transition: all 0.1s ease-in-out;
-}
-
-.checkmark::after {
-    position: absolute;
-    display: none;
-    content: '';
-}
-
-.vreserv-box-insurance.active .txt-insurance-title, .vreserv-box-insurance.active .txt-insurance-price {
-    color: #0d6ffc;
-}
-
-.vreserv-box-insurance .txt-insurance-title, .vreserv-box-insurance .txt-insurance-price {
-    color: #666;
-}
-
-.text-14 {
-    font-size: 0.875rem;
-}
-
-.badge, .text-24, .text-28, .text-20, .text-16-b, .text-18-b, .text-12, .text-10, .text-14 {
-    letter-spacing: -0.05em;
-    word-spacing: 0.01em;
-}
-
-.font-weight-bold {
-    font-weight: 700 !important;
-}
-
-.mt-2, .my-2 {
-    margin-top: 0.5rem !important;
-}
-
-*, *::before, *::after {
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-}
 </style>
+
 
 <!-- btc tittle Wrapper Start -->
 <div class="btc_tittle_main_wrapper">
@@ -310,12 +197,12 @@ input {
 								</div>
 								<hr>
 								<!-- Company -->
-								
+
 								<div
 									class="panel panel-default x_car_inner_acc_acordion_padding x_car_inner_acc_acordion_padding_last">
 									<div class="panel-heading car_checkout_caret">
 										<h5 class="panel-title">
-											<a href="#"> 대여 일시 & 장소</a>
+											<a href="#"> 대여일시&장소</a>
 										</h5>
 									</div>
 									<div class="collapse show">
@@ -334,7 +221,7 @@ input {
 									class="panel panel-default x_car_inner_acc_acordion_padding x_car_inner_acc_acordion_padding_last">
 									<div class="panel-heading car_checkout_caret">
 										<h5 class="panel-title">
-											<a href="#"> 반납 일시 & 장소</a>
+											<a href="#"> 반납일시&장소</a>
 										</h5>
 									</div>
 									<div class="collapse show">
@@ -421,242 +308,178 @@ input {
 					<div class="row">
 						<div class="col-md-12">
 							<div class="x_car_checkout_right_main_box_wrapper float_left">
-							
+
 								<!-- 결제정보 -->
 								<div class="car-filter order-billing margin-top-0">
 									<div class="heading-block text-left margin-bottom-0">
 										<h4>결제정보</h4>
 									</div>
 									<hr>
-									
+
+									<div class="x_car_detail_slider_bottom_cont float_left" style="padding-top: 0px; padding-bottom: 40px;">
+
+										<div class="car-filter accordion car_booking_onliy_side" style="padding-top: 0px;">
+											<!-- Resources -->
+											<div class="panel panel-default">
+
+										<!-- 보험 -->
+										<div class="payme-opton">
+											<div class="collapse show">
+												<div class="panel-body">
+													<div class="x_car_acc_filter_date">
+														<div class="pay_select" style="padding-bottom: 20px; font-size: 15px;">
+															<div><font style="font-weight: bold;">차량정보</font> <span>{연식}{오토/수동}{문
+																		개수}{배기량}{색상}{mission}{트렁크}</span>
+															</div>
+															<div><font style="font-weight: bold;">차량상세옵션</font> <span>{네비}{금연}{블랙박스}{에어컨}{어쩌구}{저쩌구}</span>
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>
+										</div>
+													
+											</div>
+										</div>
+										<hr>
+									</div>
+
 									<!-- 예약자 정보 -->
 									<form class="billing-form">
-										<ul class="list-unstyled row">
-											<li class="col-md-6"><label>이름 * <input
-													type="text" placeholder="" class="form-control">
+										<ul class="list-unstyled row col-lg-9">
+											<li class="col lg-12 col-md-12"><label>이름 * <input
+													type="text" placeholder="" class="form-style">
 											</label></li>
-											<li class="col-md-6"><label>연락처 * <input
-													type="text" placeholder="" class="form-control">
+											<li class="col-lg-12 col-md-12"><label>연락처 * <input
+													type="text" placeholder="" class="form-style">
 											</label></li>
-											<li class="col-md-6"><label>생년월일
-													<input type="text" placeholder="" class="form-control">
+											<li class="col-lg-12 col-md-12"><label>생년월일 <input
+													type="text" placeholder="" class="form-style">
 											</label></li>
-											<li class="col-md-6"><label>이메일 * <input
-													type="email" placeholder="" class="form-control">
+											<li class="col-lg-12 col-md-12"><label>이메일 * <input
+													type="email" placeholder="" class="form-style">
 											</label></li>
 										</ul>
-										<hr>
 										
+										<div class="pay_select" style="margin-top: 40px; padding-bottom: 20px; border: 1px solid #363636;">
+											<img src="${pageContext.request.contextPath}/resources/images/licenseimg.svg"  style="align: center; padding: 10px;">
+											<div style="font-size: 14px; font-weight: 800; align: center;">차량 대여 시, 운전자는 운전면허증을 꼭 지참해주세요.</div>
+											<div style="font-size: 14px; align: center;">면허증 확인 및 계약서 작성이 꼭 필요합니다.</div>
+										</div>
+										
+										<hr>
+
 										<!-- 보험 -->
 										<div class="payme-opton">
 											<div class="heading-block text-left margin-bottom-30">
 												<h4>자동차보험</h4>
 											</div>
-											
+
 											<div class="collapse show">
 												<div class="panel-body">
 													<div class="x_car_acc_filter_date">
-														<ul class="insurance_select">
-															<li>일반자차 <span>+{0}원</span></li>
-															<li>만 26세 이상 / 면허 취득 1년 이상</li>
-															<li><hr></li>
-															<li>보상한도 <span>{200}만원</span></li>
-															<li>자기부담금 <span>10~30만원</span></li>
-														</ul>
+														<div class="insurance_select" id="ins1">
+															<div><div class="ins_text">일반자차</div> <input type="radio" id="ins_code1" name="insurance" value="ins_code1" checked> <span>+{0}원</span>
+															</div>
+															<div>만 26세 이상 / 면허 취득 1년 이상</div>
+															<hr>
+															<div>보상한도 <span>{200}만원</span>
+															</div>
+															<div>자기부담금 <span>10~30만원</span>
+															</div>
+														</div>
 													</div>
-												</div>
-											</div>
-											
-											<div class="collapse show">
-												<div class="panel-body">
-													<div class="x_car_acc_filter_date">
-														<ul class="insurance_select">
-															<li>완전자차 <span>+{4,850}원</span></li>
-															<li>만 26세 이상 / 면허 취득 2년 이상</li>
-															<li><hr></li>
-															<li>보상한도 <span>{200}만원</span></li>
-															<li>자기부담금 <span>0원</span></li>
-														</ul>
+
+													<div class="collapse show">
+														<div class="panel-body">
+															<div class="x_car_acc_filter_date">
+																<div class="insurance_select" id="ins2">
+																	<div><div class="ins_text">완전자차</div> <input type="radio" id="ins_code2" name="insurance" value="ins_code2"> <span>+{4,850}원</span></div>
+																	<div>만 26세 이상 / 면허 취득 2년 이상</div>
+																	<div><hr></div>
+																	<div>보상한도 <span>{200}만원</span></div>
+																	<div>자기부담금 <span>0원</span></div>
+																</div>
+															</div>
+														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 										<hr>
-										
-										
-<div id="sii_container_insurance_sel_table">
-	<div class="vresrv-btn-insurance-sel mb-2 clickable" id="sii_insurance_sel_table">
-		<div class="vreserv-box-insurance p-3 sii-insurance-sel-table active">
-			<div class="dc-flex justify-content-between align-items-center">
-				<div class="dc-flex align-items-center">
-					<div class="checkbox-container">
-						<span class="checkbox-label text-16 font-weight-bold txt-insurance-title sii-insurance-sel-table-type ml-2">일반자차</span>
-						<input class="sii-insurance-sel-table-radio" type="checkbox" id="ins_code1">
-						<span class="checkmark mt-1"></span>
-					</div>
-				</div>
-				<div class="text-14 font-weight-bold txt-insurance-price sii-insurance-sel-table-relative-cost">+0원</div>
-			</div>
-			<div class="dc-flex justify-content-between align-items-center mt-2">
 
-				<div class="text-12 color-grey-5 font-weight-bold">
-					<span class="sii-insurance-sel-table-age">만 26세 이상</span> / 면허 취득
-					<span class="sii-insurance-sel-table-license-year">1년 이상</span>
-				</div>
-				<div class="text-12 color-grey-5">
-					<div class="sii-insurance-sel-table-cost"></div>
-				</div>
-			</div>
-			<hr class="my-2">
-			<div class="dc-flex justify-content-between">
-				<div class="text-12 color-grey-5">보상한도</div>
-				<div class="text-12 color-grey-4 sii-insurance-sel-table-acdient-limit">200만원</div>
-			</div>
-
-			<div class="dc-flex justify-content-between mt-1">
-				<div class="text-12 color-grey-5">자기부담금</div>
-				<div class="text-12 color-grey-4 sii-insurance-sel-table-my-accident-price">10~30만원</div>
-			</div>
-		</div>
-	</div>
-
-
-	<div class="vresrv-btn-insurance-sel mb-2 clickable" id="sii_insurance_sel_table">
-		<div class="vreserv-box-insurance p-3 sii-insurance-sel-table">
-			<div class="dc-flex justify-content-between align-items-center">
-				<div class="dc-flex align-items-center">
-					<div class="checkbox-container">
-						<span class="checkbox-label text-16 font-weight-bold txt-insurance-title sii-insurance-sel-table-type ml-2">완전자차</span>
-						<input class="sii-insurance-sel-table-radio" type="checkbox" id="ins_code2">
-						<span class="checkmark mt-1"></span>
-					</div>
-				</div>
-				<div class="text-14 font-weight-bold txt-insurance-price sii-insurance-sel-table-relative-cost">+4,850원</div>
-			</div>
-			<div class="dc-flex justify-content-between align-items-center mt-2">
-				<div class="text-12 color-grey-5 font-weight-bold">
-					<span class="sii-insurance-sel-table-age">만 26세 이상</span> / 면허 취득
-					<span class="sii-insurance-sel-table-license-year">2년 이상</span>
-				</div>
-				<div class="text-12 color-grey-5">
-					<div class="sii-insurance-sel-table-cost"></div>
-				</div>
-			</div>
-			<hr class="my-2">
-			<div class="dc-flex justify-content-between">
-				<div class="text-12 color-grey-5">보상한도</div>
-				<div class="text-12 color-grey-4 sii-insurance-sel-table-acdient-limit">200만원</div>
-			</div>
-			<div class="dc-flex justify-content-between mt-1">
-				<div class="text-12 color-grey-5">자기부담금</div>
-				<div class="text-12 color-grey-4 sii-insurance-sel-table-my-accident-price">0원</div>
-			</div>
-		</div>
-	</div>
-</div>										
-										
 										<!-- 결제방법 -->
 										<div class="payme-opton">
 											<div class="heading-block text-left margin-bottom-30">
 												<h4>결제방법</h4>
 											</div>
-											<div class="radio">
-												<input type="radio" name="ratio" id="poa" value="option1"
-													checked=""> <label for="poa">Payment on
-													Arrival</label>
-											</div>
-											<div class="radio">
-												<input type="radio" name="ratio" id="paypal" value="option1">
-												<label for="paypal">Paypal</label>
-											</div>
-											<div class="radio">
-												<input type="radio" name="ratio" id="stripe" value="option1">
-												<label for="stripe">Stripe</label>
+											<div class="pay_select">
+												<div class="radio">
+													<input type="radio" name="pay_method" id=kakao value="kakao"
+														checked> <label for="kakao">카카오페이</label>
+												</div>
+												<div class="radio">
+													<input type="radio" name="pay_method" id="toss" value="toss">
+													<label for="toss">TOSS</label>
+												</div>
+												<div class="radio">
+													<input type="radio" name="pay_method" id="naver" value="naver">
+													<label for="naver">네이버페이</label>
+												</div>
+												<div class="radio">
+													<input type="radio" name="pay_method" id="common_pay" value="common_pay">
+													<label for="common_pay">일반결제</label>
+												</div>
+												<div class="radio">
+													<input type="radio" name="pay_method" id="stripe" value="stripe">
+													<label for="stripe">계좌이체</label>
+												</div>
 											</div>
 										</div>
 										<hr>
-										
-										
-									</form> <!-- End of 예약자 정보 -->
-									
-									
-									<div class="x_car_detail_slider_bottom_cont float_left" style="padding-top: 40px; padding-bottom: 50px;">
-										<!-- 차량정보 // 차량 상세 정보 화면 그대로 복붙 -->
+									</form>
+									<!-- End of 예약자 정보 -->
+
+									<div class="x_car_detail_slider_bottom_cont float_left"
+										style="padding-top: 40px; padding-bottom: 50px;">
+
 										<div class="panel panel-default">
 											<div class="panel-heading">
-												<div class="x_slider_form_input_wrapper float_left">
-													<h3>차량정보</h3>
-													<div class="car_detail">
-														{연식}{오토/수동}{문 개수}{배기량}{색상}{mission}{트렁크}
-													</div>
-												</div>
-											</div>
-										</div>
-										
-										<!-- 자차보험 -->
-										<div class="panel panel-default">
-											<div class="panel-heading">
-												<div class="x_slider_form_input_wrapper float_left">
-													<h3>자차보험</h3>
-													<div class="car_detail">
-														{옵션1}{옵션2}{옵션3}{옵션4}{옵션5}
-													</div>
-												</div>
-											</div>
-										</div>
-										
-										<!-- 차량 상세 옵션 -->
-										<div class="panel panel-default">
-											<div class="panel-heading">
-												<div class="x_slider_form_input_wrapper float_left">
-													<h3>차량 상세 옵션</h3>
-													<div class="car_detail">
-														자차보험 (클릭 시 모달창으로 보험정보) (제주패스)
-														{완전자차포함, 면책금, 보상한도, 휴차보상료 등}
-													</div>
-												</div>
-											</div>
-										</div>
-										
-										<!-- 꼭 확인해주세요! -->
-										<div class="panel panel-default">
-											<div class="panel-heading">
-												<div class="x_slider_form_input_wrapper float_left" style="margin-top: 30px;">
+												<div class="x_slider_form_input_wrapper float_left"
+													style="margin-top: 30px;">
 													<h3 style="color: red;">꼭 확인해주세요!</h3>
 													<div class="car_detail">
 														<p style="font-size: 13px;">
 															1. 업체 및 차량마다 요구하는 운전경력 및 나이가 상이하니 반드시 대여규정을 확인해 주시기 바랍니다.<br>
-															2. 운전자 정보는 렌터카 이용 시 긴급사항 발생에 대비하여 즉시 연락이 가능한 정보를 입력하셔야 합니다.<br>
-															3. 잘못된 정보 또는 수신이 불가한 정보 입력으로 발생되는 불이익에 대해 당사는 책임지지 않으니 유의해 주시기 바랍니다.<br>
-															4. 운전자 추가 등록은 차량 대여 시 현장에서 신청 가능합니다.<br>
-															5. 대여규정 및 약관동의 미확인으로 인한 불이익에 대해 당사는 책임지지 않으니 유의해주시기 바랍니다.<br>
-															6. 면허증 미지침시 인수 거절 될 수 있으므로 유의해주시기 바랍니다.<br>
+															2. 운전자 정보는 렌터카 이용 시 긴급사항 발생에 대비하여 즉시 연락이 가능한 정보를 입력하셔야
+															합니다.<br> 3. 잘못된 정보 또는 수신이 불가한 정보 입력으로 발생되는 불이익에 대해
+															당사는 책임지지 않으니 유의해 주시기 바랍니다.<br> 4. 운전자 추가 등록은 차량 대여 시
+															현장에서 신청 가능합니다.<br> 5. 대여규정 및 약관동의 미확인으로 인한 불이익에 대해
+															당사는 책임지지 않으니 유의해주시기 바랍니다.<br> 6. 면허증 미지침시 인수 거절 될 수
+															있으므로 유의해주시기 바랍니다.<br>
 														</p>
 													</div>
 												</div>
 											</div>
 										</div>
-									</div> <!-- End of 차량정보 -->
-									
-									<div
-										class="checkbox car_checkout_chekbox car_checkout_chekbox1">
-										<input type="checkbox" id="c2" name="cb"> <label
-											for="c2">Create an Account?</label>
 									</div>
+									<!-- End of 차량정보 -->
+
 									<div class="checkbox car_checkout_chekbox">
 										<input type="checkbox" id="c3" name="cb"> <label
-											for="c3">I have Read and Accept Terms & Conditions *</label>
+											for="c3">위 결제/대여 규정 내용을 모두 확인하였으며, 회원 본인은 결제에 동의합니다.
+											*</label>
 									</div>
-									
-									
+
+
 								</div>
 							</div>
 						</div>
 						<div class="col-md-12">
 							<div class="contect_btn contect_btn_contact">
 								<ul>
-									<li><a href="#">결제하기 <i
-											class="fa fa-arrow-right"></i></a></li>
+									<li><a href="#">결제하기 <i class="fa fa-arrow-right"></i></a></li>
 								</ul>
 							</div>
 						</div>
@@ -667,3 +490,14 @@ input {
 	</div>
 </div>
 <!-- x car book sidebar section Wrapper End -->
+
+
+<script>
+	$('#ins1').on('click', function(){
+	    $('#ins_code1').prop("checked", true);
+	});
+	
+	$('#ins2').on('click', function(){
+	    $('input:radio[id="ins_code2"]').prop("checked", true);
+	});
+</script>
