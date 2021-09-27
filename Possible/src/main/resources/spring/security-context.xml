@@ -31,7 +31,7 @@
 		<security:logout logout-url="/logout" 
 						 logout-success-url="/loginForm"/>
 		<security:access-denied-handler ref="LoginAccessDeniedHandler"/>
-		<security:csrf disabled="false" />
+		<security:csrf disabled="true" />
 	</security:http>
 	
 	<security:authentication-manager>

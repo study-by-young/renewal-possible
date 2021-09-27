@@ -26,27 +26,27 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberVO memberOneSelect() {
+	public MemberVO memberOneSelect(MemberVO vo) {
 		// TODO Auto-generated method stub
-		return memberMapper.memberOneSelect();
+		return memberMapper.memberOneSelect(vo);
 	}
 
 	@Override
-	public int memberInsert() {
+	public int memberInsert(MemberVO vo) {
 		// TODO Auto-generated method stub
-		return memberMapper.memberInsert();
+		return memberMapper.memberInsert(vo);
 	}
 
 	@Override
-	public int memberDelete() {
+	public int memberDelete(MemberVO vo) {
 		// TODO Auto-generated method stub
-		return memberMapper.memberDelete();
+		return memberMapper.memberDelete(vo);
 	}
 
 	@Override
-	public int memberUpdate() {
+	public int memberUpdate(MemberVO vo) {
 		// TODO Auto-generated method stub
-		return memberMapper.memberUpdate();
+		return memberMapper.memberUpdate(vo);
 	}
 
 	

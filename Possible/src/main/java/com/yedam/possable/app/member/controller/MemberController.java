@@ -9,6 +9,4 @@ import lombok.extern.java.Log;
 public class MemberController {
 	
 
-	
-	
 }

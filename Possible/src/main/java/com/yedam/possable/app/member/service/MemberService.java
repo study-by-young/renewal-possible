@@ -13,14 +13,14 @@ public interface MemberService {
 		public int getTotalCount(Criteria cri);
 		
 		//회원 한건조회
-		public MemberVO memberOneSelect(); 
+		public MemberVO memberOneSelect(MemberVO vo); 
 		
 		//회원 등록
-		public int memberInsert();
+		public int memberInsert(MemberVO vo);
 		
 		//회원 삭제
-		public int memberDelete();
+		public int memberDelete(MemberVO vo);
 		
 		//회원 수정
-		public int memberUpdate();
+		public int memberUpdate(MemberVO vo);
 }

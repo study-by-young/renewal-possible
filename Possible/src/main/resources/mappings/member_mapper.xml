@@ -47,6 +47,30 @@
    
    </select>
 	
-		
+	<select id="memberOneSelect" resultType="MemberVO"	parameterType="MemberVO">
+	SELECT 	SEQ,
+			ID,
+			PASSWORD,
+			NAME,
+			BIRTH,
+			EMAIL,
+			PHONE,
+			ADDR_CODE,
+			AUTHOR,
+			STATUS,
+			GEN_DATE,
+			UPT_DATE,
+			ADDR_BASIC,
+			ADDR_DETAIL
+		FROM MEMBER
+		WHERE SEQ = #{seq}
+	</select>
+	
+	<update id="memberUpdate">
+		UPDATE MEMBER
+		SET STATUS = #{status},
+			UPT_DATE = sysdate
+			WHERE SEQ = #{seq}
+	</update>
 	
 </mapper>
