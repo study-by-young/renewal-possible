@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <!-- 
 Template Name: Xpedia
@@ -31,37 +34,22 @@ Version: 1.0.0
 <body>
 <div class="container">
 	<div class="lr_bc_first_box_img_cont_wrapper">
-		<h2>공지사항항항</h2>
+		<h2>${notice.title}</h2>
 		<ul>
-			<li><i class="fa fa-calendar"></i>&nbsp; <a>관리자</a></li>
-			<li><i class="fa fa-user-o"></i>&nbsp; <a>15.10.20</a></li>
-			<li><i class="fa fa-comments-o"></i>&nbsp; <a>222</a></li>
+			<li><i class="fa fa-calendar"></i>&nbsp; <a>${notice.writer}</a></li>
+			<li><i class="fa fa-user-o"></i>&nbsp; <a>${notice.genDate}</a></li>
+			<li><i class="fa fa-comments-o"></i>&nbsp; <a>${notice.views}</a></li>
 		</ul>
 		<p>
-			What's your favorite game? Nam a diam tincidunt, condimentum nisi et,
-			fringilla lectus. Nullam nec lectus eu erat temus pulvinar. Lorem
-			ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-			veniam, quis nostrud exercitation. Lorem ipsum dolor sit amet,
-			consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-			labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-			citation ullamco laboris nisi ut aliquip ex ea commodo consequat. <br>
-			<br>What's your favorite game? Nam a diam tincidunt, condimentum
-			nisi et, fringilla lectus. Nullam nec lectus eu erat temus pulvinar.
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-			eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-			ad minim veniam, quis nostrud exercitation. Lorem ipsum dolor sit
-			amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-			ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-			nostrud citation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat.
+			${notice.content}
 		</p>
 	</div>
 	<div class="lr_bc_first_box_img_cont_wrapper" align="right">
 		<button type="button" class="btn btn-primary" onclick="location.href='list'">목록</button>
-		<button type="button" class="btn btn-dark" onclick="location.href='update?bno=${board.bno}'">수정</button>
-		<button type="button" class="btn btn-dark" onclick="location.href='delete?bno=${board.bno}'">삭제</button>
+		<button type="button" class="btn btn-dark" onclick="location.href='update?bno=${notice.seq}'">수정</button>
+		<button type="button" class="btn btn-dark" onclick="location.href='delete?bno=${notice.seq}'">삭제</button>
 	</div>
 </div>
+<br>
 </body>
 </html>

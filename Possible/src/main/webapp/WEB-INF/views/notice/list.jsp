@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,49 +65,25 @@ tr:hover {color:blue;
 				<table class="table table-striped">
 					<thead>
 						<tr align="center">
-							<th>글번호</th>
-							<th>제목</th>
-							<th>작성자</th>
+							<th class="col-1">글번호</th>
+							<th class="col-6">제목</th>
+							<th class="col-1">작성자</th>
 							<th>작성일</th>
-							<th>조회수</th>
+							<th>수정일</th>
+							<th class="col-1">조회수</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td>공지사항</td>
-							<td>관리자</td>
-							<td>97.01.01</td>
-							<td>200</td>
+					<c:forEach items="${list}" var="notice">
+						<tr align="center" onclick="location.href='get?seq=${notice.seq}'" >
+							<td>${notice.seq}</td>
+							<td align="left">${notice.title}</td>
+							<td>${notice.writer}</td>
+							<td><fmt:formatDate value="${notice.genDate}" pattern="yy-MM-dd" /></td>
+							<td><fmt:formatDate value="${notice.uptDate}" pattern="yy-MM-dd" /></td>
+							<td>${notice.views}</td>
 						</tr>
-						<tr>
-							<td>2</td>
-							<td>공지사항항</td>
-							<td>관리자</td>
-							<td>94.12.16</td>
-							<td>548</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>공지사항항항</td>
-							<td>관리자</td>
-							<td>15.10.20</td>
-							<td>222</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>공지사항항항항</td>
-							<td>관리자</td>
-							<td>97.02.05</td>
-							<td>11</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>공지사항항항항항</td>
-							<td>관리자</td>
-							<td>30.01.02</td>
-							<td>176</td>
-						</tr>
+					</c:forEach>
 					</tbody>
 				</table>
 			</div>
@@ -112,7 +91,7 @@ tr:hover {color:blue;
 		<!-- /striped rows -->
 	</div>
 	
-	<div align="center">
+	<div align="right">
 		<button type="button" class="btn btn-primary" onclick="location.href='insert'">등록</button>
 	</div>
 	
@@ -127,6 +106,7 @@ tr:hover {color:blue;
 		</div>
 	</div>
 	</div>	
+	<br>
 </div>
 <script>
 $(document).ready(function() {
