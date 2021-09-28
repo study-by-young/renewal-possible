@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.possable.app.company.mapper.CompanyMapper">
+
+	<sql id="criteria">
+				<trim prefix="(" suffix=")" prefixOverrides="OR">
+             		<foreach collection="typeArr" item="type">
+             			<trim prefix="OR">
+             				<choose>
+				             	<when test="type == 'N'.toString()">
+				                   NAME LIKE '%' || #{keyword} || '%'
+				                </when>
+				                <when test="type == 'C'.toString()">
+				                   CMPN_NUM LIKE '%' || #{keyword} || '%'
+				                </when>
+				                <when test="type == 'T'.toString()">
+				                   TEL LIKE '%' || #{keyword} || '%'
+				                </when>
+             				</choose>
+             			</trim>
+             		</foreach>
+             	</trim>
+	</sql>
+	
+	<select id="getTotalCount" resultType="int">
+			SELECT COUNT(*) 
+			FROM COMPANY
+				<where>
+					<include refid="criteria"></include>
+				</where>
+	</select>
+	
+	<select id="companyRegList" resultType="CompanyVO">
+		SELECT 
+             /*+ INDEX_DESC(IDX_COMPANY) */ 
+             ROWNUM RN, SEQ,
+						NAME,
+						POSTAL,
+						CMPN_NUM,
+						ADDR1,
+						ADDR2,
+						AREA,
+						TEL
+        FROM COMPANY
+        WHERE STATUS = 'N'
+	</select>
+	
+	<select id="companyList" resultType="CompanyVO">
+             SELECT 
+             /*+ INDEX_DESC(IDX_COMPANY) */ 
+             ROWNUM RN, SEQ,
+						NAME,
+						POSTAL,
+						CMPN_NUM,
+						ADDR1,
+						ADDR2,
+						AREA,
+						TEL
+             FROM COMPANY
+               <where> 
+                <include refid="criteria"></include>
+                <![CDATA[   AND STATUS = 'Y' ]]>
+                <![CDATA[   AND ROWNUM <= #{pageNum} * #{amount} ]]>
+             </where>
+   </select>
+   
+   <select id="companyOneSelect" resultType="CompanyVO"	parameterType="CompanyVO">
+	SELECT 	SEQ,
+			NAME,
+			POSTAL,
+			CMPN_NUM,
+			TEL,
+			ADDR1,
+			ADDR2,
+			AREA,
+			STATUS,
+			GEN_DATE,
+			UPT_DATE
+		FROM COMPANY
+		WHERE SEQ = #{seq}
+	</select>
+   
+   <update id="companyRegUpdate">
+   	 UPDATE COMPANY
+		SET STATUS = 'Y',
+			UPT_DATE = sysdate
+			WHERE SEQ = #{seq}
+   </update>
+	
+	<delete id="companyRegDelete">
+		DELETE FROM COMPANY
+		WHERE SEQ = #{seq}
+	</delete>
+
+
+</mapper>

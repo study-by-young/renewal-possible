@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.yedam.possable.app.member.domain.Criteria;
+import com.yedam.possable.app.common.domain.Criteria;
 import com.yedam.possable.app.member.service.MemberService;
 
 import lombok.extern.java.Log;

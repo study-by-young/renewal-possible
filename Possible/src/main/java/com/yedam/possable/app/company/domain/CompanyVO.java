@@ -9,9 +9,10 @@ import java.util.Date;
 public class CompanyVO {
     private Long seq;
     private String name;
-    private String addrCode;
-    private String addrBasic;
-    private String addrDetail;
+    private String addr1;
+    private String addr2;
+    private String area;
+    private String postal;
     private String cmpnNum;
     private String tel;
     private String status;
@@ -20,3 +21,4 @@ public class CompanyVO {
 
     private MemberVO memberVO;
 }
+

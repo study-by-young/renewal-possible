@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.yedam.possable.app.member.domain.Criteria;
+import com.yedam.possable.app.common.domain.Criteria;
+import com.yedam.possable.app.common.domain.PageVO;
+import com.yedam.possable.app.company.domain.CompanyVO;
+import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.member.domain.MemberVO;
-import com.yedam.possable.app.member.domain.PageVO;
 import com.yedam.possable.app.member.service.MemberService;
 
 import lombok.extern.java.Log;
@@ -27,6 +29,8 @@ public class AdminController {
     }
     
 	@Autowired MemberService memberService;
+	@Autowired CompanyService companyService;
+	
 	
 	//회원관리 - 전체조회
 	@GetMapping("/memberList")
@@ -53,8 +57,51 @@ public class AdminController {
 			if(result == 1) {
 				rttr.addFlashAttribute("result", "success");			
 			}
-			System.out.println("실행중");
 			return "redirect:/admin/memberList";		
 		}
+	
+	//업체승인요청 페이지
+	 @GetMapping("/companyRegList")
+	    public String companyRegList(Model model){
+		 model.addAttribute("comRegList", companyService.companyRegList());
+	        return "admin/companyRegList";
+	    }
+	 
+	 //업체상세 페이지
+	 @GetMapping("/companyOneSelect")
+		 public String companyOneSelect(Model model, CompanyVO vo) {
+		 model.addAttribute("comRegList", companyService.companyOneSelect(vo));
+			 return "admin/companyOneSelect";
+		 }
+	 
+	//업체승인 처리
+	@PostMapping("/companyOneSelect")
+		public String companyReg(CompanyVO vo, RedirectAttributes rttr) {
+			int result = companyService.companyRegUpdate(vo);
+			if(result == 1) {
+				rttr.addFlashAttribute("result", "success");			
+			}
+			return "redirect:/admin/companyList";		
+		}
+	
+	//업체승인 거부
+	@PostMapping("/companyRegDelete")
+	public String delete(CompanyVO vo, RedirectAttributes rttr) {
+		int result = companyService.companyRegDelete(vo);
+		if(result == 1) {
+			rttr.addFlashAttribute("result", "success");			
+		}
+		return "redirect:/admin/companyRegList";		
+	}
+	
+	//업체정보관리 페이지
+	@GetMapping("/companyList")
+		public String companyList(Model model, @ModelAttribute("cri") Criteria cri){
+		System.out.println("cri========" + cri);
+		int total = companyService.getTotalCount(cri);
+		model.addAttribute("companyList",companyService.companyList(cri) );
+		model.addAttribute("pageMaker", new PageVO(cri, total));
+			return "admin/companyList";
+	    }
     
 }
