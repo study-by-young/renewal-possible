@@ -44,4 +44,12 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeMapper.delete(vo);
 	}
 
+	@Override
+	public boolean plusViews(NoticeVO vo) {
+		// TODO Auto-generated method stub
+		return noticeMapper.plusViews(vo);
+	}
+
+	
+
 }
