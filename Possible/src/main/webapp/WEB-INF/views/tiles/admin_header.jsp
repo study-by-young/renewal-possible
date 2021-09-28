@@ -7,10 +7,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="headroom">
-    <div class="navbar navbar-dark bg-white navbar-slide-top fixed-top">
+    <div class="navbar navbar-dark bg-white navbar-slide-top">
         <div class="navbar-brand wmin-200">
             <a href="${pageContext.request.contextPath}/" class="d-block">
-                <img src="${pageContext.request.contextPath}/resources/images/Logo.svg" alt="logo" style="width:200px; height:auto">
+                <img src="${pageContext.request.contextPath}/resources/images/Logo.svg" alt="logo" style="width:80px; height:auto">
             </a>
         </div>
 

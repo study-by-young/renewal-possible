@@ -42,9 +42,9 @@
                 <include refid="criteria"></include>
                 <![CDATA[   AND ROWNUM <= #{pageNum} * #{amount} ]]>
              </where>
+             ORDER BY SEQ DESC
           )
       WHERE RN > (#{pageNum} - 1) * #{amount}
-   
    </select>
 	
 	<select id="memberOneSelect" resultType="MemberVO"	parameterType="MemberVO">

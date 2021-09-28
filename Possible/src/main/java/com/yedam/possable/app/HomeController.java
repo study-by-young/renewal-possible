@@ -92,5 +92,6 @@ public class HomeController {
 	public String qna() {
 		return "mypage/qna";
 	}
+	
 }
 
