@@ -56,7 +56,7 @@
 			</div>
 			<div class="col-xl-5 col-lg-4 col-md-4 col-sm-12 col-xs-12">
 				<div class="contect_form2">
-					<input type="email" placeholder="Date" readonly="readonly">
+					<input type="text" placeholder="Date" readonly="readonly">
 				</div>
 				<br>
 			</div>
@@ -81,6 +81,12 @@
 					<hr>
 				</ul>
 				<hr style="border: 0; height: 3px; background: #ccc;">
+			</div>
+			<div
+				class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="contect_form2">
+					<input type="text"><button type="button">검색</button>
+				</div>
 			</div>
 			<div
 				class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
