@@ -23,7 +23,7 @@
 
     <!-- bootstrap -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap_limitless.min.css" >
+<%--    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap_limitless.min.css" >--%>
     <script src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
 
     <!-- fonts -->
@@ -67,6 +67,7 @@
 <%--    <script src="${pageContext.request.contextPath}/resources/js/own-menu.js"></script>--%>
     <script src="${pageContext.request.contextPath}/resources/js/xpedia.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/app.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 </head>
 <body>

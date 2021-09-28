@@ -46,14 +46,12 @@
 .bir_wrap {
     display: table;
     width: 100%;
-}    
+}
 .register_wrap {
     margin-top: 15px;
 }
-}
-</style>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
+</style>
 
 <div class="x_partner_main_wrapper float_left padding_tb_100">
 		<div class="container">
@@ -103,9 +101,9 @@
 												</span>
                             				</div>
                             				<!-- 년 입력 End -->
-                            			</div>	
+                            			</div>
                             				<!-- 월 입력 Start -->
-                            			<div class="form-group col-md-2 col-sm-6 col-xs-12 my-4">	
+                            			<div class="form-group col-md-2 col-sm-6 col-xs-12 my-4">
                             				<div class="bir_mm">
 												<span class="ps_box">
 													<select id="mm" class="sel" aria-label="월">
@@ -127,16 +125,16 @@
                             				</div>
                             			</div>
                             			<!-- 월 입력 end -->
-	                                		
+
 	                                	<!-- 일 입력 start -->
-	                                	<div class="form-group col-md-4 col-sm-6 col-xs-12 my-4">	   
+	                                	<div class="form-group col-md-4 col-sm-6 col-xs-12 my-4">
 				                            <div class=" bir_dd">
 												<span class="ps_box">
 													<input type="text" id="dd" class="form-control" placeholder="일" aria-label="일" class="int" maxlength="2">
 													<label for="dd" class="lbl"></label>
 												</span>
 				                            </div>
-				                       </div>     
+				                       </div>
 				                        <!-- 일 입력 end -->
 				                        <span class="error_next_box" id="birthdayMsg" style="display:none" aria-live="assertive"></span>
 	                                </div>
@@ -149,51 +147,55 @@
 	                               		</div>
                         			</div>
                         				<!-- 이메일 end -->
-                        					
+
                         				<!-- 우편번호 Start -->
-                      						<label for="InputAddr">주소*</label>	
-                        				<div class="form-group"> 
+                      						<label for="InputAddr">주소*</label>
+                        				<div class="form-group">
                         					<input type="text" class="form-control" id="addrCode" name="addrCode" placeholder="우편번호" style="width: 60%; display: inline;">
-											 <button type="button" class="btn btn-default" onclick="DaumPostcode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                      
+											 <button type="button" class="btn btn-default" onclick="daumPostcode($('#daumPostCodeWrapper')[0], $('#addrCode')[0], $('#addrBasic')[0], $('#addrDetail')[0]);"><i class="fa fa-search"></i> 우편번호 찾기</button>
                         				</div>
-                        				<div class="form-group"> 
+                        				<div class="form-group">
 											<input type="text" class="form-control" id="addrBasic" name="addrBasic" placeholder="주소">
 										</div>
-										<div class="form-group"> 
+										<div class="form-group">
 											<input type="text" class="form-control" id="addrDetail" placeholder="상세주소" style="width: 50%; display: inline;">
-											<input type="text" class="form-control" id="extraAddress" placeholder="참고항목" style="width: 40%; display: inline;">
   	                      				</div>
   	                      				<!-- 주소 종료 -->
-  	                      				
+                                        <div id="daumPostCodeWrapper" style="display:none;width:500px;height:300px;position:relative">
+                                            <button type="button" class="btn" id="btnFoldWrap" onclick="foldDaumPostcode($('#daumPostCodeWrapper')[0])"  style="position:absolute;right:-50px;top:-1px;z-index:1">
+                                                <i class="icon-close2"></i>
+                                            </button>
+                                        </div>
+
   	                      				<!-- 번호 Start-->
   	                      				 <div class="row">
   	                      				 	<div class="form-group col-md-12 col-sm-6 col-xs-12">
   	                      				 	<label for="InputAddr">휴대전화*</label>
-	  	                      				 	<div class="form-group"> 
+	  	                      				 	<div class="form-group">
 		                        					<input type="text" class="form-control" id="phone" name="phone" placeholder="전화번호 입력" style="width: 60%; display: inline;">
-													 <button type="button" class="btn btn-primary" onclick="">인증번호 받기</button>                      
+													 <button type="button" class="btn btn-primary" onclick="">인증번호 받기</button>
 	                        					</div>
                         					</div>
   	                      				 </div>
   	                      				<!-- 번호 end -->
   	                      				  <div class="login_btn_wrapper register_wrap register_wrapper_btn">
                                 			<a href="#" class="btn btn-primary btn-lg btn-block login_btn">회원가입 </a>
-                            			  </div> 
+                            			  </div>
   	                      			</form>
 	                            		  <div><hr class="hr-or"></div>
-		                                  
+
 		                                  <div class="login_message">
                                 			<p>이미 회원이신가요? <a href="loginForm"> 로그인 하러 가기 </a> </p>
-                           				  </div>	
-		                                
-	                             	  	  
+                           				  </div>
+
+
 	                                </div>
                         	</div>
                    		</div>
                  </div>
             </div>
       </div>
-  </div>    
+  </div>
 
 
 
@@ -257,7 +259,7 @@ function checkBirthday() {
         setFocusToInputObject(oyy);
         return false;
     }
-} 
+}
 function showErrorMsg(obj, msg) {
     obj.attr("class", "error_next_box");
     obj.html(msg);
@@ -304,7 +306,7 @@ function setFocusToInputObject(obj) {
                    }
                    // 조합된 참고항목을 해당 필드에 넣는다.
                    document.getElementById("extraAddress").value = extraAddr;
-               		
+
                } else {
                    document.getElementById("extraAddress").value = '';
                }
@@ -318,4 +320,3 @@ function setFocusToInputObject(obj) {
        }).open();
    }
 </script>
-   

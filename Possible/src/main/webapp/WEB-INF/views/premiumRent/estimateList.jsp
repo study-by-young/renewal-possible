@@ -8,6 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <textarea name="tes" id="tes" class="ckeditor" rows="4" cols="4">
 </textarea>
+
+<a href="insert" class="btn">insert</a>
+<a href="update" class="btn">update</a>
 <script>
 
 </script>
