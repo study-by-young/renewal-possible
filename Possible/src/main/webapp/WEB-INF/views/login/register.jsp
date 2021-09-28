@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <style>
 .register_wrapper_box {
@@ -25,7 +26,7 @@
 .bir_dd, .bir_mm, .bir_yy {
     display: table-cell;
     table-layout: fixed;
-    width: 147px;
+    width: 200px;
     vertical-align: middle;
 
 .bir_wrap, .name_wrap {
@@ -36,7 +37,7 @@
     display: block;
     position: relative;
     width: 100%;
-    height: 51px;
+    
     border: solid 1px #dadada;
     padding: 10px 110px 10px 14px;
     background: #fff;
@@ -50,7 +51,8 @@
 .register_wrap {
     margin-top: 15px;
 }
-}
+
+
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
@@ -75,13 +77,16 @@
                 				</div>
 							</div>
                         	<div class="card-body">
-                        		<form id="frm" name="frm">
+                        		<form id="frm" name="frm" action="memberInsert" method="post">
+                        			
                         			<div class="row">
 	                        			<div class="form-group col-md-12 col-sm-6 col-xs-12">
 	                                		<label for="InputEmail">아이디 입력*</label>
-	                                    	<input type="text" class="form-control" name="id" value="" placeholder="아이디입력">
+	                                    	<input type="text" class="form-control" name="id" id="id" placeholder="아이디입력" style="width: 60%;">
+	                                    	<button type="button" class="btn btn-primary" id="idChk" name="idChk" onclick="fn_idChk();" >중복체크</button>   
 	                               		</div>
                         			</div>
+                        			
   									<div class="row">
   										<div class="form-group col-md-6 col-sm-3">
   											<label for="InputId">비밀번호</label>
@@ -92,55 +97,25 @@
 	                                    	<input type="password" class="form-control"  id="passcheck" name="passcheck"  placeholder="비밀번호 확인">
 	                                	</div>
 	                                </div>
+	                                <!-- 이름 Start -->
+  									<div class="row">
+  										<div class="form-group col-md-6 col-sm-3">
+  											<label for="Inputname">이름</label>
+	                                    	<input type="text" class="form-control"  id="name" name="name"  placeholder="이름 입력">
+	                                	</div>
+	                                </div>
+	                                <!-- 이름 END -->
 	                                <!-- 생년월일 Start -->
 	                                <div class="row">
-	                                	<div class="form-group col-md-4 col-sm-6 col-xs-12">
-	                                		<label for="yy">생년월일</label>
-	                                		<!-- 년 입력 Start -->
+	                                	<div class="form-group col-md-8 col-sm-6 col-xs-12">
+	                                		<label for="birth">생년월일</label>
 	                                		<div class="bir_yy">
-												<span class="ps_box">
-													<input type="text" class="form-control" id="yy" name="yy" placeholder="년(4자)" aria-label="년(4자)" class="int" maxlength="4">
-												</span>
+													<input type="text" class="form-control" id="birth" name="birth" placeholder="YY/MM/DD(입력)" aria-label="년(4자)" class="int" >
                             				</div>
-                            				<!-- 년 입력 End -->
                             			</div>	
-                            				<!-- 월 입력 Start -->
-                            			<div class="form-group col-md-2 col-sm-6 col-xs-12 my-4">	
-                            				<div class="bir_mm">
-												<span class="ps_box">
-													<select id="mm" class="sel" aria-label="월">
-														<option value="">월</option>
-														<option value="01">1</option>
-														<option value="02">2</option>
-														<option value="03">3</option>
-														<option value="04">4</option>
-														<option value="05">5</option>
-														<option value="06">6</option>
-														<option value="07">7</option>
-														<option value="08">8</option>
-														<option value="09">9</option>
-														<option value="10">10</option>
-														<option value="11">11</option>
-														<option value="12">12</option>
-													</select>
-												</span>
-                            				</div>
-                            			</div>
-                            			<!-- 월 입력 end -->
-	                                		
-	                                	<!-- 일 입력 start -->
-	                                	<div class="form-group col-md-4 col-sm-6 col-xs-12 my-4">	   
-				                            <div class=" bir_dd">
-												<span class="ps_box">
-													<input type="text" id="dd" class="form-control" placeholder="일" aria-label="일" class="int" maxlength="2">
-													<label for="dd" class="lbl"></label>
-												</span>
-				                            </div>
-				                       </div>     
-				                        <!-- 일 입력 end -->
-				                        <span class="error_next_box" id="birthdayMsg" style="display:none" aria-live="assertive"></span>
 	                                </div>
 	                                	<!-- 생년월일 end -->
+	                                	
 	                                	<!-- 이메일 Start -->
 	                                <div class="row">
 	                        			<div class="form-group col-md-12 col-sm-6 col-xs-12">
@@ -160,7 +135,7 @@
 											<input type="text" class="form-control" id="addrBasic" name="addrBasic" placeholder="주소">
 										</div>
 										<div class="form-group"> 
-											<input type="text" class="form-control" id="addrDetail" placeholder="상세주소" style="width: 50%; display: inline;">
+											<input type="text" class="form-control" id="addrDetail" name="addrDetail" placeholder="상세주소" style="width: 50%; display: inline;">
 											<input type="text" class="form-control" id="extraAddress" placeholder="참고항목" style="width: 40%; display: inline;">
   	                      				</div>
   	                      				<!-- 주소 종료 -->
@@ -176,14 +151,18 @@
                         					</div>
   	                      				 </div>
   	                      				<!-- 번호 end -->
+  	                      				
+  	                      				<!-- csrf토큰 -->
+  	                      				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" /> 
+  	                      				  
   	                      				  <div class="login_btn_wrapper register_wrap register_wrapper_btn">
-                                			<a href="#" class="btn btn-primary btn-lg btn-block login_btn">회원가입 </a>
+                                			<button class="btn btn-primary btn-lg btn-block login_btn" id="registerBtn" >회원가입 </button>
                             			  </div> 
   	                      			</form>
 	                            		  <div><hr class="hr-or"></div>
 		                                  
 		                                  <div class="login_message">
-                                			<p>이미 회원이신가요? <a href="loginForm"> 로그인 하러 가기 </a> </p>
+                                			<p>이미 회원이신가요? <a href="login"> 로그인 하러 가기 </a> </p>
                            				  </div>	
 		                                
 	                             	  	  
@@ -199,76 +178,6 @@
 
 
 <script>
-function checkBirthday() {
-	var submitFlag = false;
-    var birthday;
-    var yy = $("#yy").val();
-    var mm = $("#mm option:selected").val();
-    var dd = $("#dd").val();
-    var oMsg = $("#birthdayMsg");
-    var lang = "ko_KR";
-
-    var oyy = $("#yy");
-    var omm = $("#mm");
-    var odd = $("#dd");
-
-    if (yy == "" && mm == "" && dd == "") {
-        showErrorMsg(oMsg,"태어난 년도 4자리를 정확하게 입력하세요.");
-        setFocusToInputObject(oyy);
-        return false;
-    }
-
-    if (mm.length == 1) {
-        mm = "0" + mm;
-    }
-    if (dd.length == 1) {
-        dd = "0" + dd;
-    }
-
-    if(yy == "") {
-        showErrorMsg(oMsg,"태어난 년도 4자리를 정확하게 입력하세요.");
-        setFocusToInputObject(oyy);
-        return false;
-    }
-    if(yy.length != 4 || yy.indexOf('e') != -1 || yy.indexOf('E') != -1) {
-        showErrorMsg(oMsg,"태어난 년도 4자리를 정확하게 입력하세요.");
-        setFocusToInputObject(oyy);
-        return false;
-    }
-    if(mm == "") {
-        showErrorMsg(oMsg,"태어난 월을 선택하세요.");
-        setFocusToInputObject(omm);
-        return false;
-    }
-    if(dd == "") {
-        showErrorMsg(oMsg,"태어난 일(날짜) 2자리를 정확하게 입력하세요.");
-        setFocusToInputObject(odd);
-        return false;
-    }
-    if(dd.length != 2 || dd.indexOf('e') != -1 || dd.indexOf('E') != -1) {
-        showErrorMsg(oMsg,"태어난 일(날짜) 2자리를 정확하게 입력하세요.");
-        setFocusToInputObject(odd);
-        return false;
-    }
-
-    birthday = yy + mm + dd;
-    if (!isValidDate(birthday)) {
-        showErrorMsg(oMsg,"생년월일을 다시 확인해주세요.");
-        setFocusToInputObject(oyy);
-        return false;
-    }
-} 
-function showErrorMsg(obj, msg) {
-    obj.attr("class", "error_next_box");
-    obj.html(msg);
-    obj.show();
-}
-function setFocusToInputObject(obj) {
-    if(submitFlag) {
-        submitFlag = false;
-        obj.focus();
-    }
-}
 //지도 api
    function DaumPostcode() {
        new daum.Postcode({
@@ -317,5 +226,40 @@ function setFocusToInputObject(obj) {
            }
        }).open();
    }
+ //아이디 중복체크
+
+  
+   function fn_idChk(){
+	 var csrfHeaderName = "${_csrf.headerName}";
+	 var csrfTokenValue ="${_csrf.token}";
+	 
+   		$.ajax({
+   			url : "idChk",
+   			type: "post",
+   			dataType: "json",
+   			beforeSend : function(xhr){
+   				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+   			},
+   			data : {"id" : $('#id').val()},
+   			success : function(data){
+   				if(data == 1){
+   					alert("중복된 아이디입니다.");	
+   				}else if(data == 0) {
+   					alert("사용가능한 아이디입니다.")
+   				}
+   			}
+   		});
+   		
+   	}
+ 
+//회원가입이 빈틈
+   
+//회원 등록
+
+$('#registerBtn').on("click", function(){
+	alert("회원가입이 완료되었습니다.") 
+	frm.submit();		
+	});
+  
 </script>
    

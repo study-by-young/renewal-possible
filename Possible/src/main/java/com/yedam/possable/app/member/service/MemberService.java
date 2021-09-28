@@ -23,4 +23,7 @@ public interface MemberService {
 		
 		//회원 수정
 		public int memberUpdate(MemberVO vo);
+		
+		//아이디 중복 체크
+		public int idChk(MemberVO vo);
 }
