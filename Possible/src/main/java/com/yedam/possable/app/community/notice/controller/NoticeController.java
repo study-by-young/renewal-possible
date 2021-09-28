@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.community.notice.domain.NoticeVO;
@@ -21,23 +22,24 @@ public class NoticeController {
 	@GetMapping("/list")
 	public void list(Model model) {
 		model.addAttribute("list", noticeService.getList());
-		model.addAttribute("title", "°øÁö»çÇ× ¸®½ºÆ®");
+		model.addAttribute("title", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®");
 	}
 	
 	@GetMapping("/get")
 	public void get(Model model, NoticeVO vo) {
+		noticeService.plusViews(vo);
 		model.addAttribute("notice", noticeService.read(vo));
-		model.addAttribute("title", "´Ü°Ç Á¶È¸");
+		model.addAttribute("title", "ï¿½Ü°ï¿½ ï¿½ï¿½È¸");
 	}
 	
 	@GetMapping("/insert")
 	public void insertForm(Model model) {
-		model.addAttribute("title", "µî·ÏÆû");
+		model.addAttribute("title", "ï¿½ï¿½ï¿½ï¿½ï¿½");
 	}
 	
 	@PostMapping("/insert")
 	public String insert(Model model, RedirectAttributes rttr, NoticeVO vo) {
-		model.addAttribute("title", "µî·Ï");
+		model.addAttribute("title", "ï¿½ï¿½ï¿½");
 		noticeService.insert(vo);
 		rttr.addFlashAttribute("insertResult", vo.getSeq());
 		
@@ -46,7 +48,7 @@ public class NoticeController {
 	
 	@GetMapping("/update")
 	public void updateForm(Model model, NoticeVO vo) {
-		model.addAttribute("title", "¼öÁ¤Æû");
+		model.addAttribute("title", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		model.addAttribute("notice", noticeService.read(vo));
 	}
 	

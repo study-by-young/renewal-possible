@@ -15,4 +15,6 @@ public interface NoticeService {
 	public int update(NoticeVO vo);
 
 	public int delete(NoticeVO vo);
+	
+	public boolean plusViews(NoticeVO vo);
 }
