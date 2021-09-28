@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%--<div id="preloader">--%>
 <%--    <div id="status">--%>
 <%--        <img src="${pageContext.request.contextPath}/resources/images/loader.gif" id="preloader_image" alt="loader">--%>
@@ -26,7 +27,16 @@
             <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
                 <div class="hs_navi_cart_wrapper  d-none d-sm-none d-xs-none d-md-block d-lg-block d-xl-block">
                     <div class="dropdown-wrapper menu-button menu_button_end">
-                        <a class="menu-button" href="${pageContext.request.contextPath}/login">로그인</a>
+                        <sec:authorize access="isAnonymous()">
+                        	<a class="menu-button" href="${pageContext.request.contextPath}/login">로그인</a>
+						</sec:authorize>
+                        
+                        <sec:authorize access="isAuthenticated()">
+                        	<form action="logout" method="post">
+                        		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" >
+								<a class="menu-button" href="${pageContext.request.contextPath}/logout">Logout</a>
+							</form>
+						</sec:authorize>
 
                     </div>
                 </div>

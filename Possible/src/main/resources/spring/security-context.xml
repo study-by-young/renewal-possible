@@ -7,6 +7,7 @@
 
 	<!-- security 적용 제외 -->
 	<bean id="LoginAccessDeniedHandler" class="com.yedam.possable.app.security.LoginAccessDeniedHandler"></bean>
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	
 	<security:http pattern="/css/**" security="none" />
 	<security:http pattern="/resources/**" security="none" />
@@ -17,7 +18,7 @@
 								access="permitAll()" />
 		
 		<security:intercept-url pattern="/loginTest/member" 
-								access="hasRole('ROLE_MEMBER')" />
+								access="hasRole('ROLE_USER')" />
 		
 		<security:intercept-url pattern="/admin/**" 
 								access="hasAuthority('ROLE_ADMIN')" /> <!-- 인증 ( Authentication ) : 현재 유저가 누구인지 확인 / 애플리케이션의 작업을 수행할 수 있는 주체임을 증명하는 과정 -->
@@ -29,7 +30,10 @@
 							 
 										 <!-- login-processing-url="/login"	로그인 페이지 form action에 입력할 주소 지정  -->
 		<security:logout logout-url="/logout" 
-						 logout-success-url="/login"/>
+						 invalidate-session="true"	
+						 logout-success-url="/" 
+						 />
+						 
 		<security:access-denied-handler ref="LoginAccessDeniedHandler"/>
 		<security:csrf disabled="true" />
 	</security:http>
@@ -39,12 +43,12 @@
 		
 			<security:jdbc-user-service data-source-ref="dataSource" 
 				users-by-username-query
-									  ="SELECT id, '{noop}'|| password, status
+									  ="SELECT id, password, status
 										FROM member WHERE id = ?"
 				authorities-by-username-query
 									  ="SELECT id, 'ROLE_'|| upper(author)
 										FROM member WHERE id = ?" />
-			<!-- <security:password-encoder hash="bcrypt" /> -->
+			 <security:password-encoder hash="bcrypt" /> 
 		</security:authentication-provider>
 	</security:authentication-manager> 
 	
