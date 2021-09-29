@@ -2,6 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.possable.app.community.notice.mapper.NoticeMapper">
 	
+	
+	<!-- 검색 기능 -->
+	<sql id="criteria">
+				<trim prefix="(" suffix=")" prefixOverrides="OR">
+             		<foreach collection="typeArr" item="type">
+             			<trim prefix="OR">
+             				<choose>
+				             	<when test="type == 'I'.toString()">
+				                   ID LIKE '%' || #{keyword} || '%'
+				                </when>
+				                <when test="type == 'N'.toString()">
+				                   NAME LIKE '%' || #{keyword} || '%'
+				                </when>
+				                <when test="type == 'P'.toString()">
+				                   PHONE LIKE '%' || #{keyword} || '%'
+				                </when>
+             				</choose>
+             			</trim>
+             		</foreach>
+             	</trim>
+	</sql>
+	
+	
 	<select id="getList" resultType="NoticeVO">
 		SELECT SEQ
 			 , TITLE
@@ -10,10 +33,20 @@
 		     , VIEWS
 			 , GEN_DATE
 			 , UPT_DATE	
-		FROM NOTICE
-		ORDER BY SEQ DESC
+		FROM (
+				 SELECT 
+             /*+ INDEX_DESC(IDX_NOTICE) */ 
+             ROWNUM RN, SEQ, TITLE, CONTENT, WRITER, VIEWS, GEN_DATE, UPT_DATE
+             FROM NOTICE
+             <where> 
+                <include refid="criteria"></include>
+                <![CDATA[   AND ROWNUM <= #{pageNum} * #{amount} ]]>
+             </where>
+             ORDER BY SEQ DESC
+			)
+		WHERE RN > (#{pageNum} - 1) * #{amount}
 	</select>
-	
+		
 	<select id="read" resultType="NoticeVO">
 		SELECT SEQ
 			 , TITLE
@@ -58,5 +91,13 @@
 		SET VIEWS = VIEWS + 1
 		WHERE SEQ = #{seq}
 	</update>
+	
+	<select id="getTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM NOTICE
+			<where>
+				<include refid="criteria"></include>
+			</where>
+	</select>
 	
 </mapper>
