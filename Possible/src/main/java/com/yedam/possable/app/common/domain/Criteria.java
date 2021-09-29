@@ -12,6 +12,7 @@ import lombok.Data;
 		private String type;
 		private String keyword;
 		
+
 		
 		public Criteria() {
 		}

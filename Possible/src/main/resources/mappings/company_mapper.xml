@@ -30,6 +30,40 @@
 				</where>
 	</select>
 	
+	<insert id="companyReg">
+		<selectKey keyProperty="seq" resultType="Long" order="BEFORE">
+			SELECT SEQ_COMPANY.nextval FROM DUAL
+		</selectKey>
+			INSERT INTO MEMBER(SEQ,
+				                NAME,
+								POSTAL,
+								CMPN_NUM,
+								TEL,
+								STATUS,
+								GEN_DATE,
+								UPT_DATE,
+								MEM_SEQ,
+								ADDR1,
+								ADDR2,
+								AREA)
+				 
+				  		VALUES(#{seq},
+				                #{name},
+								#{postal},
+								#{cmpn_num},
+								#{tel},
+								'N',
+								sysdate,
+								sysdate,
+								#{mem_seq},
+								#{addr1},
+								#{addr2},
+								#{area}
+				    )				
+	</insert>
+	
+	
+	<!-- 업체 미승인 리스트 -->
 	<select id="companyRegList" resultType="CompanyVO">
 		SELECT 
              /*+ INDEX_DESC(IDX_COMPANY) */ 
@@ -45,6 +79,7 @@
         WHERE STATUS = 'N'
 	</select>
 	
+	<!-- 업체 승인 리스트 -->
 	<select id="companyList" resultType="CompanyVO">
              SELECT 
              /*+ INDEX_DESC(IDX_COMPANY) */ 
@@ -64,6 +99,7 @@
              </where>
    </select>
    
+   <!-- 업체 미승인 리스트 한건-->
    <select id="companyOneSelect" resultType="CompanyVO"	parameterType="CompanyVO">
 	SELECT 	SEQ,
 			NAME,
@@ -80,6 +116,7 @@
 		WHERE SEQ = #{seq}
 	</select>
    
+   <!-- 업체 승인 변경 -->
    <update id="companyRegUpdate">
    	 UPDATE COMPANY
 		SET STATUS = 'Y',
@@ -87,6 +124,7 @@
 			WHERE SEQ = #{seq}
    </update>
 	
+	<!-- 업체 승인 거부 -->
 	<delete id="companyRegDelete">
 		DELETE FROM COMPANY
 		WHERE SEQ = #{seq}

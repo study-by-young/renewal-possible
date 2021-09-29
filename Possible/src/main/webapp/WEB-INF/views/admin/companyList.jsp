@@ -48,6 +48,39 @@
 		<h4>업체정보관리</h4>
 	</div>
 	<div class="dash">
+	
+	    <input type="checkbox" name="area" value='서울특별시'> 서울
+        <input type="checkbox" name="area" value='경기도'> 경기
+        <input type="checkbox" name="area" value='인천광역시'> 인천
+        <input type="checkbox" name="area" value='강원도'> 강원
+        <input type="checkbox" name="area" value='충청북도'> 충북
+        <input type="checkbox" name="area" value='충청남도'> 충남
+        <input type="checkbox" name="area" value='대전광역시'> 대전
+        <input type="checkbox" name="area" value='세종특별자치시'> 세종
+        <input type="checkbox" name="area" value='광주광역시'> 광주
+        <input type="checkbox" name="area" value='전라북도'> 전북
+        <input type="checkbox" name="area" value='전라남도'> 전남
+        <input type="checkbox" name="area" value='경상북도'> 경북
+        <input type="checkbox" name="area" value='경상남도'> 경남
+        <input type="checkbox" name="area" value='대구광역시'> 대구
+        <input type="checkbox" name="area" value='부산광역시'> 부산
+        <input type="checkbox" name="area" value='울산광역시'> 울산
+        <input type="checkbox" name="area" value='제주특별자치도'> 제주
+		
+	<div>
+		<form id="actionForm" action="companyList" method="get">
+			<select name="type" class="select" >
+				<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
+				<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>업체명</option>
+				<option value="C" ${pageMaker.cri.type =='C'? 'selected' : "" }>사업자번호</option>
+				<option value="T" ${pageMaker.cri.type =='T'? 'selected' : "" }>대표번호</option>
+			</select> <input class="input" name="keyword" value="${pageMaker.cri.keyword }"> <input
+				type="hidden" name="pageNum" value="1"> <input type="hidden"
+				name="amount" value="${pageMaker.cri.amount }">
+			<button class="btn btn-primary">Search</button>
+		</form>
+	</div>
+	
 		<table class="table table-hover">
 			<thead>
 				<tr>

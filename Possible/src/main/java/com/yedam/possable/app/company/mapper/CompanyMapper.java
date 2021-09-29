@@ -25,4 +25,7 @@ public interface CompanyMapper {
 	//업체 승인 거부
 	public int companyRegDelete(CompanyVO vo);
 	
+	//업체 등록
+	public int companyReg(CompanyVO vo);
+	
 }
