@@ -49,4 +49,10 @@ public class CompanyServiceImpl implements CompanyService {
 		return companyMapper.companyRegDelete(vo);
 	}
 
+	@Override
+	public int companyReg(CompanyVO vo) {
+		// TODO Auto-generated method stub
+		return companyMapper.companyReg(vo);
+	}
+
 }
