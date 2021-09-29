@@ -58,7 +58,7 @@ Version: 1.0.0
 				</div>
 				<div
 					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12"
-					style="background-color: white; border: 1px solid lightgray;  border-radius: 10px;">
+					style="background-color: white; border: 1px solid lightgray; border-radius: 10px;">
 					<hr style="border: 0; height: 3px; background: #ccc;">
 					<h3>코스</h3>
 					<hr>
@@ -77,6 +77,18 @@ Version: 1.0.0
 						<hr>
 					</ul>
 					<hr style="border: 0; height: 3px; background: #ccc;">
+				</div>
+				<div
+					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+					style="background-color: white; border: 1px solid lightgray; border-radius: 10px; margin-top: 30px;">
+					<div class="input-group mb-3" style="margin-top: 20px;">
+						<input type="text" class="form-control"
+							placeholder="Recipient's username"
+							aria-label="Recipient's username" aria-describedby="basic-addon2">
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary" type="button">Button</button>
+						</div>
+					</div>
 				</div>
 				<div
 					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">

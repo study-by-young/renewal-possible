@@ -2,7 +2,7 @@ package com.yedam.possable.app.member.service;
 
 import java.util.List;
 
-import com.yedam.possable.app.member.domain.Criteria;
+import com.yedam.possable.app.common.domain.Criteria;
 import com.yedam.possable.app.member.domain.MemberVO;
 
 public interface MemberService {

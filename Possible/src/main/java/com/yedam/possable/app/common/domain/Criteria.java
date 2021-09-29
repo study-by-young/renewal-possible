@@ -1,4 +1,4 @@
-package com.yedam.possable.app.member.domain;
+package com.yedam.possable.app.common.domain;
 
 
 import lombok.Data;

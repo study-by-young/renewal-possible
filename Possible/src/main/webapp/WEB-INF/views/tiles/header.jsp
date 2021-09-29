@@ -49,11 +49,11 @@
                 <nav class="hs_main_menu d-none d-sm-none d-xs-none d-md-block float-left">
                     <ul>
                         <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/">홈</a></li>
-                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/">일반 렌트</a></li>
-                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/">프리미엄 렌트</a></li>
-                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/">공지사항</a></li>
-                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/">커뮤니티</a></li>
-                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/">마이페이지</a></li>
+                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/commonRent/list">일반 렌트</a></li>
+                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/premiumRent/estimate/list">프리미엄 렌트</a></li>
+                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/notice/list">공지사항</a></li>
+                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/courseBoard/list">커뮤니티</a></li>
+                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/mypage/dashboard">마이페이지</a></li>
                     </ul>
                 </nav>
                 <header class="mobail_menu d-none d-block d-xs-block d-sm-block d-md-none d-lg-none d-xl-none">
@@ -81,11 +81,11 @@
                                     </h2>
                                     <a href="#0" class="cd-close">Close</a>
                                     <ul class="cd-dropdown-content">
-                                        <li> <a href="#">홈</a></li>
-                                        <li> <a href="#">일반 렌트</a></li>
-                                        <li> <a href="about.html">프리미엄 렌트</a></li>
-                                        <li> <a href="team.html">공지사항</a></li>
-                                        <li class="has-children"> <a href="services.html">커뮤니티</a>
+                                        <li> <a href="${pageContext.request.contextPath}/">홈</a></li>
+                                        <li> <a href="${pageContext.request.contextPath}/commonRent/list">일반 렌트</a></li>
+                                        <li> <a href="${pageContext.request.contextPath}/premiumRent/estimate/list">프리미엄 렌트</a></li>
+                                        <li> <a href="${pageContext.request.contextPath}/notice/list">공지사항</a></li>
+                                        <li class="has-children">커뮤니티
                                             <ul class="cd-secondary-dropdown is-hidden">
                                                 <li class="go-back"><a href="#0">Menu</a>
                                                 </li>

@@ -53,4 +53,10 @@
 		WHERE SEQ = #{seq}
 	</delete>
 	
+	<update id="plusViews">
+		UPDATE NOTICE
+		SET VIEWS = VIEWS + 1
+		WHERE SEQ = #{seq}
+	</update>
+	
 </mapper>

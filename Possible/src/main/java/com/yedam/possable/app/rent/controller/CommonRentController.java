@@ -13,7 +13,7 @@ public class CommonRentController {
     @Autowired
     private CodeMapper codeMapper;
 
-    @GetMapping("/list")
+    @GetMapping("list")
     public String rentList(Model model){
         model.addAttribute("areaCodes",codeMapper.getNamesByParentCode("지역"));
         return "commonRent/list";

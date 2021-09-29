@@ -8,9 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/premiumRent/*")
 public class PremiumRentController {
 
-    @GetMapping("/estimate/list")
+    @GetMapping("estimate/list")
     public String estimateList(){
         return "/premiumRent/estimateList";
     }
 
+
+    @GetMapping("estimate/insert")
+    public String estimateInsert(){
+        return "/premiumRent/estimateInsert";
+    }
+
+    @GetMapping("estimate/read")
+    public String estiamteRead(){
+        return "/premiumRent/estimateRead";
+    }
 }

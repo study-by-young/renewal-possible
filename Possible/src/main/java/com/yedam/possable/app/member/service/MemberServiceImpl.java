@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.yedam.possable.app.member.domain.Criteria;
+import com.yedam.possable.app.common.domain.Criteria;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.mapper.MemberMapper;
 @Service

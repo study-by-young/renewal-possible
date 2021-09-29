@@ -28,4 +28,8 @@ public class CourseBoardController {
 		model.addAttribute("board", courseBoardService.read(board));
 	}
 
+	//등록폼
+	@GetMapping("/insert")
+	public void insert(Model model) {
+	}
 }
