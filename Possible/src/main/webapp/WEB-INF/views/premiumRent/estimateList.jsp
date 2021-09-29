@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<textarea name="tes" id="tes" class="ckeditor" rows="4" cols="4">
+<textarea name="tes" id="tes" class="ckeditor">
 </textarea>
 
 <a href="insert" class="btn">insert</a>
