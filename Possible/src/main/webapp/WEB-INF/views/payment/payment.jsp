@@ -111,9 +111,9 @@
 	<input type="hidden" id="memSeq" name="memSeq" value="1">
 </form>
 
+
 <script>
 	$(document).ready(function(){
-		
 		IMP.init('imp77605435'); /* 가맹점 식별코드 초기화 */
 	
 		/* 폼전송 버튼 누르면 paymentFnc() 실행 */
@@ -122,6 +122,7 @@
 			paymentFnc();
 		})
 		
+		/* 결제 함수 */
 		function paymentFnc() {
 			let merchant_uid = new Date().getTime(); /* 주문번호 */
 			let payment = $('input[name="pay"]:checked').val(); /* 결제방법 */
@@ -133,20 +134,52 @@
 				name : 'SM5여행갈카', /* 주문명 */
 				amount : '500', /* 가격 */
 				buyer_name : '{sessionName}',
-				buyer_tel : '{sessionPhone}'
+				buyer_tel : '{sessionPhone}',
+				m_redirect_url : 'http://localhost:8080/orderCompleteMobile'
+				
 			}, function(rsp) {
 				if (rsp.success) {
-					var msg = '결제가 완료되었습니다.';
+					let msg = '결제가 완료되었습니다.';
 					alert(msg);
-					data.submit();
+					data.submit(); /* 성공 시 data폼의 데이터를 submit 한다. */
 				} else {
-					var msg = '결제에 실패하였습니다.';
+					let msg = '결제에 실패하였습니다.';
 					msg += '에러내용 : ' + rsp.error_msg;
 					alert(msg);
 				}
-
 			});
 		}
+		
+		/* DB에 결제 정보 넘기기 AJAX로 해보려고 했던 흔적
+		$.ajax({
+			url: '/paymentInsert',
+			data: { 
+					rentType : $('#rentType').val()
+					, startDate : $('#startDate').val()
+					, receiveDate : $('#receiveDate').val()
+					, returnDate : $('#returnDate').val()
+					, endDate : $('#endDate').val()
+					, receiver : $('#receiver').val()
+					, price : $('#price').val()
+					, estimate : $('#estimate').val()
+					, status : $('#status').val()
+					, takePlaceCode : $('#takePlaceCode').val()
+					, takePlaceBasic : $('#takePlaceBasic').val()
+					, takePlaceDetail : $('#takePlaceDetail').val()
+					, merchantUid : merchant_uid
+					, payMethod : payment
+					, carSeq : $('#carSeq').val()
+					, memSeq : $('#memSeq').val()
+			},
+			type: 'POST',
+			success: function(data){
+				location.href = "payment";
+			},
+			error: function(){
+				alert('error');
+			}
+		});
+		 */
 	});
 
 	
@@ -173,5 +206,4 @@
 
 		$('#chk_all').prop('checked', is_checked);
 	});
-	
 </script>
