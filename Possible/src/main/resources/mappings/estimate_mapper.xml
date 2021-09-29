@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yedam.possable.app.rent.mapper.PremiumRentMapper">
+    <insert id="insertEstimate">
+        <selectKey keyProperty="seq" resultType="long" order="BEFORE">
+            SELECT SEQ_ESTIMATE_HISTORY.NEXTVAL FROM dual
+        </selectKey>
+        INSERT INTO estimate_history(
+            seq,
+            brand,
+            segment,
+            model,
+            trim,
+            start_date,
+            end_date,
+            options,
+            items,
+            take_place_code,
+            take_place_basic,
+            take_place_detail
+        ) VALUES(
+            #{seq},
+            #{brand},
+            #{segment},
+            #{model},
+            #{trim},
+            #{startDate},
+            #{endDate},
+            #{options},
+            #{items},
+            #{takePlaceCode},
+            #{takePlaceBasic},
+            #{takePlaceDetail}
+        )
+    </insert>
+</mapper>

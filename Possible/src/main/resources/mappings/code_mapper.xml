@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yedam.possable.app.common.mapper.CodeMapper">
+    <select id="getCodesByParentCodeName" resultType="com.yedam.possable.app.common.domain.CodeSubVO">
+        SELECT *
+        FROM code_sub
+        WHERE master_code = (SELECT code FROM code_master WHERE name = #{parentCodeName})
+    </select>
+
+    <select id="getBrands" resultType="com.yedam.possable.app.common.domain.BrandCodeVO">
+        SELECT *
+        FROM brand_code
+    </select>
+
+    <select id="getModels" resultType="com.yedam.possable.app.common.domain.ModelCodeVO">
+        SELECT *
+        FROM model_code
+        <if test="brandCode != null">
+            WHERE brand_code = #{brandCode}
+        </if>
+    </select>
+
+    <select id="getTrims" resultType="com.yedam.possable.app.common.domain.TrimCodeVO">
+        SELECT *
+        FROM trim_code
+        <if test="modelCode != null">
+            WHERE model_code = #{modelCode}
+        </if>
+    </select>
+</mapper>
