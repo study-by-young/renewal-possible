@@ -26,6 +26,14 @@ tr:hover {color:blue;
 			</div>
 	
 			<div class="table-responsive">
+				
+				<form id="actionForm" action="${pageContext.request.contextPath}/notice/list" method="get">
+					<input class="input" name="keyword" value="${pageMaker.cri.keyword }">
+					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+					<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+				</form>
+				
+				
 				<table class="table table-striped">
 					<thead>
 						<tr align="center">
@@ -39,7 +47,7 @@ tr:hover {color:blue;
 					</thead>
 					<tbody>
 					<c:forEach items="${list}" var="notice">
-						<tr align="center" onclick="location.href='get?seq=${notice.seq}'" >
+						<tr align="center" onclick="readBoard(${notice.seq})" >
 							<td>${notice.seq}</td>
 							<td align="left">${notice.title}</td>
 							<td>${notice.writer}</td>
@@ -53,6 +61,24 @@ tr:hover {color:blue;
 			</div>
 		</div>
 		<!-- /striped rows -->
+	</div>
+	
+	<!-- 페이징 -->
+	<div id="pageButton">
+  	<ul class="pagination">
+		<c:if test="${pageMaker.prev }">
+			<li class="page-item"><a class="page-link" href="${pageMaker.startPage-1}">이전</a></li>
+			<span aria-hidden="true">&laquo;</span>
+		</c:if>
+		<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }"
+			var="num">
+				<li class="page-item"><a class="page-link" href="${num }">${num }</a></li>
+		</c:forEach>
+		<c:if test="${pageMaker.next }">
+			<li class="page-item"><a class="page-link" href="${pageMaker.endPage+1}">다음</a></li>
+			<span aria-hidden="true">&laquo;</span>
+		</c:if>
+	</ul>
 	</div>
 	
 	<div align="right">
@@ -93,6 +119,30 @@ $(document).ready(function() {
 			$('.modal-body').html(parseInt(deleteResult) + " 번 게시글의 삭제가 완료되었습니다.");
 		}
 		$('#myModal').modal('show');
-	} 
+	} 	
 })
+
+$(function() {
+	var actionForm = $("#actionForm");
+
+	$(".move").on("click", function(e) {
+						e.preventDefault();
+						
+						var seq = $(this).attr("href"); //클릭한 게시글의 번호를 읽어와서 
+						actionForm.append('<input type="hidden" name="seq" value="'+ seq +'">') //여기넣어주고
+						actionForm.attr("action", "${pageContext.request.contextPath}/notice/get") //바꾸기 앞에는 속성이름 뒤에는 바꾸는거
+						actionForm.submit(); //실행
+	});
+
+	$("#pageButton a").on("click", function(e) {
+		e.preventDefault(); //a, submit 경우에 쓸 수 있음 태그의 원래기능을 막고 정의한 함수 실행
+		var p = $(this).attr("href");
+		$('[name="pageNum"]').val(p);
+		actionForm.submit();
+	});
+});
+
+function readBoard(seq){
+	location.href = 'get?seq='+seq+'&pageNum='+$('input[name="pageNum"]').val()+'&amount='+$('input[name="amount"]').val();
+}
 </script>
