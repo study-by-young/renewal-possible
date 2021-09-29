@@ -16,4 +16,9 @@ public class PaymentServiceImpl implements PaymentService {
 		return paymentMapper.paymentInsert(vo);
 	}
 
+	@Override
+	public RentHistoryVO paymentOneSelect(RentHistoryVO vo) {
+		return paymentMapper.paymentOneSelect(vo);
+	}
+
 }

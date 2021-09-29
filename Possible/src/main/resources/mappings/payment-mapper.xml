@@ -47,4 +47,11 @@
 		)
 	</insert>
 
+	<!-- 결제완료 후 내역 조회(rent_history seq를 이용해 단건조회) -->
+	<select id="paymentOneSelect" resultType="RentHistoryVO">
+		SELECT * 
+		FROM RENT_HISTORY
+		WHERE SEQ = 9
+	</select>
+	
 </mapper>

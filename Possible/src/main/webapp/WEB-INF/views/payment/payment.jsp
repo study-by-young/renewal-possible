@@ -92,13 +92,13 @@
 
 <!-- DB 데이터 입력폼 -->
 <form id="data" name="data" action="paymentInsert" method="post">
-	<!-- payment table -->
+	<!-- <input type="hidden" id="seq" name="seq"> -->
 	<input type="hidden" id="rentType" name="rentType" value="rentType">
 	<input type="hidden" id="startDate" name="startDate" value="2021/09/29">
 	<input type="hidden" id="receiveDate" name="receiveDate" value="2021/09/29">
 	<input type="hidden" id="returnDate" name="returnDate" value="2021/09/29">
 	<input type="hidden" id="endDate" name="endDate" value="2021/09/29">
-	<input type="hidden" id="receiver" name="receiver" value="홍길동">
+	<input type="hidden" id="receiver" name="receiver" value="박기자">
 	<input type="hidden" id="price" name="price" value="500">
 	<input type="hidden" id="estimate" name="estimate" value="500">
 	<input type="hidden" id="status" name="status" value="status">
@@ -142,6 +142,7 @@
 					let msg = '결제가 완료되었습니다.';
 					alert(msg);
 					data.submit(); /* 성공 시 data폼의 데이터를 submit 한다. */
+					location.href = "paymentFin"; /* 결제완료 페이지로 이동 */
 				} else {
 					let msg = '결제에 실패하였습니다.';
 					msg += '에러내용 : ' + rsp.error_msg;
