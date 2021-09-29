@@ -19,7 +19,7 @@
 					<!-- div1 -->
 					<div>
 						<!-- 결제폼 -->
-						<form id="payFrm" name="payFrm" action="payment.do" method="post">
+						<form id="payFrm" name="payFrm" action="" method="post">
 							<input type="hidden" id="" name="">
 
 							<!-- 이용자정보 -->
@@ -53,23 +53,6 @@
 									<label><input type="radio" name="pay" value="vbank">가상계좌</label>
 								</div>
 							</div>
-
-
-							<table border="1">
-								<tr>
-									<th width="200">이용권</th>
-									<td colspan="2"><select id="ticket" name="ticket">
-											<option value="">선택</option>
-											<option value="1000">30분(1,000원)</option>
-											<option value="2000">1시간(2,000원)</option>
-											<option value="3500">2시간(3,500원)</option>
-											<option value="7000">4시간(7,000원)</option>
-											<option value="10000">8시간(10,000원)</option>
-											<option value="15000">12시간(15,000원)</option>
-											<option value="25000">24시간(25,000원)</option>
-									</select></td>
-								</tr>
-							</table>
 
 							<!-- 꼭 확인해주세요!
 										1. 업체 및 차량마다 요구하는 운전경력 및 나이가 상이하니 반드시 대여규정을 확인해 주시기 바랍니다.
@@ -106,35 +89,15 @@
 	<!-- End of container -->
 </div>
 
+
 <!-- DB 데이터 입력폼 -->
-<form name="data" action="insertDB.do" method="post">
-	<!-- otd / payment table -->
-	<input type="hidden" id="payment_price" name="payment_price" value="">
-	<input type="hidden" id="payment_method" name="payment_method" value="">
-	<!-- otd / history table -->
-	<input type="hidden" id="ticket_no" name="ticket_no" value="">
-	<input type="hidden" id="history_date" name="history_date" value="">
-	
-	
+<form id="data" name="data" action="paymentInsert" method="post">
 	<!-- payment table -->
 	<input type="hidden" id="mdUid" name="mdUid" value="">
-	<input type="hidden" id="name" name="name" value="">
 	<input type="hidden" id="amount" name="amount" value="">
 	<input type="hidden" id="method" name="method" value="">
-	<input type="hidden" id="buyerName" name="buyerName" value="">
-	<input type="hidden" id="buyerTel" name="buyerTel" value="">
 	<input type="hidden" id="memSeq" name="memSeq" value="">
 </form>
-
-<!-- 
-	mdUid
-	name
-	amount
-	method
-	buyerName
-	buyerTel
-	memSeq
--->
 
 
 <script>
@@ -149,29 +112,26 @@
 		})
 		
 		function paymentFnc() {
-
 			/* 
 			data.ticket_no.value = merchant_uid; //21/08/18
 			data.payment_price.value = ticketSelect;
 			data.payment_method.value = payment; */
 			
-			let merchant_uid = 'pay_' + new Date().getTime(); /* 주문번호 */
+			let merchant_uid = new Date().getTime(); /* 주문번호 */
 			let payment = $('input[name="pay"]:checked').val(); /* 결제방법 */
-			let ticketSelect = $('#ticket').val(); /* 테스트용 가격 */
 
 			IMP.request_pay({
 				pg : 'html5_inicis',
 				pay_method : payment,
 				merchant_uid : merchant_uid,
-				name : 'goods', /* 주문명 */
-				amount : ticketSelect,
+				name : '차량명+업체명', /* 주문명 */
+				amount : '500', /* 가격 */
 				buyer_name : '${sessionName}',
 				buyer_tel : '${sessionPhone}'
 			}, function(rsp) {
 				if (rsp.success) {
 					var msg = '결제가 완료되었습니다.';
 					alert(msg);
-					// 그 다음 실행
 					data.submit();
 				} else {
 					var msg = '결제에 실패하였습니다.';
