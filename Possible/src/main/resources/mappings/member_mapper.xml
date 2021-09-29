@@ -71,6 +71,11 @@
 		SELECT COUNT(*) FROM MEMBER
 		WHERE ID = #{id}
 	</select>
+	<select id="idFind" resultType="MemberVO">
+		SELECT NVL(id,0)
+		FROM MEMBER
+		WHERE name ='#{id}' AND birth ='#{birth}' AND status='Y'
+	</select>
 	
 	<!-- 회원 수정 -->
 	<update id="memberUpdate">
