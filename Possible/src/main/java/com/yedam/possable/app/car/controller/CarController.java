@@ -36,4 +36,10 @@ public class CarController {
     public String listbackup() {
         return "car/listbackup";
     }
+    
+    // 결제 페이지 test
+    @GetMapping("/payment")
+    public String payment() {
+        return "payment/payment";
+    }
 }
