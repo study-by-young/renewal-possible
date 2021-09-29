@@ -53,7 +53,7 @@ public class MemberController {
 	//회원 아이디 찾기
 	@PostMapping("/idFind")
 	@ResponseBody
-	public String idFind(@RequestBody MemberVO vo) {
+	public String idFind(MemberVO vo, Model model) {
 		String r = memberService.idFind(vo);
 		log.info("아이디 뭐담겨있니?"+r);
 		return r;

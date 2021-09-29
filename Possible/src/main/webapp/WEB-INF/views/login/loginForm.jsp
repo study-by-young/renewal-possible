@@ -245,18 +245,19 @@ function idFind() {
 		url : 'idFind',
 		type : 'POST',
 		dataType : 'json',
-		contentType: 'application/json',
+		//contentType: 'application/json',
 		beforeSend : function(xhr){
 				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
 			},
-		data :JSON.stringify({
+		data :{
 			 "name" : $("#name").val(),
 			 "birth": $("#birth").val()
-		}),
+		},
 		success : function(data){
+			console.log(data);
 			if(data == 0 ){
 				alert("입력하신 정보와 일치하는 회원정보가 없습니다.")
-			} else{
+			} else {
 				$('#findIdBtn').hide();
 				
 				var contents = "";
