@@ -246,7 +246,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<button id="PassBtn" type="button" class="btn btn-primary btn-block">비밀번호 변경</button>
+					<button id="PassBtn" name="PassBtn" type="button" class="btn btn-primary btn-block">비밀번호 변경</button>
 					<button type="button" class="btn btn-danger btn-block" data-dismiss="modal">취소</button>
 				</div>
 			</div>
@@ -395,24 +395,30 @@ function returnSearchId() {
 	 	    checkResult.attr("class", "incorrect");
 	 	}
 	});
-	//비밀번호 변경 폼으로
-	
+		
+	//인증 성공시 비밀번호 변경 폼으로
 	$("#newPassBtn").on("click",function(){
-		var id = $(".idChk").val();
-		console.log(id);
+		var getId = $(".idChk").val();
+		console.log(getId);
 		var email = $("#email").val();
 		$("#passChange").modal();
-		$("#closeClick").hide();
-			
+		$('#closeClick').trigger('click');
+	
+	//비밀번호 변경 
+	$("#PassBtn").on("click",function(){
+		var password = $('.passChk').val();
+		console.log(getId);
+		console.log(password);
 		 $.ajax({
 	         type : "post",
 	         url : "passFindUpdate",
-	         data : {"id" : id},
+	         data : {password : password, id : getId},
 	         beforeSend : function(xhr){
 	            xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
 	         },
 	         success : function(data){
 	            if(data == true){
+	            	console.log(data);
 	            	alert("비밀번호 변경 성공.");
 	            }
 	         },
@@ -420,6 +426,6 @@ function returnSearchId() {
 	        	 alert("실패");
 	         }
 	      });	
-	});
-
+		});
+	});	
 </script>	
