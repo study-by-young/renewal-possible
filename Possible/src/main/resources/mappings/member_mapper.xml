@@ -73,9 +73,9 @@
 	</select>
 	<!-- 아이디 찾기 -->
 	<select id="idFind" resultType="String" >
-		SELECT NVL(id,0)
+		SELECT NVL(id,'0')
 		FROM MEMBER
-		WHERE name ='#{name}' AND birth ='#{birth}' AND status='Y'
+		WHERE name = #{name} AND birth = #{birth} AND status='Y'
 	</select>
 	
 	<!-- 회원 수정 -->

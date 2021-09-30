@@ -241,10 +241,10 @@ function idFind() {
 		$("#birth").focus();
 		return false;
 	}
+	
 	$.ajax({
 		url : 'idFind',
 		type : 'POST',
-		dataType : 'json',
 		//contentType: 'application/json',
 		beforeSend : function(xhr){
 				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
@@ -255,26 +255,26 @@ function idFind() {
 		}),
 		success : function(data){
 			console.log(data);
+			var contents = "";
+			
 			if(data == 0 ){
-				alert("입력하신 정보와 일치하는 회원정보가 없습니다.")
+				alert("입력하신 정보와 일치하는 회원정보가 없습니다.");
+				location.reload();
 			} else {
 				$('#findIdBtn').hide();
-				
-				var contents = "";
-				
+			
 				contents += '<div style = "text-align: center;">';
-				contents += '	<h4> 회원님의 아이디는</h4><br/>';
-				contents += '<h5>' + data.id +'</h5>';
+				contents += '	<h3> 회원님의 아이디는</h3>';
+				contents += '<h4>' + data +'</h4>';
 				contents += '입니다.</div>';
 				contents += '<div class="form-group" id="idFindBtn">';
-				contents += '	<button type="button" class="confirm" data-dismiss="modal" aria-label="Close" id="closeLoginId"><span>확인</span></button>';
+				contents += '	<button type="button" class="btn btn-primary btn-block" data-dismiss="modal" aria-label="Close" id="closeLoginId"><span>확인</span></button>';
 				contents += '</div>';
 			}
 			$('#searchI').html(contents);	
 			
 			$('#closeLoginId').click(function(){
-				
-			    	jQuery('#closeClick').trigger('click');
+					
 			    });
 		}
 	});
