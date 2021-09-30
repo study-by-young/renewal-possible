@@ -29,4 +29,7 @@ public interface MemberService {
 		
 		//아이디 찾기
 		public String idFind(MemberVO vo);
+		
+		//비밀번호 찾기
+		public int passFindUpdate(MemberVO vo);
 }
