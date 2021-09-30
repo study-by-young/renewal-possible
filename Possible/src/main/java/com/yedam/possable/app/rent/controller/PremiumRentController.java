@@ -37,6 +37,7 @@ public class PremiumRentController {
     public String estimateInsert(Model model) {
         model.addAttribute("brands", codeMapper.getBrands());
         model.addAttribute("carOpt", codeMapper.getCodesByParentCodeName("차량 옵션"));
+        model.addAttribute("itemOpt", codeMapper.getCodesByParentCodeName("캠핑 옵션"));
 
         return "/premiumRent/estimateInsert";
     }

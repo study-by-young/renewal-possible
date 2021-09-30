@@ -37,24 +37,15 @@
 <%--                                    <option>14$</option>--%>
 <%--                                </select>--%>
 <%--                            </div>--%>
+                            <p>총 ${pagination.total}건</p>
                         </div>
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                             <div class="x_carbook_right_tabs_box_wrapper float_left">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
-                                        <a class="btn btn-primary" data-toggle="tab" href="insert"><i class="icon-pencil7 align-baseline"></i> 견적 작성</a>
+                                        <a class="btn btn-primary" href="insert"><i class="icon-pencil7 align-baseline"></i> 견적 작성</a>
                                     </li>
                                 </ul>
-                                <p>총 ${pagination.total}건 중
-                                    <span>Showing ${(pagination.cri.pageNum - 1) * 10 + 1} -
-                                        <c:if test="${pagination.cri.pageNum * 10 > pagination.total}">
-                                            ${pagination.total - pagination.cri.pageNum * 10}
-                                        </c:if>
-                                        <c:if test="${pagination.cri.pageNum * 10 <= pagination.total}">
-                                            ${pagination.cri.pageNum * 10}
-                                        </c:if>
-                                    </span>
-                                </p>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -62,30 +53,22 @@
                                 <div class="tab-content">
                                     <div id="menu1" class="tab-pane fade active show">
                                         <div class="row">
-                                            <c:forEach begin="1" end="${pagination.cri.amount}">
+                                            <c:forEach var="est" items="${estList}">
                                                 <div class="col-md-12">
                                                     <div class="x_car_offer_main_boxes_wrapper float_left">
-                                                        <div class="x_car_offer_starts x_car_offer_starts_list_img float_left">	<i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star-o"></i>
-                                                            <i class="fa fa-star-o"></i>
+                                                        <div class="x_car_offer_starts x_car_offer_starts_list_img float_left">
                                                             <div class="x_car_offer_img x_car_offer_img_list float_left">
                                                                 <img src="${pageContext.request.contextPath}/resources/images/cars/Genesis/genesis_g90.png" alt="img" class="img-fluid">
                                                             </div>
                                                             <div class="x_car_offer_price x_car_offer_price_list float_left">
-                                                                <div class="x_car_offer_price_inner x_car_offer_price_inner_list">
-                                                                    <h6><i class="fa fa-tag"></i> &nbsp;15% off Deal</h6>
-                                                                    <h3>$25</h3>
-                                                                    <p><span>from</span>
-                                                                        <br>/ day</p>
-                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="x_car_offer_starts_list_img_cont">
                                                             <div class="x_car_offer_heading x_car_offer_heading_list float_left">
-                                                                <h2><a href="#">IKCO</a></h2>
-                                                                <p>Extra Small</p>
+                                                                <h5 class="pt-3">${est.brand} ${est.model}</h5>
+                                                                <p>${est.trim}</p>
+                                                                <hr class="my-2">
+                                                                <p>${est.startDate} ~ ${est.endDate}</p>
                                                             </div>
                                                             <div class="x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left">
                                                                 <ul>
