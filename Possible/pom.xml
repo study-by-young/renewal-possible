@@ -16,6 +16,7 @@
 		<org.springframework-version>5.2.8.RELEASE</org.springframework-version>
 		<org.springframework.security-version>5.2.5.RELEASE</org.springframework.security-version>
 	</properties>
+	
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
@@ -258,26 +259,18 @@
 		<!-- Spring Security the End -->
 		
 		<!-- https://mvnrepository.com/artifact/org.json/json -->
-      <dependency>
-         <groupId>org.json</groupId>
-         <artifactId>json</artifactId>
-         <version>20210307</version>
-      </dependency>
+		<dependency>
+		   <groupId>org.json</groupId>
+		   <artifactId>json</artifactId>
+		   <version>20210307</version>
+		</dependency>
       
-	<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.7</version>
-        </dependency>        
-        
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>${org.springframework-version}</version>
-        </dependency>
-
+      	<!-- 아임포트(결제) 검증을 위해 추가 -->
+		<dependency>
+		  <groupId>com.github.iamport</groupId>
+		  <artifactId>iamport-rest-client-java</artifactId>
+		  <version>0.2.14</version>
+		</dependency>
 		
 	</dependencies>
 	<build>
@@ -328,4 +321,13 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<!-- 아임포트(결제) 검증을 위해 추가 -->
+	<repositories>
+	  <repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	  </repository>
+	</repositories>
+	
 </project>

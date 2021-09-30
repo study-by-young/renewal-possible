@@ -92,17 +92,30 @@
 
 <!-- DB 데이터 입력폼 -->
 <form id="data" name="data" action="paymentInsert" method="post">
-	<!-- payment table -->
-	<input type="hidden" id="mdUid" name="mdUid" value="">
-	<input type="hidden" id="amount" name="amount" value="">
-	<input type="hidden" id="method" name="method" value="">
-	<input type="hidden" id="memSeq" name="memSeq" value="">
+	<input type="hidden" id="seq" name="seq" value="${seq.seq}">
+	<input type="hidden" id="rentType" name="rentType" value="rentType">
+	<input type="hidden" id="startDate" name="startDate" value="2021/09/29">
+	<input type="hidden" id="receiveDate" name="receiveDate" value="2021/09/29">
+	<input type="hidden" id="returnDate" name="returnDate" value="2021/09/29">
+	<input type="hidden" id="endDate" name="endDate" value="2021/09/29">
+	<input type="hidden" id="receiver" name="receiver" value="박기자">
+	<input type="hidden" id="price" name="price" value="500">
+	<input type="hidden" id="estimate" name="estimate" value="500">
+	<input type="hidden" id="status" name="status" value="status">
+	<input type="hidden" id="takePlaceCode" name="takePlaceCode" value="00000">
+	<input type="hidden" id="takePlaceBasic" name="takePlaceBasic" value="경상북도 울릉군 남면도동 1번지">
+	<input type="hidden" id="takePlaceDetail" name="takePlaceDetail" value="동경 132 북위 37">
+	<input type="hidden" id="merchantUid" name="merchantUid" value="123456789">
+	<input type="hidden" id="payMethod" name="payMethod" value="kakaopay">
+	<input type="hidden" id="carSeq" name="carSeq" value="1">
+	<input type="hidden" id="memSeq" name="memSeq" value="1">
 </form>
 
-
 <script>
+
+	const seq = $('#seq').val();
+	
 	$(document).ready(function(){
-		
 		IMP.init('imp77605435'); /* 가맹점 식별코드 초기화 */
 	
 		/* 폼전송 버튼 누르면 paymentFnc() 실행 */
@@ -111,12 +124,8 @@
 			paymentFnc();
 		})
 		
+		/* 결제함수 */
 		function paymentFnc() {
-			/* 
-			data.ticket_no.value = merchant_uid; //21/08/18
-			data.payment_price.value = ticketSelect;
-			data.payment_method.value = payment; */
-			
 			let merchant_uid = new Date().getTime(); /* 주문번호 */
 			let payment = $('input[name="pay"]:checked').val(); /* 결제방법 */
 
@@ -124,26 +133,83 @@
 				pg : 'html5_inicis',
 				pay_method : payment,
 				merchant_uid : merchant_uid,
-				name : '차량명+업체명', /* 주문명 */
+				name : 'SM5여행갈카', /* 주문명 */
 				amount : '500', /* 가격 */
-				buyer_name : '${sessionName}',
-				buyer_tel : '${sessionPhone}'
+				buyer_name : '{sessionName}',
+				buyer_tel : '{sessionPhone}',
+				m_redirect_url : 'http://localhost:8080/orderCompleteMobile'
+				
 			}, function(rsp) {
-				if (rsp.success) {
-					var msg = '결제가 완료되었습니다.';
-					alert(msg);
-					data.submit();
-				} else {
-					var msg = '결제에 실패하였습니다.';
-					msg += '에러내용 : ' + rsp.error_msg;
-					alert(msg);
-				}
-
+				
+				console.log(rsp);
+				/* 결제검증 */
+				$.ajax({
+		        	type : "POST",
+		        	url : "/verifyIamport/" + rsp.imp_uid 
+		        }).done(function(data) {
+		        	console.log(data);
+		        	/* rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증) */
+		        	if(rsp.paid_amount == data.response.amount){
+			        	alert("결제가 완료되었습니다.");
+						data.submit();
+						location.href = "paymentOneSelect";	
+		        	} else {
+		        		let msg = '결제에 실패하였습니다.';
+		        		msg += '에러내용 : ' + rsp.error_msg;
+		        		alert(msg);
+		        	}
+		        });				
 			});
+			
 		}
+
+		
+
+/* 		if (rsp.success) {
+			let msg = '결제가 완료되었습니다.';
+			alert(msg);
+			data.submit();
+			location.href = "paymentOneSelect";
+		} else {
+			let msg = '결제에 실패하였습니다.';
+			msg += '에러내용 : ' + rsp.error_msg;
+			alert(msg);
+		}		 */
+
+		
+		
+		/* DB에 결제 정보 넘기기 AJAX로 해보려고 했던 흔적
+		$.ajax({
+			url: '/paymentInsert',
+			data: { 
+					rentType : $('#rentType').val()
+					, startDate : $('#startDate').val()
+					, receiveDate : $('#receiveDate').val()
+					, returnDate : $('#returnDate').val()
+					, endDate : $('#endDate').val()
+					, receiver : $('#receiver').val()
+					, price : $('#price').val()
+					, estimate : $('#estimate').val()
+					, status : $('#status').val()
+					, takePlaceCode : $('#takePlaceCode').val()
+					, takePlaceBasic : $('#takePlaceBasic').val()
+					, takePlaceDetail : $('#takePlaceDetail').val()
+					, merchantUid : merchant_uid
+					, payMethod : payment
+					, carSeq : $('#carSeq').val()
+					, memSeq : $('#memSeq').val()
+			},
+			type: 'POST',
+			success: function(data){
+				location.href = "payment";
+			},
+			error: function(){
+				alert('error');
+			}
+		});
+		 */
 	});
 
-	
 	
 	/* 체크박스 전체 선택, 전체 해제 */
 	$('.chkbox_group').on('click', '#chk_all', function() {
@@ -167,5 +233,4 @@
 
 		$('#chk_all').prop('checked', is_checked);
 	});
-	
 </script>
