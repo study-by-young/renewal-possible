@@ -249,10 +249,10 @@ function idFind() {
 		beforeSend : function(xhr){
 				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
 			},
-		data :{
-			 "name" : $("#name").val(),
-			 "birth": $("#birth").val()
-		},
+		data :({
+			 "name"  : $("#name").val(),
+			 "birth" : $("#birth").val()
+		}),
 		success : function(data){
 			console.log(data);
 			if(data == 0 ){
@@ -273,7 +273,7 @@ function idFind() {
 			$('#searchI').html(contents);	
 			
 			$('#closeLoginId').click(function(){
-				returnLoginId();
+				
 			    	jQuery('#closeClick').trigger('click');
 			    });
 		}
