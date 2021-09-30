@@ -131,8 +131,8 @@
 								</div>
 							<br>
 							<div class="text-right">
-								<button type="submit" class="btn btn-primary" onclick="reg()">승인</button>
-								<button id="del" type="submit" formaction="companyRegDelete" class="btn btn-primary">거부</button>
+								<button class="btn btn-primary" onclick="reg()">승인</button>
+								<button id="del" formaction="companyRegDelete" class="btn btn-primary">거부</button>
 							</div>
 						</form>
 					</div>
@@ -145,7 +145,7 @@
 		if(confirm("승인하시겠습니까?") == true ){
 			document.form.submit();
 		}else{
-			return;
+			return false;
 		}
 	}
 	
@@ -153,7 +153,7 @@
 		if(confirm("거부하시겠습니까?") == true ){
 			document.form.submit();
 		}else{
-			return;
+			return false;
 		}
 	});
 	
