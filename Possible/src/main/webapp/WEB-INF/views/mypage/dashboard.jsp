@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <style type="text/css">
 .dash{
 	background: #ffffff;
@@ -17,6 +19,8 @@
 
 </style>
 
+
+
 <!-- x blog main and sidebar Wrapper Start -->
 <div class="x_blog_sidebar_main_wrapper float_left padding_tb_100">
    <div class="container">
@@ -30,12 +34,12 @@
                         <!-- 메뉴 -->
                         <div class="lr_bc_first_box_img_cont_wrapper">
                            <ul>
-                              <li><a href="${pageContext.request.contextPath}/dashboard">홈</a></li>
-                              <li><a href="${pageContext.request.contextPath}/editInfo">회원정보수정</a></li>
-                              <li><a href="${pageContext.request.contextPath}/eslist">견적관리</a></li>
-                              <li><a href="${pageContext.request.contextPath}/rentHistory">렌트관리</a></li>
-                              <li><a href="${pageContext.request.contextPath}/community">커뮤니티관리</a></li>
-                              <li><a href="${pageContext.request.contextPath}/qna">나의문의</a></li>
+                              <li><a href="${pageContext.request.contextPath}/mypage/dashboard">홈</a></li>
+                              <li><a href="${pageContext.request.contextPath}/mypage/editInfo">회원정보수정</a></li>
+                              <li><a href="${pageContext.request.contextPath}/mypage/eslist">견적관리</a></li>
+                              <li><a href="${pageContext.request.contextPath}/mypage/rentHistory">렌트관리</a></li>
+                              <li><a href="${pageContext.request.contextPath}/mypage/community">커뮤니티관리</a></li>
+                              <li><a href="${pageContext.request.contextPath}/mypage/qna">나의문의</a></li>
                            </ul>
                         </div>
                         <br> <br> <br>
@@ -136,7 +140,15 @@
                            </div>
                            <br>
                            <div align="center">
-                           <h3>ㅇㅇㅇ님</h3>
+                           <h3>
+								<sec:authorize access="isAuthenticated()">
+									<a class="menu-button" href="#"><sec:authentication
+										property="principal.username" />님</a>
+									<input type="hidden" name="${_csrf.parameterName }"
+										value="${_csrf.token }">
+								</sec:authorize>
+
+							</h3>
                            </div>
                            
                         </div>
@@ -147,7 +159,7 @@
                               <li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
                                  href="#">쿠폰함 </a></li>
                               <li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
-                                 href="#">포인트 </a></li>
+                                 href="${pageContext.request.contextPath}/mypage/chngRole">업체전환 </a></li>
 
                            </ul>
                         </div>

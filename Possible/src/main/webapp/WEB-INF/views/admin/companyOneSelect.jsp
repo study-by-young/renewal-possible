@@ -131,8 +131,10 @@
 								</div>
 							<br>
 							<div class="text-right">
+							<c:if test="${comRegList.status eq 'N'}">
 								<button class="btn btn-primary" onclick="reg()">승인</button>
 								<button id="del" formaction="companyRegDelete" class="btn btn-primary">거부</button>
+							</c:if>
 							</div>
 						</form>
 					</div>

@@ -59,11 +59,6 @@ public class MemberController {
 		return r;
 	}
 	
-	//업체전환 신청 페이지
-	@GetMapping("/chngRole")
-	public String chngRole(Model model) {
-		
-		return "mypage/chngRole";
-	}
+	
 		
 }
