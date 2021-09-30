@@ -128,26 +128,157 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+      <div class="container">
+		 <div class="sub_title font-weight-bold ">
+			<h3>아이디/비밀번호 찾기</h3>
+			<p>인증된 이메일만 정보 찾기가 가능합니다 :)</p>
+		</div>
+		<div class="custom-control custom-radio custom-control-inline" style="margin-bottom: 10px;" >
+			<input type="radio" class="form-check-input" id="search_1" name="search_total" onclick="searchCheck(1)" checked="checked">
+			<label class="form-check-label"	for="findId">아이디 찾기</label>
+		</div>
+		<div class="custom-control custom-radio custom-control-inline">
+			<input type="radio" class="form-check-input" id="search_2" name="search_total" onclick="searchCheck(2)"> 
+			<label class="form-check-label" for="findPass">비밀번호 찾기</label>
+		</div>
+		<!-- 아이디 찾기 -->
+		<div id="searchI">
+			<div class="form-group">
+				<label for="InputEmail">이름</label>
+	           			<input type="text" class="form-control" name="name" id="name" placeholder="이름입력" style="width: 60%;">
+			</div>
+			
+			<div class="form-group">
+	      				<label for="InputEmail">생년월일</label>
+	          			<input type="text" class="form-control" name="birth" id="birth" placeholder="생년월일 입력" style="width: 60%;">
+			</div>
+			
+			<div class="form-group" id="idFindBtn">
+				<button id="searchBtn" type="button" onclick="idFind()" class="btn btn-primary btn-block">아이디 검색</button>
+				<button type="button" class="btn btn-danger btn-block" data-dismiss="modal">취소</button>
+			</div>
+		</div>
+			<!-- 비밀번호 찾기 -->
+			<div id="searchP" style="display: none;">
+				
+				<div class="row">
+					<div class="form-group col-md-12 col-sm-6 col-xs-12">
+			      		<label for="InputEmail">아이디</label>
+			          	<input type="text" class="form-control" name="id" id="id" placeholder="아이디 입력*" style="width: 60%;">
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-md-12 col-sm-6 col-xs-12">
+						<label for="InputEmail">이름</label>
+			           	<input type="text" class="form-control" name="name" id="name" placeholder="이름입력" style="width: 60%;">
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="form-group col-md-6 col-sm-6 col-xs-12">
+						<label for="InputEmail">인증번호</label>
+			           	<input type="text" class="form-control" name="" id="name" placeholder="인증번호 입력" >
+					</div>
+			        <div class="form-group col-md-4 col-sm-6 col-xs-12 my-4">
+			           	<button class="btn btn-primary">인증하기</button>
+			        </div>
+				</div>
+				
+				<div class="form-group">
+					<button id="searchBtn2" type="button" class="btn btn-primary btn-block">비밀번호 재설정</button>
+					<button type="button" class="btn btn-danger btn-block" data-dismiss="modal">취소</button>
+				</div>
+			</div>
+		</div>
+      <!-- 모달 BodyEnd -->
     </div>
   </div>
+	</div>
 </div>
 <!-- Modal End -->
+ 
 <script>
+
+
 $(function(){
+	
+	//로그인
 	$('#loginBtn').on("click",function(){
 		frm.submit();
 	});
-});
+});	
+	
+
+//아이디/비밀번호 내용 변경 폼 
+function searchCheck(num) {
+		if (num == '1') {
+			$("#searchP").css('display','none');
+			$("#searchI").css('display', 'block');	
+		} else {
+			$("#searchI").css('display', 'none');
+			$("#searchP").css('display', "block");
+		}
+	} 
+//아이디 찾기
+function idFind() {
+	 var csrfHeaderName = "${_csrf.headerName}";
+	 var csrfTokenValue ="${_csrf.token}";
+	 
+	if(!$("#name").val()) {
+		alert("이름을 입력해주세요.");
+		$("#name").focus();
+		return false;
+	}
+	
+	if(!$("#birth").val()) {
+		alert("생년월일을 입력해주세요.");
+		$("#birth").focus();
+		return false;
+	}
+	$.ajax({
+		url : 'idFind',
+		type : 'POST',
+		dataType : 'json',
+		//contentType: 'application/json',
+		beforeSend : function(xhr){
+				xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+			},
+		data :{
+			 "name" : $("#name").val(),
+			 "birth": $("#birth").val()
+		},
+		success : function(data){
+			console.log(data);
+			if(data == 0 ){
+				alert("입력하신 정보와 일치하는 회원정보가 없습니다.")
+			} else {
+				$('#findIdBtn').hide();
+				
+				var contents = "";
+				
+				contents += '<div style = "text-align: center;">';
+				contents += '	<h4> 회원님의 아이디는</h4><br/>';
+				contents += '<h5>' + data.id +'</h5>';
+				contents += '입니다.</div>';
+				contents += '<div class="form-group" id="idFindBtn">';
+				contents += '	<button type="button" class="confirm" data-dismiss="modal" aria-label="Close" id="closeLoginId"><span>확인</span></button>';
+				contents += '</div>';
+			}
+			$('#searchI').html(contents);	
+			
+			$('#closeLoginId').click(function(){
+				returnLoginId();
+			    	jQuery('#closeClick').trigger('click');
+			    });
+		}
+	});
+	
+} // end of idFind()
+
 </script>	

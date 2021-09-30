@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -47,6 +48,14 @@ public class MemberController {
 	public int idChk(MemberVO vo) {
 		int r = memberService.idChk(vo);
 		System.out.println(r);
+		return r;
+	}
+	//회원 아이디 찾기
+	@PostMapping("/idFind")
+	@ResponseBody
+	public String idFind(MemberVO vo, Model model) {
+		String r = memberService.idFind(vo);
+		log.info("아이디 뭐담겨있니?"+r);
 		return r;
 	}
 	

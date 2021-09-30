@@ -67,6 +67,12 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.idChk(vo);
 	}
 
+	@Override
+	public String idFind(MemberVO vo) {
+		// TODO 회워 아이디 찾기
+		return memberMapper.idFind(vo);
+	}
+
 	
 
 }
