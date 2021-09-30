@@ -71,10 +71,11 @@
 		SELECT COUNT(*) FROM MEMBER
 		WHERE ID = #{id}
 	</select>
-	<select id="idFind" resultType="MemberVO">
+	<!-- 아이디 찾기 -->
+	<select id="idFind" resultType="String" >
 		SELECT NVL(id,0)
 		FROM MEMBER
-		WHERE name ='#{id}' AND birth ='#{birth}' AND status='Y'
+		WHERE name ='#{name}' AND birth ='#{birth}' AND status='Y'
 	</select>
 	
 	<!-- 회원 수정 -->
