@@ -5,4 +5,7 @@
 이용자: ${rent.receiver}<br>
 결제금액: ${rent.price}<br>
 결제방법: ${rent.payMethod}<br>
+시퀀스~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~${rent.seq}
+${resultMsg}
+${seq.seq}
 출력..

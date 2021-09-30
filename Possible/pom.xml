@@ -17,14 +17,6 @@
 		<org.springframework.security-version>5.2.5.RELEASE</org.springframework.security-version>
 	</properties>
 	
-	<!-- 아임포트(결제) 검증을 위해 추가 -->
-	<repositories>
-	  <repository>
-	    <id>jitpack.io</id>
-	    <url>https://jitpack.io</url>
-	  </repository>
-	</repositories>
-	
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
@@ -329,4 +321,13 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<!-- 아임포트(결제) 검증을 위해 추가 -->
+	<repositories>
+	  <repository>
+	    <id>jitpack.io</id>
+	    <url>https://jitpack.io</url>
+	  </repository>
+	</repositories>
+	
 </project>

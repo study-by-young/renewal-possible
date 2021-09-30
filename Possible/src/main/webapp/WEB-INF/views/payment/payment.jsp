@@ -92,7 +92,7 @@
 
 <!-- DB 데이터 입력폼 -->
 <form id="data" name="data" action="paymentInsert" method="post">
-	<!-- <input type="hidden" id="seq" name="seq"> -->
+	<input type="hidden" id="seq" name="seq" value="${seq.seq}">
 	<input type="hidden" id="rentType" name="rentType" value="rentType">
 	<input type="hidden" id="startDate" name="startDate" value="2021/09/29">
 	<input type="hidden" id="receiveDate" name="receiveDate" value="2021/09/29">
@@ -111,8 +111,10 @@
 	<input type="hidden" id="memSeq" name="memSeq" value="1">
 </form>
 
-
 <script>
+
+	const seq = $('#seq').val();
+	
 	$(document).ready(function(){
 		IMP.init('imp77605435'); /* 가맹점 식별코드 초기화 */
 	
@@ -122,7 +124,7 @@
 			paymentFnc();
 		})
 		
-		/* 결제 함수 */
+		/* 결제함수 */
 		function paymentFnc() {
 			let merchant_uid = new Date().getTime(); /* 주문번호 */
 			let payment = $('input[name="pay"]:checked').val(); /* 결제방법 */
@@ -138,18 +140,43 @@
 				m_redirect_url : 'http://localhost:8080/orderCompleteMobile'
 				
 			}, function(rsp) {
-				if (rsp.success) {
-					let msg = '결제가 완료되었습니다.';
-					alert(msg);
-					data.submit(); /* 성공 시 data폼의 데이터를 submit 한다. */
-					location.href = "paymentFin"; /* 결제완료 페이지로 이동 */
-				} else {
-					let msg = '결제에 실패하였습니다.';
-					msg += '에러내용 : ' + rsp.error_msg;
-					alert(msg);
-				}
+				
+				console.log(rsp);
+				/* 결제검증 */
+				$.ajax({
+		        	type : "POST",
+		        	url : "/verifyIamport/" + rsp.imp_uid 
+		        }).done(function(data) {
+		        	console.log(data);
+		        	/* rsp.paid_amount 와 data.response.amount를 비교한후 로직 실행 (import 서버검증) */
+		        	if(rsp.paid_amount == data.response.amount){
+			        	alert("결제가 완료되었습니다.");
+						data.submit();
+						location.href = "paymentOneSelect";	
+		        	} else {
+		        		let msg = '결제에 실패하였습니다.';
+		        		msg += '에러내용 : ' + rsp.error_msg;
+		        		alert(msg);
+		        	}
+		        });				
 			});
+			
 		}
+
+		
+
+/* 		if (rsp.success) {
+			let msg = '결제가 완료되었습니다.';
+			alert(msg);
+			data.submit();
+			location.href = "paymentOneSelect";
+		} else {
+			let msg = '결제에 실패하였습니다.';
+			msg += '에러내용 : ' + rsp.error_msg;
+			alert(msg);
+		}		 */
+
+		
 		
 		/* DB에 결제 정보 넘기기 AJAX로 해보려고 했던 흔적
 		$.ajax({
@@ -183,7 +210,6 @@
 		 */
 	});
 
-	
 	
 	/* 체크박스 전체 선택, 전체 해제 */
 	$('.chkbox_group').on('click', '#chk_all', function() {
