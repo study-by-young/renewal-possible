@@ -22,7 +22,7 @@
 	</sql>
 	
 	
-	<select id="getList" resultType="NoticeVO">
+	<select id="getList" resultType="NoticeVO" >
 		SELECT SEQ
 			 , TITLE
 			 , CONTENT

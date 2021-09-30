@@ -36,7 +36,7 @@
       SELECT * 
       FROM (
              SELECT 
-             /*+ INDEX_DESC(IDX_MEMBER) */ 
+             /*+ INDEX_DESC(MEMBER IDX_MEMBER) */ 
              ROWNUM RN, SEQ, ID, EMAIL, PHONE, NAME
              FROM MEMBER
              <where> 

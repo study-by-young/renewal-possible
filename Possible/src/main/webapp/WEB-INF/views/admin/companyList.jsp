@@ -48,33 +48,17 @@
 		<h4>업체정보관리</h4>
 	</div>
 	<div class="dash">
-	
-	    <input type="checkbox" name="area" value='서울특별시'> 서울
-        <input type="checkbox" name="area" value='경기도'> 경기
-        <input type="checkbox" name="area" value='인천광역시'> 인천
-        <input type="checkbox" name="area" value='강원도'> 강원
-        <input type="checkbox" name="area" value='충청북도'> 충북
-        <input type="checkbox" name="area" value='충청남도'> 충남
-        <input type="checkbox" name="area" value='대전광역시'> 대전
-        <input type="checkbox" name="area" value='세종특별자치시'> 세종
-        <input type="checkbox" name="area" value='광주광역시'> 광주
-        <input type="checkbox" name="area" value='전라북도'> 전북
-        <input type="checkbox" name="area" value='전라남도'> 전남
-        <input type="checkbox" name="area" value='경상북도'> 경북
-        <input type="checkbox" name="area" value='경상남도'> 경남
-        <input type="checkbox" name="area" value='대구광역시'> 대구
-        <input type="checkbox" name="area" value='부산광역시'> 부산
-        <input type="checkbox" name="area" value='울산광역시'> 울산
-        <input type="checkbox" name="area" value='제주특별자치도'> 제주
 		
 	<div>
 		<form id="actionForm" action="companyList" method="get">
 			<select name="type" class="select" >
 				<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
 				<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>업체명</option>
+				<option value="A" ${pageMaker.cri.type =='A'? 'selected' : "" }>도시명</option>
 				<option value="C" ${pageMaker.cri.type =='C'? 'selected' : "" }>사업자번호</option>
 				<option value="T" ${pageMaker.cri.type =='T'? 'selected' : "" }>대표번호</option>
-			</select> <input class="input" name="keyword" value="${pageMaker.cri.keyword }"> <input
+			</select> <input class="input" name="keyword" value="${pageMaker.cri.keyword }">
+			 <input
 				type="hidden" name="pageNum" value="1"> <input type="hidden"
 				name="amount" value="${pageMaker.cri.amount }">
 			<button class="btn btn-primary">Search</button>
@@ -89,8 +73,8 @@
 					<th>대표자</th>
 					<th>사업자번호</th>
 					<th>사업자주소</th>
+					<th>지역</th>
 					<th>대표번호</th>
-					<th>상세보기</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -98,20 +82,49 @@
 				<tr>
 					<td>${companyList.seq }</td>
 					<td>${companyList.name}</td>
-					<td>${companyList.postal}</td>
 					<td>${companyList.cmpnNum }</td>
 					<td>${companyList.addr1 }</td>
 					<td>${companyList.addr2 }</td>
 					<td>${companyList.area }</td>
 					<td>${companyList.tel }</td>
 					<td>
-					<a class="move" href="${companyList.seq }">상세보기</a>
+					 <a class="move" href="${companyList.seq }">상세보기</a>
 					</td>
+					<!-- 	<button type="button" class="btn btn-primary show"
+							data-toggle="modal" data-target="#myModal">상세보기
+						</button> -->
 				</tr>
 			</c:forEach>
 		</tbody>
 		</table>
 	<br>
+	  
+
+		<!-- 모달 
+			
+			<div class="modal fade" id="myModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						Modal Header
+						<div class="modal-header">
+							<h4 class="modal-title">업체정보</h4>
+							<button type="button" class="close" data-dismiss="modal">×</button>
+						</div>
+
+						 Modal body
+						<div class="modal-body"></div>
+
+						 Modal footer
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						</div>
+
+					</div>
+				</div>
+			</div> 
+		-->
+			
 	<!-- 페이징 -->
 	<div id="pageButton">
   	<ul class="pagination">
@@ -133,6 +146,7 @@
 	</div>
 </div>
 </div>
+
 <script>
 	$(function() {
 		var actionForm = $("#actionForm");
@@ -156,4 +170,40 @@
 			actionForm.submit();
 		});
 	});
+	
+	<!--
+	$(document).ready(function(){ 
+		$('.show').click(function(){ 
+			var seq = (this).closet("td")[0].val();
+			console.log(seq);
+			$.ajax({ 
+				url: "companyOne", 
+				type:"GET", 
+				data: {seq : seq },
+				dataType:'json', 
+				success:function(response) { 
+					showList(response); 
+					}, 
+				error:function(xhr,status,msg){ 
+					console.log("상태값 : " + status + " Http에러메시지 : "+msg); } 
+				}); 
+			}); 
+		
+	function showList(data){ 
+		var infoList = ''; $(".modal-body").empty(); 
+		var head = '<span>'+companyOne+'</span>'; 
+		$(".modal-body").append(head); 
+		$.each(data, function(index, item){ 
+			infoList = '<tr>'; 
+			infoList += '<td>' + item.name + '</td>'; 
+			infoList += '<td>' + item.cmpnNum + '</td>'; 
+			infoList += '</tr>'; $(".modal-body").append(infoList); 
+			}) 
+		} 
+	});
+	-->
+
+
+
+	
 </script>
