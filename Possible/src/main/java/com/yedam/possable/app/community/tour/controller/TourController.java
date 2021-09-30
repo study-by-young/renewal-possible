@@ -11,16 +11,20 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yedam.possable.app.community.tour.domain.TestVO;
+import com.yedam.possable.app.community.tour.service.TourService;
 
 @Controller
 @RequestMapping("/tour/*")
 public class TourController {
+	
+	@Autowired TourService tourService;
 
 	@GetMapping("/test")
 	public void test(Model model) throws IOException {
@@ -36,7 +40,7 @@ public class TourController {
 				"%2Bxd0HNP4Gd4KAuGtJitYZzafrxzKZ40VMcf3uX%2BQ7AfWFbNEvS2jj43sWtAeAlQPnB65kOz6PjhVjsUPnvkKtw%3D%3D",
 				"UTF-8")); /* 공공데이터포털에서 발급받은 인증키 */
 		urlBuilder.append(
-				"&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /* 한 페이지 결과수 */
+				"&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("1928", "UTF-8")); /* 한 페이지 결과수 */
 		urlBuilder.append(
 				"&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /* 현재 페이지 번호 */
 		urlBuilder.append("&" + URLEncoder.encode("MobileOS", "UTF-8") + "="
@@ -51,7 +55,7 @@ public class TourController {
 													 * Q=수정일순, R=생성일순)
 													 */
 		urlBuilder.append("&" + URLEncoder.encode("contentTypeId", "UTF-8") + "="
-				+ URLEncoder.encode("12", "UTF-8")); /* 관광타입 12=관광지 */
+				+ URLEncoder.encode("14", "UTF-8")); /* 관광타입 12=관광지 */
 		urlBuilder.append("&" + URLEncoder.encode("_type", "UTF-8") + "=" + URLEncoder.encode("json", "UTF-8"));
 		URL url = new URL(urlBuilder.toString());
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -72,25 +76,52 @@ public class TourController {
 		rd.close();
 		conn.disconnect();
 		String result = sb.toString();
-		System.out.println(result);
+		//System.out.println(result);
 		// String -> JSON 변환
 		JSONArray jArry = new JSONObject(result).getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONArray("item");
-		String addr = jArry.getJSONObject(0).getString("addr1");
-		System.out.println(addr);
+		//String addr = jArry.getJSONObject(0).getString("addr1");
+		
 //				new JSONObject(new JSONObject(sb.toString()).get("body").toString()).getJSONArray("items").toString()).getJSONArray("item");
 		
 		List<TestVO> list = new ArrayList<TestVO>();
-		TestVO test = new TestVO(); // 객체에 담음
+		TestVO test;
 		for (int i = 0; i < jArry.length(); i++) {
+			test = new TestVO(); // 객체에 담음
 			JSONObject JO = jArry.getJSONObject(i);
+			if (!JO.isNull("addr1")) { test.setAddr1(JO.getString("addr1")); }
+			if (!JO.isNull("areacode")) { test.setAreaCode(JO.getInt("areacode")); }
+			if (!JO.isNull("cat1")) { test.setCat1(JO.getString("cat1")); }
+			if (!JO.isNull("cat2")) { test.setCat2(JO.getString("cat2")); }
+			if (!JO.isNull("cat3")) { test.setCat3(JO.getString("cat3")); }
+			if (!JO.isNull("contentid")) { test.setContentId(JO.getInt("contentid")); }
+			if (!JO.isNull("contenttypeid")) { test.setContentTypeId(JO.getInt("contenttypeid")); }
+			if (!JO.isNull("createdtime")) { test.setCreatedTime(JO.getLong("createdtime")); }
+			if (!JO.isNull("firstimage")) { test.setFirstImage(JO.getString("firstimage")); }
+			if (!JO.isNull("firstimage2")) { test.setFirstImage2(JO.getString("firstimage2")); }
+			if (!JO.isNull("mapx")) { test.setMapX(JO.getDouble("mapx")); }
+			if (!JO.isNull("mapy")) { test.setMapY(JO.getDouble("mapy")); }
+			if (!JO.isNull("mlevel")) { test.setMLevel(JO.getInt("mlevel")); }
+			if (!JO.isNull("modifiedtime")) { test.setModifiedTime(JO.getLong("modifiedtime")); }
+			if (!JO.isNull("readcount")) { test.setReadCount(JO.getInt("readcount")); }
+			if (!JO.isNull("sigungucode")) { test.setSigunguCode(JO.getInt("sigungucode")); }
+			if (!JO.isNull("title")) { test.setTitle(JO.getString("title")); }
+			if (!JO.isNull("zipcode")) { 
+				if (JO.get("zipcode").getClass().getName().equals("java.lang.Integer")) {
+					test.setZipCode(String.valueOf(JO.getInt("zipcode")));
+				} else {
+					test.setZipCode(JO.getString("zipcode"));
+				}
+				 
+			}
 
-			if (!JO.isNull("addr1")) {
-				test.setAddr(String.valueOf(JO.get("addr1")));
-			}
-			if (!JO.isNull("title")) {
-				test.setTitle(String.valueOf(JO.get("title")));
-			}
+			/*
+			 * JSONObject JO = jArry.getJSONObject(i);
+			 * 
+			 * if (!JO.isNull("title")) { test.setTitle(String.valueOf(JO.get("title"))); }
+			 * list.add(test);
+			 */
 			list.add(test);
+			tourService.insert(test);
 		}
 		System.out.println(list);
 	}

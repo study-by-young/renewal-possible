@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.possable.app.community.tour.mapper.TourMapper">
+
+<insert id="insert">
+	INSERT INTO TOURTEST VALUES (#{addr1, jdbcType=VARCHAR}, #{areaCode, jdbcType=VARCHAR}, #{cat1, jdbcType=VARCHAR}, #{cat2, jdbcType=VARCHAR}, #{cat3, jdbcType=VARCHAR}, #{contentId, jdbcType=VARCHAR}, #{contentTypeId, jdbcType=VARCHAR}, #{createdTime, jdbcType=VARCHAR}, #{firstImage, jdbcType=VARCHAR}, #{firstImage2, jdbcType=VARCHAR}, #{mapX, jdbcType=VARCHAR}, #{mapY, jdbcType=VARCHAR}, #{mLevel, jdbcType=VARCHAR}, #{modifiedTime, jdbcType=VARCHAR}, #{readCount, jdbcType=VARCHAR}, #{sigunguCode, jdbcType=VARCHAR}, #{title, jdbcType=VARCHAR}, #{zipCode, jdbcType=VARCHAR})
+</insert>
+
+</mapper>

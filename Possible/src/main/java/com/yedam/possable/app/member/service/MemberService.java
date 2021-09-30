@@ -26,4 +26,7 @@ public interface MemberService {
 		
 		//아이디 중복 체크
 		public int idChk(MemberVO vo);
+		
+		//아이디 찾기
+		public String idFind(MemberVO vo);
 }

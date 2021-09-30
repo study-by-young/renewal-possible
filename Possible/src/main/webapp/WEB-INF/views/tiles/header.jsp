@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
+
 <%--<div id="preloader">--%>
 <%--    <div id="status">--%>
 <%--        <img src="${pageContext.request.contextPath}/resources/images/loader.gif" id="preloader_image" alt="loader">--%>
@@ -32,10 +34,14 @@
 						</sec:authorize>
                         
                         <sec:authorize access="isAuthenticated()">
-                        	<form action="logout" method="post">
-                        		<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" >
-								<a class="menu-button" href="${pageContext.request.contextPath}/logout">Logout</a>
-							</form>
+                        		<a class="menu-button" href="#"><sec:authentication property="principal.username"/>님</a>
+									
+										<form action="${pageContext.request.contextPath}/logout" method="post" id="logoutFrm" name="logoutFrm">
+	                        				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" >
+												<a class="menu-button" href="#" id="logOutBtn" >logout</a>
+										</form>
+									
+                        	
 						</sec:authorize>
 
                     </div>
@@ -105,3 +111,12 @@
         </div>
     </div>
 </div>
+
+<script>
+$(function(){
+	$('#logOutBtn').css('cursor','pointer');
+	$('#logOutBtn').on("click",function(){
+		logoutFrm.submit();
+	});
+});
+</script>

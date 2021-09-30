@@ -170,7 +170,7 @@ span.chkBox {
                     <div class="col-lg-2 col-md-6 col-12 full_width">
                         <div class="form-group">
                             <label>렌트 시작 날짜</label>
-                            <input id="searchStart" name="searchStart" type="text" class="form-control pickadate-translated" placeholder="날짜를 선택하세요.">
+                            <input id="searchStart" name="searchStart" type="text" class="form-control datepicker" placeholder="날짜를 선택하세요.">
                         </div>
                     </div>
                     <div class="col-lg-2 col-md-6 col-12 full_width">
