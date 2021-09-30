@@ -25,6 +25,7 @@
 <div class="x_car_book_sider_main_Wrapper float_left">
     <div class="container">
         <form id="estimateForm" name="estimateForm" method="post">
+            <input type="hidden" name="memSeq" id="memSeq" value="1">
         <div class="row">
             <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-12">
                 <div class="x_carbooking_right_section_wrapper float_left">
@@ -60,6 +61,7 @@
                                             </li>
                                             <li class="col-md-4">
                                             <label  class="w-100">등급
+                                                <input type="hidden" name="segment" id="segment" value="">
                                                 <select name="trim" id="trim" class="myselect select2-hidden-accessible select2-search--hide" onchange="searchByBrand()" required>
                                                     <optgroup label="트림">
                                                         <option>등급을 선택하세요</option>
@@ -72,8 +74,8 @@
                                                 <hr class="my-2">
                                                 <div class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
                                                     <c:forEach var="option" items="${carOpt}" varStatus="status">
-                                                        <input name="carOpt[${status.index}]" id="carOpt[${status.index}]" type="checkbox" value="${option.code}">
-                                                        <label for="carOpt[${status.index}]" class="pr-3">${option.name}</label>
+                                                        <input name="options[${status.index}]" id="options[${status.index}]" type="checkbox" value="${option.name}">
+                                                        <label for="options[${status.index}]" class="pr-3">${option.name}</label>
                                                     </c:forEach>
                                                 </div>
                                             </li>
@@ -82,38 +84,38 @@
                                                 <hr class="my-2">
                                                 <div class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
                                                     <c:forEach var="option" items="${carOpt}" varStatus="status">
-                                                        <input name="carOpt[${status.index}]" id="carOpt[${status.index}]" type="checkbox" value="${option.code}">
-                                                        <label for="carOpt[${status.index}]" class="pr-3">${option.name}</label>
+                                                        <input name="items[${status.index}]" id="items[${status.index}]" type="checkbox" value="${option.name}">
+                                                        <label for="items[${status.index}]" class="pr-3">${option.name}</label>
                                                     </c:forEach>
                                                 </div>
 
                                             </li>
                                             <li class="col-md-6 mb-3">
-                                                <label>렌트 시작 날짜</label>
-                                                <input type="date" placeholder="" class="form-control" required>
+                                                <label for="startDate">렌트 시작 날짜</label>
+                                                <input type="date" id="startDate" name="startDate" class="form-control" required>
                                             </li>
                                             <li class="col-md-6 mb-3">
-                                                <label>렌트 종료 날짜</label>
-                                                <input type="date" placeholder="" class="form-control" required>
+                                                <label for="endDate">렌트 종료 날짜</label>
+                                                <input type="date" id="endDate" name="endDate" class="form-control" required>
                                             </li>
                                             <li class="col-md-12">
                                                 <label>렌트카 수령 장소</label>
                                                 <hr class="my-2">
                                             </li>
                                             <li class="col-md-6 mb-3">
-                                                <label for="postCode">우편번호</label>
-                                                <input type="text" id="postCode" name="postCode" class="form-control" required>
+                                                <label for="takePlaceCode">우편번호</label>
+                                                <input type="text" id="takePlaceCode" name="takePlaceCode" class="form-control" required>
                                             </li>
                                             <li class="col-md-6 mb-3 align-self-end">
-                                                <button type="button" class="btn " onclick="daumPostcode($('#postalWrapper')[0],postCode,addrBasic,addrDetail)">주소 검색</button>
+                                                <button type="button" class="btn " onclick="daumPostcode($('#postalWrapper')[0],takePlaceCode,takePlaceBasic,takePlaceDetail)">주소 검색</button>
                                             </li>
                                             <li class="col-md-6 mb-3">
-                                                <label for="addrBasic">기본 주소</label>
-                                                <input type="text" id="addrBasic" name="addrBasic" placeholder="기본 주소" class="form-control" required>
+                                                <label for="takePlaceBasic">기본 주소</label>
+                                                <input type="text" id="takePlaceBasic" name="takePlaceBasic" placeholder="기본 주소" class="form-control" required>
                                             </li>
                                             <li class="col-md-6 mb-3 ">
-                                                <label for="addrDetail">상세 주소</label>
-                                                <input type="text" id="addrDetail" name="addrDetail" placeholder="상세 주소" class="form-control">
+                                                <label for="takePlaceDetail">상세 주소</label>
+                                                <input type="text" id="takePlaceDetail" name="takePlaceDetail" placeholder="상세 주소" class="form-control">
                                             </li>
                                             <li class="col-md-12 mb-3">
                                                 <div id="postalWrapper" class="border"></div>
@@ -231,6 +233,7 @@
                 result.forEach(function (item) {
                     let opt = $('<option>').attr('value', item['code'])
                         .attr('data-img-src', item['img'])
+                        .attr('data-seg',item['segCode'])
                         .text(item['name']);
 
                     model.children('optgroup').append(opt);
@@ -258,6 +261,7 @@
                     );
                 });
                 trim.select2();
+                trim.parent().children('#segment').val(model.find('option:selected').data('seg'));
 
                 let carInfo = $('.x_car_access_filer_top_img');
                 carInfo.children('img').attr('src', '${pageContext.request.contextPath}' + model.find('option:selected').data('img-src'));
