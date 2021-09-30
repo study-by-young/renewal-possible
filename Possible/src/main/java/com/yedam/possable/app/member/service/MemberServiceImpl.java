@@ -69,8 +69,19 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String idFind(MemberVO vo) {
-		// TODO 회워 아이디 찾기
+		// TODO 회원 아이디 찾기
 		return memberMapper.idFind(vo);
+	}
+
+	@Override
+	public int passFindUpdate(MemberVO vo) {
+		// TODO 회원 비밀번호 찾기 변경
+		
+		String endcodePassword = bcryptPasswordEncoder.encode(vo.getPassword());
+		System.out.println("비밀번호 찾기 변경 암호화 후 " + endcodePassword);
+		
+		vo.setPassword(endcodePassword);
+		return memberMapper.passFindUpdate(vo);
 	}
 
 	

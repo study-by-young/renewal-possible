@@ -40,10 +40,7 @@
 	                        				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" >
 												<a class="menu-button" href="#" id="logOutBtn" >logout</a>
 										</form>
-									
-                        	
 						</sec:authorize>
-
                     </div>
                 </div>
                 <nav class="hs_main_menu d-none d-sm-none d-xs-none d-md-block float-left">
