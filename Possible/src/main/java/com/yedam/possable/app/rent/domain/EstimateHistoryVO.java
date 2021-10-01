@@ -14,8 +14,8 @@ public class EstimateHistoryVO {
     private String segment;
     private String model;
     private String trim;
-    private List<String> options;
-    private List<String> items;
+    private String options;
+    private String items;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -26,6 +26,6 @@ public class EstimateHistoryVO {
     private Date genDate;
     private Date uptDate;
 
-    
+
     private MemberVO memberVO;
 }

@@ -9,6 +9,9 @@ public interface PremiumRentService{
     // 견적서 리스트
     public List<EstimateHistoryVO> getEstimateList(Criteria cri);
 
+    // 견적서 단건
+    public EstimateHistoryVO getEstimate(Long seq);
+
     // 견적서 작성
     public int insertEstimate(EstimateHistoryVO vo);
 
