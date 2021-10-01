@@ -3,12 +3,16 @@
 <mapper namespace="com.yedam.possable.app.company.mapper.CompanyMapper">
 
 	<sql id="criteria">
+				
 				<trim prefix="(" suffix=")" prefixOverrides="OR">
              		<foreach collection="typeArr" item="type">
              			<trim prefix="OR">
              				<choose>
 				             	<when test="type == 'N'.toString()">
 				                   NAME LIKE '%' || #{keyword} || '%'
+				                </when>
+				                <when test="type == 'A'.toString()">
+				                   AREA LIKE '%' || #{keyword} || '%'
 				                </when>
 				                <when test="type == 'C'.toString()">
 				                   CMPN_NUM LIKE '%' || #{keyword} || '%'
@@ -34,7 +38,7 @@
 		<selectKey keyProperty="seq" resultType="Long" order="BEFORE">
 			SELECT SEQ_COMPANY.nextval FROM DUAL
 		</selectKey>
-			INSERT INTO MEMBER(SEQ,
+			INSERT INTO COMPANY(SEQ,
 				                NAME,
 								POSTAL,
 								CMPN_NUM,
@@ -50,12 +54,12 @@
 				  		VALUES(#{seq},
 				                #{name},
 								#{postal},
-								#{cmpn_num},
+								#{cmpnNum},
 								#{tel},
 								'N',
 								sysdate,
 								sysdate,
-								#{mem_seq},
+								#{memberVO.seq},
 								#{addr1},
 								#{addr2},
 								#{area}
@@ -66,7 +70,7 @@
 	<!-- 업체 미승인 리스트 -->
 	<select id="companyRegList" resultType="CompanyVO">
 		SELECT 
-             /*+ INDEX_DESC(IDX_COMPANY) */ 
+             /*+ INDEX_DESC (COMPANY IDX_COMPANY) */ 
              ROWNUM RN, SEQ,
 						NAME,
 						POSTAL,

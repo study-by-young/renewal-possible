@@ -9,24 +9,27 @@ import java.util.Date;
 @Data
 public class RentHistoryVO {
     private Long seq;
-    private String rentType;
-    private Date startDate;
-    private Date endDate;
-    private Date receiveDate;
-    private Date returnDate;
+	private String rentType; /* 구분 */
+	private Date startDate; /* 시작일자 */
+	private Date receiveDate; /* 수령일자 */
+	private Date returnDate; /* 반납일자 */
+	private Date endDate; /* 끝일자 */
     private String receiver;
-    private String takePlaceCode;
-    private String takePlaceBasicAddr;
-    private String takePlaceDetailAddr;
-    private String destinationCode;
-    private String destinationBasicAddr;
-    private String destinationDetailAddr;
     private Long price;
     private Long estimate;
     private String status;
     private Date genDate;
     private Date uptDate;
-
+    private String takePlaceCode;
+    private String takePlaceBasic;
+    private String takePlaceDetail;
+    private String merchantUid;
+    private String payMethod;
+    
+	/* 테스트 */
+    private Long carSeq;
+    private Long memSeq;
+    
     private CarVO carVO;
     private MemberVO memberVO;
 }

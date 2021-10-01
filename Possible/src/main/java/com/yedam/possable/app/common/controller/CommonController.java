@@ -23,6 +23,6 @@ public class CommonController {
     @GetMapping("/findTrims")
     @ResponseBody
     public List<TrimCodeVO> findTrims(@RequestParam("model") String model){
-        return codeMapper.getTrims();
+        return codeMapper.getTrims(model);
     }
 }

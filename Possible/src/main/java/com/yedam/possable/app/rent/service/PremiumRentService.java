@@ -1,11 +1,11 @@
-package com.yedam.possable.app.rent.mapper;
+package com.yedam.possable.app.rent.service;
 
 import com.yedam.possable.app.common.domain.Criteria;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 
 import java.util.List;
 
-public interface PremiumRentMapper {
+public interface PremiumRentService{
     // 견적서 리스트
     public List<EstimateHistoryVO> getEstimateList(Criteria cri);
 

@@ -2,8 +2,10 @@ package com.yedam.possable.app.rent.domain;
 
 import com.yedam.possable.app.member.domain.MemberVO;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class EstimateHistoryVO {
@@ -12,18 +14,18 @@ public class EstimateHistoryVO {
     private String segment;
     private String model;
     private String trim;
-    private String options;
-    private String items;
+    private List<String> options;
+    private List<String> items;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
     private String takePlaceCode;
-    private String takePlaceBasicAddr;
-    private String takePlaceDetailAddr;
-    private String destinationCode;
-    private String destinationBasicAddr;
-    private String destinationDetailAddr;
+    private String takePlaceBasic;
+    private String takePlaceDetail;
     private Date genDate;
     private Date uptDate;
 
+    
     private MemberVO memberVO;
 }

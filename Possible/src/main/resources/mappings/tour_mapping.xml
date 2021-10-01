@@ -6,4 +6,21 @@
 	INSERT INTO TOURTEST VALUES (#{addr1, jdbcType=VARCHAR}, #{areaCode, jdbcType=VARCHAR}, #{cat1, jdbcType=VARCHAR}, #{cat2, jdbcType=VARCHAR}, #{cat3, jdbcType=VARCHAR}, #{contentId, jdbcType=VARCHAR}, #{contentTypeId, jdbcType=VARCHAR}, #{createdTime, jdbcType=VARCHAR}, #{firstImage, jdbcType=VARCHAR}, #{firstImage2, jdbcType=VARCHAR}, #{mapX, jdbcType=VARCHAR}, #{mapY, jdbcType=VARCHAR}, #{mLevel, jdbcType=VARCHAR}, #{modifiedTime, jdbcType=VARCHAR}, #{readCount, jdbcType=VARCHAR}, #{sigunguCode, jdbcType=VARCHAR}, #{title, jdbcType=VARCHAR}, #{zipCode, jdbcType=VARCHAR})
 </insert>
 
+<select id="maxDate" resultType="long">
+	SELECT MAX(MODIFIEDTIME) FROM TOURTEST
+</select>
+
+<select id="contentId" resultType="TestVO">
+	SELECT DISTINCT CONTENTID FROM TOURTEST
+</select>
+
+<update id="dataUpdate">
+	UPDATE TOURTEST SET ADDR1 = #{addr1}, AREACODE = #{areaCode}, CAT1 = #{cat1}, CAT2 = #{cat2}, CAT3 = #{cat3}, CONTENTTYPEID = #{contentTypeId}, CREATEDTIME = #{createdTime}, FIRSTIMAGE = #{firstImage}, FIRSTIMAGE2 = #{firstImage2}, MAPX = #{mapX}, MAPY = #{mapY}, MLEVEL = #{mLevel}, MODIFIEDTIME = #{modifiedTime}, READCOUNT = #{readCount}, SIGUNGUCODE = #{sigunguCode}, TITLE = #{title}, ZIPCODE = #{zipCode} 
+	WHERE CONTENTID = #{contentId}
+</update>
+
+<insert id="dataInsert">
+	INSERT INTO TOURTEST VALUES
+</insert>
+
 </mapper>

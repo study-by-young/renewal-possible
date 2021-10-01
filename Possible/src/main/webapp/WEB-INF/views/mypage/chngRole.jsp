@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
 <!DOCTYPE html>
 <style>
 .card {
@@ -26,28 +29,26 @@
 								<!-- 메뉴 -->
 								<div class="lr_bc_first_box_img_cont_wrapper">
 									<ul>
-										<li><a href="${pageContext.request.contextPath}/dash">홈</a></li>
-										<li><a href="#">회원정보수정</a></li>
-										<li><a href="${pageContext.request.contextPath}/eslist">견적관리</a></li>
-										<li><a href="${pageContext.request.contextPath}/history">렌트관리</a></li>
-										<li><a href="${pageContext.request.contextPath}/mycom">커뮤니티관리</a></li>
-										<li><a href="#">나의문의</a></li>
-									</ul>
+				                      <li><a href="${pageContext.request.contextPath}/mypage/dashboard">홈</a></li>
+		                              <li><a href="${pageContext.request.contextPath}/mypage/editInfo">회원정보수정</a></li>
+		                              <li><a href="${pageContext.request.contextPath}/mypage/eslist">견적관리</a></li>
+		                              <li><a href="${pageContext.request.contextPath}/mypage/rentHistory">렌트관리</a></li>
+		                              <li><a href="${pageContext.request.contextPath}/mypage/community">커뮤니티관리</a></li>
+		                              <li><a href="${pageContext.request.contextPath}/mypage/qna">나의문의</a></li>
+ 									</ul>
 								</div>
 								<br> <br> <br>
 
 								<!-- 업체등록 START -->
+									<form id="frm" name="frm" action="chngRole" method="post">
 								<div class="col-md-12">
 									<div class="blog_single_comment_heading">
 										<h4>업체등록</h4>
 									</div>
 									<div class="card">
 										<div class="row">
-									     	<div class="form-group col-md-4 col-sm-4">
-	  											<label for="InputId">가입아이디</label>
-		                                    	<input type="text" class="form-control"  id="id" name="id" placeholder="업체가입한 아이디 출력">
-											</div>
-											
+											<input type="hidden" name='memSeq' value=''>
+										   	
 										   	<div class="form-group col-md-6 col-sm-3">
 											   	<label for="InputId">업체명*</label>
 											    <input type="text" class="form-control"  id="name" name="name" placeholder="업체명">
@@ -69,26 +70,29 @@
 										<!-- 우편번호 Start -->
                       						<label for="InputAddr">주소*</label>	
                         				<div class="form-group"> 
-                        					<input type="text" class="form-control" id="addrCode" name="addrCode" placeholder="우편번호" style="width: 30%; display: inline;">
+                        					<input type="text" class="form-control" id="postal" name="postal" placeholder="우편번호" style="width: 30%; display: inline;">
 											 <button type="button" class="btn btn-default" onclick="DaumPostcode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                      
                         				</div>
                         				<div class="form-group"> 
-											<input type="text" class="form-control" id="addrBasic" name="addrBasic" placeholder="주소" style="width: 70%; display: inline;">
+											<input type="text" class="form-control" id="addr1" name="addr1" placeholder="주소" style="width: 70%; display: inline;">
 										</div>
 										<div class="form-group"> 
-											<input type="text" class="form-control" id="addrDetail" placeholder="상세주소" style="width: 50%; display: inline;">
+											<input type="text" class="form-control" id="addr2" name="addr2" placeholder="상세주소" style="width: 50%; display: inline;">
 											<input type="text" class="form-control" id="extraAddress" placeholder="참고항목" style="width: 40%; display: inline;">
+  	                      				</div>
+  	                      				<div class="form-group"> 
+											<input type="text" class="form-control" id="area" name="area" placeholder="시도" style="width: 50%; display: inline;">
   	                      				</div>
   	                      				<!-- 주소 종료 -->
   	                      				 <div class="row justify-content-end">
-										      <button class="btn btn-primary mr-2">요청</button>
+										      <button type="submit" class="btn btn-primary mr-2">요청</button>
 										      <button class="btn btn-danger">취소 </button>
 										 </div>
 									</div>
 									<!-- card BODY END -->
 								</div>
 								<!-- 업체등록 END -->	
-
+							</form>
 							</div>
 						</div>
 					</div>
@@ -113,7 +117,15 @@
 									</div>
 									<br>
 									<div align="center">
-										<h3>ㅇㅇㅇ님</h3>
+										<h3>
+											<sec:authorize access="isAuthenticated()">
+												<a class="menu-button" href="#"><sec:authentication
+														property="principal.username" />님</a>
+												<input type="hidden" name="${_csrf.parameterName }"
+													value="${_csrf.token }">
+											</sec:authorize>
+
+										</h3>
 									</div>
 
 								</div>
@@ -216,10 +228,11 @@ function DaumPostcode() {
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            $("[name=addrCode]").val(data.zonecode);
-            $("[name=addrBasic]").val(addr)
+            $("[name=postal]").val(data.zonecode);
+            $("[name=addr1]").val(addr);
+            $("[name=area]").val(data.sido);
             // 커서를 상세주소 필드로 이동한다.
-          	$('#addrDetail').focus();
+          	$('#addr2').focus();
         }
     }).open();
 }

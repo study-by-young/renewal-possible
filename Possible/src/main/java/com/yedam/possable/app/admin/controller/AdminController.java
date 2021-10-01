@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.common.domain.Criteria;
@@ -100,8 +102,24 @@ public class AdminController {
 		System.out.println("cri========" + cri);
 		int total = companyService.getTotalCount(cri);
 		model.addAttribute("companyList",companyService.companyList(cri) );
+		System.out.println(companyService.companyList(cri));
 		model.addAttribute("pageMaker", new PageVO(cri, total));
 			return "admin/companyList";
 	    }
+	
+	
+	
+	
+	
+//	 //업체상세 페이지(아작스 테스트..)
+//	 @GetMapping("/{seq}")
+//	 @ResponseBody
+//		 public CompanyVO companyOne(@PathVariable Long seq, CompanyVO vo) {
+//		 vo.setSeq(seq);
+//		 return  companyService.companyOneSelect(vo);
+//		
+//	 }
+	
+	
     
 }

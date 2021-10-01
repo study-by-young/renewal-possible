@@ -7,9 +7,21 @@
         WHERE master_code = (SELECT code FROM code_master WHERE name = #{parentCodeName})
     </select>
 
+    <select id="getNameByCode" resultType="codeSubVO">
+        SELECT *
+        FROM code_sub
+        WHERE code = #{code}
+    </select>
+
     <select id="getBrands" resultType="com.yedam.possable.app.common.domain.BrandCodeVO">
         SELECT *
         FROM brand_code
+    </select>
+
+    <select id="getBrand" resultType="brandCodeVO">
+        SELECT *
+        FROM brand_code
+        WHERE code = #{code}
     </select>
 
     <select id="getModels" resultType="com.yedam.possable.app.common.domain.ModelCodeVO">
@@ -20,11 +32,23 @@
         </if>
     </select>
 
+    <select id="getModel" resultType="modelCodeVO" >
+        SELECT *
+        FROM model_code
+        WHERE code = #{code}
+    </select>
+
     <select id="getTrims" resultType="com.yedam.possable.app.common.domain.TrimCodeVO">
         SELECT *
         FROM trim_code
-        <if test="modelCode != null">
-            WHERE model_code = #{modelCode}
-        </if>
+<!--        <if test="modelCode != null">-->
+<!--            WHERE model_code = #{modelCode}-->
+<!--        </if>-->
+    </select>
+
+    <select id="getTrim" resultType="trimCodeVO">
+        SELECT *
+        FROM trim_code
+        WHERE code = #{code}
     </select>
 </mapper>

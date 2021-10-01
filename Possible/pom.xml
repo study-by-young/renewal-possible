@@ -164,20 +164,15 @@
 			<version>2.0.4</version>
 		</dependency>
 
-		<!-- 오라클 JDBC 드라이버
+		<!-- 오라클 JDBC 드라이버 <dependency> <groupId>com.oracle.ojdbc</groupId> <artifactId>ojdbc8</artifactId> 
+			<version>19.3.0.0</version> </dependency> -->
+		<!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8 -->
 		<dependency>
-			<groupId>com.oracle.ojdbc</groupId>
+			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc8</artifactId>
-			<version>19.3.0.0</version>
+			<version>12.2.0.1</version>
 		</dependency>
-		 -->
-        <!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc8 -->
-        <dependency>
-            <groupId>com.oracle.database.jdbc</groupId>
-            <artifactId>ojdbc8</artifactId>
-            <version>12.2.0.1</version>
-        </dependency>
-        <!-- spring-test -->
+		<!-- spring-test -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
@@ -256,42 +251,48 @@
 			<version>${org.springframework.security-version}</version>
 		</dependency>
 		<!-- Spring Security the End -->
-		
-		<!-- https://mvnrepository.com/artifact/org.json/json -->
-      <dependency>
-         <groupId>org.json</groupId>
-         <artifactId>json</artifactId>
-         <version>20210307</version>
-      </dependency>
-      
-	<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.7</version>
-        </dependency>        
-        
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context-support</artifactId>
-            <version>${org.springframework-version}</version>
-        </dependency>
 
-		
+		<!-- https://mvnrepository.com/artifact/org.json/json -->
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20210307</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
+		<!-- 아임포트(결제) 검증을 위해 추가 -->
+		<dependency>
+			<groupId>com.github.iamport</groupId>
+			<artifactId>iamport-rest-client-java</artifactId>
+			<version>0.2.14</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
-            <plugin>
-                <artifactId>maven-idea-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <downloadSources>true</downloadSources>
-                    <downloadJavadocs>true</downloadJavadocs>
-                    <dependenciesAsLibraries>true</dependenciesAsLibraries>
-                    <useFullNames>false</useFullNames>
-                </configuration>
-            </plugin>
+			<plugin>
+				<artifactId>maven-idea-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<dependenciesAsLibraries>true</dependenciesAsLibraries>
+					<useFullNames>false</useFullNames>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<version>2.9</version>
@@ -328,4 +329,12 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<!-- 아임포트(결제) 검증을 위해 추가 -->
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 </project>
