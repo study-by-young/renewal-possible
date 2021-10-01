@@ -19,6 +19,11 @@ public class PremiumRentServiceImpl implements PremiumRentService{
     }
 
     @Override
+    public EstimateHistoryVO getEstimate(Long seq) {
+        return premiumRentMapper.getEstimate(seq);
+    }
+
+    @Override
     public int insertEstimate(EstimateHistoryVO vo) {
         return premiumRentMapper.insertEstimate(vo);
     }

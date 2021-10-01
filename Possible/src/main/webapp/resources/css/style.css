@@ -1650,17 +1650,13 @@ html .ui-button.ui-state-disabled:active {
 .form-sec-header label {
     width: 100%;
     text-transform: uppercase;
-    color: #fff;
-    font-size: 11px;
-    font-weight: 600;
-    line-height: 20px;
     position: relative;
 }
 
 .form-sec-header .cal-icon:before {
     position: absolute;
     right: 10px;
-    top: 26px;
+    top: 14px;
     content: "\f073";
     color: #4f5dec;
     z-index: 1;
@@ -1882,11 +1878,6 @@ html .ui-button.ui-state-disabled:active {
     box-shadow: none;
 }
 
-.form-sec-header label {
-    padding: 0;
-    height: 0;
-    line-height: 0;
-}
 
 .x_slider_select {
     float: left;
@@ -2431,7 +2422,7 @@ html .ui-button.ui-state-disabled:active {
 }
 
 .x_car_offer_heading .nice-select.open .list {
-    padding-left: 15px;
+    padding: 0 15px;
 }
 
 .x_car_offer_heading .nice-select:after {
@@ -2457,8 +2448,12 @@ html .ui-button.ui-state-disabled:active {
 }
 
 .x_car_offer_heading .nice-select .list {
-    left: auto;
-    right: 10px;
+    left: 10px;
+}
+
+.x_car_offer_heading .nice-select .list .dpopy_li {
+    width: 50% !important;
+    border-left: 0 !important;
 }
 
 .x_car_offer_heading .nice-select.open:after {
@@ -2473,7 +2468,7 @@ html .ui-button.ui-state-disabled:active {
 }
 
 .x_car_offer_heading .list {
-    width: 210px;
+    width: 400px;
 }
 
 .x_car_offer_heading i:before {
@@ -2504,7 +2499,8 @@ html .ui-button.ui-state-disabled:active {
 
 .x_car_offer_bottom_btn li {
     width: 50%;
-    float: left;
+    float: right;
+    padding:0 5px;
 }
 
 .x_car_offer_bottom_btn ul {
@@ -2524,12 +2520,9 @@ html .ui-button.ui-state-disabled:active {
     text-transform: uppercase;
     background: #4f5dec;
     color: #ffffff;
-    -webkit-border-top-left-radius: 5px;
-    -moz-border-top-left-radius: 5px;
-    border-top-left-radius: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    -moz-border-bottom-left-radius: 5px;
-    border-bottom-left-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .x_car_offer_bottom_btn li:first-child a:hover {
@@ -2544,18 +2537,15 @@ html .ui-button.ui-state-disabled:active {
     line-height: 40px;
     text-transform: uppercase;
     text-align: center;
-    background: #111111;
-    color: #ffffff;
-    -webkit-border-top-right-radius: 5px;
-    -moz-border-top-right-radius: 5px;
-    border-top-right-radius: 5px;
-    -webkit-border-bottom-right-radius: 5px;
-    -moz-border-bottom-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border:1px solid #797979;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .x_car_offer_bottom_btn li:last-child a:hover {
     background: #414dce;
+    color:#fff;
 }
 
 .x_tabs_botton_wrapper {
@@ -4554,7 +4544,8 @@ html .ui-button.ui-state-disabled:active {
 .pagination>li>a:hover,
 .pagination>li>span:hover,
 .pagination>li>a:focus,
-.pagination>li>span:focus {
+.pagination>li>span:focus,
+.pagination>li>a.active{
     z-index: 2;
     color: #fff;
     background-color: #4f5dec;
@@ -7610,7 +7601,7 @@ input[type=number] {
 }
 
 .x_car_offer_heading_listing li {
-    width: 33.33%;
+    width: 50%;
     text-align: left;
 }
 
@@ -7637,18 +7628,6 @@ input[type=number] {
     margin-top: 1px !important;
 }
 
-.x_car_offer_heading_listing li:nth-child(4) {
-    border-left: 0;
-    border-top: 1px solid #eeeeee;
-}
-
-.x_car_offer_heading_listing li:nth-child(5) {
-    border-top: 1px solid #eeeeee;
-}
-
-.x_car_offer_heading_listing li:last-child {
-    border-top: 1px solid #eeeeee;
-}
 
 .x_car_offer_heading_listing ul {
     border-bottom: 0;

@@ -72,31 +72,41 @@
                                             <li class="col-md-12 my-3">
                                                 <label>차량 옵션</label>
                                                 <hr class="my-2">
-                                                <div class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+                                                <div class="x_slider_checkbox_bottom_filter_use">
                                                     <c:forEach var="option" items="${carOpt}" varStatus="status">
-                                                        <input name="options[${status.index}]" id="options[${status.index}]" type="checkbox" value="${option.name}">
-                                                        <label for="options[${status.index}]" class="pr-3">${option.name}</label>
+                                                        <label class="pr-3">
+                                                        <input name="options" id="options" type="checkbox" value="${option.name}">
+                                                        ${option.name}</label>
                                                     </c:forEach>
                                                 </div>
                                             </li>
                                             <li class="col-md-12 my-3">
                                                 <label>캠핑 옵션</label>
                                                 <hr class="my-2">
-                                                <div class="x_slider_checkbox x_slider_checkbox_bottom_filter_use">
+                                                <div class="x_slider_checkbox_bottom_filter_use">
                                                     <c:forEach var="option" items="${carOpt}" varStatus="status">
-                                                        <input name="items[${status.index}]" id="items[${status.index}]" type="checkbox" value="${option.name}">
-                                                        <label for="items[${status.index}]" class="pr-3">${option.name}</label>
+                                                        <label class="pr-3">
+                                                        <input name="items" id="items" type="checkbox" value="${option.name}">
+                                                        ${option.name}</label>
                                                     </c:forEach>
                                                 </div>
 
                                             </li>
                                             <li class="col-md-6 mb-3">
-                                                <label for="startDate">렌트 시작 날짜</label>
-                                                <input type="date" id="startDate" name="startDate" class="form-control" required>
+                                                <div class="form-sec-header">
+                                                    <label for="startDate">렌트 시작 날짜</label>
+                                                    <label class="cal-icon">
+                                                        <input type="text" id="startDate" name="startDate" placeholder="원하는 날짜를 선택하세요" class="form-control datepicker">
+                                                    </label>
+                                                </div>
                                             </li>
                                             <li class="col-md-6 mb-3">
-                                                <label for="endDate">렌트 종료 날짜</label>
-                                                <input type="date" id="endDate" name="endDate" class="form-control" required>
+                                                <div class="form-sec-header">
+                                                    <label for="endDate">렌트 종료 날짜</label>
+                                                    <label class="cal-icon">
+                                                        <input type="text" id="endDate" name="endDate" placeholder="원하는 날짜를 선택하세요" class="form-control datepicker">
+                                                    </label>
+                                                </div>
                                             </li>
                                             <li class="col-md-12">
                                                 <label>렌트카 수령 장소</label>

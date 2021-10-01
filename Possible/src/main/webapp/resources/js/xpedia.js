@@ -109,8 +109,8 @@ $(document).ready(function() {
   /*----------------------------------------------------------------------------------*/
   /* 		Date and Tiem Picker
 /*-----------------------------------------------------------------------------------*/
-  $('.datepicker').datepicker({ dateFormat: 'D dd M yy' });
-  $('.horizontal-datepicker').datepicker({ dateFormat: 'dd M yy' });
+  $('.datepicker').datepicker({ dateFormat: 'yy-mm-dd' });
+  $('.horizontal-datepicker').datepicker({ dateFormat: 'yy-M-dd' });
 
   $(document).ready(function() {
     $('.btc_team_slider_wrapper .owl-carousel').owlCarousel({

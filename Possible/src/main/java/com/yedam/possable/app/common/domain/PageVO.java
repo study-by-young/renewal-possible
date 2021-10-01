@@ -9,10 +9,10 @@ public class PageVO {
 	private boolean prev, next;
 	private int total;				//전체 레코드 건수
 	private Criteria cri;			//pageNum, amount
-	
+
 	public PageVO() {
 	}
-	
+
 	public PageVO(Criteria cri, int total) {
 		this.cri = cri;
 		this.total = total;

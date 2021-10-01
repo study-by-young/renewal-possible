@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: admin
@@ -14,7 +16,7 @@
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 full_width">
                 <div class="btc_tittle_left_heading">
-                    <h1>렌트 견적 요청</h1>
+                    <h1>렌트 견적 목록</h1>
                 </div>
             </div>
         </div>
@@ -53,53 +55,54 @@
                                 <div class="tab-content">
                                     <div id="menu1" class="tab-pane fade active show">
                                         <div class="row">
-                                            <c:forEach var="est" items="${estList}">
+                                            <c:forEach var="est" items="${estList}" varStatus="status">
                                                 <div class="col-md-12">
                                                     <div class="x_car_offer_main_boxes_wrapper float_left">
-                                                        <div class="x_car_offer_starts x_car_offer_starts_list_img float_left">
+                                                        <div class="x_car_offer_starts x_car_offer_starts_list_img float_left border-0">
                                                             <div class="x_car_offer_img x_car_offer_img_list float_left">
                                                                 <img src="${pageContext.request.contextPath}/resources/images/cars/Genesis/genesis_g90.png" alt="img" class="img-fluid">
                                                             </div>
                                                             <div class="x_car_offer_price x_car_offer_price_list float_left">
                                                             </div>
                                                         </div>
-                                                        <div class="x_car_offer_starts_list_img_cont">
+                                                        <div class="x_car_offer_starts_list_img_cont border-left">
                                                             <div class="x_car_offer_heading x_car_offer_heading_list float_left">
                                                                 <h5 class="pt-3">${est.brand} ${est.model}</h5>
                                                                 <p>${est.trim}</p>
                                                                 <hr class="my-2">
-                                                                <p>${est.startDate} ~ ${est.endDate}</p>
+                                                                <p> 기간 : <fmt:formatDate value="${est.startDate}" type="date" /> ~ <fmt:formatDate value="${est.endDate}" type="date" /></p>
+                                                                <p> 장소 : ${est.takePlaceBasic} ${est.takePlaceDetail}</p>
                                                             </div>
                                                             <div class="x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left">
                                                                 <ul>
-                                                                    <li><a href="#">Book now</a>
+                                                                    <li>
+                                                                        <sec:authorize access="hasRole('USER')">
+                                                                            <a href="#">견적 제출</a>
+                                                                        </sec:authorize>
                                                                     </li>
-                                                                    <li><a href="#">Details</a>
+                                                                    <li><a href="view?seq=${est.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">상세보기</a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
                                                             <div class="x_car_offer_heading x_car_offer_heading_listing float_left">
                                                                 <ul class="">
-                                                                    <li>	<a href="#"><i class="fa fa-users"></i> &nbsp;4 Seats</a>
-                                                                    </li>
-                                                                    <li>	<a href="#"><i class="fa fa-clone"></i> &nbsp;4 Doors</a>
-                                                                    </li>
-                                                                    <li>	<a href="#"><i class="fa fa-shield"></i> &nbsp;9 Manual</a>
-                                                                    </li>
-
-                                                                    <li>	<a href="#"><i class="fa fa-briefcase"></i> &nbsp;4 Bag Space</a>
-                                                                    </li>
-                                                                    <li>	<a href="#"><i class="fa fa-snowflake-o"></i>&nbsp;2 Air: Yes</a>
+                                                                    <li>
+                                                                        <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 차량 옵션</span>
+                                                                            <ul class="list">
+                                                                                <c:forEach var="opt" items="${optionList.get(status.index)}">
+                                                                                    <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${opt}
+                                                                                    </li>
+                                                                                </c:forEach>
+                                                                            </ul>
+                                                                        </div>
                                                                     </li>
                                                                     <li>
-                                                                        <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> Others (2)</span>
+                                                                        <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 여행 옵션</span>
                                                                             <ul class="list">
-                                                                                <li class="dpopy_li"><a href="#"><i class="fa fa-snowflake-o"></i> Air Conditioning</a>
-                                                                                </li>
-                                                                                <li class="dpopy_li"><a href="#"><i class="fa fa-code-fork"></i> Transmission</a>
-                                                                                </li>
-                                                                                <li class="dpopy_li"><a href="#"><i class="fa fa-user-circle-o"></i> Minimum age</a>
-                                                                                </li>
+                                                                                <c:forEach var="itm" items="${itemList.get(status.index)}">
+                                                                                    <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${itm}
+                                                                                    </li>
+                                                                                </c:forEach>
                                                                             </ul>
                                                                         </div>
                                                                     </li>
@@ -115,15 +118,17 @@
                                                 <div class="pager_wrapper prs_blog_pagi_wrapper">
                                                     <ul class="pagination">
                                                         <li>
-                                                            <a class="page-arrow" href="<c:if test="${pagination.prev }">${pagination.startPage-1}</c:if>"><i class="flaticon-left-arrow"></i></a>
+                                                            <a class="page-arrow" href="?pageNum=${pagination.startPage-1}&amount=${pagination.cri.amount}" <c:if test="${!pagination.prev }">style="display: none"</c:if>><i class="flaticon-left-arrow"></i></a>
                                                         </li>
                                                         <c:forEach begin="${pagination.startPage }" end="${pagination.endPage }" var="num">
                                                             <li class="btc_shop_pagi">
-                                                                <a href="${num }">${num }</a>
+                                                                <a href="?pageNum=${num }&amount=${pagination.cri.amount}"
+                                                                   <c:if test="${param.getOrDefault('pageNum',1) == num}">class="active"</c:if>
+                                                                >${num }</a>
                                                             </li>
                                                         </c:forEach>
                                                         <li>
-                                                            <a class="page-arrow" href="<c:if test="${pagination.next }">${pagination.endPage+1}</c:if>"><i class="flaticon-right-arrow"></i></a>
+                                                            <a class="page-arrow" href="?pageNum=${pagination.endPage+1}&amount=${pagination.cri.amount}" <c:if test="${!pagination.next }">style="display: none"</c:if>><i class="flaticon-right-arrow"></i></a>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -140,13 +145,6 @@
     </div>
 </div>
 <!-- x car book sidebar section Wrapper End -->
-
-<c:forEach var="est" items="${estList}">
-    ${est.brand}
-</c:forEach>
-
-<a href="insert" class="btn">insert</a>
-<a href="update" class="btn">update</a>
 <script>
     <c:if test="${resultMsg != null}">
         $(function(){

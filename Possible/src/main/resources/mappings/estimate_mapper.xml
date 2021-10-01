@@ -4,7 +4,7 @@
     <select id="getEstimateList" resultType="estimateHistoryVO">
         SELECT *
         FROM ( SELECT
-                    /*+ INDEX_DESC(IDX_ESTIMATE_HISTORY) */
+                    /*+ INDEX_DESC(tb IDX_ESTIMATE_HISTORY) */
                     ROWNUM RN,
                     seq,
                     brand,
@@ -21,16 +21,21 @@
                     gen_date,
                     upt_date,
                     mem_seq
-                FROM estimate_history
+                FROM estimate_history tb
                 <where>
                     <![CDATA[ ROWNUM <= #{pageNum} * #{amount} ]]>
                 </where>
-                ORDER BY SEQ DESC
         )
         WHERE RN > (#{pageNum} - 1) * #{amount}
     </select>
 
-    <insert id="insertEstimate" parameterType="com.yedam.possable.app.rent.domain.EstimateHistoryVO">
+    <select id="getEstimate" resultType="estimateHistoryVO">
+        SELECT *
+        FROM estimate_history
+        WHERE seq = #{seq}
+    </select>
+
+    <insert id="insertEstimate" parameterType="estimateHistoryVO">
         <selectKey keyProperty="seq" resultType="long" order="BEFORE">
             SELECT SEQ_ESTIMATE_HISTORY.NEXTVAL FROM dual
         </selectKey>
@@ -56,14 +61,8 @@
         #{trim},
         #{startDate},
         #{endDate},
-        <foreach collection="options" open="'[" close="]'" item="opt" separator=",">
-            <if test="opt != null">${opt}</if>
-        </foreach>
-        ,
-        <foreach collection="items" open="'[" close="]'" item="it" separator=",">
-            <if test="it != null">${it}</if>
-        </foreach>
-        ,
+        #{options},
+        #{items},
         #{takePlaceCode},
         #{takePlaceBasic},
         #{takePlaceDetail},
