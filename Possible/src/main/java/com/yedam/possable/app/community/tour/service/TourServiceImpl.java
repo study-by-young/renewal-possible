@@ -29,13 +29,13 @@ public class TourServiceImpl implements TourService {
 	}
 
 	@Override
-	public int dataUpdate(TestVO vo) {
-		return tourMapper.dataUpdate(vo);
+	public int update(TestVO vo) {
+		return tourMapper.update(vo);
 	}
 
 	@Override
-	public int dataInsert(TestVO vo) {
-		return tourMapper.dataInsert(vo);
+	public int delete(TestVO vo) {
+		return tourMapper.delete(vo);
 	}
 
 }

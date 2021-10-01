@@ -14,13 +14,12 @@
 	SELECT DISTINCT CONTENTID FROM TOURTEST
 </select>
 
-<update id="dataUpdate">
+<update id="update">
 	UPDATE TOURTEST SET ADDR1 = #{addr1}, AREACODE = #{areaCode}, CAT1 = #{cat1}, CAT2 = #{cat2}, CAT3 = #{cat3}, CONTENTTYPEID = #{contentTypeId}, CREATEDTIME = #{createdTime}, FIRSTIMAGE = #{firstImage}, FIRSTIMAGE2 = #{firstImage2}, MAPX = #{mapX}, MAPY = #{mapY}, MLEVEL = #{mLevel}, MODIFIEDTIME = #{modifiedTime}, READCOUNT = #{readCount}, SIGUNGUCODE = #{sigunguCode}, TITLE = #{title}, ZIPCODE = #{zipCode} 
 	WHERE CONTENTID = #{contentId}
 </update>
 
-<insert id="dataInsert">
-	INSERT INTO TOURTEST VALUES
-</insert>
-
+<delete id="delete">
+	DELETE FROM TOURTEST WHERE CONTENTID = #{contentId}
+</delete>
 </mapper>
