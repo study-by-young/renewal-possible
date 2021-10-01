@@ -61,7 +61,7 @@
 			 <input
 				type="hidden" name="pageNum" value="1"> <input type="hidden"
 				name="amount" value="${pageMaker.cri.amount }">
-			<button class="btn btn-primary">Search</button>
+			<button class="btn btn-primary" onclick="$('[name=pageNum]').val(1)">Search</button>
 		</form>
 	</div>
 	

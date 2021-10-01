@@ -2,6 +2,7 @@ package com.yedam.possable.app.company.service;
 
 import java.util.List;
 
+import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.common.domain.Criteria;
 import com.yedam.possable.app.company.domain.CompanyVO;
 
@@ -27,5 +28,12 @@ public interface CompanyService {
 		
 		//업체 등록
 		public int companyReg(CompanyVO vo);
+		
+		//업체 보유 렌트카 리스트
+		public List<CarVO> companyCarList(CarVO vo);
+		
+		//업체 보유 렌트카 한건
+		public CarVO companyCarOneSelect(CarVO vo);
+
 		
 }
