@@ -195,7 +195,7 @@
 					<div class="form-group col-md-6 col-sm-6 col-xs-12" >
 							<label for="InputEmail">인증번호</label>
 						<div class="mail_check_input_box" id="mail_check_input_box_false" >
-			           		<input type="text" class="form-control" name="numberInput" id="numberInput" placeholder="인증번호 입력" disabled="disabled">
+			           		<input type="text" class="form-control" name="numberInput" id="numberInput" value="인증번호 입력*" disabled="disabled">
 			           	</div>
 					</div>
 			        <div class="form-group col-md-4 col-sm-6 col-xs-12 my-4">
@@ -222,7 +222,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close"  id="closeClick" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close"  id="PassCloseClick" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -361,6 +361,7 @@ function returnSearchId() {
 	$('#findIdBtn').show();
 }
 	var code = "";
+	var inputCode = $('#numberInput').val();
 	//인증번호 이메일 전송
 	$("#mailCheck").on("click", function(){
 		var email = $("#email").val();
@@ -384,7 +385,7 @@ function returnSearchId() {
 	//인증코드 결과
 	$("#numberInput").blur(function(){
 	 
-		var inputCode = $('#numberInput').val();
+		var inputCode = $('#numberInput').val(); //인증번호 입력란
 	 	var checkResult = $("#mail_check_input_box_warn");    // 비교 결과 
 	 	
 	 	if(inputCode == code){
@@ -401,8 +402,36 @@ function returnSearchId() {
 		var getId = $(".idChk").val();
 		console.log(getId);
 		var email = $("#email").val();
-		$("#passChange").modal();
-		$('#closeClick').trigger('click');
+		
+		if(!$(".idChk").val()) {
+			alert("아이디를 입력해주세요.");
+			$(".idChk").focus();
+			return false;
+		}
+		
+		if(!$("#email").val()) {
+			alert("이메일을 입력해주세요.");
+			$("#email").focus();
+			return false;
+		}
+		if($('#numberInput').val() == ""){
+			alert("인증번호를 입력해주세요.");
+			$('#numberInput').focus();
+		}
+		
+		isInputCode = $('#numberInput').val();
+		console.log($('#numberInput').val());
+		
+		if(code == isInputCode){
+			alert("메일이 인증되었습니다.");
+			$("#passChange").modal();
+			$('#closeClick').trigger('click');
+			
+		}else {
+			alert("메일인증을 거쳐야 비밀번호 변경이 가능합니다.");
+			
+			return false;
+		}
 	
 	//비밀번호 변경 
 	$("#PassBtn").on("click",function(){
@@ -420,6 +449,7 @@ function returnSearchId() {
 	            if(data == true){
 	            	console.log(data);
 	            	alert("비밀번호 변경 성공.");
+	            	$('#PassCloseClick').trigger('click');
 	            }
 	         },
 	         error : function(){
