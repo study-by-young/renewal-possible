@@ -119,5 +119,11 @@ public class PaymentController {
 	public void paymentSeqSelect(Model model, RentHistoryVO vo) {
 		model.addAttribute("seq", paymentService.paymentSeqSelect(vo));
 	}
+	
+	/* 결제 테스트 페이지로 이동 */
+    @GetMapping("/paymentTest")
+    public String paymentTest() {
+        return "payment/paymentTest";
+    }	
     
 }

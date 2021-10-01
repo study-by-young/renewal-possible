@@ -59,11 +59,4 @@
 		SELECT * FROM RENT_HISTORY
 	</select>
 	
-	<!-- 결제정보 seq(nextval) 조회 -->
-	<select id="paymentSeqSelect" resultType="RentHistoryVO">
-		SELECT SEQ + 1 AS SEQ
-		FROM (SELECT * FROM RENT_HISTORY ORDER BY SEQ DESC) 
-		WHERE ROWNUM = 1
-	</select>
-	
 </mapper>
