@@ -29,7 +29,7 @@
       <property name="host" value="smtp.naver.com"/> <!-- 메일서버 호스트 -->
       <property name="port" value="465"/>      <!-- 메일서버 포트번호 -->
       <property name="username" value="geonhard@naver.com"/>   <!-- 본인 이메일 -->
-      <property name="password" value="Yedam!234chlwhd"/>   <!-- 이메일 비밀번호 --> <!-- 테스트 진행후 비밀번호 password로 변경 요망 -->
+      <property name="password" value="password"/>   <!-- 이메일 비밀번호 --> <!-- 테스트 진행후 비밀번호 password로 변경 요망 -->
       <property name="defaultEncoding" value="utf-8" />
 
       <!-- 보안연결 SSL과 관련된 설정 -->

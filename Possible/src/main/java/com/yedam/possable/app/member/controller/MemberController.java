@@ -141,7 +141,7 @@ public class MemberController {
 	@ResponseBody
 	public int passFindUpdate(MemberVO vo) {
 		int r = memberService.passFindUpdate(vo);
-		
+		log.info(r+ "비밀번호 찾기 부분 오긴 오냐?");
 		return r;
 	}
 	
