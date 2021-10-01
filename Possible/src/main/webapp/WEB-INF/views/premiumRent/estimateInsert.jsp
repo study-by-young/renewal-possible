@@ -225,9 +225,13 @@
     let model = $('#model');
     let trim = $('#trim');
 
-    $(function(){
+    $('#startDate').datepicker({
+        minDate:'+1D'
+    });
 
-    })
+    $('#endDate').datepicker({
+        minDate: '+1D'
+    });
 
     function searchModelByBrand(){
         model.children('optgroup').html('');

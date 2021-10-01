@@ -23,7 +23,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/jquery.bxslider.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.magnific-popup.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/jquery.inview.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/js/_xpedia.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/xpedia.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/app.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/plugins/editors/ckeditor/ckeditor.js"></script>
