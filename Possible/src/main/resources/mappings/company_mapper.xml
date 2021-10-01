@@ -34,6 +34,7 @@
 				</where>
 	</select>
 	
+	<!-- 업체 등록 -->
 	<insert id="companyReg">
 		<selectKey keyProperty="seq" resultType="Long" order="BEFORE">
 			SELECT SEQ_COMPANY.nextval FROM DUAL
@@ -81,6 +82,8 @@
 						TEL
         FROM COMPANY
         WHERE STATUS = 'N'
+        ORDER BY SEQ DESC
+        
 	</select>
 	
 	<!-- 업체 승인 리스트 -->
@@ -101,6 +104,8 @@
                 <![CDATA[   AND STATUS = 'Y' ]]>
                 <![CDATA[   AND ROWNUM <= #{pageNum} * #{amount} ]]>
              </where>
+            ORDER BY SEQ DESC
+             
    </select>
    
    <!-- 업체 미승인 리스트 한건-->
@@ -134,5 +139,44 @@
 		WHERE SEQ = #{seq}
 	</delete>
 
-
+	<!-- 업체 보유 렌트카 전체 리스트 -->
+	<select id="companyCarList" resultType="CarVO"	parameterType="CarVO">
+		SELECT  SEQ,
+				BRAND,
+				MODEL,
+				YEAR,
+				STATUS,
+				IMG1
+		FROM CAR
+		WHERE CMPN_SEQ = #{companyVO.seq}
+	</select>
+	
+	<!-- 업체 보유 렌트카 한건 -->
+	<select id="companyCarOneSelect" resultType="CarVO"	parameterType="CarVO">
+		SELECT SEQ,
+				BRAND,
+				MODEL,
+				SEGMENT,
+				TRIM,
+				COLOR,
+				YEAR,
+				FUEL,
+				PASSENGER,
+				MISSION,
+				TRUNK,
+				DOOR,
+				KMPL,
+				PRICE,
+				STATUS,
+				IMG1,
+				IMG2,
+				IMG3,
+				GEN_DATE,
+				UPT_DATE,
+				CMPN_SEQ,
+				CAR_NUM
+		FROM CAR
+		WHERE SEQ = #{seq}
+	</select>
+	
 </mapper>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.common.domain.Criteria;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.mapper.CompanyMapper;
@@ -53,6 +54,18 @@ public class CompanyServiceImpl implements CompanyService {
 	public int companyReg(CompanyVO vo) {
 		// TODO Auto-generated method stub
 		return companyMapper.companyReg(vo);
+	}
+
+	@Override
+	public List<CarVO> companyCarList(CarVO vo) {
+		// TODO Auto-generated method stub
+		return companyMapper.companyCarList(vo);
+	}
+
+	@Override
+	public CarVO companyCarOneSelect(CarVO vo) {
+		// TODO Auto-generated method stub
+		return companyMapper.companyCarOneSelect(vo);
 	}
 
 }

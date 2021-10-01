@@ -157,13 +157,25 @@
 							<br>
 							<div class="text-right">
 								<button type="submit" class="btn btn-primary">수정하기</button>
-						  		<a class="btn btn-primary" href="memberList?pageNum=${cri.pageNum}&amount=${cri.amount}">목록</a>
+						  		<a class="btn btn-primary" id="list_btn" href="memberList?pageNum=${cri.pageNum}&amount=${cri.amount}">목록</a>
 							</div>
 						</form>
 					</div>
 				</div>
 				<!-- /2 columns form -->
 </div>
+<script>
+$("#list_btn").on(
+		"click",
+		function(e) {
+			form.find("#seq").remove();
+			form.attr("action",
+					"${pageContext.request.contextPath}/admin/memberList?pageNum="
+							+ $('#pageNum').val() + "&amount="
+							+ $('#amount').val());
+			form.submit();
+		})
+</script>
 
 
 
