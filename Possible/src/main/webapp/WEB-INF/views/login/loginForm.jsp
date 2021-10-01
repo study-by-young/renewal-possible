@@ -117,11 +117,12 @@
                              	  </div>
                            		</div>
 	                               <div class="row">
+	                               <!-- 카카오 로그인 APi -->
 	                                 <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
-	                                	<button class="btn btn-link"><img class="" src="${pageContext.request.contextPath}/resources/images/kakaoBtn.png"/></button>
+	                                	<a href="https://kauth.kakao.com/oauth/authorize?client_id=584286fe9e832f708f4badd91da18b46&redirect_uri=http://localhost/app/auth/kakao/callback&response_type=code"><img class="" src="${pageContext.request.contextPath}/resources/images/kakaoBtn.png"/></a>
 	                                </div>
 	                                 <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
-	                                	<button class="btn btn-link"><img class="" src="${pageContext.request.contextPath}/resources/images/googleBtn.png"/></button>
+	                                	<a href="#" ><img class="" src="${pageContext.request.contextPath}/resources/images/googleBtn.png"/></a>
 	                                </div>
 	                             
 	                            	</div>
