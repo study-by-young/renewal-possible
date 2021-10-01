@@ -12,8 +12,8 @@ public interface TourService {
 	
 	public List<TestVO> contentId();
 	
-	public int dataUpdate(TestVO vo);
+	public int update(TestVO vo);
 	
-	public int dataInsert(TestVO vo);
-
+	public int delete(TestVO vo);
+	
 }
