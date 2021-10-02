@@ -16,10 +16,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 @RestController
-@RequestMapping("/refund/*")
 public class Refund {
 	
-	@PostMapping("/")
+	@PostMapping("/refund")
 	public String refund() {
 		HttpURLConnection conn = null;
 		AccessToken accessToken = new AccessToken();
@@ -37,7 +36,7 @@ public class Refund {
 
 			JsonObject obj = new JsonObject();
 
-			String merchant_uid = "m_87065307391";
+			String merchant_uid = "m_6235144391";
 			
 			obj.add("merchant_uid", new Gson().toJsonTree(merchant_uid));
 			obj.add("access_token", new Gson().toJsonTree(token));

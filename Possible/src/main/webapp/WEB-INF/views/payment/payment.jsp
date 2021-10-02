@@ -91,20 +91,20 @@
 
 
 <!-- DB 데이터 입력폼 -->
-<form id="data" name="data" action="paymentInsert" method="post">
+<form id="data" name="data" action="payment" method="post">
 	<!-- payment table -->
 	<input type="hidden" id="rentType" name="rentType" value="rentType">
 	<input type="hidden" id="startDate" name="startDate" value="2021/09/29">
-	<input type="hidden" id="receiveDate" name="receiveDate" value="2021/09/29">
-	<input type="hidden" id="returnDate" name="returnDate" value="2021/09/29">
+	<!--  --><input type="hidden" id="receiveDate" name="receiveDate" value="2021/09/29">
+	<!--  --><input type="hidden" id="returnDate" name="returnDate" value="2021/09/29">
 	<input type="hidden" id="endDate" name="endDate" value="2021/09/29">
 	<input type="hidden" id="receiver" name="receiver" value="홍길동">
 	<input type="hidden" id="price" name="price" value="500">
 	<input type="hidden" id="estimate" name="estimate" value="500">
 	<input type="hidden" id="status" name="status" value="status">
-	<input type="hidden" id="takePlaceCode" name="takePlaceCode" value="00000">
-	<input type="hidden" id="takePlaceBasic" name="takePlaceBasic" value="경상북도 울릉군 남면도동 1번지">
-	<input type="hidden" id="takePlaceDetail" name="takePlaceDetail" value="동경 132 북위 37">
+	<!--  --><input type="hidden" id="takePlaceCode" name="takePlaceCode" value="00000">
+	<!--  --><input type="hidden" id="takePlaceBasic" name="takePlaceBasic" value="경상북도 울릉군 남면도동 1번지">
+	<!--  --><input type="hidden" id="takePlaceDetail" name="takePlaceDetail" value="동경 132 북위 37">
 	<input type="hidden" id="merchantUid" name="merchantUid" value="123456789">
 	<input type="hidden" id="payMethod" name="payMethod" value="kakaopay">
 	<input type="hidden" id="carSeq" name="carSeq" value="1">

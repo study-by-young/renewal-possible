@@ -27,8 +27,8 @@ public class RentHistoryVO {
     private String payMethod;
     
 	/* 테스트 */
-    private Long carSeq;
-    private Long memSeq;
+    private int carSeq;
+    private int memSeq;
     
     private CarVO carVO;
     private MemberVO memberVO;

@@ -37,6 +37,49 @@ public class PaymentController {
 	@Autowired PaymentService paymentService;
 
 
+	// 결제페이지로 이동
+    @GetMapping("/test")
+    public String test() {
+        return "payment/test";
+    }	
+	
+	// 결제페이지로 이동
+    @GetMapping("/rent")
+    public String payment() {
+        return "payment/payment";
+    }
+    
+	// 결제 데이터 DB 입력
+    @PostMapping("/payment")
+    @ResponseBody
+    public String payment(Model model, RentHistoryVO vo, RedirectAttributes rttr) {
+
+    	/* @RequestParam("memSeq") Long memSeq, @RequestParam("carSeq") Long carSeq, */
+    	
+    	/* 외래 객체 생성 후 seq 입력
+		MemberVO memVo = new MemberVO();
+		memVo.setSeq(memSeq);
+		vo.setMemberVO(memVo);
+		
+		CarVO carVo = new CarVO();
+		carVo.setSeq(carSeq);
+		vo.setCarVO(carVo); */
+		
+		// 외래 객체 담은 후 service 실행
+		paymentService.paymentInsert(vo);
+		
+		// rent_history seq 단건조회를 통해 결제내역 출력)
+		model.addAttribute("rent", paymentService.paymentOneSelect(vo));
+		
+		// 결제완료 페이지로 이동
+		return "payment/paymentFin";
+    }
+
+    
+    
+
+
+	// 결제 검증을 위한 코드 (미구현, 테스트 중)
 	private IamportClient api;
 	
 	public PaymentController() {
@@ -70,60 +113,5 @@ public class PaymentController {
 			System.out.println("검증통과");
 		}
 	}	
-	
-	
-	/* 결제 페이지로 이동 */
-    @GetMapping("/payment")
-    public String payment() {
-        return "payment/payment";
-    }
-    
-	/* 결제 데이터 DB 입력 */
-    @PostMapping("/paymentInsert")
-    public void paymentInsert(Model model, RentHistoryVO vo, @RequestParam("memSeq") Long memSeq, @RequestParam("carSeq") Long carSeq, RedirectAttributes rttr) {
-		/* 외래 객체 생성 후 seq 입력 */
-		MemberVO memVo = new MemberVO();
-		memVo.setSeq(memSeq);
-		vo.setMemberVO(memVo);
-		
-		CarVO carVo = new CarVO();
-		carVo.setSeq(carSeq);
-		vo.setCarVO(carVo);
-		
-		/* 외래 객체 담은 후 service 실행 */
-		paymentService.paymentInsert(vo);
-    }
-
-		// JSP에서 form을 보내줄 때 form 안에 hidden 타입으로 외래키가 될 객체의 seq를 심어서 보내줌
-		// -> @RequestParam("memSeq") Long memSeq로 컨트롤러에서 seq를 변수로 따로 받음
-		// -> 데이터 필요시 seq로 service 호출해서 데이터 뽑아오기
-		//        or 외래 객체 생성 후 vo에 삽입(vo.setMemberVO())
-		// -> mapper.xml에서 #{memberVo.seq}로 사용     
-    
-    /* 결제완료 페이지로 이동(rent_history seq를 이용해 단건조회) */
-	@GetMapping("/paymentOneSelect")
-	public String paymentOneSelect(Model model, RentHistoryVO vo) {
-		model.addAttribute("rent", paymentService.paymentOneSelect(vo));
-		return "payment/paymentFin";
-	}
-	
-	/* 결제정보 전체 조회 */
-	@GetMapping("/paymentList")
-	public String paymentList(Model model) {
-		paymentService.paymentList();
-		return "payment/payment";
-	}
-	
-	/* 결제정보 seq(nextval) 조회 */
-	@GetMapping("/paymentSeqSelect")
-	public void paymentSeqSelect(Model model, RentHistoryVO vo) {
-		model.addAttribute("seq", paymentService.paymentSeqSelect(vo));
-	}
-	
-	/* 결제 테스트 페이지로 이동 */
-    @GetMapping("/paymentTest")
-    public String paymentTest() {
-        return "payment/paymentTest";
-    }	
-    
+	    
 }
