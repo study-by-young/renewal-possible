@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,8 +23,6 @@ import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
-import com.yedam.possable.app.car.domain.CarVO;
-import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.service.PaymentService;
 
@@ -36,13 +35,6 @@ public class PaymentController {
 
 	@Autowired PaymentService paymentService;
 
-
-	// 결제페이지로 이동
-    @GetMapping("/test")
-    public String test() {
-        return "payment/test";
-    }	
-	
 	// 결제페이지로 이동
     @GetMapping("/rent")
     public String payment() {
@@ -52,7 +44,7 @@ public class PaymentController {
 	// 결제 데이터 DB 입력
     @PostMapping("/payment")
     @ResponseBody
-    public String payment(Model model, RentHistoryVO vo, RedirectAttributes rttr) {
+    public void payment(Model model, @RequestBody RentHistoryVO vo, RedirectAttributes rttr) {
 
     	/* @RequestParam("memSeq") Long memSeq, @RequestParam("carSeq") Long carSeq, */
     	
@@ -67,17 +59,9 @@ public class PaymentController {
 		
 		// 외래 객체 담은 후 service 실행
 		paymentService.paymentInsert(vo);
-		
-		// rent_history seq 단건조회를 통해 결제내역 출력)
-		model.addAttribute("rent", paymentService.paymentOneSelect(vo));
-		
-		// 결제완료 페이지로 이동
-		return "payment/paymentFin";
     }
 
     
-    
-
 
 	// 결제 검증을 위한 코드 (미구현, 테스트 중)
 	private IamportClient api;

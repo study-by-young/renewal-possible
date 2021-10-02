@@ -11,8 +11,6 @@
 					SEQ
 					, RENT_TYPE
 					, START_DATE
-					, RECEIVE_DATE
-					, RETURN_DATE
 					, END_DATE
 					, RECEIVER
 					, PRICE
@@ -30,8 +28,6 @@
 				#{seq}
 				, #{rentType}
 				, #{startDate}
-				, #{receiveDate}
-				, #{returnDate}
 				, #{endDate}
 				, #{receiver}
 				, #{price}
