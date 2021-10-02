@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<!-- 렌트 예약(결제) 페이지 -->
+
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
@@ -254,6 +256,9 @@
 				
 			}, function(rsp) {
 				if (rsp.success) {
+					let msg = '결제가 완료되었습니다.';
+					alert(msg);
+					
 					// DB에 데이터 삽입
 					$.ajax({
 						url: 'payment',
@@ -277,8 +282,6 @@
 								memSeq : memSeq				
 						}),
 						success: function(response) {
-							let msg = '결제가 완료되었습니다.';
-							alert(msg);
 							location.href = 'paymentFin';
 						},
 						error: function(xhr, status, message){

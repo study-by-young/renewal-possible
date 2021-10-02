@@ -47,7 +47,7 @@
 	<select id="paymentOneSelect" resultType="RentHistoryVO">
 		SELECT * 
 		FROM RENT_HISTORY
-		WHERE SEQ = 119
+		WHERE SEQ = #{seq}
 	</select>
 	
 	<!-- 결제정보 전체 조회 -->
