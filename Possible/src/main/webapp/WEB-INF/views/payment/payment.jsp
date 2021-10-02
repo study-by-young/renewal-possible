@@ -31,16 +31,15 @@
 									<div>생년월일: {생년월일}</div>
 									<div>이메일: {이메일}</div>
 								</div>
-								<!-- 
 								<div>
 									<div>운전자 정보</div>
-									<div>[체크] 예약자와 동일함</div> 예약자와 동일함 체크 시, 예약자 정보가 넘어온다.
+									<div>[체크] 예약자와 동일함</div>
+									<!-- 예약자와 동일함 체크 시, 예약자 정보가 넘어온다. -->
 									<div>이름: {이름}</div>
 									<div>연락처: {연락처}</div>
 									<div>생년월일: {생년월일}</div>
 									<div>이메일: {이메일}</div>
 								</div>
-								-->
 							</div>
 
 							<!-- 결제정보 -->
@@ -93,12 +92,13 @@
 
 <!-- DB 데이터 입력폼 -->
 <form id="data" name="data" action="paymentInsert" method="post">
+	<!-- payment table -->
 	<input type="hidden" id="rentType" name="rentType" value="rentType">
 	<input type="hidden" id="startDate" name="startDate" value="2021/09/29">
 	<input type="hidden" id="receiveDate" name="receiveDate" value="2021/09/29">
 	<input type="hidden" id="returnDate" name="returnDate" value="2021/09/29">
 	<input type="hidden" id="endDate" name="endDate" value="2021/09/29">
-	<input type="hidden" id="receiver" name="receiver" value="박기자">
+	<input type="hidden" id="receiver" name="receiver" value="홍길동">
 	<input type="hidden" id="price" name="price" value="500">
 	<input type="hidden" id="estimate" name="estimate" value="500">
 	<input type="hidden" id="status" name="status" value="status">
@@ -111,6 +111,7 @@
 	<input type="hidden" id="memSeq" name="memSeq" value="1">
 </form>
 
+
 <script>
 	$(document).ready(function(){
 		IMP.init('imp77605435'); /* 가맹점 식별코드 초기화 */
@@ -120,8 +121,8 @@
 			event.preventDefault();
 			paymentFnc();
 		})
-
-		/* 결제함수 */
+		
+		/* 결제 함수 */
 		function paymentFnc() {
 			let merchant_uid = 'm_' + Math.floor(Math.random() * 10000000000) + 1; /* 주문번호 */
 			let payment = $('input[name="pay"]:checked').val(); /* 결제방법 */
@@ -134,75 +135,20 @@
 				amount : '500', /* 가격 */
 				buyer_name : '{sessionName}',
 				buyer_tel : '{sessionPhone}',
-				
-			}, function(rsp) {
-				if (rsp.success) {				
-					var msg = '결제가 완료되었습니다.';
-					alert(msg);
-					data.submit();
-					location.href = "paymentOneSelect";	
-		        } else {
-	        		let msg = '결제에 실패하였습니다.';
-	        		msg += '에러내용 : ' + rsp.error_msg;
-	        		alert(msg);
-	        		}
-		   		});
-			}
-		}
-	});
-
-/* 		
-
-	$(document).ready(function(){
-		IMP.init('imp77605435');
-	
-		$('.btn').on('click', function(event) {
-			event.preventDefault();
-			paymentFnc();
-		})
-
-
-		function paymentFnc() {
-			let merchant_uid = 'm_' + Math.floor(Math.random() * 10000000000) + 1;
-			let payment = $('input[name="pay"]:checked').val();
-
-			IMP.request_pay({
-				pg : 'html5_inicis',
-				pay_method : payment,
-				merchant_uid : merchant_uid,
-				name : 'SM5여행갈카',
-				amount : '500',
-				buyer_name : '{sessionName}',
-				buyer_tel : '{sessionPhone}',
 				m_redirect_url : 'http://localhost:8080/orderCompleteMobile'
 				
 			}, function(rsp) {
-				
-				console.log(rsp);
-				$.ajax({
-		        	type : "POST",
-		        	url : "/verifyIamport/" + rsp.imp_uid 
-		        }).done(function(data) {
-		        	console.log(data);
-		        	if(rsp.paid_amount == data.response.amount){
-			        	alert("결제가 완료되었습니다.");
-						data.submit();
-						location.href = "paymentOneSelect";	
-		        	} else {
-		        		let msg = '결제에 실패하였습니다.';
-		        		msg += '에러내용 : ' + rsp.error_msg;
-		        		alert(msg);
-		        	}
-		        });				
+				if (rsp.success) {
+					let msg = '결제가 완료되었습니다.';
+					alert(msg);
+					data.submit(); /* 성공 시 data폼의 데이터를 submit 한다. */
+				} else {
+					let msg = '결제에 실패하였습니다.';
+					msg += '에러내용 : ' + rsp.error_msg;
+					alert(msg);
+				}
 			});
-			
 		}
-
-
-
-*/
-
-		
 		
 		/* DB에 결제 정보 넘기기 AJAX로 해보려고 했던 흔적
 		$.ajax({
@@ -236,6 +182,7 @@
 		 */
 	});
 
+	
 	
 	/* 체크박스 전체 선택, 전체 해제 */
 	$('.chkbox_group').on('click', '#chk_all', function() {
