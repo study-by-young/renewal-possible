@@ -60,6 +60,13 @@ public class PaymentController {
 		// 외래 객체 담은 후 service 실행
 		paymentService.paymentInsert(vo);
     }
+    
+    // 결제완료페이지로 이동(결제내역 조회)
+    @GetMapping("/paymentFin")
+    public void paymentFin(Model model, RentHistoryVO vo) {
+    	vo.setSeq(vo.getSeq());
+    	model.addAttribute("rent", paymentService.paymentOneSelect(vo));
+    }
 
     
 
