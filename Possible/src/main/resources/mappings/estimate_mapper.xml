@@ -70,6 +70,15 @@
         )
     </insert>
 
+    <update id="updateEstimate">
+
+    </update>
+
+    <delete id="deleteEstimate">
+        DELETE FROM estimate_history
+        WHERE seq = #{seq}
+    </delete>
+
     <select id="getEstimateCount" resultType="int">
         SELECT COUNT(*)
         FROM estimate_history

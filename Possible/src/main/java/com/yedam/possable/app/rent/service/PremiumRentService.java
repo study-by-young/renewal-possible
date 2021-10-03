@@ -15,6 +15,9 @@ public interface PremiumRentService{
     // 견적서 작성
     public int insertEstimate(EstimateHistoryVO vo);
 
+    // 견적서 삭제
+    public int deleteEstimate(Long seq);
+
     // 견적서 수정
     public int updateEstimate(EstimateHistoryVO vo);
 
