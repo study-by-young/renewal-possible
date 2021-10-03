@@ -10,11 +10,14 @@ public interface PaymentMapper {
 	public int paymentInsert(RentHistoryVO vo);
 	
 	/* 결제완료 후 내역 조회(rent_history seq를 이용해 단건조회) */
-	public RentHistoryVO paymentOneSelect(RentHistoryVO vo);
+	public RentHistoryVO paymentOneSelect(Long seq);
 	
-	/* 결제정보 전체 조회 */
+	/* 결제내역 조회(마이페이지) */
 	public List<RentHistoryVO> paymentList();
 	
 	/* 결제정보 seq 조회 */
 	public RentHistoryVO paymentSeqSelect(RentHistoryVO vo);
+	
+	/* 결제취소 후 DB처리(status 변경) */
+	public int paymentCancel(String merchantUid);
 }

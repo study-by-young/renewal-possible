@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,7 +45,7 @@ public class PaymentController {
 	// 결제 데이터 DB 입력
     @PostMapping("/payment")
     @ResponseBody
-    public void payment(Model model, @RequestBody RentHistoryVO vo, RedirectAttributes rttr) {
+    public String payment(Model model, @RequestBody RentHistoryVO vo, RedirectAttributes rttr) {
 
     	/* @RequestParam("memSeq") Long memSeq, @RequestParam("carSeq") Long carSeq, */
     	
@@ -59,17 +60,41 @@ public class PaymentController {
 		
 		// 외래 객체 담은 후 service 실행
 		paymentService.paymentInsert(vo);
+		
+		model.addAttribute("rent", paymentService.paymentOneSelect(vo.getSeq()));
+		
+		return "payment/paymentFin";
     }
     
     // 결제완료페이지로 이동(결제내역 조회)
     @GetMapping("/paymentFin")
-    public void paymentFin(Model model, RentHistoryVO vo) {
-    	vo.setSeq(vo.getSeq());
-    	model.addAttribute("rent", paymentService.paymentOneSelect(vo));
+    public String paymentFin(Model model, RentHistoryVO vo, @RequestParam(value="seq") Long seq) {
+    	model.addAttribute("rent", paymentService.paymentOneSelect(seq));
+    	return "payment/paymentFin";
+    }
+    
+    // 결제내역 조회(마이페이지)
+    @GetMapping("/rentHistory")
+    public void rentHistory(Model model) {
+    	model.addAttribute("list", paymentService.paymentList());
     }
 
+    // 결제취소 후 DB 수정(status 변경) 
+  /*    @GetMapping("/paymentCancel")
+        public String paymentCancel(String uid, RedirectAttributes rttr) {
+    	paymentService.paymentCancel(uid);
+    	return "payment/rentHistory";
+    } */
     
+    
+    // 결제취소 후 DB 수정(status 변경)
+    @PutMapping("/paymentCancel")
+    @ResponseBody
+    public void paymentCancel(@RequestBody String uid) {
+    	paymentService.paymentCancel(uid);
+    }   
 
+    
 	// 결제 검증을 위한 코드 (미구현, 테스트 중)
 	private IamportClient api;
 	

@@ -8,18 +8,19 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.yedam.possable.app.rent.domain.RentHistoryVO;
 
 @RestController
 public class Refund {
 	
-	@PostMapping("/refund")
-	public String refund() {
+	@PostMapping("/refund/{uid}")
+	public String refund(@PathVariable(value="uid") String uid) {
 		HttpURLConnection conn = null;
 		AccessToken accessToken = new AccessToken();
 		String token = accessToken.accessToken();
@@ -36,7 +37,7 @@ public class Refund {
 
 			JsonObject obj = new JsonObject();
 
-			String merchant_uid = "m_6235144391";
+			String merchant_uid = uid;
 			
 			obj.add("merchant_uid", new Gson().toJsonTree(merchant_uid));
 			obj.add("access_token", new Gson().toJsonTree(token));
