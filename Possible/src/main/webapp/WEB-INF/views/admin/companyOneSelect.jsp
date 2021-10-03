@@ -132,8 +132,16 @@
 							<br>
 							<div class="text-right">
 							<c:if test="${comRegList.status eq 'N'}">
-								<button class="btn btn-primary" onclick="reg()">승인</button>
+								<button id="reg" class="btn btn-primary">승인</button>
 								<button id="del" formaction="companyRegDelete" class="btn btn-primary">거부</button>
+							</c:if>
+							<c:if test="${comRegList.status eq 'Y'}">
+								<button id="del" formaction="companyRegDelete" class="btn btn-primary">거부</button>
+								<a class="btn btn-primary" id="list_btn" href="companyList">목록</a>
+							</c:if>
+							<c:if test="${comRegList.status eq 'D'}">
+								<button id="reg" class="btn btn-primary">승인</button>
+								<a class="btn btn-primary" id="list_btn" href="companyList">목록</a>
 							</c:if>
 							</div>
 						</form>
@@ -143,13 +151,14 @@
 				<!-- /2 columns form -->
 </div>
 <script>
-	function reg(){
+
+$("#reg").on("click", function(){
 		if(confirm("승인하시겠습니까?") == true ){
 			document.form.submit();
 		}else{
 			return false;
 		}
-	}
+	});
 	
 	$("#del").on("click", function(){
 		if(confirm("거부하시겠습니까?") == true ){
@@ -158,8 +167,6 @@
 			return false;
 		}
 	});
-	
-	
 	
 </script>
 

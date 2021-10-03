@@ -57,6 +57,7 @@
 				<option value="A" ${pageMaker.cri.type =='A'? 'selected' : "" }>도시명</option>
 				<option value="C" ${pageMaker.cri.type =='C'? 'selected' : "" }>사업자번호</option>
 				<option value="T" ${pageMaker.cri.type =='T'? 'selected' : "" }>대표번호</option>
+				<option value="S" ${pageMaker.cri.type =='S'? 'selected' : "" }>상태</option>
 			</select> <input class="input" name="keyword" value="${pageMaker.cri.keyword }">
 			 <input
 				type="hidden" name="pageNum" value="1"> <input type="hidden"
@@ -75,6 +76,7 @@
 					<th>사업자주소</th>
 					<th>지역</th>
 					<th>대표번호</th>
+					<th>상태</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -87,6 +89,7 @@
 					<td>${companyList.addr2 }</td>
 					<td>${companyList.area }</td>
 					<td>${companyList.tel }</td>
+					<td>${companyList.status }</td>
 					<td>
 					 <a class="move" href="${companyList.seq }">상세보기</a>
 					</td>

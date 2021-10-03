@@ -34,6 +34,10 @@ public interface CompanyService {
 		
 		//업체 보유 렌트카 한건
 		public CarVO companyCarOneSelect(CarVO vo);
+	
+		//업체 보유 렌트카 삭제
+		public int companyCarDel(CarVO vo);
+
 
 		
 }

@@ -20,6 +20,9 @@
 				                <when test="type == 'T'.toString()">
 				                   TEL LIKE '%' || #{keyword} || '%'
 				                </when>
+				                <when test="type == 'S'.toString()">
+				                   STATUS LIKE UPPER('%' || #{keyword} || '%')
+				                </when>
              				</choose>
              			</trim>
              		</foreach>
@@ -97,11 +100,12 @@
 						ADDR1,
 						ADDR2,
 						AREA,
-						TEL
+						TEL,
+						STATUS
              FROM COMPANY
                <where> 
                 <include refid="criteria"></include>
-                <![CDATA[   AND STATUS = 'Y' ]]>
+                <![CDATA[   AND STATUS != 'N' ]]>
                 <![CDATA[   AND ROWNUM <= #{pageNum} * #{amount} ]]>
              </where>
             ORDER BY SEQ DESC
@@ -134,10 +138,12 @@
    </update>
 	
 	<!-- 업체 승인 거부 -->
-	<delete id="companyRegDelete">
-		DELETE FROM COMPANY
-		WHERE SEQ = #{seq}
-	</delete>
+	<update id="companyRegDelete">
+		UPDATE COMPANY
+		SET STATUS = 'D',
+			UPT_DATE = sysdate
+			WHERE SEQ = #{seq}
+	</update>
 
 	<!-- 업체 보유 렌트카 전체 리스트 -->
 	<select id="companyCarList" resultType="CarVO"	parameterType="CarVO">
@@ -173,10 +179,15 @@
 				IMG3,
 				GEN_DATE,
 				UPT_DATE,
-				CMPN_SEQ,
 				CAR_NUM
 		FROM CAR
 		WHERE SEQ = #{seq}
 	</select>
+	
+	<!-- 업체 보유 렌트카 삭제 -->
+	<delete id="companyCarDel">
+		DELETE FROM CAR
+		WHERE SEQ = #{seq}
+	</delete>
 	
 </mapper>

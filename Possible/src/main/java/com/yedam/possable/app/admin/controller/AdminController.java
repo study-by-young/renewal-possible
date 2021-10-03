@@ -96,7 +96,7 @@ public class AdminController {
 		if(result == 1) {
 			rttr.addFlashAttribute("result", "success");			
 		}
-		return "redirect:/admin/companyRegList";		
+		return "redirect:/admin/companyList";		
 	}
 	
 	//업체정보관리 페이지
