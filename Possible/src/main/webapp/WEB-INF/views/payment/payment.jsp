@@ -5,6 +5,15 @@
 <!-- iamport.payment.js -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 
+<style>
+	.hide {
+		display: none;
+	}
+	
+	.cont {
+		cursor: pointer;
+	}
+</style>
 
 <!-- btc tittle Wrapper Start -->
 <div class="btc_tittle_main_wrapper">
@@ -176,17 +185,76 @@
 											</div>
 										</div>
 										<hr>
-										<div class="chkbox_group">
-											<div><label><input type="checkbox" id="chk_all" name="agreement" value="selectAll">전체동의</label></div>
-											<div><label><input type="checkbox" class="chk" id="chk1" name="agreement" value="terms1">여행갈카 대여 규정 및 약관 동의 (필수)</label></div>
-											<div><label><input type="checkbox" class="chk" id="chk2" name="agreement" value="terms2">개인정보 수집·이용 및 제3자 정보제공 (필수)</label></div>
-											<div><label><input type="checkbox" class="chk" id="chk3" name="agreement" value="terms3">취소 및 위약금 규정 동의 (필수)</label></div>
-											<div><label><input type="checkbox" class="chk" id="chk4" name="agreement" value="terms4">자동차 표준 대여 약관 동의 (필수)</label></div>
-											<div><label><input type="checkbox" class="chk" id="chk5" name="agreement" value="terms5">대여자격 확인 동의 (필수)</label></div>
-										</div>
+											<div class="agreemnet">
+												<ul class="agree_list">
+													<li class="on">
+														<dl>
+															<dt class="cont">여행갈카 대여 규정 및 약관 동의 <span style="float: right;">보기</span></dt>
+															<dd id="88" class="hide">
+																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															</dd>
+														</dl>
+													</li>
+												</ul>
+											</div>
+											
+											<div class="agreemnet">
+												<ul class="agree_list">
+													<li class="on">
+														<dl>
+															<dt class="cont">개인정보 수집·이용 및 제3자 정보제공 <span style="float: right;">보기</span></dt>
+															<dd id="88" class="hide">
+																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															</dd>
+														</dl>
+													</li>
+												</ul>
+											</div>
+											
+											<div class="agreemnet">
+												<ul class="agree_list">
+													<li class="on">
+														<dl>
+															<dt class="cont">취소 및 위약금 규정 동의 <span style="float: right;">보기</span></dt>
+															<dd id="88" class="hide">
+																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															</dd>
+														</dl>
+													</li>
+												</ul>
+											</div>
+											
+											<div class="agreemnet">
+												<ul class="agree_list">
+													<li class="on">
+														<dl>
+															<dt class="cont">자동차 표준 대여 약관 동의 <span style="float: right;">보기</span></dt>
+															<dd id="88" class="hide">
+																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															</dd>
+														</dl>
+													</li>
+												</ul>
+											</div>
+											
+											<div class="agreemnet">
+												<ul class="agree_list">
+													<li class="on">
+														<dl>
+															<dt class="cont">대여자격 확인 동의 <span style="float: right;">보기</span></dt>
+															<dd id="88" class="hide">
+																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															</dd>
+														</dl>
+													</li>
+												</ul>
+											</div>
+										<br>
+										<div><label><input type="checkbox" id="chk_all" name="agreement" value="selectAll">위 결제/대여 규정을 모두 확인하였으며, 회원 본인은 결제에 동의합니다.</label></div>
+										<br>
 										<div>Possible은 통신판매중개자로서 여행갈카의 거래당사자가 아니며 상품정보, 거래조건 및 거래에 관련한 의무와 책임은 각 판매자에게 있습니다.</div>
 										<div class="text-center">
-											<input id="payBtn" name="payBtn" class="btn btn-main btn-round-full" type="button" value="결제하기">
+											<input id="payBtn" name="payBtn" class="btn btn-main btn-round-full" type="button" value="결제하기" disabled>
 										</div>
 									</form>
 								</div>
@@ -288,7 +356,6 @@
 							alert('status: ' + status + ' er: ' + message);
 						}
 					});
-					
 					/* data.submit(); 성공 시 data폼의 데이터를 submit 한다. */
 				} else {
 					let msg = '결제에 실패하였습니다.';
@@ -299,29 +366,46 @@
 		}
 
 	});
-
 	
 	
-	/* 체크박스 전체 선택, 전체 해제 */
-	$('.chkbox_group').on('click', '#chk_all', function() {
-		console.log(this);
-		const checked = $(this).is(':checked');
-
-		if (checked) {
-			$(this).parents('.chkbox_group').find('input').prop('checked', true);
-		} else {
-			$(this).parents('.chkbox_group').find('input').prop('checked', false);
+	// 결제수단을 선택하고 + 약관에 동의해야 결제버튼 활성화 됨
+	$('#chk_all').on('click', function(){
+		let chk = $(this).is(':checked');
+		let pay = $('input[name="pay"]').is(':checked');
+		
+		if(chk == true && pay == true){
+			$('.btn').removeAttr('disabled');
+		}
+		else if(chk == false && pay == true){
+			$('.btn').attr('disabled', true);
+		}
+		else {
+			$('.btn').attr('disabled', true);
 		}
 	});
 	
-	/* 개별 체크박스 항목이 선택 해제 될 때 전체선택 해제 */
-	$('.chkbox_group').on('click', '.chk', function() {
-		let is_checked = true;
+	
+	
+	// 결제 및 대여 약관 토글
+	$(function() {
+		var agree_open;
 
-		$('.chkbox_group .chk').each(function() {
-			is_checked = is_checked && $(this).is(':checked');
+		$('.agree_list li dl dt').on('click', function() {
+			var idx = $(this).parent().parent().index();
+			
+			if (agree_open == idx) {
+				$('.agree_list li dl dd').css('display', 'none');
+				$('.agree_list li').removeClass('on');
+				agree_open = '99' // 임의 상수 리셋
+			} else {
+				$('.agree_list li').removeClass('on');
+				$('.agree_list li dl dd').css('display', 'none');
+				$(this).parent().parent().find('dd').css('display', 'block');
+				$(this).parent().parent().addClass('on');
+				agree_open = idx;
+			}
+			return false;
 		});
-
-		$('#chk_all').prop('checked', is_checked);
 	});
+	
 </script>
