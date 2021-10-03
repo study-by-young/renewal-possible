@@ -29,6 +29,11 @@ public class PremiumRentServiceImpl implements PremiumRentService{
     }
 
     @Override
+    public int deleteEstimate(Long seq) {
+        return premiumRentMapper.deleteEstimate(seq);
+    }
+
+    @Override
     public int updateEstimate(EstimateHistoryVO vo) {
         return premiumRentMapper.updateEstimate(vo);
     }

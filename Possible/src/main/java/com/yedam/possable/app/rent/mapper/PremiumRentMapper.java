@@ -18,6 +18,9 @@ public interface PremiumRentMapper {
     // 견적서 수정
     public int updateEstimate(EstimateHistoryVO vo);
 
+    // 견적서 삭제
+    public int deleteEstimate(Long seq);
+
     // 견적서 총 갯수 조회
     public int getEstimateCount();
 }
