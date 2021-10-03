@@ -1,5 +1,8 @@
 package com.yedam.possable.app.member.controller;
 
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +16,19 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yedam.possable.app.member.domain.KakaoProfile;
 import com.yedam.possable.app.member.domain.OAuthToken;
+import com.yedam.possable.app.member.service.MemberService;
 
 import lombok.extern.java.Log;
 
 @Log
 @Controller
 public class KakaoController {
-
+	
+	@Autowired
+	MemberService memberservice;
+	
 	@GetMapping("/auth/kakao/callback")
 	public @ResponseBody String kakaoCallback(String code) { //Data를 리턴해주는 컨트롤러 함수
 		
@@ -82,6 +90,30 @@ public class KakaoController {
  						String.class
  						);
  		System.out.println(response2.getBody());
+ 		
+ 		ObjectMapper objectMapper2 = new ObjectMapper();
+ 		KakaoProfile kakaoProfile = null;
+ 		try {
+ 			kakaoProfile = objectMapper2.readValue(response2.getBody(), KakaoProfile.class);
+		} catch (JsonMappingException e) {
+			e.printStackTrace();
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+ 		//User 오브젝트: id, password, email
+ 		System.out.println("카카오 아이디(번호)" +kakaoProfile.getId());
+ 		System.out.println("카카오 이메일(번호)" +kakaoProfile.getKakao_account().getEmail());
+ 		
+ 		System.out.println("여행갈카 유저네임"+ kakaoProfile.getKakao_account().getEmail()
+ 										+"_"+ kakaoProfile.getId());
+ 		System.out.println("여행갈카 이메일" +kakaoProfile.getKakao_account().getEmail());
+ 		UUID GarbagePassword = UUID.randomUUID();
+ 		System.out.println("여행갈카 패스워드"+ GarbagePassword);
+ 		
+ 		
+ 		//가입자 혹은 비가입자 체크해서 처리
+ 		String page ="";
+ 		
 		return response2.getBody();
 	}
 }
