@@ -137,8 +137,12 @@
 											<label>상태</label> 
 											<select name='status' class="form-control form-control-select2">
 												<option value='status' name='status'>${member.status}</option>
-												<c:if test="${member.status eq 'Y'}"><option value='N' name='status'>N</option></c:if>
-												<c:if test="${member.status eq 'N'}"><option value='Y' name='status'>Y</option></c:if>
+												<c:if test="${member.status eq 'Y' }"><option value='N' name='status'>N</option></c:if>
+												<c:if test="${member.status eq 'Y' }"><option value='D' name='status'>D</option></c:if>
+												<c:if test="${member.status eq 'N' }"><option value='Y' name='status'>Y</option></c:if>
+												<c:if test="${member.status eq 'N' }"><option value='D' name='status'>D</option></c:if>
+												<c:if test="${member.status eq 'D' }"><option value='Y' name='status'>Y</option></c:if>
+												<c:if test="${member.status eq 'D' }"><option value='N' name='status'>N</option></c:if>
 											</select>
 										</div>
 										
@@ -156,7 +160,7 @@
 							</div>
 							<br>
 							<div class="text-right">
-								<button type="submit" class="btn btn-primary">수정하기</button>
+								<button id="up" type="submit" class="btn btn-primary">수정하기</button>
 						  		<a class="btn btn-primary" id="list_btn" href="memberList?pageNum=${cri.pageNum}&amount=${cri.amount}">목록</a>
 							</div>
 						</form>
@@ -165,6 +169,15 @@
 				<!-- /2 columns form -->
 </div>
 <script>
+
+$("#up").on("click", function(){
+	if(confirm("수정하시겠습니까?") == true ){
+		document.form.submit();
+	}else{
+		return false;
+	}
+});
+
 $("#list_btn").on(
 		"click",
 		function(e) {

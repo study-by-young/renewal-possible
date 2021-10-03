@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,8 +24,6 @@ import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
-import com.yedam.possable.app.car.domain.CarVO;
-import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.service.PaymentService;
 
@@ -36,7 +36,67 @@ public class PaymentController {
 
 	@Autowired PaymentService paymentService;
 
+	// 결제페이지로 이동
+    @GetMapping("/rent")
+    public String payment() {
+        return "payment/payment";
+    }
+    
+	// 결제 데이터 DB 입력
+    @PostMapping("/payment")
+    @ResponseBody
+    public String payment(Model model, @RequestBody RentHistoryVO vo, RedirectAttributes rttr) {
 
+    	/* @RequestParam("memSeq") Long memSeq, @RequestParam("carSeq") Long carSeq, */
+    	
+    	/* 외래 객체 생성 후 seq 입력
+		MemberVO memVo = new MemberVO();
+		memVo.setSeq(memSeq);
+		vo.setMemberVO(memVo);
+		
+		CarVO carVo = new CarVO();
+		carVo.setSeq(carSeq);
+		vo.setCarVO(carVo); */
+		
+		// 외래 객체 담은 후 service 실행
+		paymentService.paymentInsert(vo);
+		
+		model.addAttribute("rent", paymentService.paymentOneSelect(vo.getSeq()));
+		
+		return "payment/paymentFin";
+    }
+    
+    // 결제완료페이지로 이동(결제내역 조회)
+    @GetMapping("/paymentFin")
+    public String paymentFin(Model model, RentHistoryVO vo, @RequestParam(value="seq") Long seq) {
+    	model.addAttribute("rent", paymentService.paymentOneSelect(seq));
+    	return "payment/paymentFin";
+    }
+    
+    // 결제내역 조회(마이페이지)
+    @GetMapping("/rentHistory")
+    public void rentHistory(Model model) {
+    	model.addAttribute("list", paymentService.paymentList());
+    }
+
+    // 결제취소 후 DB 수정(status 변경) 
+  /*    @GetMapping("/paymentCancel")
+        public String paymentCancel(String uid, RedirectAttributes rttr) {
+    	paymentService.paymentCancel(uid);
+    	return "payment/rentHistory";
+    } */
+    
+    
+    // 결제취소 후 DB 수정(status 변경)
+    @PutMapping("/paymentCancel/{uid}")
+    @ResponseBody
+    public String paymentCancel(@PathVariable String uid, RedirectAttributes rttr) {
+    	paymentService.paymentCancel(uid);
+    	return "redirect:/payment/rentHistory";
+    }   
+
+    
+	// 결제 검증을 위한 코드 (미구현, 테스트 중)
 	private IamportClient api;
 	
 	public PaymentController() {
@@ -70,60 +130,5 @@ public class PaymentController {
 			System.out.println("검증통과");
 		}
 	}	
-	
-	
-	/* 결제 페이지로 이동 */
-    @GetMapping("/payment")
-    public String payment() {
-        return "payment/payment";
-    }
-    
-	/* 결제 데이터 DB 입력 */
-    @PostMapping("/paymentInsert")
-    public void paymentInsert(Model model, RentHistoryVO vo, @RequestParam("memSeq") Long memSeq, @RequestParam("carSeq") Long carSeq, RedirectAttributes rttr) {
-		/* 외래 객체 생성 후 seq 입력 */
-		MemberVO memVo = new MemberVO();
-		memVo.setSeq(memSeq);
-		vo.setMemberVO(memVo);
-		
-		CarVO carVo = new CarVO();
-		carVo.setSeq(carSeq);
-		vo.setCarVO(carVo);
-		
-		/* 외래 객체 담은 후 service 실행 */
-		paymentService.paymentInsert(vo);
-    }
-
-		// JSP에서 form을 보내줄 때 form 안에 hidden 타입으로 외래키가 될 객체의 seq를 심어서 보내줌
-		// -> @RequestParam("memSeq") Long memSeq로 컨트롤러에서 seq를 변수로 따로 받음
-		// -> 데이터 필요시 seq로 service 호출해서 데이터 뽑아오기
-		//        or 외래 객체 생성 후 vo에 삽입(vo.setMemberVO())
-		// -> mapper.xml에서 #{memberVo.seq}로 사용     
-    
-    /* 결제완료 페이지로 이동(rent_history seq를 이용해 단건조회) */
-	@GetMapping("/paymentOneSelect")
-	public String paymentOneSelect(Model model, RentHistoryVO vo) {
-		model.addAttribute("rent", paymentService.paymentOneSelect(vo));
-		return "payment/paymentFin";
-	}
-	
-	/* 결제정보 전체 조회 */
-	@GetMapping("/paymentList")
-	public String paymentList(Model model) {
-		paymentService.paymentList();
-		return "payment/payment";
-	}
-	
-	/* 결제정보 seq(nextval) 조회 */
-	@GetMapping("/paymentSeqSelect")
-	public void paymentSeqSelect(Model model, RentHistoryVO vo) {
-		model.addAttribute("seq", paymentService.paymentSeqSelect(vo));
-	}
-	
-	/* 결제 테스트 페이지로 이동 */
-    @GetMapping("/paymentTest")
-    public String paymentTest() {
-        return "payment/paymentTest";
-    }	
-    
+	    
 }

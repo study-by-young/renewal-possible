@@ -21,6 +21,9 @@
              		</foreach>
              	</trim>
 	</sql>
+	<select id="getUserById" parameterType="String" resultType="MemberVO">
+	SELECT * FROM MEMBER WHERE ID=#{id}
+	</select>
 	
 	<!-- 전체 수 계산기능 -->
 	<select id="getTotalCount" resultType="int">
@@ -70,6 +73,10 @@
 	<select id="idChk" resultType="int">
 		SELECT COUNT(*) FROM MEMBER
 		WHERE ID = #{id}
+	</select>
+	<select id="kakaoIdCheck" resultType="int">
+		SELECT COUNT(*) FROM MEMBER 
+		WHERE id = #{id} and loginStatus = 'kakao'
 	</select>
 	<!-- 아이디 찾기 -->
 	<select id="idFind" resultType="String" >

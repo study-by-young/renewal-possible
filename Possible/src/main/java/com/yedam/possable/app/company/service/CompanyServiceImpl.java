@@ -68,4 +68,11 @@ public class CompanyServiceImpl implements CompanyService {
 		return companyMapper.companyCarOneSelect(vo);
 	}
 
+	@Override
+	public int companyCarDel(CarVO vo) {
+		// TODO Auto-generated method stub
+		return companyMapper.companyCarDel(vo);
+	}
+
+
 }

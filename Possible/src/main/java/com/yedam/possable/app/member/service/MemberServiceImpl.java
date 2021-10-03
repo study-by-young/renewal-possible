@@ -84,6 +84,18 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.passFindUpdate(vo);
 	}
 
+	@Override
+	public int kakaoIdCheck(MemberVO vo) {
+		// TODO 카카오 로그인 체크
+		return memberMapper.kakaoIdCheck(vo);
+	}
+
+	@Override
+	public MemberVO getUserById(String id) {
+		// TODO 로그인
+		return memberMapper.getUserById(id);
+	}
+
 	
 
 }
