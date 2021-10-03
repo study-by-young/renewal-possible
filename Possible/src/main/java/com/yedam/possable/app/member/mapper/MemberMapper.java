@@ -32,4 +32,9 @@ public interface MemberMapper {
 	
 	//비밀번호 찾기
 	public int passFindUpdate(MemberVO vo);
+	
+	//카카오 로그인 체크
+	public int kakaoIdCheck(MemberVO vo);
+	//로그인
+	public MemberVO getUserById(String id);
 }
