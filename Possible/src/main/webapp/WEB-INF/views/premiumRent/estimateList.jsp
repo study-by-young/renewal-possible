@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 full_width">
                 <div class="btc_tittle_left_heading">
-                    <h1>렌트 견적 목록</h1>
+                    <h1>렌트 견적 요청 목록</h1>
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@
                             <div class="x_carbook_right_tabs_box_wrapper float_left">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
-                                        <a class="btn btn-primary" href="insert"><i class="icon-pencil7 align-baseline"></i> 견적 작성</a>
+                                        <a class="btn btn-primary" href="insert"><i class="icon-pencil7 align-baseline"></i> 견적 요청</a>
                                     </li>
                                 </ul>
                             </div>
