@@ -2378,7 +2378,7 @@ html .ui-button.ui-state-disabled:active {
 }
 
 .x_car_offer_heading ul {
-    width: 100%;
+    width: 50%;
     float: left;
     border-top: 1px solid #eeeeee;
     border-bottom: 1px solid #eeeeee;
@@ -2401,7 +2401,6 @@ html .ui-button.ui-state-disabled:active {
 }
 
 .x_car_offer_heading li:first-child {
-    border-left: 0;
 }
 
 .x_car_offer_heading li a i {
@@ -7603,7 +7602,7 @@ input[type=number] {
 }
 
 .x_car_offer_heading_listing li {
-    width: 50%;
+    width: 100%;
     text-align: left;
 }
 

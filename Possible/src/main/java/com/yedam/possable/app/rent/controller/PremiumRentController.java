@@ -4,6 +4,7 @@ import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.common.domain.Criteria;
 import com.yedam.possable.app.common.domain.PageVO;
 import com.yedam.possable.app.common.mapper.CodeMapper;
+import com.yedam.possable.app.common.service.CodeService;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.rent.domain.EstiSubmitHistoryVO;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
@@ -21,33 +22,21 @@ import java.util.*;
 @Controller
 @RequestMapping("/premiumRent/*")
 public class PremiumRentController {
-    @Autowired CodeMapper codeMapper;
-    @Autowired PremiumRentService premiumRentService;
+    @Autowired
+    CodeService codeService;
+    @Autowired
+    PremiumRentService premiumRentService;
 
     // 견적 요청 리스트
     @GetMapping("estimate/list")
     public String estimateList(Model model, @ModelAttribute("cri") Criteria cri) {
-        Map<String, Object> attr = new HashMap<>();
-        List<String[]> optionArrList = new ArrayList<>();
-        List<String[]> itemArrList = new ArrayList<>();
+        Map<String, Object> attr = new LinkedHashMap<>();
         int listCount = premiumRentService.getEstimateCount();
-        List<EstimateHistoryVO> estimateList = premiumRentService.getEstimateList(cri);
+        List<Map<String, Object>> estimateList = premiumRentService.getEstimateList(cri);
 
-        // DB 문자열을 배열로 만듬
-        for(EstimateHistoryVO vo : estimateList){
-            String options = vo.getOptions();
-            String items = vo.getItems();
-            String[] optionArr = options.substring(1,options.length()-1).trim().split(",");
-            String[] itemArr = items.substring(1,items.length() - 1).trim().split(",");
-
-            optionArrList.add(optionArr);
-            itemArrList.add(itemArr);
-        }
 
         attr.put("estList", estimateList);
         attr.put("pagination", new PageVO(cri,listCount));
-        attr.put("optionList", optionArrList);
-        attr.put("itemList", itemArrList);
         model.addAllAttributes(attr);
 
         return "/premiumRent/estimateList";
@@ -55,10 +44,10 @@ public class PremiumRentController {
 
     // 견적 요청 작성
     @GetMapping("estimate/insert")
-    public String estimateInsertForm(Model model) {
-        model.addAttribute("brands", codeMapper.getBrands());
-        model.addAttribute("carOpt", codeMapper.getCodesByParentCodeName("차량 옵션"));
-        model.addAttribute("itemOpt", codeMapper.getCodesByParentCodeName("캠핑 옵션"));
+    public String estimateInsert(Model model) {
+        model.addAttribute("brands", codeService.getBrands());
+        model.addAttribute("carOpt", codeService.getCodesByParentCodeName("차량 옵션"));
+        model.addAttribute("itemOpt", codeService.getCodesByParentCodeName("캠핑 옵션"));
 
         return "/premiumRent/estimateInsert";
     }
@@ -80,10 +69,10 @@ public class PremiumRentController {
         vo.setMemberVO(memVo);
 
         // 코드 -> 네임 변환
-        vo.setSegment(codeMapper.getNameByCode(vo.getSegment()).getName());
-        vo.setBrand(codeMapper.getBrand(vo.getBrand()).getName());
-        vo.setModel(codeMapper.getModel(vo.getModel()).getName());
-        vo.setTrim(codeMapper.getTrim(vo.getTrim()).getName());
+        vo.setSegment(codeService.getNameByCode(vo.getSegment()).getName());
+        vo.setBrand(codeService.getBrand(vo.getBrand()).getName());
+        vo.setModel(codeService.getModel(vo.getModel()).getName());
+        vo.setTrim(codeService.getTrim(vo.getTrim()).getName());
 
         int result = premiumRentService.insertEstimate(vo);
         String resultStr = "";
@@ -100,7 +89,7 @@ public class PremiumRentController {
 
     // 견적 요청 상세
     @GetMapping("estimate/view")
-    public String estiamteRead(@RequestParam Long seq,
+    public String estimateRead(@RequestParam Long seq,
                                Model model,
                                @ModelAttribute Criteria cri) {
         model.addAttribute("estimate", premiumRentService.getEstimate(seq));
