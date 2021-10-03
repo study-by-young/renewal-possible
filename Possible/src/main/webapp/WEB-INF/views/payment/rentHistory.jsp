@@ -7,20 +7,55 @@
 <c:forEach var="rent" items="${list}">
 		<tr>
 			<td>하: ${rent.merchantUid}</td>
-			<td><button id="refundBtn" type="button" value="${rent.merchantUid}">취소하기</button></td>
+			<td><button class="refundBtn" id="refundBtn" type="button" value="${rent.merchantUid}">취소하기</button></td>
 		</tr>
 </c:forEach>
 	</table>
 
 <script>
-	// 문제1. 첫번째 버튼만 눌린다.
-	// 문제2. 결제취소 성공시 db처리 작업 ajax가 안 먹는다.
+	// forEach 돌리고 id로 불러오면 첫번째 버튼만 활성화 되기 때문에 class로 불러온다.
+	$('.refundBtn').on('click', function(e){
+		e.preventDefault();
+		if(confirm('예약을 취소하시겠습니까?')){
+			let uid = $(this).val();
+			
+			$.ajax({
+				url: '../refund/' + uid,
+				type: 'post',
+				data: { uid : uid },
+				dataType: 'text',
+				success: function(){
+					alert('예약이 취소되었습니다.');
+				}
+			}).done(function(data, textStatus, xhr) { // 결제취소 성공 시 db에 update 처리
+				// console.log(xhr);
+				$.ajax({
+					url: 'paymentCancel/' + uid,
+					type: 'put',
+					dataType: 'text',
+					success: function(){},
+					error: function(){}
+				});				
+			}).fail(function(xhr, status, message) {
+				alert('status: ' + status + ' er: ' + message);
+			});
+		} else {
+			return false;
+		}
+	});
+
+	
+	
+	
+/*	
 	$('#refundBtn').on('click', function(){
 		let uid = $(this).val();
 		
 		$.ajax({
 			url: '../refund/' + uid,
 			type: 'post',
+			data: { uid : uid },
+			dataType: 'text',
 			success: function(){
 				alert('결제가 취소되었습니다.');
 				// location.href = 'paymentCancel?uid=' + uid;
@@ -46,6 +81,7 @@
 		}).fail(function(xhr, status, message) {
 			alert('status: ' + status + ' er: ' + message);
 		});
-	});
-
+	});	
+	
+*/	
 </script>

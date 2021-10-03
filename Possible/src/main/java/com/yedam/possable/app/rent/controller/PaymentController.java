@@ -88,10 +88,11 @@ public class PaymentController {
     
     
     // 결제취소 후 DB 수정(status 변경)
-    @PutMapping("/paymentCancel")
+    @PutMapping("/paymentCancel/{uid}")
     @ResponseBody
-    public void paymentCancel(@RequestBody String uid) {
+    public String paymentCancel(@PathVariable String uid, RedirectAttributes rttr) {
     	paymentService.paymentCancel(uid);
+    	return "redirect:/payment/rentHistory";
     }   
 
     
