@@ -7,6 +7,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yedam.possable.app.member.domain.KakaoProfile;
+import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.domain.OAuthToken;
 import com.yedam.possable.app.member.service.MemberService;
 
@@ -29,8 +31,9 @@ public class KakaoController {
 	@Autowired
 	MemberService memberservice;
 	
+	
 	@GetMapping("/auth/kakao/callback")
-	public @ResponseBody String kakaoCallback(String code) { //Data를 리턴해주는 컨트롤러 함수
+	public  String kakaoCallback(String code, Model model, MemberVO vo) { //Data를 리턴해주는 컨트롤러 함수
 		
 		// POST 방식으로 key = value 데이터를 요청(카카오)
 		
@@ -112,8 +115,19 @@ public class KakaoController {
  		
  		
  		//가입자 혹은 비가입자 체크해서 처리
- 		String page ="";
+ 		String page = "";
  		
-		return response2.getBody();
+ 		int kakaoIdCheck = memberservice.kakaoIdCheck(vo);
+ 		
+ 		if (kakaoIdCheck == 0 ) {
+ 			model.addAttribute("kakaoId", kakaoProfile);
+ 			page ="login/kakaoRegister";
+ 			System.out.println("여기는 카카오 회원가입 절차 밟는곳");
+ 		}else {
+ 			page ="/";
+ 			System.out.println("여기는 카카오 1 체크시 로그인");
+ 		}
+ 		
+		return page;
 	}
 }
