@@ -19,8 +19,8 @@ public class PaymentServiceImpl implements PaymentService {
 	}
 
 	@Override
-	public RentHistoryVO paymentOneSelect(RentHistoryVO vo) {
-		return paymentMapper.paymentOneSelect(vo);
+	public RentHistoryVO paymentOneSelect(Long seq) {
+		return paymentMapper.paymentOneSelect(seq);
 	}
 
 	@Override
@@ -31,6 +31,11 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	public RentHistoryVO paymentSeqSelect(RentHistoryVO vo) {
 		return paymentMapper.paymentSeqSelect(vo);
+	}
+
+	@Override
+	public int paymentCancel(String merchantUid) {
+		return paymentMapper.paymentCancel(merchantUid);
 	}
 
 }
