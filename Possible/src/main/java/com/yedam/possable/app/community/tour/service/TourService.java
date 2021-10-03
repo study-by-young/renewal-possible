@@ -16,4 +16,6 @@ public interface TourService {
 	
 	public int delete(TestVO vo);
 	
+	public List<TestVO> getList();
+	
 }
