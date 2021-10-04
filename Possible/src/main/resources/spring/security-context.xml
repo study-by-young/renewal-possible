@@ -24,7 +24,7 @@
 
 										 <!-- login-processing-url="/login"	로그인 페이지 form action에 입력할 주소 지정  -->
 		<security:logout logout-url="/logout"
-						 invalidate-session="false"
+						 invalidate-session="true"
 						 logout-success-url="/"
 						 />
 

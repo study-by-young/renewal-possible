@@ -34,8 +34,7 @@
 						</sec:authorize>
 
                         <sec:authorize access="isAuthenticated()">
-                        		<a class="menu-button" href="${pageContext.request.contextPath}/logout"><sec:authentication property="principal.name"/>님</a>
-
+                        		<a class="menu-button"><sec:authentication property="principal.name"/>님</a>
 										<form action="${pageContext.request.contextPath}/logout" method="post" id="logoutFrm" name="logoutFrm">
 	                        				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" >
 												<a class="menu-button" href="#" id="logOutBtn" >logout</a>
