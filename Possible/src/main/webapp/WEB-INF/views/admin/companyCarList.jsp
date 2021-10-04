@@ -14,7 +14,6 @@
 
 </style>
 
-<c:forEach var="companyCarList" items="${companyCarList }">
 <div class="container">
   <h2>보유렌터카</h2>
   <div class="row">
@@ -25,6 +24,8 @@
 				<button type="button" class="selectDelete_btn">선택 삭제</button>
 			</div>
 		</div>
+<div class="row">
+<c:forEach var="companyCarList" items="${companyCarList }">
   <div class="card" style="width:200px">
   <input type="checkbox" name="chBox" class="chBox" data-seq="${companyCarList.seq }" />
     <img class="card-img-top" src="${companyCarList.img1 }" alt="Card image" style="width:100%">
@@ -42,9 +43,11 @@
 				</a>  
 			</h4>
 		</div>
-  </div>
-</div>
+  </div> 
+  &nbsp;&nbsp;&nbsp;&nbsp;
 </c:forEach>
+</div>
+</div>
 
 
   <!-- The Modal -->
@@ -122,7 +125,7 @@ $(function(){	//page ready  이벤트 페이지가 준비되면 실행
 					data : {chbox : checkArr},
 					success : function(result){
 						  if(result == 1) {          
-						   location.href = "${pageContext.request.contextPath}/companyCarList?comSeq=1";
+						   location.href = "${pageContext.request.contextPath}/companyDashboard";
 						  } else {
 						   alert("삭제 실패");
 						  }

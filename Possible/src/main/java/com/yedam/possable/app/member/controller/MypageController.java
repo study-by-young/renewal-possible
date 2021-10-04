@@ -30,7 +30,7 @@ public class MypageController {
 
 	//마이페이지 대쉬보드
 		@GetMapping("/dashboard")
-		public String dashboard(HttpSession session, MemberVO vo) {
+		public String dashboard(HttpSession session, MemberVO memVo, CompanyVO comVo) {
 			return "mypage/dashboard";
 		}
 		
@@ -78,7 +78,7 @@ public class MypageController {
 		
 		//업체전환 신청 페이지
 		@GetMapping("/chngRole")
-		public String chngRole(Model model) {
+		public String chngRole(Model model, HttpSession session) {
 			
 			return "mypage/chngRole";
 		}
@@ -90,7 +90,7 @@ public class MypageController {
 			MemberVO memVo = new MemberVO();
 			memVo.setSeq(memSeq);
 			vo.setMemberVO(memVo);
-			
+						
 			// 외래 객체 담은 후 service 실행
 			int result = companyService.companyReg(vo);
 	  	    rttr.addFlashAttribute("result", result);

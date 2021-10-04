@@ -128,4 +128,12 @@
 			       #{addrDetail} )	
 	</insert>
 	
+	<!-- 회원권한변경 -->
+	<update id="authorUpdate" >
+		UPDATE MEMBER 
+		SET AUTHOR = #{author},
+			UPT_DATE = sysdate
+    	WHERE SEQ = #{seq}
+	</update>
+	
 </mapper>

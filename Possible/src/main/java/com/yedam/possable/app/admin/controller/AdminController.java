@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -82,6 +83,7 @@ public class AdminController {
 	//업체승인 처리
 	@PostMapping("/companyOneSelect")
 		public String companyReg(CompanyVO vo, RedirectAttributes rttr) {
+					
 			int result = companyService.companyRegUpdate(vo);
 			if(result == 1) {
 				rttr.addFlashAttribute("result", "success");			

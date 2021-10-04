@@ -9,10 +9,13 @@ import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.common.domain.Criteria;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.mapper.CompanyMapper;
+import com.yedam.possable.app.member.domain.MemberVO;
+import com.yedam.possable.app.member.service.MemberService;
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
 	@Autowired	CompanyMapper companyMapper;
+	@Autowired MemberService memberService;
 	
 	@Override
 	public List<CompanyVO> companyRegList() {

@@ -7,7 +7,7 @@
 
 	<bean id="LoginAccessDeniedHandler" class="com.yedam.possable.app.security.LoginAccessDeniedHandler"></bean>
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
-
+	<bean id="customUserService" class="com.yedam.possable.app.member.service.CustomUserDetailsService" />
     <!-- security 적용 제외 -->
 	<security:http pattern="/resources/**" security="none" />
 
@@ -23,8 +23,8 @@
         />
 
 										 <!-- login-processing-url="/login"	로그인 페이지 form action에 입력할 주소 지정  -->
-		<security:logout
-						 invalidate-session="true"
+		<security:logout logout-url="/logout"
+						 invalidate-session="false"
 						 logout-success-url="/"
 						 />
 
@@ -33,40 +33,10 @@
 	</security:http>
 
 	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query
-									  ="SELECT id, password, status
-										FROM member WHERE id = ?"
-				authorities-by-username-query
-									  ="SELECT id, 'ROLE_'|| upper(author)
-										FROM member WHERE id = ?" />
+		<security:authentication-provider user-service-ref="customUserService"> 
 			 <security:password-encoder hash="bcrypt" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 
-	<!-- pattern: 앞에 반드시 / 붙여줘야 한다.
-	<security:http>
-		<security:intercept-url pattern="/top.jsp" access="permitAll()" />
-
-		<security:intercept-url pattern="/loginForm" access="permitAll()" />
-		<security:intercept-url pattern="/logout" access="permitAll()" />
-
-		<security:intercept-url pattern="/admin/**" access="hasAuthority('ROLE_ADMIN')" />
-		<security:intercept-url pattern="/**" access="isAuthenticated()" />
-
-		<security:form-login
-				login-page="/loginForm"
-				login-processing-url="/login"
-				username-parameter="id"
-				password-parameter="password"
-				authentication-success-handler-ref="/customLogin"
-				default-target-url="/top.jsp" />
-
-		<security:logout logout-url="/logout" logout-success-url="/top.jsp" />
-		<security:access-denied-handler error-page="/error/accessError.jsp" />
-
-		<security:csrf disabled="false" />
-	</security:http> -->
 
 </beans>

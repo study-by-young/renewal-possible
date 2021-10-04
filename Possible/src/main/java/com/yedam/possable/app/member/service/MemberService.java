@@ -35,6 +35,10 @@ public interface MemberService {
 		
 		//카카오 로그인 체크
 		public int kakaoIdCheck(MemberVO vo);
+		
 		//로그인
 		public MemberVO getUserById(String id);
+		
+		//회원 권한 변경
+		public int authorUpdate(MemberVO vo);
 }
