@@ -24,12 +24,12 @@ public class TourScheduler {
 	@Autowired
 	TourService tourService;
 
-	@Scheduled(cron = "0 43 17 * * *")
+	//@Scheduled(cron = "0 43 17 * * *")
 	public void auto() throws IOException {
 
 		// System.out.println("테스트");
 		boolean isEnd = false;
-		int cnt = 0;
+		int cnt = 1;
 		long apiContentId = 0;
 		long apiModifiedDate = 0;
 		while (true) {
@@ -48,7 +48,7 @@ public class TourScheduler {
 				urlBuilder.append("&" + URLEncoder.encode("numOfRows", "UTF-8") + "="
 						+ URLEncoder.encode("10", "UTF-8")); /* 한 페이지 결과수 */
 				urlBuilder.append("&" + URLEncoder.encode("pageNo", "UTF-8") + "="
-						+ URLEncoder.encode("1", "UTF-8")); /* 현재 페이지 번호 */
+						+ URLEncoder.encode(String.valueOf(cnt), "UTF-8")); /* 현재 페이지 번호 */
 				urlBuilder.append("&" + URLEncoder.encode("MobileOS", "UTF-8") + "="
 						+ URLEncoder.encode("ETC", "UTF-8")); /* IOS (아이폰), AND (안드로이드), WIN (원도우폰), ETC */
 				urlBuilder.append("&" + URLEncoder.encode("MobileApp", "UTF-8") + "="

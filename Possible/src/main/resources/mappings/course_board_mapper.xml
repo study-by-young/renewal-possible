@@ -2,6 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.possable.app.community.course.mapper.CourseBoardMapper">
 
+	<sql id="criteria">
+		<trim prefix="(" suffix=")" prefixOverrides="OR">
+			<foreach collection="typeArr" item="type">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'A'.toString()">
+							CONTENTTYPEID=12 AND TITLE LIKE '%' || #{keyword} || '%'
+						</when>
+						<when test="type == 'C'.toString()">
+							CONTENTTYPEID=14 AND TITLE LIKE '%' || #{keyword} || '%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
+	<select id="getTotalCount" resultType="int">
+			SELECT COUNT(*) 
+			FROM TOURTEST
+			<where>
+				<include refid="criteria"></include>
+			</where>
+	</select>
+	
+	<select id="tourList11" resultType="TestVO">
+		SELECT * FROM TOURTEST
+		<where> 
+        	<include refid="criteria"></include>
+        </where>
+	</select>
+	
+	<select id="tourList" parameterType="Criteria" resultType="TestVO">
+		SELECT /*+ INDEX_ASC(TOURTEST TOURTEST_PK)*/ * FROM TOURTEST
+		<where> 
+        	<if test="type == 'A'.toString()">
+				AND CONTENTTYPEID=12 AND TITLE LIKE '%' || #{keyword} || '%'
+			</if>
+			<if test="type == 'C'.toString()">
+				AND CONTENTTYPEID=14 AND TITLE LIKE '%' || #{keyword} || '%'
+			</if>
+        </where>
+	</select>
+
 	<select id="getList" resultType="CourseBoardVO">
 		SELECT * FROM COURSE_BOARD
 	</select>
