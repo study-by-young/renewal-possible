@@ -15,7 +15,7 @@ public class EstiSubmitHistoryVO {
     private Date genDate;
     private Date uptDate;
 
-    private EstimateHistoryVO estimateHistoryVO;
-    private CompanyVO companyVO;
-    private CarVO carVO;
+    private Long estiSeq;
+    private Long cmpnSeq;
+    private Long carSeq;
 }

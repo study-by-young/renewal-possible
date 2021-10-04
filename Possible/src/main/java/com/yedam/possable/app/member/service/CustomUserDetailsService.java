@@ -25,7 +25,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 			System.out.println("**************Found user***************");
 			System.out.println("id : " + memberVO.getUsername());
 			return memberVO;
-		
 	}
 
 }

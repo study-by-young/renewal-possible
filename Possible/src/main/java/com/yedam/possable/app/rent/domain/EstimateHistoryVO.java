@@ -26,6 +26,5 @@ public class EstimateHistoryVO {
     private Date genDate;
     private Date uptDate;
 
-
-    private MemberVO memberVO;
+    private Long memSeq;
 }

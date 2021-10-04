@@ -1,12 +1,16 @@
 package com.yedam.possable.app.rent.service;
 
 import com.yedam.possable.app.common.domain.Criteria;
+import com.yedam.possable.app.member.service.MemberService;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 import com.yedam.possable.app.rent.mapper.PremiumRentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PremiumRentServiceImpl implements PremiumRentService{
@@ -14,13 +18,34 @@ public class PremiumRentServiceImpl implements PremiumRentService{
     PremiumRentMapper premiumRentMapper;
 
     @Override
-    public List<EstimateHistoryVO> getEstimateList(Criteria cri) {
-        return premiumRentMapper.getEstimateList(cri);
+    public List<Map<String, Object>> getEstimateList(Criteria cri) {
+        // 견적 리스트 조회 시 차, 여행 옵션 바인딩
+        List<Map<String, Object>> estimateList = new ArrayList<>();
+
+        for(EstimateHistoryVO vo : premiumRentMapper.getEstimateList(cri)){
+            Map<String, Object> estimate = new HashMap<>();
+
+            estimate.put("estimate", vo);
+            estimate.put("options", strToArr(vo.getOptions()));
+            estimate.put("items", strToArr(vo.getItems()));
+
+            estimateList.add(estimate);
+        }
+
+        return estimateList;
     }
 
     @Override
-    public EstimateHistoryVO getEstimate(Long seq) {
-        return premiumRentMapper.getEstimate(seq);
+    public Map<String, Object> getEstimate(Long seq) {
+        // 견적 리스트 조회 시 차, 여행 옵션 바인딩
+        Map<String, Object> estimate = new HashMap<>();
+        EstimateHistoryVO vo = premiumRentMapper.getEstimate(seq);
+
+        estimate.put("estimate", vo);
+        estimate.put("options", strToArr(vo.getOptions()));
+        estimate.put("items", strToArr(vo.getItems()));
+
+        return estimate;
     }
 
     @Override
@@ -43,4 +68,7 @@ public class PremiumRentServiceImpl implements PremiumRentService{
         return premiumRentMapper.getEstimateCount();
     }
 
+    private String[] strToArr(String str) {
+        return str.substring(1,str.length()-1).trim().split(",");
+    }
 }

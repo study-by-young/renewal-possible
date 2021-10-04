@@ -4,6 +4,7 @@ import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.common.domain.Criteria;
 import com.yedam.possable.app.common.domain.PageVO;
 import com.yedam.possable.app.common.mapper.CodeMapper;
+import com.yedam.possable.app.common.service.CodeService;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.rent.domain.EstiSubmitHistoryVO;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.*;
 
@@ -21,33 +23,21 @@ import java.util.*;
 @Controller
 @RequestMapping("/premiumRent/*")
 public class PremiumRentController {
-    @Autowired CodeMapper codeMapper;
-    @Autowired PremiumRentService premiumRentService;
+    @Autowired
+    CodeService codeService;
+    @Autowired
+    PremiumRentService premiumRentService;
 
     // 견적 요청 리스트
     @GetMapping("estimate/list")
     public String estimateList(Model model, @ModelAttribute("cri") Criteria cri) {
-        Map<String, Object> attr = new HashMap<>();
-        List<String[]> optionArrList = new ArrayList<>();
-        List<String[]> itemArrList = new ArrayList<>();
+        Map<String, Object> attr = new LinkedHashMap<>();
         int listCount = premiumRentService.getEstimateCount();
-        List<EstimateHistoryVO> estimateList = premiumRentService.getEstimateList(cri);
+        List<Map<String, Object>> estimateList = premiumRentService.getEstimateList(cri);
 
-        // DB 문자열을 배열로 만듬
-        for(EstimateHistoryVO vo : estimateList){
-            String options = vo.getOptions();
-            String items = vo.getItems();
-            String[] optionArr = options.substring(1,options.length()-1).trim().split(",");
-            String[] itemArr = items.substring(1,items.length() - 1).trim().split(",");
-
-            optionArrList.add(optionArr);
-            itemArrList.add(itemArr);
-        }
 
         attr.put("estList", estimateList);
         attr.put("pagination", new PageVO(cri,listCount));
-        attr.put("optionList", optionArrList);
-        attr.put("itemList", itemArrList);
         model.addAllAttributes(attr);
 
         return "/premiumRent/estimateList";
@@ -55,10 +45,10 @@ public class PremiumRentController {
 
     // 견적 요청 작성
     @GetMapping("estimate/insert")
-    public String estimateInsertForm(Model model) {
-        model.addAttribute("brands", codeMapper.getBrands());
-        model.addAttribute("carOpt", codeMapper.getCodesByParentCodeName("차량 옵션"));
-        model.addAttribute("itemOpt", codeMapper.getCodesByParentCodeName("캠핑 옵션"));
+    public String estimateInsert(Model model) {
+        model.addAttribute("brands", codeService.getBrands());
+        model.addAttribute("carOpt", codeService.getCodesByParentCodeName("차량 옵션"));
+        model.addAttribute("itemOpt", codeService.getCodesByParentCodeName("캠핑 옵션"));
 
         return "/premiumRent/estimateInsert";
     }
@@ -68,22 +58,16 @@ public class PremiumRentController {
     public String estimateInsert(EstimateHistoryVO vo,
                                      @RequestParam("options") String[] optionsArr,
                                      @RequestParam("items") String[] itemsArr,
-                                     @RequestParam("memSeq") Long memSeq,
                                      RedirectAttributes attributes) {
         // 옵션 배열 -> 스트링
         vo.setOptions(Arrays.toString(optionsArr));
         vo.setItems(Arrays.toString(itemsArr));
 
-        // 외래키 객체 설정
-        MemberVO memVo = new MemberVO();
-        memVo.setSeq(memSeq);
-        vo.setMemberVO(memVo);
-
         // 코드 -> 네임 변환
-        vo.setSegment(codeMapper.getNameByCode(vo.getSegment()).getName());
-        vo.setBrand(codeMapper.getBrand(vo.getBrand()).getName());
-        vo.setModel(codeMapper.getModel(vo.getModel()).getName());
-        vo.setTrim(codeMapper.getTrim(vo.getTrim()).getName());
+        vo.setSegment(codeService.getNameByCode(vo.getSegment()).getName());
+        vo.setBrand(codeService.getBrand(vo.getBrand()).getName());
+        vo.setModel(codeService.getModel(vo.getModel()).getName());
+        vo.setTrim(codeService.getTrim(vo.getTrim()).getName());
 
         int result = premiumRentService.insertEstimate(vo);
         String resultStr = "";
@@ -100,9 +84,21 @@ public class PremiumRentController {
 
     // 견적 요청 상세
     @GetMapping("estimate/view")
-    public String estiamteRead(@RequestParam Long seq,
+    public String estimateRead(@RequestParam Long seq,
+                               Principal principal,
+                               RedirectAttributes attributes,
+                               HttpServletRequest request,
                                Model model,
                                @ModelAttribute Criteria cri) {
+        MemberVO user = (MemberVO) principal;
+
+//        if(user == null || user.getAuthor().equals("USER")){
+//            String denyMsg = "업체회원만 열람 가능합니다.";
+//            attributes.addFlashAttribute("denyMsg", denyMsg);
+//
+//            return "redirect:" + request.getHeader("REFERER");
+//        }
+
         model.addAttribute("estimate", premiumRentService.getEstimate(seq));
 
         return "/premiumRent/estimateView";
@@ -112,8 +108,18 @@ public class PremiumRentController {
     @GetMapping("estimate/delete")
     public String estimateDelete(@RequestParam Long seq,
                                  RedirectAttributes attributes,
+                                 HttpServletRequest request,
                                  Principal principal){
         // principal 객체로 견적 소유자 검증(id or seq)
+        EstimateHistoryVO vo = (EstimateHistoryVO) premiumRentService.getEstimate(seq).get("estimate");
+        String user = ((MemberVO)principal).getId();
+        String writer = vo.getMemSeq().toString();
+
+        if(user == null || !user.equals(writer)){
+            attributes.addFlashAttribute("deleteMsg", "작성자만 삭제 가능합니다.");
+            return "redirect:" + request.getHeader("REFERER");
+        }
+
         int deleteResult = premiumRentService.deleteEstimate(seq);
 
         String resultMsg = "";
@@ -131,8 +137,18 @@ public class PremiumRentController {
     @GetMapping("estimate/update")
     public String estimateUpdateForm(@RequestParam Long seq,
                                      Principal principal,
+                                     HttpServletRequest request,
+                                     RedirectAttributes attributes,
                                      Model model){
         // principal 객체로 견적 소유자 검증(id or seq)
+        EstimateHistoryVO vo = (EstimateHistoryVO) premiumRentService.getEstimate(seq).get("estimate");
+        String user = ((MemberVO)principal).getId();
+        String writer = vo.getMemSeq().toString();
+
+        if(user == null || !user.equals(writer)){
+            attributes.addFlashAttribute("updateMsg", "작성자만 수정 가능합니다.");
+            return "redirect:" + request.getHeader("REFERER");
+        }
         model.addAttribute("estimate", premiumRentService.getEstimate(seq));
 
         return "premiumRent/estimateInsert";
@@ -156,19 +172,20 @@ public class PremiumRentController {
         return "redirect: view";
     }
 
+    // 견적 작성
     @GetMapping("submit/insert")
     public String submitInsert(Model model,
-                               @RequestParam("estSeq") Long estSeq,
+                               @RequestParam Long seq,
                                Principal principal){
-        EstimateHistoryVO estimateHistoryVO = premiumRentService.getEstimate(estSeq);
-        Long companySeq = 1L; // principal.getName();    pricipal에서 업체 시퀀스 조회
+        Map<String, Object> estimate = premiumRentService.getEstimate(seq);
+        Long companySeq = ((MemberVO)principal).getSeq(); // principal.getName();    pricipal에서 업체 시퀀스 조회
         List<CarVO> carList = new ArrayList<>();    // 업체시퀀스로 카 리스트 조회
         String[] companyItems = {};                 // 업체시퀀스로 업체아이템 조회
 
         model.addAttribute("companySeq", companySeq);
         model.addAttribute("carList", carList);
         model.addAttribute("companyItems", companyItems);
-        model.addAttribute("estimate", estimateHistoryVO);
+        model.addAttribute("estimate", estimate);
         return "premiumRent/estimateSubmitInsert";
     }
 

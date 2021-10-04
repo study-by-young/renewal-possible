@@ -3,7 +3,6 @@ package com.yedam.possable.app.member.domain;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @SuppressWarnings("serial")
@@ -35,16 +33,15 @@ public class MemberVO implements UserDetails {
 	@JsonFormat(pattern = "yyyy/MM/dd")
 	private Date uptDate;
 	private String loginStatus;
-	
-	
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		ArrayList<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
 		authList.add(new SimpleGrantedAuthority(author));
 		return authList;
-		
+
 	}
-	
+
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
@@ -70,5 +67,4 @@ public class MemberVO implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
-	
 }
