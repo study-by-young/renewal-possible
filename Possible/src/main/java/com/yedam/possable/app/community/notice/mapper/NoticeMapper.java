@@ -3,6 +3,7 @@ package com.yedam.possable.app.community.notice.mapper;
 import java.util.List;
 
 import com.yedam.possable.app.common.domain.Criteria;
+import com.yedam.possable.app.community.notice.domain.NoticeFileVO;
 import com.yedam.possable.app.community.notice.domain.NoticeVO;
 
 public interface NoticeMapper {
@@ -20,4 +21,6 @@ public interface NoticeMapper {
 	public List<NoticeVO> getList(Criteria cri);
 	
 	public int getTotalCount(Criteria cri);
+	
+	public NoticeFileVO attachRead(String name);
 }

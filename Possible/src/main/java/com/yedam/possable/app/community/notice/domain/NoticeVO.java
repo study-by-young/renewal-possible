@@ -1,8 +1,9 @@
 package com.yedam.possable.app.community.notice.domain;
 
-import lombok.Data;
-
 import java.util.Date;
+import java.util.List;
+
+import lombok.Data;
 
 @Data
 public class NoticeVO {
@@ -13,4 +14,6 @@ public class NoticeVO {
     private Long views;
     private Date genDate;
     private Date uptDate;
+    
+    List<NoticeFileVO> attachList;
 }
