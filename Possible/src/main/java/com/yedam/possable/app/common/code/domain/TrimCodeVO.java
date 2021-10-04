@@ -1,4 +1,4 @@
-package com.yedam.possable.app.common.domain;
+package com.yedam.possable.app.common.code.domain;
 
 import lombok.Data;
 
@@ -8,5 +8,5 @@ public class TrimCodeVO {
     private String name;
     private String fuel;
 
-    private ModelCodeVO modelCode;
+    private Long modelCode;
 }

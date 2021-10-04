@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yedam.possable.app.common.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.community.course.domain.CourseBoardVO;
 import com.yedam.possable.app.community.course.mapper.CourseBoardMapper;
 import com.yedam.possable.app.community.tour.domain.TestVO;
 
 @Service
 public class CourseBoardServiceImpl implements CourseBoardService {
-	
+
 	@Autowired CourseBoardMapper courseBoardMapper;
 
 	@Override
@@ -44,8 +44,8 @@ public class CourseBoardServiceImpl implements CourseBoardService {
 	public List<TestVO> tourList() {
 		return courseBoardMapper.tourList();
 	}
-	
-	
+
+
 
 	@Override
 	public int getTotalCount(Criteria cri) {

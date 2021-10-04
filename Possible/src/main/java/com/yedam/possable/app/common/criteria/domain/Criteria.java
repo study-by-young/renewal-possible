@@ -1,4 +1,4 @@
-package com.yedam.possable.app.common.domain;
+package com.yedam.possable.app.common.criteria.domain;
 
 
 import lombok.Data;
@@ -24,5 +24,5 @@ public class Criteria {
     public String[] getTypeArr() {
         return type == null ? new String[] {} : type.split("");
     }
-    
+
 }

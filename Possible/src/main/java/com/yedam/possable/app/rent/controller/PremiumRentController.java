@@ -1,10 +1,9 @@
 package com.yedam.possable.app.rent.controller;
 
 import com.yedam.possable.app.car.domain.CarVO;
-import com.yedam.possable.app.common.domain.Criteria;
-import com.yedam.possable.app.common.domain.PageVO;
-import com.yedam.possable.app.common.mapper.CodeMapper;
-import com.yedam.possable.app.common.service.CodeService;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.PageVO;
+import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.rent.domain.EstiSubmitHistoryVO;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
@@ -46,9 +45,11 @@ public class PremiumRentController {
     // 견적 요청 작성
     @GetMapping("estimate/insert")
     public String estimateInsert(Model model) {
-        model.addAttribute("brands", codeService.getBrands());
-        model.addAttribute("carOpt", codeService.getCodesByParentCodeName("차량 옵션"));
-        model.addAttribute("itemOpt", codeService.getCodesByParentCodeName("캠핑 옵션"));
+        String carOptCode = codeService.getMasterCodeValueByName("차량 옵션");
+        String itemOptCode = codeService.getMasterCodeValueByName("캠핑 옵션");
+        model.addAttribute("brands", codeService.getBrandList());
+        model.addAttribute("carOpt", codeService.getCodesByParentCodeValue(carOptCode));
+        model.addAttribute("itemOpt", codeService.getCodesByParentCodeValue(itemOptCode));
 
         return "/premiumRent/estimateInsert";
     }
@@ -64,7 +65,7 @@ public class PremiumRentController {
         vo.setItems(Arrays.toString(itemsArr));
 
         // 코드 -> 네임 변환
-        vo.setSegment(codeService.getNameByCode(vo.getSegment()).getName());
+        vo.setSegment(codeService.getCodeByCodeValue(vo.getSegment()).getName());
         vo.setBrand(codeService.getBrand(vo.getBrand()).getName());
         vo.setModel(codeService.getModel(vo.getModel()).getName());
         vo.setTrim(codeService.getTrim(vo.getTrim()).getName());

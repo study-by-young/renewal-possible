@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yedam.possable.app.common.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.community.notice.domain.NoticeVO;
 import com.yedam.possable.app.community.notice.mapper.NoticeMapper;
 
@@ -14,7 +14,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Autowired
 	NoticeMapper noticeMapper;
-	
+
 	@Override
 	public NoticeVO read(NoticeVO vo) {
 		// TODO Auto-generated method stub
@@ -57,6 +57,6 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeMapper.getTotalCount(cri);
 	}
 
-	
+
 
 }

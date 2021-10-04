@@ -8,5 +8,5 @@ public class MemberDropVO {
     private String reasonCode;
     private String memo;
 
-    private MemberVO memberVO;
+    private Long memSeq;
 }
