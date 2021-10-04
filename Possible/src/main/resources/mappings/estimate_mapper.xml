@@ -71,7 +71,22 @@
     </insert>
 
     <update id="updateEstimate">
-
+        UPDATE estimate_history
+        <set>
+            <if test="brand != null">brand = #{brand},</if>
+            <if test="segment != null">segment = #{segment},</if>
+            <if test="model != null">model = #{model},</if>
+            <if test="trim != null">trim = #{trim},</if>
+            <if test="startDate != null">start_date = #{startDate},</if>
+            <if test="endDate != null">end_date = #{endDate},</if>
+            <if test="options != null">options = #{options},</if>
+            <if test="items != null">items = #{items},</if>
+            <if test="takePlaceCode != null">take_place_code = #{takePlaceCode},</if>
+            <if test="takePlaceBasic != null">take_place_basic = #{takePlaceBasic},</if>
+            <if test="takePlaceDetail != null">take_place_detail = #{takePlaceDetail},</if>
+            upt_date = SYSDATE,
+        </set>
+        WHERE seq = #{seq}
     </update>
 
     <delete id="deleteEstimate">

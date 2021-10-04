@@ -20,7 +20,7 @@
 --------------------------*/
 body,
 html {
-    font-family: 'Lato', sans-serif;
+    font-family: 'NanumBarunGothic', 'Lato', sans-serif;
     font-size: 16px;
     line-height: 23px;
     color: #797979;
@@ -59,8 +59,14 @@ h2,
 h3,
 h4,
 h5,
-h6 {
-    font-family: 'Raleway', sans-serif;
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6{
+    font-family: 'S-CoreDream', 'Raleway', sans-serif;
     line-height: 1.1;
     font-weight: 400;
     color: #111111;
@@ -2378,7 +2384,7 @@ html .ui-button.ui-state-disabled:active {
 }
 
 .x_car_offer_heading ul {
-    width: 50%;
+    width: 100%;
     float: left;
     border-top: 1px solid #eeeeee;
     border-bottom: 1px solid #eeeeee;
@@ -7031,8 +7037,6 @@ input[type=number] {
 }
 
 .x_car_detail_slider_bottom_cont_left {
-    float: left;
-    width: 50%;
 }
 
 .x_car_detail_slider_bottom_cont_right {
@@ -7602,7 +7606,7 @@ input[type=number] {
 }
 
 .x_car_offer_heading_listing li {
-    width: 100%;
+    width: 50%;
     text-align: left;
 }
 

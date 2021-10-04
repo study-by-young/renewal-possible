@@ -79,9 +79,7 @@
                                                             <div class="x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left">
                                                                 <ul>
                                                                     <li>
-                                                                        <sec:authorize access="hasRole('USER')">
-                                                                            <a href="view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">상세보기</a>
-                                                                        </sec:authorize>
+                                                                        <a href="view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">상세보기</a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -148,9 +146,10 @@
 <!-- x car book sidebar section Wrapper End -->
 <script>
     <c:if test="${resultMsg != null}">
-        $(function(){
-            alert("${resultMsg}");
-        });
+        alert("${resultMsg}");
+    </c:if>
+    <c:if test="${denyMsg != null}">
+    alert("${denyMsg}");
     </c:if>
 
     $(function () {
