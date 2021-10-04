@@ -45,7 +45,6 @@ public class KakaoController {
 		vo.setId(kakaoId);
 		System.out.println("카카오 아디 : " + kakaoId);
 		int kakaoIdCheck  = memberService.kakaoIdCheck(vo);
-		HttpSession session = request.getSession();
 		if(kakaoIdCheck != 0) {
 			MemberVO principal = new MemberVO();
 			
