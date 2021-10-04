@@ -3,7 +3,7 @@
 
 <div class="x_contact_title_main_wrapper float_left padding_tb_100">
 	<div class="container">
-		<form id="updateForm" role="form" action="update" method="post">
+		<form id="updateForm" name="updateForm" role="form" action="update" method="post">
 			<div class="row">
 				<div class="col-md-12">
 					<div
@@ -39,7 +39,7 @@
 					<input type="hidden" name="seq" value="${notice.seq }"> <input
 						type="hidden" name="pageNum" value="${cri.pageNum }"> <input
 						type="hidden" name="amount" value="${cri.amount }">
-					<button type="submit" class="btn btn-primary">수정</button>
+					<button id="updateBtn" type="submit" class="btn btn-primary">수정</button>
 					<button type="button" class="btn btn-dark" onclick="location.href='get?seq=${notice.seq}&pageNum=${cri.pageNum}&amount=${cri.amount}'">취소</button>
 					<button type="button" class="btn btn-dark"
 						onclick="location.href='list?pageNum=${cri.pageNum}&amount=${cri.amount}'">목록</button>
@@ -51,4 +51,11 @@
 
 <script>
 	CKEDITOR.instances.content.getData()
+	
+	$('#updateBtn').on('click', function(){
+		if(updateForm.content.value == ""){
+			updateForm.content.focus();
+			alert("내용을 입력해 주십시오.");
+		}
+	});
 </script>

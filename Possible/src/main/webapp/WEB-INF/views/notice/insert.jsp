@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <div class="x_contact_title_main_wrapper float_left padding_tb_100">
 	<div class="container">
-		<form id="insertForm" role="form"
+		<form id="insertForm" name="insertForm" role="form"
 			action="${pageContext.request.contextPath}/notice/insert"
 			method="post">
 			<div class="row">
@@ -39,7 +39,7 @@
 				<div
 					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12"
 					align="right">
-					<button type="submit" class="btn btn-primary">등록</button>
+					<button id="insertBtn" type="submit" class="btn btn-primary">등록</button>
 					<button type="button" class="btn btn-dark"
 						onclick="location.href='list'">목록</button>
 				</div>
@@ -50,4 +50,44 @@
 
 <script>
 	CKEDITOR.instances.content.getData()
+	
+	
+	$(document).ready(function(){
+		
+		$('#insertBtn').on('click', function(){
+			check();
+		});
+
+		function check(){
+			if(CKEDITOR.instances.content.getData() == '' || CKEDITOR.instances.content.getData().length == 0) {
+			    alert('내용을 입력해주세요.');
+			    CKEDITOR.instances.content.focus();
+			    return false;
+			} else {
+				$('#insertForm').submit();
+			}
+		}
+	});
+	
+	
+	$(function(){ 
+		var privacy_editor = CKEDITOR.replace("termsContent", {filebrowserUploadUrl: '${contextPath}/privacies/imgUpload'}); 
+		$("#insertBtn").click(function(){ 
+			privacyRegit(privacy_editor); 
+		}); 
+    });
+	
+	function privacyRegit(privacy_editor){ 
+		var content = $("#content").val(); 
+		if(content.trim() == ''){ 
+			alert("버전을 입력해주세요."); 
+			return false; 
+		} 
+		if(privacy_editor.getData().trim() == ''){ 
+			alert("내용을 입력해주세요."); 
+			return false; 
+		} 
+		$("#insertForm").submit(); 
+	}
+
 </script>
