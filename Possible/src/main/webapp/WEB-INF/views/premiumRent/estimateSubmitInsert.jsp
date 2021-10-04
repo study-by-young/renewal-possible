@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
-  User: kwon
-  Date: 2021-10-03
-  Time: 오후 2:10
+  User: admin
+  Date: 2021-09-28
+  Time: 오후 1:52
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 full_width">
                 <div class="btc_tittle_left_heading">
-                    <h1>렌트 견적 요청 작성</h1>
+                    <h1>렌트 견적 작성</h1>
                 </div>
             </div>
         </div>
@@ -38,33 +38,14 @@
                                         </div>
                                         <hr>
                                         <ul class="list-unstyled row">
-                                            <li class="col-md-4">
-                                                <label class="w-100">브랜드
+                                            <li class="col-md-12">
+                                                <label class="w-100">렌트카
                                                     <select name="brand" id="brand" class="myselect select2-hidden-accessible select2-search--hide" onchange="searchModelByBrand()" required>
-                                                        <optgroup label="브랜드">
-                                                            <option>브랜드를 선택하세요</option>
+                                                        <option>렌트카를 선택하세요. 선택된 렌트카는 견적 제출 이후 예약불가 상태로 변경됩니다.</option>
+                                                        <optgroup label="예약 가능 렌트카">
                                                             <c:forEach var="brand" items="${brands}">
                                                                 <option value="${brand.code}">${brand.name}</option>
                                                             </c:forEach>
-                                                        </optgroup>
-                                                    </select>
-                                                </label>
-                                            </li>
-                                            <li class="col-md-4">
-                                                <label  class="w-100">모델
-                                                    <select name="model" id="model" class="myselect select2-hidden-accessible select2-search--hide" onchange="searchTrimByModel()" required>
-                                                        <optgroup label="모델명">
-                                                            <option>모델을 선택하세요</option>
-                                                        </optgroup>
-                                                    </select>
-                                                </label>
-                                            </li>
-                                            <li class="col-md-4">
-                                                <label  class="w-100">등급
-                                                    <input type="hidden" name="segment" id="segment" value="">
-                                                    <select name="trim" id="trim" class="myselect select2-hidden-accessible select2-search--hide" onchange="searchByBrand()" required>
-                                                        <optgroup label="트림">
-                                                            <option>등급을 선택하세요</option>
                                                         </optgroup>
                                                     </select>
                                                 </label>
@@ -93,20 +74,8 @@
 
                                             </li>
                                             <li class="col-md-6 mb-3">
-                                                <div class="form-sec-header">
-                                                    <label for="startDate">렌트 시작 날짜</label>
-                                                    <label class="cal-icon">
-                                                        <input type="text" id="startDate" name="startDate" placeholder="원하는 날짜를 선택하세요" class="form-control datepicker">
-                                                    </label>
-                                                </div>
                                             </li>
                                             <li class="col-md-6 mb-3">
-                                                <div class="form-sec-header">
-                                                    <label for="endDate">렌트 종료 날짜</label>
-                                                    <label class="cal-icon">
-                                                        <input type="text" id="endDate" name="endDate" placeholder="원하는 날짜를 선택하세요" class="form-control datepicker">
-                                                    </label>
-                                                </div>
                                             </li>
                                             <li class="col-md-12">
                                                 <label>렌트카 수령 장소</label>
@@ -219,3 +188,5 @@
     </div>
 </div>
 <!-- x car book sidebar section Wrapper End -->
+<script>
+</script>

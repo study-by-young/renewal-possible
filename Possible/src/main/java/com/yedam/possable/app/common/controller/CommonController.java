@@ -9,19 +9,17 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class CommonController {
     @Autowired
     CodeMapper codeMapper;
 
     @GetMapping("/findModels")
-    @ResponseBody
     public List<ModelCodeVO> findModels(@RequestParam("brand") String brand){
         return codeMapper.getModels(brand);
     }
 
     @GetMapping("/findTrims")
-    @ResponseBody
     public List<TrimCodeVO> findTrims(@RequestParam("model") String model){
         return codeMapper.getTrims(model);
     }

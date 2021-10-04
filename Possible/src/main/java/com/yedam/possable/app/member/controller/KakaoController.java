@@ -1,23 +1,21 @@
 package com.yedam.possable.app.member.controller;
 
-import java.util.UUID;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yedam.possable.app.member.domain.KakaoProfile;
-import com.yedam.possable.app.member.domain.OAuthToken;
+import com.yedam.possable.app.login.api.KakaoAPI;
+import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
 
 import lombok.extern.java.Log;
@@ -27,93 +25,49 @@ import lombok.extern.java.Log;
 public class KakaoController {
 	
 	@Autowired
-	MemberService memberservice;
+	MemberService memberService;
 	
-	@GetMapping("/auth/kakao/callback")
-	public @ResponseBody String kakaoCallback(String code) { //Data를 리턴해주는 컨트롤러 함수
+	@Autowired
+	private KakaoAPI kakao;
+	
+	//카카오 로그인
+	@RequestMapping(value = "/oauth")
+	public String kakaoLogin(@RequestParam("code") String code, Model model, Authentication authentication, MemberVO vo, HttpServletRequest request) {
+		KakaoAPI kakao = new KakaoAPI();
+		String access_Token = kakao.getAccessToken(code);
 		
-		// POST 방식으로 key = value 데이터를 요청(카카오)
+		System.out.println("카카오 로그인 성공 토큰 : "+ access_Token);
 		
-		//HttpHeader 오브젝트 생성
-		RestTemplate rt = new RestTemplate();
-		org.springframework.http.HttpHeaders headers = new org.springframework.http.HttpHeaders();
-		headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+		HashMap<String, Object> kakaoUserInfo = kakao.getUserInfo(access_Token);
+		String kakaoId = (String) kakaoUserInfo.get("kakaoId");
+		String kakaoName = (String) kakaoUserInfo.get("nickname");
 		
-		// HttpBody 오브젝트 생성
-		MultiValueMap<String , String> params = new LinkedMultiValueMap<>();
-		params.add("grant_type", "authorization_code");
-		params.add("client_id", "584286fe9e832f708f4badd91da18b46");
-		params.add("redirect_uri", "http://localhost/app/auth/kakao/callback");
-		params.add("code", code);
-		
-		// HttpHeader와 httpBody를 하나의 오브젝트에 담기
-		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
-			new HttpEntity<>(params,params);
-		
-		//Http 요청 -Post방식 - Response 변수의 응답
- 		ResponseEntity<String> response = rt.exchange(
-				"https://kauth.kakao.com/oauth/token",
-				HttpMethod.POST,
-				kakaoTokenRequest,
-				String.class
-				);
-		// 
- 		ObjectMapper objectMapper = new ObjectMapper();
- 		OAuthToken oauthToken = null;
- 		try {
-			oauthToken = objectMapper.readValue(response.getBody(), OAuthToken.class);
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+		vo.setId(kakaoId);
+		System.out.println("카카오 아디 : " + kakaoId);
+		int kakaoIdCheck  = memberService.kakaoIdCheck(vo);
+		if(kakaoIdCheck != 0) {
+			MemberVO principal = new MemberVO();
+			
+			
+			vo = memberService.getUserById(kakaoId);
+			
+			System.out.println("자 정보 뭐 들어가있어?"+vo);
+			//session.setAttribute("member", principal);
+			
+			authentication = new UsernamePasswordAuthenticationToken(vo, null, vo.getAuthorities());
+			SecurityContextHolder.getContext().setAuthentication(authentication);
+			System.out.println("너 이씨 너 뭐야? 누구야?"+SecurityContextHolder.getContext().getAuthentication());
+		}else {
+			model.addAttribute("kakaoId", kakaoUserInfo);
+ 			
+ 			System.out.println("여기는 카카오 회원가입 절차 밟는곳");
+ 			System.out.println(kakaoIdCheck);
+ 			return "login/kakaoRegister";
 		}
- 		
- 		System.out.println("카카오 엑세스 토큰" + oauthToken.getAccess_token());
- 		
- 		//HttpHeader 오브젝트 생성
- 				RestTemplate rt2 = new RestTemplate();
- 				
- 				org.springframework.http.HttpHeaders headers2 = new org.springframework.http.HttpHeaders();
- 				
- 				headers2.add("Authorization","Bearer "+oauthToken.getAccess_token());
- 				headers2.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
- 				
- 				// HttpHeader와 httpBody를 하나의 오브젝트에 담기
- 				HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest2 =
- 					new HttpEntity<>(headers2);
- 				
- 				//Http 요청 -Post방식 - Response 변수의 응답
- 		 		ResponseEntity<String> response2 = rt2.exchange(
- 						"https://kapi.kakao.com/v2/user/me",
- 						HttpMethod.POST,
- 						kakaoProfileRequest2,
- 						String.class
- 						);
- 		System.out.println(response2.getBody());
- 		
- 		ObjectMapper objectMapper2 = new ObjectMapper();
- 		KakaoProfile kakaoProfile = null;
- 		try {
- 			kakaoProfile = objectMapper2.readValue(response2.getBody(), KakaoProfile.class);
-		} catch (JsonMappingException e) {
-			e.printStackTrace();
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-		}
- 		//User 오브젝트: id, password, email
- 		System.out.println("카카오 아이디(번호)" +kakaoProfile.getId());
- 		System.out.println("카카오 이메일(번호)" +kakaoProfile.getKakao_account().getEmail());
- 		
- 		System.out.println("여행갈카 유저네임"+ kakaoProfile.getKakao_account().getEmail()
- 										+"_"+ kakaoProfile.getId());
- 		System.out.println("여행갈카 이메일" +kakaoProfile.getKakao_account().getEmail());
- 		UUID GarbagePassword = UUID.randomUUID();
- 		System.out.println("여행갈카 패스워드"+ GarbagePassword);
- 		
- 		
- 		//가입자 혹은 비가입자 체크해서 처리
- 		String page ="";
- 		
-		return response2.getBody();
+		
+		return "redirect:/";
 	}
+
+	
+	
 }

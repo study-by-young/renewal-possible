@@ -2,6 +2,8 @@ package com.yedam.possable.app.company.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,12 +29,13 @@ public class CompanyController {
 	//업체 대시보드
 	@GetMapping("/companyDashboard")
 	   public String dashboard(){
+		
 	   return "admin/companyDashboard";
 	 }
 	  
 	//업체 보유 렌트카 리스트
 	@GetMapping("/companyCarList")
-	public String companyCarList(CarVO vo, @RequestParam("comSeq") Long comSeq, Model model) {
+	public String companyCarList(HttpSession session, CarVO vo, @RequestParam("comSeq") Long comSeq, Model model) {
 		
 		CompanyVO comVO = new CompanyVO();
 		comVO.setSeq(comSeq);
@@ -58,6 +61,7 @@ public class CompanyController {
 		 Long seq = 0L;
 		 
 		  for(String i : chArr) {   
+		   seq = Long.parseLong(i);
 		   vo.setSeq(seq);
 		   companyService.companyCarDel(vo);
 		  }   
@@ -67,3 +71,4 @@ public class CompanyController {
 	
 		}
 	}
+
