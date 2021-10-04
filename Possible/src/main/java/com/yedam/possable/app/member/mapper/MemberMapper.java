@@ -35,6 +35,10 @@ public interface MemberMapper {
 	
 	//카카오 로그인 체크
 	public int kakaoIdCheck(MemberVO vo);
+	
 	//로그인
 	public MemberVO getUserById(String id);
+	
+	//카카오 추가 회원가입
+	public int kakaoInsert(MemberVO vo);
 }

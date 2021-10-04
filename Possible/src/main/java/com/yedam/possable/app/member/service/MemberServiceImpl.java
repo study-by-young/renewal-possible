@@ -96,6 +96,17 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.getUserById(id);
 	}
 
+	@Override
+	public int kakaoInsert(MemberVO vo) {
+		// TODO 카카오 추가 회원가입
+		System.out.println("임시 비밀번호 변경 전");
+		String endcodePassword = bcryptPasswordEncoder.encode(vo.getPassword());
+		System.out.println("비밀번호 찾기 변경 암호화 후 " + endcodePassword);
+		
+		vo.setPassword(endcodePassword);
+		return memberMapper.kakaoInsert(vo);
+	}
+
 	
 
 }

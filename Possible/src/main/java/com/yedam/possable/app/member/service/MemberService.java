@@ -37,4 +37,7 @@ public interface MemberService {
 		public int kakaoIdCheck(MemberVO vo);
 		//로그인
 		public MemberVO getUserById(String id);
+		
+		//카카오 추가 회원가입
+		public int kakaoInsert(MemberVO vo);
 }

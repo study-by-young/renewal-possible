@@ -8,6 +8,7 @@
 	<bean id="LoginAccessDeniedHandler" class="com.yedam.possable.app.security.LoginAccessDeniedHandler"></bean>
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	<bean id="customUserService" class="com.yedam.possable.app.member.service.CustomUserDetailsService" />
+
     <!-- security 적용 제외 -->
 	<security:http pattern="/resources/**" security="none" />
 
