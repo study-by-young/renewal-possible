@@ -33,6 +33,13 @@ public class CompanyController {
 
         return "admin/companyDashboard";
     }
+    
+    //업체 정보수정페이지
+    @GetMapping("/companyEditInfo")
+    public String companyEditInfo(@RequestParam("comSeq") Long comSeq, CompanyVO vo, Model model) {
+		 model.addAttribute("company", companyService.companyOneSelect(vo));
+        return "admin/companyEditInfo";
+    }
 
     //업체 보유 렌트카 리스트
     @GetMapping("/companyCarList")

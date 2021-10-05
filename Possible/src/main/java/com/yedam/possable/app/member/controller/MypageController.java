@@ -30,8 +30,7 @@ public class MypageController {
 
 	//마이페이지 대쉬보드
 		@GetMapping("/dashboard")
-		public String dashboard(HttpSession session, CompanyVO comVo, Model model) {
-			model.addAttribute("company",comVo);
+		public String dashboard(HttpSession session) {
 			return "mypage/dashboard";
 		}
 
