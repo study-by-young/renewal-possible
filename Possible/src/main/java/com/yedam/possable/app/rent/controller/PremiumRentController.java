@@ -2,6 +2,7 @@ package com.yedam.possable.app.rent.controller;
 
 import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.service.CarService;
+import com.yedam.possable.app.common.code.domain.CodeSubVO;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.common.code.service.CodeService;
@@ -184,17 +185,30 @@ public class PremiumRentController {
     @GetMapping("submit/insert")
     public String submitInsert(Model model,
                                @RequestParam Long seq,
+                               HttpServletRequest request,
                                Principal principal) {
         Map<String, Object> estimate = premiumRentService.getEstimate(seq);
-        MemberVO memberVO = ((MemberVO) principal);
+//        if(principal == null){
+//            return "redirect:" + request.getHeader("REFERER");
+//        }
+//        MemberVO memberVO = ((MemberVO) principal);
+//        CompanyVO companyVO = companyService.getCompanyByMemSeq(memberVO);      // pricipal에서 업체 시퀀스 조회
+//        List<CarVO> carList = carService.getCompanyCarList(companyVO);          // 업체시퀀스로 카 리스트 조회
+//        List<String> companyItems = companyService.getCompanyItems(companyVO);  // 업체시퀀스로 업체아이템 조회
+
+        MemberVO memberVO = new MemberVO();
+        memberVO.setSeq(22L);
         CompanyVO companyVO = companyService.getCompanyByMemSeq(memberVO);      // pricipal에서 업체 시퀀스 조회
         List<CarVO> carList = carService.getCompanyCarList(companyVO);          // 업체시퀀스로 카 리스트 조회
         List<String> companyItems = companyService.getCompanyItems(companyVO);  // 업체시퀀스로 업체아이템 조회
+        String carOptionCode = codeService.getMasterCodeByName("차량 옵션").getCode();
+        List<CodeSubVO> carOptions = codeService.getCodesByParentCode(carOptionCode);
 
         model.addAttribute("companyVO", companyVO);
         model.addAttribute("carList", carList);
         model.addAttribute("companyItems", companyItems);
         model.addAttribute("estimate", estimate);
+        model.addAttribute("carOptions", carOptions);
         return "premiumRent/estimateSubmitInsert";
     }
 

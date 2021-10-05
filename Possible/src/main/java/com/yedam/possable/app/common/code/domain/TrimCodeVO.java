@@ -8,5 +8,5 @@ public class TrimCodeVO {
     private String name;
     private String fuel;
 
-    private Long modelCode;
+    private String modelCode;
 }
