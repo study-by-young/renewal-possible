@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.common.code.mapper.CodeMapper;
+import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.member.domain.MemberVO;
@@ -32,7 +33,7 @@ public class AdminController {
 
 	@Autowired MemberService memberService;
 	@Autowired CompanyService companyService;
-	 @Autowired CodeMapper codeMapper;
+	@Autowired CodeService codeService;
 
 
 	//회원관리 - 전체조회
@@ -73,8 +74,12 @@ public class AdminController {
 	 //업체상세 페이지
 	 @GetMapping("/companyOneSelect")
 		 public String companyOneSelect(Model model, CompanyVO vo) {
-
-		 model.addAttribute("comRegList", companyService.companyOneSelect(vo));
+		 vo = companyService.companyOneSelect(vo);
+		 
+		 String status = codeService.getCodeByCodeValue(vo.getStatus()).getName();
+		 
+		 model.addAttribute("comRegList", vo);
+		 model.addAttribute("status", status);
 			 return "admin/companyOneSelect";
 		 }
 
