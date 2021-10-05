@@ -43,6 +43,9 @@
 			<if test="type == 'C'.toString()">
 				AND CONTENTTYPEID=14 AND TITLE LIKE '%' || #{keyword} || '%'
 			</if>
+			<if test="type == 'T'.toString()">
+				TITLE LIKE '%' || #{keyword} || '%'
+			</if>
         </where>
 	</select>
 
