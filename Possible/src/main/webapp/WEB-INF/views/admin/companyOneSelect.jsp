@@ -66,6 +66,7 @@
 							<div class="row">
 								<div class="col-md-12">
 										<input type="hidden" class="form-control" name='seq' value='<c:out value="${comRegList.seq}"/>' readonly="readonly">
+										<input type="hidden" class="form-control" name='memSeq' value='<c:out value="${comRegList.memSeq}"/>' readonly="readonly">
 										
 										<div class="form-group">
 											<label>업체명</label> 

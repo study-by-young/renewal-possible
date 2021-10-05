@@ -63,7 +63,7 @@
 								'N',
 								sysdate,
 								sysdate,
-								#{memberVO.seq},
+								#{memSeq},
 								#{addr1},
 								#{addr2},
 								#{area}
@@ -85,14 +85,13 @@
 						TEL
         FROM COMPANY
         WHERE STATUS = 'N'
-        ORDER BY SEQ DESC
         
 	</select>
 	
 	<!-- 업체 승인 리스트 -->
 	<select id="companyList" resultType="CompanyVO">
              SELECT 
-             /*+ INDEX_DESC(IDX_COMPANY) */ 
+             /*+ INDEX_DESC(COMPANY IDX_COMPANY) */ 
              ROWNUM RN, SEQ,
 						NAME,
 						POSTAL,
@@ -108,7 +107,6 @@
                 <![CDATA[   AND STATUS != 'N' ]]>
                 <![CDATA[   AND ROWNUM <= #{pageNum} * #{amount} ]]>
              </where>
-            ORDER BY SEQ DESC
              
    </select>
    
@@ -146,49 +144,4 @@
 			WHERE SEQ = #{seq}
 	</update>
 
-	<!-- 업체 보유 렌트카 전체 리스트 -->
-	<select id="companyCarList" resultType="CarVO"	parameterType="CarVO">
-		SELECT  SEQ,
-				BRAND,
-				MODEL,
-				YEAR,
-				STATUS,
-				IMG1
-		FROM CAR
-		WHERE CMPN_SEQ = #{companyVO.seq}
-	</select>
-	
-	<!-- 업체 보유 렌트카 한건 -->
-	<select id="companyCarOneSelect" resultType="CarVO"	parameterType="CarVO">
-		SELECT SEQ,
-				BRAND,
-				MODEL,
-				SEGMENT,
-				TRIM,
-				COLOR,
-				YEAR,
-				FUEL,
-				PASSENGER,
-				MISSION,
-				TRUNK,
-				DOOR,
-				KMPL,
-				PRICE,
-				STATUS,
-				IMG1,
-				IMG2,
-				IMG3,
-				GEN_DATE,
-				UPT_DATE,
-				CAR_NUM
-		FROM CAR
-		WHERE SEQ = #{seq}
-	</select>
-	
-	<!-- 업체 보유 렌트카 삭제 -->
-	<delete id="companyCarDel">
-		DELETE FROM CAR
-		WHERE SEQ = #{seq}
-	</delete>
-	
 </mapper>

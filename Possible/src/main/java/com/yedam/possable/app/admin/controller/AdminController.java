@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
@@ -79,8 +80,14 @@ public class AdminController {
 
 	//업체승인 처리
 	@PostMapping("/companyOneSelect")
-		public String companyReg(CompanyVO vo, RedirectAttributes rttr) {
-
+		public String companyReg(CompanyVO vo, @RequestParam("memSeq") Long memSeq, RedirectAttributes rttr) {
+			
+			MemberVO memVo = new MemberVO();
+			memVo.setSeq(memSeq);
+			memVo.setAuthor("COMPANY");
+			vo.setMemSeq(memSeq);
+			memberService.authorUpdate(memVo);
+		
 			int result = companyService.companyRegUpdate(vo);
 			if(result == 1) {
 				rttr.addFlashAttribute("result", "success");

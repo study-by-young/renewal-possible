@@ -30,7 +30,8 @@ public class MypageController {
 
 	//마이페이지 대쉬보드
 		@GetMapping("/dashboard")
-		public String dashboard(HttpSession session, MemberVO memVo, CompanyVO comVo) {
+		public String dashboard(HttpSession session, CompanyVO comVo, Model model) {
+			model.addAttribute("company",comVo);
 			return "mypage/dashboard";
 		}
 
@@ -89,8 +90,7 @@ public class MypageController {
 			// 외래 객체 생성 후 seq 입력
 			MemberVO memVo = new MemberVO();
 			memVo.setSeq(memSeq);
-			vo.setMemberVO(memVo);
-
+			
 			// 외래 객체 담은 후 service 실행
 			int result = companyService.companyReg(vo);
 	  	    rttr.addFlashAttribute("result", result);
