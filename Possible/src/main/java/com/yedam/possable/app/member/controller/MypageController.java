@@ -87,7 +87,6 @@ public class MypageController {
 		//업체전환 신청처리
 		@PostMapping("/chngRole")
 		public String chngRole(Model model, CompanyVO vo, RedirectAttributes rttr ) {
-			
 			// 외래 객체 담은 후 service 실행
 			int result = companyService.companyReg(vo);
 	  	    rttr.addFlashAttribute("result", result);

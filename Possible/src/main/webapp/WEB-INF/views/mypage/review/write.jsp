@@ -126,7 +126,7 @@
 										<h3>
 											<sec:authorize access="isAuthenticated()">
 												<a class="menu-button" href="#"><sec:authentication
-														property="principal.username" />님</a>
+														property="principal.name"/>님</a>
 												<input type="hidden" name="${_csrf.parameterName }"
 													value="${_csrf.token }">
 											</sec:authorize>

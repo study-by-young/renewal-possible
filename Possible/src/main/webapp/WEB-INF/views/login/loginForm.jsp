@@ -441,7 +441,7 @@ function returnSearchId() {
 		console.log(password);
 		 $.ajax({
 	         type : "post",
-	         url : "passFindUpdate",
+	         url : "/passFindUpdate",
 	         data : {password : password, id : getId},
 	         beforeSend : function(xhr){
 	            xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);

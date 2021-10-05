@@ -47,7 +47,7 @@
                         <!-- 렌트현황,후기,여행코스 제목 누르면 관련 페이지로 이동 -->
                         <div class="col-md-12">
                            <div class="blog_single_comment_heading">
-                              <h4><a href="${pageContext.request.contextPath}/rentHistory">렌트내역</a></h4>
+                              <h4><a href="${pageContext.request.contextPath}/rentHistory">회원정보수정</a></h4>
                            </div>
                               <div class="dash">
                                  <table class="table">
@@ -143,7 +143,7 @@
                            <h3>
 								<sec:authorize access="isAuthenticated()">
 									<a class="menu-button" href="#"><sec:authentication
-										property="principal.username" />님</a>
+										property="principal.name" />님</a>
 									<input type="hidden" name="${_csrf.parameterName }"
 										value="${_csrf.token }">
 								</sec:authorize>
