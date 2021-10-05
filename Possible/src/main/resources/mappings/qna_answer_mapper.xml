@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.possable.app.community.qna.mapper.QnaAnswerMapper">
+
+	<!-- 전체조회 -->
+	<select id="getList" resultType="QnaAnswerVO">
+		SELECT SEQ
+			 , QNA_SEQ
+			 , TITLE
+			 , CONTENT
+			 , WRITER
+			 , GEN_DATE
+			 , UPT_DATE
+		FROM QNA_ANSWER
+		WHERE QNA_SEQ = #{qnaSeq}
+	</select>
+	
+	<!-- 등록 -->
+	<insert id="insert">
+		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
+			SELECT SEQ_QNA_ANSWER.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO QNA_ANSWER ( SEQ
+							   , QNA_SEQ
+							   , TITLE
+							   , CONTENT
+							   , WRITER)
+		VALUES ( #{seq}
+			   , #{qnaSeq}
+			   , #{title}
+			   , #{content}
+			   , #{writer} )
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="update">
+		UPDATE QNA_ANSWER
+		SET TITLE = #{title}
+		  , CONTENT = #{content}
+		  , UPT_DATE = SYSDATE
+		WHERE SEQ = #{seq}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete">
+		DELETE QNA_ANSWER
+		WHERE SEQ = #{seq}
+	</delete>	
+
+</mapper>

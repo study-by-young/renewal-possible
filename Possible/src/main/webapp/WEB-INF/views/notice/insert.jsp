@@ -76,8 +76,8 @@
          }
          return true;
       }
-      $("#uploadBtn").on("click", function(e) {
-    	 alert("click");
+      $("#uploadBtn").on("click", function() {
+    	 //alert("click");
          var formData = new FormData(document.insertForm);
          var inputFile = $("input[name='uploadFile']");
          var files = inputFile[0].files;
@@ -98,12 +98,12 @@
                var str ="";
                for(i=0; i<datas.length; i++) {
                   var obj = datas[i];
-                  var fileCallPath =  encodeURIComponent( obj.uploadPath+"/"+ obj.name +"_"+obj.fileName);               
+                  var fileCallPath =  encodeURIComponent(obj.name +"_"+obj.orgName);               
                    var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
                      
                   str += "<li "
-                  str += "data-path='"+obj.uploadPath+"' data-name='"+obj.name+"' data-filename='"+obj.fileName+"' data-type='"+obj.image+"' ><div>";
-                  str += "<span> "+ obj.fileName+"</span>";
+                  str += "data-name='"+obj.name+"' data-filename='"+obj.orgName+"' data-type='"+obj.image+"' ><div>";
+                  str += "<span> "+ obj.orgName+"</span>";
                   str += "<button type='button' data-file=\'"+fileCallPath+"\' data-type='file' " 
                   str += "class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
                   str += "<img src='../resources/img/attach.png'></a>";
@@ -121,9 +121,8 @@
          var str = "";
          $("#uploaded li").each(function(i, obj){
             var jobj = $(obj);
-            str += "<input type='hidden' name='attachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
+            str += "<input type='hidden' name='attachList["+i+"].orgName' value='"+jobj.data("orgname")+"'>";
             str += "<input type='hidden' name='attachList["+i+"].name' value='"+jobj.data("name")+"'>";
-            str += "<input type='hidden' name='attachList["+i+"].fileType' value='1'>"; 
          });
          $("#insertForm").append(str).submit();
       })

@@ -2,7 +2,7 @@ package com.yedam.possable.app.community.qna.service;
 
 import java.util.List;
 
-import com.yedam.possable.app.common.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.community.qna.domain.QnaVO;
 
 public interface QnaService {

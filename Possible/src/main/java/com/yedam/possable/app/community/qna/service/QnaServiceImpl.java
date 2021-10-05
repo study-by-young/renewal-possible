@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yedam.possable.app.common.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.community.qna.domain.QnaVO;
 import com.yedam.possable.app.community.qna.mapper.QnaMapper;
 

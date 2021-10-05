@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.yedam.possable.app.common.domain.Criteria;
-import com.yedam.possable.app.common.domain.PageVO;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.community.qna.domain.QnaVO;
 import com.yedam.possable.app.community.qna.service.QnaService;
 
