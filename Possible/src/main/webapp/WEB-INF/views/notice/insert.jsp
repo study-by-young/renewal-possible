@@ -50,6 +50,7 @@
 			<button type="button" id="uploadBtn" class="btn btn-default">첨부파일 등록</button>
 		</div>
 		<ul id="uploaded"></ul>
+		<input type="hidden" id="noticeSeq" value="${insertResult.seq}">
 	</div>
 </div>
 
@@ -150,7 +151,7 @@
 				var jobj = $(obj);
 				str += "<input type='hidden' name='attachList[" + i + "].orgName' value='" + jobj.data("orgname") + "'>";
 				str += "<input type='hidden' name='attachList[" + i + "].name' value='" + jobj.data("name") + "'>";
-				str += "<input type='hidden' name='attachList[" + i + "].noticeSeq' value='" + jobj.data("name") + "'>";
+				str += "<input type='hidden' name='attachList[" + i + "].noticeSeq' value='" + $('#noticeSeq').val() + "'>";
 			});
 			$("#insertForm").append(str).submit();
 		})

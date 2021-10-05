@@ -23,4 +23,7 @@ public interface NoticeService {
 	public int getTotalCount(Criteria cri);
 	
 	public NoticeFileVO attachRead(String name);
+	
+	// 첨부파일 리스트
+	public List<NoticeFileVO> getAttachList(Long noticeSeq);
 }

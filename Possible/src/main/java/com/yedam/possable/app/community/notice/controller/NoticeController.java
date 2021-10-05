@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -61,7 +62,7 @@ public class NoticeController {
 	public String insert(Model model, RedirectAttributes rttr, NoticeVO vo, MultipartFile[] uploadFile) {
 		model.addAttribute("title", "���");
 		noticeService.insert(vo);
-		rttr.addFlashAttribute("insertResult", vo.getSeq());
+		rttr.addAttribute("insertResult", vo.getSeq());
 
 		return "redirect:/notice/list";
 	}
