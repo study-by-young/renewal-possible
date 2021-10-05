@@ -1,6 +1,6 @@
 package com.yedam.possable.app.rent.mapper;
 
-import com.yedam.possable.app.common.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 
 import java.util.List;

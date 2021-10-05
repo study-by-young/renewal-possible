@@ -47,7 +47,7 @@
 									</div>
 									<div class="card">
 										<div class="row">
-											<input type="hidden" name='memSeq' value=''>
+											<input type="hidden" name='memSeq' value='${member.seq}'>
 										   	
 										   	<div class="form-group col-md-6 col-sm-3">
 											   	<label for="InputId">업체명*</label>

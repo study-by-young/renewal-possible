@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Map;
 
@@ -25,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.yedam.possable.app.common.domain.Criteria;
-import com.yedam.possable.app.common.domain.PageVO;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.community.notice.domain.NoticeFileVO;
 import com.yedam.possable.app.community.notice.domain.NoticeVO;
 import com.yedam.possable.app.community.notice.service.NoticeService;
@@ -75,10 +74,8 @@ public class NoticeController {
 
 	@PostMapping("/update")
 	public String update(RedirectAttributes rttr, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
-
 		int result = noticeService.update(vo);
-
-		if (result == 1) { /* + INDEX_DESC(IDX_NOTICE) */
+		if (result == 1) { /*+ INDEX_DESC(IDX_NOTICE) */
 			rttr.addFlashAttribute("updateResult", vo.getSeq());
 		}
 
@@ -91,7 +88,6 @@ public class NoticeController {
 
 	@GetMapping("/delete")
 	public String delete(RedirectAttributes rttr, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
-
 		int result = noticeService.delete(vo);
 
 		if (result == 1) {

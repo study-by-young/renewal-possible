@@ -1,4 +1,4 @@
-package com.yedam.possable.app.common.domain;
+package com.yedam.possable.app.common.code.domain;
 
 import lombok.Data;
 
@@ -9,5 +9,5 @@ public class ModelCodeVO {
     private String img;
     private String segCode;
 
-    private BrandCodeVO brandCode;
+    private Long brandCode;
 }

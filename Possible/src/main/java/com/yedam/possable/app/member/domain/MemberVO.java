@@ -33,13 +33,15 @@ public class MemberVO implements UserDetails {
 	@JsonFormat(pattern = "yyyy/MM/dd")
 	private Date uptDate;
 	private String loginStatus;
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		ArrayList<GrantedAuthority> authList = new ArrayList<GrantedAuthority>();
 		authList.add(new SimpleGrantedAuthority(author));
 		return authList;
-		
+
 	}
+
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub

@@ -22,4 +22,8 @@
 <delete id="delete">
 	DELETE FROM TOURTEST WHERE CONTENTID = #{contentId}
 </delete>
+
+<select id="getList" resultType="TestVO">
+	SELECT DISTINCT * FROM TOURTEST
+</select>
 </mapper>

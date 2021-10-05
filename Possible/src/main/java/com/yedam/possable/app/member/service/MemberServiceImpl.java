@@ -6,17 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.yedam.possable.app.common.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.mapper.MemberMapper;
 @Service
 public class MemberServiceImpl implements MemberService {
 
 	@Autowired MemberMapper memberMapper;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder; //BCry 암호화
-	
+
 	@Override
 	public List<MemberVO> memberList(Criteria cri) {
 		// TODO 회원 전체 리스트
@@ -31,19 +31,19 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public MemberVO memberOneSelect(MemberVO vo) {
-		// TODO 회원 한건 조회 
+		// TODO 회원 한건 조회
 		return memberMapper.memberOneSelect(vo);
 	}
 
 	@Override
 	public int memberInsert(MemberVO vo) {
 		// TODO 회원 생성 (비밀번호 암호화 추가)
-		
+
 		System.out.println("암호화 전 " + vo.getPassword());
 		String endcodePassword = bcryptPasswordEncoder.encode(vo.getPassword());
 		System.out.println("암호화 후 " + endcodePassword);
 		System.out.println("유저정보 " + vo);
-		
+
 		vo.setPassword(endcodePassword);
 
 		return memberMapper.memberInsert(vo);
@@ -76,10 +76,10 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int passFindUpdate(MemberVO vo) {
 		// TODO 회원 비밀번호 찾기 변경
-		
+
 		String endcodePassword = bcryptPasswordEncoder.encode(vo.getPassword());
 		System.out.println("비밀번호 찾기 변경 암호화 후 " + endcodePassword);
-		
+
 		vo.setPassword(endcodePassword);
 		return memberMapper.passFindUpdate(vo);
 	}
@@ -96,6 +96,23 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.getUserById(id);
 	}
 
-	
+	@Override
+	public int kakaoInsert(MemberVO vo) {
+		// TODO 카카오 추가 회원가입
+		System.out.println("임시 비밀번호 변경 전");
+		String endcodePassword = bcryptPasswordEncoder.encode(vo.getPassword());
+		System.out.println("비밀번호 찾기 변경 암호화 후 " + endcodePassword);
+
+		vo.setPassword(endcodePassword);
+		return memberMapper.kakaoInsert(vo);
+	}
+
+	@Override
+	public int authorUpdate(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return memberMapper.authorUpdate(vo);
+	}
+
+
 
 }

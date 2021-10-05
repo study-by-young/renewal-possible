@@ -5,9 +5,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-5.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
-	<bean id="LoginAccessDeniedHandler" class="com.yedam.possable.app.security.LoginAccessDeniedHandler"></bean>
+	<bean id="LoginAccessDeniedHandler" class="com.yedam.possable.app.common.security.service.LoginAccessDeniedHandler"></bean>
 	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 	<bean id="customUserService" class="com.yedam.possable.app.member.service.CustomUserDetailsService" />
+
     <!-- security 적용 제외 -->
 	<security:http pattern="/resources/**" security="none" />
 
@@ -24,7 +25,7 @@
 
 										 <!-- login-processing-url="/login"	로그인 페이지 form action에 입력할 주소 지정  -->
 		<security:logout logout-url="/logout"
-						 invalidate-session="false"
+						 invalidate-session="true"
 						 logout-success-url="/"
 						 />
 
@@ -33,7 +34,7 @@
 	</security:http>
 
 	<security:authentication-manager>
-		<security:authentication-provider user-service-ref="customUserService"> 
+		<security:authentication-provider user-service-ref="customUserService">
 			 <security:password-encoder hash="bcrypt" />
 		</security:authentication-provider>
 	</security:authentication-manager>

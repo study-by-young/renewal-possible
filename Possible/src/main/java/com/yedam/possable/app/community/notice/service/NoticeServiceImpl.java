@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yedam.possable.app.common.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.community.notice.domain.NoticeFileVO;
 import com.yedam.possable.app.community.notice.domain.NoticeVO;
 import com.yedam.possable.app.community.notice.mapper.NoticeFileMapper;
@@ -18,7 +18,6 @@ public class NoticeServiceImpl implements NoticeService {
 	NoticeMapper noticeMapper;
 	@Autowired
 	NoticeFileMapper noticeFileMapper;
-	
 	@Override
 	public NoticeVO read(NoticeVO vo) {
 		// TODO Auto-generated method stub
@@ -77,7 +76,4 @@ public class NoticeServiceImpl implements NoticeService {
 		// TODO Auto-generated method stub
 		return noticeFileMapper.attachRead(name);
 	}
-
-	
-
 }

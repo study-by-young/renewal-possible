@@ -1,6 +1,6 @@
 package com.yedam.possable.app.rent.controller;
 
-import com.yedam.possable.app.common.mapper.CodeMapper;
+import com.yedam.possable.app.common.code.mapper.CodeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +15,7 @@ public class CommonRentController {
 
     @GetMapping("list")
     public String rentList(Model model){
-        model.addAttribute("areaCodes",codeMapper.getCodesByParentCodeName("지역"));
+        model.addAttribute("areaCodes",codeMapper.getCodesByParentCode("지역"));
         return "commonRent/list";
     }
 }

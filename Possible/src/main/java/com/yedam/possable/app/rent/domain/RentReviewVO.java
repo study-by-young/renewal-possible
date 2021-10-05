@@ -11,7 +11,7 @@ public class RentReviewVO {
     private String content;
     private Long score;
 
-    private RentHistoryVO rentHistoryVO;
-    private MemberVO memberVO;
-    private CourseBoardVO courseBoardVO;
+    private Long carSeq;
+    private Long memSeq;
+    private Long courseSeq;
 }

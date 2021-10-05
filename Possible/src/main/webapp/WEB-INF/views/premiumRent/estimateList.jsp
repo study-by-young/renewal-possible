@@ -56,6 +56,9 @@
                                     <div id="menu1" class="tab-pane fade active show">
                                         <div class="row">
                                             <c:forEach var="est" items="${estList}" varStatus="status">
+                                                <c:set var="estimate" value="${est.get('estimate')}" />
+                                                <c:set var="options" value="${est.get('options')}" />
+                                                <c:set var="items" value="${est.get('items')}" />
                                                 <div class="col-md-12">
                                                     <div class="x_car_offer_main_boxes_wrapper float_left">
                                                         <div class="x_car_offer_starts x_car_offer_starts_list_img float_left border-0">
@@ -67,20 +70,16 @@
                                                         </div>
                                                         <div class="x_car_offer_starts_list_img_cont border-left">
                                                             <div class="x_car_offer_heading x_car_offer_heading_list float_left">
-                                                                <h5 class="pt-3">${est.brand} ${est.model}</h5>
-                                                                <p>${est.trim}</p>
+                                                                <h5 class="pt-3">${estimate.brand} ${estimate.model}</h5>
+                                                                <p>${estimate.trim}</p>
                                                                 <hr class="my-2">
-                                                                <p> 기간 : <fmt:formatDate value="${est.startDate}" type="date" /> ~ <fmt:formatDate value="${est.endDate}" type="date" /></p>
-                                                                <p> 장소 : ${est.takePlaceBasic} ${est.takePlaceDetail}</p>
+                                                                <p> 기간 : <fmt:formatDate value="${estimate.startDate}" pattern="yy년 MM월 dd일" /> ~ <fmt:formatDate value="${estimate.endDate}" pattern="yy년 MM월 dd일" /></p>
+                                                                <p> 장소 : ${estimate.takePlaceBasic} ${estimate.takePlaceDetail}</p>
                                                             </div>
                                                             <div class="x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left">
                                                                 <ul>
                                                                     <li>
-                                                                        <sec:authorize access="hasRole('USER')">
-                                                                            <a href="#">견적 제출</a>
-                                                                        </sec:authorize>
-                                                                    </li>
-                                                                    <li><a href="view?seq=${est.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">상세보기</a>
+                                                                        <a href="view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">상세보기</a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
@@ -89,7 +88,7 @@
                                                                     <li>
                                                                         <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 차량 옵션</span>
                                                                             <ul class="list">
-                                                                                <c:forEach var="opt" items="${optionList.get(status.index)}">
+                                                                                <c:forEach var="opt" items="${options}">
                                                                                     <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${opt}
                                                                                     </li>
                                                                                 </c:forEach>
@@ -99,7 +98,7 @@
                                                                     <li>
                                                                         <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 여행 옵션</span>
                                                                             <ul class="list">
-                                                                                <c:forEach var="itm" items="${itemList.get(status.index)}">
+                                                                                <c:forEach var="itm" items="${items}">
                                                                                     <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${itm}
                                                                                     </li>
                                                                                 </c:forEach>
@@ -147,9 +146,10 @@
 <!-- x car book sidebar section Wrapper End -->
 <script>
     <c:if test="${resultMsg != null}">
-        $(function(){
-            alert("${resultMsg}");
-        });
+        alert("${resultMsg}");
+    </c:if>
+    <c:if test="${denyMsg != null}">
+    alert("${denyMsg}");
     </c:if>
 
     $(function () {

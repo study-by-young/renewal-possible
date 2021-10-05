@@ -29,5 +29,5 @@ public class CarVO {
     private Date genDate;
     private Date uptDate;
 
-    private CompanyVO companyVO;
+    private Long cmpnSeq;
 }

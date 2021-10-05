@@ -38,4 +38,9 @@ public class TourServiceImpl implements TourService {
 		return tourMapper.delete(vo);
 	}
 
+	@Override
+	public List<TestVO> getList() {
+		return tourMapper.getList();
+	}
+
 }

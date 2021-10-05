@@ -1,16 +1,17 @@
 package com.yedam.possable.app.rent.service;
 
-import com.yedam.possable.app.common.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface PremiumRentService{
     // 견적서 리스트
-    public List<EstimateHistoryVO> getEstimateList(Criteria cri);
+    public List<Map<String, Object>> getEstimateList(Criteria cri);
 
     // 견적서 단건
-    public EstimateHistoryVO getEstimate(Long seq);
+    public Map<String, Object> getEstimate(Long seq);
 
     // 견적서 작성
     public int insertEstimate(EstimateHistoryVO vo);

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yedam.possable.app.car.mapper.CarMapper">
+    <select id="getCarList" resultType="CarVO">
+        SELECT *
+        FROM car
+    </select>
+
+    <select id="getCar" resultType="CarVO">
+        SELECT *
+        FROM car
+        WHERE seq = #{seq}
+    </select>
+
+    <select id="getCarOptions" resultType="CarOptionVO">
+        SELECT opt_code
+        FROM car_option
+        WHERE car_seq = #{seq}
+    </select>
+
+    <select id="getCarInsurance" resultType="InsuranceOptionVO">
+        SELECT opt_code
+        FROM insurance_option
+        WHERE car_seq = #{seq}
+    </select>
+</mapper>
