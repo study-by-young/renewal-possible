@@ -34,11 +34,11 @@
 									</div>
 									<div class="card">
 										<div class="row">
-											<input type="hidden" name='memSeq' value='${member.seq}'>
+											<input type="hidden" name='comSeq' value='1'>
 										   	
 										   	<div class="form-group col-md-6 col-sm-3">
 											   	<label for="InputId">업체명*</label>
-											    <input type="text" class="form-control"  id="name" name="name" placeholder="업체명">
+											    <input type="text" class="form-control"  id="name" name="name" placeholder="업체명" value="${company.name }">
 											</div>   
 										</div>
 										<div class="row">

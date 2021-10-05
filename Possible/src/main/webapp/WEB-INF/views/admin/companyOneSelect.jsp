@@ -115,7 +115,8 @@
 										<div class="col-md-4">
 												<div class="form-group">
 												<label>상태</label> 
-													<input type="text" class="form-control" name='status' value='<c:out value="${comRegList.status}"/>' readonly="readonly">
+													<input type="hidden" class="form-control" name='status' value='<c:out value="${comRegList.status}"/>' readonly="readonly">
+													<input type="text" class="form-control" value='<c:out value="${status}"/>' readonly="readonly">
 												</div>
 											</div>
 										
@@ -132,15 +133,15 @@
 								</div>
 							<br>
 							<div class="text-right">
-							<c:if test="${comRegList.status eq 'N'}">
+							<c:if test="${comRegList.status eq 'PST02'}">
 								<button id="reg" class="btn btn-primary">승인</button>
 								<button id="del" formaction="companyRegDelete" class="btn btn-primary">거부</button>
 							</c:if>
-							<c:if test="${comRegList.status eq 'Y'}">
+							<c:if test="${comRegList.status eq 'PST01'}">
 								<button id="del" formaction="companyRegDelete" class="btn btn-primary">거부</button>
 								<a class="btn btn-primary" id="list_btn" href="companyList">목록</a>
 							</c:if>
-							<c:if test="${comRegList.status eq 'D'}">
+							<c:if test="${comRegList.status eq 'PST03'}">
 								<button id="reg" class="btn btn-primary">승인</button>
 								<a class="btn btn-primary" id="list_btn" href="companyList">목록</a>
 							</c:if>
