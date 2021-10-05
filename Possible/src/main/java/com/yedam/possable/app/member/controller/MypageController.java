@@ -94,5 +94,4 @@ public class MypageController {
 
 	    return"redirect:/mypage/dashboard";
 		}
-		
 }

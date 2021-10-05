@@ -56,7 +56,6 @@
 <script>
 	/* CKEDITOR.instances.content.getData() */
 
-	
 	// ckeditor 유효성 검사 (작동안함ㅠ)
 	$("#insertBtn").on("click", function() {
 		check();
