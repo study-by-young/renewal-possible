@@ -174,19 +174,15 @@ tr:hover {
 <script>
 $(document).ready(function() {
 	var insertResult = '<c:out value="${insertResult}"/>';
-	var updateResult = '<c:out value="${updateResult}"/>';
 	var deleteResult = '<c:out value="${deleteResult}"/>';
-	checkModal(insertResult, updateResult, deleteResult);
+	checkModal(insertResult, deleteResult);
 	
- 	function checkModal(insertResult, updateResult, deleteResult) {
-		if (insertResult === '' && updateResult === '' && deleteResult === '') {
+ 	function checkModal(insertResult, deleteResult) {
+		if (insertResult === '' && deleteResult === '') {
 			return;
 		}
 		if (parseInt(insertResult) > 0) {
 			$('.modal-body').html(parseInt(insertResult) + " 번 게시글이 등록되었습니다.");
-		}
-		if (parseInt(updateResult) > 0) {
-			$('.modal-body').html(parseInt(updateResult) + " 번 게시글의 수정이 완료되었습니다.");
 		}
 		if (parseInt(deleteResult) > 0) {
 			$('.modal-body').html(parseInt(deleteResult) + " 번 게시글의 삭제가 완료되었습니다.");
