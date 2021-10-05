@@ -89,7 +89,6 @@ public class MypageController {
 			// 외래 객체 생성 후 seq 입력
 			MemberVO memVo = new MemberVO();
 			memVo.setSeq(memSeq);
-			vo.setMemberVO(memVo);
 
 			// 외래 객체 담은 후 service 실행
 			int result = companyService.companyReg(vo);
