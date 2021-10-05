@@ -31,7 +31,8 @@
                   <div class="col-md-12">
                      <div class="lr_bc_first_box_main_wrapper">
 					
-				
+						 ${company.seq}
+						 ${member.seq }
                         <!-- 메뉴 -->
                         <div class="lr_bc_first_box_img_cont_wrapper">
                            <ul>
@@ -164,12 +165,13 @@
                               <li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
                                  href="${pageContext.request.contextPath}/mypage/chngRole">업체전환 </a></li>
 							  </c:if>
-							  
+							
 							   <c:if test="${member.author eq 'COMPANY'}">
                               <li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
                                  href="${pageContext.request.contextPath}/companyDashboard?comSeq=${company.seq}">업체페이지로 이동 </a></li>
 							  </c:if>
                            </ul>
+                            
                         </div>
                      </div>
                   </div>

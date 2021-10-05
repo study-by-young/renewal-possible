@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.yedam.possable.app.car.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +27,8 @@ public class CompanyController {
 
     @Autowired
     CompanyService companyService;
+    @Autowired
+    CarService carService;
 
     //업체 대시보드
     @GetMapping("/companyDashboard")
@@ -36,9 +39,9 @@ public class CompanyController {
 
     //업체 보유 렌트카 리스트
     @GetMapping("/companyCarList")
-    public String companyCarList(HttpSession session, CarVO vo, @RequestParam("comSeq") Long comSeq, Model model) {
+    public String companyCarList(CompanyVO vo, Model model) {
 
-        model.addAttribute("companyCarList", companyService.companyCarList(vo));
+        model.addAttribute("companyCarList", carService.getCompanyCarList(vo));
         return "admin/companyCarList";
     }
 
@@ -46,7 +49,7 @@ public class CompanyController {
     @GetMapping("/companyCarOneSelect")
     @ResponseBody
     public CarVO companyCarOneSelect(CarVO vo, @RequestParam Long seq) {
-        return companyService.companyCarOneSelect(vo);
+        return carService.getCompanyCar(seq, new CompanyVO());          // JSP에서 company 시퀀스 넘겨줘야함
     }
 
     //업체 보유 렌트카 삭제
@@ -60,7 +63,7 @@ public class CompanyController {
         for (String i : chArr) {
             seq = Long.parseLong(i);
             vo.setSeq(seq);
-            companyService.companyCarDel(vo);
+            carService.deleteCompanyCar(seq, new CompanyVO());
         }
         result = 1;
 

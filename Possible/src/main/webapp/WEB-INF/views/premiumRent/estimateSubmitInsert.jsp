@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: admin
@@ -40,11 +41,11 @@
                                         <ul class="list-unstyled row">
                                             <li class="col-md-12">
                                                 <label class="w-100">렌트카
-                                                    <select name="brand" id="brand" class="myselect select2-hidden-accessible select2-search--hide" onchange="searchModelByBrand()" required>
+                                                    <select name="selectCar" id="selectCar" class="myselect select2-hidden-accessible select2-search--hide" onchange="selectCar()" required>
                                                         <option>렌트카를 선택하세요. 선택된 렌트카는 견적 제출 이후 예약불가 상태로 변경됩니다.</option>
                                                         <optgroup label="예약 가능 렌트카">
-                                                            <c:forEach var="brand" items="${brands}">
-                                                                <option value="${brand.code}">${brand.name}</option>
+                                                            <c:forEach var="car" items="${carList}">
+                                                                <option value="${car.seq}">${car.brand} ${car.model} ${car.trim}</option>
                                                             </c:forEach>
                                                         </optgroup>
                                                     </select>
@@ -54,9 +55,9 @@
                                                 <label>차량 옵션</label>
                                                 <hr class="my-2">
                                                 <div class="x_slider_checkbox_bottom_filter_use">
-                                                    <c:forEach var="option" items="${carOpt}" varStatus="status">
+                                                    <c:forEach var="option" items="${carOptions}" varStatus="status">
                                                         <label class="pr-3">
-                                                            <input name="options" id="options" type="checkbox" value="${option.name}">
+                                                            <input name="options" id="options" type="checkbox" value="${option.code}" disabled>
                                                                 ${option.name}</label>
                                                     </c:forEach>
                                                 </div>
@@ -189,4 +190,9 @@
 </div>
 <!-- x car book sidebar section Wrapper End -->
 <script>
+    function selectCar() {
+        $.ajax({
+            url: "",
+        })
+    }
 </script>

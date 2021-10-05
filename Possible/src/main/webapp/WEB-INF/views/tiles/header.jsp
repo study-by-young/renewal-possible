@@ -26,7 +26,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
+            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12 h6">
                 <div class="hs_navi_cart_wrapper  d-none d-sm-none d-xs-none d-md-block d-lg-block d-xl-block">
                     <div class="dropdown-wrapper menu-button menu_button_end">
                         <sec:authorize access="isAnonymous()">

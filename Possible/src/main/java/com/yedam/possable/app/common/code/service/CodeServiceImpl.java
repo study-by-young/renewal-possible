@@ -1,9 +1,6 @@
 package com.yedam.possable.app.common.code.service;
 
-import com.yedam.possable.app.common.code.domain.BrandCodeVO;
-import com.yedam.possable.app.common.code.domain.CodeSubVO;
-import com.yedam.possable.app.common.code.domain.ModelCodeVO;
-import com.yedam.possable.app.common.code.domain.TrimCodeVO;
+import com.yedam.possable.app.common.code.domain.*;
 import com.yedam.possable.app.common.code.mapper.CodeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,17 +14,22 @@ public class CodeServiceImpl implements CodeService{
     CodeMapper codeMapper;
 
     @Override
-    public String getMasterCodeNameByCodeValue(String code) {
-        return codeMapper.getMasterCodeNameByCodeValue(code);
+    public List<CodeMasterVO> getMasterCodes() {
+        return codeMapper.getMasterCodes();
     }
 
     @Override
-    public String getMasterCodeValueByName(String name) {
-        return codeMapper.getMasterCodeValueByName(name);
+    public CodeMasterVO getMasterCodeByValue(String code) {
+        return codeMapper.getMasterCodeByValue(code);
     }
 
     @Override
-    public List<CodeSubVO> getCodesByParentCodeValue(String parentCode) {
+    public CodeMasterVO getMasterCodeByName(String name) {
+        return codeMapper.getMasterCodeByName(name);
+    }
+
+    @Override
+    public List<CodeSubVO> getCodesByParentCode(String parentCode) {
         return codeMapper.getCodesByParentCode(parentCode);
     }
 
@@ -37,8 +39,8 @@ public class CodeServiceImpl implements CodeService{
     }
 
     @Override
-    public CodeSubVO getCodeByCodeValue(String code) {
-        return codeMapper.getCodeByName(code);
+    public CodeSubVO getCodeByValue(String code) {
+        return codeMapper.getCodeByValue(code);
     }
 
     @Override
@@ -52,8 +54,8 @@ public class CodeServiceImpl implements CodeService{
     }
 
     @Override
-    public List<ModelCodeVO> getModelList(String code) {
-        return codeMapper.getModelList(code);
+    public List<ModelCodeVO> getModelList(String brandCode) {
+        return codeMapper.getModelList(brandCode);
     }
 
     @Override
@@ -62,8 +64,8 @@ public class CodeServiceImpl implements CodeService{
     }
 
     @Override
-    public List<TrimCodeVO> getTrimList(String code) {
-        return codeMapper.getTrimList(code);
+    public List<TrimCodeVO> getTrimList(String modelCode) {
+        return codeMapper.getTrimList(modelCode);
     }
 
     @Override

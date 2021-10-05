@@ -519,7 +519,9 @@ ul {
 }
 
 .hs_main_menu li:last-child:after {
-    display: none;
+    content: "";
+    display:block;
+    clear:both;
 }
 
 .hs_main_menu {
@@ -536,11 +538,11 @@ ul {
     display: inline-block;
     border: 0;
     color: #111111;
-    -webkit-transition: all 0.5s;
-    -o-transition: all 0.5s;
-    -ms-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    transition: all 0.5s;
+    -webkit-transition: none;
+    -o-transition: none;
+    -ms-transition: none;
+    -moz-transition: none;
+    transition: none;
     position: relative;
 }
 
@@ -689,7 +691,6 @@ ul {
 }
 
 .hs_main_menu ul {
-    display: inline-block;
     font-size:18px;
 }
 
@@ -1091,7 +1092,6 @@ ul {
 .hs_main_menu {
     float: right;
     width: auto;
-    height: 0 !important;
 }
 
 /*-- hs Navigation right End --*/
