@@ -1,4 +1,4 @@
-package com.yedam.possable.app.security;
+package com.yedam.possable.app.common.security.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		log.info("=======================");
 		log.info("login handler 실행");
 		List<String> roleNames = new ArrayList<String>();
-		
+
 		authentication.getAuthorities().forEach(authority-> {roleNames.add(authority.getAuthority());
 			});  //전체 권한
 		HttpSession session = request.getSession();

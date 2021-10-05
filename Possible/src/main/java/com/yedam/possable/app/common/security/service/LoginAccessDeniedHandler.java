@@ -1,4 +1,4 @@
-package com.yedam.possable.app.security;
+package com.yedam.possable.app.common.security.service;
 
 import java.io.IOException;
 
@@ -17,11 +17,11 @@ public class LoginAccessDeniedHandler implements AccessDeniedHandler {
 
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
-			AccessDeniedException accessDeniedException) 
+			AccessDeniedException accessDeniedException)
 			throws IOException, ServletException {
 
 			log.info("Access Denied Handler");
-			
+
 			response.sendRedirect("/errorPage");
 	}
 

@@ -1,7 +1,6 @@
 package com.yedam.possable.app.rent.service;
 
-import com.yedam.possable.app.common.domain.Criteria;
-import com.yedam.possable.app.member.service.MemberService;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 import com.yedam.possable.app.rent.mapper.PremiumRentMapper;
 import org.springframework.beans.factory.annotation.Autowired;

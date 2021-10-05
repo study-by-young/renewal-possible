@@ -25,11 +25,7 @@ public class RentHistoryVO {
     private String takePlaceDetail;
     private String merchantUid;
     private String payMethod;
-    
-	/* 테스트 */
-    private int carSeq;
-    private int memSeq;
-    
-    private CarVO carVO;
-    private MemberVO memberVO;
+
+    private Long carSeq;
+    private Long memSeq;
 }

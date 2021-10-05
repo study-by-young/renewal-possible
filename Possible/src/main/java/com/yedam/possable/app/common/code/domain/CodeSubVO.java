@@ -1,4 +1,4 @@
-package com.yedam.possable.app.common.domain;
+package com.yedam.possable.app.common.code.domain;
 
 import lombok.Data;
 
@@ -7,5 +7,5 @@ public class CodeSubVO {
     private String code;
     private String name;
 
-    private CodeMasterVO codeMaster;
+    private Long masterCode;
 }
