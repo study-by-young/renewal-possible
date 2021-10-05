@@ -59,7 +59,7 @@
 		});
 
 		function check(){
-			if(CKEDITOR.instances.content.getData() == '' || CKEDITOR.instances.content.getData().length == 0) {
+			if(CKEDITOR.instances.content.getData() == "" || CKEDITOR.instances.content.getData().length == 0) {
 			    alert('내용을 입력해주세요.');
 			    CKEDITOR.instances.content.focus();
 			    return false;
@@ -70,24 +70,5 @@
 	});
 	
 	
-	$(function(){ 
-		var privacy_editor = CKEDITOR.replace("termsContent", {filebrowserUploadUrl: '${contextPath}/privacies/imgUpload'}); 
-		$("#insertBtn").click(function(){ 
-			privacyRegit(privacy_editor); 
-		}); 
-    });
-	
-	function privacyRegit(privacy_editor){ 
-		var content = $("#content").val(); 
-		if(content.trim() == ''){ 
-			alert("버전을 입력해주세요."); 
-			return false; 
-		} 
-		if(privacy_editor.getData().trim() == ''){ 
-			alert("내용을 입력해주세요."); 
-			return false; 
-		} 
-		$("#insertForm").submit(); 
-	}
 
 </script>
