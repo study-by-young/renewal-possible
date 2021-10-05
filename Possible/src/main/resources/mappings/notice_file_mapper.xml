@@ -23,7 +23,7 @@
 			   , #{fileSize}
 			   , #{genDate}
 			   , #{uptDate}
-			   , #{noticeVO.seq})
+			   , #{noticeSeq})
 	</insert>
 	
 	<delete id="delete">
@@ -34,7 +34,7 @@
 	<select id="findBySeq" resultType="NoticeFileVO">
 		SELECT *
 		FROM NOTICE_FILE
-		WHERE NOTICE_SEQ = #{noticeVO.seq}
+		WHERE NOTICE_SEQ = #{noticeSeq}
 	</select>
 	
 	<select id="attachRead" resultType="NoticeFileVO" >
@@ -45,7 +45,7 @@
 	
 	<delete id="deleteAll">
 		DELETE NOTICE_FILE
-		WHERE NOTICE_SEQ = #{noticeVO.seq}
+		WHERE NOTICE_SEQ = #{noticeSeq}
 	</delete>
 	
 </mapper>

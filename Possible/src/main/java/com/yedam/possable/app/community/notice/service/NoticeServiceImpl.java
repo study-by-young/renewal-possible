@@ -18,6 +18,7 @@ public class NoticeServiceImpl implements NoticeService {
 	NoticeMapper noticeMapper;
 	@Autowired
 	NoticeFileMapper noticeFileMapper;
+	
 	@Override
 	public NoticeVO read(NoticeVO vo) {
 		// TODO Auto-generated method stub

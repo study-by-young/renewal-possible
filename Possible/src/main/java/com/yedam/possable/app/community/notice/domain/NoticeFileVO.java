@@ -15,5 +15,5 @@ public class NoticeFileVO {
     private Date genDate;
     private Date uptDate;
 
-    private NoticeVO noticeVO;
+    private Long noticeSeq;
 }
