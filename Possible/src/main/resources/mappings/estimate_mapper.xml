@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yedam.possable.app.rent.mapper.PremiumRentMapper">
-    <select id="getEstimateList" resultType="estimateHistoryVO">
+    <select id="getEstimateList" resultType="EstimateHistoryVO">
         SELECT *
         FROM ( SELECT
                     /*+ INDEX_DESC(tb IDX_ESTIMATE_HISTORY) */
@@ -29,13 +29,13 @@
         WHERE RN > (#{pageNum} - 1) * #{amount}
     </select>
 
-    <select id="getEstimate" resultType="estimateHistoryVO">
+    <select id="getEstimate" resultType="EstimateHistoryVO">
         SELECT *
         FROM estimate_history
         WHERE seq = #{seq}
     </select>
 
-    <insert id="insertEstimate" parameterType="estimateHistoryVO">
+    <insert id="insertEstimate" parameterType="EstimateHistoryVO">
         <selectKey keyProperty="seq" resultType="long" order="BEFORE">
             SELECT SEQ_ESTIMATE_HISTORY.NEXTVAL FROM dual
         </selectKey>

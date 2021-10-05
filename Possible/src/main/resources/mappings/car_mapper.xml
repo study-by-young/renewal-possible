@@ -3,70 +3,173 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yedam.possable.app.car.mapper.CarMapper">
     <select id="getCarList" resultType="CarVO">
-        SELECT *
+        SELECT seq,
+               cmpn_seq,
+               car_num,
+               brand,
+               model,
+               segment,
+               trim,
+               color,
+               year,
+               fuel,
+               passenger,
+               mission,
+               trunk,
+               door,
+               kmpl,
+               price,
+               img1,
+               img2,
+               img3,
+               upt_date
         FROM car
     </select>
-
     <select id="getCar" resultType="CarVO">
-        SELECT *
+        SELECT seq,
+               cmpn_seq,
+               car_num,
+               brand,
+               model,
+               segment,
+               trim,
+               color,
+               year,
+               fuel,
+               passenger,
+               mission,
+               trunk,
+               door,
+               kmpl,
+               price,
+               img1,
+               img2,
+               img3,
+               upt_date
         FROM car
         WHERE seq = #{seq}
     </select>
-
     <select id="getCarOptions" resultType="CarOptionVO">
         SELECT opt_code
         FROM car_option
         WHERE car_seq = #{seq}
     </select>
-
     <select id="getCarInsurance" resultType="InsuranceOptionVO">
-        SELECT opt_code
+        SELECT opt_code,
+               price
         FROM insurance_option
         WHERE car_seq = #{seq}
     </select>
-    
-    <!-- 업체 보유 렌트카 전체 리스트 -->
-	<select id="companyCarList" resultType="CarVO"	parameterType="CarVO">
-		SELECT  SEQ,
-				BRAND,
-				MODEL,
-				YEAR,
-				STATUS,
-				IMG1
-		FROM CAR
-		WHERE CMPN_SEQ = #{companyVO.seq}
-	</select>
-	
-	<!-- 업체 보유 렌트카 한건 -->
-	<select id="companyCarOneSelect" resultType="CarVO"	parameterType="CarVO">
-		SELECT SEQ,
-				BRAND,
-				MODEL,
-				SEGMENT,
-				TRIM,
-				COLOR,
-				YEAR,
-				FUEL,
-				PASSENGER,
-				MISSION,
-				TRUNK,
-				DOOR,
-				KMPL,
-				PRICE,
-				STATUS,
-				IMG1,
-				IMG2,
-				IMG3,
-				GEN_DATE,
-				UPT_DATE,
-				CAR_NUM
-		FROM CAR
-		WHERE SEQ = #{seq}
-	</select>
-	
-	<!-- 업체 보유 렌트카 삭제 -->
-	<delete id="companyCarDel">
-		DELETE FROM CAR
-		WHERE SEQ = #{seq}
-	</delete>
+    <select id="getCompanyCarList" resultType="CarVO">
+        SELECT seq,
+               cmpn_seq,
+               car_num,
+               brand,
+               model,
+               segment,
+               trim,
+               color,
+               year,
+               fuel,
+               passenger,
+               mission,
+               trunk,
+               door,
+               kmpl,
+               price,
+               img1,
+               img2,
+               img3,
+               upt_date
+        FROM CAR
+        WHERE CMPN_SEQ = #{seq}
+    </select>
+    <select id="getCompanyCar" resultType="CarVO">
+        SELECT SEQ,
+               BRAND,
+               MODEL,
+               SEGMENT,
+               TRIM,
+               COLOR,
+               YEAR,
+               FUEL,
+               PASSENGER,
+               MISSION,
+               TRUNK,
+               DOOR,
+               KMPL,
+               PRICE,
+               STATUS,
+               IMG1,
+               IMG2,
+               IMG3,
+               GEN_DATE,
+               UPT_DATE,
+               CAR_NUM
+        FROM CAR
+        WHERE SEQ = #{carSeq}
+          AND cmpn_seq = #{cmpn.seq}
+    </select>
+    <delete id="deleteCompanyCar">
+        DELETE
+        FROM CAR
+        WHERE SEQ = #{carSeq}
+          AND cmpn_seq = #{cmpn.seq}
+    </delete>
+    <update id="updateCompanyCar">
+        UPDATE car
+        <set>
+            <if test="car.carNum != null">
+                car_num = #{car.carNum}
+            </if>
+            <if test="car.brand != null">
+                brand = #{car.brand}
+            </if>
+            <if test="car.model != null">
+                model = #{car.model}
+            </if>
+            <if test="car.segment != null">
+                segment = #{car.segment}
+            </if>
+            <if test="car.trim != null">
+                trim = #{car.trim}
+            </if>
+            <if test="car.color != null">
+                color = #{car.color}
+            </if>
+            <if test="car.year != null">
+                year = #{car.year}
+            </if>
+            <if test="car.fuel != null">
+                fuel = #{car.fuel}
+            </if>
+            <if test="car.passenger != null">
+                passenger = #{car.passenger}
+            </if>
+            <if test="car.mission != null">
+                mission = #{car.mission}
+            </if>
+            <if test="car.trunk != null">
+                trunk = #{car.trunk}
+            </if>
+            <if test="car.kmpl != null">
+                kmpl = #{car.kmpl}
+            </if>
+            <if test="car.price != null">
+                price = #{car.price}
+            </if>
+            upt_date = SYSDATE
+        </set>
+        WHERE seq = #{car.seq}
+        AND cmpn_seq = #{cmpn.seq}
+        AND status NOT IN('CST02, CST03')
+    </update>
+
+    <update id="updateStatus">
+        UPDATE car
+        SET status = #{status},
+            upt_date = SYSDATE
+        WHERE seq = #{seq}
+          AND cmpn_seq = #{cmpnSeq}
+    </update>
 </mapper>

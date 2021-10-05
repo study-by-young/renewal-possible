@@ -179,7 +179,7 @@ public class PremiumRentController {
                                @RequestParam Long seq,
                                Principal principal){
         Map<String, Object> estimate = premiumRentService.getEstimate(seq);
-        Long companySeq = ((MemberVO)principal).getSeq(); // principal.getName();    pricipal에서 업체 시퀀스 조회
+        Long companySeq = ((MemberVO)principal).getSeq(); // pricipal에서 업체 시퀀스 조회
         List<CarVO> carList = new ArrayList<>();    // 업체시퀀스로 카 리스트 조회
         String[] companyItems = {};                 // 업체시퀀스로 업체아이템 조회
 
