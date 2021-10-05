@@ -9,5 +9,5 @@ public class ModelCodeVO {
     private String img;
     private String segCode;
 
-    private Long brandCode;
+    private String brandCode;
 }

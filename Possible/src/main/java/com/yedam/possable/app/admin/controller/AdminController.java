@@ -76,7 +76,7 @@ public class AdminController {
 		 public String companyOneSelect(Model model, CompanyVO vo) {
 		 vo = companyService.companyOneSelect(vo);
 		 
-		 String status = codeService.getCodeByCodeValue(vo.getStatus()).getName();
+		 String status = codeService.getCodeByValue(vo.getStatus()).getName();
 		 
 		 model.addAttribute("comRegList", vo);
 		 model.addAttribute("status", status);
@@ -107,7 +107,7 @@ public class AdminController {
 		if(result == 1) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		return "redirect:/admin/companyList";
+		return "redirect:/admin/companyRegList";
 	}
 
 	//업체정보관리 페이지
@@ -121,10 +121,7 @@ public class AdminController {
 			return "admin/companyList";
 	    }
 
-
-
-
-
+		 
 //	 //업체상세 페이지(아작스 테스트..)
 //	 @GetMapping("/{seq}")
 //	 @ResponseBody

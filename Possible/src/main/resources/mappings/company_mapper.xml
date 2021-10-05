@@ -18,9 +18,7 @@
                         <when test="type == 'T'.toString()">
                             TEL LIKE '%' || #{keyword} || '%'
                         </when>
-                        <when test="type == 'S'.toString()">
-                            STATUS LIKE UPPER('%' || #{keyword} || '%')
-                        </when>
+                     
                     </choose>
                 </trim>
             </foreach>
@@ -105,7 +103,7 @@
             <include refid="criteria">
             </include>
             <![CDATA[
-            AND STATUS = 'PST01' || 'PST03'
+            AND STATUS = 'PST01'
             AND ROWNUM <= #{pageNum} * #{amount} ]]>
         </where>
     </select>

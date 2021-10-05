@@ -115,7 +115,8 @@
 										<div class="col-md-4">
 												<div class="form-group">
 												<label>상태</label> 
-													<input type="text" class="form-control" name='status' value='<c:out value="${comRegList.status}"/>' readonly="readonly">
+													<input type="hidden" class="form-control" name='status' value='<c:out value="${comRegList.status}"/>' readonly="readonly">
+													<input type="text" class="form-control" value='<c:out value="${status}"/>' readonly="readonly">
 												</div>
 											</div>
 										
