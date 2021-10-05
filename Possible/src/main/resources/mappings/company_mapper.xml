@@ -144,5 +144,16 @@
         WHERE SEQ = #{seq}
     </update>
 
+    <select id="getCompanyByMemSeq" resultType="CompanyVO">
+        SELECT *
+        FROM company
+        WHERE mem_seq = #{seq}
+    </select>
+
+    <select id="getCompanyItems" resultType="string">
+        SELECT opt_code
+        FROM item_option
+        WHERE cmpn_seq = #{seq}
+    </select>
 </mapper>
 

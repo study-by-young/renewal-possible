@@ -2,6 +2,7 @@ package com.yedam.possable.app.company.service;
 
 import java.util.List;
 
+import com.yedam.possable.app.member.domain.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,23 +59,13 @@ public class CompanyServiceImpl implements CompanyService {
 		return companyMapper.companyReg(vo);
 	}
 
-	@Override
-	public List<CarVO> companyCarList(CarVO vo) {
-		// TODO Auto-generated method stub
-		return companyMapper.companyCarList(vo);
-	}
+    @Override
+    public CompanyVO getCompanyByMemSeq(MemberVO vo) {
+        return companyMapper.getCompanyByMemSeq(vo);
+    }
 
-	@Override
-	public CarVO companyCarOneSelect(CarVO vo) {
-		// TODO Auto-generated method stub
-		return companyMapper.companyCarOneSelect(vo);
-	}
-
-	@Override
-	public int companyCarDel(CarVO vo) {
-		// TODO Auto-generated method stub
-		return companyMapper.companyCarDel(vo);
-	}
-
-
+    @Override
+    public List<String> getCompanyItems(CompanyVO vo) {
+        return companyMapper.getCompanyItems(vo);
+    }
 }
