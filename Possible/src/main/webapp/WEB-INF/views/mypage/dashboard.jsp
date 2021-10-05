@@ -126,7 +126,7 @@
          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
             <div class="x_blog_right_side_wrapper float_left">
                <div class="row">
-				<sec:authentication property=""/>
+				<%-- <sec:authentication property=""/> --%>
                   <div class="col-md-12">
                      <div
                         class="jp_rightside_job_categories_wrapper jp_rightside_job_categories_wrapper2">
