@@ -1,5 +1,6 @@
 package com.yedam.possable.app.company.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.yedam.possable.app.car.domain.CarVO;
@@ -35,4 +36,6 @@ public interface CompanyMapper {
     // 업체 여행 상품 조회
     public List<String> getCompanyItems(CompanyVO vo);
 
+    //수익차트
+    public HashMap<String, Object> companyIncome();
 }

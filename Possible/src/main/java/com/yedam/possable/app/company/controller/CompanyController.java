@@ -1,6 +1,7 @@
 package com.yedam.possable.app.company.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -81,6 +82,16 @@ public class CompanyController {
 
         return result;
 
+    }
+    
+    //차트 테스트
+    @GetMapping("/incomeTest")
+    public String incomeTest(Model model) {
+ 
+    	HashMap<String, Object> map = companyService.companyIncome();
+    	System.out.println(map);
+    	
+        return "admin/incomeTest";
     }
 }
 

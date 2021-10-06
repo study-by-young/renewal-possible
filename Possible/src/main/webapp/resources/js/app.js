@@ -711,3 +711,215 @@ function daumPostcode(wrapper, postal, addr1, addr2) { //API띄울 DIV, 우편�
     // iframe을 넣은 element를 보이게 한다.
     wrapper.style.display = 'block';
 }
+
+
+/* ------------------------------------------------------------------------------
+ *
+ *  # Echarts - Area charts
+ *
+ *  Demo JS code for echarts_areas.html page
+ *
+ * ---------------------------------------------------------------------------- */
+
+
+// Setup module
+// ------------------------------
+
+var EchartsAreas = function() {
+
+
+    //
+    // Setup module components
+    //
+
+    // Area charts
+    var _areaChartExamples = function() {
+        if (typeof echarts == 'undefined') {
+            console.warn('Warning - echarts.min.js is not loaded.');
+            return;
+        }
+
+        // Define elements
+        var area_basic_element = document.getElementById('area_basic');
+        var area_stacked_element = document.getElementById('area_stacked');
+        var area_reversed_axis_element = document.getElementById('area_reversed_axis');
+        var area_multiple_element = document.getElementById('area_multiple');
+        var area_values_element = document.getElementById('area_values');
+        var area_zoom_element = document.getElementById('area_zoom');
+
+
+        //
+        // Charts configuration
+        //
+
+
+        // Display point values
+        if (area_values_element) {
+
+            // Initialize chart
+            var area_values = echarts.init(area_values_element);
+
+
+            //
+            // Chart config
+            //
+
+            // Options
+            area_values.setOption({
+
+                // Define colors
+                color: ['#EC407A'],
+
+                // Global text styles
+                textStyle: {
+                    fontFamily: 'Roboto, Arial, Verdana, sans-serif',
+                    fontSize: 13
+                },
+
+                // Chart animation duration
+                animationDuration: 750,
+
+                // Setup grid
+                grid: {
+                    left: 0,
+                    right: 40,
+                    top: 10,
+                    bottom: 0,
+                    containLabel: true
+                },
+
+                // Add tooltip
+                tooltip: {
+                    trigger: 'axis',
+                    backgroundColor: 'rgba(0,0,0,0.75)',
+                    padding: [10, 15],
+                    textStyle: {
+                        fontSize: 13,
+                        fontFamily: 'Roboto, sans-serif'
+                    }
+                },
+
+                // Horizontal axis
+                xAxis: [{
+                    type: 'category',
+                    boundaryGap: false,
+                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    axisLabel: {
+                        color: '#333'
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#999'
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: '#eee'
+                        }
+                    }
+                }],
+
+                // Vertical axis
+                yAxis: [{
+                    type: 'value',
+                    axisLabel: {
+                        formatter: '{value} °C',
+                        color: '#333'
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: '#999'
+                        }
+                    },
+                    splitLine: {
+                        lineStyle: {
+                            color: '#eee'
+                        }
+                    },
+                    splitArea: {
+                        show: true,
+                        areaStyle: {
+                            color: ['rgba(250,250,250,0.1)', 'rgba(0,0,0,0.01)']
+                        }
+                    }
+                }],
+
+                // Add series
+                series: [
+                    {
+                        name: '',
+                        type: 'line',
+                        data: [10, 42, 28, 38, 10, 22, 9],
+                        smooth: true,
+                        symbolSize: 7,
+                        label: {
+                            normal: {
+                                show: true
+                            } 
+                        },
+                        areaStyle: {
+                            normal: {
+                                opacity: 0.25
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                borderWidth: 2
+                            }
+                        }
+                    }
+                ]
+            });
+        }
+
+
+        //
+        // Resize charts
+        //
+
+        // Resize function
+        var triggerChartResize = function() {
+            area_basic_element && area_basic.resize();
+            area_stacked_element && area_stacked.resize();
+            area_reversed_axis_element && area_reversed_axis.resize();
+            area_multiple_element && area_multiple.resize();
+            area_values_element && area_values.resize();
+            area_zoom_element && area_zoom.resize();
+        };
+
+        // On sidebar width change
+        $(document).on('click', '.sidebar-control', function() {
+            setTimeout(function () {
+                triggerChartResize();
+            }, 0);
+        });
+
+        // On window resize
+        var resizeCharts;
+        window.onresize = function () {
+            clearTimeout(resizeCharts);
+            resizeCharts = setTimeout(function () {
+                triggerChartResize();
+            }, 200);
+        };
+    };
+
+
+    //
+    // Return objects assigned to module
+    //
+
+    return {
+        init: function() {
+            _areaChartExamples();
+        }
+    }
+}();
+
+
+// Initialize module
+// ------------------------------
+
+document.addEventListener('DOMContentLoaded', function() {
+    EchartsAreas.init();
+});

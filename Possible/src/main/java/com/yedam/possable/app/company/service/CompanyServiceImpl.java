@@ -1,5 +1,6 @@
 package com.yedam.possable.app.company.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.yedam.possable.app.member.domain.MemberVO;
@@ -68,4 +69,10 @@ public class CompanyServiceImpl implements CompanyService {
     public List<String> getCompanyItems(CompanyVO vo) {
         return companyMapper.getCompanyItems(vo);
     }
-}
+
+	@Override
+	public HashMap<String, Object> companyIncome() {
+		return companyMapper.companyIncome();
+	}
+}    
+
