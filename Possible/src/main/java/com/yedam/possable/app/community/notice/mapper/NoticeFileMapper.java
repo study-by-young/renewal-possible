@@ -12,7 +12,7 @@ public interface NoticeFileMapper {
 	
 	public void delete(String name);
 	
-	public List<NoticeFileVO> findBySeq(@Param("seq") Long noticeSeq);
+	public List<NoticeFileVO> findBySeq(Long noticeSeq);
 	
 	public void deleteAll(Long noticeSeq);
 	

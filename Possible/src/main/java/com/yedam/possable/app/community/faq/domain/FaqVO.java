@@ -11,4 +11,5 @@ public class FaqVO {
     private String content;
     private Date genDate;
     private Date uptDate;
+    private String category;
 }
