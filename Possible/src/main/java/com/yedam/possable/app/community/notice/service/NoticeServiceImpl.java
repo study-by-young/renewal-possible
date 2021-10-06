@@ -36,7 +36,8 @@ public class NoticeServiceImpl implements NoticeService {
 			return 1;
 		} else {
 			for(NoticeFileVO attach : vo.getAttachList()) {
-				attach.setSeq(vo.getSeq());
+				// attach.setSeq(vo.getSeq());
+				attach.setNoticeSeq(vo.getSeq());
 				noticeFileMapper.insert(attach);
 			}
 		}
@@ -80,8 +81,9 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<NoticeFileVO> getAttachList(@Param("seq") Long noticeSeq) {
+	public Long readSeq() {
 		// TODO Auto-generated method stub
-		return noticeFileMapper.findBySeq(noticeSeq);
+		return noticeMapper.readSeq();
 	}
+	
 }

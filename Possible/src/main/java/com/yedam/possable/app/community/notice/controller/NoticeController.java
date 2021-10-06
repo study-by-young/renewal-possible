@@ -12,7 +12,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +30,9 @@ import com.yedam.possable.app.community.notice.domain.NoticeFileVO;
 import com.yedam.possable.app.community.notice.domain.NoticeVO;
 import com.yedam.possable.app.community.notice.service.NoticeService;
 
+import lombok.extern.java.Log;
+
+@Log
 @Controller
 @RequestMapping("/notice/*")
 public class NoticeController {
@@ -50,26 +52,30 @@ public class NoticeController {
 	public void get(Model model, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
 		noticeService.plusViews(vo);
 		model.addAttribute("notice", noticeService.read(vo));
-		model.addAttribute("title", "�ܰ� ��ȸ");
 	}
 
 	@GetMapping("/insert")
-	public void insertForm(Model model) {
-		model.addAttribute("title", "�����");
+	public void insertForm(Model model, @ModelAttribute("cri") Criteria cri) {
+		
 	}
 
 	@PostMapping("/insert")
-	public String insert(Model model, RedirectAttributes rttr, NoticeVO vo, MultipartFile[] uploadFile) {
-		model.addAttribute("title", "���");
+	public String insert(Model model, RedirectAttributes rttr
+				, NoticeVO vo, NoticeFileVO filevo
+				, MultipartFile[] uploadFile, @ModelAttribute("cri") Criteria cri) {
+		//vo.setAttachList(list);
 		noticeService.insert(vo);
-		rttr.addAttribute("insertResult", vo.getSeq());
+		vo.setSeq(noticeService.readSeq());
+		filevo.setNoticeSeq(vo.getSeq());
+			log.info(filevo.toString());
+		model.addAttribute("file", filevo);
+		rttr.addFlashAttribute("insertResult", vo.getSeq());
 
 		return "redirect:/notice/list";
 	}
 
 	@GetMapping("/update")
 	public void updateForm(Model model, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
-		model.addAttribute("title", "������");
 		model.addAttribute("notice", noticeService.read(vo));
 	}
 

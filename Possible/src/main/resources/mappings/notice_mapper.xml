@@ -97,4 +97,10 @@
 			</where>
 	</select>
 	
+	<!-- seq 조회 -->
+	<select id="readSeq" resultType="Long">
+		SELECT SEQ_NOTICE.NEXTVAL
+		FROM DUAL
+	</select>
+	
 </mapper>

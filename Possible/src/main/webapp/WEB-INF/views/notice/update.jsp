@@ -50,12 +50,18 @@
 </div>
 
 <script>
-	CKEDITOR.instances.content.getData()
-	
-	$('#updateBtn').on('click', function(){
-		if(updateForm.content.value == ""){
-			updateForm.content.focus();
-			alert("내용을 입력해 주십시오.");
-		}
+	$("#insertBtn").on("click", function() {
+		check();
 	});
+	
+	function check() {
+		if (CKEDITOR.instances.content.getData() == "" || CKEDITOR.instances.content.getData().length == 0) {
+			alert("내용을 입력해주세요.");
+			CKEDITOR.instances.content.focus();
+			return false;
+		} else {
+			$("#insertForm").submit();
+		}
+	}
+	
 </script>

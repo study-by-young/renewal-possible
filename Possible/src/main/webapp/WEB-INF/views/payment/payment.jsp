@@ -20,7 +20,6 @@
 	}
 </style>
 
-
 <!-- btc tittle Wrapper Start -->
 <div class="btc_tittle_main_wrapper">
 	<div class="btc_tittle_img_overlay"></div>
