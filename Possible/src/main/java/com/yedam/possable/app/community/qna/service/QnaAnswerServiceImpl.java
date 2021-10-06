@@ -7,36 +7,39 @@ import org.springframework.stereotype.Service;
 
 import com.yedam.possable.app.community.qna.domain.QnaAnswerVO;
 import com.yedam.possable.app.community.qna.mapper.QnaAnswerMapper;
+import com.yedam.possable.app.community.qna.mapper.QnaMapper;
 
 @Service
 public class QnaAnswerServiceImpl implements QnaAnswerService {
 	
 	@Autowired QnaAnswerMapper qnaAnswerMapper;
+	@Autowired QnaMapper qnaMapper;
 
 	@Override
 	public int insert(QnaAnswerVO vo) {
-		// TODO Auto-generated method stub
+		qnaMapper.updateAnswerCnt(vo.getQnaSeq(), 1L);
 		return qnaAnswerMapper.insert(vo);
 	}
 
 	@Override
 	public int update(QnaAnswerVO vo) {
-		// TODO Auto-generated method stub
 		return qnaAnswerMapper.update(vo);
 	}
 
 	@Override
 	public int delete(QnaAnswerVO vo) {
-		// TODO Auto-generated method stub
+		qnaMapper.updateAnswerCnt(vo.getQnaSeq(), -1L);
 		return qnaAnswerMapper.delete(vo);
+	}
+	
+	@Override
+	public QnaAnswerVO read(QnaAnswerVO vo) {
+		return qnaAnswerMapper.read(vo);
 	}
 
 	@Override
 	public List<QnaAnswerVO> getList(Long qnaSeq) {
-		// TODO Auto-generated method stub
 		return qnaAnswerMapper.getList(qnaSeq);
 	}
-
-	
 
 }

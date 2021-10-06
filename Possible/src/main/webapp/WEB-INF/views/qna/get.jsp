@@ -37,6 +37,44 @@
 			</div>
 		</div>
 	</div>
+
+
+
+	<!-- 답변 작성 폼 -->
+	<div class="row">
+		<div class="panel-heading">
+			<form id="answerForm">
+				<input type="hidden" id="bno" name="bno" value="${board.bno}">
+				<input id="replyer" name="replyer" value="user10">
+				<input id="reply" name="reply" size="30">
+				<!-- 버튼 -->
+				<button type="button" id="saveAnswer">답변등록</button>
+				<button type="button" id="updateAnswer">수정</button>
+	  		</form>
+		</div>
+	</div>
+
+	
+	<!-- 답변 보여주는 위치 -->
+	<div class='row'>
+		<div class="col-lg-12">
+		<!-- panel -->
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<i class="fa fa-comments fa-fw"></i>답변
+			</div>
+			<div class="panel-body">
+				<ul class="chat">
+					<!-- 답변 내용은 여기에 추가됩니다. / 스크립트로 추가 -->
+				</ul>
+			</div>
+			<div class="panel-footer"></div>
+		</div>
+		<!-- end panel -->
+	</div>
+	<!-- end row -->
+</div>
+	
 </div>
 <br>
 <br>
