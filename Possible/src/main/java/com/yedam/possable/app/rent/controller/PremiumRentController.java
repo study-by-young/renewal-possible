@@ -12,7 +12,9 @@ import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.rent.domain.EstiSubmitHistoryVO;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 import com.yedam.possable.app.rent.service.PremiumRentService;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.*;
 
-
+@Log
 @Controller
 @RequestMapping("/premiumRent/*")
 public class PremiumRentController {
@@ -99,8 +101,7 @@ public class PremiumRentController {
                                HttpServletRequest request,
                                Model model,
                                @ModelAttribute Criteria cri) {
-        MemberVO user = (MemberVO) principal;
-
+        log.info(principal.toString());
 //        if(user == null || user.getAuthor().equals("USER")){
 //            String denyMsg = "업체회원만 열람 가능합니다.";
 //            attributes.addFlashAttribute("denyMsg", denyMsg);

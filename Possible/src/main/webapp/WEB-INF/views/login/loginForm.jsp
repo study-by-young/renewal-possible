@@ -56,7 +56,7 @@
 #mail_check_input_box_false{
     background-color:#ebebe4;
 }
- 
+
 #mail_check_input_box_true{
     background-color:white;
 }
@@ -66,7 +66,7 @@
 .incorrect{
     color : red;
 }
-  
+
 </style>
 	<div class="x_partner_main_wrapper float_left padding_tb_100">
 		<div class="container">
@@ -89,12 +89,12 @@
 	                          	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" >
 	                            <div class="formsix-pos">
 	                                <div class="form-group i-email">
-	                                    <input type="text" class="form-control"  id="id" name="id" placeholder="Id*" required="">
+	                                    <input type="text" class="form-control"  id="loginId" name="loginId" placeholder="Id*" required="">
 	                                </div>
 	                            </div>
 	                            <div class="formsix-e">
 	                                <div class="form-group i-password">
-	                                    <input type="password" class="form-control"  id="password" name="password" placeholder="Password*" required="">
+	                                    <input type="password" class="form-control"  id="loginPassword" name="loginPassword" placeholder="Password*" required="">
 	                                </div>
 	                            </div>
 	                            <div class="login_remember_box">
@@ -109,7 +109,7 @@
 	                                <button type="button" class="btn btn-primary btn-lg btn-block" id="loginBtn" name="loginBtn">로그인</button>
 	                            </div>
 	                            	<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token}"/>
-	                            </form>	
+	                            </form>
 	                            <div class="col-md-12 ">
 	                              <div class="login-or">
 	                                 <hr class="hr-or">
@@ -124,7 +124,7 @@
 	                                 <div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
 	                                	<a href="#" ><img class="" src="${pageContext.request.contextPath}/resources/images/googleBtn.png"/></a>
 	                                </div>
-	                             
+
 	                            	</div>
 	                            <div class="login_message my-3">
 	                                <p>아이디가 아직 없으신가요? <a href="register"> 회원가입 하러 가기 </a> </p>
@@ -137,7 +137,7 @@
 		</div>
 	</div>
 	<!-- 로그인 종료 -->
-	
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -158,7 +158,7 @@
 			<label class="form-check-label"	for="findId">아이디 찾기</label>
 		</div>
 		<div class="custom-control custom-radio custom-control-inline">
-			<input type="radio" class="form-check-input" id="search_2" name="search_total" onclick="searchCheck(2)"> 
+			<input type="radio" class="form-check-input" id="search_2" name="search_total" onclick="searchCheck(2)">
 			<label class="form-check-label" for="findPass">비밀번호 찾기</label>
 		</div>
 		<!-- 아이디 찾기 -->
@@ -167,12 +167,12 @@
 				<label for="InputEmail">이름</label>
 	           			<input type="text" class="form-control" name="name" id="name" placeholder="이름입력" style="width: 60%;">
 			</div>
-			
+
 			<div class="form-group">
 	      				<label for="InputEmail">생년월일</label>
 	          			<input type="text" class="form-control" name="birth" id="birth" placeholder="생년월일 입력" style="width: 60%;">
 			</div>
-			
+
 			<div class="form-group" id="idFindBtn">
 				<button id="searchBtn" type="button" onclick="idFind()" class="btn btn-primary btn-block">아이디 검색</button>
 				<button type="button" class="btn btn-danger btn-block" data-dismiss="modal">취소</button>
@@ -180,14 +180,14 @@
 		</div>
 			<!-- 비밀번호 찾기 -->
 			<div id="searchP" style="display: none;">
-				
+
 				<div class="row">
 					<div class="form-group col-md-12 col-sm-6 col-xs-12">
 			      		<label for="InputEmail">아이디</label>
 			          	<input type="text" class="form-control idChk" name="id" id="id" placeholder="아이디 입력*" style="width: 60%;">
 					</div>
 				</div>
-				
+
 				<div class="row">
 					<div class="form-group col-md-12 col-sm-6 col-xs-12">
 						<label for="InputEmail">이메일</label>
@@ -205,7 +205,7 @@
 			        </div>
 			        	<span id="mail_check_input_box_warn"></span>
 				</div>
-				
+
 				<div class="form-group">
 					<button id="newPassBtn" type="button" class="btn btn-primary btn-block">비밀번호 재설정</button>
 					<button type="button" class="btn btn-danger btn-block" data-dismiss="modal">취소</button>
@@ -257,7 +257,7 @@
   </div>
 	</div>
 </div>
-<!-- Modal End --> 
+<!-- Modal End -->
 <script>
 
 
@@ -266,37 +266,37 @@ $(function(){
 	$('#loginBtn').on("click",function(){
 		frm.submit();
 	});
-});	
-	
+});
+
 var csrfHeaderName = "${_csrf.headerName}";
 var csrfTokenValue ="${_csrf.token}";
-//아이디/비밀번호 내용 변경 폼 
+//아이디/비밀번호 내용 변경 폼
 function searchCheck(num) {
 		if (num == '1') {
 			$("#searchP").css('display','none');
-			$("#searchI").css('display', 'block');	
+			$("#searchI").css('display', 'block');
 		} else {
 			$("#searchI").css('display', 'none');
 			$("#searchP").css('display', "block");
 		}
-	} 
+	}
 //아이디 찾기
 function idFind() {
 	 var csrfHeaderName = "${_csrf.headerName}";
 	 var csrfTokenValue ="${_csrf.token}";
-	 
+
 	if(!$("#name").val()) {
 		alert("이름을 입력해주세요.");
 		$("#name").focus();
 		return false;
 	}
-	
+
 	if(!$("#birth").val()) {
 		alert("생년월일을 입력해주세요.");
 		$("#birth").focus();
 		return false;
 	}
-	
+
 	$.ajax({
 		url : 'idFind',
 		type : 'POST',
@@ -311,13 +311,13 @@ function idFind() {
 		success : function(data){
 			console.log(data);
 			var contents = "";
-			
+
 			if(data == 0 ){
 				alert("입력하신 정보와 일치하는 회원정보가 없습니다.");
-				
+
 			} else {
 				$('#findIdBtn').hide();
-			
+
 				contents += '<div id="findIdShow" style = "text-align: center;">';
 				contents += '	<h3> 회원님의 아이디는</h3>';
 				contents += '<h4>' + data +'</h4>';
@@ -325,26 +325,26 @@ function idFind() {
 				contents += '<div class="form-group" id="idFindBtn">';
 				contents += '	<button type="button" class="btn btn-primary btn-block" data-dismiss="modal" aria-label="Close" id="closeLoginId"><span>확인</span></button>';
 				contents += '</div>';
-				
-				$('#searchI').html(contents);	
+
+				$('#searchI').html(contents);
 
 			}
-			
+
 			$('#closeLoginId').click(function(){
 				$('#findIdShow').hide();
 				returnSearchId();
 				$('#closeClick').trigger('click');
-				
+
 			});
 		}
 	});
-	
+
 } // end of idFind()
 
 function returnSearchId() {
-	
+
 	var contents ='';
-	
+
 	contents += '<div class="form-group">';
 	contents += '	<label for="InputEmail">이름</label>';
 	contents += '	<input type="text" class="form-control" name="name" id="name" placeholder="이름입력" style="width: 60%;">';
@@ -370,25 +370,25 @@ function returnSearchId() {
 		var numberInput = $("#numberInput");
 		var boxWrap = $(".mail_check_input_box");
 		$.ajax({
-			
+
 			type : 'GET',
 			url : 'mailCheck?email=' + email+ id,
-			
+
 			success : function(data){
 				alert("인증메일이 발송 되었습니다.");
 				console.log("값은?"+data);
 				numberInput.attr("disabled",false);
 				boxWrap.attr("id", "mail_check_input_box_true");
 				code = data;
-			}		
+			}
 		});
 	});
 	//인증코드 결과
 	$("#numberInput").blur(function(){
-	 
+
 		var inputCode = $('#numberInput').val(); //인증번호 입력란
-	 	var checkResult = $("#mail_check_input_box_warn");    // 비교 결과 
-	 	
+	 	var checkResult = $("#mail_check_input_box_warn");    // 비교 결과
+
 	 	if(inputCode == code){
 	 		checkResult.html("인증번호가 일치합니다.");
 	        checkResult.attr("class", "correct");
@@ -397,19 +397,19 @@ function returnSearchId() {
 	 	    checkResult.attr("class", "incorrect");
 	 	}
 	});
-		
+
 	//인증 성공시 비밀번호 변경 폼으로
 	$("#newPassBtn").on("click",function(){
 		var getId = $(".idChk").val();
 		console.log(getId);
 		var email = $("#email").val();
-		
+
 		if(!$(".idChk").val()) {
 			alert("아이디를 입력해주세요.");
 			$(".idChk").focus();
 			return false;
 		}
-		
+
 		if(!$("#email").val()) {
 			alert("이메일을 입력해주세요.");
 			$("#email").focus();
@@ -419,22 +419,22 @@ function returnSearchId() {
 			alert("인증번호를 입력해주세요.");
 			$('#numberInput').focus();
 		}
-		
+
 		isInputCode = $('#numberInput').val();
 		console.log($('#numberInput').val());
-		
+
 		if(code == isInputCode){
 			alert("메일이 인증되었습니다.");
 			$("#passChange").modal();
 			$('#closeClick').trigger('click');
-			
+
 		}else {
 			alert("메일인증을 거쳐야 비밀번호 변경이 가능합니다.");
-			
+
 			return false;
 		}
-	
-	//비밀번호 변경 
+
+	//비밀번호 변경
 	$("#PassBtn").on("click",function(){
 		var password = $('.passChk').val();
 		console.log(getId);
@@ -456,7 +456,7 @@ function returnSearchId() {
 	         error : function(){
 	        	 alert("실패");
 	         }
-	      });	
+	      });
 		});
-	});	
-</script>	
+	});
+</script>

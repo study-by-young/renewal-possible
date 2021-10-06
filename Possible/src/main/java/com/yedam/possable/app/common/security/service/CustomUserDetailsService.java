@@ -1,16 +1,15 @@
-package com.yedam.possable.app.member.service;
+package com.yedam.possable.app.common.security.service;
 
-import java.util.List;
-
+import com.yedam.possable.app.member.domain.MemberVO;
+import com.yedam.possable.app.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.yedam.possable.app.member.domain.MemberVO;
 
+@Service
 public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
@@ -18,13 +17,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-			MemberVO memberVO = memberService.getUserById(username);
-			if(memberVO == null) {
+			MemberVO user = memberService.getUserById(username);
+			if(user == null) {
 				 throw new UsernameNotFoundException("username " + username + " not found");
 			}
 			System.out.println("**************Found user***************");
-			System.out.println("id : " + memberVO.getUsername());
-			return memberVO;
+			System.out.println("id : " + user.getUsername());
+			return user;
 	}
 
 }

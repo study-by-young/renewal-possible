@@ -32,9 +32,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 		session.setAttribute("member", authentication.getPrincipal());
 		log.info(session.getAttribute("member").toString());
 		String path = request.getContextPath();
-		if(roleNames.contains("ADMIN")) {
+		if(roleNames.contains("ADMIN") || roleNames.contains("ROLE_ADMIN") ) {
 			response.sendRedirect(path+"/admin/");
-		} else if(roleNames.contains("ROLE_USER")) {
+		} else if(roleNames.contains("USER")) {
 			response.sendRedirect(path +"/");
 		} else {
 			response.sendRedirect(path +"/");
