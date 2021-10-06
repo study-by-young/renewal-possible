@@ -1,8 +1,10 @@
 package com.yedam.possable.app.member.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
+import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
 
 import lombok.extern.java.Log;
@@ -34,7 +37,14 @@ public class MypageController {
 
 		//마이페이지 회원정보수정 페이지
 		@GetMapping("/editInfo")
-		public String editInfo() {
+		public String editInfo(Model model, @AuthenticationPrincipal MemberVO loginUser, HttpServletRequest request) {
+			loginUser.getBirth();
+			HttpSession session = request.getSession();
+			
+			loginUser = (MemberVO) session.getAttribute("member");
+			System.out.println(loginUser.toString());
+			System.out.println("야 뒤질래?"+ memberService.read(loginUser));
+			model.addAttribute("memberList", memberService.read(loginUser));
 			return "mypage/editInfo";
 		}
 

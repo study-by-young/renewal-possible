@@ -125,7 +125,14 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int memberInfoUpdate(MemberVO vo) {
 		// TODO 회원 내정보 수정(휴대폰번호,이메일,주소)
+		
 		return memberMapper.memberInfoUpdate(vo);
+	}
+
+	@Override
+	public MemberVO read(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return memberMapper.read(vo);
 	}
 
 
