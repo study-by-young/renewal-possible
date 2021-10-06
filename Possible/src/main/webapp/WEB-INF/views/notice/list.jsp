@@ -154,7 +154,7 @@ tr:hover {
 
 	<div align="right">
 		<button type="button" class="btn btn-primary"
-			onclick="location.href='insert'">등록</button>
+			onclick="location.href='insert?pageNum=${cri.pageNum}&amount=${cri.amount}'">등록</button>
 	</div>
 
 

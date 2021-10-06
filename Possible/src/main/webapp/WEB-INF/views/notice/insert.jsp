@@ -41,7 +41,7 @@
 					align="right">
 					<button id="insertBtn" type="button" class="btn btn-primary">등록</button>
 					<button type="button" class="btn btn-dark"
-						onclick="location.href='list'">목록</button>
+						onclick="location.href='list?pageNum=${cri.pageNum}&amount=${cri.amount}'">목록</button>
 				</div>
 			</div>
 		</form>
@@ -50,7 +50,7 @@
 			<button type="button" id="uploadBtn" class="btn btn-default">첨부파일 등록</button>
 		</div>
 		<ul id="uploaded"></ul>
-		<input type="hidden" id="noticeSeq" value="${seq}">
+		<input type="hidden" id="noticeSeq" value="${file.noticeSeq}">
 	</div>
 </div>
 
@@ -72,7 +72,7 @@
 		}
 	}
 
-	
+	var noticeSeq = $('#noticeSeq').val();
 	// 첨부파일 업로드
 	$(function() {
 		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
@@ -143,16 +143,15 @@
 	            }
 			});
 		});
-
+		
 		//등록버튼 이벤트
 		$("#insertBtn").on("click", function() {
-			console.log("seq=======" + $('#noticeSeq').val());
 			var str = "";
 			$("#uploaded li").each(function(i, obj) {
 				var jobj = $(obj);
 				str += "<input type='hidden' name='attachList[" + i + "].orgName' value='" + jobj.data("orgname") + "'>";
 				str += "<input type='hidden' name='attachList[" + i + "].name' value='" + jobj.data("name") + "'>";
-				str += "<input type='hidden' name='attachList[" + i + "].noticeSeq' value='" + $('#noticeSeq').val() + "'>";
+				str += "<input type='hidden' name='attachList[" + i + "].noticeSeq' value='" + noticeSeq + "'>";
 			});
 			$("#insertForm").append(str).submit();
 		})

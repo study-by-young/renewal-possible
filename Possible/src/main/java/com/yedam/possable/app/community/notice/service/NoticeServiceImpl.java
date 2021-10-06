@@ -36,7 +36,8 @@ public class NoticeServiceImpl implements NoticeService {
 			return 1;
 		} else {
 			for(NoticeFileVO attach : vo.getAttachList()) {
-				attach.setSeq(vo.getSeq());
+				// attach.setSeq(vo.getSeq());
+				attach.setNoticeSeq(vo.getSeq());
 				noticeFileMapper.insert(attach);
 			}
 		}
