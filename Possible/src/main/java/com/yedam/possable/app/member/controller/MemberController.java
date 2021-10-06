@@ -174,8 +174,9 @@ public class MemberController {
 	@PostMapping("/memberInfoUpdate")
 	@ResponseBody
 	public int memberInfoUpdate(MemberVO vo) {
+		log.info(vo.toString());
 		int r = memberService.memberInfoUpdate(vo);
-		
+		System.out.println("결과 보자 :"+r);
 		return r;
 	}
 }

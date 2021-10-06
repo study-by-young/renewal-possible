@@ -1,5 +1,6 @@
 package com.yedam.possable.app.login.controller;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,5 +38,12 @@ public class LoginController {
 		
 		return "login/register";
 	}
-	
+	//권한이 없을시 나타내는 오류
+		@GetMapping("/errorPage")
+		public void accessDenied(Authentication auth, Model model) {
+				log.info("권한 없음으로 접근 불가");
+				
+				model.addAttribute("msg, ","권한이 없음으로 접근이 불가능 합니다 관리자에게 문의하세요.");
+			
+		}
 }
