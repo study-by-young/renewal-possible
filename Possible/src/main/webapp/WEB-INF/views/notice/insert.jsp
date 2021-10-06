@@ -5,7 +5,7 @@
 	<div class="container">
 		<form id="insertForm" name="insertForm" role="form"
 			action="${pageContext.request.contextPath}/notice/insert"
-			method="post">
+			method="post" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-md-12">
 					<div
@@ -50,7 +50,7 @@
 			<button type="button" id="uploadBtn" class="btn btn-default">첨부파일 등록</button>
 		</div>
 		<ul id="uploaded"></ul>
-		<input type="hidden" id="noticeSeq" value="${insertResult.seq}">
+		<input type="hidden" id="noticeSeq" value="${seq}">
 	</div>
 </div>
 
@@ -146,6 +146,7 @@
 
 		//등록버튼 이벤트
 		$("#insertBtn").on("click", function() {
+			console.log("seq=======" + $('#noticeSeq').val());
 			var str = "";
 			$("#uploaded li").each(function(i, obj) {
 				var jobj = $(obj);

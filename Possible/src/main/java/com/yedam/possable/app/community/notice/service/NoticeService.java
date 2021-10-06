@@ -24,6 +24,6 @@ public interface NoticeService {
 	
 	public NoticeFileVO attachRead(String name);
 	
-	// 첨부파일 리스트
-	public List<NoticeFileVO> getAttachList(Long noticeSeq);
+	public Long readSeq();
+
 }

@@ -80,8 +80,9 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<NoticeFileVO> getAttachList(@Param("seq") Long noticeSeq) {
+	public Long readSeq() {
 		// TODO Auto-generated method stub
-		return noticeFileMapper.findBySeq(noticeSeq);
+		return noticeMapper.readSeq();
 	}
+	
 }

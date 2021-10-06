@@ -97,4 +97,11 @@
 			</where>
 	</select>
 	
+	<!-- seq 조회 -->
+	<select id="readSeq" resultType="Long">
+		SELECT SEQ + 1 AS SEQ
+		FROM (SELECT * FROM NOTICE ORDER BY SEQ DESC) 
+		WHERE ROWNUM = 1
+	</select>
+	
 </mapper>

@@ -12,7 +12,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,26 +49,24 @@ public class NoticeController {
 	public void get(Model model, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
 		noticeService.plusViews(vo);
 		model.addAttribute("notice", noticeService.read(vo));
-		model.addAttribute("title", "�ܰ� ��ȸ");
 	}
 
 	@GetMapping("/insert")
 	public void insertForm(Model model) {
-		model.addAttribute("title", "�����");
+		model.addAttribute("seq", noticeService.readSeq());
 	}
 
 	@PostMapping("/insert")
 	public String insert(Model model, RedirectAttributes rttr, NoticeVO vo, MultipartFile[] uploadFile) {
-		model.addAttribute("title", "���");
+		//vo.setAttachList(list);
 		noticeService.insert(vo);
-		rttr.addAttribute("insertResult", vo.getSeq());
+		rttr.addFlashAttribute("insertResult", vo.getSeq());
 
 		return "redirect:/notice/list";
 	}
 
 	@GetMapping("/update")
 	public void updateForm(Model model, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
-		model.addAttribute("title", "������");
 		model.addAttribute("notice", noticeService.read(vo));
 	}
 
