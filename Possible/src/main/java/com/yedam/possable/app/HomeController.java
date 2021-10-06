@@ -29,5 +29,10 @@ public class HomeController {
 	public String home() {
 		return "home";
 	}
+
+	@RequestMapping("/errorPage")
+    public String errorPage(){
+	    return "errorPage";
+    }
 }
 

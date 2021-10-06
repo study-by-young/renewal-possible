@@ -22,7 +22,7 @@ public class LoginAccessDeniedHandler implements AccessDeniedHandler {
 
 			log.info("Access Denied Handler");
 
-			response.sendRedirect("/errorPage");
+			response.sendRedirect(request.getContextPath() + "/errorPage");
 	}
 
 }

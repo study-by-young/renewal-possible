@@ -19,25 +19,28 @@ import lombok.extern.java.Log;
 @Component("LoginSuccess")
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
-	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-			Authentication authentication) throws IOException, ServletException {
-		log.info("=======================");
-		log.info("login handler 실행");
-		List<String> roleNames = new ArrayList<String>();
+    @Override
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
+                                        Authentication authentication) throws IOException, ServletException {
+        log.info("=======================");
+        log.info("login handler 실행");
+        List<String> roleNames = new ArrayList<String>();
 
-		authentication.getAuthorities().forEach(authority-> {roleNames.add(authority.getAuthority());
-			});  //전체 권한
-		HttpSession session = request.getSession();
-		session.setAttribute("member", authentication.getPrincipal());
-		log.info(session.getAttribute("member").toString());
-		String path = request.getContextPath();
-		if(roleNames.contains("ADMIN") || roleNames.contains("ROLE_ADMIN") ) {
-			response.sendRedirect(path+"/admin/");
-		} else if(roleNames.contains("USER")) {
-			response.sendRedirect(path +"/");
-		} else {
-			response.sendRedirect(path +"/");
-		}
-	}
+        authentication.getAuthorities().forEach(authority -> {
+            roleNames.add(authority.getAuthority());
+        });  //전체 권한
+
+        HttpSession session = request.getSession();
+        session.setAttribute("member", authentication.getPrincipal());
+        log.info(session.getAttribute("member").toString());
+
+        String path = request.getContextPath();
+        if (roleNames.contains("ROLE_ADMIN")) {
+            response.sendRedirect(path + "/admin/");
+        } else if (roleNames.contains("ROLE_USER")) {
+            response.sendRedirect(path + "/");
+        } else {
+            response.sendRedirect(path + "/");
+        }
+    }
 }

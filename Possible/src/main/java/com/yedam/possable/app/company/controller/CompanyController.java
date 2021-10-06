@@ -4,18 +4,12 @@ import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import com.yedam.possable.app.car.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.car.domain.CarVO;
@@ -27,41 +21,40 @@ import lombok.extern.java.Log;
 
 @Log
 @Controller
+@RequestMapping("/company/*")
 public class CompanyController {
-
     @Autowired
     CompanyService companyService;
     @Autowired
     CarService carService;
 
     //업체 대시보드
-    @GetMapping("/companyDashboard")
+    @GetMapping("/dashboard")
     public String dashboard(Principal principal,
-    		HttpServletRequest request,
-    		RedirectAttributes attributes
-    		) {
-    	MemberVO loginUser = (MemberVO)principal;
-    	CompanyVO companyVO = companyService.getCompanyByMemSeq(loginUser);
-    	if(companyVO == null) {
-    		attributes.addFlashAttribute("denyMsg", "업체회원이 아닙니다.");
-    		return "redirect:" + request.getHeader("REFERER");
-    	}
-        return "admin/companyDashboard";
+                            HttpServletRequest request,
+                            RedirectAttributes attributes) {
+        MemberVO loginUser = (MemberVO) principal;
+        CompanyVO companyVO = companyService.getCompanyByMemSeq(loginUser);
+        if (companyVO == null) {
+            attributes.addFlashAttribute("denyMsg", "업체회원이 아닙니다.");
+            return "redirect:" + request.getHeader("REFERER");
+        }
+        return "company/companyDashboard";
     }
-    
+
     //업체 정보수정페이지
-    @GetMapping("/companyEditInfo")
+    @GetMapping("/info/edit")
     public String companyEditInfo(CompanyVO vo, Model model) {
-		 model.addAttribute("company", companyService.companyOneSelect(vo));
-        return "admin/companyEditInfo";
+        model.addAttribute("company", companyService.companyOneSelect(vo));
+        return "company/companyEditInfo";
     }
 
     //업체 보유 렌트카 리스트
     @GetMapping("/companyCarList")
     public String companyCarList(CompanyVO vo, Model model) {
-    	
+
         model.addAttribute("companyCarList", carService.getCompanyCarList(vo));
-        return "admin/companyCarList";
+        return "company/companyCarList";
     }
 
     //업체 보유 렌트카 한건
