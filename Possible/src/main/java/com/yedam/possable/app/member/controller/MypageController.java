@@ -8,13 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.yedam.possable.app.common.code.mapper.CodeMapper;
+import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
-import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
 
 import lombok.extern.java.Log;
@@ -26,11 +24,11 @@ public class MypageController {
 
 	@Autowired MemberService memberService;
 	@Autowired CompanyService companyService;
-	@Autowired CodeMapper codeMapper;
+	@Autowired CodeService codeService;
 
 	//마이페이지 대쉬보드
 		@GetMapping("/dashboard")
-		public String dashboard(HttpSession session, MemberVO memVo, CompanyVO comVo) {
+		public String dashboard(HttpSession session) {
 			return "mypage/dashboard";
 		}
 
@@ -85,9 +83,8 @@ public class MypageController {
 
 		//업체전환 신청처리
 		@PostMapping("/chngRole")
-		public String chngRole(Model model, CompanyVO vo, @RequestParam("memSeq") Long memSeq, RedirectAttributes rttr ) {
-
-
+		public String chngRole(Model model, CompanyVO vo, RedirectAttributes rttr ) {
+			
 			// 외래 객체 담은 후 service 실행
 			int result = companyService.companyReg(vo);
 	  	    rttr.addFlashAttribute("result", result);

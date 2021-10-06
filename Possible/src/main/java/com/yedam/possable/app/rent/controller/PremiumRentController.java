@@ -1,9 +1,13 @@
 package com.yedam.possable.app.rent.controller;
 
 import com.yedam.possable.app.car.domain.CarVO;
+import com.yedam.possable.app.car.service.CarService;
+import com.yedam.possable.app.common.code.domain.CodeSubVO;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.common.code.service.CodeService;
+import com.yedam.possable.app.company.domain.CompanyVO;
+import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.rent.domain.EstiSubmitHistoryVO;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
@@ -26,6 +30,10 @@ public class PremiumRentController {
     CodeService codeService;
     @Autowired
     PremiumRentService premiumRentService;
+    @Autowired
+    CompanyService companyService;
+    @Autowired
+    CarService carService;
 
     // 견적 요청 리스트
     @GetMapping("estimate/list")
@@ -36,7 +44,7 @@ public class PremiumRentController {
 
 
         attr.put("estList", estimateList);
-        attr.put("pagination", new PageVO(cri,listCount));
+        attr.put("pagination", new PageVO(cri, listCount));
         model.addAllAttributes(attr);
 
         return "/premiumRent/estimateList";
@@ -45,11 +53,11 @@ public class PremiumRentController {
     // 견적 요청 작성
     @GetMapping("estimate/insert")
     public String estimateInsert(Model model) {
-        String carOptCode = codeService.getMasterCodeValueByName("차량 옵션");
-        String itemOptCode = codeService.getMasterCodeValueByName("캠핑 옵션");
+        String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
+        String itemOptCode = codeService.getMasterCodeByName("캠핑 옵션").getCode();
         model.addAttribute("brands", codeService.getBrandList());
-        model.addAttribute("carOpt", codeService.getCodesByParentCodeValue(carOptCode));
-        model.addAttribute("itemOpt", codeService.getCodesByParentCodeValue(itemOptCode));
+        model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
+        model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
 
         return "/premiumRent/estimateInsert";
     }
@@ -57,15 +65,15 @@ public class PremiumRentController {
     // 견적 요청 제출
     @PostMapping("estimate/insert")
     public String estimateInsert(EstimateHistoryVO vo,
-                                     @RequestParam("options") String[] optionsArr,
-                                     @RequestParam("items") String[] itemsArr,
-                                     RedirectAttributes attributes) {
+                                 @RequestParam("options") String[] optionsArr,
+                                 @RequestParam("items") String[] itemsArr,
+                                 RedirectAttributes attributes) {
         // 옵션 배열 -> 스트링
         vo.setOptions(Arrays.toString(optionsArr));
         vo.setItems(Arrays.toString(itemsArr));
 
         // 코드 -> 네임 변환
-        vo.setSegment(codeService.getCodeByCodeValue(vo.getSegment()).getName());
+        vo.setSegment(codeService.getCodeByValue(vo.getSegment()).getName());
         vo.setBrand(codeService.getBrand(vo.getBrand()).getName());
         vo.setModel(codeService.getModel(vo.getModel()).getName());
         vo.setTrim(codeService.getTrim(vo.getTrim()).getName());
@@ -110,13 +118,13 @@ public class PremiumRentController {
     public String estimateDelete(@RequestParam Long seq,
                                  RedirectAttributes attributes,
                                  HttpServletRequest request,
-                                 Principal principal){
+                                 Principal principal) {
         // principal 객체로 견적 소유자 검증(id or seq)
         EstimateHistoryVO vo = (EstimateHistoryVO) premiumRentService.getEstimate(seq).get("estimate");
-        String user = ((MemberVO)principal).getId();
+        String user = ((MemberVO) principal).getId();
         String writer = vo.getMemSeq().toString();
 
-        if(user == null || !user.equals(writer)){
+        if (user == null || !user.equals(writer)) {
             attributes.addFlashAttribute("deleteMsg", "작성자만 삭제 가능합니다.");
             return "redirect:" + request.getHeader("REFERER");
         }
@@ -124,7 +132,7 @@ public class PremiumRentController {
         int deleteResult = premiumRentService.deleteEstimate(seq);
 
         String resultMsg = "";
-        if(deleteResult == 1) {
+        if (deleteResult == 1) {
             resultMsg = "견적 요청이 삭제되었습니다.";
         } else {
             resultMsg = "견적 요청 삭제에 실패했습니다.\n잠시 후 다시 시도해주세요.";
@@ -140,13 +148,13 @@ public class PremiumRentController {
                                      Principal principal,
                                      HttpServletRequest request,
                                      RedirectAttributes attributes,
-                                     Model model){
+                                     Model model) {
         // principal 객체로 견적 소유자 검증(id or seq)
         EstimateHistoryVO vo = (EstimateHistoryVO) premiumRentService.getEstimate(seq).get("estimate");
-        String user = ((MemberVO)principal).getId();
+        String user = ((MemberVO) principal).getId();
         String writer = vo.getMemSeq().toString();
 
-        if(user == null || !user.equals(writer)){
+        if (user == null || !user.equals(writer)) {
             attributes.addFlashAttribute("updateMsg", "작성자만 수정 가능합니다.");
             return "redirect:" + request.getHeader("REFERER");
         }
@@ -158,11 +166,11 @@ public class PremiumRentController {
     // 견적 요청 수정 제출
     @PostMapping("estimate/update")
     public String estimateUpdate(EstimateHistoryVO vo,
-                                 RedirectAttributes attributes){
+                                 RedirectAttributes attributes) {
         int updateResult = premiumRentService.updateEstimate(vo);
 
         String resultMsg = "";
-        if(updateResult == 1) {
+        if (updateResult == 1) {
             resultMsg = "견적이 수정되었습니다.";
         } else {
             resultMsg = "견적 수정에 실패했습니다. \n잠시후 다시 시도해주세요.";
@@ -177,22 +185,36 @@ public class PremiumRentController {
     @GetMapping("submit/insert")
     public String submitInsert(Model model,
                                @RequestParam Long seq,
-                               Principal principal){
+                               HttpServletRequest request,
+                               Principal principal) {
         Map<String, Object> estimate = premiumRentService.getEstimate(seq);
-        Long companySeq = ((MemberVO)principal).getSeq(); // principal.getName();    pricipal에서 업체 시퀀스 조회
-        List<CarVO> carList = new ArrayList<>();    // 업체시퀀스로 카 리스트 조회
-        String[] companyItems = {};                 // 업체시퀀스로 업체아이템 조회
+//        if(principal == null){
+//            return "redirect:" + request.getHeader("REFERER");
+//        }
+//        MemberVO memberVO = ((MemberVO) principal);
+//        CompanyVO companyVO = companyService.getCompanyByMemSeq(memberVO);      // pricipal에서 업체 시퀀스 조회
+//        List<CarVO> carList = carService.getCompanyCarList(companyVO);          // 업체시퀀스로 카 리스트 조회
+//        List<String> companyItems = companyService.getCompanyItems(companyVO);  // 업체시퀀스로 업체아이템 조회
 
-        model.addAttribute("companySeq", companySeq);
+        MemberVO memberVO = new MemberVO();
+        memberVO.setSeq(22L);
+        CompanyVO companyVO = companyService.getCompanyByMemSeq(memberVO);      // pricipal에서 업체 시퀀스 조회
+        List<CarVO> carList = carService.getCompanyCarList(companyVO);          // 업체시퀀스로 카 리스트 조회
+        List<String> companyItems = companyService.getCompanyItems(companyVO);  // 업체시퀀스로 업체아이템 조회
+        String carOptionCode = codeService.getMasterCodeByName("차량 옵션").getCode();
+        List<CodeSubVO> carOptions = codeService.getCodesByParentCode(carOptionCode);
+
+        model.addAttribute("companyVO", companyVO);
         model.addAttribute("carList", carList);
         model.addAttribute("companyItems", companyItems);
         model.addAttribute("estimate", estimate);
+        model.addAttribute("carOptions", carOptions);
         return "premiumRent/estimateSubmitInsert";
     }
 
     @PostMapping("submit/insert")
     public String submitFormInsert(RedirectAttributes attributes,
-                                   EstiSubmitHistoryVO vo){
+                                   EstiSubmitHistoryVO vo) {
         return "redirect:../estimate/list";
     }
 }

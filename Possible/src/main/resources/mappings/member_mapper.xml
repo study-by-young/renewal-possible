@@ -16,6 +16,9 @@
 				                <when test="type == 'P'.toString()">
 				                   PHONE LIKE '%' || #{keyword} || '%'
 				                </when>
+				                  <when test="type == 'A'.toString()">
+				                   AUTHOR LIKE UPPER('%' || #{keyword} || '%')
+				                </when>
              				</choose>
              			</trim>
              		</foreach>
@@ -40,7 +43,7 @@
       FROM (
              SELECT
              /*+ INDEX_DESC(MEMBER IDX_MEMBER) */
-             ROWNUM RN, SEQ, ID, EMAIL, PHONE, NAME
+             ROWNUM RN, SEQ, ID, EMAIL, PHONE, NAME, AUTHOR
              FROM MEMBER
              <where>
                 <include refid="criteria"></include>
@@ -85,19 +88,12 @@
 		FROM MEMBER
 		WHERE name = #{name} AND birth = #{birth} AND status='Y'
 	</select>
-
-	<!-- 회원 수정 -->
-	<update id="memberUpdate">
-		UPDATE MEMBER
-		SET STATUS = #{status},
-			UPT_DATE = sysdate
-			WHERE SEQ = #{seq}
-	</update>
-	<!-- 회원 비밀번호 찾기 변경 -->
-	<update id="passFindUpdate" >
-		UPDATE MEMBER SET password = #{password}
-    	WHERE ID = #{id}
-	</update>
+	
+	<!-- 회원 내정보 비밀번호 변경 확인 체크 -->
+	<select id="passCheck" resultType="int">
+		SELECT NVL(password,0)
+		FROM MEMBER WHERE id = #{id} AND PASSWORD = #{password}
+	</select>
 	<!-- 회원등록 -->
 	<insert id="memberInsert">
 		<selectKey keyProperty="seq" resultType="Long" order="BEFORE">
@@ -128,6 +124,7 @@
 			       #{addrBasic},
 			       #{addrDetail} )
 	</insert>
+	
 	<!-- 카카오 추가 회원가입 -->
 	<insert id="kakaoInsert">
 		<selectKey keyProperty="seq" resultType="Long" order="BEFORE">
@@ -160,7 +157,20 @@
 			       #{addrDetail},
                   'kakao')
 	</insert>
-
+	
+	<!-- 관리자 직접 회원 수정 -->
+	<update id="memberUpdate">
+		UPDATE MEMBER
+		SET STATUS = #{status},
+			UPT_DATE = sysdate
+			WHERE SEQ = #{seq}
+	</update>
+	<!-- 회원 비밀번호 찾기 변경 -->
+	<update id="passFindUpdate" >
+		UPDATE MEMBER SET password = #{password}
+    	WHERE ID = #{id}
+	</update>
+	
 	<!-- 회원권한변경 -->
 	<update id="authorUpdate" >
 		UPDATE MEMBER
@@ -168,5 +178,10 @@
 			UPT_DATE = sysdate
     	WHERE SEQ = #{seq}
 	</update>
-
+	
+	<!-- 회원 내정보수정 비밀번호변경 -->
+	<update id="memberPassUpdate">
+		UPDATE MEMBER SET PASSWORD = #{password}
+		WHERE ID = #{id}
+	</update>
 </mapper>

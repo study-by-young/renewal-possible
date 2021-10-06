@@ -23,7 +23,7 @@
 							 authentication-success-handler-ref="LoginSuccess"
         />
 
-										 <!-- login-processing-url="/login"	로그인 페이지 form action에 입력할 주소 지정  -->
+		<!-- login-processing-url="/login"	로그인 페이지 form action에 입력할 주소 지정  -->
 		<security:logout logout-url="/logout"
 						 invalidate-session="true"
 						 logout-success-url="/"

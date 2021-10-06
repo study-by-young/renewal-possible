@@ -109,8 +109,23 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public int authorUpdate(MemberVO vo) {
-		// TODO Auto-generated method stub
+		// TODO 회원 권한 변경
 		return memberMapper.authorUpdate(vo);
+	}
+
+	@Override
+	public int memberPassUpdate(MemberVO vo) {
+		// TODO	회원 내정보 수정 비밀번호
+		String endcodePassword = bcryptPasswordEncoder.encode(vo.getPassword());//암호화
+
+		vo.setPassword(endcodePassword);
+		return memberMapper.memberPassUpdate(vo);
+	}
+
+	@Override
+	public String passCheck(MemberVO vo) {
+		// TODO 회원 내정보 현재 비밀번호 체크
+		return memberMapper.passCheck(vo);
 	}
 
 

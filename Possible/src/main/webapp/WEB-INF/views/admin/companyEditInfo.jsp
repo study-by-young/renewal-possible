@@ -26,32 +26,19 @@
 						<div class="col-md-12">
 							<div class="lr_bc_first_box_main_wrapper">
 
-								<!-- 메뉴 -->
-								<div class="lr_bc_first_box_img_cont_wrapper">
-									<ul>
-				                      <li><a href="${pageContext.request.contextPath}/mypage/dashboard">홈</a></li>
-		                              <li><a href="${pageContext.request.contextPath}/mypage/editInfo">회원정보수정</a></li>
-		                              <li><a href="${pageContext.request.contextPath}/mypage/eslist">견적관리</a></li>
-		                              <li><a href="${pageContext.request.contextPath}/mypage/rentHistory">렌트관리</a></li>
-		                              <li><a href="${pageContext.request.contextPath}/mypage/community">커뮤니티관리</a></li>
-		                              <li><a href="${pageContext.request.contextPath}/mypage/qna">나의문의</a></li>
- 									</ul>
-								</div>
-								<br> <br> <br>
-
 								<!-- 업체등록 START -->
 									<form id="frm" name="frm" action="chngRole" method="post">
 								<div class="col-md-12">
 									<div class="blog_single_comment_heading">
-										<h4>업체등록</h4>
+										<h4>업체수정</h4>
 									</div>
 									<div class="card">
 										<div class="row">
-											<input type="hidden" name='memSeq' value='${member.seq}'>
+											<input type="hidden" name='comSeq' value='1'>
 										   	
 										   	<div class="form-group col-md-6 col-sm-3">
 											   	<label for="InputId">업체명*</label>
-											    <input type="text" class="form-control"  id="name" name="name" placeholder="업체명">
+											    <input type="text" class="form-control"  id="name" name="name" placeholder="업체명" value="${company.name }">
 											</div>   
 										</div>
 										<div class="row">
@@ -98,90 +85,6 @@
 					</div>
 				</div>
 			</div>
-						<!-- 사이드바 -->
-			<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-				<div class="x_blog_right_side_wrapper float_left">
-					<div class="row">
-
-						<div class="col-md-12">
-							<div
-								class="jp_rightside_job_categories_wrapper jp_rightside_job_categories_wrapper2">
-
-								<div>
-									<br>
-									<br>
-									<div align="center">
-										<img style="border-radius: 50%;"
-											src="${pageContext.request.contextPath}/resources/images/comment_img1.jpg"
-											alt="comment_img" class="img-responsive img-circle" />
-									</div>
-									<br>
-									<div align="center">
-										<h3>
-											<sec:authorize access="isAuthenticated()">
-												<a class="menu-button" href="#"><sec:authentication
-														property="principal.name" />님</a>
-												<input type="hidden" name="${_csrf.parameterName }"
-													value="${_csrf.token }">
-											</sec:authorize>
-
-										</h3>
-									</div>
-
-								</div>
-								<div class="jp_rightside_job_categories_content">
-									<ul >
-										<li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
-											href="#">예약완료 </a></li>
-										<li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
-											href="#">쿠폰함 </a></li>
-										<li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
-											href="#">포인트 </a></li>
-
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-12">
-							<div
-								class="jp_rightside_job_categories_wrapper jp_rightside_job_categories_wrapper2">
-								<div>
-									<br>
-									<br>
-									<div align="center">
-										<h4>고객센터</h4>
-										<br>
-										<div>
-											<img style="border-radius: 50%;"
-												src="${pageContext.request.contextPath}/resources/images/comment_img1.jpg"
-												alt="comment_img" class="img-responsive img-circle" />
-										</div>
-										<br>
-										<div align="center">
-											<h3>1544-1544</h3>
-										</div>
-										<hr>
-									</div>
-								</div>
-								<br>
-								<div align="center">
-									<h4>카카오톡 1:1 상담</h4>
-									<br>
-									<div>
-										<img style="border-radius: 50%;"
-											src="${pageContext.request.contextPath}/resources/images/comment_img1.jpg"
-											alt="comment_img" class="img-responsive img-circle" />
-									</div>
-								</div>
-
-								<br>
-								<div class="jp_rightside_career_main_content"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- 사이드바 종료 -->
 		</div>
 	</div>
 </div>

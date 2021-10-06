@@ -134,7 +134,7 @@
 										</div>
 									
 										<div class="form-group">
-											<label>상태</label> 
+											<label>상태</label>
 											<select name='status' class="form-control form-control-select2">
 												<option value='status' name='status'>${member.status}</option>
 												<c:if test="${member.status eq 'Y' }"><option value='N' name='status'>N</option></c:if>

@@ -418,7 +418,7 @@
 								memSeq : memSeq				
 						}),
 						success: function(response) {
-							location.href = 'paymentFin';
+							location.href = 'paymentFin?seq=' + 120;
 						},
 						error: function(xhr, status, message){
 							alert('status: ' + status + ' er: ' + message);

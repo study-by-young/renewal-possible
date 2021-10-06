@@ -44,4 +44,11 @@ public interface MemberService {
 
 		//회원 권한 변경
 		public int authorUpdate(MemberVO vo);
+		
+		//회원 내정보 수정 비밀번호
+		public int memberPassUpdate(MemberVO vo);
+		
+		//회원 내정보 현재 비밀번호 체크
+		public String passCheck(MemberVO vo);
+		
 }

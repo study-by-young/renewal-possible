@@ -55,6 +55,7 @@
 				<option value="I" ${pageMaker.cri.type =='I'? 'selected' : "" }>아이디</option>
 				<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>이름</option>
 				<option value="P" ${pageMaker.cri.type =='P'? 'selected' : "" }>전화번호</option>
+				<option value="A" ${pageMaker.cri.type =='P'? 'selected' : "" }>권한</option>
 			</select> <input class="input" name="keyword" value="${pageMaker.cri.keyword }"> <input
 				type="hidden" name="pageNum" value="1"> <input type="hidden"
 				name="amount" value="${pageMaker.cri.amount }">
@@ -69,6 +70,7 @@
 					<th>아이디</th>
 					<th>전화번호</th>
 					<th>이름</th>
+					<th>권한</th>
 					<th>상세보기</th>
 				</tr>
 			</thead>
@@ -79,6 +81,7 @@
 					<td>${memberList.id}</td>
 					<td>${memberList.phone }</td>
 					<td>${memberList.name }</td>
+					<td>${memberList.author }</td>
 					<td><a class="move" href="${memberList.seq }">상세보기</a></td>
 				</tr>
 			</c:forEach>

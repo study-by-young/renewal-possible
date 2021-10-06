@@ -2,6 +2,7 @@ package com.yedam.possable.app.community.notice.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -76,5 +77,11 @@ public class NoticeServiceImpl implements NoticeService {
 	public NoticeFileVO attachRead(String name) {
 		// TODO Auto-generated method stub
 		return noticeFileMapper.attachRead(name);
+	}
+
+	@Override
+	public List<NoticeFileVO> getAttachList(@Param("seq") Long noticeSeq) {
+		// TODO Auto-generated method stub
+		return noticeFileMapper.findBySeq(noticeSeq);
 	}
 }

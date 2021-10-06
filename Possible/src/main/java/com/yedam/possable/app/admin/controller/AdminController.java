@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.common.code.mapper.CodeMapper;
+import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.member.domain.MemberVO;
@@ -31,7 +33,7 @@ public class AdminController {
 
 	@Autowired MemberService memberService;
 	@Autowired CompanyService companyService;
-	 @Autowired CodeMapper codeMapper;
+	@Autowired CodeService codeService;
 
 
 	//회원관리 - 전체조회
@@ -72,15 +74,25 @@ public class AdminController {
 	 //업체상세 페이지
 	 @GetMapping("/companyOneSelect")
 		 public String companyOneSelect(Model model, CompanyVO vo) {
-
-		 model.addAttribute("comRegList", companyService.companyOneSelect(vo));
+		 vo = companyService.companyOneSelect(vo);
+		 
+		 String status = codeService.getCodeByValue(vo.getStatus()).getName();
+		 
+		 model.addAttribute("comRegList", vo);
+		 model.addAttribute("status", status);
 			 return "admin/companyOneSelect";
 		 }
 
 	//업체승인 처리
 	@PostMapping("/companyOneSelect")
-		public String companyReg(CompanyVO vo, RedirectAttributes rttr) {
-
+		public String companyReg(CompanyVO vo, @RequestParam("memSeq") Long memSeq, RedirectAttributes rttr) {
+			
+			MemberVO memVo = new MemberVO();
+			memVo.setSeq(memSeq);
+			memVo.setAuthor("COMPANY");
+			vo.setMemSeq(memSeq);
+			memberService.authorUpdate(memVo);
+		
 			int result = companyService.companyRegUpdate(vo);
 			if(result == 1) {
 				rttr.addFlashAttribute("result", "success");
@@ -95,7 +107,7 @@ public class AdminController {
 		if(result == 1) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		return "redirect:/admin/companyList";
+		return "redirect:/admin/companyRegList";
 	}
 
 	//업체정보관리 페이지
@@ -109,10 +121,7 @@ public class AdminController {
 			return "admin/companyList";
 	    }
 
-
-
-
-
+		 
 //	 //업체상세 페이지(아작스 테스트..)
 //	 @GetMapping("/{seq}")
 //	 @ResponseBody

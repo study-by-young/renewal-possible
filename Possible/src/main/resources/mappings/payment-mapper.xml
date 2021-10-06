@@ -58,11 +58,18 @@
 		AND STATUS = '예약완료'
 	</select>
 	
-	<!-- 결제취소 시 DB 처리 -->
+	<!-- 결제취소 시 RENT_HISTORY 테이블 처리 -->
 	<update id="paymentCancel">
 		UPDATE RENT_HISTORY
 		SET STATUS = '예약취소'
 		WHERE MERCHANT_UID = #{merchantUid}
+	</update>
+	
+	<!-- 결제취소 시 CAR 테이블 처리 -->
+	<update id="rentCancel">
+		UPDATE CAR
+		SET STATUS = 'CST01'
+		WHERE SEQ = #{seq}
 	</update>
 	
 </mapper>

@@ -6,6 +6,7 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
@@ -144,7 +146,21 @@ public class MemberController {
 		log.info(r+ "비밀번호 찾기 부분 오긴 오냐?");
 		return r;
 	}
-
-
-
+	
+	//회원 정보수정하기 비밀번호 변경
+	@PostMapping("/memberPassUpdate")
+	@ResponseBody
+	public int memberPassUpdate(MemberVO vo) { //  Sring id, String password
+		int r = memberService.memberPassUpdate(vo);
+		log.info(r+"넌 누구니?");
+		return r;
+	}
+	//회원 정보수정하기전 비밀번호 체크
+	@PostMapping("/passCheck")
+	@ResponseBody
+	public String passCheck( MemberVO vo) {
+		String r = memberService.passCheck(vo);
+		
+		return r;
+	}
 }

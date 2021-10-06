@@ -7,5 +7,5 @@ public class CodeSubVO {
     private String code;
     private String name;
 
-    private Long masterCode;
+    private String masterCode;
 }

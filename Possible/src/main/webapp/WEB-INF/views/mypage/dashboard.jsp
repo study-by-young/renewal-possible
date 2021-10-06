@@ -31,7 +31,6 @@
                   <div class="col-md-12">
                      <div class="lr_bc_first_box_main_wrapper">
 					
-				
                         <!-- 메뉴 -->
                         <div class="lr_bc_first_box_img_cont_wrapper">
                            <ul>
@@ -48,7 +47,7 @@
                         <!-- 렌트현황,후기,여행코스 제목 누르면 관련 페이지로 이동 -->
                         <div class="col-md-12">
                            <div class="blog_single_comment_heading">
-                              <h4><a href="${pageContext.request.contextPath}/rentHistory">렌트내역</a></h4>
+                              <h4><a href="${pageContext.request.contextPath}/rentHistory">회원정보수정</a></h4>
                            </div>
                               <div class="dash">
                                  <table class="table">
@@ -127,7 +126,7 @@
          <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
             <div class="x_blog_right_side_wrapper float_left">
                <div class="row">
-
+				<%-- <sec:authentication property=""/> --%>
                   <div class="col-md-12">
                      <div
                         class="jp_rightside_job_categories_wrapper jp_rightside_job_categories_wrapper2">
@@ -144,7 +143,7 @@
                            <h3>
 								<sec:authorize access="isAuthenticated()">
 									<a class="menu-button" href="#"><sec:authentication
-										property="principal.username" />님</a>
+										property="principal.name" />님</a>
 									<input type="hidden" name="${_csrf.parameterName }"
 										value="${_csrf.token }">
 								</sec:authorize>
@@ -164,12 +163,13 @@
                               <li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
                                  href="${pageContext.request.contextPath}/mypage/chngRole">업체전환 </a></li>
 							  </c:if>
-							  
-							   <c:if test="${member.author eq 'COMPANY'}">
+							
+							  <c:if test="${member.author eq 'COMPANY'}">
                               <li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
-                                 href="${pageContext.request.contextPath}/companyDashboard?comSeq=${company.seq}">업체페이지로 이동 </a></li>
+                                 href="${pageContext.request.contextPath}/companyDashboard">업체페이지로 이동 </a></li>
 							  </c:if>
                            </ul>
+                            
                         </div>
                      </div>
                   </div>
@@ -214,5 +214,11 @@
       </div>
    </div>
 </div>
-  
+  <c:if test="${denyMsg != null}">
+		alert(denyMsg);
+	</c:if>
 <!-- x blog main and sidebar Wrapper End -->
+
+<script>
+	
+</script>

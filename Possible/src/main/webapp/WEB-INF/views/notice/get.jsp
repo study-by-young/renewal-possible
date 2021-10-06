@@ -26,12 +26,12 @@
 		<input type="hidden" id="amount" name="amount"
 			value='<c:out value="${cri.amount}"/>'>
 	</form>
-	
+	ddd  ${notice.attachList}
 	<div class="form-group"><br>
-         <!-- 첨부파일 -->
-            <c:forEach var="attach" items="${notice.attachList }">
-               <p><a href="download?name=${attach.name}">${attach.orgName}</a></p>
-            </c:forEach>
+	    <!-- 첨부파일 -->
+	    <c:forEach var="attach" items="${notice.attachList}">
+	       <p><a href="download?name=${attach.name}">${attach.orgName}</a></p>
+	    </c:forEach>
     </div>
 	
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"

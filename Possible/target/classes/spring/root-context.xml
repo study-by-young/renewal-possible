@@ -8,12 +8,12 @@
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-    <!-- Root Context: defines shared resources visible to all other web components
-    <bean id="jdbcProp"
-          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:properties/global.properties"/>
-    </bean>
-    -->
+    <!-- Root Context: defines shared resources visible to all other web components -->
+<!--    <bean id="jdbcProp"-->
+<!--          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+<!--        <property name="location" value="classpath:properties/global.properties"/>-->
+<!--    </bean>-->
+
     <context:property-placeholder location="classpath:properties/*.properties"/>
 
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
@@ -29,7 +29,7 @@
       <property name="host" value="smtp.naver.com"/> <!-- 메일서버 호스트 -->
       <property name="port" value="465"/>      <!-- 메일서버 포트번호 -->
       <property name="username" value="geonhard@naver.com"/>   <!-- 본인 이메일 -->
-      <property name="password" value="password"/>   <!-- 이메일 비밀번호 --> <!-- 테스트 진행후 비밀번호 password로 변경 요망 -->
+      <property name="password" value="YeDamchlwhd!234"/>   <!-- 이메일 비밀번호 --> <!-- 테스트 진행후 비밀번호 password로 변경 요망 -->
       <property name="defaultEncoding" value="utf-8" />
 
       <!-- 보안연결 SSL과 관련된 설정 -->

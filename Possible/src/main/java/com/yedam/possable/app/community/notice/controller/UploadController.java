@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,13 +14,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.yedam.possable.app.community.notice.domain.NoticeFileVO;
 import com.yedam.possable.app.community.notice.domain.NoticeVO;
+import com.yedam.possable.app.community.notice.service.NoticeService;
 
 @Controller
 public class UploadController {
 	
+	@Autowired NoticeService noticeService;
+	
 	@PostMapping("/uploadAjaxAction")
 	@ResponseBody
 	public List<NoticeFileVO> uploadAjaxAction(MultipartFile[] uploadFile, NoticeVO vo) throws IllegalStateException, IOException {
+		System.out.println(vo);
 		List<NoticeFileVO> list = new ArrayList<NoticeFileVO>();
 		String path = "c:/upload";
 		for (int i = 0; i < uploadFile.length; i++) {
@@ -35,7 +40,7 @@ public class UploadController {
 				attach.setOrgName(fileName);
 				list.add(attach);
 			}
-		}	
+		}
 		return list;
 	}
 
