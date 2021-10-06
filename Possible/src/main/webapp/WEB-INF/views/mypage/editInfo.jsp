@@ -79,10 +79,10 @@
                            </div>
                    		 <div class="card">
                         	<div class="card-body">
-                        		<form id="frm" name="frm" action="memberInsert" method="post">
+                        		<form id="memberInfofrm" name="memberInfofrm" action="../memberInfoUpdate" method="post">
                         			<div class="row">
 	                        			<div class="form-group col-md-6 col-sm-6" >
-	                                	<label for="InputEmail" >아이디</label>
+	                                	<label for="InputId" >아이디</label>
 	                                    	<input type="text" class="form-control" id="id" name="id" disabled="disabled" value="<sec:authentication property="principal.id"/>" >
 	                               		</div>
                         			</div>
@@ -96,7 +96,7 @@
 	                                
   									<div class="row">
   										<div class="form-group col-md-6 col-sm-3">
-  											 <label for="Inputname" >비밀번호</label>
+  											 <label for="InputPass" >비밀번호</label>
   											 <div class="form-group"> 
 	                                    	 	<button type="button" class="btn btn-primary" id="passUpdateBtn" data-toggle="modal" data-target="#passChange">비밀번호 변경</button>
 	                                		 </div>
@@ -106,7 +106,7 @@
 	                           		<!-- 번호 Start-->
   	                      			<div class="row">
                       					<div class="form-group col-md-12 col-sm-6 col-xs-12">
-                      				 		<label for="InputAddr">휴대전화*</label>
+                      				 		<label for="InputPhone">휴대전화*</label>
 	                      				 	<div class="form-group"> 
                        							<input type="text" class="form-control" id="phone" name="phone" value="<sec:authentication property="principal.phone"/>" style="width: 60%; display: inline;">
 										 		                      
@@ -116,21 +116,36 @@
   	                      				<!-- 번호 end -->
 	                                <div class="row">
   										<div class="form-group col-md-6 col-sm-3">
-  										<label for="Inputname">생년월일</label>
+  										<label for="Inputbirth">생년월일</label>
 	                                    	<input type="text" class="form-control"  id="birth" name="birth" disabled="disabled" value="<sec:authentication property="principal.birth"/>" >
 	                                	</div>
 	                                </div>
 	                                
 	                                <div class="row">
   										<div class="form-group col-md-6 col-sm-3">
-  											<label for="Inputname" >이메일</label>
+  											<label for="Inputemail" >이메일</label>
 	                                    	<input type="text" class="form-control"  id="email" name="email"  value="<sec:authentication property="principal.email"/>" >
 	                                	</div>
 	                                </div>
                       				<!-- 우편번호 Start -->
+                      						
+                        				<!-- 우편번호 Start -->
+                      						<label for="InputAddr">주소*</label>	
+                        				<div class="form-group"> 
+                        					<input type="text" class="form-control" id="addrCode" name="addrCode" placeholder="우편번호" style="width: 60%; display: inline;">
+											 <button type="button" class="btn btn-default" onclick="DaumPostcode();"><i class="fa fa-search"></i> 우편주소 변경</button>                      
+                        				</div>
+                        				<div class="form-group"> 
+											<input type="text" class="form-control" id="addrBasic" name="addrBasic" placeholder="주소" value="<sec:authentication property="principal.addrBasic"/>">
+										</div>
+										<div class="form-group"> 
+											<input type="text" class="form-control" id="addrDetail" name="addrDetail" placeholder="상세주소" style="width: 50%; display: inline;" value="<sec:authentication property="principal.addrDetail"/>">
+											<input type="text" class="form-control" id="extraAddress" placeholder="참고항목" style="width: 40%; display: inline;">
+  	                      				</div>
+  	                      				<!-- 주소 종료 -->
                       			    <div class="form-group"> 
                     			  		<label for="InputAddr">주소*</label>	
-										<input type="text" class="form-control" id="addrBasic" name="addrBasic" placeholder="주소" value="<sec:authentication property="principal.addrBasic"/>">
+										<input type="text" class="form-control" id="addrBasic" name="addrBasic" placeholder="주소" >
 								    </div>
 								  	<div class="form-group"> 
 									  	<input type="text" class="form-control" id="addrDetail" name="addrDetail" placeholder="상세주소"  value="<sec:authentication property="principal.addrDetail"/>" style="width: 50%; display: inline;">
@@ -253,30 +268,31 @@
 		</div>
 		
 			<div id="passwordChange" >
-				<div class="row">
-					<div class="form-group col-md-12 col-sm-6 col-xs-12">
-			      		<label for="InputEmail">현재 비밀번호</label>
-			          	<input type="password" class="form-control passChk" name="originalPass" id="originalPass" placeholder="현재 비밀번호 입력*" style="width: 60%;">
-						<span id="orignalPassCheckMassage"></span>
+				<form id="passUpdatefrm" name="passUpdatefrm">
+					<div class="row">
+						<div class="form-group col-md-12 col-sm-6 col-xs-12">
+				      		<label for="InputEmail">현재 비밀번호</label>
+				          	<input type="password" class="form-control passChk" name="originalPass" id="originalPass" placeholder="현재 비밀번호 입력*" style="width: 60%;">
+							<span id="orignalPassCheckMassage"></span>
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="form-group col-md-12 col-sm-6 col-xs-12">
-			      		<label for="InputEmail">변경할 비밀번호</label>
-			          	<input type="password" class="form-control passChk" name="password" id="password" placeholder="변경 비밀번호 입력*" style="width: 60%;">
+					<div class="row">
+						<div class="form-group col-md-12 col-sm-6 col-xs-12">
+				      		<label for="InputEmail">변경할 비밀번호</label>
+				          	<input type="password" class="form-control passChk" name="password" id="password" placeholder="변경 비밀번호 입력*" style="width: 60%;">
+						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="form-group col-md-12 col-sm-6 col-xs-12">
-			      		<label for="InputEmail">변경할 비밀번호 확인</label>
-			          	<input type="password" class="form-control passChk" name="passwordChk" id="passwordChk" placeholder="변경 비밀번호 입력 확인*" style="width: 60%;">
-							<span id="passCheckMassage"></span>
+					<div class="row">
+						<div class="form-group col-md-12 col-sm-6 col-xs-12">
+				      		<label for="InputEmail">변경할 비밀번호 확인</label>
+				          	<input type="password" class="form-control passChk" name="passwordChk" id="passwordChk" placeholder="변경 비밀번호 입력 확인*" style="width: 60%;">
+								<span id="passCheckMassage"></span>
+						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<button id="PassBtn" name="PassBtn" type="button" class="btn btn-primary btn-block">비밀번호 변경</button>
-					<button type="button" class="btn btn-danger btn-block" data-dismiss="modal">취소</button>
-				</div>
+					<div class="form-group">
+						<button id="PassBtn" name="PassBtn" type="button" class="btn btn-primary btn-block">비밀번호 변경</button>
+					</div>
+				</form>
 			</div>
 		</div>
       <!-- 모달 BodyEnd -->
@@ -287,8 +303,15 @@
 <!-- Modal End --> 
 <script>
 $(function(){
-	
+	var matchPass = "";
 	var id = $('input[name=id]').val();
+	//모달창 버튼 클릭시 값 초기화
+	$('#PassCloseClick').on("click", function(){
+		passUpdatefrm.reset();
+		$("#orignalPassCheckMassage").remove();
+		$("#passCheckMassage").remove();
+	});
+	
 	//현재 비밀번호 체크
 	$('#originalPass').blur(function(){
 		var checkResult = $("#orignalPassCheckMassage");
@@ -301,16 +324,21 @@ $(function(){
 			success : function(data){
 				if(data == 1) {
 					checkResult.html("비밀번호가 일치합니다.");
-			        checkResult.attr("class", "correct");	
+			        checkResult.attr("class", "correct");
+			        
 				} else {
 					checkResult.html("비밀번호가 일치하지 않습니다.");
 			 	    checkResult.attr("class", "incorrect");
 				}
+				matchPass = data;
+				
+				
+				
 			}
 			
 		});
 	});
-	
+	var ar = $().val('');
 	//비밀번호 비밀번호 재확인란
 	$('#passwordChk').blur(function(){
 	 	var checkResult = $("#passCheckMassage"); // 비교 결과 
@@ -332,6 +360,11 @@ $(function(){
 		
 		if(!$("#originalPass").val()) {
 			alert("현재 비밀번호를 입력해주세요.");
+			$("#originalPass").focus();
+			return false;
+		}
+		if(matchPass != true ){
+			alert("현재 비밀번호가 같지 않습니다, 다시 입력해주세요.");
 			$("#originalPass").focus();
 			return false;
 		}
@@ -362,7 +395,10 @@ $(function(){
 		    },
 		});
 	});
-	
+	//회원 정보(이메일, 전화번호, 주소) 변경
+	$("#registerBtn").on("click", function(){
+		
+	});
 	
 });
 </script>

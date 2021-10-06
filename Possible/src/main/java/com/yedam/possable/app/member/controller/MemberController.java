@@ -2,6 +2,7 @@ package com.yedam.possable.app.member.controller;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -158,8 +159,22 @@ public class MemberController {
 	//회원 정보수정하기전 비밀번호 체크
 	@PostMapping("/passCheck")
 	@ResponseBody
-	public String passCheck( MemberVO vo) {
-		String r = memberService.passCheck(vo);
+	public boolean passCheck( MemberVO vo, HttpServletRequest request, Authentication authentication) {
+		//String r = memberService.passCheck(vo);
+		String pass = request.getParameter("password"); //jsp에서 보낸 놈
+		System.out.println("JSP에서 들고온 비밀번호:" + pass); 
+		MemberVO getPass = memberService.getUserById(vo.getId()); // 디비 안에 있는 ID소환
+		System.out.println("디비에서 들고온놈" + getPass);
+		Boolean matchPass = bcryptPasswordEncoder.matches(pass, getPass.getPassword()); //비교
+		System.out.println(matchPass);
+		return matchPass;
+	}
+	
+	//회원 내정보 수정(휴대폰번호,이메일,주소)
+	@PostMapping("/memberInfoUpdate")
+	@ResponseBody
+	public int memberInfoUpdate(MemberVO vo) {
+		int r = memberService.memberInfoUpdate(vo);
 		
 		return r;
 	}

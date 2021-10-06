@@ -26,55 +26,55 @@ public class MypageController {
 	@Autowired CompanyService companyService;
 	@Autowired CodeService codeService;
 
-	//마이페이지 대쉬보드
+	//마이페이지 대쉬보드 페이지
 		@GetMapping("/dashboard")
 		public String dashboard(HttpSession session) {
 			return "mypage/dashboard";
 		}
 
-		//마이페이지 회원정보수정
+		//마이페이지 회원정보수정 페이지
 		@GetMapping("/editInfo")
 		public String editInfo() {
 			return "mypage/editInfo";
 		}
 
-		//마이페이지 견적관리
+		//마이페이지 견적관리 페이지
 		@GetMapping("/eslist")
 		public String eslist() {
 			return "mypage/estimate/list";
 		}
 
-		//마이페이지 견적관리 상세
+		//마이페이지 견적관리 상세 페이지
 		@GetMapping("/esinfo")
 		public String esinfo() {
 			return "mypage/estimate/info";
 		}
 
-		//마이페이지 렌트내역
+		//마이페이지 렌트내역 페이지
 		@GetMapping("/rentHistory")
 		public String rentHistory() {
 			return "mypage/rentHistory";
 		}
 
-		//마이페이지 후기 작성
+		//마이페이지 후기 작성 페이지
 		@GetMapping("/review")
 		public String review() {
 			return "mypage/review/write";
 		}
 
-		//마이페이지 커뮤니티 관리
+		//마이페이지 커뮤니티 관리 페이지
 		@GetMapping("/community")
 		public String community() {
 			return "mypage/community";
 		}
 
-		//마이페이지 나의 문의
+		//마이페이지 나의 문의 페이지
 		@GetMapping("/qna")
 		public String qna() {
 			return "mypage/qna";
 		}
 
-		//업체전환 신청 페이지
+		//업체전환 신청 페이지 페이지
 		@GetMapping("/chngRole")
 		public String chngRole(Model model, HttpSession session) {
 

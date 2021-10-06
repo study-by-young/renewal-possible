@@ -88,12 +88,7 @@
 		FROM MEMBER
 		WHERE name = #{name} AND birth = #{birth} AND status='Y'
 	</select>
-	
-	<!-- 회원 내정보 비밀번호 변경 확인 체크 -->
-	<select id="passCheck" resultType="int">
-		SELECT NVL(password,0)
-		FROM MEMBER WHERE id = #{id} AND PASSWORD = #{password}
-	</select>
+
 	<!-- 회원등록 -->
 	<insert id="memberInsert">
 		<selectKey keyProperty="seq" resultType="Long" order="BEFORE">
@@ -183,5 +178,14 @@
 	<update id="memberPassUpdate">
 		UPDATE MEMBER SET PASSWORD = #{password}
 		WHERE ID = #{id}
+	</update>
+	
+	<!-- 회원 내정보수정(휴대폰번호,이메일,주소) -->
+	<update id="memberInfoUpdate">
+	UPDATE MEMBER SET PHONE = #{phone},
+                  EMAIL = #{email},
+                  ADDR_BASIC = #{addrBasic},
+                  ADDR_DETAIL = #{addrDetail}
+	WHERE ID = #{id}
 	</update>
 </mapper>

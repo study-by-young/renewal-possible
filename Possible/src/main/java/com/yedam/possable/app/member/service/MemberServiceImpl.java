@@ -123,10 +123,11 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String passCheck(MemberVO vo) {
-		// TODO 회원 내정보 현재 비밀번호 체크
-		return memberMapper.passCheck(vo);
+	public int memberInfoUpdate(MemberVO vo) {
+		// TODO 회원 내정보 수정(휴대폰번호,이메일,주소)
+		return memberMapper.memberInfoUpdate(vo);
 	}
+
 
 
 
