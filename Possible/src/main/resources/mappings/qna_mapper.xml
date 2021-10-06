@@ -73,6 +73,7 @@
 		SET TITLE = #{title}
 		  , CONTENT = #{content}
 		  , WRITER = #{writer}
+		  , UPT_DATE = SYSDATE
 		WHERE SEQ = #{seq}
 	</update>
 	
