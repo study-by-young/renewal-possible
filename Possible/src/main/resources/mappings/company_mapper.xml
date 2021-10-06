@@ -153,5 +153,15 @@
         FROM item_option
         WHERE cmpn_seq = #{seq}
     </select>
+    
+    <!-- 수익차트... -->
+    <select id="companyIncome" resultType="java.util.HashMap">
+	select to_char(trunc(r.gen_date),'YYYYMMDD') gen_date, sum(r.price) price
+	from rent_history r join car c
+	on r.car_seq = c.seq
+	where c.cmpn_seq = 1
+	group by to_char(trunc(r.gen_date),'YYYYMMDD'), c.cmpn_seq
+	order by to_char(trunc(r.gen_date),'YYYYMMDD')
+    </select>
 </mapper>
 
