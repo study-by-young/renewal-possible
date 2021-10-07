@@ -91,7 +91,7 @@ public class CompanyController {
     	HashMap<String, Object> map = companyService.companyIncome();
     	System.out.println(map);
     	
-        return "admin/incomeTest";
+        return "company/incomeTest";
     }
 }
 
