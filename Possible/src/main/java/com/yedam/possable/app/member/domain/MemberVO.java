@@ -14,7 +14,7 @@ import lombok.Data;
 
 @Data
 @SuppressWarnings("serial")
-public class MemberVO implements UserDetails {
+public class MemberVO implements UserDetails{
 	private Long seq;
 	private String id;
 	private String password;

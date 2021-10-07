@@ -32,7 +32,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         HttpSession session = request.getSession();
         session.setAttribute("member", authentication.getPrincipal());
-        log.info(session.getAttribute("member").toString());
+        log.info(authentication.getPrincipal().toString());
 
         String path = request.getContextPath();
         if (roleNames.contains("ROLE_ADMIN")) {

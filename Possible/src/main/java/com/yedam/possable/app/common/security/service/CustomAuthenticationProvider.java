@@ -7,10 +7,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -19,17 +22,15 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         UserDetails user = customUserDetailsService.loadUserByUsername(id);
 
-        if(!user.getPassword().equals(password)){
+        if(!password.equals(user.getPassword())){
             throw new BadCredentialsException("miss match password");
         }
-        if(!authentication.getAuthorities().containsAll(user.getAuthorities())){
-            throw new BadCredentialsException("No authorities");
-        }
+
         return new UsernamePasswordAuthenticationToken(id, password, user.getAuthorities());
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return false;
+        return true;
     }
 }

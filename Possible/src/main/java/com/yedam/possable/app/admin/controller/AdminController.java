@@ -12,7 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
-import com.yedam.possable.app.common.code.mapper.CodeMapper;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
@@ -20,6 +19,8 @@ import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
 
 import lombok.extern.java.Log;
+
+import java.security.Principal;
 
 @Log
 @Controller
@@ -75,9 +76,9 @@ public class AdminController {
 	 @GetMapping("/companyOneSelect")
 		 public String companyOneSelect(Model model, CompanyVO vo) {
 		 vo = companyService.companyOneSelect(vo);
-		 
+
 		 String status = codeService.getCodeByValue(vo.getStatus()).getName();
-		 
+
 		 model.addAttribute("comRegList", vo);
 		 model.addAttribute("status", status);
 			 return "admin/companyOneSelect";
@@ -86,13 +87,13 @@ public class AdminController {
 	//업체승인 처리
 	@PostMapping("/companyOneSelect")
 		public String companyReg(CompanyVO vo, @RequestParam("memSeq") Long memSeq, RedirectAttributes rttr) {
-			
+
 			MemberVO memVo = new MemberVO();
 			memVo.setSeq(memSeq);
 			memVo.setAuthor("ROLE_COMPANY");
 			vo.setMemSeq(memSeq);
 			memberService.authorUpdate(memVo);
-		
+
 			int result = companyService.companyRegUpdate(vo);
 			if(result == 1) {
 				rttr.addFlashAttribute("result", "success");
@@ -121,7 +122,7 @@ public class AdminController {
 			return "admin/companyList";
 	    }
 
-		 
+
 //	 //업체상세 페이지(아작스 테스트..)
 //	 @GetMapping("/{seq}")
 //	 @ResponseBody
