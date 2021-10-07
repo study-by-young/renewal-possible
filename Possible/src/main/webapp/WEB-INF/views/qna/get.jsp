@@ -44,9 +44,9 @@
 	<div class="row">
 		<div class="panel-heading">
 			<form id="answerForm">
-				<input type="hidden" id="bno" name="bno" value="${board.bno}">
-				<input id="replyer" name="replyer" value="user10">
-				<input id="reply" name="reply" size="30">
+				<input type="hidden" id="seq" name="seq" value="${qna.seq}">
+				<input id="writer" name="writer" value="user10">
+				<input id="content" name="content" size="30">
 				<!-- 버튼 -->
 				<button type="button" id="saveAnswer">답변등록</button>
 				<button type="button" id="updateAnswer">수정</button>
@@ -131,6 +131,198 @@
 	
 	
 	
+	$(function() {
+		
+		$('#saveAnswer').click(function() {
+			console.log("들어오겠냐?");
+			var content = $('#content').val();
+				writer = $('#writer').val();
+				seq = $('#seq').val();
+			
+			$.ajax({
+				url : '../answer/',
+				type : 'POST',
+				dataType : 'json',
+				success : function(result) {
+					qnaAnswerList();
+					$('#content').val('');
+					$('#writer').val('');
+				},
+				error : function(error) {
+					console.log("에러 : " + error);
+				}
+			})
+		})
+	})
 	
 	
+/* 	const qnaSeq = "${qna.seq}";
+	
+	$(document).ready(function() {
+		
+		qnaAnswerList();
+		
+		$('#saveAnswer').on('click', function() {
+			qnaAnswerService.add(function(data) {
+				$('.chat').append(makeLi(data));
+			});
+		});
+		
+		function qnaAnswerList(page) {
+			
+			$.ajax({
+				url : '../answer/',
+				data : {
+					qnaSeq : qnaSeq
+				},
+				dataType : 'json',
+				success : function(datas) {
+					var str = "";
+					for (i = 0; i < datas.list.length; i++) {
+						str += makeLi(datas.list[i]);
+					}
+					$('.chat').html(str);
+					
+					showQnaAnswerPage(datas.qnaAnswerCnt);
+				}
+			});
+		}
+		
+		function makeLi(data) {
+			return '<li data-seq="' + data.seq + '"class="left clearfix">'
+					+ '	<div>'
+					+ '		<div class="header">'
+					+ '			<strong class="primary-font">'
+					+ data.writer
+					+ '</strong>'
+					+ '			<small class="pull-right text-muted">'
+					+ displayTime(data.genDate)
+					+ '</small>'
+					+ '			<p>'
+					+ data.content
+					+ '</p>'
+					+ '			<p align="right"><button id="readReply">보기</button>&nbsp;<button id="deleteReply">삭제</button></p>'
+					+ '		</div>' + '	</div>' + '</li>'
+		}
+		
+		$('body')
+		.on(
+				'click',
+				'#readQnaAnswer',
+				function() {
+					var seq = $(this).closest('li')
+							.data('seq');
+					$.ajax({
+						uri : '../answer/' + seq,
+						type : 'GET',
+						dataType : 'json',
+						error : function(xhr, status,
+								msg) {
+							alert("상태값 :" + status
+									+ " Http에러메시지 :"
+									+ msg);
+						},
+						success : qnaAnswerSelectResult
+					});
+				});		
+		
+		function qnaAnswerSelectResult(data) {
+			$('input:text[name="writer"]').val(data.writer);
+			$('input:text[name="content"]').val(data.content);
+		}
+		
+		$('body').on('click', '#updateAnswer', function() {
+			var writer = $(
+					'input:text[name="writer"]')
+					.val();
+			var content = $(
+					'input:text[name="content"]')
+					.val();
+
+			$
+					.ajax({
+						url : '../answer/',
+						type : 'put',
+						dataType : 'json',
+						data : JSON.stringify({
+							writer : writer,
+							content : content
+						}),
+						contentType : 'application/json',
+						error : function(xhr,
+								status, msg) {
+							alert("상태값 :"
+									+ status
+									+ " Http에러메시지 :"
+									+ msg);
+						},
+						success : function(data) {
+							qnaAnswerList();
+						}
+					});
+		});		
+		
+		$('body').on('click', '#deleteQnaAnswer', function() {
+			var seq = $(this).closest('li')
+					.data('seq');
+			var result = confirm('정말로 삭제하시겠습니까?');
+			var li = $(this).closest('li');
+			if (result) {
+				$.ajax({
+							url : '../answer/'
+									+ seq,
+							type : 'DELETE',
+							dataType : 'json',
+							error : function(
+									xhr,
+									status, msg) {
+								console
+										.log("상태값 :"
+												+ status
+												+ " Http에러메시지 :"
+												+ msg);
+							},
+							success : function(
+									xhr) {
+								if (xhr == true) {
+									console
+											.log(xhr.result);
+									li.remove();
+									alert("삭제완료");
+								}
+							}
+						}); // ajax 끝
+			} // if
+		}); // 삭제버튼 클릭		
+	
+		function displayTime(timeValue) {
+			const today = new Date();
+
+			const gap = today.getTime() - timeValue;
+
+			const dateObj = new Date(timeValue);
+
+			let str = "";
+
+			if (gap < (1000 * 60 * 60 * 24)) {
+
+				let hh = dateObj.getHours();
+				let mi = dateObj.getMinutes();
+				let ss = dateObj.getSeconds();
+
+				return [ (hh > 9 ? '' : '0') + hh, ':',
+						(mi > 9 ? '' : '0') + mi, ':',
+						(ss > 9 ? '' : '0') + ss ].join('');
+			} else {
+				let yy = dateObj.getFullYear();
+				let mm = dateObj.getMonth() + 1;
+				let dd = dateObj.getDate();
+				return [ yy, '/', (mm > 9 ? '' : '0') + mm,
+						'/', (dd > 9 ? '' : '0') + dd ]
+						.join('');
+			}
+		}		
+		
+	})
+ */	
 </script>
