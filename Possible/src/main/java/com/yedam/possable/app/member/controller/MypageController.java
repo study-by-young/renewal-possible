@@ -42,8 +42,9 @@ public class MypageController {
 			HttpSession session = request.getSession();
 			
 			loginUser = (MemberVO) session.getAttribute("member");
-			System.out.println(loginUser.toString());
-			System.out.println("야 뒤질래?"+ memberService.read(loginUser));
+			//
+			//
+			System.out.println("야?"+ memberService.read(loginUser));
 			model.addAttribute("memberList", memberService.read(loginUser));
 			return "mypage/editInfo";
 		}

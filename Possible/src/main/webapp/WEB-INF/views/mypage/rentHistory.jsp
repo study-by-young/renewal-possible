@@ -15,6 +15,20 @@
     -moz-border-radius: 10px;
     border-radius: 10px;
 }
+.x_car_offer_starts_list_img {
+    float: left;
+    width: 250px;
+    padding-top: 75px;
+   /*  border-right: 1px solid #eeeeee; */
+}
+.x_car_offer_heading ul {
+    width: 100%;
+    float: left;
+    border-top: 0px solid #eeeeee; 
+    border-bottom: 1px solid #eeeeee;
+    margin-top: 30px;
+    border-left : 0px solid #eeeeee;
+}
 
 </style>
 
@@ -127,6 +141,56 @@
 											</div>
 										</div>
 									</div>
+										<div class="dash x_car_offer_main_boxes_wrapper float_left">
+											<div class="x_car_offer_starts x_car_offer_starts_list_img float_left border-1">
+												<img src="${pageContext.request.contextPath}/resources/images/cars/Hyundai/santafe.png" alt="img" class="img-fluid">
+											</div>
+											<div class="x_car_offer_starts_list_img_cont border-left">
+												
+												<div class="row">
+													<div class="col-8 x_car_offer_heading_listing float_left">
+														<label for="inputRentOrReturn"class="h5">대여/반납일</label>
+														<p class="h6">2021-10-01 ~ 2021-10-10</p>
+													</div>
+													<div class="col-2"></div>
+													<div class="col-2 x_car_offer_heading_listing float_left">
+    													<button type="button" class="btn btn-sm" onclick="location.href='review'"
+																style="background: #4f5dec; color: #ffffff; ">
+																후기작성
+														</button>
+    												</div>
+												</div>
+											
+												<div class="row">
+    												<div class="col-12 x_car_offer_heading x_car_offer_heading_listing float_left">
+					    							<ul class="">
+					    								<li>차량</li>
+					    								<li style="text-align: right;">현대 2021 new Santafe</li>
+					    								<li>대여업체</li>
+					    								<li style="text-align: right;">씽씽렌트카</li>
+					    								<li>보험</li>
+					    								<li style="text-align: right;">완전자차</li>
+					    								<li>수령장소</li>
+					    								<li style="text-align: right;">Barcelona Airport</li>
+					    								
+					    							</ul>
+    												</div>
+    												
+  												</div>
+  												<div class="row">
+  												<div class="col-12 x_car_offer_heading x_car_offer_heading_listing float_left">
+						    							<ul class="">
+						    								<li>결제금액</li>
+						    								<li>{}원</li>
+						    								<li>결제방법</li>
+						    								<li>kakaoPay</li>
+						    								<li>결제번호</li>
+						    								<li class="fs-5">m_54336662111</li>
+						    							</ul>
+    												</div>
+    											</div>	
+											</div>
+										</div>
 								</div>
 
 							</div>
