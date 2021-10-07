@@ -46,19 +46,36 @@ public class CompanyController {
         }
         return "company/companyDashboard";
     }
-
+    
     //업체 정보수정페이지
     @GetMapping("/info/edit")
-    public String companyEditInfo(CompanyVO vo, Model model) {
-        model.addAttribute("company", companyService.companyOneSelect(vo));
-        return "company/companyEditInfo";
+    public String companyEditInfo(CompanyVO vo, Model model, @RequestParam Long seq) {
+
+    	vo.setSeq(seq);
+    	model.addAttribute("company", companyService.companyOneSelect(vo));
+        
+    	return "company/companyEditInfo";
+    }
+    
+    //정보수정처리
+    @PostMapping("/info/edit")
+    public String companyInfoUpdate(CompanyVO vo, Model model, @RequestParam("seq") Long seq, RedirectAttributes rttr) {
+    	
+		int result = companyService.companyInfoUpdate(vo);
+		if(result == 1) {
+			rttr.addFlashAttribute("result", "success");
+		}
+		return "redirect:edit";
+		
+    
     }
 
     //업체 보유 렌트카 리스트
     @GetMapping("/companyCarList")
-    public String companyCarList(CompanyVO vo, Model model) {
-
-        model.addAttribute("companyCarList", carService.getCompanyCarList(vo));
+    public String companyCarList(CompanyVO vo, Model model, @RequestParam Long seq ) {
+    	vo.setSeq(seq);
+    	List<CarVO> carList = carService.getCompanyCarList(vo);
+        model.addAttribute("companyCarList", carList);
         return "company/companyCarList";
     }
 

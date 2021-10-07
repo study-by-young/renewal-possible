@@ -25,54 +25,53 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="lr_bc_first_box_main_wrapper">
-
 								<!-- 업체등록 START -->
-									<form id="frm" name="frm" action="chngRole" method="post">
+									<form id="frm" name="frm" action="edit" method="post">
 								<div class="col-md-12">
 									<div class="blog_single_comment_heading">
 										<h4>업체수정</h4>
 									</div>
 									<div class="card">
 										<div class="row">
-											<input type="hidden" name='comSeq' value='1'>
-										   	
+											<input type="hidden" name='seq' value="${company.seq}">
+										   	<input type="hidden" name='memSeq' value="${company.memSeq}">
 										   	<div class="form-group col-md-6 col-sm-3">
 											   	<label for="InputId">업체명*</label>
-											    <input type="text" class="form-control"  id="name" name="name" placeholder="업체명" value="${company.name }">
+											    <input type="text" class="form-control"  id="name" name="name" value="${company.name }">
 											</div>   
 										</div>
 										<div class="row">
 											<div class="form-group col-md-6 col-sm-3">
 												<label for="InputId">사업자번호*</label>
-												<input type="text" class="form-control"  id="cmpnNum" name="cmpnNum" placeholder="사업자번호 입력*">
+												<input type="text" class="form-control"  id="cmpnNum" name="cmpnNum" value="${company.cmpnNum }">
 											</div>
 										</div>
 										<div class="row">
 											<div class="form-group col-md-6 col-sm-3">
 												<label for="InputId">업체전화번호*</label>
-												<input type="text" class="form-control"  id="tel" name="tel" placeholder="'-'없이 전화번호만 입력해주세요.">
+												<input type="text" class="form-control"  id="tel" name="tel" value="${company.tel }">
 											</div>
 										</div>
 										
 										<!-- 우편번호 Start -->
                       						<label for="InputAddr">주소*</label>	
                         				<div class="form-group"> 
-                        					<input type="text" class="form-control" id="postal" name="postal" placeholder="우편번호" style="width: 30%; display: inline;">
+                        					<input type="text" class="form-control" id="postal" name="postal" value="${company.postal }" style="width: 30%; display: inline;">
 											 <button type="button" class="btn btn-default" onclick="DaumPostcode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                      
                         				</div>
                         				<div class="form-group"> 
-											<input type="text" class="form-control" id="addr1" name="addr1" placeholder="주소" style="width: 70%; display: inline;">
+											<input type="text" class="form-control" id="addr1" name="addr1" value="${company.addr1 }" style="width: 70%; display: inline;">
 										</div>
 										<div class="form-group"> 
-											<input type="text" class="form-control" id="addr2" name="addr2" placeholder="상세주소" style="width: 50%; display: inline;">
+											<input type="text" class="form-control" id="addr2" name="addr2" value="${company.addr2 }" style="width: 50%; display: inline;">
 											<input type="text" class="form-control" id="extraAddress" placeholder="참고항목" style="width: 40%; display: inline;">
   	                      				</div>
   	                      				<div class="form-group"> 
-											<input type="text" class="form-control" id="area" name="area" placeholder="시도" style="width: 50%; display: inline;">
+											<input type="text" class="form-control" id="area" name="area" value="${company.area }" style="width: 50%; display: inline;">
   	                      				</div>
   	                      				<!-- 주소 종료 -->
   	                      				 <div class="row justify-content-end">
-										      <button type="submit" class="btn btn-primary mr-2">요청</button>
+										      <button id="up" type="submit" class="btn btn-primary mr-2">수정</button>
 										      <button class="btn btn-danger">취소 </button>
 										 </div>
 									</div>
@@ -139,4 +138,12 @@ function DaumPostcode() {
         }
     }).open();
 }
+
+$("#up").on("click", function(){
+	if(confirm("수정하시겠습니까?") == true ){
+		document.form.submit();
+	}else{
+		return false;
+	}
+});
 </script>

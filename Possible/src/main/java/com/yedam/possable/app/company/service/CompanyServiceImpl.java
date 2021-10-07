@@ -74,5 +74,11 @@ public class CompanyServiceImpl implements CompanyService {
 	public HashMap<String, Object> companyIncome() {
 		return companyMapper.companyIncome();
 	}
+
+	@Override
+	public int companyInfoUpdate(CompanyVO vo) {
+		// TODO Auto-generated method stub
+		return companyMapper.companyInfoUpdate(vo);
+	}
 }    
 
