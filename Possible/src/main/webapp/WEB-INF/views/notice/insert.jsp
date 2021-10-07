@@ -122,11 +122,11 @@
 					var str = "";
 					for (i = 0; i < datas.length; i++) {
 						var obj = datas[i];
-						var fileCallPath = encodeURIComponent(obj.name + "_" + obj.orgName);
+						var fileCallPath = encodeURIComponent(obj.uploadPath + "/" + obj.name + "_" + obj.orgName);
 						var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
 
 						str += "<li "
-          				str += "data-name='" + obj.name + "' data-orgname='" + obj.orgName+"' data-type='" + obj.image + "' ><div>";
+          				str += "data-path='" + obj.uploadPath + "'data-name='" + obj.name + "' data-orgname='" + obj.orgName+"' data-type='" + obj.image + "' ><div>";
 						str += "<span>" + obj.orgName + "</span>";
 						str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type='file'"; 
          				str += "class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
@@ -151,6 +151,7 @@
 				var jobj = $(obj);
 				str += "<input type='hidden' name='attachList[" + i + "].orgName' value='" + jobj.data("orgname") + "'>";
 				str += "<input type='hidden' name='attachList[" + i + "].name' value='" + jobj.data("name") + "'>";
+				str += "<input type='hidden' name='attachList[" + i + "].uploadPath' value='" + jobj.data("path") + "'>";
 				str += "<input type='hidden' name='attachList[" + i + "].noticeSeq' value='" + noticeSeq + "'>";
 			});
 			$("#insertForm").append(str).submit();

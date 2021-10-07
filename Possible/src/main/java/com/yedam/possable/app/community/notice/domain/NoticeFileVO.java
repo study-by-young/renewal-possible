@@ -14,6 +14,7 @@ public class NoticeFileVO {
     private Long fileSize;
     private Date genDate;
     private Date uptDate;
+    private String uploadPath;
 
     private Long noticeSeq;
 }

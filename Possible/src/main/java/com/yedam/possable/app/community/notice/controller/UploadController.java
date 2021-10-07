@@ -38,6 +38,7 @@ public class UploadController {
 				NoticeFileVO attach = new NoticeFileVO();
 				attach.setName(name.toString());
 				attach.setOrgName(fileName);
+				attach.setUploadPath(path);
 				list.add(attach);
 			}
 		}
