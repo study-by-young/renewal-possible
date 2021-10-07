@@ -24,6 +24,8 @@ import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
+import com.yedam.possable.app.car.domain.CarVO;
+import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.service.PaymentService;
 
@@ -35,10 +37,12 @@ import lombok.extern.java.Log;
 public class PaymentController {
 
 	@Autowired PaymentService paymentService;
+	@Autowired CarService carService;
 
 	// 결제페이지로 이동
     @GetMapping("/rent")
-    public String payment() {
+    public String payment(CarVO carVo) {
+    	// 결제페이지로 이동할 때 차 정보, 멤버 정보 가지고 와야 한다.
         return "payment/payment";
     }
     
@@ -46,30 +50,17 @@ public class PaymentController {
     @PostMapping("/payment")
     @ResponseBody
     public String payment(Model model, @RequestBody RentHistoryVO vo, RedirectAttributes rttr) {
-
-    	/* @RequestParam("memSeq") Long memSeq, @RequestParam("carSeq") Long carSeq, */
-    	
-    	/* 외래 객체 생성 후 seq 입력
-		MemberVO memVo = new MemberVO();
-		memVo.setSeq(memSeq);
-		vo.setMemberVO(memVo);
-		
-		CarVO carVo = new CarVO();
-		carVo.setSeq(carSeq);
-		vo.setCarVO(carVo); */
-		
-		// 외래 객체 담은 후 service 실행
 		paymentService.paymentInsert(vo);
-		
-		model.addAttribute("rent", paymentService.paymentOneSelect(vo.getSeq()));
-		
 		return "payment/paymentFin";
     }
     
     // 결제완료페이지로 이동(결제내역 조회)
     @GetMapping("/paymentFin")
-    public String paymentFin(Model model, RentHistoryVO vo, @RequestParam(value="seq") Long seq) {
-    	model.addAttribute("rent", paymentService.paymentOneSelect(seq));
+    public String paymentFin(Model model, RentHistoryVO vo, CarVO carVo) {
+    	vo.setSeq(paymentService.readSeq(vo.getMerchantUid()));
+    	carVo.setSeq(vo.getCarSeq());
+    	model.addAttribute("rent", paymentService.paymentOneSelect(vo.getSeq()));
+    	model.addAttribute("car", carService.getCar(carVo));
     	return "payment/paymentFin";
     }
     

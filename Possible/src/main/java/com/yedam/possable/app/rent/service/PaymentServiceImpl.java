@@ -38,4 +38,9 @@ public class PaymentServiceImpl implements PaymentService {
 		return paymentMapper.paymentCancel(merchantUid);
 	}
 
+	@Override
+	public Long readSeq(String merchantUid) {
+		return paymentMapper.readSeq(merchantUid);
+	}
+
 }
