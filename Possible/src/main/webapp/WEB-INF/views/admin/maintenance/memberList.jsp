@@ -42,92 +42,54 @@
 	appearance: none;
 }
 </style>
-<div class="content">
+<div align="center">
 <div class="col-md-8">
 	<div class="blog_single_comment_heading">
-		<h4>업체정보관리</h4>
+		<h4>회원 관리</h4>
 	</div>
 	<div class="dash">
-		
-	<div>
-		<form id="actionForm" action="companyList" method="get">
+	<div align="center">
+		<form id="actionForm" action="member" method="get">
 			<select name="type" class="select" >
 				<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
-				<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>업체명</option>
-				<option value="A" ${pageMaker.cri.type =='A'? 'selected' : "" }>도시명</option>
-				<option value="C" ${pageMaker.cri.type =='C'? 'selected' : "" }>사업자번호</option>
-				<option value="T" ${pageMaker.cri.type =='T'? 'selected' : "" }>대표번호</option>
-				<option value="S" ${pageMaker.cri.type =='S'? 'selected' : "" }>상태</option>
-			</select> <input class="input" name="keyword" value="${pageMaker.cri.keyword }">
-			 <input
+				<option value="I" ${pageMaker.cri.type =='I'? 'selected' : "" }>아이디</option>
+				<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>이름</option>
+				<option value="P" ${pageMaker.cri.type =='P'? 'selected' : "" }>전화번호</option>
+				<option value="A" ${pageMaker.cri.type =='P'? 'selected' : "" }>권한</option>
+			</select> <input class="input" name="keyword" value="${pageMaker.cri.keyword }"> <input
 				type="hidden" name="pageNum" value="1"> <input type="hidden"
 				name="amount" value="${pageMaker.cri.amount }">
 			<button class="btn btn-primary" onclick="$('[name=pageNum]').val(1)">Search</button>
 		</form>
 	</div>
-	
+	<br>
 		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th>번호</th>
-					<th>업체명</th>
-					<th>대표자</th>
-					<th>사업자번호</th>
-					<th>사업자주소</th>
-					<th>지역</th>
-					<th>대표번호</th>
-					<th>상태</th>
+					<th>아이디</th>
+					<th>전화번호</th>
+					<th>이름</th>
+					<th>권한</th>
+					<th>상세보기</th>
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach var="companyList" items="${companyList }">
+			<c:forEach var="memberList" items="${memberList }">
 				<tr>
-					<td>${companyList.seq }</td>
-					<td>${companyList.name}</td>
-					<td>${companyList.cmpnNum }</td>
-					<td>${companyList.addr1 }</td>
-					<td>${companyList.addr2 }</td>
-					<td>${companyList.area }</td>
-					<td>${companyList.tel }</td>
-					<td>${companyList.status }</td>
-					<td>
-					 <a class="move" href="${companyList.seq }">상세보기</a>
-					</td>
-					<!-- 	<button type="button" class="btn btn-primary show"
-							data-toggle="modal" data-target="#myModal">상세보기
-						</button> -->
+					<td>${memberList.seq }</td>
+					<td>${memberList.id}</td>
+					<td>${memberList.phone }</td>
+					<td>${memberList.name }</td>
+					<td>${memberList.author }</td>
+					<td><a class="move" href="${memberList.seq }">상세보기</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 		</table>
 	<br>
-	  
-
-		<!-- 모달 
-			
-			<div class="modal fade" id="myModal">
-				<div class="modal-dialog">
-					<div class="modal-content">
-
-						Modal Header
-						<div class="modal-header">
-							<h4 class="modal-title">업체정보</h4>
-							<button type="button" class="close" data-dismiss="modal">×</button>
-						</div>
-
-						 Modal body
-						<div class="modal-body"></div>
-
-						 Modal footer
-						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-						</div>
-
-					</div>
-				</div>
-			</div> 
-		-->
-			
+	
+	<br>
 	<!-- 페이징 -->
 	<div id="pageButton">
   	<ul class="pagination">
@@ -145,11 +107,9 @@
 		</c:if>
 	</ul>
 	</div>
-
 	</div>
 </div>
 </div>
-
 <script>
 	$(function() {
 		var actionForm = $("#actionForm");
@@ -162,10 +122,10 @@
 							var seq = $(this).attr("href"); //클릭한 게시글의 번호를 읽어와서 
 							actionForm
 									.append('<input type="hidden" name="seq" value="'+ seq +'">') //여기넣어주고
-							actionForm.attr("action", "companyOneSelect") //바꾸기 앞에는 속성이름 뒤에는 바꾸는거
+							actionForm.attr("action", "member/view") //바꾸기 앞에는 속성이름 뒤에는 바꾸는거
 							actionForm.submit(); //실행
 						});
-		
+
 		$("#pageButton a").on("click", function(e) {
 			e.preventDefault(); //a, submit 경우에 쓸 수 있음 태그의 원래기능을 막고 정의한 함수 실행
 			var p = $(this).attr("href");
@@ -173,40 +133,4 @@
 			actionForm.submit();
 		});
 	});
-	
-	<!--
-	$(document).ready(function(){ 
-		$('.show').click(function(){ 
-			var seq = (this).closet("td")[0].val();
-			console.log(seq);
-			$.ajax({ 
-				url: "companyOne", 
-				type:"GET", 
-				data: {seq : seq },
-				dataType:'json', 
-				success:function(response) { 
-					showList(response); 
-					}, 
-				error:function(xhr,status,msg){ 
-					console.log("상태값 : " + status + " Http에러메시지 : "+msg); } 
-				}); 
-			}); 
-		
-	function showList(data){ 
-		var infoList = ''; $(".modal-body").empty(); 
-		var head = '<span>'+companyOne+'</span>'; 
-		$(".modal-body").append(head); 
-		$.each(data, function(index, item){ 
-			infoList = '<tr>'; 
-			infoList += '<td>' + item.name + '</td>'; 
-			infoList += '<td>' + item.cmpnNum + '</td>'; 
-			infoList += '</tr>'; $(".modal-body").append(infoList); 
-			}) 
-		} 
-	});
-	-->
-
-
-
-	
 </script>

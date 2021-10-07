@@ -42,54 +42,55 @@
 	appearance: none;
 }
 </style>
-<div align="center">
+<div class="content">
 <div class="col-md-8">
 	<div class="blog_single_comment_heading">
-		<h4>회원 관리</h4>
+		<h4>신고글 리스트</h4>
 	</div>
 	<div class="dash">
-	<div align="center">
-		<form id="actionForm" action="memberList" method="get">
+		
+	<div>
+		<form id="actionForm" action="report" method="get">
 			<select name="type" class="select" >
 				<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
-				<option value="I" ${pageMaker.cri.type =='I'? 'selected' : "" }>아이디</option>
-				<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>이름</option>
-				<option value="P" ${pageMaker.cri.type =='P'? 'selected' : "" }>전화번호</option>
-				<option value="A" ${pageMaker.cri.type =='P'? 'selected' : "" }>권한</option>
-			</select> <input class="input" name="keyword" value="${pageMaker.cri.keyword }"> <input
+				<option value="T" ${pageMaker.cri.type =='N'? 'selected' : "" }>제목</option>
+				<option value="C" ${pageMaker.cri.type =='A'? 'selected' : "" }>내용</option>
+				<option value="W" ${pageMaker.cri.type =='C'? 'selected' : "" }>작성자</option>
+			</select> <input class="input" name="keyword" value="${pageMaker.cri.keyword }">
+			 <input
 				type="hidden" name="pageNum" value="1"> <input type="hidden"
 				name="amount" value="${pageMaker.cri.amount }">
 			<button class="btn btn-primary" onclick="$('[name=pageNum]').val(1)">Search</button>
 		</form>
 	</div>
-	<br>
+	
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th>번호</th>
-					<th>아이디</th>
-					<th>전화번호</th>
-					<th>이름</th>
-					<th>권한</th>
-					<th>상세보기</th>
+					<th>번호</th> 
+					<th>제목</th>
+					<th>내용</th>
+					<th>작성자</th>
+					<th></th>
+				
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach var="memberList" items="${memberList }">
+			<c:forEach var="reportList" items="${reportList }">
 				<tr>
-					<td>${memberList.seq }</td>
-					<td>${memberList.id}</td>
-					<td>${memberList.phone }</td>
-					<td>${memberList.name }</td>
-					<td>${memberList.author }</td>
-					<td><a class="move" href="${memberList.seq }">상세보기</a></td>
+					<td>${reportList.seq }</td>
+					<td>${reportList.title}</td>
+					<td>${reportList.content }</td>
+					<td>${reportList.writer }</td>
+					<td>
+					 <a class="move" href="${reportList.seq }">상세보기</a>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
 		</table>
 	<br>
-	
-	<br>
+
 	<!-- 페이징 -->
 	<div id="pageButton">
   	<ul class="pagination">
@@ -107,9 +108,11 @@
 		</c:if>
 	</ul>
 	</div>
+
 	</div>
 </div>
 </div>
+
 <script>
 	$(function() {
 		var actionForm = $("#actionForm");
@@ -122,10 +125,10 @@
 							var seq = $(this).attr("href"); //클릭한 게시글의 번호를 읽어와서 
 							actionForm
 									.append('<input type="hidden" name="seq" value="'+ seq +'">') //여기넣어주고
-							actionForm.attr("action", "memberOneSelect") //바꾸기 앞에는 속성이름 뒤에는 바꾸는거
+							actionForm.attr("action", "report/view") //바꾸기 앞에는 속성이름 뒤에는 바꾸는거
 							actionForm.submit(); //실행
 						});
-
+		
 		$("#pageButton a").on("click", function(e) {
 			e.preventDefault(); //a, submit 경우에 쓸 수 있음 태그의 원래기능을 막고 정의한 함수 실행
 			var p = $(this).attr("href");
@@ -133,4 +136,5 @@
 			actionForm.submit();
 		});
 	});
+	
 </script>

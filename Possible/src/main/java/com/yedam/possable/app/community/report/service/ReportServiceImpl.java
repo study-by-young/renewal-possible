@@ -25,5 +25,11 @@ public class ReportServiceImpl implements ReportService {
 		// TODO Auto-generated method stub
 		return reportMapper.getTotalCount(cri);
 	}
+
+	@Override
+	public ReportVO getReport(ReportVO vo) {
+		// TODO Auto-generated method stub
+		return reportMapper.getReport(vo);
+	}
 	
 }

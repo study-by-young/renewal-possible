@@ -9,11 +9,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 
-<h2><a href="${pageContext.request.contextPath}/admin/memberList">회원관리</a>
+<h2><a href="${pageContext.request.contextPath}/admin/maintenance/member">회원관리</a>
 
 <a href="${pageContext.request.contextPath}/admin/companyRegList">업체등록관리</a>
 
-<a href="${pageContext.request.contextPath}/admin/companyList">업체정보관리</a>
+<a href="${pageContext.request.contextPath}/admin/maintenance/company">업체정보관리</a>
 
-<a href="${pageContext.request.contextPath}/admin/maintanence/reportList">신고글관리</a>
+<a href="${pageContext.request.contextPath}/admin/maintenance/report">신고글관리</a>
 <a href="#">커뮤니티 관리</a></h2>

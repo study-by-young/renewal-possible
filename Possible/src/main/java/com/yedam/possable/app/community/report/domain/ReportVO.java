@@ -11,6 +11,7 @@ public class ReportVO {
     private String content;
     private String writer;
     private String target;
+    private String reason;
     private String code;
     private Date genDate;
     private Date uptDate;
