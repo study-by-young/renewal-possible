@@ -159,14 +159,14 @@
                               <li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
                                  href="#">쿠폰함 </a></li>
                             
-                              <c:if test="${member.author eq 'USER'}">
+                              <c:if test="${member.author eq 'ROLE_USER'}">
                               <li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
                                  href="${pageContext.request.contextPath}/mypage/chngRole">업체전환 </a></li>
 							  </c:if>
 							
-							  <c:if test="${member.author eq 'COMPANY'}">
+							  <c:if test="${member.author eq 'ROLE_COMPANY'}">
                               <li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
-                                 href="${pageContext.request.contextPath}/companyDashboard">업체페이지로 이동 </a></li>
+                                 href="${pageContext.request.contextPath}/company/dashboard">업체페이지로 이동 </a></li>
 							  </c:if>
                            </ul>
                             

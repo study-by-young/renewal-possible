@@ -89,7 +89,7 @@ public class AdminController {
 			
 			MemberVO memVo = new MemberVO();
 			memVo.setSeq(memSeq);
-			memVo.setAuthor("COMPANY");
+			memVo.setAuthor("ROLE_COMPANY");
 			vo.setMemSeq(memSeq);
 			memberService.authorUpdate(memVo);
 		
