@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
+import com.yedam.possable.app.community.report.service.ReportService;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
@@ -35,6 +36,7 @@ public class AdminController {
 	@Autowired MemberService memberService;
 	@Autowired CompanyService companyService;
 	@Autowired CodeService codeService;
+	@Autowired ReportService reportService;
 
 
 	//회원관리 - 전체조회
@@ -121,6 +123,18 @@ public class AdminController {
 		model.addAttribute("pageMaker", new PageVO(cri, total));
 			return "admin/companyList";
 	    }
+	
+	//신고글 리스트
+	@GetMapping("maintenance/report")
+	public String getReportList(Model model, @ModelAttribute("cri") Criteria cri){
+		System.out.println("cri========" + cri);
+		int total = reportService.getTotalCount(cri);
+		model.addAttribute("reportList",reportService.getReportList(cri));
+		System.out.println(reportService.getReportList(cri));
+		model.addAttribute("pageMaker", new PageVO(cri, total));
+		
+		return "admin/maintanence/reportList";
+	}
 
 
 //	 //업체상세 페이지(아작스 테스트..)

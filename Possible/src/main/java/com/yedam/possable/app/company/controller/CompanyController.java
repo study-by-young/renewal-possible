@@ -46,7 +46,7 @@ public class CompanyController {
         }
         return "company/companyDashboard";
     }
-
+    
     //업체 정보수정페이지
     @GetMapping("/info/edit")
     public String companyEditInfo(CompanyVO vo, Model model, @RequestParam Long seq) {
