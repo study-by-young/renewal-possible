@@ -16,6 +16,7 @@
 
 <div class="container">
   <h2>보유렌터카</h2>
+  <input type="hidden" name="seq" value="1">
   <div class="row">
 			<div class="allCheck">
 				<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label>
@@ -35,7 +36,7 @@
 				
 				<a class="show" href="#" data-seq='${companyCarList.seq }' data-toggle="modal" data-target="#myModal"> 
 				
-
+						${companyCarList.cmpnSeq },
 						${companyCarList.brand},
 						${companyCarList.model },
 						${companyCarList.year }

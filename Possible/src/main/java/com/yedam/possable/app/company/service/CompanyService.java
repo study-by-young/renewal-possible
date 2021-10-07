@@ -37,6 +37,9 @@ public interface CompanyService {
     // 업체 여행 상품 조회
     public List<String> getCompanyItems(CompanyVO vo);
     
+  //업체정보수정
+    public int companyInfoUpdate(CompanyVO vo);
+    
     //수익차트
     public HashMap<String, Object> companyIncome();
 
