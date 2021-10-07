@@ -3,6 +3,7 @@ package com.yedam.possable.app.member.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,13 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder; //BCry 암호화
 
-	@Override
+    @Override
+    public MemberVO getLoginMember(Authentication authentication) {
+
+        return ((MemberVO)authentication.getPrincipal());
+    }
+
+    @Override
 	public List<MemberVO> memberList(Criteria cri) {
 		// TODO 회원 전체 리스트
 		return memberMapper.memberList(cri);
@@ -125,7 +132,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int memberInfoUpdate(MemberVO vo) {
 		// TODO 회원 내정보 수정(휴대폰번호,이메일,주소)
-		
+
 		return memberMapper.memberInfoUpdate(vo);
 	}
 
