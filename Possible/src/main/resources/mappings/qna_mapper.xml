@@ -20,6 +20,13 @@
     	</trim>
 	</sql>
 
+	<!-- 답변 수 업데이트 -->
+	<update id="updateAnswerCnt">
+		UPDATE QNA
+		SET ANSWER_CNT = ANSWER_CNT + #{amount}
+		WHERE SEQ = #{seq}
+	</update>
+
 	<select id="getList" resultType="QnaVO">
 		SELECT SEQ
 			 , TITLE
@@ -28,10 +35,19 @@
 			 , STATUS
 			 , GEN_DATE
 			 , UPT_DATE
+			 , ANSWER_CNT
 		FROM (
 			 SELECT 
              /*+ INDEX_DESC(QNA IDX_QNA) */ 
-             ROWNUM RN, SEQ, TITLE, CONTENT, WRITER, STATUS, GEN_DATE, UPT_DATE
+             	ROWNUM RN
+             	, SEQ
+             	, TITLE
+             	, CONTENT
+             	, WRITER
+             	, STATUS
+             	, GEN_DATE
+             	, UPT_DATE
+             	, ANSWER_CNT
              FROM QNA
              <where> 
                 <include refid="criteria"></include>

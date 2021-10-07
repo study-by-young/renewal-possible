@@ -2,6 +2,8 @@ package com.yedam.possable.app.community.qna.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.community.qna.domain.QnaVO;
 
@@ -18,5 +20,8 @@ public interface QnaMapper {
 	public List<QnaVO> getList(Criteria cri);
 	
 	public int getTotalCount(Criteria cri);
+	
+	// 답변 수 업데이트, 파라미터가 두개일 시 @Param으로 이름을 지정해준다.
+	public void updateAnswerCnt(@Param("seq") Long seq, @Param("amount") Long amount);
 	
 }

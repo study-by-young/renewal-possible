@@ -7,7 +7,9 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.yedam.possable.app.car.service.CarService;
+import com.yedam.possable.app.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,13 +30,15 @@ public class CompanyController {
     CompanyService companyService;
     @Autowired
     CarService carService;
+    @Autowired
+    MemberService memberService;
 
     //업체 대시보드
     @GetMapping("/dashboard")
-    public String dashboard(Principal principal,
-                            HttpServletRequest request,
-                            RedirectAttributes attributes) {
-        MemberVO loginUser = (MemberVO) principal;
+    public String dashboard(HttpServletRequest request,
+                            RedirectAttributes attributes,
+                            Authentication authentication) {
+        MemberVO loginUser = memberService.getLoginMember(authentication);
         CompanyVO companyVO = companyService.getCompanyByMemSeq(loginUser);
         if (companyVO == null) {
             attributes.addFlashAttribute("denyMsg", "업체회원이 아닙니다.");
@@ -100,14 +104,14 @@ public class CompanyController {
         return result;
 
     }
-    
+
     //차트 테스트
     @GetMapping("/incomeTest")
     public String incomeTest(Model model) {
- 
+
     	HashMap<String, Object> map = companyService.companyIncome();
     	System.out.println(map);
-    	
+
         return "company/incomeTest";
     }
 }

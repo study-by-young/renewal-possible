@@ -45,9 +45,6 @@ public class KakaoController {
 		System.out.println("카카오 아디 : " + kakaoId);
 		int kakaoIdCheck  = memberService.kakaoIdCheck(vo);
 		if(kakaoIdCheck != 0) {
-			MemberVO principal = new MemberVO();
-
-
 			vo = memberService.getUserById(kakaoId);
 
 			System.out.println("자 정보 뭐 들어가있어?"+vo);
