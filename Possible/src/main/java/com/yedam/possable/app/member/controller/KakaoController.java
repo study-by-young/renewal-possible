@@ -3,6 +3,7 @@ package com.yedam.possable.app.member.controller;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -46,17 +47,17 @@ public class KakaoController {
 		int kakaoIdCheck  = memberService.kakaoIdCheck(vo);
 		if(kakaoIdCheck != 0) {
 			MemberVO principal = new MemberVO();
-
+			HttpSession session = request.getSession();
+			
 
 			vo = memberService.getUserById(kakaoId);
 
-			System.out.println("자 정보 뭐 들어가있어?"+vo);
-			//session.setAttribute("member", principal);
-
+			session.setAttribute("member", vo);
+			
 			authentication = new UsernamePasswordAuthenticationToken(vo, null, vo.getAuthorities());
 			SecurityContextHolder.getContext().setAuthentication(authentication);
-			System.out.println("너 이씨 너 뭐야? 누구야?"+SecurityContextHolder.getContext().getAuthentication());
 		}else {
+			
 			model.addAttribute("kakaoId", kakaoUserInfo);
 
  			System.out.println("여기는 카카오 회원가입 절차 밟는곳");
