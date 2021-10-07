@@ -65,11 +65,11 @@
 		WHERE MERCHANT_UID = #{merchantUid}
 	</update>
 	
-	<!-- 결제취소 시 CAR 테이블 처리 -->
-	<update id="rentCancel">
-		UPDATE CAR
-		SET STATUS = 'CST01'
-		WHERE SEQ = #{seq}
-	</update>
+	<!-- 렌트 내역 가장 최근 seq 조회 -->
+	<select id="readSeq" resultType="Long">
+		SELECT SEQ 
+		FROM RENT_HISTORY
+		WHERE MERCHANT_UID = #{merchantUid}
+	</select>
 	
 </mapper>

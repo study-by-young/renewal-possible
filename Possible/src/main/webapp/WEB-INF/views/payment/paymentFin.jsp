@@ -25,7 +25,7 @@
 			<div class="order-done">
 				<i class="icon-checked"><img src="images/icon-checked.png"
 					alt=""></i>
-				<h4>이용해주셔서 감사합니다! 예약이 완료되었습니다.</h4>
+				<h4>이용해주셔서 감사합니다! 렌트가 완료되었습니다.</h4>
 				<h4>
 					예약번호: <span>${rent.merchantUid}</span>
 				</h4>
@@ -33,73 +33,55 @@
 				<h4>예약정보</h4>
 				<ul class="row list-unstyled">
 					<li class="col-md-6">
-						<h6>Date</h6>
+						<h6>렌트일시</h6>
 						<p>
-							From <span>${rent.startDate}</span>
+							시작 <span>${rent.startDate}</span>
 						</p>
 						<p>
-							To <span>${rent.endDate}</span>
-						</p>
-					</li>
-					<li class="col-md-6">
-						<h6>Location</h6>
-						<p>
-							Pick-Up <span>${rent.takePlaceCode} ${rent.takePlaceBasic} ${rent.takePlaceDetail}</span>
-						</p>
-						<p>
-							Drop-off <span>Barcelona, Airport</span>
+							종료 <span>${rent.endDate}</span>
 						</p>
 					</li>
 					<li class="col-md-6">
-						<h6>차량정보</h6>
+						<h6>대여/반납 장소</h6>
 						<p>
-							Dakota GT86 <span>$69</span>
-						</p>
-						<p>Coupe</p>
-					</li>
-					<li class="col-md-6">
-						<h6>옵션</h6>
-						<p>
-							1x GPS <span>$19</span>
-						</p>
-						<p>
-							Extended Insurance <span>$199</span>
+							<span>${rent.takePlaceCode} ${rent.takePlaceBasic} ${rent.takePlaceDetail}</span>
 						</p>
 					</li>
 					<li class="col-md-6">
-						<h6>보험</h6>
+						<h6>렌트정보</h6>
+						<p>차량정보 <span>${car.brand} ${car.model} ${car.year} ${car.fuel}</span></p>
+						<p>옵션 <span>넣을깝쇼</span></p>
+						<p>업체명 <span>{cmpn.name}</span></p>
+						<p>업체번호 <span>{cmpn.tel}</span></p>
+					</li>
+					<li class="col-md-6">
+						<h6>보험정보</h6>
+						<p>보험종류 <span>{일반자차/완전자차}</span></p>
+						<p>금액 <span>{보험금액}</span></p>
+					</li>
+					<li class="col-md-6">
+						<h6>예약자 정보</h6>
 						<p>
-							Sales Tax (1%) <span>$1</span>
+							이름 <span>${rent.receiver}</span>
+						</p>
+						<p>
+							연락처 <span>{rent.phone}</span>
+						</p>
+						<p>
+							결제방법 <span>${rent.payMethod}</span>
 						</p>
 					</li>
 					<li class="col-md-6">
 						<h6>Total</h6>
 						<p>
-							총 금액 <span>${rent.price}</span>
+							총 결제금액 <span>${rent.price}원</span>
 						</p>
-					</li>
-					<li class="col-md-12">
-						<h6>Billing Information</h6>
-						<p>
-							이름: ${rent.receiver} <br>
-							결제방법: ${rent.payMethod}<br>
-							PO Box 16122 Collins Street West <br>
-							+61 3 8376 6284 <br>
-							john@envato.com <br>
-						</p>
-					</li>
-					<li class="col-md-12">
-						<h6>Additional Information</h6>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-							Proin nibh augue, suscipit a, scelerisque sed, lacinia in, mi.
-							Cras vel lorem. Etiam pellentesque aliquet tellus. Phasellus
-							pharetra nulla ac diam. Quisque semper justo at risus.</p>
 					</li>
 				</ul>
 				<hr>
 				<div class="contect_btn contect_btn_contact">
 					<ul>
-						<li><a href="#">Print Order <i class="fa fa-print"></i></a></li>
+						<li><a href="#">렌트내역 확인</a></li>
 					</ul>
 				</div>
 			</div>

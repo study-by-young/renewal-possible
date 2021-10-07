@@ -18,6 +18,51 @@
 		height: 250px;
 		overflow: auto;
 	}
+	
+	.driver2 {
+		display: none;
+	}
+	
+	.order-billing .billing-form li {
+    	margin-bottom: 9px;
+	}
+	
+	small {
+		color: lightgray;
+	}
+	
+	.how_many_driver {
+		width: 50%;
+		margin: 10px;
+		margin-bottom: 20px;
+		padding: 10px;
+		padding-left: 0px;
+		margin-left: 0px;
+		float: left;
+	}
+	
+	.how_many_driver ul {
+		float: left;
+	}
+	
+	.how_many_driver ul li {
+		float: left;
+		margin: 10px;
+		padding-left: 0px;
+		margin-left: 0px;
+		padding-right: 20px;
+		font-weight: 900;
+		font-color: black;
+	}
+	
+	.license_warning {
+		width: 75%;
+		margin: 0 auto;
+		padding: 30px;
+		background-color: white;
+		border-radius: 10px;
+		border: 1px solid #ebebeb;
+	}
 </style>
 
 <!-- btc tittle Wrapper Start -->
@@ -27,7 +72,7 @@
 		<div class="row">
 			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 full_width">
 				<div class="btc_tittle_left_heading">
-					<h1>예약페이지 테스트</h1>
+					<h1>렌트</h1>
 				</div>
 			</div>
 		</div>
@@ -45,13 +90,13 @@
 						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<!-- Filter Results -->
 							<div class="car-filter accordion x_inner_car_acc_accor">
-								<h3>Order Details</h3>
+								<h3>예약정보</h3>
 								<hr>
 								<!-- Resources -->
 								<div class="x_car_access_filer_top_img">
 									<img src="images/c2.png" alt="car_img">
-									<h3>Dakota gtx</h3>
-									<p>$69 (1 day)</p>
+									<h3>{car.model}</h3>
+									<p>{car.price}</p>
 								</div>
 								<hr>
 								<!-- Company -->
@@ -60,33 +105,14 @@
 								<div class="panel panel-default x_car_inner_acc_acordion_padding x_car_inner_acc_acordion_padding_last">
 									<div class="panel-heading car_checkout_caret">
 										<h5 class="panel-title">
-											<a href="#"> Pick-up Date & place</a>
+											<a href="#">렌트 시작 일시</a>
 										</h5>
 									</div>
 									<div class="collapse show">
 										<div class="panel-body">
 											<div class="x_car_acc_filter_date">
 												<ul>
-													<li>2021. 10. 3.<input type="hidden" id="startDate" value="2021-10-03"></li>
-													<li><a>Barcelona <input type="hidden" id="takePlaceBasic" value="Barcelona"></a><a>Airport<input type="hidden" id="takePlaceDetail" value="Airport"></a></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</div>
-								<hr>
-								<div
-									class="panel panel-default x_car_inner_acc_acordion_padding x_car_inner_acc_acordion_padding_last">
-									<div class="panel-heading car_checkout_caret">
-										<h5 class="panel-title">
-											<a href="#"> Drop-Off Date & place</a>
-										</h5>
-									</div>
-									<div class="collapse show">
-										<div class="panel-body">
-											<div class="x_car_acc_filter_date">
-												<ul>
-													<li>2021. 10. 4.<input type="hidden" id="endDate" value="2021-10-04"></li>
+													<li>{startDate}<input type="date" id="startDate" value=""></li>
 												</ul>
 											</div>
 										</div>
@@ -96,16 +122,34 @@
 								<div class="panel panel-default x_car_inner_acc_acordion_padding x_car_inner_acc_acordion_padding_last">
 									<div class="panel-heading car_checkout_caret">
 										<h5 class="panel-title">
-											<a href="#">옵션</a>
+											<a href="#">렌트 종료 일시</a>
 										</h5>
 									</div>
 									<div class="collapse show">
 										<div class="panel-body">
 											<div class="x_car_acc_filter_date">
 												<ul>
-													<li>TYPE <span>일반<input type="hidden" id="rentType" value="일반"></span>
-													</li>
-													<li>ESTIMATE <span>100<input type="hidden" id="estimate" value="100"></span>
+													<li>{endDate}<input type="date" id="endDate" value=""></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+								<hr>
+								<div class="panel panel-default x_car_inner_acc_acordion_padding x_car_inner_acc_acordion_padding_last">
+									<div class="panel-heading car_checkout_caret">
+										<h5 class="panel-title">
+											<a href="#">렌트카 대여/반납 장소</a>
+										</h5>
+									</div>
+									<div class="collapse show">
+										<div class="panel-body">
+											<div class="x_car_acc_filter_date">
+												<ul>
+													<li>
+														<a>{takePlaceCode}<input type="hidden" id="takePlaceCode" value="takePlaceCode"></a>&nbsp;
+														<a>{takePlaceBasic}<input type="hidden" id="takePlaceBasic" value="takePlaceBasic"></a>&nbsp;
+														<a>{takePlaceDetail}<input type="hidden" id="takePlaceDetail" value="takePlaceDetail"></a>
 													</li>
 												</ul>
 											</div>
@@ -116,7 +160,37 @@
 								<div class="panel panel-default x_car_inner_acc_acordion_padding x_car_inner_acc_acordion_padding_last">
 									<div class="panel-heading car_checkout_caret">
 										<h5 class="panel-title">
-											<a href="#">보험</a>
+											<a href="#">렌트정보</a>
+										</h5>
+									</div>
+									<div class="collapse show">
+										<div class="panel-body">
+											<div class="x_car_acc_filter_date">
+												<ul>
+													<li>렌트타입<span>{rentType}<input type="hidden" id="rentType" name="rentType" value="rentType"></span>
+													</li>
+													<li>ESTIMATE<span>100<input type="hidden" id="estimate" name="estimate" value="100"></span>
+													</li>
+													<li>대여업체<span>100<input type="hidden" value="업체"></span>
+													</li>
+													<li>차량정보</li>
+														<li>{car.brand}<input type="hidden" value="{car.brand}"></li>
+														<li>{car.year}<input type="hidden" value="{car.year}"></li>
+														<li>{car.fuel}<input type="hidden" value="{car.fuel}"></li>
+													<li>옵션</li>
+														<li>{차량option}<input type="hidden" value="{option}"></li>
+														<li>{여행option}<input type="hidden" value="{option}"></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- 
+								<hr>
+								<div class="panel panel-default x_car_inner_acc_acordion_padding x_car_inner_acc_acordion_padding_last">
+									<div class="panel-heading car_checkout_caret">
+										<h5 class="panel-title">
+											<a href="#">보험정보</a>
 										</h5>
 									</div>
 									<div class="collapse show">
@@ -142,10 +216,11 @@
 											</div>
 										</div>
 									</div>
-								</div>
+								</div> 
+								-->
 								<div class="x_car_acc_filter_bottom_total">
 									<ul>
-										<li>total <span>100<input type="hidden" id="price" value="100"></span>
+										<li>총 결제금액 <span>{차가격+보험가격}원<input type="hidden" id="price" value="100"></span>
 										</li>
 									</ul>
 								</div>
@@ -161,35 +236,103 @@
 							<div class="x_car_checkout_right_main_box_wrapper float_left">
 								<div class="car-filter order-billing margin-top-0">
 									<div class="heading-block text-left margin-bottom-0">
-										<h4>Billing Details</h4>
+										<h4>결제정보</h4>
 									</div>
 									<hr>
+									<div class="how_many_driver">
+										<ul>
+											<li><label><input type="radio" name="driver" id="driver1" checked> 운전자 1명</label></li>
+											<li><label><input type="radio" name="driver" id="driver2"> 운전자 2명</label></li>
+										</ul>
+									</div>
 									<form class="billing-form">
-										<ul class="list-unstyled row">
-											<li class="col-md-6"><label>이름 <input id="receiver" name="receiver" type="text" placeholder="" class="form-control">
+										<ul class="list-unstyled row" style="margin-bottom: 50px;">
+											<li>예약자 정보</li>
+											<li class="col-md-12"><label>이름* <input id="receiver" name="receiver" type="text" placeholder="" class="form-control">
 											</label></li>
-											<li class="col-md-6"><label>연락처 <input id="phone" name="phone" type="text" placeholder="" class="form-control">
+											<li class="col-md-12"><label>연락처* <input id="phone" name="phone" type="text" placeholder="" class="form-control">
+											</label></li>
+											<li class="col-md-12"><label>생년월일* <br><input id="birth1" name="birth1" size="20" type="text" placeholder="">
+																- <input id="birth2" name="birth2" size="5" type="text" placeholder="">* * * * * *
+											</label></li>
+											<li class="col-md-12"><label>이메일* <input id="email" name="email" type="text" placeholder="" class="form-control">
 											</label></li>
 										</ul>
+										
+										<ul class="list-unstyled row driver2" style="margin-bottom: 50px;">
+											<li>제 2 운전자 정보</li>
+											<li class="col-md-12"><label>이름* <input id="receiverB" name="receiverB" type="text" placeholder="" class="form-control">
+											</label></li>
+											<li class="col-md-12"><label>연락처* <input id="phoneB" name="phoneB" type="text" placeholder="" class="form-control">
+											</label></li>
+											<li class="col-md-12"><label>생년월일* <br><input id="birthB1" name="birthB1" size="20" type="text" placeholder="">
+																- <input id="birthB2" name="birthB2" size="5" type="text" placeholder="">* * * * * *
+											</label></li>
+											<li class="col-md-12"><label>이메일* <input id="emailB" name="emailB" type="text" placeholder="" class="form-control">
+											</label></li>
+										</ul>
+										
+										<div class="license_warning" style="text-align: center;">
+											<div style="text-align: center;"><img src="${pageContext.request.contextPath}/resources/images/licenseimg.svg"></div>
+											<div style="text-align: center;">차량 대여 시, 운전자는 운전면허증을 꼭 지참해주세요.</div>
+											<div style="text-align: center;">면허증 확인 및 계약서 작성이 꼭 필요합니다.</div>
+										</div>										
 										<hr>
+										
+										<!-- 자동차 보험 -->
+										<div class="payme-opton">
+											<div class="heading-block text-left margin-bottom-30">
+												<h4>자차보험</h4>
+											</div>
+											<div>
+												<ul>
+													<li>{OPT_CODE}</li>
+													<li>+{price}원<input type="hidden" id="" name="" value="{price}"></li>
+												</ul>
+											</div>
+											
+										</div>
+										<hr>
+										
+										<!-- 결제수단 -->
 										<div class="payme-opton">
 											<div class="heading-block text-left margin-bottom-30">
 												<h4>결제수단</h4>
 											</div>
 											<div>
-												<label><input type="radio" name="pay" value="kakaopay">카카오페이</label>
+												<label><input type="radio" name="pay" value="kakaopay"> 카카오페이</label>
 											</div>
 											<div>
-												<label><input type="radio" name="pay" value="card">신용/체크카드</label>
+												<label><input type="radio" name="pay" value="card"> 신용/체크카드</label>
 											</div>
 											<div>
-												<label><input type="radio" name="pay" value="trans">실시간계좌이체</label>
+												<label><input type="radio" name="pay" value="trans"> 실시간계좌이체</label>
 											</div>
 											<div>
-												<label><input type="radio" name="pay" value="vbank">가상계좌</label>
+												<label><input type="radio" name="pay" value="vbank"> 가상계좌</label>
 											</div>
 										</div>
 										<hr>
+										
+										<!-- 유의사항 -->
+										<div class="payme-opton">
+											<div class="heading-block text-left margin-bottom-30">
+												<h4>유의사항</h4>
+											</div>
+											<div>
+												<ol>
+													<li>업체 및 차량마다 요구하는 운전경력 및 나이가 상이하니 반드시 대여규정을 확인해 주시기 바랍니다.</li>
+													<li>렌터카 이용 시 긴급사항 발생에 대비하여 즉시 연락이 가능한 정보를 입력하셔야 합니다.</li>
+													<li>수신이 불가한 정보 입력으로 발생하는 불이익에 대해 당사는 책임지지 않으니 유의해 주시기 바랍니다.</li>
+													<li>운전자 추가 등록은 차량 대여 시 현장에서 신청 가능합니다.</li>
+													<li>대여규정 및 약관 미확인으로 인한 불이익에 대해 당사는 책임지지 않으니 유의해 주시기 바랍니다.</li>
+													<li>면허증 미지침시 인수가 거절 될 수 있으므로 유의해 주시기 바랍니다.</li>
+												</ol>
+											</div>
+											
+										</div>
+										<hr>
+										
 											<div class="agreemnet">
 												<ul class="agree_list">
 													<li class="on">
@@ -316,9 +459,8 @@
 												</ul>
 											</div>
 										<br>
-										<div><label><input type="checkbox" id="chk_all" name="agreement" value="selectAll">위 결제/대여 규정을 모두 확인하였으며, 회원 본인은 결제에 동의합니다.</label></div>
-										<br>
-										<div>Possible은 통신판매중개자로서 여행갈카의 거래당사자가 아니며 상품정보, 거래조건 및 거래에 관련한 의무와 책임은 각 판매자에게 있습니다.</div>
+										<div><label><input type="checkbox" id="chk_all" name="agreement" value="selectAll"> 위 결제/대여 규정을 모두 확인하였으며, 회원 본인은 결제에 동의합니다.</label></div>
+										<div style="margin-bottom: 40px;"><small>팀 Possible은 통신판매중개자로서 여행갈카의 거래당사자가 아니며 상품정보, 거래조건 및 거래에 관련한 의무와 책임은 각 판매자에게 있습니다.</small></div>
 										<div class="text-center">
 											<input id="payBtn" name="payBtn" class="btn btn-main btn-round-full" type="button" value="결제하기" disabled>
 										</div>
@@ -329,8 +471,7 @@
 						<div class="col-md-12">
 							<div class="contect_btn contect_btn_contact">
 								<ul>
-									<li><a href="#">Place an Order <i
-											class="fa fa-arrow-right"></i></a></li>
+									<li><a href="#">결제하기 <i class="fa fa-arrow-right"></i></a></li>
 								</ul>
 							</div>
 						</div>
@@ -344,8 +485,7 @@
 
 <form action="">
 	<input type="hidden" id="memSeq" value="2">
-	<input type="hidden" id="carSeq" value="2">
-	<input type="hidden" id="takePlaceCode" value="23413">
+	<input type="hidden" id="carSeq" value="41">
 </form>
 
 
@@ -417,7 +557,7 @@
 								memSeq : memSeq				
 						}),
 						success: function(response) {
-							location.href = 'paymentFin?seq=' + 120;
+							location.href = 'paymentFin?merchantUid=' + merchantUid + "&carSeq=" + carSeq;
 						},
 						error: function(xhr, status, message){
 							alert('status: ' + status + ' er: ' + message);
@@ -487,6 +627,18 @@
 			}
 			return false;
 		});
+	});
+	
+	// 운전자 추가 시 폼 출력
+	$('input[name="driver"]').on('click', function(){
+		let chk = $('#driver2').is(':checked');
+		
+		if(chk == true){
+			$('.driver2').css('display', 'block');
+		}
+		if(chk == false){
+			$('.driver2').css('display', 'none');
+		}
 	});
 	
 </script>

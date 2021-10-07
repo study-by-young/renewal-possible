@@ -14,7 +14,8 @@
 							  , FILE_SIZE
 							  , GEN_DATE
 							  , UPT_DATE
-							  , NOTICE_SEQ)
+							  , NOTICE_SEQ
+							  , UPLOAD_PATH)
 		VALUES ( #{seq}
 			   , #{fileNo}
 			   , #{name}
@@ -23,7 +24,8 @@
 			   , #{fileSize}
 			   , SYSDATE
 			   , SYSDATE
-			   , #{noticeSeq})
+			   , #{noticeSeq}
+			   , #{uploadPath})
 	</insert>
 	
 	<delete id="delete">

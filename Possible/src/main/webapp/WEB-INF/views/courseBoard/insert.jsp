@@ -26,20 +26,23 @@ response.setContentType("text/html; charset=utf-8");
 			<div
 				class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<div class="contect_form1">
-					<input type="text" placeholder="Title *">
+					<input id="title" name="title" type="text" placeholder="Title *">
 				</div>
 			</div>
 			<div
 				class="col-xl-5 offset-xl-1 col-lg-4 col-md-4 col-sm-12 col-xs-12">
 				<div class="contect_form2">
-					<input type="text" placeholder="Writer" readonly="readonly">
+					<input id="writer" name="writer" value="토비" type="text" placeholder="Writer" readonly="readonly">
 				</div>
 			</div>
 			<div class="col-xl-5 col-lg-4 col-md-4 col-sm-12 col-xs-12">
 				<div class="contect_form2">
-					<input type="email" placeholder="Date" readonly="readonly">
+					<input type="text" id="writer" name="writer" value="2021-10-07" placeholder="Date" readonly="readonly">
 				</div>
 				<br>
+			</div>
+			<div class="col-xl-5 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				<input type="text" placeholder="원하는 날짜를 선택하세요" class="form-control datepicker">
 			</div>
 			<div
 				class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12"
@@ -83,7 +86,7 @@ response.setContentType("text/html; charset=utf-8");
 				class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12"
 				style="margin: 10px">
 				<div class="contect_form4 col-12" align="center">
-					<textarea name="content" id="content" class="ckeditor"> </textarea>
+					<textarea id="content" name="content" class="ckeditor"> </textarea>
 					<!-- 	<textarea rows="5" placeholder="코스에 대한 간략한 설명을 기재할 수 있습니다. 쒸익"></textarea> -->
 				</div>
 			</div>
@@ -142,29 +145,60 @@ response.setContentType("text/html; charset=utf-8");
 			})
 		});
 		var markers = [];
+		var marker;
+		var markersIdx = [];
 		var markerIdx = 0;
+		var polyline;
 	 	$("#tourList").on("click","li", function() {
 			$("#selectList").append('<li data-markerIdx="' + markerIdx + '" style="cursor: pointer;"><i class="fa fa-long-arrow-right"></i>&nbsp;&nbsp;'+$(this).text()+'<span style="float: right"><i class="fa fa-times-circle"></i></span></li>').append('<hr>');
 		  	 // 마커가 표시될 위치입니다 
   	 		 var markerPosition  = new kakao.maps.LatLng($(this).next().next().val(), $(this).next().val()); 
-			 
 		  	 
 		  	 // 마커를 생성합니다
-		  	 var marker = new kakao.maps.Marker({
+		  	 marker = new kakao.maps.Marker({
 		  	     position: markerPosition
 		  	 });
 		  	 
 		  	 // 마커가 지도 위에 표시되도록 설정합니다
 		  	 marker.setMap(map);
 		  	    
-		  	 markerIdx++;
 		  	 markers.push(marker);
+		  	 markersIdx.push(markerIdx);
+		  	 console.log(markerPosition.getLat());
+		  	 console.log(markerPosition.getLng());
+		  	 markerIdx++;
 		  	 // 이동할 위도 경도 위치를 생성합니다 
-		  	 var moveLatLon = new kakao.maps.LatLng($(this).next().next().val(), $(this).next().val());
+		  	 var moveLatLon = new kakao.maps.LatLng(markerPosition.getLat(), markerPosition.getLng());
 		  	    
 		  	 // 지도 중심을 부드럽게 이동시킵니다
 		  	 // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-		  	 map.panTo(moveLatLon);    
+		  	 map.panTo(moveLatLon);
+			 
+		  	 if (markers.length >= 2) {
+		  		var xy1 = markers[(markerIdx-2)].getPosition();
+		  		var xy2 = markers[(markerIdx-1)].getPosition();
+		  		var x1 = xy1.getLat();
+		  		var y1 = xy1.getLng();
+		  		var x2 = xy2.getLat();
+		  		var y2 = xy2.getLng();
+			    // 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
+			  	var linePath = [
+			  	    new kakao.maps.LatLng(x1, y1),
+			  	    new kakao.maps.LatLng(x2, y2)
+			  	];
+			  	
+		  		// 지도에 표시할 선을 생성합니다
+			  	polyline = new kakao.maps.Polyline({
+			  	    path: linePath, // 선을 구성하는 좌표배열 입니다
+			  	    strokeWeight: 5, // 선의 두께 입니다
+			  	    strokeColor: '#9999FF', // 선의 색깔입니다
+			  	    strokeOpacity: 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+			  	    strokeStyle: 'solid' // 선의 스타일입니다
+			  	});
+	
+			  	// 지도에 선을 표시합니다 
+			  	polyline.setMap(map);  
+		  	}
 		});
 	
 	
@@ -175,6 +209,9 @@ response.setContentType("text/html; charset=utf-8");
 	 		$(this).remove();
 	 		
 	 		markers[targetIdx].setMap(null);
+	 		console.log('list : '+markersIdx);
+	 		console.log('idx : '+markersIdx.indexOf(targetIdx));
+	 		polyline.setMap(null);
 	 	});
  	});
  	 
