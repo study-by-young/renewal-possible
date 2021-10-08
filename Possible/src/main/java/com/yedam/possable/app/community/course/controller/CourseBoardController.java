@@ -5,7 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.community.course.domain.CourseBoardVO;
@@ -25,10 +29,9 @@ public class CourseBoardController {
 	    return "community/course/list";
 	}
 
-	// 단건조회
+	// 단건조회(수정페이지)
 	@GetMapping("/view")
-	public String courseView(Model model,
-                             CourseBoardVO board) {
+	public String courseView(Model model, CourseBoardVO board) {
 		model.addAttribute("board", courseBoardService.read(board));
 		return "community/course/view";
 	}
@@ -38,10 +41,11 @@ public class CourseBoardController {
 	public String courseWriteForm(Model model) {
 	    return "community/course/write";
 	}
-
+	
 	// 등록 처리
     @PostMapping("/write")
-    public String courseWrite(){
+    public String courseWrite(Model model, CourseBoardVO board){
+    	courseBoardService.insert(board);
 	    return "redirect:/view";
     }
 

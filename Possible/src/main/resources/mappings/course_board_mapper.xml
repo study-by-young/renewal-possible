@@ -52,5 +52,12 @@
 	<select id="getList" resultType="CourseBoardVO">
 		SELECT * FROM COURSE_BOARD
 	</select>
+	
+	<insert id="insert">
+		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
+			SELECT SEQ_COURSE_BOARD.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO COURSE_BOARD VALUES (#{seq}, #{title}, #{writer}, #{content}, 0, 0, #{startDate}, #{endDate}, #{people}, #{genDate}, SYSDATE)
+	</insert>
 
 </mapper>

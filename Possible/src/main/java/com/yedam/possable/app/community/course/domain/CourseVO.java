@@ -4,18 +4,10 @@ import lombok.Data;
 
 @Data
 public class CourseVO {
+	private Long courseSeq;
     private Long seq;
     private Long placeNo;
-    private Long areaId;
-    private String thumbnail;
-    private String addr;
-    private Long areaType;
-    private String tourPage;
-    private String name;
-    private String content;
-    private String img1;
-    private String img2;
-    private String img3;
+    private Long contentId;
 
     private CourseBoardVO courseBoardVO;
 }
