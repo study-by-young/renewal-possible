@@ -103,7 +103,7 @@
             <include refid="criteria">
             </include>
             <![CDATA[
-            AND STATUS = 'PST01'
+            AND STATUS = 'PST01' OR STATUS = 'PST03'
             AND ROWNUM <= #{pageNum} * #{amount} ]]>
         </where>
     </select>

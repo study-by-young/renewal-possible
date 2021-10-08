@@ -11,7 +11,7 @@
 
 <h2><a href="${pageContext.request.contextPath}/admin/maintenance/member">회원관리</a>
 
-<a href="${pageContext.request.contextPath}/admin/companyRegList">업체등록관리</a>
+<a href="${pageContext.request.contextPath}/admin/maintenance/company/regList">업체등록관리</a>
 
 <a href="${pageContext.request.contextPath}/admin/maintenance/company">업체정보관리</a>
 

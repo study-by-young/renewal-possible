@@ -62,7 +62,7 @@
 					</div>
 
 					<div class="card-body">
-						<form role="form" action="companyOneSelect" method="post">
+						<form role="form" action="view/confirm" method="post">
 							<div class="row">
 								<div class="col-md-12">
 										<input type="hidden" class="form-control" name='seq' value='<c:out value="${comRegList.seq}"/>' readonly="readonly">
@@ -135,15 +135,15 @@
 							<div class="text-right">
 							<c:if test="${comRegList.status eq 'PST02'}">
 								<button id="reg" class="btn btn-primary">승인</button>
-								<button id="del" formaction="companyRegDelete" class="btn btn-primary">거부</button>
+								<button id="del" formaction="view/ban" class="btn btn-primary">거부</button>
 							</c:if>
 							<c:if test="${comRegList.status eq 'PST01'}">
-								<button id="del" formaction="companyRegDelete" class="btn btn-primary">거부</button>
-								<a class="btn btn-primary" id="list_btn" href="companyList">목록</a>
+								<button id="del" formaction="view/ban" class="btn btn-primary">거부</button>
+								<a class="btn btn-primary" id="list_btn" href="${pageContext.request.contextPath}/admin/maintenance/company">목록</a>
 							</c:if>
 							<c:if test="${comRegList.status eq 'PST03'}">
 								<button id="reg" class="btn btn-primary">승인</button>
-								<a class="btn btn-primary" id="list_btn" href="companyList">목록</a>
+								<a class="btn btn-primary" id="list_btn" href="${pageContext.request.contextPath}/admin/maintenance/company">목록</a>
 							</c:if>
 							</div>
 						</form>

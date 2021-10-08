@@ -80,16 +80,18 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach var="companyList" items="${companyList }">
+			<c:forEach var="company" items="${companyList }">
+				<c:set var="cmpn" value="company.get('companyVO')" />
 				<tr>
-					<td>${companyList.seq }</td>
-					<td>${companyList.name}</td>
-					<td>${companyList.cmpnNum }</td>
-					<td>${companyList.addr1 }</td>
-					<td>${companyList.addr2 }</td>
-					<td>${companyList.area }</td>
-					<td>${companyList.tel }</td>
-					<td>${companyList.status }</td>
+					<td>${cmpn.seq }</td>
+					<td>${cmpn.name}</td>
+					<td>${cmpn.cmpnNum }</td>
+					<td>${cmpn.addr1 }</td>
+					<td>${cmpn.addr2 }</td>
+					<td>${cmpn.area }</td>
+					<td>${cmpn.tel }</td>
+					<td>${company.get('status')}</td>
+					
 					<td>
 					 <a class="move" href="${companyList.seq }">상세보기</a>
 					</td>

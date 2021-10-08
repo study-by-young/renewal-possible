@@ -97,7 +97,7 @@
 							var seq = $(this).attr("href"); //클릭한 게시글의 번호를 읽어와서 
 							actionForm
 									.append('<input type="hidden" name="seq" value="'+ seq +'">') //여기넣어주고
-							actionForm.attr("action", "companyOneSelect") //바꾸기 앞에는 속성이름 뒤에는 바꾸는거
+							actionForm.attr("action", "view") //바꾸기 앞에는 속성이름 뒤에는 바꾸는거
 							actionForm.submit(); //실행
 						});
 	});

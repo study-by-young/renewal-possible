@@ -23,6 +23,11 @@ import com.yedam.possable.app.member.service.MemberService;
 import lombok.extern.java.Log;
 
 import java.security.Principal;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 @Log
 @Controller
@@ -73,10 +78,10 @@ public class AdminController {
 		}
 
 	//업체승인요청 페이지
-	 @GetMapping("/companyRegList")
+	 @GetMapping("maintenance/company/regList")
 	    public String companyRegList(Model model){
 		 model.addAttribute("comRegList", companyService.companyRegList());
-	        return "admin/companyRegList";
+	        return "admin/maintenance/companyRegList";
 	    }
 
 	 //업체상세 페이지
@@ -92,7 +97,7 @@ public class AdminController {
 		 }
 
 	//업체승인 처리
-	@PostMapping("maintenance/company/view")
+	@PostMapping("maintenance/company/view/confirm")
 		public String companyReg(CompanyVO vo, @RequestParam("memSeq") Long memSeq, RedirectAttributes rttr) {
 
 			MemberVO memVo = new MemberVO();
@@ -105,27 +110,40 @@ public class AdminController {
 			if(result == 1) {
 				rttr.addFlashAttribute("result", "success");
 			}
-			return "redirect:/admin/maintenance/companyList";
+			return "redirect:/admin/maintenance/company";
 		}
 
 	//업체승인 거부
-	@PostMapping("/companyRegDelete")
+	@PostMapping("maintenance/company/view/ban")
 	public String delete(CompanyVO vo, RedirectAttributes rttr) {
 		int result = companyService.companyRegDelete(vo);
 		if(result == 1) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		return "redirect:/admin/companyRegList";
+		return "redirect:/admin/maintenance/company";
 	}
 
 	//업체정보관리 페이지
 	@GetMapping("maintenance/company")
 		public String companyList(Model model, @ModelAttribute("cri") Criteria cri){
+		List<Map<String, Object>> companyList = new LinkedList<Map<String,Object>>();
+		List<CompanyVO> voList = companyService.companyList(cri);
+		
+		for(CompanyVO vo : voList) {
+			Map<String, Object> voMap = new HashMap<String, Object>();
+			String status = codeService.getCodeByValue(vo.getStatus()).getName();
+			voMap.put("companyVO", vo);
+			voMap.put("status", status);
+			companyList.add(voMap);
+		}
+		
 		System.out.println("cri========" + cri);
 		int total = companyService.getTotalCount(cri);
-		model.addAttribute("companyList",companyService.companyList(cri) );
+		model.addAttribute("companyList",companyList);
 		System.out.println(companyService.companyList(cri));
 		model.addAttribute("pageMaker", new PageVO(cri, total));
+		// model.addAttribute("status", status);
+
 			return "admin/maintenance/companyList";
 	    }
 	
@@ -148,18 +166,5 @@ public class AdminController {
 		
 		return "admin/maintenance/reportView";
 	}
-
-
-
-//	 //업체상세 페이지(아작스 테스트..)
-//	 @GetMapping("/{seq}")
-//	 @ResponseBody
-//		 public CompanyVO companyOne(@PathVariable Long seq, CompanyVO vo) {
-//		 vo.setSeq(seq);
-//		 return  companyService.companyOneSelect(vo);
-//
-//	 }
-
-
 
 }
