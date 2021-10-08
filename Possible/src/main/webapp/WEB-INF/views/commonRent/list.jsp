@@ -181,13 +181,32 @@
                     -->
                     <div class="col-lg-3 col-md-6 col-12 full_width" style="text-align: center;">
                         <button type="button" class="btn bg-primary-400 btn-float" style="color: white;">검색 <i class="icon-search4 icon-2x" style="font-size: 1rem; color: white;"></i></button>
-                        <button type="button" class="btn btn-lg bg-transparent text-primary border-primary ml-1 legitRipple" style="font-size: 1rem; font-weight: bold;">추천받기</button>
+                        <button type="button" class="btn btn-lg bg-transparent text-primary border-primary ml-1 legitRipple" data-toggle="modal" data-target="#recommendCarModal" style="font-size: 1rem; font-weight: bold;">추천받기</button>
                     </div>
                 </div>
             </div>
         </form>
 	</div>
 </div>
+
+
+<!-- 차량 추천 Modal -->
+<div id="recommendCarModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="recommendCarModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+	    <div class="modal-header">
+	        <h5 class="modal-title">당신이 찾는 바로 그 차</h5>
+	    </div>
+      	<div class="modal-body">
+        	<p>Modal body text goes here.</p>
+      	</div>
+      	<div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+      	</div>
+    </div>
+  </div>
+</div>
+<!-- End of 차량 추천 Modal -->
 
 <!-- x car book sidebar section Wrapper Start -->
 <div class="x_car_book_sider_main_Wrapper float_left" style="margin-top: 50px;">
@@ -355,6 +374,7 @@
 											<div class="col-md-12">
 												
 												<!-- 여기서부터 main-box-wrapper -->
+												<c:forEach var="car" items="${list}">
 												<div class="x_car_offer_main_boxes_wrapper float_left">
 													<div class="x_car_offer_starts x_car_offer_starts_list_img float_left border-0">
 														<div class="x_car_offer_img x_car_offer_img_list float_left">
@@ -365,10 +385,10 @@
 													</div>
 													<div class="x_car_offer_starts_list_img_cont border-left">
 														<div class="x_car_offer_heading x_car_offer_heading_list float_left" style="width: 70%;">
-															<h5 class="pt-3">{brand} {model}</h5>
-															<p>{trim}</p>
+															<h5 class="pt-3">${car.brand} ${car.model}</h5>
+															<p>${car.trim}</p>
 															<hr class="my-2">
-															<p> {year} {fuel} {passenger}</p>
+															<p>${car.year}년 / ${car.fuel} / ${car.passenger}인</p>
 														</div>
 														<div class="x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left" style="width: 30%;">
 															<ul>
@@ -439,13 +459,6 @@
 																						<td style="width: 15%;">리뷰 {개수}</td>
 																						<td style="width: 15%;">{차가격}</td>
 																					</tr>
-																					<tr class="cmpn_list_tr">
-																						<td style="width: 40%;"><label><input type="radio" id="" name="cmpn">&nbsp;&nbsp;{업체이름}</label></td>
-																						<td style="width: 15%;">{만26세}</td>
-																						<td style="width: 15%;">{완전자차}</td>
-																						<td style="width: 15%;">리뷰 {개수}</td>
-																						<td style="width: 15%;">{차가격}</td>
-																					</tr>
 																				</tbody>
 																			</table>
 																			
@@ -457,6 +470,7 @@
 														</div>
 													</div>
 												</div>
+												</c:forEach>
 											</div>
 
 											<!-- 페이징 -->
@@ -689,6 +703,8 @@
         DateTimePickers.init();
     });
 
+
+	
 </script>
 <!-- x car book sidebar section Wrapper End -->
 
