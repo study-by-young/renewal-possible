@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.community.course.domain.CourseBoardVO;
+import com.yedam.possable.app.community.course.domain.CourseVO;
 import com.yedam.possable.app.community.course.mapper.CourseBoardMapper;
 import com.yedam.possable.app.community.tour.domain.TestVO;
 
