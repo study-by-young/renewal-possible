@@ -1,7 +1,5 @@
 package com.yedam.possable.app.rent.domain;
 
-import com.yedam.possable.app.car.domain.CarVO;
-import com.yedam.possable.app.member.domain.MemberVO;
 import lombok.Data;
 
 import java.util.Date;
@@ -28,4 +26,5 @@ public class RentHistoryVO {
 
     private Long carSeq;
     private Long memSeq;
+    private Long cmpnSeq;
 }

@@ -16,6 +16,6 @@ public class CommonRentController {
     @GetMapping("list")
     public String rentList(Model model){
         model.addAttribute("areaCodes",codeMapper.getCodesByParentCode("지역"));
-        return "commonRent/list";
+        return "carList";
     }
 }

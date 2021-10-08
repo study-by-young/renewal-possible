@@ -1,6 +1,5 @@
 package com.yedam.possable.app.company.domain;
 
-import com.yedam.possable.app.member.domain.MemberVO;
 import lombok.Data;
 
 import java.util.Date;

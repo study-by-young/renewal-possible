@@ -3,7 +3,6 @@ package com.yedam.possable.app.company.service;
 import java.util.HashMap;
 import java.util.List;
 
-import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.member.domain.MemberVO;
@@ -36,10 +35,10 @@ public interface CompanyService {
 
     // 업체 여행 상품 조회
     public List<String> getCompanyItems(CompanyVO vo);
-    
+
   //업체정보수정
     public int companyInfoUpdate(CompanyVO vo);
-    
+
     //수익차트
     public HashMap<String, Object> companyIncome();
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.possable.app.rent.mapper.RentHistoryMapper">
+	
+	<!-- 업체 렌트내역 리스트 -->
+	<select id="rentHistoryList" resultType="RentHistoryVO">
+             SELECT
+             /*+ INDEX_DESC(RENT_HISTORY IDX_RENT_HISTORY) */
+             ROWNUM RN, SEQ,
+						CAR_SEQ,
+						MEM_SEQ,
+						RENT_TYPE,
+						START_DATE,
+						RECEIVE_DATE,
+						RETURN_DATE,
+						END_DATE,
+						RECEIVER,
+						TAKE_PLACE_CODE,
+						PRICE,
+						ESTIMATE,
+						STATUS,
+						GEN_DATE,
+						UPT_DATE,
+						TAKE_PLACE_DETAIL,
+						TAKE_PLACE_BASIC,
+						MERCHANT_UID,
+						PAY_METHOD,
+						CMPN_SEQ
+             FROM RENT_HISTORY
+             WHERE CMPN_SEQ = #{cmpnSeq}
+	</select>
+	
+</mapper>

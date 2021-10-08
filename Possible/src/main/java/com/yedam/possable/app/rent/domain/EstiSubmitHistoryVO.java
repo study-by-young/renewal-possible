@@ -1,7 +1,5 @@
 package com.yedam.possable.app.rent.domain;
 
-import com.yedam.possable.app.car.domain.CarVO;
-import com.yedam.possable.app.company.domain.CompanyVO;
 import lombok.Data;
 
 import java.util.Date;

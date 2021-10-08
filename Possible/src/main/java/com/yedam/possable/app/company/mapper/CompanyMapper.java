@@ -3,7 +3,6 @@ package com.yedam.possable.app.company.mapper;
 import java.util.HashMap;
 import java.util.List;
 
-import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.member.domain.MemberVO;
