@@ -74,8 +74,8 @@
                                 <div class="lr_bc_first_box_img_cont_wrapper">
                                     <ul>
                                         <li><a href="${pageContext.request.contextPath}/mypage/dashboard">홈</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/editInfo">회원정보수정</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/eslist">견적관리</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/mypage/editProfile">회원정보수정</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/mypage/estimate">견적관리</a></li>
                                         <li><a href="${pageContext.request.contextPath}/mypage/rentHistory">렌트관리</a></li>
                                         <li><a href="${pageContext.request.contextPath}/mypage/community">커뮤니티관리</a></li>
                                         <li><a href="${pageContext.request.contextPath}/mypage/qna">나의문의</a></li>

@@ -35,4 +35,6 @@ public interface CarService {
 
     // 업체 차량 수정
     public int updateCompanyCar(@Param("car") CarVO carVO, @Param("cmpn") CompanyVO cmpnVO);
+
+	
 }

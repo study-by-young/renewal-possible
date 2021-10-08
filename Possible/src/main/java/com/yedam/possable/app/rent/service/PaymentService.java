@@ -2,6 +2,9 @@ package com.yedam.possable.app.rent.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 
 public interface PaymentService {
@@ -23,4 +26,7 @@ public interface PaymentService {
 	
 	// 렌트 내역 seq 조회
 	public Long readSeq(String merchantUid);
+	
+	// 회원 렌트내역 리스트 조회
+	public List<RentHistoryVO> rentHistoryList(@Param("cri") Criteria cri, @Param("seq") Long Seq);
 }

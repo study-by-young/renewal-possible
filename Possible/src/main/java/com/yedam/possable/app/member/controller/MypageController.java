@@ -1,24 +1,31 @@
 package com.yedam.possable.app.member.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.yedam.possable.app.car.domain.CarVO;
+import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
+import com.yedam.possable.app.rent.domain.RentHistoryVO;
+import com.yedam.possable.app.rent.service.PaymentService;
 
 import lombok.extern.java.Log;
 
@@ -32,7 +39,11 @@ public class MypageController {
     CompanyService companyService;
     @Autowired
     CodeService codeService;
-
+    @Autowired
+    PaymentService paymentService;
+    @Autowired
+    CarService carService;
+    
     //마이페이지 대쉬보드 페이지
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session) {
@@ -46,13 +57,13 @@ public class MypageController {
     }
 
     //마이페이지 회원정보수정 폼 페이지
-    @PostMapping("/editProfile")
-    public String editProfileForm(@RequestParam("password") String password,
+    @GetMapping("/editProfile")
+    public String editProfileForm(
                            Authentication authentication,
                            Model model,
                            HttpServletRequest request) {
         MemberVO loginUser = memberService.getLoginMember(authentication);
-
+        
         model.addAttribute("memberList", memberService.read(loginUser));
         return "mypage/editProfile";
     }
@@ -60,7 +71,7 @@ public class MypageController {
     // 회원 정보 수정 처리
     @PostMapping("/editProfile/complete")
     public String editProfile(){
-
+    	
         return "mypage/dashboard";
     }
 
@@ -103,8 +114,41 @@ public class MypageController {
 
     // 회원 렌트 내역
     @GetMapping("/rent")
-    public String rentHistoryList(){
-        return "";
+    public String rentHistoryList(Model model,
+    							  Long seq,
+						    	  @ModelAttribute("cri") Criteria cri,
+						    	  RentHistoryVO vo,
+						    	  Authentication authentication,
+						    	  HttpServletRequest request){
+    	
+    	HttpSession session = request.getSession();
+    	MemberVO mvo = (MemberVO) session.getAttribute("member");
+    	
+    	System.out.println("rVO 값은 뭐니?"+vo);
+    	
+        model.addAttribute("getView", paymentService.rentHistoryList(cri, mvo.getSeq()));
+        
+        List<RentHistoryVO> rhlist = new ArrayList<RentHistoryVO>();
+        rhlist = paymentService.rentHistoryList(cri, mvo.getSeq());
+        
+        for (int i = 0; i < rhlist.size(); i++) {
+        	System.out.println(rhlist.get(i).getCarSeq());
+        	
+        	CarVO cvo1 = new CarVO();
+        	cvo1.setSeq(rhlist.get(i).getCarSeq());
+        	carService.getCar(cvo1);
+        	System.out.println("======================="+i+"=====================");
+        	System.out.println(carService.getCar(cvo1));
+        	
+        	CarVO cvo2 = new CarVO();
+        	cvo2.setCmpnSeq(carService.getCar(cvo1).getCmpnSeq());
+        	
+        }
+        	
+        
+    	System.out.println("랜트내역을 가는 너희들은 누구니?"+paymentService.rentHistoryList(cri, mvo.getSeq()));
+    	
+    	return "mypage/rentHistoryList";
     }
 
     // 회원 렌트 내역 상세
@@ -144,6 +188,40 @@ public class MypageController {
     }
 
     // --------------------------------------------------------
+
+    //마이페이지 견적관리 페이지
+    @GetMapping("/eslist")
+    public String eslist() {
+        return "mypage/estimate/list";
+    }
+
+    //마이페이지 견적관리 상세 페이지
+    @GetMapping("/esinfo")
+    public String esinfo() {
+        return "mypage/estimate/info";
+    }
+
+    
+
+    //마이페이지 후기 작성 페이지
+    @GetMapping("/review")
+    public String review() {
+        return "mypage/review/write";
+    }
+
+
+    //마이페이지 나의 문의 페이지
+    @GetMapping("/qna")
+    public String qna() {
+        return "mypage/qna";
+    }
+
+    //업체전환 신청 페이지 페이지
+    @GetMapping("/chngRole")
+    public String chngRole(Model model, HttpSession session) {
+
+        return "mypage/chngRole";
+    }
 
     //업체전환 신청처리
     @PostMapping("/chngRole")
