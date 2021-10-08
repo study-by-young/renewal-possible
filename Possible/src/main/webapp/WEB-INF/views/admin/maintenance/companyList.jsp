@@ -45,17 +45,19 @@
 <div class="content">
 <div class="col-md-8">
 	<div class="blog_single_comment_heading">
-		<h4>신고글 리스트</h4>
+		<h4>업체정보관리</h4>
 	</div>
 	<div class="dash">
 		
 	<div>
-		<form id="actionForm" action="maintenance/report" method="get">
+		<form id="actionForm" action="company" method="get">
 			<select name="type" class="select" >
 				<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
-				<option value="T" ${pageMaker.cri.type =='N'? 'selected' : "" }>제목</option>
-				<option value="C" ${pageMaker.cri.type =='A'? 'selected' : "" }>내용</option>
-				<option value="W" ${pageMaker.cri.type =='C'? 'selected' : "" }>작성자</option>
+				<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>업체명</option>
+				<option value="A" ${pageMaker.cri.type =='A'? 'selected' : "" }>도시명</option>
+				<option value="C" ${pageMaker.cri.type =='C'? 'selected' : "" }>사업자번호</option>
+				<option value="T" ${pageMaker.cri.type =='T'? 'selected' : "" }>대표번호</option>
+				<option value="S" ${pageMaker.cri.type =='S'? 'selected' : "" }>상태</option>
 			</select> <input class="input" name="keyword" value="${pageMaker.cri.keyword }">
 			 <input
 				type="hidden" name="pageNum" value="1"> <input type="hidden"
@@ -68,35 +70,38 @@
 			<thead>
 				<tr>
 					<th>번호</th>
-					<th>제목</th>
-					<th>내용</th>
-					<th>타켓?</th>
-					<th>작성자</th>
-					<th>이유</th>
-					<th>등록일자</th>
-					<th>수정일자</th>
+					<th>업체명</th>
+					<th>대표자</th>
+					<th>사업자번호</th>
+					<th>사업자주소</th>
+					<th>지역</th>
+					<th>대표번호</th>
+					<th>상태</th>
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach var="reportList" items="${reportList }">
+			<c:forEach var="company" items="${companyList }">
+				<c:set var="cmpn" value="company.get('companyVO')" />
 				<tr>
-					<td>${reportList.seq }</td>
-					<td>${reportList.title}</td>
-					<td>${reportList.content }</td>
-					<td>${reportList.target }</td>
-					<td>${reportList.writer }</td>
-					<td>${reportList.reason }</td>
-					<td>${reportList.genDate }</td>
-					<td>${reportList.uptDate }</td>
+					<td>${cmpn.seq }</td>
+					<td>${cmpn.name}</td>
+					<td>${cmpn.cmpnNum }</td>
+					<td>${cmpn.addr1 }</td>
+					<td>${cmpn.addr2 }</td>
+					<td>${cmpn.area }</td>
+					<td>${cmpn.tel }</td>
+					<td>${company.get('status')}</td>
+					
 					<td>
-					 <a class="move" href="${reportList.seq }">상세보기</a>
+					 <a class="move" href="${companyList.seq }">상세보기</a>
 					</td>
+			
 				</tr>
 			</c:forEach>
 		</tbody>
 		</table>
 	<br>
-
+	  
 	<!-- 페이징 -->
 	<div id="pageButton">
   	<ul class="pagination">
@@ -131,7 +136,7 @@
 							var seq = $(this).attr("href"); //클릭한 게시글의 번호를 읽어와서 
 							actionForm
 									.append('<input type="hidden" name="seq" value="'+ seq +'">') //여기넣어주고
-							actionForm.attr("action", "maintenance/report") //바꾸기 앞에는 속성이름 뒤에는 바꾸는거
+							actionForm.attr("action", "company/view") //바꾸기 앞에는 속성이름 뒤에는 바꾸는거
 							actionForm.submit(); //실행
 						});
 		
@@ -142,5 +147,10 @@
 			actionForm.submit();
 		});
 	});
+	
+	
+
+
+
 	
 </script>

@@ -12,4 +12,7 @@ public interface ReportService {
     
     //전체 데이터 건수
   	public int getTotalCount(Criteria cri);
+  	
+	//신고글 한건
+  	public ReportVO getReport(ReportVO vo);
 }

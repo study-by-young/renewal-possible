@@ -63,7 +63,7 @@
 					</div>
 
 					<div class="card-body">
-						<form role="form" action="memberOneSelect" method="post">
+						<form role="form" action="view" method="post">
 							<div class="row">
 								<div class="col-md-12">
 									<fieldset>
@@ -161,7 +161,7 @@
 							<br>
 							<div class="text-right">
 								<button id="up" type="submit" class="btn btn-primary">수정하기</button>
-						  		<a class="btn btn-primary" id="list_btn" href="memberList?pageNum=${cri.pageNum}&amount=${cri.amount}">목록</a>
+						  		<button class="btn btn-primary" id="list_btn">목록</button>
 							</div>
 						</form>
 					</div>
@@ -183,7 +183,7 @@ $("#list_btn").on(
 		function(e) {
 			form.find("#seq").remove();
 			form.attr("action",
-					"${pageContext.request.contextPath}/admin/memberList?pageNum="
+					"${pageContext.request.contextPath}/admin/maintenance/member?pageNum="
 							+ $('#pageNum').val() + "&amount="
 							+ $('#amount').val());
 			form.submit();
