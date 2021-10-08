@@ -1,6 +1,5 @@
 package com.yedam.possable.app.company.controller;
 
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,53 +43,90 @@ public class CompanyController {
             attributes.addFlashAttribute("denyMsg", "업체회원이 아닙니다.");
             return "redirect:" + request.getHeader("REFERER");
         }
-        return "company/companyDashboard";
+        return "company/dashboard";
     }
-    
-    //업체 정보수정페이지
-    @GetMapping("/info/edit")
-    public String companyEditInfo(CompanyVO vo, Model model, @RequestParam Long seq) {
 
-    	vo.setSeq(seq);
-    	model.addAttribute("company", companyService.companyOneSelect(vo));
-        
-    	return "company/companyEditInfo";
+    //업체 정보 수정 페이지
+    @PostMapping("/editInfo")
+    public String editCompanyInfoForm(CompanyVO vo, Model model, @RequestParam Long seq) {
+
+        vo.setSeq(seq);
+        model.addAttribute("company", companyService.companyOneSelect(vo));
+
+        return "editInfo";
     }
-    
-    //정보수정처리
-    @PostMapping("/info/edit")
-    public String companyInfoUpdate(CompanyVO vo, Model model, @RequestParam("seq") Long seq, RedirectAttributes rttr) {
-    	
-		int result = companyService.companyInfoUpdate(vo);
-		if(result == 1) {
-			rttr.addFlashAttribute("result", "success");
-		}
-		return "redirect:edit";
-		
-    
+
+    // 업체 정보 수정 전 검증 폼
+    @GetMapping("/editInfo/checkPw")
+    public String beforeEditCompanyInfo(){
+        return "company/editInfoBefore";
+    }
+
+    // 업체 정보 수정 처리
+    @PostMapping("/editInfo/complete")
+    public String editCompanyInfo(CompanyVO vo,
+                                  Model model,
+                                  RedirectAttributes attributes){
+
+        int result = companyService.companyInfoUpdate(vo);
+        if (result == 1) {
+            attributes.addFlashAttribute("result", "success");
+        }
+        return "redirect:edit";
+
+    }
+
+    // 업체 삭제 처리
+    @GetMapping("/editInfo/delete")
+    public String deleteCompany(){
+        return "";
     }
 
     //업체 보유 렌트카 리스트
-    @GetMapping("/companyCarList")
-    public String companyCarList(CompanyVO vo, Model model, @RequestParam Long seq ) {
-    	vo.setSeq(seq);
-    	List<CarVO> carList = carService.getCompanyCarList(vo);
+    @GetMapping("/car")
+    public String companyCarList(CompanyVO vo,
+                                 Model model,
+                                 @RequestParam Long seq){
+        vo.setSeq(seq);
+        List<CarVO> carList = carService.getCompanyCarList(vo);
         model.addAttribute("companyCarList", carList);
         return "company/companyCarList";
     }
 
-    //업체 보유 렌트카 한건
-    @GetMapping("/companyCarOneSelect")
-    @ResponseBody
+    // 업체 보유 렌트카 상세
+    @GetMapping("/car/view")
     public CarVO companyCarOneSelect(CarVO vo, @RequestParam Long seq) {
         return carService.getCompanyCar(seq, new CompanyVO());          // JSP에서 company 시퀀스 넘겨줘야함
     }
 
-    //업체 보유 렌트카 삭제
-    @PostMapping("/companyCarDel")
-    @ResponseBody
-    public int companyCarDel(CarVO vo, @RequestParam(value = "chbox[]") List<String> chArr) {
+    // 업체 렌트카 등록 폼
+    @GetMapping("/car/register")
+    public String carRegisterForm(){
+        return "company/carRegForm";
+    }
 
+    // 업체 렌트카 등록 처리
+    @PostMapping("/car/register")
+    public String registerCar(){
+        return "";
+    }
+
+    // 업체 렌트카 수정 폼
+    @GetMapping("/car/update")
+    public String carUpdateForm(){
+        return "company/carRegForm";
+    }
+
+    // 업체 렌트카 등록 처리
+    @PostMapping("/car/update")
+    public String updateCar(){
+        return "";
+    }
+
+    // 업체 렌트카 삭제 처리
+    @GetMapping("/car/delete")
+    public String deleteCar(CarVO vo,
+                            @RequestParam(value = "chbox[]") List<String> chArr){
         int result = 0;
         Long seq = 0L;
 
@@ -101,16 +137,56 @@ public class CompanyController {
         }
         result = 1;
 
-        return result;
-
+        return "";
     }
+
+    // 견적 제출 리스트
+    @GetMapping("/estSubmit")
+    public String estSubmitList(){
+        return "company/estSubmitList";
+    }
+
+    // 견적 제출 상세
+    @GetMapping("/estSubmit/view")
+    public String estSubmitView(){
+        return "company/estSubmitView";
+    }
+
+    // 견적 제출 수정 폼
+    @GetMapping("/estSubmit/update")
+    public String estSubmitUpdateForm(){
+        return "";
+    }
+
+    // 견적 제출 수정 처리
+    @PostMapping("/estSubmit/update")
+    public String updateEstSubmit(){
+        return "";
+    }
+
+    // 렌트 내역 리스트
+    @GetMapping("/rent")
+    public String rentHistoryList(){
+        return "company/rentHistoryList";
+    }
+
+    // 렌트 내역 상세
+    @GetMapping("/rent/view")
+    public String rentHistoryView(){
+        return "company/rentHistoryView";
+    }
+
+
+    // -----------------------------------------------------------------------------
+
+
 
     //차트 테스트
     @GetMapping("/incomeTest")
     public String incomeTest(Model model) {
 
-    	HashMap<String, Object> map = companyService.companyIncome();
-    	System.out.println(map);
+        HashMap<String, Object> map = companyService.companyIncome();
+        System.out.println(map);
 
         return "company/incomeTest";
     }

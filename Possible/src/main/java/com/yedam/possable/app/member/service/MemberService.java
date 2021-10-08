@@ -6,8 +6,6 @@ import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.member.domain.MemberVO;
 import org.springframework.security.core.Authentication;
 
-import javax.servlet.http.HttpServletRequest;
-
 public interface MemberService {
     // 로그인 정보 조회
     public MemberVO getLoginMember(Authentication authentication);

@@ -45,5 +45,19 @@
 		)
 		WHERE RN > (#{pageNum} - 1) * #{amount}
 	</select>
+	
+	<!-- 신고글 한건 -->
+	<select id="getReport" resultType="ReportVO">
+		SELECT SEQ,
+				TITLE,
+				CONTENT,
+				TARGET,
+				WRITER,
+				REASON,
+				GEN_DATE,
+				UPT_DATE
+		FROM REPORT_BOARD
+		WHERE SEQ = #{seq}
+	</select>
 
 </mapper>

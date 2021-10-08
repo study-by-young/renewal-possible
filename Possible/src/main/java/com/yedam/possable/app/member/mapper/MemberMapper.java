@@ -43,14 +43,14 @@ public interface MemberMapper {
 
 	//회원 권한 변경
 	public int authorUpdate(MemberVO vo);
-	
+
 	//회원 내정보 수정 비밀번호
 	public int memberPassUpdate(MemberVO vo);
 
 	//회원 내정보 수정(휴대폰번호,이메일,주소)
 	public int memberInfoUpdate(MemberVO vo);
-	
+
 	//회원 단건 조회
 	public MemberVO read(MemberVO vo);
-	
+
 }

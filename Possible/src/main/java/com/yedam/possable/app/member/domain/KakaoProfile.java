@@ -9,7 +9,7 @@ public class KakaoProfile {
 	public String connected_at;
 	public Properties properties;
 	public KakaoAccount kakao_account;
-	
+
 	@Data
 	public class Properties {
 
@@ -36,7 +36,7 @@ public class KakaoProfile {
 
 		@Data
 		public class Profile {
-			
+
 			public String nickname;
 
 		}
