@@ -21,8 +21,6 @@ import com.yedam.possable.app.member.service.MemberService;
 
 import lombok.extern.java.Log;
 
-import java.security.Principal;
-
 @Log
 @Controller
 @RequestMapping("/admin/*")
@@ -123,7 +121,7 @@ public class AdminController {
 		model.addAttribute("pageMaker", new PageVO(cri, total));
 			return "admin/companyList";
 	    }
-	
+
 	//신고글 리스트
 	@GetMapping("maintenance/report")
 	public String getReportList(Model model, @ModelAttribute("cri") Criteria cri){
@@ -132,7 +130,7 @@ public class AdminController {
 		model.addAttribute("reportList",reportService.getReportList(cri));
 		System.out.println(reportService.getReportList(cri));
 		model.addAttribute("pageMaker", new PageVO(cri, total));
-		
+
 		return "admin/maintanence/reportList";
 	}
 

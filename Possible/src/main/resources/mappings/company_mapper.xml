@@ -18,7 +18,7 @@
                         <when test="type == 'T'.toString()">
                             TEL LIKE '%' || #{keyword} || '%'
                         </when>
-                     
+
                     </choose>
                 </trim>
             </foreach>
@@ -153,7 +153,7 @@
         FROM item_option
         WHERE cmpn_seq = #{seq}
     </select>
-    
+
     <!-- 업체 업체정보수정(휴대폰번호,이메일,주소) -->
 	<update id="companyInfoUpdate">
 	UPDATE COMPANY SET NAME = #{name},
@@ -163,7 +163,7 @@
                   AREA = #{area}
 	WHERE SEQ = #{seq}
 	</update>
-    
+
     <!-- 수익차트... -->
     <select id="companyIncome" resultType="java.util.HashMap">
 	select to_char(trunc(r.gen_date),'YYYYMMDD') gen_date, sum(r.price) price

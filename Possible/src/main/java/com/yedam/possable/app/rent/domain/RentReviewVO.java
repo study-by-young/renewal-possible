@@ -1,7 +1,5 @@
 package com.yedam.possable.app.rent.domain;
 
-import com.yedam.possable.app.community.course.domain.CourseBoardVO;
-import com.yedam.possable.app.member.domain.MemberVO;
 import lombok.Data;
 
 @Data

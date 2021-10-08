@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
@@ -26,16 +25,13 @@ import lombok.extern.java.Log;
 
 @Log
 @Controller
+@Deprecated
 public class MemberController {
-
 	@Autowired MemberService memberService;
-
 	//스프링 시큐리티 암호화
 	@Autowired BCryptPasswordEncoder bcryptPasswordEncoder;
-
 	//JavaMailSender 객체 타입인 mailSender 변수를 선언
-	@Autowired
-    	private JavaMailSender mailSender;
+	@Autowired private JavaMailSender mailSender;
 
 	@PostMapping("/memberList")
 	public String memberList(Model model, @ModelAttribute("cri") Criteria cri) {
@@ -44,6 +40,7 @@ public class MemberController {
 
 		return "member/memberList";
 	}
+
 	//회원 등록
 	@PostMapping("/memberInsert")
 	public String memberInsert(MemberVO vo, RedirectAttributes rttr) {
@@ -139,6 +136,7 @@ public class MemberController {
 			}
           return pswd;
 	}
+
 	//회원 비밀번호 찾기
 	@PostMapping("/passFindUpdate")
 	@ResponseBody
@@ -147,7 +145,7 @@ public class MemberController {
 		log.info(r+ "비밀번호 찾기 부분 오긴 오냐?");
 		return r;
 	}
-	
+
 	//회원 정보수정하기 비밀번호 변경
 	@PostMapping("/memberPassUpdate")
 	@ResponseBody
@@ -162,14 +160,14 @@ public class MemberController {
 	public boolean passCheck( MemberVO vo, HttpServletRequest request, Authentication authentication) {
 		//String r = memberService.passCheck(vo);
 		String pass = request.getParameter("password"); //jsp에서 보낸 놈
-		System.out.println("JSP에서 들고온 비밀번호:" + pass); 
+		System.out.println("JSP에서 들고온 비밀번호:" + pass);
 		MemberVO getPass = memberService.getUserById(vo.getId()); // 디비 안에 있는 ID소환
 		System.out.println("디비에서 들고온놈" + getPass);
 		Boolean matchPass = bcryptPasswordEncoder.matches(pass, getPass.getPassword()); //비교
 		System.out.println(matchPass);
 		return matchPass;
 	}
-	
+
 	//회원 내정보 수정(휴대폰번호,이메일,주소)
 	@PostMapping("/memberInfoUpdate")
 	@ResponseBody

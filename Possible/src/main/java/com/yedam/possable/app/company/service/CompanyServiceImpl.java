@@ -7,7 +7,6 @@ import com.yedam.possable.app.member.domain.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.mapper.CompanyMapper;
@@ -80,5 +79,5 @@ public class CompanyServiceImpl implements CompanyService {
 		// TODO Auto-generated method stub
 		return companyMapper.companyInfoUpdate(vo);
 	}
-}    
+}
 

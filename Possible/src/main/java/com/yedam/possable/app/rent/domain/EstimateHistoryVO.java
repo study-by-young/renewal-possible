@@ -1,11 +1,9 @@
 package com.yedam.possable.app.rent.domain;
 
-import com.yedam.possable.app.member.domain.MemberVO;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
-import java.util.List;
 
 @Data
 public class EstimateHistoryVO {
