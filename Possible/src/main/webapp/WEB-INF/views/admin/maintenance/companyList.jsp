@@ -81,7 +81,7 @@
 			</thead>
 			<tbody>
 			<c:forEach var="company" items="${companyList }">
-				<c:set var="cmpn" value="company.get('companyVO')" />
+				<c:set var="cmpn" value="${company.get('companyVO')}" />
 				<tr>
 					<td>${cmpn.seq }</td>
 					<td>${cmpn.name}</td>
@@ -93,7 +93,7 @@
 					<td>${company.get('status')}</td>
 					
 					<td>
-					 <a class="move" href="${companyList.seq }">상세보기</a>
+					 <a class="move" href="${cmpn.seq }">상세보기</a>
 					</td>
 			
 				</tr>
