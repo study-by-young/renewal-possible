@@ -7,7 +7,8 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <style type="text/css">
     .dash{
         background: #ffffff;
@@ -52,12 +53,12 @@
                                 <!-- 메뉴 -->
                                 <div class="lr_bc_first_box_img_cont_wrapper">
                                     <ul>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/dashboard">홈</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/editInfo">회원정보수정</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/eslist">견적관리</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/rentHistory">렌트관리</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/community">커뮤니티관리</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/qna">나의문의</a></li>
+                                       <li><a href="${pageContext.request.contextPath}/mypage/dashboard">홈</a></li>
+                              		   <li><a href="${pageContext.request.contextPath}/mypage/editProfile">회원정보수정</a></li>
+		                               <li><a href="${pageContext.request.contextPath}/mypage/estimate">견적관리</a></li>
+		                               <li><a href="${pageContext.request.contextPath}/mypage/rent">렌트관리</a></li>
+		                               <li><a href="${pageContext.request.contextPath}/mypage/community">커뮤니티관리</a></li>
+		                               <li><a href="${pageContext.request.contextPath}/mypage/qna">나의문의</a></li>
                                     </ul>
                                 </div>
                                 <br> <br> <br>
@@ -97,7 +98,7 @@
                                                     <div class="container mt-3">
                                                         <!-- Button to Open the Modal -->
                                                         <a data-toggle="modal" href="#myModal">렌트내역</a>
-
+													
 
                                                         <!-- The Modal -->
                                                         <div class="modal fade" id="myModal">
@@ -139,25 +140,22 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-
-
-
-
-
                                             </div>
                                         </div>
                                     </div>
+                                    <c:forEach var="getView" items="${getView}" >
                                     <div class="dash x_car_offer_main_boxes_wrapper float_left">
                                         <div class="x_car_offer_starts x_car_offer_starts_list_img float_left border-1">
                                             <img src="${pageContext.request.contextPath}/resources/images/cars/Hyundai/santafe.png" alt="img" class="img-fluid">
                                         </div>
                                         <div class="x_car_offer_starts_list_img_cont border-left">
-
+						
                                             <div class="row">
                                                 <div class="col-8 x_car_offer_heading_listing float_left">
                                                     <label for="inputRentOrReturn"class="h5">대여/반납일</label>
-                                                    <p class="h6">2021-10-01 ~ 2021-10-10</p>
+                                                    <p class="h6">
+                                                    	<fmt:formatDate value="${getView.startDate}" pattern="yyyy/MM/dd"/> ~ <fmt:formatDate value="${getView.endDate}" pattern="yyyy/MM/dd" /> 
+                                                    </p>
                                                 </div>
                                                 <div class="col-2"></div>
                                                 <div class="col-2 x_car_offer_heading_listing float_left">
@@ -167,18 +165,19 @@
                                                     </button>
                                                 </div>
                                             </div>
-
+											${getView.carSeq }
+											${carName }
                                             <div class="row">
                                                 <div class="col-12 x_car_offer_heading x_car_offer_heading_listing float_left">
                                                     <ul class="">
                                                         <li>차량</li>
-                                                        <li style="text-align: right;">현대 2021 new Santafe</li>
+                                                        <li style="text-align: right;">${carName.brand } ${carName.model }</li>
                                                         <li>대여업체</li>
                                                         <li style="text-align: right;">씽씽렌트카</li>
                                                         <li>보험</li>
                                                         <li style="text-align: right;">완전자차</li>
                                                         <li>수령장소</li>
-                                                        <li style="text-align: right;">Barcelona Airport</li>
+                                                        <li style="text-align: right;">${getView.takePlaceBasic } ${getView.takePlaceDetail }</li>
 
                                                     </ul>
                                                 </div>
@@ -188,18 +187,19 @@
                                                 <div class="col-12 x_car_offer_heading x_car_offer_heading_listing float_left">
                                                     <ul class="">
                                                         <li>결제금액</li>
-                                                        <li>{}원</li>
+                                                        <li style="text-align: right;">${getView.price }원</li>
                                                         <li>결제방법</li>
-                                                        <li>kakaoPay</li>
+                                                        <li style="text-align: right;">${getView.payMethod }</li>
                                                         <li>결제번호</li>
-                                                        <li class="fs-5">m_54336662111</li>
+                                                        <li style="text-align: right;">${getView.merchantUid }</li>
+                                                       
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                	</c:forEach>
                                 </div>
-
                             </div>
                         </div>
                     </div>

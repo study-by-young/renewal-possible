@@ -192,4 +192,5 @@
                   ADDR_DETAIL = #{addrDetail}
 	WHERE ID = #{id}
 	</update>
+	
 </mapper>
