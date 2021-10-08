@@ -14,7 +14,7 @@ import com.yedam.possable.app.member.service.MemberService;
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
-	@Autowired	CompanyMapper companyMapper;
+    @Autowired	CompanyMapper companyMapper;
 	@Autowired MemberService memberService;
 
 	@Override

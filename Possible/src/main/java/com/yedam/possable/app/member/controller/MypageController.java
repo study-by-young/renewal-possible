@@ -145,44 +145,6 @@ public class MypageController {
 
     // --------------------------------------------------------
 
-    //마이페이지 견적관리 페이지
-    @GetMapping("/eslist")
-    public String eslist() {
-        return "mypage/estimate/list";
-    }
-
-    //마이페이지 견적관리 상세 페이지
-    @GetMapping("/esinfo")
-    public String esinfo() {
-        return "mypage/estimate/info";
-    }
-
-    //마이페이지 렌트내역 페이지
-    @GetMapping("/rentHistory")
-    public String rentHistory() {
-        return "mypage/rentHistory";
-    }
-
-    //마이페이지 후기 작성 페이지
-    @GetMapping("/review")
-    public String review() {
-        return "mypage/review/write";
-    }
-
-
-    //마이페이지 나의 문의 페이지
-    @GetMapping("/qna")
-    public String qna() {
-        return "mypage/qna";
-    }
-
-    //업체전환 신청 페이지 페이지
-    @GetMapping("/chngRole")
-    public String chngRole(Model model, HttpSession session) {
-
-        return "mypage/chngRole";
-    }
-
     //업체전환 신청처리
     @PostMapping("/chngRole")
     public String chngRole(Model model, CompanyVO vo, RedirectAttributes rttr) {
