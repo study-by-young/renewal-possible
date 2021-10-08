@@ -26,4 +26,5 @@ public class RentHistoryVO {
 
     private Long carSeq;
     private Long memSeq;
+    private Long cmpnSeq;
 }

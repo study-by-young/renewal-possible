@@ -128,12 +128,12 @@
                 });
 
                 $.ajax({
-                    url : "companyCarDel",
+                    url : "car/delete",
                     type : "post",
                     data : {chbox : checkArr},
                     success : function(result){
                         if(result == 1) {
-                            location.href = "${pageContext.request.contextPath}/companyDashboard";
+                            location.href = "${pageContext.request.contextPath}/company/dashboard";
                         } else {
                             alert("삭제 실패");
                         }

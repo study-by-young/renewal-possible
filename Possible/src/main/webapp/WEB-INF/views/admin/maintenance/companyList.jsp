@@ -62,7 +62,8 @@
 				</tr>
 			</thead>
 			<tbody>
-			<c:forEach var="comRegList" items="${comRegList }">
+			<c:forEach var="company" items="${companyList }">
+				<c:set var="cmpn" value="${company.get('companyVO')}" />
 				<tr>
 					<td>${comRegList.seq }</td>
 					<td>${comRegList.name}</td>
@@ -73,7 +74,8 @@
 					<td>${comRegList.area }</td>
 					<td>${comRegList.tel }</td>
 					<td>
-					<a class="move" href="${comRegList.seq }">승인요청</a>
+					 <a class="move" href="${cmpn.seq }">상세보기</a>
+
 					</td>
 				</tr>
 			</c:forEach>

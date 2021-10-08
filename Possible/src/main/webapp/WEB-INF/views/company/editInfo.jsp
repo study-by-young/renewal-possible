@@ -26,7 +26,7 @@
 						<div class="col-md-12">
 							<div class="lr_bc_first_box_main_wrapper">
 								<!-- 업체등록 START -->
-									<form id="frm" name="frm" action="edit" method="post">
+									<form id="frm" name="frm" action="editInfo/complete" method="post">
 								<div class="col-md-12">
 									<div class="blog_single_comment_heading">
 										<h4>업체수정</h4>

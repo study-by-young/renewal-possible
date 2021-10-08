@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.member.service.MemberService;
@@ -43,17 +44,22 @@ public class CompanyController {
             attributes.addFlashAttribute("denyMsg", "업체회원이 아닙니다.");
             return "redirect:" + request.getHeader("REFERER");
         }
+        
+        HttpSession session = request.getSession();
+        session.setAttribute("cmpnSeq", companyVO.getSeq());
+        
+        
         return "company/dashboard";
     }
 
     //업체 정보 수정 페이지
-    @PostMapping("/editInfo")
+    @GetMapping("/editInfo")
     public String editCompanyInfoForm(CompanyVO vo, Model model, @RequestParam Long seq) {
 
         vo.setSeq(seq);
         model.addAttribute("company", companyService.companyOneSelect(vo));
 
-        return "editInfo";
+        return "company/editInfo";
     }
 
     // 업체 정보 수정 전 검증 폼
@@ -72,7 +78,7 @@ public class CompanyController {
         if (result == 1) {
             attributes.addFlashAttribute("result", "success");
         }
-        return "redirect:edit";
+        return "redirect:/company/dashboard";
 
     }
 
@@ -90,7 +96,7 @@ public class CompanyController {
         vo.setSeq(seq);
         List<CarVO> carList = carService.getCompanyCarList(vo);
         model.addAttribute("companyCarList", carList);
-        return "company/companyCarList";
+        return "company/carList";
     }
 
     // 업체 보유 렌트카 상세
@@ -124,8 +130,9 @@ public class CompanyController {
     }
 
     // 업체 렌트카 삭제 처리
-    @GetMapping("/car/delete")
-    public String deleteCar(CarVO vo,
+    @ResponseBody
+    @PostMapping("/car/delete")
+    public int deleteCar(CarVO vo,
                             @RequestParam(value = "chbox[]") List<String> chArr){
         int result = 0;
         Long seq = 0L;
@@ -137,7 +144,7 @@ public class CompanyController {
         }
         result = 1;
 
-        return "";
+        return result;
     }
 
     // 견적 제출 리스트

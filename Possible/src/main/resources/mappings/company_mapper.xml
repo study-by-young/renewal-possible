@@ -163,7 +163,7 @@
                   AREA = #{area}
 	WHERE SEQ = #{seq}
 	</update>
-
+	
     <!-- 수익차트... -->
     <select id="companyIncome" resultType="java.util.HashMap">
 	select to_char(trunc(r.gen_date),'YYYYMMDD') gen_date, sum(r.price) price
