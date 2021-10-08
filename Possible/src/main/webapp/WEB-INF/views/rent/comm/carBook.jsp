@@ -354,7 +354,7 @@
                                         </ul>
 
                                         <div class="pay_select" style="margin-top: 40px; padding-bottom: 20px; border: 1px solid #363636;">
-                                            <div style="text-align: center;"><img src="${pageContext.request.contextPath}/resources/images/licenseimg.svg"  style="align: center; padding: 10px;"></div>
+                                            <div style="text-align: center;"><img src="${pageContext.request.contextPath}/resources/images/licenseimg.svg" style="align: center; padding: 10px;"></div>
                                             <div style="font-size: 14px; font-weight: 800; text-align: center; color: black;">차량 대여 시, 운전자는 운전면허증을 꼭 지참해주세요.</div>
                                             <div style="font-size: 14px; text-align: center;">면허증 확인 및 계약서 작성이 꼭 필요합니다.</div>
                                         </div>

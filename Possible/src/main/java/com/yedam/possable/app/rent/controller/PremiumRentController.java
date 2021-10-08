@@ -47,7 +47,7 @@ public class PremiumRentController {
     CarService carService;
 
     // 견적 요청 리스트
-    @GetMapping("estimate/list")
+    @GetMapping("/estimate")
     public String estimateList(Model model, @ModelAttribute("cri") Criteria cri) {
         Map<String, Object> attr = new LinkedHashMap<>();
         int listCount = premiumRentService.getEstimateCount();
@@ -58,24 +58,24 @@ public class PremiumRentController {
         attr.put("pagination", new PageVO(cri, listCount));
         model.addAllAttributes(attr);
 
-        return "/premiumRent/estimateList";
+        return "rent/prm/estimateList";
     }
 
     // 견적 요청 작성
-    @GetMapping("estimate/insert")
-    public String estimateInsert(Model model) {
+    @GetMapping("estimate/register")
+    public String estimateRegisterForm(Model model) {
         String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
         String itemOptCode = codeService.getMasterCodeByName("캠핑 옵션").getCode();
         model.addAttribute("brands", codeService.getBrandList());
         model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
         model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
 
-        return "/premiumRent/estimateInsert";
+        return "/rent/prm/estimateRegForm";
     }
 
     // 견적 요청 제출
-    @PostMapping("estimate/insert")
-    public String estimateInsert(EstimateHistoryVO vo,
+    @PostMapping("estimate/register")
+    public String estimateRegister(EstimateHistoryVO vo,
                                  @RequestParam("options") String[] optionsArr,
                                  @RequestParam("items") String[] itemsArr,
                                  RedirectAttributes attributes) {
@@ -99,12 +99,12 @@ public class PremiumRentController {
 
         attributes.addFlashAttribute("resultMsg", resultStr);
 
-        return "redirect:list";
+        return "redirect:./view";
     }
 
     // 견적 요청 상세
-    @GetMapping("estimate/view")
-    public String estimateRead(@RequestParam Long seq,
+    @GetMapping("/estimate/view")
+    public String estimateView(@RequestParam Long seq,
                                Principal principal,
                                RedirectAttributes attributes,
                                HttpServletRequest request,
@@ -120,11 +120,11 @@ public class PremiumRentController {
 
         model.addAttribute("estimate", premiumRentService.getEstimate(seq));
 
-        return "/premiumRent/estimateView";
+        return "rent/prm/estimateView";
     }
 
     // 견적 요청 삭제
-    @GetMapping("estimate/delete")
+    @GetMapping("/estimate/view/delete")
     public String estimateDelete(@RequestParam Long seq,
                                  RedirectAttributes attributes,
                                  HttpServletRequest request,
@@ -149,11 +149,11 @@ public class PremiumRentController {
         }
         attributes.addFlashAttribute("deleteMsg", deleteResult);
 
-        return "redirect:list";
+        return "redirect:../..";
     }
 
     // 견적 요청 수정
-    @GetMapping("estimate/update")
+    @GetMapping("estimate/view/update")
     public String estimateUpdateForm(@RequestParam Long seq,
                                      Principal principal,
                                      HttpServletRequest request,
@@ -170,11 +170,11 @@ public class PremiumRentController {
         }
         model.addAttribute("estimate", premiumRentService.getEstimate(seq));
 
-        return "premiumRent/estimateInsert";
+        return "rent/prm/estimateRegForm";
     }
 
     // 견적 요청 수정 제출
-    @PostMapping("estimate/update")
+    @PostMapping("estimate/view/update")
     public String estimateUpdate(EstimateHistoryVO vo,
                                  RedirectAttributes attributes) {
         int updateResult = premiumRentService.updateEstimate(vo);
@@ -188,12 +188,12 @@ public class PremiumRentController {
         attributes.addFlashAttribute("updateMsg", resultMsg);
         attributes.addAttribute("seq", vo.getSeq());
 
-        return "redirect: view";
+        return "redirect:../";
     }
 
-    // 견적 작성
-    @GetMapping("submit/insert")
-    public String submitInsert(Model model,
+    // 견적 제출 리스트
+    @GetMapping("/submit")
+    public String submitList(Model model,
                                @RequestParam Long seq,
                                HttpServletRequest request,
                                Principal principal) {
@@ -219,12 +219,49 @@ public class PremiumRentController {
         model.addAttribute("companyItems", companyItems);
         model.addAttribute("estimate", estimate);
         model.addAttribute("carOptions", carOptions);
-        return "premiumRent/estimateSubmitInsert";
+        return "rent/prm/submitList";
     }
 
-    @PostMapping("submit/insert")
-    public String submitFormInsert(RedirectAttributes attributes,
+    // 견적 제출 상세
+    @PostMapping("submit/view")
+    public String submitView(RedirectAttributes attributes,
                                    EstiSubmitHistoryVO vo) {
-        return "redirect:../estimate/list";
+        return "/rent/prm/submitView";
+    }
+
+    // 견적 제출 수정
+    @GetMapping("submit/view/update")
+    public String submitUpdateForm(){
+        return "rent/prm/submitRegForm";
+    }
+
+    // 견적 제출 수정 처리
+    @PostMapping("submit/view/update")
+    public String submitUpdate(){
+        return "redirect:../";
+    }
+
+    // 견적 제출 삭제 처리
+    @GetMapping("submit/view/delete")
+    public String deleteSubmit(){
+        return "redirect:../../";
+    }
+
+    // 견적 제출 예약 처리
+    @GetMapping("submit/view/bookCmpl")
+    public String submitBookComplete(){
+        return "rent/prm/bookComplete";
+    }
+
+    // 견적 제출 등록 폼
+    @GetMapping("submit/register")
+    public String submitRegForm(){
+        return "rent/prm/submitRegForm";
+    }
+
+    // 견적 제출 등록
+    @PostMapping("submit/register")
+    public String registerSubmit(){
+        return "redirect:view";
     }
 }
