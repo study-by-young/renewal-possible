@@ -171,7 +171,9 @@ response.setContentType("text/html; charset=utf-8");
 														.append(
 																'<input type="hidden" id="mapX" name="mapX" value="'+data[i].mapX+'">')
 														.append(
-																'<input type="hidden" id="mapY" name="mapY" value="'+data[i].mapY+'">');
+																'<input type="hidden" id="mapY" name="mapY" value="'+data[i].mapY+'">')
+														.append(
+																'<input type="hidden" id="contentId" name="contentId" value="'+data[i].contentId+'">');
 												// hide로 가져가야하나..?
 											}
 										}

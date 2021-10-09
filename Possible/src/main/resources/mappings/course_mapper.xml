@@ -2,7 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.possable.app.community.course.mapper.CourseMapper">
 
-	<insert id="courseInsert">
+	<insert id="insert">
+<!-- 		<selectKey keyProperty="courseSeq" resultType="long" order="BEFORE">
+			SELECT SEQ_COURSE_BOARD.NEXTVAL FROM DUAL
+		</selectKey> -->
+		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
+			SELECT SEQ_COURSE.NEXTVAL FROM DUAL
+		</selectKey>
 		INSERT INTO COURSE VALUES (#{courseSeq}, #{seq}, #{placeNo}, #{contentId})
 	</insert>
 	
