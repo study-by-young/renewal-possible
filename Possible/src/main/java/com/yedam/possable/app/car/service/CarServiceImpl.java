@@ -65,4 +65,14 @@ public class CarServiceImpl implements CarService {
     public int updateCompanyCar(CarVO carVO, CompanyVO cmpnVO) {
         return carMapper.updateCompanyCar(carVO, cmpnVO);
     }
+
+	@Override
+	public List<CarVO> getDistinctCarList() {
+		return carMapper.getDistinctCarList();
+	}
+
+	@Override
+	public List<CarVO> getCarByModel(CarVO vo) {
+		return carMapper.getCarByModel(vo);
+	}
 }
