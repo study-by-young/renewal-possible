@@ -409,19 +409,19 @@
 														<div class="x_car_offer_heading x_car_offer_heading_listing float_left">
                                                             <ul class="">
                                                                 <li>
-                                                                    <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 차량 옵션</span>
+                                                                    <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 차량 정보</span>
                                                                         <ul class="list">
-                                                                            <c:forEach var="opt" items="${options}">
-                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${opt}</li>
+                                                                            <c:forEach var="itm" items="${items}">
+                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${itm}</li>
                                                                             </c:forEach>
                                                                         </ul>
                                                                     </div>
                                                                 </li>
                                                                 <li>
-                                                                    <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 여행 옵션</span>
+                                                                    <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 차량 옵션</span>
                                                                         <ul class="list">
-                                                                            <c:forEach var="itm" items="${items}">
-                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${itm}</li>
+                                                                            <c:forEach var="opt" items="${options}">
+                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${opt}</li>
                                                                             </c:forEach>
                                                                         </ul>
                                                                     </div>

@@ -230,110 +230,40 @@
 								<!-- Filter Results -->
 								<div class="car-filter accordion car_booking_onliy_side">
 
-									<h3>상세검색</h3>
+									<h3>결제정보</h3>
 									<hr>
 
 									<!-- 모델명 -->
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<div class="x_slider_form_input_wrapper float_left">
-												<h3>차량모델</h3>
-												<input type="text" placeholder="자동차 모델명으로 검색">
+												<h3>대여요금(자차보험 미포함)</h3>
+												<div style="float: right;">{car.price}</div>
 											</div>
 										</div>
 									</div>
 									<hr>
-
-									<!-- 세그먼트 -->
-									<div class="x_car_book_fillter_select_box">
-										<h5>차량등급</h5>
-										<select class="myselect" id="segment" name="segment">
-											<option value="">전체</option>
-											<option value="">경형</option>
-											<option value="">소형</option>
-											<option value="">중형</option>
-											<option value="">대형</option>
-											<option value="">수입</option>
-											<option value="">승합RV</option>
-											<option value="">SUV</option>
-											<option value="">캠핑카</option>
-										</select>
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<div class="x_slider_form_input_wrapper float_left">
+												<h3>할인적용</h3>
+												<div style="float: right;">{car.price}</div>
+											</div>
+										</div>
 									</div>
 									<hr>
-
-									<!-- 연료 -->
-									<div class="x_car_book_fillter_select_box">
-										<h5>연료</h5>
-										<select class="myselect" id="fuel" name="fuel">
-											<option value="">전체</option>
-											<option value="">휘발유</option>
-											<option value="">경유</option>
-											<option value="">LPG</option>
-											<option value="">하이브리드</option>
-											<option value="">전기</option>
-										</select>
+									<div class="panel panel-default">
+										<div class="panel-heading">
+											<div class="x_slider_form_input_wrapper float_left">
+												<h3>예상 결제액</h3>
+												<div style="float: right;">{car.price}</div>
+											</div>
+										</div>
 									</div>
 									<hr>
-
-									<!-- 연식 -->
-									<div class="x_car_book_fillter_select_box">
-										<h5>차량연식</h5>
-										<select class="myselect" id="year" name="year">
-											<option value="">전체</option>
-											<option value="">2022년</option>
-											<option value="">2021년</option>
-											<option value="">2020년</option>
-											<option value="">2019년</option>
-											<option value="">2018년</option>
-											<option value="">2017년</option>
-											<option value="">2016년</option>
-										</select>
-									</div>
-									<hr>
-
-
-									<!-- 차량제조사/브랜드 -->
-									<div class="x_car_book_fillter_select_box">
-										<h5>제조사</h5>
-										<select class="myselect" id="brand" name="brand">
-											<option value="">전체</option>
-											<option value="">현대</option>
-											<option value="">기아</option>
-											<option value="">르노삼성</option>
-											<option value="">수입</option>
-											<option value="">기타</option>
-										</select>
-									</div>
-									<hr>
-
-									<!-- 인원 -->
-									<div class="x_car_book_fillter_select_box">
-										<h5>인원</h5>
-										<select class="myselect" id="passenger2" name="passenger">
-											<option value="">전체</option>
-											<option value="">1인</option>
-											<option value="">2인</option>
-											<option value="">3인</option>
-											<option value="">4인</option>
-											<option value="">5인이상</option>
-										</select>
-									</div>
-									<hr>
-
-									<!-- 자차보험 -->
-									<div class="x_car_book_fillter_select_box">
-										<h5>자차보험</h5>
-										<select class="myselect" id="insurance2" name="insurance">
-											<option value="">전체</option>
-											<option value="">일반자차</option>
-											<option value="">완전자차</option>
-										</select>
-									</div>
-									<hr>
-
 									<div class="x_slider_checout_right x_slider_checout_right_carbooking x_slider_checout_right_carbooking_fiter">
 										<ul style="padding-left: 32px;">
-											<li><a href="#">상세검색<i class="fa fa-arrow-right"></i></a>
+											<li><a href="#">예약하기<i class="fa fa-arrow-right"></i></a>
 											</li>
 										</ul>
 									</div>
@@ -350,12 +280,12 @@
 									<div>
 										<table class="compare_cmpn">
 											<tr class="compare_cmpn_tr">
-												<td style="width: 5%;"><i class="fa fa-circle"></i></td>
+												<td style="width: 5%;"><i class="fa fa-check"></i></td>
 												<td style="width: 62%;">제주제주차빌려</td>
 												<td style="width: 37%;">25,600원</td>
 											</tr>
 											<tr class="compare_cmpn_tr">
-												<td style="width: 5%;"><i class="fa fa-circle"></i></td>
+												<td style="width: 5%;"><i class="fa fa-check"></i></td>
 												<td style="width: 62%;">{업체명}</td>
 												<td style="width: 37%;">{가격}</td>
 											</tr>
@@ -383,6 +313,7 @@
 									<!-- 이미지 -->
 									<div class="lr_bc_slider_first_wrapper text-center">
                                         <img src="${pageContext.request.contextPath}/resources/images/cars/KIA/k8.png" alt="fresh_food_img">
+                                        <p><small>차량 이미지는 이해를 돕기 위한 예시로, 배차 차량과 다를 수 있습니다.</small></p>
                                     </div>
 									<div class="row">
                                     	<div class="col-md-12 pb-4">
@@ -415,6 +346,170 @@
 			                                    </div>
 			                                    <div class="w-100 my-4 mt-5"></div>
 		                                    </div>
+		                                    <!-- End of rent date -->
+		                                    
+		                                    
+		                                    
+		                                    <div class="col-md-6" style="display: inline-block;">
+                                                <div class="x_slider_form_input_wrapper">
+                                                    <label class="h6">차량 정보</label>
+                                                </div>
+                                                <div class="x_car_offer_heading x_car_offer_heading_listing float_left x_car_offer_heading_inner_car_names x_car_offer_heading_inner_car_names2 mt-2">
+                                                    <ul class="" style="margin-top: 0px;">
+                                                        <c:forEach var="opt" items="${options}" begin="0" end="4">
+                                                            <li>	<a href="#"><i class="fa fa-users"></i> &nbsp;${opt}</a>
+                                                            </li>
+                                                        </c:forEach>
+                                                        <li>
+                                                            <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 더보기</span>
+                                                                <ul class="list" style="width:250px;">
+                                                                    <c:forEach var="opt" items="${options}" begin="5">
+                                                                        <li class="dpopy_li" style="width:100% !important;"><a href="#"><i class="fa fa-snowflake-o"></i> ${opt}</a>
+                                                                        </li>
+                                                                    </c:forEach>
+                                                                </ul>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+		                                    
+		                                    <div class="col-md-6" style="display: inline-block;">
+                                                <div class="x_slider_form_input_wrapper">
+                                                    <label class="h6">차량 옵션</label>
+                                                </div>
+                                                <div class="x_car_offer_heading x_car_offer_heading_listing float_left x_car_offer_heading_inner_car_names x_car_offer_heading_inner_car_names2 mt-2">
+                                                    <ul class="" style="margin-top: 0px;">
+                                                        <c:forEach var="opt" items="${options}" begin="0" end="4">
+                                                            <li>	<a href="#"><i class="fa fa-users"></i> &nbsp;${opt}</a>
+                                                            </li>
+                                                        </c:forEach>
+                                                        <li>
+                                                            <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 더보기</span>
+                                                                <ul class="list" style="width:250px;">
+                                                                    <c:forEach var="opt" items="${options}" begin="5">
+                                                                        <li class="dpopy_li" style="width:100% !important;"><a href="#"><i class="fa fa-snowflake-o"></i> ${opt}</a>
+                                                                        </li>
+                                                                    </c:forEach>
+                                                                </ul>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+		                                    <!-- End of 차량 정보 -->
+		                                    
+		                                    <!-- 상세조회 탭 -->
+		                                    <div class="x_css_tabs_wrapper float_left">
+												<div class="x_css_tabs_main_wrapper float_left">
+													<ul class="nav nav-tabs">
+														<li class="nav-item">
+															<a class="nav-link active" data-toggle="tab" href="#home">예약정보</a>
+														</li>
+														<li class="nav-item" style="margin-left: 10px;">
+															<a class="nav-link" data-toggle="tab" href="#menu1">업체후기</a>
+														</li>
+														<li class="nav-item">
+															<a class="nav-link" data-toggle="tab" href="#menu2">유의사항</a>
+														</li>
+													</ul>
+												</div>
+												<!-- 탭 상세 페이지 -->
+												<div class="tab-content">
+													<div id="home" class="tab-pane active">
+														<div class="x_css_skills_wrapper">
+															<div class="skills mt-50 x_c_s">
+																<h3>Rating</h3>
+																<div class="skill-item">
+																	<h6><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>90%</span></h6>
+																	<div class="skills-progress"><span data-value="90%"></span>
+																	</div>
+																</div>
+																<div class="skill-item">
+																	<h6><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> <span>5%</span></h6>
+																	<div class="skills-progress"><span data-value="5%"></span>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="x_css_skills_form_wrapper">
+															<div class="row only_left">
+																<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+																	<div class="contect_form1 xcontect_form1">
+																		<input type="text" placeholder="Full Name *">
+																	</div>
+																</div>
+																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+																	<div class="contect_btn x_css_form_btn">
+																		<ul>
+																			<li><a href="#">Submit <i class="fa fa-arrow-right"></i></a>
+																			</li>
+																		</ul>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<!-- End of Home -->
+													<!-- meun1 -->
+													<div id="menu1" class="tab-pane fade">
+														<div class="x_car_detail_descrip">
+															<div class="col-md-12">
+																<div class="row">
+																	<div class="col-md-12">
+																		<div class="blog_single_comment_wrapper">
+																			<div class="blog_comment3_wrapper">
+																				<div class="blog_comment1_img">
+																					<img src="images/comment_img3.jpg" alt="comment_img" class="img-responsive img-circle" />
+																				</div>
+																				<div class="blog_comment1_cont">
+																					<h3>Jhon Doe <i class="fa fa-circle"></i> <span>July 1, 2016</span> &nbsp;&nbsp;<i class="fa fa-star oo"></i>
+																						<i class="fa fa-star oo"></i>
+																						<i class="fa fa-star oo"></i>
+																						<i class="fa fa-star-o oo"></i>
+																						<i class="fa fa-star-o oo"></i></h3>
+																					<p>Integer porttitor fringilla vestibulum. Phasellus curs our tinnt nulla, ut mattis augue finibus ac. Vivamus elementum enim ac enim ultrices rhoncus.</p>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="col-md-12">
+																		<div class="blog_single_comment_wrapper">
+																			<div class="blog_comment3_wrapper">
+																				<div class="blog_comment1_img">
+																					<img src="images/comment_img1.jpg" alt="comment_img" class="img-responsive img-circle" />
+																				</div>
+																				<div class="blog_comment1_cont">
+																					<h3>Jhon Doe <i class="fa fa-circle"></i> <span>July 1, 2016 </span> &nbsp;&nbsp;<i class="fa fa-star oo"></i>
+																						<i class="fa fa-star oo"></i>
+																						<i class="fa fa-star oo"></i>
+																						<i class="fa fa-star-o oo"></i>
+																						<i class="fa fa-star-o oo"></i></h3>
+																					<p>Integer porttitor fringilla vestibulum. Phasellus curs our tinnt nulla, ut mattis augue finibus ac. Vivamus elementum enim ac enim ultrices rhoncus.</p>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+															
+														</div>
+													</div>
+													<!-- End of menu1 -->
+													<!-- meun2 -->
+													<div id="menu2" class="tab-pane fade">
+														<div class="x_car_detail_descrip">
+															<p>허 참나;;;; Proin gravida n vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum tor. This is Photoshop's version of Lorem Ipsum.</p>
+														</div>
+													</div>
+													<!-- End of menu2 -->
+												</div>	
+											</div>
+										</div>
+									</div>
+									<!-- End of 탭 상세페이지 -->
+									
+									
 										</div>
 									</div>
 									
