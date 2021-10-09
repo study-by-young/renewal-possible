@@ -143,6 +143,41 @@
 	font-size: 14px;
 }
 
+.home-tab {
+	margin-bottom: 60px;
+}
+
+.home-tab:last-child {
+	margin-bottom: 10px;
+}
+
+.home-tab-title {
+	margin: 15px 0px;
+}
+
+.home-tab-title h3 {
+    line-height: 23px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.option-box {
+	padding: 15px;
+	border-radius: 10px;
+	border: 1px solid #ebebeb;
+	min-height: 50px;
+	font-weight: 400;
+    overflow: hidden;
+}
+
+.option-box li {
+	float: left;
+	margin-right: 45px;
+}
+
+.option-box-text li {
+	padding-bottom: 5px;
+}
 </style>
 
 
@@ -349,108 +384,131 @@
 		                                    <!-- End of rent date -->
 		                                    
 		                                    
-		                                    
-		                                    <div class="col-md-6" style="display: inline-block;">
-                                                <div class="x_slider_form_input_wrapper">
-                                                    <label class="h6">차량 정보</label>
-                                                </div>
-                                                <div class="x_car_offer_heading x_car_offer_heading_listing float_left x_car_offer_heading_inner_car_names x_car_offer_heading_inner_car_names2 mt-2">
-                                                    <ul class="" style="margin-top: 0px;">
-                                                        <c:forEach var="opt" items="${options}" begin="0" end="4">
-                                                            <li>	<a href="#"><i class="fa fa-users"></i> &nbsp;${opt}</a>
-                                                            </li>
-                                                        </c:forEach>
-                                                        <li>
-                                                            <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 더보기</span>
-                                                                <ul class="list" style="width:250px;">
-                                                                    <c:forEach var="opt" items="${options}" begin="5">
-                                                                        <li class="dpopy_li" style="width:100% !important;"><a href="#"><i class="fa fa-snowflake-o"></i> ${opt}</a>
-                                                                        </li>
-                                                                    </c:forEach>
-                                                                </ul>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-		                                    
-		                                    <div class="col-md-6" style="display: inline-block;">
-                                                <div class="x_slider_form_input_wrapper">
-                                                    <label class="h6">차량 옵션</label>
-                                                </div>
-                                                <div class="x_car_offer_heading x_car_offer_heading_listing float_left x_car_offer_heading_inner_car_names x_car_offer_heading_inner_car_names2 mt-2">
-                                                    <ul class="" style="margin-top: 0px;">
-                                                        <c:forEach var="opt" items="${options}" begin="0" end="4">
-                                                            <li>	<a href="#"><i class="fa fa-users"></i> &nbsp;${opt}</a>
-                                                            </li>
-                                                        </c:forEach>
-                                                        <li>
-                                                            <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 더보기</span>
-                                                                <ul class="list" style="width:250px;">
-                                                                    <c:forEach var="opt" items="${options}" begin="5">
-                                                                        <li class="dpopy_li" style="width:100% !important;"><a href="#"><i class="fa fa-snowflake-o"></i> ${opt}</a>
-                                                                        </li>
-                                                                    </c:forEach>
-                                                                </ul>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-		                                    <!-- End of 차량 정보 -->
-		                                    
 		                                    <!-- 상세조회 탭 -->
 		                                    <div class="x_css_tabs_wrapper float_left">
 												<div class="x_css_tabs_main_wrapper float_left">
 													<ul class="nav nav-tabs">
 														<li class="nav-item">
-															<a class="nav-link active" data-toggle="tab" href="#home">예약정보</a>
+															<a class="nav-link" data-toggle="tab" href="#home">예약정보</a>
 														</li>
 														<li class="nav-item" style="margin-left: 10px;">
 															<a class="nav-link" data-toggle="tab" href="#menu1">업체후기</a>
 														</li>
 														<li class="nav-item">
-															<a class="nav-link" data-toggle="tab" href="#menu2">유의사항</a>
+															<a class="nav-link active" data-toggle="tab" href="#menu2">유의사항</a>
 														</li>
 													</ul>
 												</div>
 												<!-- 탭 상세 페이지 -->
 												<div class="tab-content">
-													<div id="home" class="tab-pane active">
-														<div class="x_css_skills_wrapper">
-															<div class="skills mt-50 x_c_s">
-																<h3>Rating</h3>
-																<div class="skill-item">
-																	<h6><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>90%</span></h6>
-																	<div class="skills-progress"><span data-value="90%"></span>
-																	</div>
-																</div>
-																<div class="skill-item">
-																	<h6><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i><i class="fa fa-star-o"></i> <span>5%</span></h6>
-																	<div class="skills-progress"><span data-value="5%"></span>
-																	</div>
-																</div>
+													<div id="home" class="tab-pane fade">
+														<!-- 차량정보 -->
+														<div>
+															<div>
+																<h3></h3>
+															</div>
+															<div>
+																<ul>
+																	<li>&nbsp;</li>
+																</ul>
 															</div>
 														</div>
-														<div class="x_css_skills_form_wrapper">
-															<div class="row only_left">
-																<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-																	<div class="contect_form1 xcontect_form1">
-																		<input type="text" placeholder="Full Name *">
-																	</div>
-																</div>
-																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-																	<div class="contect_btn x_css_form_btn">
-																		<ul>
-																			<li><a href="#">Submit <i class="fa fa-arrow-right"></i></a>
-																			</li>
-																		</ul>
-																	</div>
-																</div>
+														
+														<!-- 차량 정보 및 옵션 통일성을 위해 토글형식으로 넣으려고 했는데, 
+																탭 분리가 이미 토글식이라 안에 토글을 넣었더니 일방은 작동하지 않는 사태 발생으로 단순 출력으로 변경함 -->
+														<!-- 차량정보 -->
+														<div class="home-tab">
+															<div class="home-tab-title">
+																<h3>차량 정보</h3>
+															</div>
+															<div>
+																<ul class="option-box">
+																	<li><i class="fa fa-snowflake-o" style="font-size: 12px;"></i>&nbsp;&nbsp;{car.year}년식</li>
+																	<li><i class="fa fa-snowflake-o" style="font-size: 12px;"></i>&nbsp;&nbsp;{car.fuel}</li>
+																	<li><i class="fa fa-snowflake-o" style="font-size: 12px;"></i>&nbsp;&nbsp;{car.segment}</li>
+																	<li><i class="fa fa-snowflake-o" style="font-size: 12px;"></i>&nbsp;&nbsp;{car.passenger}인</li>
+																	<li><i class="fa fa-snowflake-o" style="font-size: 12px;"></i>&nbsp;&nbsp;{car.color}</li>
+																	<li><i class="fa fa-snowflake-o" style="font-size: 12px;"></i>&nbsp;&nbsp;{car.mission}</li>
+																	<li><i class="fa fa-snowflake-o" style="font-size: 12px;"></i>&nbsp;&nbsp;{car.trunk}개</li>
+																	<li><i class="fa fa-snowflake-o" style="font-size: 12px;"></i>&nbsp;&nbsp;{car.door}개</li>
+																	<li><i class="fa fa-snowflake-o" style="font-size: 12px;"></i>&nbsp;&nbsp;{car.kmpl}</li>
+																</ul>
 															</div>
 														</div>
+														
+														<!-- 차량옵션 -->
+														<div class="home-tab">
+															<div class="home-tab-title">
+																<h3>차량 옵션</h3>
+															</div>
+															<div>
+																<ul class="option-box">
+																	<!-- foreach -->
+	                                                                    <li style="font-weight: 600; color: #6495ed;"><i class="fa fa-snowflake-o" style="font-size: 12px;"></i>&nbsp;&nbsp;foreach 반복</li>
+                                                                    <!--  -->
+																</ul>
+															</div>
+														</div>
+														
+														<!-- 운전자 대여조건 -->
+														<div class="home-tab">
+															<div class="home-tab-title">
+																<h3>운전자 대여조건</h3>
+															</div>
+															<div>
+																<ul class="option-box-text">
+																	<li><i class="fa fa-check-square" style="font-size: 12px;"></i>&nbsp;&nbsp;운전자 나이 <strong>만 26세</strong> 이상</li>
+																	<li><i class="fa fa-check-square" style="font-size: 12px;"></i>&nbsp;&nbsp;면허취득일 <strong>1년 이상</strong></li>
+																	<li><i class="fa fa-check-square" style="font-size: 12px;"></i>&nbsp;&nbsp;차량 대여 시 실물면허증 소지 (<strong>2종 보통</strong> 면허 이상 필요)</li>
+																	<li><i class="fa fa-check-square" style="font-size: 12px;"></i>&nbsp;&nbsp;업체별 <strong>대여규정 준수</strong> (외국인 대여, 낚시용품/애견 동반, 주행거리제한 규정 등)</li>
+																</ul>
+															</div>
+														</div>
+														
+														<!-- 셔틀운행 -->
+														<div class="home-tab">
+															<div class="home-tab-title">
+																<h3>무료 셔틀 정보</h3>
+															</div>
+															<div>
+																<img src="${pageContext.request.contextPath}/resources/images/image-shuttle-jeju.svg" style="width: 100%; margin-bottom: 20px;">
+																<ul class="option-box-text">
+																	<li><i class="fa fa-check" style="font-size: 12px;"></i>&nbsp;&nbsp;{area}공항에서 업체 차고지까지 편리하게 이동할 수 있도록 <strong>셔틀버스를 무료로 제공</strong>하고 있습니다.</li>
+																	<li><i class="fa fa-check" style="font-size: 12px;"></i>&nbsp;&nbsp;<strong>운행 시간</strong>&nbsp;&nbsp;&nbsp;&nbsp;오전 08:00 ~ 오후 08:00</li>
+																	<li><i class="fa fa-check" style="font-size: 12px;"></i>&nbsp;&nbsp;<strong>운행 정보</strong>&nbsp;&nbsp;&nbsp;&nbsp;<strong>20분 ~ 30분 간격</strong>으로 운행되며 10분 소요됩니다.</li>
+																	<li><i class="fa fa-check" style="font-size: 12px;"></i>&nbsp;&nbsp;<strong>셔틀 문의</strong>&nbsp;&nbsp;&nbsp;&nbsp;053-421-2460</li>
+																</ul>
+															</div>
+														</div>
+														
+														<!-- 업체정보 -->
+														<div class="home-tab">
+															<div class="home-tab-title">
+																<h3>업체정보</h3>
+															</div>
+															<div>
+																<ul class="option-box-text">
+																	<li style="font-weight: 700; font-size: 17px;">업체명 {company.name}</li>
+																</ul>
+																<!-- 업체 위치 지도에 찍었으면 좋겠음 -->
+																<div class="col-md-12" style="margin-bottom: 20px;">
+				                                                    <div class="x_slider_form_input_wrapper">
+				                                                        <p class="h-auto">${est.takePlaceCode} ${est.takePlaceBasic} ${est.takePlaceDetail}</p>
+				                                                    </div>
+				                                                    <div class="w-100 my-2"></div>
+				                                                    <div id="takePlaceMap" style="height:300px;"></div>
+				                                                </div>
+																<ul class="option-box-text">
+																	<li><i class="fa fa-check" style="font-size: 12px;"></i>&nbsp;&nbsp;<strong>주소</strong>&nbsp;&nbsp;&nbsp;&nbsp;{company.addrBasic} {comapny.addrDetail}</li>
+																	<li><i class="fa fa-check" style="font-size: 12px;"></i>&nbsp;&nbsp;<strong>전화</strong>&nbsp;&nbsp;&nbsp;&nbsp;053-421-2460</li>
+																</ul>
+															</div>
+														</div>
+														
 													</div>
 													<!-- End of Home -->
+													
+													
 													<!-- meun1 -->
 													<div id="menu1" class="tab-pane fade">
 														<div class="x_car_detail_descrip">
@@ -497,7 +555,7 @@
 													</div>
 													<!-- End of menu1 -->
 													<!-- meun2 -->
-													<div id="menu2" class="tab-pane fade">
+													<div id="menu2" class="tab-pane active">
 														<div class="x_car_detail_descrip">
 															<p>허 참나;;;; Proin gravida n vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum tor. This is Photoshop's version of Lorem Ipsum.</p>
 														</div>
@@ -726,6 +784,14 @@
     });
 
 
-	
+    $(function(){
+        var container = $('#takePlaceMap')[0]; //지도를 담을 영역의 DOM 레퍼런스
+        var options = { //지도를 생성할 때 필요한 기본 옵션
+            center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+            level: 3 //지도의 레벨(확대, 축소 정도)
+        };
+
+        var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+    });
 </script>
 <!-- x car book sidebar section Wrapper End -->
