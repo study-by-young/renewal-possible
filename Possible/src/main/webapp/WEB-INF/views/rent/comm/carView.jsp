@@ -390,7 +390,7 @@
 												<div class="x_car_detail_slider_bottom_cont_left">
 													<h3>{car.model}</h3>
 													<span style="padding-left: 0px;">{car.brand} / {car.year}년 / {car.fuel} / {car.passenger}인</span>
-													<p class="small text-muted pt-2">{car.trim}</p>
+													<span class="small text-muted pt-2">{car.trim}</span>
 												</div>
 											</div>
 											

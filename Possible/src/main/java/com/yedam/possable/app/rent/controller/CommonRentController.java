@@ -67,7 +67,7 @@ public class CommonRentController {
     // 렌트카 상세보기(test)
     @GetMapping("/test")
     public String test(){
-        return "rent/comm/carViewTest";
+        return "rent/comm/carTest";
     }
 
     // 렌트카 예약 폼
