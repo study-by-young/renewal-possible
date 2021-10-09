@@ -20,12 +20,14 @@ import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.service.PaymentService;
+import com.yedam.possable.app.rent.service.RentHistoryService;
 
 import lombok.extern.java.Log;
 
@@ -43,6 +45,8 @@ public class MypageController {
     PaymentService paymentService;
     @Autowired
     CarService carService;
+    @Autowired
+    RentHistoryService rentHistory;
     
     //마이페이지 대쉬보드 페이지
     @GetMapping("/dashboard")
@@ -114,7 +118,7 @@ public class MypageController {
 
     // 회원 렌트 내역
     @GetMapping("/rent")
-    public String rentHistoryList(Model model,
+    public String MyPageRentHistoryList(Model model,
     							  Long seq,
 						    	  @ModelAttribute("cri") Criteria cri,
 						    	  RentHistoryVO vo,
@@ -124,29 +128,32 @@ public class MypageController {
     	HttpSession session = request.getSession();
     	MemberVO mvo = (MemberVO) session.getAttribute("member");
     	
-    	System.out.println("rVO 값은 뭐니?"+vo);
+    	int total = rentHistory.getHistoryCount();
     	
-        model.addAttribute("getView", paymentService.rentHistoryList(cri, mvo.getSeq()));
-        
+        model.addAttribute("getView", rentHistory.MyPageRentHistoryList(cri, mvo.getSeq()));
+        model.addAttribute("page", new PageVO(cri, total));
         List<RentHistoryVO> rhlist = new ArrayList<RentHistoryVO>();
-        rhlist = paymentService.rentHistoryList(cri, mvo.getSeq());
+        rhlist = rentHistory.MyPageRentHistoryList(cri, mvo.getSeq());
         
         for (int i = 0; i < rhlist.size(); i++) {
         	System.out.println(rhlist.get(i).getCarSeq());
+        	System.out.println("==================회사코드");
         	
+        	System.out.println(rhlist.get(i).getCmpnSeq());
         	CarVO cvo1 = new CarVO();
         	cvo1.setSeq(rhlist.get(i).getCarSeq());
         	carService.getCar(cvo1);
         	System.out.println("======================="+i+"=====================");
         	System.out.println(carService.getCar(cvo1));
+        	model.addAttribute("car", carService.getCar(cvo1));
         	
-        	CarVO cvo2 = new CarVO();
-        	cvo2.setCmpnSeq(carService.getCar(cvo1).getCmpnSeq());
-        	
+        	CompanyVO cov = new CompanyVO();
+        	cov.setSeq(rhlist.get(i).getCmpnSeq());
+        	System.out.println("두번쨰 회사 코드==="+rhlist.get(i).getCmpnSeq());
+        	model.addAttribute("company", companyService.companyOneSelect(cov));
         }
         	
-        
-    	System.out.println("랜트내역을 가는 너희들은 누구니?"+paymentService.rentHistoryList(cri, mvo.getSeq()));
+    
     	
     	return "mypage/rentHistoryList";
     }
@@ -160,7 +167,7 @@ public class MypageController {
     // 렌트 후기 작성 폼
     @GetMapping("/rent/view/writeReview")
     public String rentReviewForm(){
-        return "";
+        return "mypage/rentReviewForm";
     }
 
     // 렌트 후기 등록 처리
@@ -203,11 +210,6 @@ public class MypageController {
 
     
 
-    //마이페이지 후기 작성 페이지
-    @GetMapping("/review")
-    public String review() {
-        return "mypage/review/write";
-    }
 
 
     //마이페이지 나의 문의 페이지
