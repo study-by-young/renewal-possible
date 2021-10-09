@@ -8,6 +8,9 @@ import javax.servlet.http.HttpSession;
 
 import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.member.service.MemberService;
+import com.yedam.possable.app.rent.domain.RentHistoryVO;
+import com.yedam.possable.app.rent.service.RentHistoryService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -32,6 +35,8 @@ public class CompanyController {
     CarService carService;
     @Autowired
     MemberService memberService;
+    @Autowired
+    RentHistoryService rentHistoryService;
 
     //업체 대시보드
     @GetMapping("/dashboard")
@@ -173,16 +178,19 @@ public class CompanyController {
 
     // 렌트 내역 리스트
     @GetMapping("/rent")
-    public String rentHistoryList(){
+    public String rentHistoryList(Model model, @RequestParam Long cmpnSeq){
+    	model.addAttribute("rentHistoryList", rentHistoryService.getRentHistoryList(cmpnSeq));
+    	
         return "company/rentHistoryList";
     }
 
     // 렌트 내역 상세
     @GetMapping("/rent/view")
-    public String rentHistoryView(){
-        return "company/rentHistoryView";
+    public String rentHistoryView(RentHistoryVO vo, Model model){
+    	 model.addAttribute("rentHistory", rentHistoryService.getRentHistory(vo));
+    	return "company/rentHistoryView";
     }
-
+  
 
     // -----------------------------------------------------------------------------
 

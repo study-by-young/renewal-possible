@@ -14,8 +14,14 @@ public class RentHistoryServiceImpl implements RentHistoryService {
 	@Autowired RentHistoryMapper rentHistoryMapper;
 	
 	@Override
-	public List<RentHistoryVO> rentHistoryList() {
-		return rentHistoryMapper.rentHistoryList();
+	public List<RentHistoryVO> getRentHistoryList(Long cmpnSeq) {
+		return rentHistoryMapper.getRentHistoryList(cmpnSeq);
+	}
+
+	@Override
+	public RentHistoryVO getRentHistory(RentHistoryVO vo) {
+		// TODO Auto-generated method stub
+		return rentHistoryMapper.getRentHistory(vo);
 	}
 
 }
