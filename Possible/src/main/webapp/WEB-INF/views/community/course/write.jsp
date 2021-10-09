@@ -109,7 +109,7 @@ response.setContentType("text/html; charset=utf-8");
 				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="contect_btn contect_btn_contact">
 						<ul>
-							<li><a href="javascript:frm.submit();">등록 <i class="fa fa-arrow-right"></i></a></li>
+							<li><a class="btn" href="javascript:frm.submit();">등록 <i class="fa fa-arrow-right"></i></a></li>
 						</ul>
 					</div>
 				</div>
@@ -252,12 +252,27 @@ response.setContentType("text/html; charset=utf-8");
 			var targetIdx = $(this).attr("data-markerIdx");
 			console.log(targetIdx);
 			$(this).next().remove();
+			$(this).next().next().remove();
 			$(this).remove();
 
 			markers[targetIdx].setMap(null);
 			console.log('list : ' + markersIdx);
 			console.log('idx : ' + markersIdx.indexOf(targetIdx));
 			polyline.setMap(null);
+		});
+	});
+	
+	$(function(){
+
+		$('.btn').on('click', function(){
+	    	//값들의 갯수 -> 배열 길이를 지정
+			var cnt = $("input[name=contentId]").length;
+			//배열 생성
+			var arr = new Array(grpl);
+			//배열에 값 주입
+			for(var i=0; i<cnt; i++){                          
+				arr[i] = $("input[name=contentId]").eq(i).val();
+		    }
 		});
 	});
 

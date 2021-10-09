@@ -3,13 +3,18 @@
 <mapper namespace="com.yedam.possable.app.community.course.mapper.CourseMapper">
 
 	<insert id="insert">
-<!-- 		<selectKey keyProperty="courseSeq" resultType="long" order="BEFORE">
-			SELECT SEQ_COURSE_BOARD.NEXTVAL FROM DUAL
-		</selectKey> -->
+
 		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
 			SELECT SEQ_COURSE.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO COURSE VALUES (#{courseSeq}, #{seq}, #{placeNo}, #{contentId})
+		INSERT INTO COURSE VALUES (1, #{seq}, #{placeNo}, #{contentId})
 	</insert>
+	
+<!-- 	<insert id="insert" parameterType="CourseVO">
+		<foreach item="item" index="index" collection="java.util.List" separator=" " open="INSERT ">
+			INTO COURSE
+			VALUES (1, #{item.id},#{item.passwd},#{item.name})
+		</foreach>
+	</insert> -->
 	
 </mapper>

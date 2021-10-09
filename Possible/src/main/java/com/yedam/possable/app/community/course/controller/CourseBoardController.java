@@ -49,8 +49,8 @@ public class CourseBoardController {
     @PostMapping("/write")
     public String courseWrite(Model model, CourseBoardVO board, CourseVO course){
     	courseBoardService.insert(board);
-    	courseService.insert(course);
-	    return "redirect:/view";
+    	//courseService.insert(course);
+	    return "redirect:/community/course/list";
     }
 
     // 수정 폼
