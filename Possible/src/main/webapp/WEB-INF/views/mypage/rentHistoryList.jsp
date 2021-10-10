@@ -26,7 +26,7 @@
     .x_car_offer_starts_list_img {
         float: left;
         width: 250px;
-        padding-top: 75px;
+        padding-top: 90px;
         /*  border-right: 1px solid #eeeeee; */
     }
     .x_car_offer_heading ul {
@@ -64,86 +64,11 @@
                                 <br> <br> <br>
 
                                 <!-- 렌트내역 -->
-                                <div class="col-md-12">
+                                <div class="col-md-12">	
                                     <div class="blog_single_comment_heading">
                                         <h4>렌트내역</h4>
                                     </div>
-                                    <div class="dash">
-                                        <div class="row no-gutters">
-                                            <div class="col-4">
-                                                <img
-                                                        src="${pageContext.request.contextPath}/resources/images/comment_img1.jpg"
-                                                        width="210px" height="160" alt="" class="card-img" />
-                                            </div>
-                                            <!-- 버튼 (일단 취소, 후기 둘다 보임)-->
-                                            <div class="col-8">
-                                                <div class="col-12" style="border-bottom: none solid black">
-                                                    <div class="card-body">
-                                                        <div style="float: right;">
-                                                            <div style="float: right;">
-                                                                <button type="button" class="btn" onClick="alert('취소하시겠습니까?')"
-                                                                        style="text-align: center; background: #4f5dec; color: #ffffff; border: 1px solid transparent;">
-                                                                    취소
-                                                                </button>
-                                                                <button type="button" class="btn" onclick="location.href='review'"
-                                                                        style="text-align: center; background: #4f5dec; color: #ffffff; border: 1px solid transparent;">
-                                                                    후기작성
-                                                                </button>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                    <br>
-                                                    <!-- 렌트내역 누르면 모달창 -->
-                                                    <div class="container mt-3">
-                                                        <!-- Button to Open the Modal -->
-                                                        <a data-toggle="modal" href="#myModal">렌트내역</a>
-													
-
-                                                        <!-- The Modal -->
-                                                        <div class="modal fade" id="myModal">
-                                                            <div class="modal-dialog">
-                                                                <div class="modal-content">
-
-                                                                    <!-- Modal Header -->
-                                                                    <div class="modal-header">
-                                                                        <h4 class="modal-title">렌트내역조회</h4>
-                                                                        <button type="button" class="close"
-                                                                                data-dismiss="modal">×</button>
-                                                                    </div>
-
-                                                                    <!-- Modal body -->
-                                                                    <div class="modal-body">
-                                                                        <table class="table">
-                                                                            <tr>
-                                                                                <td>모델</td>
-                                                                                <td>Doe</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>기간</td>
-                                                                                <td>Moe</td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>지역</td>
-                                                                                <td>등등</td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </div>
-
-                                                                    <!-- Modal footer -->
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-danger"
-                                                                                data-dismiss="modal">Close</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <c:forEach var="getView" items="${getView}" >
+                                    	<c:forEach var="getView" items="${getView}" varStatus="i" >
                                     <div class="dash x_car_offer_main_boxes_wrapper float_left">
                                         <div class="x_car_offer_starts x_car_offer_starts_list_img float_left border-1">
                                             <img src="${pageContext.request.contextPath}/resources/images/cars/Hyundai/santafe.png" alt="img" class="img-fluid">
@@ -157,31 +82,29 @@
                                                     	<fmt:formatDate value="${getView.startDate}" pattern="yyyy/MM/dd"/> ~ <fmt:formatDate value="${getView.endDate}" pattern="yyyy/MM/dd" /> 
                                                     </p>
                                                 </div>
-                                                <div class="col-2"></div>
                                                 <div class="col-2 x_car_offer_heading_listing float_left">
-                                                    <button type="button" class="btn btn-sm" onclick="location.href='review'"
+                                                	<button type="button" class="btn btn-sm" data-toggle="modal" data-target="#rentInfoDetail ">상세보기</button>
+                                                </div>
+                                                <div class="col-2 x_car_offer_heading_listing float_left">
+                                                    <button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
                                                             style="background: #4f5dec; color: #ffffff; ">
                                                         후기작성
                                                     </button>
                                                 </div>
                                             </div>
-											${getView.carSeq }
-											${carName }
                                             <div class="row">
                                                 <div class="col-12 x_car_offer_heading x_car_offer_heading_listing float_left">
                                                     <ul class="">
                                                         <li>차량</li>
-                                                        <li style="text-align: right;">${carName.brand } ${carName.model }</li>
+                                                        <li style="text-align: right;">${car.brand } ${car.model }</li>
                                                         <li>대여업체</li>
-                                                        <li style="text-align: right;">씽씽렌트카</li>
+                                                        <li style="text-align: right;">${company.name }</li>
                                                         <li>보험</li>
                                                         <li style="text-align: right;">완전자차</li>
                                                         <li>수령장소</li>
                                                         <li style="text-align: right;">${getView.takePlaceBasic } ${getView.takePlaceDetail }</li>
-
                                                     </ul>
                                                 </div>
-
                                             </div>
                                             <div class="row">
                                                 <div class="col-12 x_car_offer_heading x_car_offer_heading_listing float_left">
@@ -192,13 +115,67 @@
                                                         <li style="text-align: right;">${getView.payMethod }</li>
                                                         <li>결제번호</li>
                                                         <li style="text-align: right;">${getView.merchantUid }</li>
-                                                       
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="modal fade " id="rentInfoDetail" tabindex="-1" role="dialog" aria-labelledby="rentInfoDetail ${i.index}" aria-hidden="true">
+								 	<div class="modal-dialog modal-lg" role="document">
+									   	<div class="modal-content">
+									     	<div class="modal-header">
+									       		<button type="button" class="close"  id="PassCloseClick" data-dismiss="modal" aria-label="Close">
+									         		<span aria-hidden="true">&times;</span>
+									       		</button>
+									     	</div>
+									     <div class="modal-body">
+									     	<div class="container">
+										 		<div class="sub_title font-weight-bold ">
+													<h3>렌트내역조회</h3>
+												</div>
+												<div id="passwordChange" >
+													<table class="table">
+														<tr class="h6">
+															<th>결제상태</th>
+															<th>결제금액</th>
+															<th>결제번호</th>
+															<th>예약자명</th>
+															<th>렌트타입</th>
+														</tr>
+														<tr>
+															<td>${getView.status }</td>
+															<td>${getView.price }원</td>
+															<td>${getView.merchantUid }</td>
+															<td>${getView.receiver}</td>
+															<td>${getView.rentType}</td>
+															<td>${i.index }</td>
+														</tr>
+													</table>
+												</div>
+											</div>
+									     	<!-- 모달 BodyEnd -->
+										  </div>
+										</div>
+									</div>
+								</div>
                                 	</c:forEach>
+                                    <div class="pager_wrapper prs_blog_pagi_wrapper">
+                                        <ul class="pagination">
+                                            <li>
+                                                <a class="page-arrow" href="?pageNum=${page.startPage-1}&amount=${page.cri.amount}" <c:if test="${!page.prev }">style="display: none"</c:if>><i class="flaticon-left-arrow"></i></a>
+                                            </li>
+                                            <c:forEach begin="${page.startPage }" end="${page.endPage }" var="num">
+                                                <li class="btc_shop_pagi">
+                                                    <a href="?pageNum=${num }&amount=${page.cri.amount}"
+                                                       <c:if test="${param.getOrDefault('pageNum',1) == num}">class="active"</c:if>
+                                                    >${num }</a>
+                                                </li>
+                                            </c:forEach>
+                                            <li>
+                                                <a class="page-arrow" href="?pageNum=${page.endPage+1}&amount=${page.cri.amount}" <c:if test="${!page.next }">style="display: none"</c:if>><i class="flaticon-right-arrow"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -210,11 +187,8 @@
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                 <div class="x_blog_right_side_wrapper float_left">
                     <div class="row">
-
                         <div class="col-md-12">
-                            <div
-                                    class="jp_rightside_job_categories_wrapper jp_rightside_job_categories_wrapper2">
-
+                            <div class="jp_rightside_job_categories_wrapper jp_rightside_job_categories_wrapper2">
                                 <div>
                                     <br><br>
                                     <div align="center">
@@ -290,5 +264,11 @@
         </div>
     </div>
 </div>
+<!-- 모달창 -->
+<c:forEach var="getView" items="${getView}" >
 
+</c:forEach>
 <!-- x blog main and sidebar Wrapper End -->
+<script>
+	$()
+</script>

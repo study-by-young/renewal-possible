@@ -56,4 +56,40 @@
              WHERE SEQ = #{seq}
 	</select>
 	
+	<!-- 회원 렌트 내역 조회 -->
+	<select id="MyPageRentHistoryList" resultType="RentHistoryVO">
+      SELECT *
+      FROM (
+             SELECT
+             /*+ INDEX_DESC(RENT_HISTORY IDX_RENT_HISTORY) */
+             ROWNUM RN,
+             h.SEQ ,
+             h.CAR_SEQ, 
+             h.MEM_SEQ, 
+             m.NAME,
+             h.PRICE, 
+             h.PAY_METHOD, 
+             h.TAKE_PLACE_BASIC,
+             h.TAKE_PLACE_DETAIL,
+             h.MERCHANT_UID, 
+             h.START_DATE, 
+             h.END_DATE,
+             h.RECEIVER,
+             h.STATUS,
+             h.RENT_TYPE,
+             h.CMPN_SEQ 
+             FROM RENT_HISTORY h INNER JOIN MEMBER m
+             ON h.MEM_SEQ = m.SEQ
+            <where>
+                <![CDATA[   AND ROWNUM <= #{cri.pageNum} * #{cri.amount} ]]>
+            </where>
+             and m.SEQ = #{seq}
+          )
+    		WHERE RN > (#{cri.pageNum} - 1) * #{cri.amount}
+	</select>
+	
+	<select id="getHistoryCount" resultType="int">
+        SELECT COUNT(*)
+        FROM RENT_HISTORY
+    </select>
 </mapper>

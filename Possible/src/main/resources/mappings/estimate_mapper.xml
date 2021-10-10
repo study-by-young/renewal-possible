@@ -98,4 +98,34 @@
         SELECT COUNT(*)
         FROM estimate_history
     </select>
+    <!-- 마이페이지 유저 프리미엄 견적 리스트 -->
+    <select  id="getUserEstimateList" resultType="EstimateHistoryVO">
+		    SELECT * 
+			FROM( SELECT  
+				/*+ INDEX_DESC(tb IDX_ESTIMATE_HISTORY) */
+	              ROWNUM RN,
+	              e.SEQ,
+	              e.BRAND,
+	              e.SEGMENT,
+	              e.MODEL,
+	              e.TRIM,
+	              e.OPTIONS,
+	              e.ITEMS,
+	              e.START_DATE,
+	              e.END_DATE,
+	              e.TAKE_PLACE_CODE,
+	              e.GEN_DATE,
+	              e.UPT_DATE,
+	              e.TAKE_PLACE_BASIC,
+	              e.TAKE_PLACE_DETAIL,
+	              e.MEM_SEQ
+	        FROM ESTIMATE_HISTORY e INNER JOIN MEMBER m
+	        ON e.MEM_SEQ = m.seq
+	        <where>
+	        	<![CDATA[ ROWNUM <= #{cri.pageNum} * #{cri.amount} ]]>
+	        </where>
+	        AND m.seq = #{seq}
+              )
+				WHERE RN > (#{cri.pageNum} - 1) * #{cri.amount}
+    </select>
 </mapper>
