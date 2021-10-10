@@ -65,12 +65,12 @@ public class PremiumRentController {
     @GetMapping("estimate/register")
     public String estimateRegisterForm(Model model) {
         String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
-        String itemOptCode = codeService.getMasterCodeByName("캠핑 옵션").getCode();
+        String itemOptCode = codeService.getMasterCodeByName("여행용품 옵션").getCode();
         model.addAttribute("brands", codeService.getBrandList());
         model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
         model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
 
-        return "/rent/prm/estimateRegForm";
+        return "rent/prm/estimateRegForm";
     }
 
     // 견적 요청 제출
