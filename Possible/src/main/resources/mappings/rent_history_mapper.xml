@@ -47,6 +47,9 @@
              h.MERCHANT_UID, 
              h.START_DATE, 
              h.END_DATE,
+             h.RECEIVER,
+             h.STATUS,
+             h.RENT_TYPE,
              h.CMPN_SEQ 
              FROM RENT_HISTORY h INNER JOIN MEMBER m
              ON h.MEM_SEQ = m.SEQ

@@ -68,7 +68,7 @@
                                     <div class="blog_single_comment_heading">
                                         <h4>렌트내역</h4>
                                     </div>
-                                    	<c:forEach var="getView" items="${getView}" >
+                                    	<c:forEach var="getView" items="${getView}" varStatus="i" >
                                     <div class="dash x_car_offer_main_boxes_wrapper float_left">
                                         <div class="x_car_offer_starts x_car_offer_starts_list_img float_left border-1">
                                             <img src="${pageContext.request.contextPath}/resources/images/cars/Hyundai/santafe.png" alt="img" class="img-fluid">
@@ -83,7 +83,7 @@
                                                     </p>
                                                 </div>
                                                 <div class="col-2 x_car_offer_heading_listing float_left">
-                                                	<button type="button" class="btn btn-sm" data-toggle="modal" data-target="#rentInfoDetail">상세보기</button>
+                                                	<button type="button" class="btn btn-sm" data-toggle="modal" data-target="#rentInfoDetail ">상세보기</button>
                                                 </div>
                                                 <div class="col-2 x_car_offer_heading_listing float_left">
                                                     <button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
@@ -120,6 +120,44 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="modal fade " id="rentInfoDetail" tabindex="-1" role="dialog" aria-labelledby="rentInfoDetail ${i.index}" aria-hidden="true">
+								 	<div class="modal-dialog modal-lg" role="document">
+									   	<div class="modal-content">
+									     	<div class="modal-header">
+									       		<button type="button" class="close"  id="PassCloseClick" data-dismiss="modal" aria-label="Close">
+									         		<span aria-hidden="true">&times;</span>
+									       		</button>
+									     	</div>
+									     <div class="modal-body">
+									     	<div class="container">
+										 		<div class="sub_title font-weight-bold ">
+													<h3>렌트내역조회</h3>
+												</div>
+												<div id="passwordChange" >
+													<table class="table">
+														<tr class="h6">
+															<th>결제상태</th>
+															<th>결제금액</th>
+															<th>결제번호</th>
+															<th>예약자명</th>
+															<th>렌트타입</th>
+														</tr>
+														<tr>
+															<td>${getView.status }</td>
+															<td>${getView.price }원</td>
+															<td>${getView.merchantUid }</td>
+															<td>${getView.receiver}</td>
+															<td>${getView.rentType}</td>
+															<td>${i.index }</td>
+														</tr>
+													</table>
+												</div>
+											</div>
+									     	<!-- 모달 BodyEnd -->
+										  </div>
+										</div>
+									</div>
+								</div>
                                 	</c:forEach>
                                     <div class="pager_wrapper prs_blog_pagi_wrapper">
                                         <ul class="pagination">
@@ -227,34 +265,10 @@
     </div>
 </div>
 <!-- 모달창 -->
-<div class="modal fade" id="rentInfoDetail" tabindex="-1" role="dialog" aria-labelledby="rentInfoDetail" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close"  id="PassCloseClick" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <div class="container">
-		 <div class="sub_title font-weight-bold ">
-			<h3>렌트내역조회</h3>
-		</div>
-			<div id="passwordChange" >
-				<table class="table">
-					<tr class="h6">
-						<th>결제내역</th>
-						<th>결제금액</th>
-						<th>결제번호</th>
-						<th>예약자명</th>
-						<th>렌트타입</th>
-					</tr>
-				</table>
-			</div>
-		</div>
-      <!-- 모달 BodyEnd -->
-    </div>
-  </div>
-	</div>
-</div>
+<c:forEach var="getView" items="${getView}" >
+
+</c:forEach>
 <!-- x blog main and sidebar Wrapper End -->
+<script>
+	$()
+</script>
