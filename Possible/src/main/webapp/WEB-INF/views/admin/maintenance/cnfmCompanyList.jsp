@@ -2,20 +2,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <style type="text/css">
-.dash {
-	background: #ffffff;
-	box-shadow: 0px 0 8px rgb(0 0 0/ 10%);
-	float: left;
-	width: 100%;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	margin-top: 0px;
-	margin-bottom: 70px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-}
-
 .pagination {
 	justify-content: center;
 }
@@ -42,15 +28,26 @@
 	appearance: none;
 }
 </style>
-<div class="content">
-<div class="col-md-8">
-	<div class="blog_single_comment_heading">
-		<h4>업체정보관리</h4>
-	</div>
-	<div class="dash">
+		<!-- Main content -->
+		<div class="content-wrapper">
 
-	<div>
-		<form id="actionForm" action="company" method="get">
+			<!-- Content area -->
+			<div class="content">
+
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">업체리스트</h6>
+						<div class="header-elements">
+							
+						</div>
+					</div>
+
+					<div class="card-body py-0">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="d-flex align-items-center justify-content-center mb-2">
+									<div align="center">
+										<form id="actionForm" action="company" method="get">
 			<select name="type" class="select" >
 				<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
 				<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>업체명</option>
@@ -64,19 +61,22 @@
 				name="amount" value="${pageMaker.cri.amount }">
 			<button class="btn btn-primary" onclick="$('[name=pageNum]').val(1)">Search</button>
 		</form>
-	</div>
+									</div>
+								</div>
+							</div>
 
-		<table class="table table-hover">
+							<div class="col-sm-12">
+								<div class="d-flex align-items-center justify-content-center mb-2">
+									<table class="table table-hover">
 			<thead>
 				<tr>
 					<th>번호</th>
 					<th>업체명</th>
-					<th>대표자</th>
 					<th>사업자번호</th>
 					<th>사업자주소</th>
-					<th>지역</th>
 					<th>대표번호</th>
 					<th>상태</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -86,9 +86,7 @@
 					<td>${cmpn.seq }</td>
 					<td>${cmpn.name}</td>
 					<td>${cmpn.cmpnNum }</td>
-					<td>${cmpn.addr1 }</td>
-					<td>${cmpn.addr2 }</td>
-					<td>${cmpn.area }</td>
+					<td>${cmpn.addr1 } ${cmpn.addr2 } ${cmpn.area }</td>
 					<td>${cmpn.tel }</td>
 					<td>${company.get('status')}</td>
 
@@ -100,10 +98,13 @@
 			</c:forEach>
 		</tbody>
 		</table>
-	<br>
+								</div>
+							</div>
+							
 
-	<!-- 페이징 -->
-	<div id="pageButton">
+							<div class="col-sm-12">
+								<div class="d-flex align-items-center justify-content-center mb-2">
+							<div id="pageButton">
   	<ul class="pagination">
 		<c:if test="${pageMaker.prev }">
 			<li class="page-item"><a class="page-link" href="${pageMaker.startPage-1}">이전</a></li>
@@ -119,8 +120,13 @@
 		</c:if>
 	</ul>
 	</div>
-
 	</div>
+	</div>
+							
+						</div>
+					</div>
+
+				</div>
 </div>
 </div>
 

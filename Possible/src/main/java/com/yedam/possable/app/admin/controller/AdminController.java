@@ -23,6 +23,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 @Log
 @Controller
 @RequestMapping("/admin/*")
@@ -37,7 +39,7 @@ public class AdminController {
     ReportService reportService;
 
     @GetMapping("/dashboard")
-    public String dashboard() {
+    public String dashboard(HttpSession session) {
         return "admin/dashboard";
     }
 
@@ -54,8 +56,7 @@ public class AdminController {
     }
 
     // 회원 관리 회원 조회
-    @RequestMapping("/maintenance/member/view")
-    @ResponseBody
+    @GetMapping("/maintenance/member/view")
     public String memberView(Model model,
                              MemberVO vo,
                              @ModelAttribute("cri") Criteria cri) {
@@ -64,8 +65,7 @@ public class AdminController {
     }
 
     //회원 관리 수정 처리
-    @RequestMapping("/maintenance/member/view/update")
-    @ResponseBody
+    @PostMapping("/maintenance/member/view")
     public String updateMember(MemberVO vo,
                                @ModelAttribute("cri") Criteria cri,
                                RedirectAttributes attributes) {
@@ -75,12 +75,11 @@ public class AdminController {
             attributes.addFlashAttribute("result", "success");
         }
 
-        return "";
+        return "redirect:/admin/maintenance/member";
     }
 
     //회원 관리 제명 처리
     @RequestMapping("/maintenance/member/view/ban")
-    @ResponseBody
     public String banMember() {
         return "";
     }
@@ -89,7 +88,7 @@ public class AdminController {
     @GetMapping("/maintenance/company")
     public String nonConfirmCompanyList(Model model){
         model.addAttribute("comRegList", companyService.companyRegList());
-        return "admin/maintanence/companyList";
+        return "admin/maintenance/companyList";
     }
 
     // 미승인 업체 상세
@@ -102,11 +101,11 @@ public class AdminController {
 
         model.addAttribute("comRegList", vo);
         model.addAttribute("status", status);
-        return "admin/maintanence/companyView";
+        return "admin/maintenance/companyView";
     }
 
     // 미승인 업체 승인 처리
-    @GetMapping("/maintenance/company/view/confirm")
+    @PostMapping("/maintenance/company/view/confirm")
     public String confirmCompany(CompanyVO vo,
                                  @RequestParam("memSeq") Long memSeq,
                                  RedirectAttributes attributes){
@@ -120,18 +119,18 @@ public class AdminController {
         if (result == 1) {
             attributes.addFlashAttribute("result", "success");
         }
-        return "redirect:/maintenance/companyList";
+        return "redirect:/admin/maintenance/confirmCompany";
     }
 
     // 미승인 업체 승인 거부 처리
-    @GetMapping("/maintenance/company/view/deny")
+    @PostMapping("/maintenance/company/view/deny")
     public String denyCompany(CompanyVO vo,
                               RedirectAttributes attributes){
         int result = companyService.companyRegDelete(vo);
         if (result == 1) {
             attributes.addFlashAttribute("result", "success");
         }
-        return "redirect:/maintenance/companyList";
+        return "redirect:/admin/maintenance/confirmCompany";
     }
 
     // 승인 업체 리스트

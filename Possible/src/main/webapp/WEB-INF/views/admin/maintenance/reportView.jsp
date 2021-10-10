@@ -4,21 +4,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <style type="text/css">
-.dash {
-	background: #ffffff;
-	box-shadow: 0px 0 8px rgb(0 0 0/ 10%);
-	float: left;
-	width: 100%;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	margin-top: 0px;
-	margin-bottom: 70px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	
-}
-
 .pagination {
 	justify-content: center;
 }
@@ -44,25 +29,28 @@
 	-moz-appearance: none;
 	appearance: none;
 }
-
-.card-body{
-	padding:50px;
+.card-body {
+    padding: 50px;
 }
 </style>
+		<!-- Main content -->
+		<div class="content-wrapper">
 
-<div class="col-md-8">
-	<div class="blog_single_comment_heading">
-		<h4>신고글 한건</h4>
-	</div>
-		<!-- 2 columns form -->
+			<!-- Content area -->
+			<div class="content">
+
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title">신고글</h5>
-					
+						<h6 class="card-title">신고글</h6>
+						<div class="header-elements">
+							
+						</div>
 					</div>
 
-					<div class="card-body">
-							<div class="row">
+					<div class="card-body py-0">
+						<div class="row">
+							<div class="col-sm-12">
+									<div class="row">
 								<div class="col-md-12">
 										<input type="hidden" class="form-control" name='seq' value='<c:out value="${comRegList.seq}"/>' readonly="readonly">
 										<input type="hidden" class="form-control" name='memSeq' value='<c:out value="${comRegList.memSeq}"/>' readonly="readonly">
@@ -106,14 +94,23 @@
 											<label>수정일자</label> 
 											<input class="form-control" name='uptDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${report.uptDate }"/>' readonly="readonly">						
 										</div>
-										
+										<div align="right">
 										<a class="btn btn-primary" id="list_btn" href="${pageContext.request.contextPath}/admin/maintenance/report">목록</a>
+										</div>
+										<br>
 								</div>
+
 								</div>
+							</div>
+
+							
+							
+
+							</div>
+						</div>
 					</div>
+
 				</div>
-				
-				<!-- /2 columns form -->
 </div>
 <script>
 
