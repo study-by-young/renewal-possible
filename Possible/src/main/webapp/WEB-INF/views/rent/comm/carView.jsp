@@ -471,10 +471,10 @@
 											<div class="x_css_tabs_wrapper float_left">
 												<div class="x_css_tabs_main_wrapper float_left">
 													<ul class="nav nav-tabs">
-														<li class="nav-item"><a class="nav-link"
+														<li class="nav-item"><a class="nav-link active"
 															data-toggle="tab" href="#home">예약정보</a></li>
 														<li class="nav-item" style="margin-left: 10px;"><a
-															class="nav-link active" data-toggle="tab" href="#menu1">이용후기</a>
+															class="nav-link" data-toggle="tab" href="#menu1">이용후기</a>
 														</li>
 														<li class="nav-item"><a class="nav-link"
 															data-toggle="tab" href="#menu2">유의사항</a></li>
@@ -482,7 +482,7 @@
 												</div>
 												<!-- 탭 상세 페이지 -->
 												<div class="tab-content">
-													<div id="home" class="tab-pane fade">
+													<div id="home" class="tab-pane active">
 														<!-- 차량정보 -->
 														<div>
 															<div>
@@ -626,7 +626,7 @@
 
 
 													<!-- meun1 -->
-													<div id="menu1" class="tab-pane active">
+													<div id="menu1" class="tab-pane fade">
 														<div class="x_car_detail_descrip" style="padding-top: 23px;">
 															<div class="col-md-12">
 																<div class="row">
@@ -678,7 +678,7 @@
 																				</div>
 																			</div>
 																		</div>
-																		<%= i++ %>
+																		<p style="opacity: 0;"><%= i++ %></p>
 																		</c:forEach>
 																		<!-- End foreach -->
 																		
