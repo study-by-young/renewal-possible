@@ -58,4 +58,14 @@ public class CourseBoardServiceImpl implements CourseBoardService {
 		return courseBoardMapper.tourList(cri);
 	}
 
+	@Override
+	public int courseCnt(CourseBoardVO vo) {
+		return courseBoardMapper.courseCnt(vo);
+	}
+
+	@Override
+	public List<TestVO> courseSelect(CourseBoardVO vo) {
+		return courseBoardMapper.courseSelect(vo);
+	}
+
 }
