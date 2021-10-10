@@ -34,8 +34,10 @@ public class CourseBoardController {
 
 	// 단건조회(수정페이지)
 	@GetMapping("/view")
-	public String courseView(Model model, CourseBoardVO board) {
+	public String courseView(Model model, CourseBoardVO board, CourseVO course) {
 		model.addAttribute("board", courseBoardService.read(board));
+		model.addAttribute("cnt", courseBoardService.courseCnt(board));
+		model.addAttribute("course", courseBoardService.courseSelect(board));
 		return "community/course/view";
 	}
 

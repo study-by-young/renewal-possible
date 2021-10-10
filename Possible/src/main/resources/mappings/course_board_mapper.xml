@@ -53,11 +53,23 @@
 		SELECT * FROM COURSE_BOARD
 	</select>
 	
+	<select id="read" resultType="CourseBoardVO">
+		SELECT * FROM COURSE_BOARD WHERE SEQ = #{seq}
+	</select>
+	
 	<insert id="insert">
 		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
 			SELECT SEQ_COURSE_BOARD.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO COURSE_BOARD VALUES (#{seq}, #{title}, #{writer}, #{content}, 0, 0, #{startDate}, #{endDate}, #{people}, #{genDate}, SYSDATE)
 	</insert>
+	
+	<select id="courseCnt" resultType="int">
+		SELECT COUNT(*) FROM COURSE WHERE COURSE_SEQ = #{seq}
+	</select>
+	
+	<select id="courseSelect" resultType="TestVO">
+		SELECT t.* FROM TOUR t JOIN COURSE c ON t.CONTENTID = c.CONTENTID WHERE c.COURSE_SEQ = 1
+	</select>
 	
 </mapper>

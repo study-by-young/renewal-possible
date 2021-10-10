@@ -25,4 +25,7 @@ public interface CourseBoardMapper {
 
 	public int getTotalCount(Criteria cri);
 	
+	public int courseCnt(CourseBoardVO vo);
+	
+	public List<TestVO> courseSelect(CourseBoardVO vo);
 }
