@@ -228,6 +228,13 @@
 .review-card-body {
 	line-height: 23px;
 }
+
+.review-course {
+	background-color: #6495ed;
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+}
 </style>
 
 
@@ -651,7 +658,7 @@
 																							<hr style="margin: 10px 0px">
 																							{review.title}</h5>
 																						</li>
-																						<li style="width: 15%;"><span><button class="btn btn-primary review-button" type="button"
+																						<li style="width: 15%;"><span><button class="btn btn-primary review-button" style="background-color: #6495ed;" type="button"
 																							data-toggle="collapse"
 																							data-target="#reviewContent_<%= i %>" aria-expanded="false"
 																							aria-controls="collapseExample" data-parent="#accordion">자세히</button></span>
@@ -667,7 +674,7 @@
 																						accusamus terry richardson ad squid. Nihil anim
 																						keffiyeh helvetica, craft beer labore wes anderson
 																						cred nesciunt sapiente ea proident.</div>
-																					<div class="card-body review-card-body reviewContent" style="padding: 15px; padding-top: 5px;"><i class="fa fa-thumbs-up" style="font-size: 12px;"></i>&nbsp;&nbsp;<a href="#">작성자의 여행코스 보러가기</a></div>
+																					<div class="card-body review-card-body reviewContent" style="padding: 15px; padding-top: 5px; font-size: 14px; float: right;"><a href="#" class="review-course">작성자의 여행코스 보러가기</a></div>
 																				</div>
 																			</div>
 																		</div>
