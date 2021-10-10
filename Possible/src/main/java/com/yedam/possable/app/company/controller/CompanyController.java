@@ -59,9 +59,9 @@ public class CompanyController {
 
     //업체 정보 수정 페이지
     @GetMapping("/editInfo")
-    public String editCompanyInfoForm(CompanyVO vo, Model model, @RequestParam Long seq) {
+    public String editCompanyInfoForm(CompanyVO vo, Model model, @RequestParam Long cmpnSeq) {
 
-        vo.setSeq(seq);
+        vo.setSeq(cmpnSeq);
         model.addAttribute("company", companyService.companyOneSelect(vo));
 
         return "company/editInfo";
@@ -97,17 +97,20 @@ public class CompanyController {
     @GetMapping("/car")
     public String companyCarList(CompanyVO vo,
                                  Model model,
-                                 @RequestParam Long seq){
-        vo.setSeq(seq);
+                                 @RequestParam Long cmpnSeq){
+        vo.setSeq(cmpnSeq);
         List<CarVO> carList = carService.getCompanyCarList(vo);
         model.addAttribute("companyCarList", carList);
         return "company/carList";
     }
 
     // 업체 보유 렌트카 상세
+    @ResponseBody
     @GetMapping("/car/view")
-    public CarVO companyCarOneSelect(CarVO vo, @RequestParam Long seq) {
-        return carService.getCompanyCar(seq, new CompanyVO());          // JSP에서 company 시퀀스 넘겨줘야함
+    public CarVO companyCarOneSelect(CarVO vo, @RequestParam Long seq, @RequestParam Long cmpn) {
+       vo.setSeq(seq);
+       vo.setCmpnSeq(cmpn);
+    	return carService.getCompanyCar(vo);          // JSP에서 company 시퀀스 넘겨줘야함
     }
 
     // 업체 렌트카 등록 폼
@@ -137,15 +140,17 @@ public class CompanyController {
     // 업체 렌트카 삭제 처리
     @ResponseBody
     @PostMapping("/car/delete")
-    public int deleteCar(CarVO vo,
+    public int deleteCar(CarVO vo, HttpSession session,
                             @RequestParam(value = "chbox[]") List<String> chArr){
-        int result = 0;
-        Long seq = 0L;
 
+    	int result = 0;
+        Long seq = 0L;
+        
         for (String i : chArr) {
             seq = Long.parseLong(i);
             vo.setSeq(seq);
-            carService.deleteCompanyCar(seq, new CompanyVO());
+            
+            carService.deleteCompanyCar(vo);
         }
         result = 1;
 

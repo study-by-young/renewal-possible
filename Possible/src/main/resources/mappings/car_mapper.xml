@@ -107,14 +107,15 @@
                UPT_DATE,
                CAR_NUM
         FROM CAR
-        WHERE SEQ = #{carSeq}
-          AND cmpn_seq = #{cmpn.seq}
+        WHERE SEQ = #{seq}
+        AND cmpn_seq = #{cmpnSeq}
+        ORDER BY SEQ
     </select>
     <delete id="deleteCompanyCar">
         DELETE
         FROM CAR
-        WHERE SEQ = #{carSeq}
-          AND cmpn_seq = #{cmpn.seq}
+        WHERE SEQ = #{seq}
+          AND cmpn_seq = #{cmpnSeq}
     </delete>
     <update id="updateCompanyCar">
         UPDATE car

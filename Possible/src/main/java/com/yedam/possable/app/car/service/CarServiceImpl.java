@@ -52,13 +52,13 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarVO getCompanyCar(Long seq, CompanyVO vo) {
-        return carMapper.getCompanyCar(seq, vo);
+    public CarVO getCompanyCar(CarVO vo) {
+        return carMapper.getCompanyCar(vo);
     }
 
     @Override
-    public int deleteCompanyCar(Long seq, CompanyVO vo) {
-        return carMapper.deleteCompanyCar(seq, vo);
+    public int deleteCompanyCar(CarVO vo) {
+        return carMapper.deleteCompanyCar(vo);
     }
 
     @Override
