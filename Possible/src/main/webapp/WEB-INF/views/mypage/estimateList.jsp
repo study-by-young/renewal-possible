@@ -29,7 +29,6 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="lr_bc_first_box_main_wrapper">
-
                                 <!-- 메뉴 -->
                                 <div class="lr_bc_first_box_img_cont_wrapper">
                                     <ul>
@@ -42,114 +41,66 @@
                                     </ul>
                                 </div>
                                 <br> <br> <br>
-
                                 <!-- 견적관리 -->
                                 <div class="col-md-12">
                                     <div class="blog_single_comment_heading">
-                                        <h4>내가 신청한 견적 관리</h4>
-                                    </div>
-                                    <div class="card">
-                                        <div class="row no-gutters">
-                                            <div class="col-4">
-                                                <br>
-                                                <div align="center">
-                                                    <h3>자동차 이름</h3>
-                                                </div>
-                                                <br> <img
-                                                    src="${pageContext.request.contextPath}/resources/images/comment_img1.jpg"
-                                                    width="210px" height="160" alt="" class="card-img" />
-                                            </div>
-											${getEstimate}
-                                            <div class="col-8">
-                                                <div class="col-12" style="border-bottom: none solid black">
-                                                    <div class="card-body">
-                                                        <div style="float: right;">
-                                                            <div style="float: left;">
-                                                                <h3>가격</h3>
-                                                            </div>
-                                                            &nbsp;&nbsp;&nbsp;
-                                                            <div style="float: right;">
-                                                                <button type="button" class="btn" onclick="location.href='esinfo'"
-                                                                        style="text-align: center; background: #4f5dec; color: #ffffff; border: 1px solid transparent;">상세보기
-                                                                </button>
-                                                            </div>
-
-                                                        </div>
-                                                    </div>
-                                                    <br>
-                                                    <br>
-
-                                                    <!-- 옵션 -->
-
-                                                    <ul>
-                                                        옵션
-                                                        <li class="in">옵션이름</li>
-                                                        <li class="in">옵션이름</li>
-                                                        <li class="in">옵션이름</li>
-                                                    </ul>
-                                                </div>
-
-                                            </div>
-                                        </div>
+                                        <h4>프리미엄 견적 신청 관리</h4>
                                     </div>
                                 </div>
-								v class="col-md-12">
-							<div class="x_car_book_tabs_content_main_wrapper">
-								<div class="tab-content">
-									<div id="home" class="tab-pane fade active show">
-										<div class="row">
-											<div class="col-md-12">
-												
-												<!-- 여기서부터 main-box-wrapper -->
-												<c:forEach var="getUserInfo" items="${getEstimate}">
-												<div class="x_car_offer_main_boxes_wrapper float_left">
-													<div class="x_car_offer_starts x_car_offer_starts_list_img float_left border-0">
-														<div class="x_car_offer_img x_car_offer_img_list float_left">
-															<img src="${pageContext.request.contextPath}/resources/images/cars/Genesis/genesis_g90.png" alt="img" class="img-fluid">
-														</div>
-														<div class="x_car_offer_price x_car_offer_price_list float_left">
-                                                        </div>
-													</div>
-													<div class="x_car_offer_starts_list_img_cont border-left">
-														<div class="x_car_offer_heading x_car_offer_heading_list float_left" style="width: 70%;">
-															<h5 class="pt-3">${getUserInfo.brand} ${getUserInfo.model}</h5>
-															<p>${car.trim}</p>
-															<hr class="my-2">
-															<p>${car.year}년 / ${car.fuel} / ${car.passenger}인</p>
-														</div>
-														<div class="x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left" style="width: 30%;">
-															<ul>
-																<li style="width: 100%;">
-                                                                    <a href="#">견적상세보기</a>
-                                                                </li>
-															</ul>
-														</div>
-														<!-- 옵션 / 업체를 선택하면 해당 업체가 보유하고 있는 옵션 표시 -->
-														<div class="x_car_offer_heading x_car_offer_heading_listing float_left">
-                                                            <ul class="">
-                                                                <li>
-                                                                    <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 차량 옵션</span>
-                                                                        <ul class="list">
-                                                                            <c:forEach var="opt" items="${options}">
-                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${opt}</li>
-                                                                            </c:forEach>
+								<div class="col-md-12">
+									<div class="x_car_book_tabs_content_main_wrapper">
+										<div class="tab-content">
+											<div id="home" class="tab-pane fade active show">
+												<div class="row">
+													<div class="col-md-12">
+													<!-- 여기서부터 main-box-wrapper -->
+														<c:forEach var="getUserInfo" items="${getEstimate}">
+														<div class="x_car_offer_main_boxes_wrapper float_left">
+															<div class="x_car_offer_starts x_car_offer_starts_list_img float_left border-0">
+																<div class="x_car_offer_img x_car_offer_img_list float_left">
+																	<img src="${pageContext.request.contextPath}/resources/images/cars/Genesis/genesis_g90.png" alt="img" class="img-fluid">
+																</div>
+																<div class="x_car_offer_price x_car_offer_price_list float_left">
+                                                        		</div>
+															</div>
+														<div class="x_car_offer_starts_list_img_cont border-left">
+															<div class="x_car_offer_heading x_car_offer_heading_list float_left" style="width: 70%;">
+																<h5 class="pt-3">${getUserInfo.brand} ${getUserInfo.model}(${getUserInfo.segment})</h5>
+																<p>${car.trim}</p>
+																<hr class="my-2">
+																<p>신청일자 : <span class="h6"><fmt:formatDate value="${getUserInfo.genDate}" pattern="yyyy/MM/dd"/></span></p> 
+															</div>
+															<div class="x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left" style="width: 30%;">
+																<ul>
+																	<li style="width: 100%;">
+	                                                                    <a href="#">견적상세보기</a>
+	                                                                </li>
+																</ul>
+															</div>
+															<!-- 옵션 / 업체를 선택하면 해당 업체가 보유하고 있는 옵션 표시 -->
+															<div class="x_car_offer_heading x_car_offer_heading_listing float_left">
+                                                            	<ul class="">
+                                                                	<li>
+                                                                    	<div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 차량 옵션</span>
+                                                                        	<ul class="list">
+	                                                                            <c:forEach var="opt" items="${getUserInfo.options}">
+	                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${opt}</li>
+	                                                                            </c:forEach>
                                                                         </ul>
-                                                                    </div>
-                                                                </li>
-                                                                <li>
-                                                                    <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 여행 옵션</span>
-                                                                        <ul class="list">
-                                                                            <c:forEach var="itm" items="${items}">
-                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${itm}</li>
-                                                                            </c:forEach>
-                                                                        </ul>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-														
-													</div>
-													
+                                                                   	 	</div>
+                                                                	</li>
+                                                                	<li>
+                                                                   		<div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 여행 옵션</span>
+                                                                        	<ul class="list">
+	                                                                            <c:forEach var="itm" items="${getUserInfo.items}">
+	                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${itm}</li>
+	                                                                            </c:forEach>
+                                                                        	</ul>
+                                                                    	</div>
+                                                                	</li>
+                                                            	</ul>
+                                                        	</div>
+														</div>
 													<!-- 업체 정렬 -->
 													<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 														<div class="x_carbooking_right_section_wrapper float_left">
@@ -196,8 +147,7 @@
 												</div>
 												</c:forEach>
 											</div>
-
-											<!-- 페이징 -->
+											 <!-- 페이징 -->
 											<!-- <div class="col-md-12">
 												<div class="pager_wrapper prs_blog_pagi_wrapper">
 													<ul class="pagination">
@@ -213,18 +163,17 @@
 														</li>
 													</ul>
 												</div>
-											</div> -->
+											</div>  --> 
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
             <!-- 사이드바 -->
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
@@ -312,5 +261,4 @@
         </div>
     </div>
 </div>
-
 <!-- x blog main and sidebar Wrapper End -->
