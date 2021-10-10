@@ -43,6 +43,12 @@
 	
 	.how_many_driver ul {
 		float: left;
+	    background-color: yellow;
+	    padding-top: 5px;
+	    padding-left: 35px;
+	    padding-right: 12px;
+	    border-radius: 10px;
+	    padding-bottom: 4px;
 	}
 	
 	.how_many_driver ul li {
@@ -51,9 +57,12 @@
 		padding-left: 0px;
 		margin-left: 0px;
 		padding-right: 20px;
-		font-weight: 900;
-		font-color: black;
+		font-weight: 600;
 	}
+	
+	.how_many_driver ul li label {
+		margin-bottom: 0px;
+	}	
 	
 	.license_warning {
 		width: 75%;
@@ -61,8 +70,65 @@
 		padding: 30px;
 		background-color: white;
 		border-radius: 10px;
-		border: 1px solid #ebebeb;
+		border: 1px solid #a9a9a9 /* #ebebeb */;
 	}
+	
+	.pay-method {
+		display: inline-block;
+		padding-right: 80px;
+	}
+	
+	.pay-method:last-child {
+		padding-right: 20px;
+	}
+	
+	.pay-method-wrapper {
+		background-color: yellow;
+		padding-top: 15px;
+		padding-bottom: 5px;
+		padding-left: 35px;
+		width: 100%;
+		background-color: yellow;
+		border-radius: 10px;
+	}
+	
+	input[type=radio], input[type=checkbox] {
+		vertical-align: middle;
+	}
+	
+	
+	.option-box {
+		border-radius: 10px;
+		border: 1px solid #ebebeb;
+		min-height: 50px;
+		font-weight: 400;
+		overflow: hidden;
+	}
+	
+	.option-box li {
+		float: left;
+		margin-right: 45px;
+	}
+	
+	.order-billing .billing-form li label {
+	    line-height: 20px;
+	    margin: 0px;
+	    text-transform: uppercase;
+	    font-weight: 600;
+	    font-size: 15px;
+	    width: 100%;
+	}
+	
+	.ins_label {
+		line-height: 20px;
+	    margin: 0px;
+	    text-transform: uppercase;
+	    width: 100%;
+	    padding-top: 15px;
+	    padding-left: 15px;
+	    cursor: pointer;
+	}
+	
 </style>
 
 <!-- btc tittle Wrapper Start -->
@@ -247,26 +313,24 @@
 									</div>
 									<form class="billing-form">
 										<ul class="list-unstyled row" style="margin-bottom: 50px;">
-											<li>예약자 정보</li>
+											<li style="padding: 10px 15px; font-weight: bold; color: black;}">예약자 정보</li>
 											<li class="col-md-12"><label>이름* <input id="receiver" name="receiver" type="text" placeholder="" class="form-control">
 											</label></li>
 											<li class="col-md-12"><label>연락처* <input id="phone" name="phone" type="text" placeholder="" class="form-control">
 											</label></li>
-											<li class="col-md-12"><label>생년월일* <br><input id="birth1" name="birth1" size="20" type="text" placeholder="">
-																- <input id="birth2" name="birth2" size="5" type="text" placeholder="">* * * * * *
+											<li class="col-md-12"><label>생년월일(yy/mm/dd)* <br><input id="birth" name="birth" type="text" placeholder="" class="form-control">
 											</label></li>
 											<li class="col-md-12"><label>이메일* <input id="email" name="email" type="text" placeholder="" class="form-control">
 											</label></li>
 										</ul>
 										
 										<ul class="list-unstyled row driver2" style="margin-bottom: 50px;">
-											<li>제 2 운전자 정보</li>
+											<li style="padding: 15px; padding-bottom: 10px; padding-top: 0px; font-weight: bold; color: black;}">제 2 운전자 정보</li>
 											<li class="col-md-12"><label>이름* <input id="receiverB" name="receiverB" type="text" placeholder="" class="form-control">
 											</label></li>
 											<li class="col-md-12"><label>연락처* <input id="phoneB" name="phoneB" type="text" placeholder="" class="form-control">
 											</label></li>
-											<li class="col-md-12"><label>생년월일* <br><input id="birthB1" name="birthB1" size="20" type="text" placeholder="">
-																- <input id="birthB2" name="birthB2" size="5" type="text" placeholder="">* * * * * *
+											<li class="col-md-12"><label>생년월일(yy/mm/dd)* <br><input id="birthB" name="birthB" type="text" placeholder="" class="form-control">
 											</label></li>
 											<li class="col-md-12"><label>이메일* <input id="emailB" name="emailB" type="text" placeholder="" class="form-control">
 											</label></li>
@@ -285,9 +349,20 @@
 												<h4>자차보험</h4>
 											</div>
 											<div>
-												<ul>
-													<li>{OPT_CODE}</li>
-													<li>+{price}원<input type="hidden" id="" name="" value="{price}"></li>
+												<ul class="option-box iop01" style="width: 60%;">
+													<li style="margin-bottom: 0px;">
+														<a href="#"><label for="iop01" class="ins_label iop01_label" ><input class="ins_radio" type="radio" id="iop01" name="insure" value="">
+														<i class="fa fa-check-square" style="font-size: 12px;"></i>&nbsp;&nbsp;<span style="margin-right: 210px;">일반자차 </span><span>+{0}원</span></label></a>
+													</li>
+												</ul>
+											</div>
+											
+											<div>
+												<ul class="option-box iop02 mt-3" style="width: 60%;">
+													<li style="margin-bottom: 0px;">
+														<a href="#"><label for="iop02" class="ins_label iop02_label" ><input class="ins_radio" type="radio" id="iop02" name="insure" value="">
+														<i class="fa fa-check-square" style="font-size: 12px;"></i>&nbsp;&nbsp;<span style="margin-right: 210px;">완전자차 </span><span>+{25,000}원</span></label></a>
+													</li>
 												</ul>
 											</div>
 											
@@ -299,17 +374,19 @@
 											<div class="heading-block text-left margin-bottom-30">
 												<h4>결제수단</h4>
 											</div>
-											<div>
-												<label><input type="radio" name="pay" value="kakaopay"> 카카오페이</label>
-											</div>
-											<div>
-												<label><input type="radio" name="pay" value="card"> 신용/체크카드</label>
-											</div>
-											<div>
-												<label><input type="radio" name="pay" value="trans"> 실시간계좌이체</label>
-											</div>
-											<div>
-												<label><input type="radio" name="pay" value="vbank"> 가상계좌</label>
+											<div class="pay-method-wrapper">
+												<div class="pay-method">
+													<label><input type="radio" name="pay" value="kakaopay"> 카카오페이</label>
+												</div>
+												<div class="pay-method">
+													<label><input type="radio" name="pay" value="card"> 신용/체크카드</label>
+												</div>
+												<div class="pay-method">
+													<label><input type="radio" name="pay" value="trans"> 실시간계좌이체</label>
+												</div>
+												<div class="pay-method">
+													<label><input type="radio" name="pay" value="vbank"> 가상계좌</label>
+												</div>
 											</div>
 										</div>
 										<hr>
@@ -333,131 +410,107 @@
 										</div>
 										<hr>
 										
-											<div class="agreemnet">
-												<ul class="agree_list">
-													<li class="on">
-														<dl>
-															<dt class="cont">여행갈카 대여 규정 및 약관 동의 <span style="float: right;">보기</span></dt>
-															<dd id="88" class="hide contbox">
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>
-												대여조건<br>
-												운전자 나이 만 21세 이상<br>
-												
-												면허취득일 1년 이상<br>
-												
-												차량 대여 시 실물면허증 소지 (2종 보통 면허 이상 필요)
-												
-												업체별 대여규정 준수 (외국인 대여, 낚시용품/애견 동반, 주행거리제한 규정 등)
-												· 대여조건 미달로 렌트가 불가한 경우, 추가 수수료가 발생합니다.
-												· 제 2운전자도 대여조건에 충족해야 하며, 계약서 작성을 해야 보험 효력이 발생합니다.
-												자동차 보험
-												자동차 보험의 정확한 보장 범위는 대여 시 작성하는 계약서를 기준으로 결정됩니다. 차량 대여 시 작성하는 계약서 내용을 반드시 확인해주세요.
-												
-												[유의사항]
-												· 사고 발생 시, 대인 1·2, 대물, 자손, 자차에서 각각의 면책금과 휴차 보상료가 발생합니다.
-												· 단독 사고, 휠/타이어, 중과실 사고 시에는 자차에 대한 보상이 적용이 불가할 수 있습니다.
-												· 차량 반납 이후에는 보험이 적용되지 않으며 보험 계약이 자동 해지됩니다.
-												
-												* 카모아는 사고 시 운전자 피해 최소화를 위해 자동차 보험(대인 1·2, 대물, 자손, 자차) 가입 차량만 취급하고 있습니다.
-												차량 정비 및 사고
-												· 차량 정비는 렌트카 업체의 규정에 따라야 하며 이를 이행하지 않았을 경우 서비스 이용이 제한됩니다.
-												· 사고가 발생했을 경우 사고 상황을 즉시 렌트카 업체로 통보해야 하며 사고 처리는 렌트카 업체와의 계약 약관에 따라 진행됩니다.
-												· 이를 위해 차량 대여 시 보험, 정비 등 렌트카 업체의 규정에 관한 내용 및 작성한 계약서의 내용을 반드시 숙지해야 합니다.
-												차량배달 서비스 비용
-												· 렌트카 업체의 차량 배달이 시작된 후 예약을 취소할 경우, 왕복 배달 비용이 발생합니다. 왕복 배달 비용은 업체마다 상이합니다.
-												· 반차 주소 변경 시, 추가 비용이 발생할 수 있습니다. 추가 비용은 업체마다 상이합니다.
-												· 약속된 반납장소 외 주차 시 비용이 청구될 수 있습니다.
-												연료 규정
-												· 차량 반납 시, 대여 시의 연료량과 동일하도록 주유하여 반납해야 합니다. (차량 대여 직후 계기판 사진 촬영 권장)
-												· 연료량이 모자를 경우, 추가 비용이 발생할 수 있으며 기존 연료량보다 많을 경우, 환불이 불가능합니다.
-												· 반납 시 주유 불충분에 대해서는 주유소의 가격과 상이할 수 있으며, 주유서비스 비용이 함께 청구될 수 있습니다.
-												약정 주행거리
-												약정 주행거리는 렌트카 업체의 대여 규정을 확인해 주세요
-												주행거리 초과 시, km당 추가 요금이 발생하거나 이후 이용이 어려울 수 있습니다.
-												월렌트 보증금
-												· 업체/차량에 따라 보증금은 상이합니다.
-												· 보증금은 현장에서 현금 결제 또는 계좌 이체로 지불하시면 됩니다.
-												· 보증금은 카모아 결제금액에 포함되지 않습니다.
-												취소규정
-												· 결제 후 1시간 이내에 취소할 경우 취소 수수료는 발생하지 않습니다. 단, 결제 후 1시간 이내에 취소를 하였더라도 대여 시간이 지났을 경우 예약 금액에 대한 환불이 불가능합니다.
-																</p>
-															</dd>
-														</dl>
-													</li>
-												</ul>
-											</div>
+										<div class="agreemnet">
+											<ul class="agree_list">
+												<li class="on">
+													<dl>
+														<dt class="cont">여행갈카 대여 규정 및 약관 동의 <span style="float: right;">보기</span></dt>
+														<dd id="88" class="hide contbox">
+															<p style="padding: 15px;">
+											대여조건<br>
+											운전자 나이 만 21세 이상<br>
 											
-											<div class="agreemnet">
-												<ul class="agree_list">
-													<li class="on">
-														<dl>
-															<dt class="cont">개인정보 수집·이용 및 제3자 정보제공 <span style="float: right;">보기</span></dt>
-															<dd id="88" class="hide contbox">
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-															</dd>
-														</dl>
-													</li>
-												</ul>
-											</div>
+											면허취득일 1년 이상<br>
 											
-											<div class="agreemnet">
-												<ul class="agree_list">
-													<li class="on">
-														<dl>
-															<dt class="cont">취소 및 위약금 규정 동의 <span style="float: right;">보기</span></dt>
-															<dd id="88" class="hide contbox">
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-															</dd>
-														</dl>
-													</li>
-												</ul>
-											</div>
+											차량 대여 시 실물면허증 소지 (2종 보통 면허 이상 필요)
 											
-											<div class="agreemnet">
-												<ul class="agree_list">
-													<li class="on">
-														<dl>
-															<dt class="cont">자동차 표준 대여 약관 동의 <span style="float: right;">보기</span></dt>
-															<dd id="88" class="hide contbox">
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-															</dd>
-														</dl>
-													</li>
-												</ul>
-											</div>
+											업체별 대여규정 준수 (외국인 대여, 낚시용품/애견 동반, 주행거리제한 규정 등)
+											· 대여조건 미달로 렌트가 불가한 경우, 추가 수수료가 발생합니다.
+											· 제 2운전자도 대여조건에 충족해야 하며, 계약서 작성을 해야 보험 효력이 발생합니다.
+											자동차 보험
+											자동차 보험의 정확한 보장 범위는 대여 시 작성하는 계약서를 기준으로 결정됩니다. 차량 대여 시 작성하는 계약서 내용을 반드시 확인해주세요.
 											
-											<div class="agreemnet">
-												<ul class="agree_list">
-													<li class="on">
-														<dl>
-															<dt class="cont">대여자격 확인 동의 <span style="float: right;">보기</span></dt>
-															<dd id="88" class="hide contbox">
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-																<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
-															</dd>
-														</dl>
-													</li>
-												</ul>
-											</div>
+											[유의사항]
+											· 사고 발생 시, 대인 1·2, 대물, 자손, 자차에서 각각의 면책금과 휴차 보상료가 발생합니다.
+											· 단독 사고, 휠/타이어, 중과실 사고 시에는 자차에 대한 보상이 적용이 불가할 수 있습니다.
+											· 차량 반납 이후에는 보험이 적용되지 않으며 보험 계약이 자동 해지됩니다.
+															</p>
+														</dd>
+													</dl>
+												</li>
+											</ul>
+										</div>
+										
+										<div class="agreemnet">
+											<ul class="agree_list">
+												<li class="on">
+													<dl>
+														<dt class="cont">개인정보 수집·이용 및 제3자 정보제공 <span style="float: right;">보기</span></dt>
+														<dd id="88" class="hide contbox">
+															<p style="padding: 15px;">내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+														</dd>
+													</dl>
+												</li>
+											</ul>
+										</div>
+										
+										<div class="agreemnet">
+											<ul class="agree_list">
+												<li class="on">
+													<dl>
+														<dt class="cont">취소 및 위약금 규정 동의 <span style="float: right;">보기</span></dt>
+														<dd id="88" class="hide contbox">
+															<p style="padding: 15px;">내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+														</dd>
+													</dl>
+												</li>
+											</ul>
+										</div>
+										
+										<div class="agreemnet">
+											<ul class="agree_list">
+												<li class="on">
+													<dl>
+														<dt class="cont">자동차 표준 대여 약관 동의 <span style="float: right;">보기</span></dt>
+														<dd id="88" class="hide contbox">
+															<p style="padding: 15px;">내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+														</dd>
+													</dl>
+												</li>
+											</ul>
+										</div>
+										
+										<div class="agreemnet">
+											<ul class="agree_list">
+												<li class="on">
+													<dl>
+														<dt class="cont">대여자격 확인 동의 <span style="float: right;">보기</span></dt>
+														<dd id="88" class="hide contbox">
+															<p style="padding: 15px;">내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+															<p>내용ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</p>
+														</dd>
+													</dl>
+												</li>
+											</ul>
+										</div>
 										<br>
 										<div><label><input type="checkbox" id="chk_all" name="agreement" value="selectAll"> 위 결제/대여 규정을 모두 확인하였으며, 회원 본인은 결제에 동의합니다.</label></div>
 										<div style="margin-bottom: 40px;"><small>팀 Possible은 통신판매중개자로서 여행갈카의 거래당사자가 아니며 상품정보, 거래조건 및 거래에 관련한 의무와 책임은 각 판매자에게 있습니다.</small></div>
@@ -468,6 +521,7 @@
 								</div>
 							</div>
 						</div>
+						<!-- 
 						<div class="col-md-12">
 							<div class="contect_btn contect_btn_contact">
 								<ul>
@@ -475,6 +529,7 @@
 								</ul>
 							</div>
 						</div>
+						 -->
 					</div>
 				</div>
 			</div>
@@ -639,6 +694,34 @@
 		if(chk == false){
 			$('.driver2').css('display', 'none');
 		}
+	});
+	
+	$('.ins_radio').hide();
+	
+	
+	$('.iop01_label').on('click', function(){
+		$('.iop01').prop('checked', true);
+	});
+	
+	$('.iop02_label').on('click', function(){
+		$('.iop02').prop('checked', true);
+	});
+	
+	
+	$('.option-box li').on('click', function(){
+		var chk01 = $('#iop01').is(':checked');
+		var chk02 = $('#iop02').is(':checked');
+		
+		if(chk01 == true){
+			$('.iop01').css('background-color', 'yellow');
+			$('.iop02').css('background-color', 'white');
+		}
+		
+		if(chk02 == true){
+			$('.iop01').css('background-color', 'white');
+			$('.iop02').css('background-color', 'yellow');
+		}
+		
 	});
 	
 </script>

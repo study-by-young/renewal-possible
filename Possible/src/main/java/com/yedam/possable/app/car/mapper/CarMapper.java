@@ -35,4 +35,10 @@ public interface CarMapper {
 
     // 업체 차량 수정
     public int updateCompanyCar(@Param("car") CarVO carVO, @Param("cmpn") CompanyVO cmpnVO);
+    
+    // 차량 model 중복제거 리스트 조회
+    public List<CarVO> getDistinctCarList();
+    
+    // 해당 model을 보유한 업체 리스트 뽑아내기 위한 리스트
+    public List<CarVO> getCarByModel(CarVO vo);
 }
