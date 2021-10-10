@@ -19,39 +19,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yedam.possable.app.community.tour.domain.TestVO;
 import com.yedam.possable.app.community.tour.service.TourService;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/community/tour")
+@RequestMapping("/tour/*")
 public class TourController {
+	
 	@Autowired TourService tourService;
-
-	// 여행지 게시판 리스트
-	@GetMapping
-	public String tourList(Model model) {
-
-	    model.addAttribute("list", tourService.getList());
-	    return "community/tour/list";
+	
+	@GetMapping("/list")
+	public void list(Model model) {
+		model.addAttribute("list", tourService.getList());
 	}
 
-	// 여행지 게시판 게시글 보기
-	@GetMapping("/view")
-    public String tourView(){
-	    return "community/tour/view";
-    }
-
-    // 여행지 게시글 댓글 등록
-    @RequestMapping("/view/writeCmt")
-    @ResponseBody
-    public String tourCommentWrite(){
-	    return "";
-    }
-
-    // 여행지 댓글 신고
-    @RequestMapping("/view/report")
-    public String tourCmtReport(){
-	    return "";
-    }
 	@GetMapping("/test")
 	public void test(Model model) throws IOException {
 
@@ -106,9 +85,9 @@ public class TourController {
 		// String -> JSON 변환
 		JSONArray jArry = new JSONObject(result).getJSONObject("response").getJSONObject("body").getJSONObject("items").getJSONArray("item");
 		//String addr = jArry.getJSONObject(0).getString("addr1");
-
+		
 //				new JSONObject(new JSONObject(sb.toString()).get("body").toString()).getJSONArray("items").toString()).getJSONArray("item");
-
+		
 		List<TestVO> list = new ArrayList<TestVO>();
 		TestVO test;
 		for (int i = 0; i < jArry.length(); i++) {
@@ -131,18 +110,18 @@ public class TourController {
 			if (!JO.isNull("readcount")) { test.setReadCount(JO.getLong("readcount")); }
 			if (!JO.isNull("sigungucode")) { test.setSigunguCode(JO.getLong("sigungucode")); }
 			if (!JO.isNull("title")) { test.setTitle(JO.getString("title")); }
-			if (!JO.isNull("zipcode")) {
+			if (!JO.isNull("zipcode")) { 
 				if (JO.get("zipcode").getClass().getName().equals("java.lang.Integer")) {
 					test.setZipCode(String.valueOf(JO.getInt("zipcode")));
 				} else {
 					test.setZipCode(JO.getString("zipcode"));
 				}
-
+				 
 			}
 
 			/*
 			 * JSONObject JO = jArry.getJSONObject(i);
-			 *
+			 * 
 			 * if (!JO.isNull("title")) { test.setTitle(String.valueOf(JO.get("title"))); }
 			 * list.add(test);
 			 */
