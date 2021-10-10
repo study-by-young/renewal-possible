@@ -60,7 +60,8 @@ public class CommonRentController {
 
     // 렌트카 상세보기
     @GetMapping("/view")
-    public String rentCarView(){
+    public String rentCarView(Model model){
+    	model.addAttribute("list", carService.getCarList());
         return "rent/comm/carView";
     }
     

@@ -384,8 +384,8 @@
 											</tr>
 											<tr class="compare_cmpn_tr">
 												<td style="width: 5%;"><i class="fa fa-check"></i></td>
-												<td style="width: 62%;">{업체명}</td>
-												<td style="width: 37%;">{가격}</td>
+												<td style="width: 62%;">{company.name}</td>
+												<td style="width: 37%;">{car.price}</td>
 											</tr>
 										</table>
 									</div>
@@ -635,10 +635,12 @@
 																	</div>
 																	<div class="col-lg-12 col-md-12 blog_single_comment_wrapper">
 																		<!-- forEach -->
+																		<%! int i = 0; %>
+																		<c:forEach var="review" items="${list}">
 																		<div class="card" style="margin-bottom: 40px;">
 																			<div class="card-head" style="overflow: hidden;">
 																				<div class="review-head">
-																					<ul>
+																					<ul class="on">
 																						<li style="width: 85%;">
 																							<h5> {김**} <i class="fa fa-angle-double-right"></i> <span>{car.model}</span> <span>{startDate} ~ {endDate}</span> &nbsp;&nbsp;
 																							<i class="fa fa-star oo"></i>
@@ -651,58 +653,28 @@
 																						</li>
 																						<li style="width: 15%;"><span><button class="btn btn-primary review-button" type="button"
 																							data-toggle="collapse"
-																							data-target="#reviewContent" aria-expanded="false"
-																							aria-controls="collapseExample">자세히</button></span>
+																							data-target="#reviewContent_<%= i %>" aria-expanded="false"
+																							aria-controls="collapseExample" data-parent="#accordion">자세히</button></span>
 																						</li>
 																					</ul>
 																				</div>
 																			</div>
-																			<div class="collapse panel" id="reviewContent">
-																				<div class="card-body review-card-body reviewContent" style="padding: 15px;">
-																					{review.content}
-																					cliche reprehenderit, enim eiusmod high life
-																					accusamus terry richardson ad squid. Nihil anim
-																					keffiyeh helvetica, craft beer labore wes anderson
-																					cred nesciunt sapiente ea proident.</div>
-																				<div class="card-body review-card-body reviewContent" style="padding: 15px; padding-top: 5px;"><i class="fa fa-thumbs-up" style="font-size: 12px;"></i>&nbsp;&nbsp;<a href="#">작성자의 여행코스 보러가기</a></div>
+																			<div id="accordion">
+																				<div class="collapse panel" id="reviewContent_<%= i %>">
+																					<div class="card-body review-card-body reviewContent" style="padding: 15px;">
+																						${review.model}
+																						cliche reprehenderit, enim eiusmod high life
+																						accusamus terry richardson ad squid. Nihil anim
+																						keffiyeh helvetica, craft beer labore wes anderson
+																						cred nesciunt sapiente ea proident.</div>
+																					<div class="card-body review-card-body reviewContent" style="padding: 15px; padding-top: 5px;"><i class="fa fa-thumbs-up" style="font-size: 12px;"></i>&nbsp;&nbsp;<a href="#">작성자의 여행코스 보러가기</a></div>
+																				</div>
 																			</div>
 																		</div>
+																		<%= i++ %>
+																		</c:forEach>
 																		<!-- End foreach -->
 																		
-																		<!-- forEach -->
-																		<div class="card" style="margin-bottom: 40px;">
-																			<div class="card-head" style="overflow: hidden;">
-																				<div class="review-head">
-																					<ul>
-																						<li style="width: 85%;">
-																							<h5> {김**} <i class="fa fa-angle-double-right"></i> <span>{car.model}</span> <span>{startDate} ~ {endDate}</span> &nbsp;&nbsp;
-																							<i class="fa fa-star oo"></i>
-																							<i class="fa fa-star oo"></i>
-																							<i class="fa fa-star oo"></i>
-																							<i class="fa fa-star-o oo"></i>
-																							<i class="fa fa-star-o oo"></i><br>
-																							<hr style="margin: 10px 0px">
-																							{review.title}</h5>
-																						</li>
-																						<li style="width: 15%;"><span><button class="btn btn-primary review-button" type="button"
-																							data-toggle="collapse"
-																							data-target="#reviewContent" aria-expanded="false"
-																							aria-controls="collapseExample">자세히</button></span>
-																						</li>
-																					</ul>
-																				</div>
-																			</div>
-																			<div class="collapse" id="reviewContent">
-																				<div class="card-body review-card-body reviewContent" style="padding: 15px;">
-																					{review.content}
-																					cliche reprehenderit, enim eiusmod high life
-																					accusamus terry richardson ad squid. Nihil anim
-																					keffiyeh helvetica, craft beer labore wes anderson
-																					cred nesciunt sapiente ea proident.</div>
-																				<div class="card-body review-card-body reviewContent" style="padding: 15px; padding-top: 5px;"><i class="fa fa-thumbs-up" style="font-size: 12px;"></i>&nbsp;&nbsp;<a href="#">작성자의 여행코스 보러가기</a></div>
-																			</div>
-																		</div>
-																		<!-- End foreach -->
 																	</div>
 																</div>
 															</div>
