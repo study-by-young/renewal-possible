@@ -20,16 +20,19 @@
     }
 
 </style>
+<!-- Main content -->
+		<div class="content-wrapper">
+	<!-- Content area -->
+			<div class="content">
 
-<div class="container">
-    <h2>보유렌터카</h2>
-    <input type="hidden" name="seq" value="1">
+		<div class="card-header header-elements-inline">
+			<h6 class="card-title">보유렌트카</h6>
+			<div class="header-elements"></div>
+		</div>
+		<input type="hidden" name="cmpnSeq" value="${cmpnSeq}">
     <div class="row">
         <div class="allCheck">
             <input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label>
-        </div>
-        <div class="delBtn">
-            <button type="button" class="selectDelete_btn">선택 삭제</button>
         </div>
     </div>
     <div class="row">
@@ -41,8 +44,9 @@
                 <div class="card-body">
                     <h4 class="card-title">
 
-                        <a class="show" href="#" data-seq='${companyCarList.seq }' data-toggle="modal" data-target="#myModal">
-
+                        <a class="show" href="#" data-seq='${companyCarList.seq }' data-cmpn='${companyCarList.cmpnSeq }' data-toggle="modal" data-target="#myModal">
+								
+								${companyCarList.seq },
                                 ${companyCarList.cmpnSeq },
                                 ${companyCarList.brand},
                                 ${companyCarList.model },
@@ -55,12 +59,16 @@
             &nbsp;&nbsp;&nbsp;&nbsp;
         </c:forEach>
     </div>
+        <span style="float:right; padding-left:5px;"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reg">등록</button></span>    
+        <div class="delBtn" style="float:right"> 
+            <button type="button" class="selectDelete_btn btn btn-danger">선택 삭제</button>
+        </div>
 </div>
 
 
-<!-- The Modal -->
+<!-- 조회, 수정 -->
 <div class="modal" id="myModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <!-- Modal Header -->
@@ -71,8 +79,6 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-
-
             </div>
 
             <!-- Modal footer -->
@@ -84,6 +90,31 @@
     </div>
 </div>
 
+<!-- 등록 -->
+  <div class="modal" id="reg">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          Modal body..
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
 <script>
     $(function(){	//page ready  이벤트 페이지가 준비되면 실행
 
@@ -104,9 +135,9 @@
         $(".show").on("click",function(){
 
             $.ajax({
-                url : "companyCarOneSelect",
+                url : "car/view",
                 method : "get",		//post
-                data : {seq : this.dataset.seq},
+                data : {"seq" : this.dataset.seq, "cmpn" : this.dataset.cmpn}, 
                 // async : false,	//아작스처리 끝나야 다음이 실행됨 동기식
                 success : function(data){	//컨트롤러의 리턴값
                     console.log(data);

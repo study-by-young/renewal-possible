@@ -45,10 +45,6 @@ public class PaymentServiceImpl implements PaymentService {
 		return paymentMapper.readSeq(merchantUid);
 	}
 
-	@Override
-	public List<RentHistoryVO> rentHistoryList(@Param("cri") Criteria cri, @Param("seq") Long seq) {
-		// TODO // 회원 렌트내역 리스트 조회
-		return paymentMapper.rentHistoryList(cri,seq);
-	}
+	
 
 }

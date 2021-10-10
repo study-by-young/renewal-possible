@@ -15,7 +15,7 @@ response.setContentType("text/html; charset=utf-8");
 }
 </style>
 <form id="frm" name="frm" role="form"
-		action="${pageContext.request.contextPath }/course/write"
+		action="${pageContext.request.contextPath }/community/course/write"
 		method="post">
 	<div class="x_contact_title_main_wrapper float_left padding_tb_100">
 		<div class="container">
@@ -33,26 +33,26 @@ response.setContentType("text/html; charset=utf-8");
 					</div>
 				</div>
 				<div
-					class="col-xl-5 offset-xl-1 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+					class="col-xl-5 offset-xl-1 col-lg-6 col-md-6 col-sm-12 col-xs-12">
 					<div class="contect_form2">
 						<input id="writer" name="writer" value="토비" type="text"
 							placeholder="Writer" readonly="readonly">
 					</div>
 				</div>
-				<div class="col-xl-5 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				<div class="col-xl-5 col-lg-6 col-md-6 col-sm-12 col-xs-12">
 					<div class="contect_form2">
 						<input type="text" id="genDate" name="genDate" value="2021-10-07"
 							placeholder="Date" readonly="readonly">
 					</div>
 				</div>
 				<div
-					class="col-xl-5 offset-xl-1 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+					class="col-xl-5 offset-xl-1 col-lg-6 col-md-6 col-sm-12 col-xs-12">
 					<div class="contect_form2">
 						<input id="startDate" name="startDate" type="text"
 							placeholder="원하는 시작 날짜를 선택하세요" class="form-control datepicker">
 					</div>
 				</div>
-				<div class="col-xl-5 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+				<div class="col-xl-5 col-lg-6 col-md-6 col-sm-12 col-xs-12">
 					<div class="contect_form2">
 						<input id="endDate" name="endDate" type="text"
 							placeholder="원하는 종료 날짜를 선택하세요" class="form-control datepicker">
@@ -109,7 +109,7 @@ response.setContentType("text/html; charset=utf-8");
 				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="contect_btn contect_btn_contact">
 						<ul>
-							<li><a href="javascript:frm.submit();">등록 <i class="fa fa-arrow-right"></i></a></li>
+							<li><a class="btn" href="javascript:frm.submit();">등록 <i class="fa fa-arrow-right"></i></a></li>
 						</ul>
 					</div>
 				</div>
@@ -145,7 +145,7 @@ response.setContentType("text/html; charset=utf-8");
 							$
 									.ajax({
 										type : 'GET',
-										url : '../courseBoard/tourSearch/'
+										url : '../course/tourSearch/'
 												+ $("#type option:selected")
 														.val() + '/'
 												+ $('#loc').val(),
@@ -163,7 +163,7 @@ response.setContentType("text/html; charset=utf-8");
 												$('#tourList')
 														.append(
 																$(
-																		'<li style="cursor: pointer;" />')
+																		'<li data-contentId="'+data[i].contentId+'" style="cursor: pointer;" />')
 																		.text(
 																				data[i].title
 																						+ ' | '
@@ -171,9 +171,7 @@ response.setContentType("text/html; charset=utf-8");
 														.append(
 																'<input type="hidden" id="mapX" name="mapX" value="'+data[i].mapX+'">')
 														.append(
-																'<input type="hidden" id="mapY" name="mapY" value="'+data[i].mapY+'">')
-														.append(
-																'<input type="hidden" id="contentId" name="contentId" value="'+data[i].contentId+'">');
+																'<input type="hidden" id="mapY" name="mapY" value="'+data[i].mapY+'">');
 												// hide로 가져가야하나..?
 											}
 										}
@@ -194,7 +192,9 @@ response.setContentType("text/html; charset=utf-8");
 											'<li data-markerIdx="' + markerIdx + '" style="cursor: pointer;"><i class="fa fa-long-arrow-right"></i>&nbsp;&nbsp;'
 													+ $(this).text()
 													+ '<span style="float: right"><i class="fa fa-times-circle"></i></span></li>')
-									.append('<hr>');
+									.append('<hr>')
+									.append('<input type="hidden" id="contentId" name="contentId" value="'+$(this).attr("data-contentId")+'">');
+							
 							// 마커가 표시될 위치입니다 
 							var markerPosition = new kakao.maps.LatLng($(this)
 									.next().next().val(), $(this).next().val());
@@ -252,12 +252,27 @@ response.setContentType("text/html; charset=utf-8");
 			var targetIdx = $(this).attr("data-markerIdx");
 			console.log(targetIdx);
 			$(this).next().remove();
+			$(this).next().next().remove();
 			$(this).remove();
 
 			markers[targetIdx].setMap(null);
 			console.log('list : ' + markersIdx);
 			console.log('idx : ' + markersIdx.indexOf(targetIdx));
 			polyline.setMap(null);
+		});
+	});
+	
+	$(function(){
+
+		$('.btn').on('click', function(){
+	    	//값들의 갯수 -> 배열 길이를 지정
+			var cnt = $("input[name=contentId]").length;
+			//배열 생성
+			var arr = new Array(grpl);
+			//배열에 값 주입
+			for(var i=0; i<cnt; i++){                          
+				arr[i] = $("input[name=contentId]").eq(i).val();
+		    }
 		});
 	});
 

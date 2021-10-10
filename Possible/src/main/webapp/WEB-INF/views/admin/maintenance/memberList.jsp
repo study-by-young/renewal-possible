@@ -2,19 +2,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <style type="text/css">
-.dash {
-	background: #ffffff;
-	box-shadow: 0px 0 8px rgb(0 0 0/ 10%);
-	float: left;
-	width: 100%;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	margin-top: 0px;
-	margin-bottom: 70px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-}
 
 .pagination {
 	justify-content: center;
@@ -42,56 +29,75 @@
 	appearance: none;
 }
 </style>
-<div align="center">
-<div class="col-md-8">
-	<div class="blog_single_comment_heading">
-		<h4>회원 관리</h4>
-	</div>
-	<div class="dash">
-	<div align="center">
-		<form id="actionForm" action="member" method="get">
-			<select name="type" class="select" >
-				<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
-				<option value="I" ${pageMaker.cri.type =='I'? 'selected' : "" }>아이디</option>
-				<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>이름</option>
-				<option value="P" ${pageMaker.cri.type =='P'? 'selected' : "" }>전화번호</option>
-				<option value="A" ${pageMaker.cri.type =='P'? 'selected' : "" }>권한</option>
-			</select> <input class="input" name="keyword" value="${pageMaker.cri.keyword }"> <input
-				type="hidden" name="pageNum" value="1"> <input type="hidden"
-				name="amount" value="${pageMaker.cri.amount }">
-			<button class="btn btn-primary" onclick="$('[name=pageNum]').val(1)">Search</button>
-		</form>
-	</div>
-	<br>
-		<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>번호</th>
-					<th>아이디</th>
-					<th>전화번호</th>
-					<th>이름</th>
-					<th>권한</th>
-					<th>상세보기</th>
-				</tr>
-			</thead>
-			<tbody>
-			<c:forEach var="memberList" items="${memberList }">
-				<tr>
-					<td>${memberList.seq }</td>
-					<td>${memberList.id}</td>
-					<td>${memberList.phone }</td>
-					<td>${memberList.name }</td>
-					<td>${memberList.author }</td>
-					<td><a class="move" href="${memberList.seq }">상세보기</a></td>
-				</tr>
-			</c:forEach>
-		</tbody>
-		</table>
-	<br>
-	
-	<br>
-	<!-- 페이징 -->
-	<div id="pageButton">
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content">
+
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">회원관리</h6>
+						<div class="header-elements">
+							
+						</div>
+					</div>
+
+					<div class="card-body py-0">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="d-flex align-items-center justify-content-center mb-2">
+									<div align="center">
+										<form id="actionForm" action="member" method="get">
+											<select name="type" class="select" >
+												<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
+												<option value="I" ${pageMaker.cri.type =='I'? 'selected' : "" }>아이디</option>
+												<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>이름</option>
+												<option value="P" ${pageMaker.cri.type =='P'? 'selected' : "" }>전화번호</option>
+												<option value="A" ${pageMaker.cri.type =='P'? 'selected' : "" }>권한</option>
+											</select> <input class="input" name="keyword" value="${pageMaker.cri.keyword }"> <input
+												type="hidden" name="pageNum" value="1"> <input type="hidden"
+												name="amount" value="${pageMaker.cri.amount }">
+											<button class="btn btn-primary" onclick="$('[name=pageNum]').val(1)">Search</button>
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<div class="d-flex align-items-center justify-content-center mb-2">
+									<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>번호</th>
+											<th>아이디</th>
+											<th>전화번호</th>
+											<th>이름</th>
+											<th>권한</th>
+											<th>상세보기</th>
+										</tr>
+									</thead>
+									<tbody>
+									<c:forEach var="memberList" items="${memberList }">
+										<tr>
+											<td>${memberList.seq }</td>
+											<td>${memberList.id}</td>
+											<td>${memberList.phone }</td>
+											<td>${memberList.name }</td>
+											<td>${memberList.author }</td>
+											<td><a class="move" href="${memberList.seq }">상세보기</a></td>
+										</tr>
+									</c:forEach>
+								</tbody>
+								</table>
+
+								</div>
+							</div>
+							
+
+							<div class="col-sm-12">
+								<div class="d-flex align-items-center justify-content-center mb-2">
+							<div id="pageButton">
   	<ul class="pagination">
 		<c:if test="${pageMaker.prev }">
 			<li class="page-item"><a class="page-link" href="${pageMaker.startPage-1}">이전</a></li>
@@ -108,6 +114,12 @@
 	</ul>
 	</div>
 	</div>
+	</div>
+							
+						</div>
+					</div>
+
+				</div>
 </div>
 </div>
 <script>

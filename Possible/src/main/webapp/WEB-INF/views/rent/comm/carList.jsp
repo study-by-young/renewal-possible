@@ -131,8 +131,16 @@
 }
 
 .select2-container--default .select2-selection--single {
-	height: calc(2.25rem);
+	height: calc(2.25rem + 0.7px);
 	border: 1px solid #ced4da;
+}
+
+.label-font {
+	padding-top: 15px;
+	font-weight: 800;
+	color: #111111;
+	font-family: 'S-CoreDream', 'Raleway', sans-serif; 
+	font-size: 14px;
 }
 </style>
 
@@ -144,9 +152,9 @@
             <div class="x_title_inner_num_wrapper float_left py-3 my-0">
                 <div class="row align-items-center">
                 
-                	<div class="col-lg-3 col-md-6 col-12 full_width">
+                	<div class="col-lg-3 col-md-6 col-sm-6 col-12 full_width">
                         <div class="form-group">
-                            <label for="searchArea">지역</label>
+                            <label for="searchArea" class="label-font">지역</label><br>
                             <select id="searchArea" name="searchArea" class="form-control select">
                                 <c:forEach var="area" items="${areaCodes}">
                                     <option value="${area.code}">${area.name}</option>
@@ -154,15 +162,15 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-12 full_width">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 full_width">
                         <div class="form-group">
-                            <label>렌트 시작 날짜</label>
+                            <label class="label-font">렌트 시작 날짜</label>
                             <input id="searchStart" name="searchStart" type="text" class="form-control datepicker" placeholder="날짜를 선택하세요.">
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-12 full_width">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 full_width">
                         <div class="form-group">
-                            <label>렌트 반납 날짜</label>
+                            <label class="label-font">렌트 반납 날짜</label>
                             <input id="searchEnd" name="searchEnd" type="text" class="form-control datepicker" placeholder="날짜를 선택하세요.">
                         </div>
                     </div>
@@ -179,7 +187,7 @@
                         </div>
                     </div>
                     -->
-                    <div class="col-lg-3 col-md-6 col-12 full_width" style="text-align: center;">
+                    <div class="col-lg-3 col-md-6 col-sm-6 col-12 full_width" style="text-align: center;">
                         <button type="button" class="btn bg-primary-400 btn-float" style="color: white;">검색 <i class="icon-search4 icon-2x" style="font-size: 1rem; color: white;"></i></button>
                         <button type="button" class="btn btn-lg bg-transparent text-primary border-primary ml-1 legitRipple" data-toggle="modal" data-target="#recommendCarModal" style="font-size: 1rem; font-weight: bold;">추천받기</button>
                     </div>
@@ -209,7 +217,7 @@
 <!-- End of 차량 추천 Modal -->
 
 <!-- x car book sidebar section Wrapper Start -->
-<div class="x_car_book_sider_main_Wrapper float_left" style="margin-top: 50px;">
+<div class="x_car_book_sider_main_Wrapper float_left mt-5">
 	<div class="container">
 		<div class="row">
 			<div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12">
@@ -401,19 +409,19 @@
 														<div class="x_car_offer_heading x_car_offer_heading_listing float_left">
                                                             <ul class="">
                                                                 <li>
-                                                                    <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 차량 옵션</span>
+                                                                    <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 차량 정보</span>
                                                                         <ul class="list">
-                                                                            <c:forEach var="opt" items="${options}">
-                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${opt}</li>
+                                                                            <c:forEach var="itm" items="${items}">
+                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${itm}</li>
                                                                             </c:forEach>
                                                                         </ul>
                                                                     </div>
                                                                 </li>
                                                                 <li>
-                                                                    <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 여행 옵션</span>
+                                                                    <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 차량 옵션</span>
                                                                         <ul class="list">
-                                                                            <c:forEach var="itm" items="${items}">
-                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${itm}</li>
+                                                                            <c:forEach var="opt" items="${options}">
+                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${opt}</li>
                                                                             </c:forEach>
                                                                         </ul>
                                                                     </div>
@@ -446,14 +454,7 @@
 																				<!-- 기본으로 첫번째 행이 선택되어 있도록 -->
 																				<tbody>
 																					<tr class="cmpn_list_tr">
-																						<td style="width: 40%;"><label><input type="radio" id="" name="cmpn">&nbsp;&nbsp;{업체이름}</label></td>
-																						<td style="width: 15%;">{만26세}</td>
-																						<td style="width: 15%;">{완전자차}</td>
-																						<td style="width: 15%;">리뷰 {개수}</td>
-																						<td style="width: 15%;">{차가격}</td>
-																					</tr>
-																					<tr class="cmpn_list_tr">
-																						<td style="width: 40%;"><label><input type="radio" id="" name="cmpn">&nbsp;&nbsp;{업체이름}</label></td>
+																						<td style="width: 40%;"><label><input type="radio" id="" name="cmpn">&nbsp;&nbsp;${company.name}</label></td>
 																						<td style="width: 15%;">{만26세}</td>
 																						<td style="width: 15%;">{완전자차}</td>
 																						<td style="width: 15%;">리뷰 {개수}</td>

@@ -27,6 +27,4 @@ public interface PaymentMapper {
 	// 렌트 내역 seq 조회
 	public Long readSeq(String merchantUid);
 
-	// 회원 렌트내역 리스트 조회
-	public List<RentHistoryVO> rentHistoryList(@Param("cri") Criteria cri, @Param("seq") Long seq);
 }
