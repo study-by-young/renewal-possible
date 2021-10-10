@@ -3,6 +3,8 @@ package com.yedam.possable.app.rent.service;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 import com.yedam.possable.app.rent.mapper.PremiumRentMapper;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -70,4 +72,10 @@ public class PremiumRentServiceImpl implements PremiumRentService{
     private String[] strToArr(String str) {
         return str.substring(1,str.length()-1).trim().split(",");
     }
+
+	@Override
+	public List<EstimateHistoryVO> getUserEstimateList(Criteria cri, @Param("seq") Long seq) {
+		
+		return premiumRentMapper.getUserEstimateList(cri, seq);
+	}
 }

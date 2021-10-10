@@ -25,8 +25,10 @@ import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
+import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.service.PaymentService;
+import com.yedam.possable.app.rent.service.PremiumRentService;
 import com.yedam.possable.app.rent.service.RentHistoryService;
 
 import lombok.extern.java.Log;
@@ -47,6 +49,8 @@ public class MypageController {
     CarService carService;
     @Autowired
     RentHistoryService rentHistory;
+    @Autowired
+    PremiumRentService premiumRentService;
     
     //마이페이지 대쉬보드 페이지
     @GetMapping("/dashboard")
@@ -88,7 +92,20 @@ public class MypageController {
 
     // 견적 요청 리스트
     @GetMapping("/estimate")
-    public String estimateList(){
+    public String estimateList(Model model,
+    						   @ModelAttribute("cri") Criteria cri,
+    						   HttpServletRequest request
+    						   ){
+    	HttpSession session = request.getSession();
+    	MemberVO mvo = (MemberVO) session.getAttribute("member");
+    	System.out.println("세션 들고있지?"+mvo.getSeq());
+    
+    	EstimateHistoryVO evo = new EstimateHistoryVO();
+    	evo.setMemSeq(mvo.getSeq());
+    	System.out.println("뭐들어있너?"+evo);
+    	model.addAttribute("getEstimate", premiumRentService.getUserEstimateList(cri, evo.getMemSeq())); 
+    	System.out.println("리스트 목록에 무엇이 들어있니?"+premiumRentService.getUserEstimateList(cri, evo.getMemSeq()));
+    	
         return "mypage/estimateList";
     }
 
@@ -122,7 +139,7 @@ public class MypageController {
     							  Long seq,
 						    	  @ModelAttribute("cri") Criteria cri,
 						    	  RentHistoryVO vo,
-						    	  Authentication authentication,
+						    	  
 						    	  HttpServletRequest request){
     	
     	HttpSession session = request.getSession();
@@ -205,7 +222,7 @@ public class MypageController {
     //마이페이지 견적관리 상세 페이지
     @GetMapping("/esinfo")
     public String esinfo() {
-        return "mypage/estimate/info";
+        return "mypage/estimateView";
     }
 
     
