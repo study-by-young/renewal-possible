@@ -140,19 +140,32 @@
 		</div>
  
  
- <br>
  
+ 
+ <!-- 메뉴 -->
+      <div class="lr_bc_first_box_img_cont_wrapper">
+         <ul>
+            <li><a href="${pageContext.request.contextPath}/faq/#">어쩌구탭</a></li>
+            <li><a href="${pageContext.request.contextPath}/faq/#">저쩌구탭</a></li>
+            <li><a href="${pageContext.request.contextPath}/faq/#">이러구탭</a></li>
+            <li><a href="${pageContext.request.contextPath}/faq/#">저러구탭</a></li>
+            <li><a href="${pageContext.request.contextPath}/faq/#">뭐시라탭</a></li>
+         </ul>
+      </div>
+                        
+ <div class="lr_bc_first_box_img_cont_wrapper">
  <c:forEach items="${list}" var="faq">
 <button class="accordion">${faq.title}</button>
 <div class="panel">
     <p>${faq.content}</p>
 </div>
- 
 </c:forEach>
+</div>
  
  
 	</div>
 </div>
+<br><br><br>
 <!-- <script>
     var acc = document.getElementsByClassName("accordion");
     var i;
