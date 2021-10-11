@@ -5,6 +5,8 @@ import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 public interface PremiumRentMapper {
     // 견적서 리스트
     public List<EstimateHistoryVO> getEstimateList(Criteria cri);
@@ -23,4 +25,7 @@ public interface PremiumRentMapper {
 
     // 견적서 총 갯수 조회
     public int getEstimateCount();
+    
+    // 회원 마이페이지 견적서 리스트
+    public List<EstimateHistoryVO> getUserEstimateList(@Param("cri") Criteria cri, @Param("seq") Long seq);
 }

@@ -21,21 +21,21 @@
 	
 	<select id="getTotalCount" resultType="int">
 			SELECT COUNT(*) 
-			FROM TOURTEST
+			FROM TOUR
 			<where>
 				<include refid="criteria"></include>
 			</where>
 	</select>
 	
 	<select id="tourList11" resultType="TestVO">
-		SELECT * FROM TOURTEST
+		SELECT * FROM TOUR
 		<where> 
         	<include refid="criteria"></include>
         </where>
 	</select>
 	
 	<select id="tourList" parameterType="Criteria" resultType="TestVO">
-		SELECT /*+ INDEX_ASC(TOURTEST TOURTEST_PK)*/ * FROM TOURTEST
+		SELECT /*+ INDEX_ASC(TOUR IDX_TOUR)*/ * FROM TOUR
 		<where> 
         	<if test="type == 'A'.toString()">
 				AND CONTENTTYPEID=12 AND TITLE LIKE '%' || #{keyword} || '%'
@@ -53,11 +53,23 @@
 		SELECT * FROM COURSE_BOARD
 	</select>
 	
+	<select id="read" resultType="CourseBoardVO">
+		SELECT * FROM COURSE_BOARD WHERE SEQ = #{seq}
+	</select>
+	
 	<insert id="insert">
 		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
 			SELECT SEQ_COURSE_BOARD.NEXTVAL FROM DUAL
 		</selectKey>
 		INSERT INTO COURSE_BOARD VALUES (#{seq}, #{title}, #{writer}, #{content}, 0, 0, #{startDate}, #{endDate}, #{people}, #{genDate}, SYSDATE)
 	</insert>
-
+	
+	<select id="courseCnt" resultType="int">
+		SELECT COUNT(*) FROM COURSE WHERE COURSE_SEQ = #{seq}
+	</select>
+	
+	<select id="courseSelect" resultType="TestVO">
+		SELECT t.* FROM TOUR t JOIN COURSE c ON t.CONTENTID = c.CONTENTID WHERE c.COURSE_SEQ = 1
+	</select>
+	
 </mapper>

@@ -36,7 +36,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
         String path = request.getContextPath();
         if (roleNames.contains("ROLE_ADMIN")) {
-            response.sendRedirect(path + "/admin/");
+            response.sendRedirect(path + "/admin/dashboard");
         } else if (roleNames.contains("ROLE_USER")) {
             response.sendRedirect(path + "/");
         } else {

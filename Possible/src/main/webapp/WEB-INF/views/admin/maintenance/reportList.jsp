@@ -2,20 +2,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <style type="text/css">
-.dash {
-	background: #ffffff;
-	box-shadow: 0px 0 8px rgb(0 0 0/ 10%);
-	float: left;
-	width: 100%;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	margin-top: 0px;
-	margin-bottom: 70px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-}
-
 .pagination {
 	justify-content: center;
 }
@@ -42,15 +28,26 @@
 	appearance: none;
 }
 </style>
-<div class="content">
-<div class="col-md-8">
-	<div class="blog_single_comment_heading">
-		<h4>신고글 리스트</h4>
-	</div>
-	<div class="dash">
-		
-	<div>
-		<form id="actionForm" action="report" method="get">
+		<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content">
+
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">신고글리스트</h6>
+						<div class="header-elements">
+							
+						</div>
+					</div>
+
+					<div class="card-body py-0">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="d-flex align-items-center justify-content-center mb-2">
+									<div align="center">
+										<form id="actionForm" action="report" method="get">
 			<select name="type" class="select" >
 				<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
 				<option value="T" ${pageMaker.cri.type =='N'? 'selected' : "" }>제목</option>
@@ -62,9 +59,14 @@
 				name="amount" value="${pageMaker.cri.amount }">
 			<button class="btn btn-primary" onclick="$('[name=pageNum]').val(1)">Search</button>
 		</form>
-	</div>
-	
-		<table class="table table-hover">
+
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<div class="d-flex align-items-center justify-content-center mb-2">
+									<table class="table table-hover">
 			<thead>
 				<tr>
 					<th>번호</th> 
@@ -89,10 +91,12 @@
 			</c:forEach>
 		</tbody>
 		</table>
-	<br>
 
-	<!-- 페이징 -->
-	<div id="pageButton">
+								</div>
+							</div>
+							<div class="col-sm-12">
+								<div class="d-flex align-items-center justify-content-center mb-2">
+							<div id="pageButton">
   	<ul class="pagination">
 		<c:if test="${pageMaker.prev }">
 			<li class="page-item"><a class="page-link" href="${pageMaker.startPage-1}">이전</a></li>
@@ -108,8 +112,13 @@
 		</c:if>
 	</ul>
 	</div>
-
 	</div>
+	</div>
+							
+						</div>
+					</div>
+
+				</div>
 </div>
 </div>
 
