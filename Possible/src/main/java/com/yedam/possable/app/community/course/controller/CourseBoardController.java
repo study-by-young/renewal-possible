@@ -1,6 +1,7 @@
 package com.yedam.possable.app.community.course.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -48,11 +50,22 @@ public class CourseBoardController {
 	}
 	
 	// 등록 처리
+	/*
+	 * @PostMapping("/write") public String courseWrite(Model model, CourseBoardVO
+	 * board, CourseVO course){ courseBoardService.insert(board);
+	 * 
+	 * return "redirect:/community/course"; }
+	 */
+    
     @PostMapping("/write")
-    public String courseWrite(Model model, CourseBoardVO board, CourseVO course){
-    	courseBoardService.insert(board);
-    	//courseService.insert(course);
-	    return "redirect:/community/course/list";
+    @ResponseBody
+    public String courseInsert(@RequestBody Map<String,Object> board) {
+    	System.out.println(board.toString());
+//    	courseBoardService.insert(board);
+//    	System.out.println(board.getSeq());
+//    	Long num = board.getSeq();
+//    	courseBoardService.courseInsert(courseList, num);
+    	return "test";
     }
 
     // 수정 폼

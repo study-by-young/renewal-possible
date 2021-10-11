@@ -28,4 +28,9 @@ public interface CourseBoardMapper {
 	public int courseCnt(CourseBoardVO vo);
 	
 	public List<TestVO> courseSelect(CourseBoardVO vo);
+	
+	public int courseInsert(CourseVO vo);
+	
+	public Long maxSeq();
+	
 }

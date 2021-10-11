@@ -28,5 +28,9 @@ public interface CourseBoardService {
 	public int courseCnt(CourseBoardVO vo);
 	
 	public List<TestVO> courseSelect(CourseBoardVO vo);
+	
+	public int courseInsert(List<CourseVO> list, Long num);
+	
+	public Long maxSeq();
 
 }

@@ -14,9 +14,7 @@ response.setContentType("text/html; charset=utf-8");
 	overflow: auto;
 }
 </style>
-<form id="frm" name="frm" role="form"
-		action="${pageContext.request.contextPath }/community/course/write"
-		method="post">
+<form id="frm" name="frm" role="form">	
 	<div class="x_contact_title_main_wrapper float_left padding_tb_100">
 		<div class="container">
 			<div class="row">
@@ -109,7 +107,7 @@ response.setContentType("text/html; charset=utf-8");
 				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="contect_btn contect_btn_contact">
 						<ul>
-							<li><a class="btn" href="javascript:frm.submit();">등록 <i class="fa fa-arrow-right"></i></a></li>
+							<li><a class="insert">등록 <i class="fa fa-arrow-right"></i></a></li>
 						</ul>
 					</div>
 				</div>
@@ -117,7 +115,8 @@ response.setContentType("text/html; charset=utf-8");
 		</div>
 	</div>
 </form>
-
+<form id="idFrm" name="idFrm" role="form">
+</form>
 <script>
 	$(function() {
 		var container = $('#takePlaceMap')[0]; //지도를 담을 영역의 DOM 레퍼런스
@@ -163,16 +162,11 @@ response.setContentType("text/html; charset=utf-8");
 												$('#tourList')
 														.append(
 																$(
-																		'<li data-contentId="'+data[i].contentId+'" style="cursor: pointer;" />')
+																		'<li data-contentId="'+data[i].contentId+'" data-mapX="'+data[i].mapX+'" data-mapY="'+data[i].mapY+'" style="cursor: pointer;" />')
 																		.text(
 																				data[i].title
 																						+ ' | '
-																						+ data[i].addr1))
-														.append(
-																'<input type="hidden" id="mapX" name="mapX" value="'+data[i].mapX+'">')
-														.append(
-																'<input type="hidden" id="mapY" name="mapY" value="'+data[i].mapY+'">');
-												// hide로 가져가야하나..?
+																						+ data[i].addr1));
 											}
 										}
 									})
@@ -192,12 +186,12 @@ response.setContentType("text/html; charset=utf-8");
 											'<li data-markerIdx="' + markerIdx + '" style="cursor: pointer;"><i class="fa fa-long-arrow-right"></i>&nbsp;&nbsp;'
 													+ $(this).text()
 													+ '<span style="float: right"><i class="fa fa-times-circle"></i></span></li>')
-									.append('<hr>')
+									.append('<hr>');
+							$("#idFrm")
 									.append('<input type="hidden" id="contentId" name="contentId" value="'+$(this).attr("data-contentId")+'">');
 							
 							// 마커가 표시될 위치입니다 
-							var markerPosition = new kakao.maps.LatLng($(this)
-									.next().next().val(), $(this).next().val());
+							var markerPosition = new kakao.maps.LatLng($(this).attr("data-mapY"), $(this).attr("data-mapX"));
 
 							// 마커를 생성합니다
 							marker = new kakao.maps.Marker({
@@ -251,8 +245,8 @@ response.setContentType("text/html; charset=utf-8");
 		$("#selectList").on("click", "li", function() {
 			var targetIdx = $(this).attr("data-markerIdx");
 			console.log(targetIdx);
-			$(this).next().remove();
 			$(this).next().next().remove();
+			$(this).next().remove();
 			$(this).remove();
 
 			markers[targetIdx].setMap(null);
@@ -262,17 +256,39 @@ response.setContentType("text/html; charset=utf-8");
 		});
 	});
 	
+	// course insert
 	$(function(){
 
-		$('.btn').on('click', function(){
-	    	//값들의 갯수 -> 배열 길이를 지정
+		$('.insert').on('click', function(){
+	    	/* //값들의 갯수 -> 배열 길이를 지정
 			var cnt = $("input[name=contentId]").length;
 			//배열 생성
-			var arr = new Array(grpl);
+			var arr = []
 			//배열에 값 주입
 			for(var i=0; i<cnt; i++){                          
-				arr[i] = $("input[name=contentId]").eq(i).val();
-		    }
+				arr[i] = {'contentId' : $("input[name=contentId]").eq(i).val()};
+		    } */
+			console.log(JSON.stringify($("#frm").serializeArray()));
+		    console.log(JSON.stringify($("#idFrm").serializeArray()))
+		/* 	//객체를 string으로 변환
+	   		console.log(JSON.stringify(list));
+			var listData = JSON.stringify(list); */
+	   		//ajax 호출 
+	   		$.ajax({
+	   			url: 'write',
+	   		    type: 'post',
+	   		    data : {"board" :JSON.stringify($("#frm").serializeArray()),
+	   		    	"tour" : JSON.stringify($("#idFrm").serializeArray())
+	   		    },
+	   		 	// contentType: 'application/json; charset=utf-8',
+	   		 	traditional : true,
+	   		    success: function (data){
+	   		        console.log(data);
+	   		    },
+	   		    error: function (error){
+	   		        alert(error + "등록이 실패하였습니다.");
+	   		    }
+	   		});
 		});
 	});
 

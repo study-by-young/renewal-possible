@@ -27,12 +27,12 @@
 			</where>
 	</select>
 	
-	<select id="tourList11" resultType="TestVO">
+<!-- 	<select id="tourList11" resultType="TestVO">
 		SELECT * FROM TOUR
 		<where> 
         	<include refid="criteria"></include>
         </where>
-	</select>
+	</select> -->
 	
 	<select id="tourList" parameterType="Criteria" resultType="TestVO">
 		SELECT /*+ INDEX_ASC(TOUR IDX_TOUR)*/ * FROM TOUR
@@ -69,7 +69,18 @@
 	</select>
 	
 	<select id="courseSelect" resultType="TestVO">
-		SELECT t.* FROM TOUR t JOIN COURSE c ON t.CONTENTID = c.CONTENTID WHERE c.COURSE_SEQ = 1
+		SELECT t.* FROM TOUR t JOIN COURSE c ON t.CONTENTID = c.CONTENTID WHERE c.COURSE_SEQ = #{seq}
+	</select>
+	
+	<insert id="courseInsert">
+		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
+			SELECT SEQ_COURSE.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO COURSE VALUES (#{courseSeq}, #{seq}, #{placeNo}, #{contentId})
+	</insert>
+	
+	<select id="maxSeq" resultType="long">
+		SELECT MAX(SEQ) FROM COURSE_BOARD
 	</select>
 	
 </mapper>

@@ -46,8 +46,6 @@ public class CourseBoardServiceImpl implements CourseBoardService {
 		return courseBoardMapper.tourList();
 	}
 
-
-
 	@Override
 	public int getTotalCount(Criteria cri) {
 		return courseBoardMapper.getTotalCount(cri);
@@ -66,6 +64,23 @@ public class CourseBoardServiceImpl implements CourseBoardService {
 	@Override
 	public List<TestVO> courseSelect(CourseBoardVO vo) {
 		return courseBoardMapper.courseSelect(vo);
+	}
+
+	@Override
+	public int courseInsert(List<CourseVO> list, Long num) {
+		long cnt = 1;
+		for (CourseVO course : list) {
+			course.setCourseSeq(num);
+			course.setPlaceNo(cnt++);
+			courseBoardMapper.courseInsert(course);
+		}
+		System.out.println(list.toString());
+		return list.size();
+	}
+
+	@Override
+	public Long maxSeq() {
+		return courseBoardMapper.maxSeq();
 	}
 
 }
