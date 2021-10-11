@@ -37,7 +37,7 @@
     </div>
     <div class="row">
         <c:forEach var="companyCarList" items="${companyCarList }">
-            <div class="card" style="width:200px">
+            <div class="card" style="width:200px; margin:5px">
                 <input type="checkbox" name="chBox" class="chBox" data-seq="${companyCarList.seq }" />
                 <img class="card-img-top" src="${companyCarList.img1 }" alt="Card image" style="width:100%">
                 <div class="stateBanner badge-primary">${companyCarList.status }</div>
@@ -56,10 +56,9 @@
                     </h4>
                 </div>
             </div>
-            &nbsp;&nbsp;&nbsp;&nbsp;
         </c:forEach>
     </div>
-        <span style="float:right; padding-left:5px;"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#reg">등록</button></span>    
+        <span style="float:right; padding-left:5px;"><button type="button" class="btn btn-primary" onclick="location.href='car/register?cmpnSeq=${cmpnSeq}'">등록</button></span>    
         <div class="delBtn" style="float:right"> 
             <button type="button" class="selectDelete_btn btn btn-danger">선택 삭제</button>
         </div>
@@ -90,30 +89,6 @@
     </div>
 </div>
 
-<!-- 등록 -->
-  <div class="modal" id="reg">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-          Modal body..
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-        
-      </div>
-    </div>
-  </div>
 </div>
 <script>
     $(function(){	//page ready  이벤트 페이지가 준비되면 실행

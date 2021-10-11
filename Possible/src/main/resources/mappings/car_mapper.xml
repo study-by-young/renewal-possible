@@ -191,4 +191,58 @@
     	FROM CAR
     	WHERE MODEL = #{model}
     </select>
+    
+    <insert id="insertCompanyCar">
+    	<selectKey keyProperty="seq" resultType="long" order="BEFORE">
+			SELECT SEQ_CAR.NEXTVAL FROM DUAL
+		</selectKey>
+    	INSERT INTO CAR(
+				    	SEQ,
+						BRAND,
+						MODEL,
+						SEGMENT,
+						TRIM,
+						COLOR,
+						YEAR,
+						FUEL,
+						PASSENGER,
+						MISSION,
+						TRUNK,
+						DOOR,
+						KMPL,
+						PRICE,
+						STATUS,
+						IMG1,
+						IMG2,
+						IMG3,
+						GEN_DATE,
+						UPT_DATE,
+						CMPN_SEQ,
+						CAR_NUM
+						)
+			 VALUES (
+						#{seq},
+						#{brand},
+						#{model},
+						#{segment},
+						#{trim},
+						#{color},
+						#{year},
+						#{fuel},
+						#{passenger},
+						#{mission},
+						#{trunk},
+						#{door},
+						#{kmpl},
+						#{price},
+						'대기',
+						#{img1},
+						#{img2},
+						#{img3},
+						sysdate,
+						sysdate,
+						#{cmpnSeq},
+						#{carNum}
+					)
+    </insert>
 </mapper>

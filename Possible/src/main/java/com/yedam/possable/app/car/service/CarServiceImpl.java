@@ -75,4 +75,10 @@ public class CarServiceImpl implements CarService {
 	public List<CarVO> getCarByModel(CarVO vo) {
 		return carMapper.getCarByModel(vo);
 	}
+
+	@Override
+	public int insertCompanyCar(CarVO vo) {
+		// TODO Auto-generated method stub
+		return carMapper.insertCompanyCar(vo);
+	}
 }
