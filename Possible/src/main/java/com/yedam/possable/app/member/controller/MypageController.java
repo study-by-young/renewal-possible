@@ -98,13 +98,14 @@ public class MypageController {
     						   ){
     	HttpSession session = request.getSession();
     	MemberVO mvo = (MemberVO) session.getAttribute("member");
-    	System.out.println("세션 들고있지?"+mvo.getSeq());
     
     	EstimateHistoryVO evo = new EstimateHistoryVO();
     	evo.setMemSeq(mvo.getSeq());
-    	System.out.println("뭐들어있너?"+evo);
     	model.addAttribute("getEstimate", premiumRentService.getUserEstimateList(cri, evo.getMemSeq())); 
     	System.out.println("리스트 목록에 무엇이 들어있니?"+premiumRentService.getUserEstimateList(cri, evo.getMemSeq()));
+    	
+    	//String getTrim = codeService.getTrim(null).getCode();
+    	
     	
         return "mypage/estimateList";
     }
