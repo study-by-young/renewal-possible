@@ -1,5 +1,6 @@
 package com.yedam.possable.app.rent.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.possable.app.car.domain.CarVO;
+import com.yedam.possable.app.car.domain.InsuranceOptionVO;
 import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.company.domain.CompanyVO;
-import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.service.PaymentService;
 
@@ -31,8 +32,6 @@ public class CommonRentController {
     private PaymentService paymentService;
     @Autowired
     private CarService carService;
-    @Autowired
-    private CompanyService companyService;
 
     // 렌트카 리스트
     @GetMapping("/list")
@@ -40,8 +39,16 @@ public class CommonRentController {
     	// model.addAttribute("list", carService.getDistinctCarList());
     	
     	List<CarVO> list = carService.getDistinctCarList();
+    	List<InsuranceOptionVO> insuranceList;
     	for(int i=0; i<list.size(); i++) {
     		list.get(i).setModelList(carService.getCarByModel(list.get(i).getModel()));
+    		
+    		for(int j=0; j<list.get(i).getModelList().size(); j++) {
+    			list.get(i).setInsuranceList(carService.getCarInsurance(list.get(i).getSeq()));
+    			list.get(i).getInsuranceList().get(i).setCarSeq(list.get(i).getSeq());
+    			System.out.println("==============" + carService.getCarInsurance(list.get(i).getSeq()));
+    			System.out.println("제발---------" + list.get(i).getInsuranceList());
+    		}
     	}
     	model.addAttribute("list", list);
         model.addAttribute("areaCodes", codeService.getCodesByParentCode("지역"));

@@ -410,9 +410,14 @@
                                                                 <li>
                                                                     <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 차량 정보</span>
                                                                         <ul class="list">
-                                                                            <c:forEach var="itm" items="${items}">
-                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${itm}</li>
-                                                                            </c:forEach>
+                                                                            <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>등급: ${car.segment}</li>
+                                                                            <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>색상: ${car.color}</li>
+                                                                            <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>미션: ${car.mission}</li>
+                                                                            <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>트렁크: ${car.trunk}</li>
+                                                                            <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>문: ${car.door}</li>
+                                                                            <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>연비: ${car.kmpl}</li>
+                                                                            <%-- <c:forEach var="itm" items="${items}">
+                                                                            </c:forEach> --%>
                                                                         </ul>
                                                                     </div>
                                                                 </li>
@@ -453,6 +458,7 @@
 																				<!-- 기본으로 첫번째 행이 선택되어 있도록 -->
 																				<tbody>
 																				<c:forEach var="model" items="${car.modelList}">
+																				<c:forEach var="insurance" items="${car.insuranceList}">
 																					<tr class="cmpn_list_tr">
 																						<td style="width: 40%;">
 																							<label><input type="radio" id="" name="cmpn">&nbsp;&nbsp;${model.name}</label>
@@ -460,10 +466,11 @@
 																							<input type="hidden" id="seq" name="seq" value="${model.seq}">
 																						</td>
 																						<td style="width: 15%;">${model.cmpnSeq} {만25세}</td>
-																						<td style="width: 15%;">${model.seq} {보험}</td>
+																						<td style="width: 15%;">${model.seq} // ${insurance.optCode}</td>
 																						<td style="width: 15%;">리뷰 {개수}</td>
 																						<td style="width: 15%; text-align: right;">${model.price}</td>
 																					</tr>
+																				</c:forEach>	
 																				</c:forEach>	
 																				</tbody>
 																			</table>

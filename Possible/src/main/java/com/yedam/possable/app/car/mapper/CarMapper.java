@@ -15,15 +15,12 @@ public interface CarMapper {
 
     // 차량 단건 조회
     public CarVO getCar(CarVO vo);
-    
-    // 차량 단건 조회
-    public CarVO viewCar(@Param("seq") Long seq, @Param("cmpnSeq") Long cmpnSeq);
 
     // 차량 옵션 조회
     public List<CarOptionVO> getCarOptions(CarVO vo);
 
     // 차량 보험 조회
-    public List<InsuranceOptionVO> getCarInsurance(CarVO vo);
+    public List<InsuranceOptionVO> getCarInsurance(Long seq);
 
     // 차량 상태 변경
     public int updateStatus(CarVO vo);

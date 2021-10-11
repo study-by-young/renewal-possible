@@ -192,4 +192,12 @@
 		ON CAR.CMPN_SEQ = COMPANY.SEQ
 		WHERE MODEL = #{model}
     </select>
+    
+    <!-- seq로 보험 조회하기 -->
+    <select id="getInsuranceByCar" resultType="CarVO">
+    SELECT CAR.SEQ, INSURANCE_OPTION.OPT_CODE, INSURANCE_OPTION.PRICE
+	FROM CAR JOIN INSURANCE_OPTION
+	ON CAR.SEQ = INSURANCE_OPTION.CAR_SEQ
+	WHERE SEQ = #{seq}
+    </select>
 </mapper>

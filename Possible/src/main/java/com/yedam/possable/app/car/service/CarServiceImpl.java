@@ -37,8 +37,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<InsuranceOptionVO> getCarInsurance(CarVO vo) {
-        return carMapper.getCarInsurance(vo);
+    public List<InsuranceOptionVO> getCarInsurance(Long seq) {
+        return carMapper.getCarInsurance(seq);
     }
 
     @Override
@@ -74,10 +74,5 @@ public class CarServiceImpl implements CarService {
 	@Override
 	public List<CarVO> getCarByModel(String carModel) {
 		return carMapper.getCarByModel(carModel);
-	}
-
-	@Override
-	public CarVO viewCar(Long seq, Long cmpnSeq) {
-		return carMapper.viewCar(seq, cmpnSeq);
 	}
 }
