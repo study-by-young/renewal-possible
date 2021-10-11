@@ -11,9 +11,6 @@
 				    	<when test="type == 'T'.toString()">
 				        	TITLE LIKE '%' || #{keyword} || '%'
 				        </when>
-				        <when test="type == 'C'.toString()">
-				        	CONTENT LIKE '%' || #{keyword} || '%'
-				        </when>
             		</choose>
             	</trim>
             </foreach>

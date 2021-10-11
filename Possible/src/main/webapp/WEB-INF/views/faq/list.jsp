@@ -122,15 +122,8 @@
 				action="${pageContext.request.contextPath}/faq/list"
 				method="get">
 				<select name="type" class="select">
-					<option
-						<c:out value="${empty pageMaker.cri.type ? 'selected':''}"/>>선택</option>
 					<option value="T"
 						<c:out value="${pageMaker.cri.type eq 'T' ? 'selected':''}"/>>제목</option>
-					<option value="C"
-						<c:out value="${pageMaker.cri.type eq 'C' ? 'selected':''}"/>>내용</option>
-					<option value="TC"
-						<c:out value="${pageMaker.cri.type eq 'TC' ? 'selected':''}"/>>제목
-						or 내용</option>
 				</select> &nbsp; 
 				<input class="input" name="keyword" value="${pageMaker.cri.keyword}"> 
 				<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> 

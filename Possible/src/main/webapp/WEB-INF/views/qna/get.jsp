@@ -176,13 +176,17 @@
 				data : {
 					qnaSeq : qnaSeq
 				},
+				type : 'get',
 				dataType : 'json',
 				success : function(datas) {
 					var str = "";
-					for (i = 0; i < datas.list.length; i++) {
-						str += makeLi(datas.list[i]);
+					for (i = 0; i < datas.length; i++) {
+						str += makeLi(datas[i]);
 					}
 					$('.chat').html(str);
+				},
+				error: function(reject){
+					console.log(reject);
 				}
 			});
 		}
@@ -196,6 +200,9 @@
 					+ '</strong>'
 					+ '			<small class="pull-right text-muted">'
 					+ displayTime(data.genDate)
+					+ '</small>'
+					+ '			<p>'
+					+ data.title
 					+ '</small>'
 					+ '			<p>'
 					+ data.content
