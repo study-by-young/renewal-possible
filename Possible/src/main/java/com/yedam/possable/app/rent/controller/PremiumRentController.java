@@ -110,7 +110,8 @@ public class PremiumRentController {
                                HttpServletRequest request,
                                Model model,
                                @ModelAttribute Criteria cri) {
-//        if(user == null || user.getAuthor().equals("USER")){
+
+    	//        if(user == null || user.getAuthor().equals("USER")){
 //            String denyMsg = "업체회원만 열람 가능합니다.";
 //            attributes.addFlashAttribute("denyMsg", denyMsg);
 //
@@ -231,6 +232,7 @@ public class PremiumRentController {
     // 견적 제출 수정
     @GetMapping("submit/view/update")
     public String submitUpdateForm(){
+    	
         return "rent/prm/submitRegForm";
     }
 

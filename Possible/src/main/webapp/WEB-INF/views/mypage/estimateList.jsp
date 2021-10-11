@@ -32,7 +32,7 @@
                                 <!-- 메뉴 -->
                                 <div class="lr_bc_first_box_img_cont_wrapper">
                                     <ul>
-                                      <li><a href="${pageContext.request.contextPath}/mypage/dashboard">홈</a></li>
+		                              <li><a href="${pageContext.request.contextPath}/mypage/dashboard">홈</a></li>
 		                              <li><a href="${pageContext.request.contextPath}/mypage/editProfile">회원정보수정</a></li>
 		                              <li><a href="${pageContext.request.contextPath}/mypage/estimate">견적관리</a></li>
 		                              <li><a href="${pageContext.request.contextPath}/mypage/rent">렌트관리</a></li>
@@ -54,7 +54,7 @@
 												<div class="row">
 													<div class="col-md-12">
 													<!-- 여기서부터 main-box-wrapper -->
-														<c:forEach var="getUserInfo" items="${getEstimate}">
+														<c:forEach var="estimate" items="${estList}">
 														<div class="x_car_offer_main_boxes_wrapper float_left">
 															<div class="x_car_offer_starts x_car_offer_starts_list_img float_left border-0">
 																<div class="x_car_offer_img x_car_offer_img_list float_left">
@@ -65,25 +65,30 @@
 															</div>
 														<div class="x_car_offer_starts_list_img_cont border-left">
 															<div class="x_car_offer_heading x_car_offer_heading_list float_left" style="width: 70%;">
-																<h5 class="pt-3">${getUserInfo.brand} ${getUserInfo.model}(${getUserInfo.segment})</h5>
-																<p>${car.trim}</p>
+																<h5 class="pt-3">${estimate.brand} ${estimate.model} </h5>
+																<p class="p6">대여/반납일</p>
+																<p><fmt:formatDate value="${estimate.startDate}" pattern="yyyy/MM/dd"/> ~ <fmt:formatDate value="${estimate.endDate}" pattern="yyyy/MM/dd" /> </p>
 																<hr class="my-2">
-																<p>신청일자 : <span class="h6"><fmt:formatDate value="${getUserInfo.genDate}" pattern="yyyy/MM/dd"/></span></p> 
+																<p>신청일자 : <span class="h6"><fmt:formatDate value="${estimate.genDate}" pattern="yyyy/MM/dd"/></span></p>
+																<p><i class="fa fa-map-marker-alt"></i>수령장소: ${estimate.takePlaceBasic}
+																<p>수령장소 상세정보 : ${estimate.takePlaceDetail}
+																
 															</div>
 															<div class="x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left" style="width: 30%;">
 																<ul>
 																	<li style="width: 100%;">
-	                                                                    <a href="#">견적상세보기</a>
+	                                                                    <a href="estimate/view?seq=${estimate.seq}">견적상세보기</a>
 	                                                                </li>
 																</ul>
 															</div>
+													
 															<!-- 옵션 / 업체를 선택하면 해당 업체가 보유하고 있는 옵션 표시 -->
 															<div class="x_car_offer_heading x_car_offer_heading_listing float_left">
                                                             	<ul class="">
                                                                 	<li>
                                                                     	<div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 차량 옵션</span>
                                                                         	<ul class="list">
-	                                                                            <c:forEach var="opt" items="${getUserInfo.options}">
+	                                                                            <c:forEach var="opt" items="${estimate.options}">
 	                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${opt}</li>
 	                                                                            </c:forEach>
                                                                         </ul>
@@ -92,7 +97,7 @@
                                                                 	<li>
                                                                    		<div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 여행 옵션</span>
                                                                         	<ul class="list">
-	                                                                            <c:forEach var="itm" items="${getUserInfo.items}">
+	                                                                            <c:forEach var="itm" items="${estimate.items}">
 	                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${itm}</li>
 	                                                                            </c:forEach>
                                                                         	</ul>
@@ -100,13 +105,14 @@
                                                                 	</li>
                                                             	</ul>
                                                         	</div>
+                                                        	
 														</div>
 													<!-- 업체 정렬 -->
 													<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 														<div class="x_carbooking_right_section_wrapper float_left">
 															<div class="row">
 																<!-- 업체 정렬 -->
-																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom: 15px;">
+																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" >
 																	<div class="x_carbook_right_tabs_box_wrapper float_left">
 																		
 																	</div>
@@ -116,28 +122,15 @@
 																<!-- 해당 차량 보유 업체 목록 -->
 																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 25px; padding-right: 30px; margin-bottom: 20px;">
 																	<div class="x_carbook_right_tabs_box_wrapper float_left">
-																		<form>
-																			<table class="cmpn_list">
-																				<!-- 기본으로 첫번째 행이 선택되어 있도록 -->
-																				<tbody>
-																					<tr class="cmpn_list_tr">
-																						<td style="width: 40%;"><label><input type="radio" id="" name="cmpn">&nbsp;&nbsp;{업체이름}</label></td>
-																						<td style="width: 15%;">{만26세}</td>
-																						<td style="width: 15%;">{완전자차}</td>
-																						<td style="width: 15%;">리뷰 {개수}</td>
-																						<td style="width: 15%;">{차가격}</td>
-																					</tr>
-																					<tr class="cmpn_list_tr">
-																						<td style="width: 40%;"><label><input type="radio" id="" name="cmpn">&nbsp;&nbsp;{업체이름}</label></td>
-																						<td style="width: 15%;">{만26세}</td>
-																						<td style="width: 15%;">{완전자차}</td>
-																						<td style="width: 15%;">리뷰 {개수}</td>
-																						<td style="width: 15%;">{차가격}</td>
-																					</tr>
-																				</tbody>
-																			</table>
-																			
-																		</form>
+																		<hr class="my-2">
+																		 <div class="row justify-content-end">
+																		    <div class="col-2 x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left" style="width: 30%; padding-right: 15px">
+																				<ul>
+																					<li style="width: 100%; "><a href="#">견적제출하기</a>
+																					</li>
+																				</ul>
+																			</div>
+																		 </div>
 																	</div>
 																</div>
 																<!-- End 해당 차량 보유 업체 목록 -->
