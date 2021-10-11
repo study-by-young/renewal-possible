@@ -188,7 +188,7 @@ response.setContentType("text/html; charset=utf-8");
 													+ '<span style="float: right"><i class="fa fa-times-circle"></i></span></li>')
 									.append('<hr>');
 							$("#idFrm")
-									.append('<input type="hidden" id="contentId" name="contentId" value="'+$(this).attr("data-contentId")+'">');
+									.append('<input data-markerIdx="' + markerIdx + '" type="hidden" id="contentId" name="contentId" value="'+$(this).attr("data-contentId")+'">');
 							
 							// 마커가 표시될 위치입니다 
 							var markerPosition = new kakao.maps.LatLng($(this).attr("data-mapY"), $(this).attr("data-mapX"));
@@ -245,7 +245,7 @@ response.setContentType("text/html; charset=utf-8");
 		$("#selectList").on("click", "li", function() {
 			var targetIdx = $(this).attr("data-markerIdx");
 			console.log(targetIdx);
-			$(this).next().next().remove();
+			$("#idFrm input[data-markerIdx="+targetIdx+"]").remove(); // 확인 필
 			$(this).next().remove();
 			$(this).remove();
 
@@ -274,13 +274,16 @@ response.setContentType("text/html; charset=utf-8");
 	   		console.log(JSON.stringify(list));
 			var listData = JSON.stringify(list); */
 	   		//ajax 호출 
+	   		var data = $('form').serialize(); 
 	   		$.ajax({
 	   			url: 'write',
 	   		    type: 'post',
-	   		    data : {"board" :JSON.stringify($("#frm").serializeArray()),
+	   		    data : /* {"board" :JSON.stringify($("#frm").serializeArray()),
 	   		    	"tour" : JSON.stringify($("#idFrm").serializeArray())
-	   		    },
-	   		 	// contentType: 'application/json; charset=utf-8',
+	   		    } */
+	   		 			JSON.stringify(data),
+	   		 	dataType: 'json',
+	   		 	contentType: 'application/json; charset=utf-8',
 	   		 	traditional : true,
 	   		    success: function (data){
 	   		        console.log(data);
