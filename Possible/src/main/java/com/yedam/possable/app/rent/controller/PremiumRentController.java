@@ -110,7 +110,6 @@ public class PremiumRentController {
                                HttpServletRequest request,
                                Model model,
                                @ModelAttribute Criteria cri) {
-        log.info(principal.toString());
 //        if(user == null || user.getAuthor().equals("USER")){
 //            String denyMsg = "업체회원만 열람 가능합니다.";
 //            attributes.addFlashAttribute("denyMsg", denyMsg);
