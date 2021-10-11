@@ -1,7 +1,10 @@
 package com.yedam.possable.app.member.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.car.domain.CarVO;
@@ -94,31 +98,56 @@ public class MypageController {
     @GetMapping("/estimate")
     public String estimateList(Model model,
     						   @ModelAttribute("cri") Criteria cri,
-    						   HttpServletRequest request
+    						   Authentication authentication
     						   ){
-    	HttpSession session = request.getSession();
-    	MemberVO mvo = (MemberVO) session.getAttribute("member");
+    	MemberVO mvo = memberService.getLoginMember(authentication);
     
-    	EstimateHistoryVO evo = new EstimateHistoryVO();
-    	evo.setMemSeq(mvo.getSeq());
-    	model.addAttribute("getEstimate", premiumRentService.getUserEstimateList(cri, evo.getMemSeq())); 
-    	System.out.println("리스트 목록에 무엇이 들어있니?"+premiumRentService.getUserEstimateList(cri, evo.getMemSeq()));
-    	
-    	//String getTrim = codeService.getTrim(null).getCode();
-    	
-    	
+    	List<EstimateHistoryVO> estimateList = premiumRentService.getUserEstimateList(cri, mvo.getSeq());
+		
+		for (int i = 0; i < estimateList.size(); i++) {
+			Map<String, Object> voMap = new HashMap<String, Object>();
+			System.out.println("---------- : " + i + estimateList.size());
+//			TrimCodeVO getTrim = codeService.getTrim(estimateList.get(i).getTrim());
+//			CodeSubVO subCode = codeService.getCodeByValue(estimateList.get(i).getSegment());
+//			System.out.println("니 뭐들어있는데???" + estimateList.get(i).getSegment());
+//			System.out.println("값 다들고 오는거 맞지? :" + subCode.toString());
+//			System.out.println("subCode" + subCode);
+//			model.addAttribute("getTrim",getTrim);
+			//model.addAttribute("code", map); // map.add(voMap); //
+			//model.addAttribute("getTrim", getTrim); // Trim 들고옴 //
+			//model.addAttribute("subCode", subCode);
+			
+		}
+		model.addAttribute("estList", estimateList);
+		
+		
         return "mypage/estimateList";
     }
 
     // 견적 요청 상세보기
     @GetMapping("/estimate/view")
-    public String estimateView(){
+    public String estimateView(Model model,
+							   Authentication authentication,
+							   @RequestParam Long seq){
+    	 
+    	model.addAttribute("estimate", premiumRentService.getEstimate(seq));
         return "mypage/estimateView";
     }
 
     // 견적 요청 수정
     @GetMapping("/estiamte/update")
-    public String estimateUpdateForm(){
+    public String estimateUpdateForm(@RequestParam Long seq,
+							          Principal principal,
+							          HttpServletRequest request,
+							          RedirectAttributes attributes,
+							          Model model){
+    	
+    	 EstimateHistoryVO vo = (EstimateHistoryVO) premiumRentService.getEstimate(seq).get("estimate");
+         String user = ((MemberVO) principal).getId();
+         String writer = vo.getMemSeq().toString();
+         
+         model.addAttribute("estimate", premiumRentService.getEstimate(seq));
+         
         return "rent/prm/estimateRegForm";
     }
 
