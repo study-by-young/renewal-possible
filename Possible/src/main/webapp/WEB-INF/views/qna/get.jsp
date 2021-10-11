@@ -44,8 +44,9 @@
 	<div class="row">
 		<div class="panel-heading">
 			<form id="answerForm">
-				<input type="hidden" id="seq" name="seq" value="${qna.seq}">
+				<input type="hidden" id="qnaSeq" name="qnaSeq" value="${qna.seq}">
 				<input id="writer" name="writer" value="user10">
+				<input id="title" name="title">
 				<input id="content" name="content" size="30">
 				<!-- 버튼 -->
 				<button type="button" id="saveAnswer">답변등록</button>
@@ -131,13 +132,13 @@
 	
 	
 	
-	$(function() {
+/* 	$(function() {
 		
 		$('#saveAnswer').click(function() {
 			console.log("들어오겠냐?");
 			var content = $('#content').val();
-				writer = $('#writer').val();
-				seq = $('#seq').val();
+			var	writer = $('#writer').val();
+			var	seq = $('#seq').val();
 			
 			$.ajax({
 				url : '../answer/',
@@ -153,10 +154,10 @@
 				}
 			})
 		})
-	})
+	}) */
 	
 	
-/* 	const qnaSeq = "${qna.seq}";
+ 	const qnaSeq = "${qna.seq}";
 	
 	$(document).ready(function() {
 		
@@ -168,7 +169,7 @@
 			});
 		});
 		
-		function qnaAnswerList(page) {
+		function qnaAnswerList() {
 			
 			$.ajax({
 				url : '../answer/',
@@ -182,8 +183,6 @@
 						str += makeLi(datas.list[i]);
 					}
 					$('.chat').html(str);
-					
-					showQnaAnswerPage(datas.qnaAnswerCnt);
 				}
 			});
 		}
@@ -201,7 +200,7 @@
 					+ '			<p>'
 					+ data.content
 					+ '</p>'
-					+ '			<p align="right"><button id="readReply">보기</button>&nbsp;<button id="deleteReply">삭제</button></p>'
+					+ '			<p align="right"><button id="readQnaAnswer">보기</button>&nbsp;<button id="deleteQnaAnswer">삭제</button></p>'
 					+ '		</div>' + '	</div>' + '</li>'
 		}
 		
@@ -213,7 +212,7 @@
 					var seq = $(this).closest('li')
 							.data('seq');
 					$.ajax({
-						uri : '../answer/' + seq,
+						url : '../answer/' + seq,
 						type : 'GET',
 						dataType : 'json',
 						error : function(xhr, status,
@@ -239,8 +238,7 @@
 					'input:text[name="content"]')
 					.val();
 
-			$
-					.ajax({
+					$.ajax({
 						url : '../answer/',
 						type : 'put',
 						dataType : 'json',
@@ -324,5 +322,43 @@
 		}		
 		
 	})
- */	
+	
+	const qnaAnswerService = (function(){
+   
+   // 댓글 등록
+   function add(callback, error) { 
+      $.ajax({
+         url: '../answer/',
+         data: $('#answerForm').serialize(),
+         method: 'POST',
+         dataType: 'json',
+         success: function(data){
+            if(callback) callback(data);
+         },
+         error: function(){ if(error) error(); }
+      });
+   }
+   
+   
+   // 목록 조회
+   function getList(param, callback, error) {
+   
+      $.ajax({
+         url: '../answer/',
+         data: param,
+         dataType: 'json',
+         success: function(data){
+            if(callback)
+            // callback(data)
+            callback(data);
+         },
+         error: function(){ if(error) error(); }      
+      });      
+   }
+   
+
+   return {add:add, getList:getList}
+   
+})();
+ 
 </script>
