@@ -65,12 +65,12 @@ public class PremiumRentController {
     @GetMapping("estimate/register")
     public String estimateRegisterForm(Model model) {
         String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
-        String itemOptCode = codeService.getMasterCodeByName("캠핑 옵션").getCode();
+        String itemOptCode = codeService.getMasterCodeByName("여행용품 옵션").getCode();
         model.addAttribute("brands", codeService.getBrandList());
         model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
         model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
 
-        return "/rent/prm/estimateRegForm";
+        return "rent/prm/estimateRegForm";
     }
 
     // 견적 요청 제출
@@ -110,7 +110,6 @@ public class PremiumRentController {
                                HttpServletRequest request,
                                Model model,
                                @ModelAttribute Criteria cri) {
-        log.info(principal.toString());
 //        if(user == null || user.getAuthor().equals("USER")){
 //            String denyMsg = "업체회원만 열람 가능합니다.";
 //            attributes.addFlashAttribute("denyMsg", denyMsg);

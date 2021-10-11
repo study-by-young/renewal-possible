@@ -1,12 +1,17 @@
 package com.yedam.possable.app.company.controller;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.yedam.possable.app.car.service.CarService;
+import com.yedam.possable.app.common.code.domain.BrandCodeVO;
+import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.member.service.MemberService;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.service.RentHistoryService;
@@ -37,6 +42,8 @@ public class CompanyController {
     MemberService memberService;
     @Autowired
     RentHistoryService rentHistoryService;
+    @Autowired
+    CodeService codeService;
 
     //업체 대시보드
     @GetMapping("/dashboard")
@@ -88,21 +95,32 @@ public class CompanyController {
     }
 
     // 업체 삭제 처리
-    @GetMapping("/editInfo/delete")
-    public String deleteCompany(){
-        return "";
+    @PostMapping("/editInfo/delete")
+    public String deleteCompany(CompanyVO vo,  @RequestParam("memSeq") Long memSeq, RedirectAttributes rttr){
+    	  MemberVO memVo = new MemberVO();
+          memVo.setSeq(memSeq);
+          memVo.setAuthor("ROLE_USER");
+          vo.setMemSeq(memSeq);
+          memberService.authorUpdate(memVo);
+    		int result = companyService.deleteCompany(vo);
+    		if(result == 1) {
+    			rttr.addFlashAttribute("result", "success");			
+    		}
+    		
+    		return "redirect:/";		//파라미터 전달 X
     }
 
     //업체 보유 렌트카 리스트
     @GetMapping("/car")
-    public String companyCarList(CompanyVO vo,
-                                 Model model,
-                                 @RequestParam Long cmpnSeq){
+    public String companyCarList(CompanyVO vo,Model model, @RequestParam Long cmpnSeq){
         vo.setSeq(cmpnSeq);
-        List<CarVO> carList = carService.getCompanyCarList(vo);
-        model.addAttribute("companyCarList", carList);
+
+       List<CarVO> carList = carService.getCompanyCarList(vo);
+       model.addAttribute("companyCarList", carList);
         return "company/carList";
     }
+    
+
 
     // 업체 보유 렌트카 상세
     @ResponseBody
@@ -110,19 +128,39 @@ public class CompanyController {
     public CarVO companyCarOneSelect(CarVO vo, @RequestParam Long seq, @RequestParam Long cmpn) {
        vo.setSeq(seq);
        vo.setCmpnSeq(cmpn);
-    	return carService.getCompanyCar(vo);          // JSP에서 company 시퀀스 넘겨줘야함
+           	return carService.getCompanyCar(vo);          // JSP에서 company 시퀀스 넘겨줘야함
     }
 
     // 업체 렌트카 등록 폼
     @GetMapping("/car/register")
-    public String carRegisterForm(){
-        return "company/carRegForm";
+    public String carRegisterForm(Model model){
+    	 String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
+         String itemOptCode = codeService.getMasterCodeByName("여행용품 옵션").getCode();
+         String fuelCode = codeService.getMasterCodeByName("연료").getCode();
+         String statusCode = codeService.getMasterCodeByName("차 상태").getCode();
+         String segmentCode = codeService.getMasterCodeByName("세그먼트").getCode();
+         model.addAttribute("brands", codeService.getBrandList());
+         model.addAttribute("segment", codeService.getCodesByParentCode(segmentCode));
+         model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
+         model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
+         model.addAttribute("fuels", codeService.getCodesByParentCode(fuelCode));
+         model.addAttribute("status", codeService.getCodesByParentCode(statusCode));
+    	return "company/carRegForm";
     }
 
     // 업체 렌트카 등록 처리
     @PostMapping("/car/register")
-    public String registerCar(){
-        return "";
+    public String registerCar(CarVO vo, RedirectAttributes rttr, @RequestParam Long cmpnSeq){
+//    	// 코드 -> 네임 변환
+//        vo.setSegment(codeService.getCodeByValue(vo.getSegment()).getName());
+//        vo.setBrand(codeService.getBrand(vo.getBrand()).getName());
+//        vo.setModel(codeService.getModel(vo.getModel()).getName());
+//        vo.setTrim(codeService.getTrim(vo.getTrim()).getName());
+
+    	  int result = carService.insertCompanyCar(vo);
+          rttr.addFlashAttribute("result", result);
+          
+        return "redirect:/company/car";
     }
 
     // 업체 렌트카 수정 폼
@@ -131,7 +169,7 @@ public class CompanyController {
         return "company/carRegForm";
     }
 
-    // 업체 렌트카 등록 처리
+    // 업체 렌트카 수정 처리
     @PostMapping("/car/update")
     public String updateCar(){
         return "";

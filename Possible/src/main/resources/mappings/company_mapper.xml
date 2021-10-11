@@ -156,7 +156,7 @@
 
     <!-- 업체 업체정보수정(휴대폰번호,이메일,주소) -->
 	<update id="companyInfoUpdate">
-	UPDATE COMPANY SET NAME = #{name},
+	UPDATE COMPANY SET 
 				  TEL = #{tel},
                   ADDR1 = #{addr1},
                   ADDR2 = #{addr2},
@@ -164,14 +164,11 @@
 	WHERE SEQ = #{seq}
 	</update>
 	
-    <!-- 수익차트... -->
-    <select id="companyIncome" resultType="java.util.HashMap">
-	select to_char(trunc(r.gen_date),'YYYYMMDD') gen_date, sum(r.price) price
-	from rent_history r join car c
-	on r.car_seq = c.seq
-	where c.cmpn_seq = 1
-	group by to_char(trunc(r.gen_date),'YYYYMMDD'), c.cmpn_seq
-	order by to_char(trunc(r.gen_date),'YYYYMMDD')
-    </select>
+	<!-- 업체 탈퇴 -->
+	<delete id="deleteCompany">
+	DELETE FROM COMPANY
+	WHERE SEQ = #{seq}
+	</delete>
+	
 </mapper>
 

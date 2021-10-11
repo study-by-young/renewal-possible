@@ -29,6 +29,9 @@ public interface CarMapper {
 
     // 업체 차량 조회
     public CarVO getCompanyCar(CarVO vo);
+    
+    //업체 차량 등록
+    public int insertCompanyCar(CarVO vo);
 
     // 업체 차량 삭제
     public int deleteCompanyCar(CarVO vo);
