@@ -79,6 +79,7 @@
 <br>
 <br>
 <script>
+	// 게시글 삭제
 	$('#deleteBtn').on('click', function() {
 
 		var result = confirm('삭제 하시겠습니까?');
@@ -96,6 +97,7 @@
 		}
 	})
 
+	// 게시글 수정
 	let form = $("#intoForm");
 
 	$("#list_btn").on(

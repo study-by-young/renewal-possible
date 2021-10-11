@@ -17,6 +17,9 @@ public interface CompanyMapper {
 	//업체 한건
 	public CompanyVO companyOneSelect(CompanyVO vo);
 
+	//업체 조회
+	public CompanyVO companySelect(Long cmpnSeq);
+	
 	//전체 데이터 건수
 	public int getTotalCount(Criteria cri);
 

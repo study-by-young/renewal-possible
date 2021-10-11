@@ -144,7 +144,6 @@
 }
 </style>
 
-
 <!-- btc tittle Wrapper Start -->
 <div class="btc_tittle_main_wrapper">
 	<div class="container">
@@ -401,7 +400,7 @@
 														<div class="x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left" style="width: 30%;">
 															<ul>
 																<li style="width: 100%;">
-                                                                    <a href="#">상세보기</a>
+                                                                    <a href="#" id="viewCarBtn">상세보기</a>
                                                                 </li>
 															</ul>
 														</div>
@@ -445,21 +444,27 @@
 																	</div>
 																</div>
 																<!-- End 업체 정렬 -->
-
+																
 																<!-- 해당 차량 보유 업체 목록 -->
 																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 25px; padding-right: 30px; margin-bottom: 20px;">
 																	<div class="x_carbook_right_tabs_box_wrapper float_left">
 																		<form>
-																			<table class="cmpn_list">
+																			<table class="cmpn_list"> 
 																				<!-- 기본으로 첫번째 행이 선택되어 있도록 -->
 																				<tbody>
+																				<c:forEach var="model" items="${car.modelList}">
 																					<tr class="cmpn_list_tr">
-																						<td style="width: 40%;"><label><input type="radio" id="" name="cmpn">&nbsp;&nbsp;${company.name}</label></td>
-																						<td style="width: 15%;">{만26세}</td>
-																						<td style="width: 15%;">{완전자차}</td>
+																						<td style="width: 40%;">
+																							<label><input type="radio" id="" name="cmpn">&nbsp;&nbsp;${model.name}</label>
+																							<input type="hidden" id="cmpnSeq" name="cmpnSeq" value="${model.cmpnSeq}">
+																							<input type="hidden" id="seq" name="seq" value="${model.seq}">
+																						</td>
+																						<td style="width: 15%;">${model.cmpnSeq} {만25세}</td>
+																						<td style="width: 15%;">${model.seq} {보험}</td>
 																						<td style="width: 15%;">리뷰 {개수}</td>
-																						<td style="width: 15%;">{차가격}</td>
+																						<td style="width: 15%; text-align: right;">${model.price}</td>
 																					</tr>
+																				</c:forEach>	
 																				</tbody>
 																			</table>
 																			
@@ -703,8 +708,12 @@
     document.addEventListener('DOMContentLoaded', function() {
         DateTimePickers.init();
     });
-
-
+    
+    
+    // 상세조회 버튼
+    $('#viewCarBtn').on('click', function(){
+    	
+    });
 	
 </script>
 <!-- x car book sidebar section Wrapper End -->
