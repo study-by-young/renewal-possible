@@ -122,15 +122,8 @@
 				action="${pageContext.request.contextPath}/faq/list"
 				method="get">
 				<select name="type" class="select">
-					<option
-						<c:out value="${empty pageMaker.cri.type ? 'selected':''}"/>>선택</option>
 					<option value="T"
 						<c:out value="${pageMaker.cri.type eq 'T' ? 'selected':''}"/>>제목</option>
-					<option value="C"
-						<c:out value="${pageMaker.cri.type eq 'C' ? 'selected':''}"/>>내용</option>
-					<option value="TC"
-						<c:out value="${pageMaker.cri.type eq 'TC' ? 'selected':''}"/>>제목
-						or 내용</option>
 				</select> &nbsp; 
 				<input class="input" name="keyword" value="${pageMaker.cri.keyword}"> 
 				<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> 
@@ -140,19 +133,32 @@
 		</div>
  
  
- <br>
  
+ 
+ <!-- 메뉴 -->
+      <div class="lr_bc_first_box_img_cont_wrapper">
+         <ul>
+            <li><a href="${pageContext.request.contextPath}/faq/#">어쩌구탭</a></li>
+            <li><a href="${pageContext.request.contextPath}/faq/#">저쩌구탭</a></li>
+            <li><a href="${pageContext.request.contextPath}/faq/#">이러구탭</a></li>
+            <li><a href="${pageContext.request.contextPath}/faq/#">저러구탭</a></li>
+            <li><a href="${pageContext.request.contextPath}/faq/#">뭐시라탭</a></li>
+         </ul>
+      </div>
+                        
+ <div class="lr_bc_first_box_img_cont_wrapper">
  <c:forEach items="${list}" var="faq">
 <button class="accordion">${faq.title}</button>
 <div class="panel">
     <p>${faq.content}</p>
 </div>
- 
 </c:forEach>
+</div>
  
  
 	</div>
 </div>
+<br><br><br>
 <!-- <script>
     var acc = document.getElementsByClassName("accordion");
     var i;
