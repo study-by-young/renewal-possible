@@ -1,5 +1,6 @@
 package com.yedam.possable.app.rent.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.possable.app.car.domain.CarVO;
+import com.yedam.possable.app.car.domain.InsuranceOptionVO;
 import com.yedam.possable.app.car.service.CarService;
-import com.yedam.possable.app.common.code.mapper.CodeMapper;
+import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.company.domain.CompanyVO;
-import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.service.PaymentService;
 
@@ -26,54 +27,54 @@ import lombok.extern.java.Log;
 @RequestMapping("/commonRent")
 public class CommonRentController {
     @Autowired
-    private CodeMapper codeMapper;
+    private CodeService codeService;
     @Autowired
     private PaymentService paymentService;
     @Autowired
     private CarService carService;
-    @Autowired
-    private CompanyService companyService;
 
     // 렌트카 리스트
     @GetMapping("/list")
-    public String rentCarList(Model model, CarVO vo, CompanyVO cmpnVo){
-    	model.addAttribute("list", carService.getDistinctCarList());
-    	// 중복이 제거된 차량 목록을 list에 넣고 요소의 수만큼 반복문을 돌려서 model을 setting 한다.
-    	CarVO carVo;
+    public String rentCarList(Model model, CarVO vo, CompanyVO cmpnVo) {
+    	// model.addAttribute("list", carService.getDistinctCarList());
+    	
     	List<CarVO> list = carService.getDistinctCarList();
-    	for(int i=0; i < list.size(); i++) {
-    		carVo = list.get(i);
-    		vo.setModel(carVo.getModel());
+    	List<InsuranceOptionVO> insuranceList;
+    	for(int i=0; i<list.size(); i++) {
+    		list.get(i).setModelList(carService.getCarByModel(list.get(i).getModel()));
+    		
+    		for(int j=0; j<list.get(i).getModelList().size(); j++) {
+    			list.get(i).setInsuranceList(carService.getCarInsurance(list.get(i).getSeq()));
+    			list.get(i).getInsuranceList().get(i).setCarSeq(list.get(i).getSeq());
+    			System.out.println("==============" + carService.getCarInsurance(list.get(i).getSeq()));
+    			System.out.println("제발---------" + list.get(i).getInsuranceList());
+    		}
     	}
-    	// model을 setting한 vo를 파라미터로 넣고 해당 모델의 차량을 전부 조회한다.
-    	model.addAttribute("modelList", carService.getCarByModel(vo));
-    	// 차량모델을 조회한 vo에서 cmpn_seq를 뽑아내서 업체를 조회한다.
-    	List<CarVO> modelList = carService.getCarByModel(vo);
-    	for(int j=0; j < modelList.size(); j++) {
-    		carVo = modelList.get(j);
-    		cmpnVo.setSeq(carVo.getCmpnSeq());
-    	}
-    	model.addAttribute("company", companyService.companyOneSelect(cmpnVo));
-        model.addAttribute("areaCodes",codeMapper.getCodesByParentCode("지역"));
+    	model.addAttribute("list", list);
+        model.addAttribute("areaCodes", codeService.getCodesByParentCode("지역"));
         return "rent/comm/carList";
     }
-
+    
+    
     // 렌트카 상세보기
-    @GetMapping("/view")
-    public String rentCarView(Model model){
+/*    @GetMapping("/view/{seq}/{cmpnSeq}")
+    @ResponseBody
+    public String rentCarView(Model model
+    					, @PathVariable String seq
+    					, @PathVariable String cmpnSeq) {
     	model.addAttribute("list", carService.getCarList());
         return "rent/comm/carView";
     }
-    
+ */   
     // 렌트카 상세보기(test)
     @GetMapping("/test")
-    public String test(){
+    public String test() {
         return "rent/comm/carTest";
     }
 
     // 렌트카 예약 폼
     @GetMapping("/view/book")
-    public String rentCarBook(){
+    public String rentCarBook() {
         return "rent/comm/carBook";
     }
 

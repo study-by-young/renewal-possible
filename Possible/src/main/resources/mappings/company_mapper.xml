@@ -125,6 +125,24 @@
         FROM COMPANY
         WHERE SEQ = #{seq}
     </select>
+    
+    <!-- 업체 한건-->
+    <select id="companySelect" resultType="CompanyVO">
+        SELECT SEQ,
+               MEM_SEQ,
+               NAME,
+               POSTAL,
+               CMPN_NUM,
+               TEL,
+               ADDR1,
+               ADDR2,
+               AREA,
+               STATUS,
+               GEN_DATE,
+               UPT_DATE
+        FROM COMPANY
+        WHERE SEQ = #{seq}
+    </select>
 
     <!-- 업체 승인 변경 -->
     <update id="companyRegUpdate">

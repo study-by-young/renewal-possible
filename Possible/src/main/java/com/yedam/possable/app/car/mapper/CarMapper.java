@@ -1,12 +1,13 @@
 package com.yedam.possable.app.car.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.yedam.possable.app.car.domain.CarOptionVO;
 import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.domain.InsuranceOptionVO;
 import com.yedam.possable.app.company.domain.CompanyVO;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 public interface CarMapper {
     // 차량 목록 조회
@@ -19,7 +20,7 @@ public interface CarMapper {
     public List<CarOptionVO> getCarOptions(CarVO vo);
 
     // 차량 보험 조회
-    public List<InsuranceOptionVO> getCarInsurance(CarVO vo);
+    public List<InsuranceOptionVO> getCarInsurance(Long seq);
 
     // 차량 상태 변경
     public int updateStatus(CarVO vo);
@@ -43,5 +44,5 @@ public interface CarMapper {
     public List<CarVO> getDistinctCarList();
     
     // 해당 model을 보유한 업체 리스트 뽑아내기 위한 리스트
-    public List<CarVO> getCarByModel(CarVO vo);
+    public List<CarVO> getCarByModel(String carModel);
 }
