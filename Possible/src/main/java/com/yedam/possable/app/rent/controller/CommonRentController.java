@@ -43,12 +43,14 @@ public class CommonRentController {
     	for(int i=0; i<list.size(); i++) {
     		list.get(i).setModelList(carService.getCarByModel(list.get(i).getModel()));
     		
+ /*  		
     		for(int j=0; j<list.get(i).getModelList().size(); j++) {
     			list.get(i).setInsuranceList(carService.getCarInsurance(list.get(i).getSeq()));
     			list.get(i).getInsuranceList().get(i).setCarSeq(list.get(i).getSeq());
     			System.out.println("==============" + carService.getCarInsurance(list.get(i).getSeq()));
     			System.out.println("제발---------" + list.get(i).getInsuranceList());
     		}
+ */
     	}
     	model.addAttribute("list", list);
         model.addAttribute("areaCodes", codeService.getCodesByParentCode("지역"));

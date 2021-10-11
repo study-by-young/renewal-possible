@@ -458,7 +458,6 @@
 																				<!-- 기본으로 첫번째 행이 선택되어 있도록 -->
 																				<tbody>
 																				<c:forEach var="model" items="${car.modelList}">
-																				<c:forEach var="insurance" items="${car.insuranceList}">
 																					<tr class="cmpn_list_tr">
 																						<td style="width: 40%;">
 																							<label><input type="radio" id="" name="cmpn">&nbsp;&nbsp;${model.name}</label>
@@ -466,11 +465,10 @@
 																							<input type="hidden" id="seq" name="seq" value="${model.seq}">
 																						</td>
 																						<td style="width: 15%;">${model.cmpnSeq} {만25세}</td>
-																						<td style="width: 15%;">${model.seq} // ${insurance.optCode}</td>
+																						<td style="width: 15%;">${model.seq} 보험</td>
 																						<td style="width: 15%;">리뷰 {개수}</td>
 																						<td style="width: 15%; text-align: right;">${model.price}</td>
 																					</tr>
-																				</c:forEach>	
 																				</c:forEach>	
 																				</tbody>
 																			</table>
