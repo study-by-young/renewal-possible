@@ -140,11 +140,26 @@ public class MypageController {
 							          Principal principal,
 							          HttpServletRequest request,
 							          RedirectAttributes attributes,
+							          Authentication authentication,
 							          Model model){
     	
     	 EstimateHistoryVO vo = (EstimateHistoryVO) premiumRentService.getEstimate(seq).get("estimate");
-         String user = ((MemberVO) principal).getId();
+    	 MemberVO mvo = memberService.getLoginMember(authentication);
+    	 //String user = ((MemberVO) principal).getId();
+    	
          String writer = vo.getMemSeq().toString();
+         String user = String.valueOf(mvo.getSeq()).toString();
+         
+         String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
+         String itemOptCode = codeService.getMasterCodeByName("여행용품 옵션").getCode();
+        
+         if (user == null || !user.equals(writer)) {
+             attributes.addFlashAttribute("updateMsg", "작성자만 수정 가능합니다.");
+             return "redirect:" + request.getHeader("REFERER");
+         }
+         model.addAttribute("brands", codeService.getBrandList()); 
+         model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
+         model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
          
          model.addAttribute("estimate", premiumRentService.getEstimate(seq));
          

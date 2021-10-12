@@ -72,7 +72,7 @@
                                                 <div class="col-md-5">
                                                     <div class="form-sec-header text-center">
                                                         <label class="h6">렌트 시작</label>
-                                                        <p class="form-control w-75 mx-auto bg-primary text-white h-auto" style="border-radius: 5rem;"><fmt:formatDate value="${estimate.startDate}" type="both"/></p>
+                                                        <p class="form-control w-75 mx-auto bg-primary text-white h-auto" style="border-radius: 5rem;"><fmt:formatDate value="${est.startDate}" type="both"/></p>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
@@ -84,7 +84,7 @@
                                                 <div class="col-md-5">
                                                     <div class="form-sec-header text-center">
                                                         <label class="h6">렌트 종료</label>
-                                                        <p class="form-control w-75 mx-auto bg-primary text-white h-auto" style="border-radius: 5rem;"><fmt:formatDate value="${estimate.endDate}" type="both"/></p>
+                                                        <p class="form-control w-75 mx-auto bg-primary text-white h-auto" style="border-radius: 5rem;"><fmt:formatDate value="${est.endDate}" type="both"/></p>
                                                     </div>
                                                 </div>
                                                 <div class="w-100 my-4"></div>
@@ -143,7 +143,7 @@
                                                 </div>
                                                 <hr class="float_left">
                                                 <div class="col-md-12 text-center">
-                                                    <a href="${pageContext.request.contextPath}/premiumRent/submit/insert?seq=${est.seq}" class="btn btn-primary btn-lg w-25">견적 작성</a>
+                                                    <a href="${pageContext.request.contextPath}/mypage/estiamte/update?seq=${est.seq}" class="btn btn-primary btn-lg w-25">견적 수정</a>
                                                 </div>
                                             </div>
                                         </div>

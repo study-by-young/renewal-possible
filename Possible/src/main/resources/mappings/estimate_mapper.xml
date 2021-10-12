@@ -128,4 +128,68 @@
               )
 				WHERE RN > (#{cri.pageNum} - 1) * #{cri.amount}
     </select>
+    <!-- 업체용 견적 제출 확인 리스트 -->
+   	<select id="compEstiSubmitList" resultType="CompEstiListJoinVO" >
+   			SELECT  e.SEQ, 
+					e.ESTI_SEQ, 
+			        e.CAR_SEQ,
+			        e.CMPN_SEQ,
+			        eh.MEM_SEQ,
+			        c.BRAND, 
+			        c.MODEL,
+			        c.SEGMENT,
+			        c.COLOR,
+			        c.KMPL,
+			        c.FUEL,
+			        c.TRUNK,
+			        c.DOOR,
+			        c.MISSION,
+			        c.YEAR,
+			        e.ITEMS, 
+			        e.PRICE, 
+			        e.MEMO,
+			        e.GEN_DATE, 
+			        e.UPT_DATE,
+			        com.NAME,
+			        com.TEL
+	        FROM esti_submit_history e INNER JOIN CAR c
+	        ON c.seq = e.car_seq
+	        INNER JOIN COMPANY com
+	        ON com.seq = c.cmpn_seq
+	        JOIN estimate_history eh
+       		ON e.esti_seq = eh.seq
+	        WHERE e.cmpn_seq= #{seq}
+   	</select>
+   <!--프리미엄 렌트카 한건 조회 -->
+   	<select id ="compEstiSubmitOneSelect" resultType="CompEstiListJoinVO">
+   			SELECT  e.SEQ, 
+					e.ESTI_SEQ, 
+			        e.CAR_SEQ,
+			        e.CMPN_SEQ,
+			        eh.MEM_SEQ,
+			        c.BRAND, 
+			        c.MODEL,
+			        c.SEGMENT,
+			        c.COLOR,
+			        c.KMPL,
+			        c.FUEL,
+			        c.TRUNK,
+			        c.DOOR,
+			        c.MISSION,
+			        c.YEAR,
+			        e.ITEMS, 
+			        e.PRICE, 
+			        e.MEMO,
+			        e.GEN_DATE, 
+			        e.UPT_DATE,
+			        com.NAME,
+			        com.TEL
+	        FROM esti_submit_history e INNER JOIN CAR c
+	        ON c.seq = e.car_seq
+	        INNER JOIN COMPANY com
+	        ON com.seq = c.cmpn_seq
+	        JOIN estimate_history eh
+       		ON e.esti_seq = eh.seq
+	        WHERE e.seq= #{seq}
+   	</select>
 </mapper>

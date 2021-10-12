@@ -34,7 +34,17 @@
                             <div class="x_car_checkout_right_main_box_wrapper float_left">
                                 <div class="car-filter order-billing margin-top-0">
                                     <div class="heading-block text-left margin-bottom-0">
-                                        <h4>견적 작성</h4>
+                                        <c:if test="${empty estimate}">
+											<div>
+										        <h4>견적 작성</h4>
+										    </div>
+										</c:if>
+                                        <c:if test="${not empty estimate}">
+										    <div>
+										       <h4>견적 수정</h4>
+										    </div>
+										</c:if>
+                                        ${estimate}
                                     </div>
                                     <hr>
                                         <ul class="list-unstyled row">
@@ -54,7 +64,7 @@
                                                 <label  class="w-100">모델
                                                     <select name="model" id="model" class="myselect select2-hidden-accessible select2-search--hide" onchange="searchTrimByModel()" required>
                                                         <optgroup label="모델명">
-                                                            <option>모델을 선택하세요</option>
+                                                            	<option>모델을 선택하세요</option>
                                                         </optgroup>
                                                     </select>
                                                 </label>

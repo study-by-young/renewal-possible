@@ -2,31 +2,34 @@ package com.yedam.possable.app.company.controller;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.yedam.possable.app.car.service.CarService;
-import com.yedam.possable.app.common.code.domain.BrandCodeVO;
-import com.yedam.possable.app.common.code.service.CodeService;
-import com.yedam.possable.app.member.service.MemberService;
-import com.yedam.possable.app.rent.domain.RentHistoryVO;
-import com.yedam.possable.app.rent.service.RentHistoryService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.car.domain.CarVO;
+import com.yedam.possable.app.car.service.CarService;
+import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.member.domain.MemberVO;
+import com.yedam.possable.app.member.service.MemberService;
+import com.yedam.possable.app.rent.domain.CompEstiListJoinVO;
+import com.yedam.possable.app.rent.domain.RentHistoryVO;
+import com.yedam.possable.app.rent.service.PremiumRentService;
+import com.yedam.possable.app.rent.service.RentHistoryService;
 
 import lombok.extern.java.Log;
 
@@ -44,7 +47,9 @@ public class CompanyController {
     RentHistoryService rentHistoryService;
     @Autowired
     CodeService codeService;
-
+    @Autowired
+    PremiumRentService premiumRentService;
+    
     //업체 대시보드
     @GetMapping("/dashboard")
     public String dashboard(HttpServletRequest request,
@@ -197,14 +202,37 @@ public class CompanyController {
 
     // 견적 제출 리스트
     @GetMapping("/estSubmit")
-    public String estSubmitList(){
+    public String estSubmitList(CompEstiListJoinVO vo,
+					    		Model model,
+					    		@RequestParam Long cmpnSeq,
+					    		Authentication authentication){    	
+    	 
+    	System.out.println("넌 뭔데?"+cmpnSeq);
+    	vo.setCmpnSeq(cmpnSeq);
+    	 System.out.println("이건될까..?"+vo.toString());
+    	 System.out.println("이거 뭔데?"+vo.toString());
+    	 
+    	 List<CompEstiListJoinVO> estimate = premiumRentService.compEstiSubmitList(vo.getCmpnSeq());
+    	 System.out.println("제발....."+estimate);
+    	 model.addAttribute("estimate", estimate);
+    	 //Map<String, Object> attr = new LinkedHashMap<>();
+         
+        // List<Map<String, Object>> estimateList = premiumRentService.compEstiSubmitList();
+
+         //attr.put("estList", estimateList);
+         //System.out.println("너 뭐니?"+estimateList);
+         //model.addAllAttributes(attr);
         return "company/estSubmitList";
     }
 
     // 견적 제출 상세
     @GetMapping("/estSubmit/view")
-    public String estSubmitView(){
-        return "company/estSubmitView";
+    public String estSubmitView(Model model,@RequestParam Long seq ){
+    		
+       System.out.println("seq 값 들고오지 그치? ㅎ"+ seq);
+        model.addAttribute("estimate",premiumRentService.compEstiSubmitOneSelect(seq));
+        System.out.println(premiumRentService.compEstiSubmitOneSelect(seq));
+    	return "company/estSubmitView";
     }
 
     // 견적 제출 수정 폼
