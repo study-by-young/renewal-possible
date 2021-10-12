@@ -45,4 +45,7 @@ public interface CarMapper {
     
     // 해당 model을 보유한 업체 리스트 뽑아내기 위한 리스트
     public List<CarVO> getCarByModel(String carModel);
+    
+    //차량 옵션 추가
+    public int insertCarOptions(CarOptionVO vo);
 }

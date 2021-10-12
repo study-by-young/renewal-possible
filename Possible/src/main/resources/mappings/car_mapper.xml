@@ -254,4 +254,15 @@
 						#{carNum}
 					)
     </insert>
+    
+    <insert id="insertCarOptions">
+    	INSERT INTO CAR_OPTION(
+    						 OPT_CODE,
+    						 CAR_SEQ
+							)
+					VALUES(
+							#{optCode},
+							#{carSeq}
+						  )
+    </insert>
 </mapper>
