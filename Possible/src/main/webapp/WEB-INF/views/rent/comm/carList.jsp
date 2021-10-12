@@ -416,6 +416,7 @@
                                                                             <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>트렁크: ${car.trunk}</li>
                                                                             <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>문: ${car.door}</li>
                                                                             <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>연비: ${car.kmpl}</li>
+                                                                            <!-- model 반복 안에서 carSeq or cmpnSeq 받아와서 ajax로 OneSelect문 돌리고 결과물 ul 밑에 li 추가하는 걸로 하면 될 듯 -->
                                                                             <%-- <c:forEach var="itm" items="${items}">
                                                                             </c:forEach> --%>
                                                                         </ul>
@@ -536,11 +537,6 @@
 		</div>
 	</div>
 </div>
-
-연도:<p id="year"></p>
-월:<p id="month"></p>
-일:<p id="day"></p>
-요일:<p id="mydate"></p>
 
 <script>
     var Select2Selects = function() {
@@ -768,20 +764,22 @@
     });
     
     
-    
+    vo = {
+   		cmpnSeq : cmpnSeq,
+		seq : seq	
+    };
     // 상세조회 버튼
     $('.viewCarBtn').on('click', function(){
     	$.ajax({
     		url: 'view',
     		data: {
-    			searchArea : searchArea,
-    			searchStart : searchStart,
-    			searchEnd : searchEnd,
-    			cmpnSeq : cmpnSeq,
-    			seq : seq
+    			vo
     		},
-    		dataType: 'json',
-    		success: function(){},
+    		dataType: 'text',
+    		success: function(data){
+    			console.log(data);
+    			alert('성공');
+    		},
     		error: function(xhr, status, message){
 				alert('status: ' + status + ' er: ' + message);
 			}

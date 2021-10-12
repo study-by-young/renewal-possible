@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.car.domain.CarVO;
-import com.yedam.possable.app.car.domain.InsuranceOptionVO;
 import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
@@ -74,12 +73,14 @@ public class CommonRentController {
     
     // 렌트카 상세보기
     @GetMapping("/view")
-    public String rentCarView(Model model, RedirectAttributes rttr) {
+    @ResponseBody
+    public String rentCarView(Model model, RedirectAttributes rttr, CarVO vo) {
     	model.addAttribute("list", carService.getCarList());
+    	rttr.addAttribute("car", carService.getCompanyCar(vo));
     	// 넘어와야 하는 값
     	// startDate, endDate, searchArea, carSeq, cmpnSeq
     	
-        return "rent/comm/carView";
+        return "redirect:/rent/comm/carView";
     }
  
     // 렌트카 상세보기(test)
