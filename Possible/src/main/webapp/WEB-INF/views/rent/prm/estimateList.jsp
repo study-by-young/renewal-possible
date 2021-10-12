@@ -79,7 +79,7 @@
                                                             <div class="x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left">
                                                                 <ul>
                                                                     <li>
-                                                                        <a href="view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">상세보기</a>
+                                                                        <a href="estimate/view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">상세보기</a>
                                                                     </li>
                                                                 </ul>
                                                             </div>
