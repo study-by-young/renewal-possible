@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -37,8 +38,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<InsuranceOptionVO> getCarInsurance(Long seq) {
-        return carMapper.getCarInsurance(seq);
+    public List<InsuranceOptionVO> getCarInsurance(CarVO vo) {
+        return carMapper.getCarInsurance(vo);
     }
 
     @Override
@@ -72,13 +73,18 @@ public class CarServiceImpl implements CarService {
 	}
 
 	@Override
-	public List<CarVO> getCarByModel(String carModel) {
-		return carMapper.getCarByModel(carModel);
+	public List<CarVO> getCarByModel(CarVO vo) {
+		return carMapper.getCarByModel(vo);
 	}
 
 	@Override
 	public int insertCompanyCar(CarVO vo) {
 		// TODO Auto-generated method stub
 		return carMapper.insertCompanyCar(vo);
+	}
+
+	@Override
+	public List<Map<String, Object>> carList() {
+		return carMapper.carList();
 	}
 }

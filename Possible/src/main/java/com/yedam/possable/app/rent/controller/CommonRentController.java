@@ -1,6 +1,5 @@
 package com.yedam.possable.app.rent.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +15,10 @@ import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.domain.InsuranceOptionVO;
 import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
-import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
+import com.yedam.possable.app.rent.domain.RentReviewVO;
 import com.yedam.possable.app.rent.service.PaymentService;
+import com.yedam.possable.app.rent.service.RentReviewService;
 
 import lombok.extern.java.Log;
 
@@ -27,47 +27,63 @@ import lombok.extern.java.Log;
 @RequestMapping("/commonRent")
 public class CommonRentController {
     @Autowired
-    private CodeService codeService;
+    private CodeService codeService;;
     @Autowired
     private PaymentService paymentService;
     @Autowired
     private CarService carService;
+    @Autowired
+    private RentReviewService rentReviewService;
 
     // 렌트카 리스트
     @GetMapping("/list")
-    public String rentCarList(Model model, CarVO vo, CompanyVO cmpnVo) {
-    	// model.addAttribute("list", carService.getDistinctCarList());
-    	
-    	List<CarVO> list = carService.getDistinctCarList();
-    	List<InsuranceOptionVO> insuranceList;
-    	for(int i=0; i<list.size(); i++) {
-    		list.get(i).setModelList(carService.getCarByModel(list.get(i).getModel()));
-    		
- /*  		
-    		for(int j=0; j<list.get(i).getModelList().size(); j++) {
-    			list.get(i).setInsuranceList(carService.getCarInsurance(list.get(i).getSeq()));
-    			list.get(i).getInsuranceList().get(i).setCarSeq(list.get(i).getSeq());
-    			System.out.println("==============" + carService.getCarInsurance(list.get(i).getSeq()));
-    			System.out.println("제발---------" + list.get(i).getInsuranceList());
+    public String rentCarList(Model model, Long seq, CarVO vo, RentReviewVO rvo) {
+    	// 자동차 SEQ -> 업체SEQ -> 업체정보, 리뷰개수
+    	// 자동차 SEQ -> 보험
+    	List<CarVO> allList = carService.getDistinctCarList();
+    	for(int i=0; i<allList.size(); i++) {
+    		CarVO selectedCarInfo = allList.get(i);		
+    		List<CarVO> modelList = carService.getCarByModel(selectedCarInfo);
+        	
+    		for(int j=0; j<modelList.size(); j++) {
+        		CarVO selectedModelInfo = modelList.get(j);
+        		modelList.get(j).setInsuranceList(carService.getCarInsurance(selectedModelInfo));
+        		modelList.get(j).setReviewList(rentReviewService.getReviewListByCmpnSeq(selectedModelInfo)); 
+        		// 리뷰리스트가 null일 경우 해당 차량모델을 보유하고 있더라도 업체가 출력되지 않음
+        		if(modelList.get(j).getReviewList().isEmpty()) {
+        			
+        		}
     		}
- */
+    		allList.get(i).setModelList(modelList);
+    		System.out.println(allList.get(i).getModelList());
     	}
-    	model.addAttribute("list", list);
+    	
+    	// 차 모델별(car.model)로 업체 리스트를 뽑고 여기서 뽑은 차 SEQ랑 업체 SEQ로
+    	// List<CarVO> modelList = carService.getCarByModel(vo);
+    	// 차 SEQ(modelList.seq)를 가지고 차가 가진 보험 목록을 뽑고
+    	// List<InsuranceOptionVO> insList = carService.getCarInsurance(vo);
+    	// 업체 SEQ(modelList.cmpn_seq)를 가지고 업체에 달린 후기 개수를 뽑고
+    	// List<RentReviewVO> reviewList = rentReviewService.getReviewListByCmpnSeq(vo);
+    	
+    	
+    	// 모델별로 대표 하나만 보여주기
+    	model.addAttribute("list", allList);
+    	// model.addAttribute("modelList", modelList);
+    	// model.addAttribute("insList", insList);
+    	// model.addAttribute("reviewList", reviewList);
+
         model.addAttribute("areaCodes", codeService.getCodesByParentCode("지역"));
         return "rent/comm/carList";
     }
     
-    
     // 렌트카 상세보기
-/*    @GetMapping("/view/{seq}/{cmpnSeq}")
+    @GetMapping("/view")
     @ResponseBody
-    public String rentCarView(Model model
-    					, @PathVariable String seq
-    					, @PathVariable String cmpnSeq) {
+    public String rentCarView(Model model) {
     	model.addAttribute("list", carService.getCarList());
         return "rent/comm/carView";
     }
- */   
+ 
     // 렌트카 상세보기(test)
     @GetMapping("/test")
     public String test() {
