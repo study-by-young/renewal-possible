@@ -265,7 +265,8 @@ response.setContentType("text/html; charset=utf-8");
 				let orgName = contentIds.eq(i).attr("name");
 				
 				//contentIds.eq(i).attr("name", orgName + i);
-				arr[i] = contentIds.eq(i).val();
+				var temp = { contentId : contentIds.eq(i).val()}
+				arr.push(temp);
 		    }
 			
 			
@@ -279,19 +280,16 @@ response.setContentType("text/html; charset=utf-8");
    		    });
 			contentId: arr */
 			
-			let info = {
+			let data = {
 				title: $('[name="title"]').val(),
 	   		    writer: $('[name="writer"]').val(),
 	   		    genDate: $('[name="genDate"]').val(),
 	   		    startDate: $('[name="startDate"]').val(),
 	   		    endDate: $('[name="endDate"]').val(),
-	   		    content: $('[name="content"]').val()
+	   		    content: $('[name="content"]').val(),
+	   			boardList: arr
 			}
 			
-			let data = {
-				info : info,
-				contentId: arr
-			}
 			console.log($('form').serialize());
 			//console.log(JSON.stringify($("#frm").serializeObject()));
 		    //console.log(JSON.stringify($("#idFrm").serializeObject()));

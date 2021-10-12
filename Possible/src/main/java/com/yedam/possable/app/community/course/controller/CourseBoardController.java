@@ -60,15 +60,14 @@ public class CourseBoardController {
     
     @PostMapping("/write")
     @ResponseBody
-    public String courseInsert(@RequestBody HashMap<String, Object> param) {
-    	System.out.println(param);	
-    	CourseBoardVO board = (CourseBoardVO) param.get("info");
+    public String courseInsert(@RequestBody CourseBoardVO board) {
+    	System.out.println(board);	
+ 
     	//ObjectMapper mapper = new ObjectMapper();
-    	CourseVO[] courseList = (CourseVO[]) param.get("contentId");
     	courseBoardService.insert(board);
     	System.out.println(board.getSeq());
     	Long num = board.getSeq();
-    	courseBoardService.courseInsert(courseList, num);
+    	courseBoardService.courseInsert(board.getBoardList(), num);
     	return "test";
     }
 

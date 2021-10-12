@@ -25,5 +25,5 @@ public class CourseBoardVO {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date uptDate;
     
-    private List<CourseBoardVO> boardList;
+    private List<CourseVO> boardList;
 }
