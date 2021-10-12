@@ -25,6 +25,31 @@
                upt_date
         FROM car
     </select>
+    
+    <select id="carList" resultType="CarVO">
+        SELECT seq,
+               cmpn_seq,
+               car_num,
+               brand,
+               model,
+               segment,
+               trim,
+               color,
+               year,
+               fuel,
+               passenger,
+               mission,
+               trunk,
+               door,
+               kmpl,
+               price,
+               img1,
+               img2,
+               img3,
+               upt_date
+        FROM car
+    </select>
+    
     <select id="getCar" resultType="CarVO">
         SELECT seq,
                cmpn_seq,
@@ -187,7 +212,7 @@
     
     <!-- 해당 model을 보유한 업체 리스트 뽑아내기 위한 리스트 -->
     <select id="getCarByModel" resultType="CarVO">
-    	SELECT CAR.*, COMPANY.NAME
+    	SELECT CAR.*, COMPANY.*
 		FROM CAR JOIN COMPANY
 		ON CAR.CMPN_SEQ = COMPANY.SEQ
 		WHERE MODEL = #{model}
