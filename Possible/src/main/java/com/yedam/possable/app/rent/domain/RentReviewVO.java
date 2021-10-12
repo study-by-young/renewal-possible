@@ -9,7 +9,9 @@ public class RentReviewVO {
     private String content;
     private Long score;
 
-    private Long carSeq;
+    private Long historySeq;
     private Long memSeq;
     private Long courseSeq;
+    private Long cmpnSeq;
+    private Long cnt;
 }
