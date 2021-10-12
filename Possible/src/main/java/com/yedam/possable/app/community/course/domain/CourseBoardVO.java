@@ -1,6 +1,7 @@
 package com.yedam.possable.app.community.course.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,4 +24,6 @@ public class CourseBoardVO {
     private Date genDate;
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date uptDate;
+    
+    private List<CourseBoardVO> boardList;
 }

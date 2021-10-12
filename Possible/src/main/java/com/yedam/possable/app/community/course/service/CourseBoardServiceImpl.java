@@ -67,7 +67,7 @@ public class CourseBoardServiceImpl implements CourseBoardService {
 	}
 
 	@Override
-	public int courseInsert(List<CourseVO> list, Long num) {
+	public int courseInsert(CourseVO[] list, Long num) {
 		long cnt = 1;
 		for (CourseVO course : list) {
 			course.setCourseSeq(num);
@@ -75,7 +75,7 @@ public class CourseBoardServiceImpl implements CourseBoardService {
 			courseBoardMapper.courseInsert(course);
 		}
 		System.out.println(list.toString());
-		return list.size();
+		return 0;
 	}
 
 	@Override

@@ -29,7 +29,7 @@ public interface CourseBoardService {
 	
 	public List<TestVO> courseSelect(CourseBoardVO vo);
 	
-	public int courseInsert(List<CourseVO> list, Long num);
+	public int courseInsert(CourseVO[] courseList, Long num);
 	
 	public Long maxSeq();
 
