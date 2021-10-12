@@ -187,8 +187,71 @@
     
     <!-- 해당 model을 보유한 업체 리스트 뽑아내기 위한 리스트 -->
     <select id="getCarByModel" resultType="CarVO">
-    	SELECT * 
-    	FROM CAR
-    	WHERE MODEL = #{model}
+    	SELECT CAR.*, COMPANY.NAME
+		FROM CAR JOIN COMPANY
+		ON CAR.CMPN_SEQ = COMPANY.SEQ
+		WHERE MODEL = #{model}
     </select>
+    
+    <!-- seq로 보험 조회하기 -->
+    <select id="getInsuranceByCar" resultType="CarVO">
+    SELECT CAR.SEQ, INSURANCE_OPTION.OPT_CODE, INSURANCE_OPTION.PRICE
+	FROM CAR JOIN INSURANCE_OPTION
+	ON CAR.SEQ = INSURANCE_OPTION.CAR_SEQ
+	WHERE SEQ = #{seq}
+    </select>
+    
+    <insert id="insertCompanyCar">
+    	<selectKey keyProperty="seq" resultType="long" order="BEFORE">
+			SELECT SEQ_CAR.NEXTVAL FROM DUAL
+		</selectKey>
+    	INSERT INTO CAR(
+				    	SEQ,
+						BRAND,
+						MODEL,
+						SEGMENT,
+						TRIM,
+						COLOR,
+						YEAR,
+						FUEL,
+						PASSENGER,
+						MISSION,
+						TRUNK,
+						DOOR,
+						KMPL,
+						PRICE,
+						STATUS,
+						IMG1,
+						IMG2,
+						IMG3,
+						GEN_DATE,
+						UPT_DATE,
+						CMPN_SEQ,
+						CAR_NUM
+						)
+			 VALUES (
+						#{seq},
+						#{brand},
+						#{model},
+						#{segment},
+						#{trim},
+						#{color},
+						#{year},
+						#{fuel},
+						#{passenger},
+						#{mission},
+						#{trunk},
+						#{door},
+						#{kmpl},
+						#{price},
+						'대기',
+						#{img1},
+						#{img2},
+						#{img3},
+						sysdate,
+						sysdate,
+						#{cmpnSeq},
+						#{carNum}
+					)
+    </insert>
 </mapper>
