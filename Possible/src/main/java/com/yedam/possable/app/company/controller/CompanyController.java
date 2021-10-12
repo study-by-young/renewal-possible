@@ -1,13 +1,16 @@
 package com.yedam.possable.app.company.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -17,8 +20,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.yedam.possable.app.car.domain.CarOptionVO;
 import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
@@ -128,26 +133,25 @@ public class CompanyController {
 
 
     // 업체 보유 렌트카 상세
-    @ResponseBody
     @GetMapping("/car/view")
-    public CarVO companyCarOneSelect(CarVO vo, @RequestParam Long seq, @RequestParam Long cmpn) {
+    public String companyCarOneSelect(CarVO vo, Model model, CarOptionVO optVO, @RequestParam Long seq, @RequestParam Long cmpn) {
        vo.setSeq(seq);
        vo.setCmpnSeq(cmpn);
-           	return carService.getCompanyCar(vo);          // JSP에서 company 시퀀스 넘겨줘야함
+       model.addAttribute("car",carService.getCompanyCar(vo));
+       model.addAttribute("opt", carService.getCarOptions(vo));
+       return "company/carView"; // JSP에서 company 시퀀스 넘겨줘야함
     }
 
     // 업체 렌트카 등록 폼
     @GetMapping("/car/register")
     public String carRegisterForm(Model model){
     	 String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
-         String itemOptCode = codeService.getMasterCodeByName("여행용품 옵션").getCode();
          String fuelCode = codeService.getMasterCodeByName("연료").getCode();
          String statusCode = codeService.getMasterCodeByName("차 상태").getCode();
          String segmentCode = codeService.getMasterCodeByName("세그먼트").getCode();
          model.addAttribute("brands", codeService.getBrandList());
          model.addAttribute("segment", codeService.getCodesByParentCode(segmentCode));
          model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
-         model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
          model.addAttribute("fuels", codeService.getCodesByParentCode(fuelCode));
          model.addAttribute("status", codeService.getCodesByParentCode(statusCode));
     	return "company/carRegForm";
@@ -155,15 +159,40 @@ public class CompanyController {
 
     // 업체 렌트카 등록 처리
     @PostMapping("/car/register")
-    public String registerCar(CarVO vo, RedirectAttributes rttr, @RequestParam Long cmpnSeq){
-//    	// 코드 -> 네임 변환
-//        vo.setSegment(codeService.getCodeByValue(vo.getSegment()).getName());
-//        vo.setBrand(codeService.getBrand(vo.getBrand()).getName());
-//        vo.setModel(codeService.getModel(vo.getModel()).getName());
-//        vo.setTrim(codeService.getTrim(vo.getTrim()).getName());
+    public String registerCar(CarVO vo, HttpServletRequest request, CarOptionVO optVO,  @RequestParam("options") String[] optionsArr, RedirectAttributes rttr) throws IllegalStateException, IOException{
 
-    	  int result = carService.insertCompanyCar(vo);
-          rttr.addFlashAttribute("result", result);
+    	HttpSession session = request.getSession();
+        String root_path = session.getServletContext().getRealPath("/");
+        String attach_path = "resources/images";
+
+        
+    	String fileName=null;
+		MultipartFile uploadFile = vo.getUploadFile();
+		
+		if (!uploadFile.isEmpty()) {
+			String originalFileName = uploadFile.getOriginalFilename();
+			String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
+			UUID uuid = UUID.randomUUID();	//UUID 구하기
+			fileName=uuid+"."+ext;
+			uploadFile.transferTo(new File(root_path + attach_path + fileName));
+		}
+		vo.setImg1(fileName);
+    	
+    	// 코드 -> 네임 변환
+        vo.setSegment(codeService.getCodeByValue(vo.getSegment()).getName());
+        vo.setBrand(codeService.getBrand(vo.getBrand()).getName());
+        vo.setModel(codeService.getModel(vo.getModel()).getName());
+        vo.setTrim(codeService.getTrim(vo.getTrim()).getName());
+        vo.setFuel(codeService.getCodeByValue(vo.getFuel()).getName());
+
+        int result = carService.insertCompanyCar(vo);
+        rttr.addFlashAttribute("result", result);
+          
+        optVO.setCarSeq(vo.getSeq());
+        optVO.setOptCode(Arrays.toString(optionsArr));
+        
+          int result2 = carService.insertCarOptions(optVO);
+          rttr.addFlashAttribute("result2", result2);
           
         return "redirect:/company/car";
     }

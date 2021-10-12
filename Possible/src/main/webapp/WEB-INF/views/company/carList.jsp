@@ -25,10 +25,7 @@
 	<!-- Content area -->
 			<div class="content">
 
-		<div class="card-header header-elements-inline">
-			<h6 class="card-title">보유렌트카</h6>
-			<div class="header-elements"></div>
-		</div>
+		
 		<input type="hidden" name="cmpnSeq" value="${cmpnSeq}">
     <div class="row">
         <div class="allCheck">
@@ -37,14 +34,14 @@
     </div>
     <div class="row">
         <c:forEach var="companyCarList" items="${companyCarList }">
-            <div class="card" style="width:200px; margin:5px">
+            <div class="card" style="width:850px; margin:5px">
                 <input type="checkbox" name="chBox" class="chBox" data-seq="${companyCarList.seq }" />
                 <img class="card-img-top" src="${companyCarList.img1 }" alt="Card image" style="width:100%">
                 <div class="stateBanner badge-primary">${companyCarList.status }</div>
                 <div class="card-body">
                     <h4 class="card-title">
 
-                        <a class="show" href="#" data-seq='${companyCarList.seq }' data-cmpn='${companyCarList.cmpnSeq }' data-toggle="modal" data-target="#myModal">
+                        <a class="show" href="${pageContext.request.contextPath}/company/car/view?seq=${companyCarList.seq}&cmpn=${companyCarList.cmpnSeq}">
 								
 								${companyCarList.seq },
                                 ${companyCarList.cmpnSeq },
@@ -65,29 +62,6 @@
 </div>
 
 
-<!-- 조회, 수정 -->
-<div class="modal" id="myModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Modal Heading</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">수정</button>
-            </div>
-
-        </div>
-    </div>
-</div>
 
 </div>
 <script>
@@ -106,20 +80,6 @@
             $("#allCheck").prop("checked", false);
         });
 
-        //조회
-        $(".show").on("click",function(){
-
-            $.ajax({
-                url : "car/view",
-                method : "get",		//post
-                data : {"seq" : this.dataset.seq, "cmpn" : this.dataset.cmpn}, 
-                // async : false,	//아작스처리 끝나야 다음이 실행됨 동기식
-                success : function(data){	//컨트롤러의 리턴값
-                    console.log(data);
-                    makeLi(data);
-                }
-            });
-        }); //show click end
 
         //삭제
 

@@ -13,9 +13,6 @@ public interface CarService {
     // 차량 목록 조회
     public List<CarVO> getCarList();
 
-    // 차량 목록 조회
-    public List<Map<String, Object>> carList();
-    
     // 차량 단건 조회
     public CarVO getCar(CarVO vo);
 
@@ -48,4 +45,7 @@ public interface CarService {
     
     // 해당 model을 보유한 업체 리스트 뽑아내기 위한 리스트
     public List<CarVO> getCarByModel(CarVO vo);
+    
+    //차량 옵션 추가
+    public int insertCarOptions(CarOptionVO vo);
 }

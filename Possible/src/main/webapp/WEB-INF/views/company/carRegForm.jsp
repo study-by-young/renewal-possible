@@ -26,11 +26,17 @@
 				<div class="card-body py-0">
 						<div class="row">
 							<div class="col-sm-12">
-							<form id="frm" name="frm" action="register" method="post">
+							<form id="frm" name="frm" action="register" method="post" enctype="multipart/form-data">
 								<input type="hidden" class="form-control" name='cmpnSeq' value='${cmpnSeq}'>
 								<div class="col-md-12">
 										<div class="row">
 										<ul class="list-unstyled row">
+											<li class="col-md-4">
+												<label class="d-block">IMG1
+													<input type="file" name="uploadFile" onchange="setThumbnail(event)"/>
+												</label>
+											</li>
+											<li id="image_container"></li>
 											<li class="col-md-4">
 												<label class="d-block">브랜드 
 												<select name="brand" id="brand" class="form-control select-fixed-single" onchange="searchModelByBrand()" required>
@@ -57,7 +63,6 @@
 											</li>
 											<li class="col-md-4">
 												<label class="d-block">등급
-													<input type="hidden" name="segment" id="segment" value="">
 														<select name="trim" id="trim" class="form-control select-fixed-single" onchange="searchByBrand()" required>
 															<optgroup label="트림">
 																<option>등급을 선택하세요</option>
@@ -184,8 +189,8 @@
 													<input type="text" class="form-control" name='carNum' placeholder="차 번호를 입력해주세요">
 												</label>
 											</li>
-												
-											   <li class="col-md-12 my-3">
+										
+										<li class="col-md-12 my-3">
                                                 <label>차량 옵션</label>
                                                 <hr class="my-2">
                                                 <div class="x_slider_checkbox_bottom_filter_use">
@@ -196,19 +201,7 @@
                                                     </c:forEach>
                                                 </div>
                                             </li>
-                                            <li class="col-md-12 my-3">
-                                                <label>캠핑 옵션</label>
-                                                <hr class="my-2">
-                                                <div class="x_slider_checkbox_bottom_filter_use">
-                                                    <c:forEach var="option" items="${carOpt}" varStatus="status">
-                                                        <label class="pr-3">
-                                                        <input name="items" id="items" type="checkbox" value="${option.name}">
-                                                        ${option.name}</label>
-                                                    </c:forEach>
-                                                </div>
-
-                                            </li>
-										</ul>
+  										</ul>
 									</div>
 										</div>
 										<button id="reg" class="btn btn-primary" style="float:right; margin-bottom:15px;">등록</button>
@@ -300,4 +293,20 @@
 			return false;
 		}
 	});
+    
+    <!-- 이미지 미리보기 -->
+	function setThumbnail(event){
+		var reader = new FileReader();
+		
+		reader.onload = function(event){
+			$('#imageContainer').empty();
+			var img = document.createElement("img");
+			img.setAttribute("src", event.target.result);
+			img.setAttribute("class", "col-lg-6");
+			document.querySelector("li#image_container").appendChild(img);
+		};
+		
+		reader.readAsDataURL(event.target.files[0]);
+	}
+    
 </script>

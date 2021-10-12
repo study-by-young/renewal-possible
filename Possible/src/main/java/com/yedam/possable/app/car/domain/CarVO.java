@@ -3,6 +3,8 @@ package com.yedam.possable.app.car.domain;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.yedam.possable.app.rent.domain.RentReviewVO;
 
 import lombok.Data;
@@ -38,4 +40,5 @@ public class CarVO {
     private List<InsuranceOptionVO> insuranceList; // 보험 리스트
     private List<RentReviewVO> reviewList; // 리뷰리스트
     
+    private MultipartFile uploadFile;	//첨부파일
 }
