@@ -112,10 +112,7 @@
 		        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
 		    });
 		}
-		var lat = positions[0].latlng.getLat();
-		var lng = positions[0].latlng.getLng();
-		console.log(lat);
-		console.log(lng);
+
 		// 이동할 위도 경도 위치를 생성합니다 
 		var moveLatLon = new kakao.maps.LatLng(positions[0].latlng.getLat(), positions[0].latlng.getLng());
 
