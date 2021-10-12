@@ -120,6 +120,8 @@
 							<li class="nav-item"><a href="${pageContext.request.contextPath}/company/editInfo?cmpnSeq=${cmpnSeq}" class="nav-link"><i class="icon-user-plus"></i><span>정보 수정</span></a></li>
 							<li class="nav-item"><a href="${pageContext.request.contextPath}/company/car?cmpnSeq=${cmpnSeq}" class="nav-link"><i class="icon-car"></i><span>보유렌트카리스트</span></a></li>
 							<li class="nav-item"><a href="${pageContext.request.contextPath}/company/rent?cmpnSeq=${cmpnSeq}" class="nav-link"><i class="icon-clipboard"></i><span>렌트내역관리</span></a></li>
+							<li class="nav-item"><a href="${pageContext.request.contextPath}/company/estSubmit?cmpnSeq=${cmpnSeq}" class="nav-link"><i class="icon-clipboard"></i><span>프리미엄 견적 제출 리스트</span></a></li>
+							
 							</c:if>
 							<!-- /main -->
 

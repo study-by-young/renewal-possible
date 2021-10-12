@@ -1,6 +1,7 @@
 package com.yedam.possable.app.rent.service;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.rent.domain.CompEstiListJoinVO;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 import com.yedam.possable.app.rent.mapper.PremiumRentMapper;
 
@@ -77,5 +78,17 @@ public class PremiumRentServiceImpl implements PremiumRentService{
 	public List<EstimateHistoryVO> getUserEstimateList(Criteria cri, @Param("seq") Long seq) {
 		
 		return premiumRentMapper.getUserEstimateList(cri, seq);
+	}
+
+	@Override
+	public List<CompEstiListJoinVO> compEstiSubmitList(Long seq) {
+		// TODO  업체 확인용 견적서 상세 리스트
+		return premiumRentMapper.compEstiSubmitList(seq);
+	}
+
+	@Override
+	public CompEstiListJoinVO compEstiSubmitOneSelect(Long seq) {
+		// TODO  업체 확인용 견적서 단건 조회
+		return premiumRentMapper.compEstiSubmitOneSelect(seq);
 	}
 }

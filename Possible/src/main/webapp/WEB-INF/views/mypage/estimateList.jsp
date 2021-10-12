@@ -77,7 +77,7 @@
 															<div class="x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left" style="width: 30%;">
 																<ul>
 																	<li style="width: 100%;">
-	                                                                    <a href="estimate/view?seq=${estimate.seq}">견적상세보기</a>
+	                                                                    <a href="${pageContext.request.contextPath}/company/estimate/view?seq=${estimate.seq}">견적상세보기</a>
 	                                                                </li>
 																</ul>
 															</div>
@@ -111,26 +111,17 @@
 													<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 														<div class="x_carbooking_right_section_wrapper float_left">
 															<div class="row">
-																<!-- 업체 정렬 -->
-																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" >
-																	<div class="x_carbook_right_tabs_box_wrapper float_left">
-																		
-																	</div>
-																</div>
-																<!-- End 업체 정렬 -->
-
 																<!-- 해당 차량 보유 업체 목록 -->
-																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 25px; padding-right: 30px; margin-bottom: 20px;">
+																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 25px; padding-right: 30px; margin-bottom: 20px; border-top: 1px solid gainsboro">
 																	<div class="x_carbook_right_tabs_box_wrapper float_left">
-																		<hr class="my-2">
-																		 <div class="row justify-content-end">
+																		 
 																		    <div class="col-2 x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left" style="width: 30%; padding-right: 15px">
 																				<ul>
 																					<li style="width: 100%; "><a href="#">견적제출하기</a>
 																					</li>
 																				</ul>
 																			</div>
-																		 </div>
+								
 																	</div>
 																</div>
 																<!-- End 해당 차량 보유 업체 목록 -->
