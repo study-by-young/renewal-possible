@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.domain.InsuranceOptionVO;
@@ -48,8 +49,9 @@ public class CommonRentController {
     		for(int j=0; j<modelList.size(); j++) {
         		CarVO selectedModelInfo = modelList.get(j);
         		modelList.get(j).setInsuranceList(carService.getCarInsurance(selectedModelInfo));
-        		modelList.get(j).setReviewList(rentReviewService.getReviewListByCmpnSeq(selectedModelInfo)); 
-        		// 리뷰리스트가 null일 경우 해당 차량모델을 보유하고 있더라도 업체가 출력되지 않음
+        		modelList.get(j).setReviewList(rentReviewService.getReviewListByCmpnSeq(selectedModelInfo));
+        		
+        		// 리뷰리스트가 null일 경우 해당 차량모델을 보유하고 있더라도 업체가 출력되지 않음 -> 수정 필요
         		if(modelList.get(j).getReviewList().isEmpty()) {
         			
         		}
@@ -59,18 +61,12 @@ public class CommonRentController {
     	}
     	
     	// 차 모델별(car.model)로 업체 리스트를 뽑고 여기서 뽑은 차 SEQ랑 업체 SEQ로
-    	// List<CarVO> modelList = carService.getCarByModel(vo);
     	// 차 SEQ(modelList.seq)를 가지고 차가 가진 보험 목록을 뽑고
-    	// List<InsuranceOptionVO> insList = carService.getCarInsurance(vo);
     	// 업체 SEQ(modelList.cmpn_seq)를 가지고 업체에 달린 후기 개수를 뽑고
-    	// List<RentReviewVO> reviewList = rentReviewService.getReviewListByCmpnSeq(vo);
     	
     	
     	// 모델별로 대표 하나만 보여주기
     	model.addAttribute("list", allList);
-    	// model.addAttribute("modelList", modelList);
-    	// model.addAttribute("insList", insList);
-    	// model.addAttribute("reviewList", reviewList);
 
         model.addAttribute("areaCodes", codeService.getCodesByParentCode("지역"));
         return "rent/comm/carList";
@@ -78,9 +74,11 @@ public class CommonRentController {
     
     // 렌트카 상세보기
     @GetMapping("/view")
-    @ResponseBody
-    public String rentCarView(Model model) {
+    public String rentCarView(Model model, RedirectAttributes rttr) {
     	model.addAttribute("list", carService.getCarList());
+    	// 넘어와야 하는 값
+    	// startDate, endDate, searchArea, carSeq, cmpnSeq
+    	
         return "rent/comm/carView";
     }
  

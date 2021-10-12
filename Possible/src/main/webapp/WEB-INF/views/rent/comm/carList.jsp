@@ -187,7 +187,7 @@
                     </div>
                     -->
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 full_width" style="text-align: center;">
-                        <button type="button" class="btn bg-primary-400 btn-float" style="color: white;">검색 <i class="icon-search4 icon-2x" style="font-size: 1rem; color: white;"></i></button>
+                        <button onclick="location.href='list'" type="button" class="btn bg-primary-400 btn-float" style="color: white;">검색 <i class="icon-search4 icon-2x" style="font-size: 1rem; color: white;"></i></button>
                         <button type="button" class="btn btn-lg bg-transparent text-primary border-primary ml-1 legitRipple" data-toggle="modal" data-target="#recommendCarModal" style="font-size: 1rem; font-weight: bold;">추천받기</button>
                     </div>
                 </div>
@@ -400,7 +400,7 @@
 														<div class="x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left" style="width: 30%;">
 															<ul>
 																<li style="width: 100%;">
-                                                                    <a href="#" id="viewCarBtn">상세보기</a>
+                                                                    <a href="#" id="viewCarBtn" class="viewCarBtn">상세보기</a>
                                                                 </li>
 															</ul>
 														</div>
@@ -449,7 +449,7 @@
 																	</div>
 																</div>
 																<!-- End 업체 정렬 -->
-																${car.modelList}
+																
 																<!-- 해당 차량 보유 업체 목록 -->
 																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 25px; padding-right: 30px; margin-bottom: 20px;">
 																	<div class="x_carbook_right_tabs_box_wrapper float_left">
@@ -483,7 +483,7 @@
 																							</c:if>
 																						</td>
 																						<td style="width: 15%;">
-																							<!-- 리뷰리스트가 null일 경우 해당 차량모델을 보유하고 있더라도 업체가 출력되지 않음ㅠㅠ -->
+																							<!-- 리뷰리스트가 null일 경우 해당 차량모델을 보유하고 있더라도 업체가 출력되지 않음 수정 필요 -->
 																							<c:if test="${empty model.reviewList}">
 																								리뷰 0 개
 																							</c:if>
@@ -536,6 +536,11 @@
 		</div>
 	</div>
 </div>
+
+연도:<p id="year"></p>
+월:<p id="month"></p>
+일:<p id="day"></p>
+요일:<p id="mydate"></p>
 
 <script>
     var Select2Selects = function() {
@@ -739,10 +744,50 @@
     });
     
     
-    // 상세조회 버튼
-    $('#viewCarBtn').on('click', function(){
+    var searchArea = $('#searchArea').val();
+    var searchStart = $('#searchStart').val();
+    var searchEnd = $('#searchEnd').val();
+    
+
+    var cmpnSeq;
+    var seq;
+    $('.cmpn_list_tr').on('click', function(){
+    	$(this).find('input').prop('checked', 'true');
     	
+    	cmpnSeq = $(this).find('input[name="cmpnSeq"]').val();
+    	seq = $(this).find('input[name="seq"]').val();
+  
+    	
+    	
+    	var chk = $(this).find('input').is(':checked');
+   		if(chk == true){			
+    		$(this).css('background-color', 'yellow');
+   		} else{
+   			$(this).css('background-color', 'red');
+   		}
     });
+    
+    
+    
+    // 상세조회 버튼
+    $('.viewCarBtn').on('click', function(){
+    	$.ajax({
+    		url: 'view',
+    		data: {
+    			searchArea : searchArea,
+    			searchStart : searchStart,
+    			searchEnd : searchEnd,
+    			cmpnSeq : cmpnSeq,
+    			seq : seq
+    		},
+    		dataType: 'json',
+    		success: function(){},
+    		error: function(xhr, status, message){
+				alert('status: ' + status + ' er: ' + message);
+			}
+    	});
+    });
+
 	
 </script>
 <!-- x car book sidebar section Wrapper End -->
