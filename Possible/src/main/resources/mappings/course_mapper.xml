@@ -7,7 +7,7 @@
 		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
 			SELECT SEQ_COURSE.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO COURSE VALUES (1, #{seq}, #{placeNo}, #{contentId})
+		INSERT INTO COURSE VALUES (#{courseSeq}, #{seq}, #{placeNo}, #{contentId})
 	</insert>
 	
 <!-- 	<insert id="insert" parameterType="CourseVO">

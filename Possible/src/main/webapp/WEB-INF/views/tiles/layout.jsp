@@ -25,6 +25,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/jquery.inview.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/xpedia.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/app.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/custom.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/plugins/editors/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f27bcc6bda802ee242aa34341608b2c6"></script>

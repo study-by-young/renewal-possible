@@ -33,7 +33,7 @@ response.setContentType("text/html; charset=utf-8");
 				<div
 					class="col-xl-5 offset-xl-1 col-lg-6 col-md-6 col-sm-12 col-xs-12">
 					<div class="contect_form2">
-						<input id="writer" name="writer" value="토비" type="text"
+						<input id="writer" name="writer" value="티키" type="text"
 							placeholder="Writer" readonly="readonly">
 					</div>
 				</div>
@@ -115,8 +115,6 @@ response.setContentType("text/html; charset=utf-8");
 		</div>
 	</div>
 </form>
-<form id="idFrm" name="idFrm" role="form">
-</form>
 <script>
 	$(function() {
 		var container = $('#takePlaceMap')[0]; //지도를 담을 영역의 DOM 레퍼런스
@@ -186,8 +184,7 @@ response.setContentType("text/html; charset=utf-8");
 											'<li data-markerIdx="' + markerIdx + '" style="cursor: pointer;"><i class="fa fa-long-arrow-right"></i>&nbsp;&nbsp;'
 													+ $(this).text()
 													+ '<span style="float: right"><i class="fa fa-times-circle"></i></span></li>')
-									.append('<hr>');
-							$("#idFrm")
+									.append('<hr>')
 									.append('<input type="hidden" id="contentId" name="contentId" value="'+$(this).attr("data-contentId")+'">');
 							
 							// 마커가 표시될 위치입니다 
@@ -258,35 +255,64 @@ response.setContentType("text/html; charset=utf-8");
 	
 	// course insert
 	$(function(){
-
+		var arr = [];
 		$('.insert').on('click', function(){
-	    	/* //값들의 갯수 -> 배열 길이를 지정
-			var cnt = $("input[name=contentId]").length;
-			//배열 생성
-			var arr = []
+	    	//값들의 갯수 -> 배열 길이를 지정
+	    	var contentIds = $("input[name=contentId]");
+	    	
 			//배열에 값 주입
-			for(var i=0; i<cnt; i++){                          
-				arr[i] = {'contentId' : $("input[name=contentId]").eq(i).val()};
-		    } */
-			console.log(JSON.stringify($("#frm").serializeArray()));
-		    console.log(JSON.stringify($("#idFrm").serializeArray()))
+			for(var i=0; i<contentIds.length; i++){   
+				let orgName = contentIds.eq(i).attr("name");
+				
+				//contentIds.eq(i).attr("name", orgName + i);
+				var temp = { contentId : contentIds.eq(i).val()}
+				arr.push(temp);
+		    }
+			
+			
+			/* let data = JSON.stringify({
+   		    	title: $('[name="title"]').val(),
+   		    	writer: $('[name="writer"]').val(),
+   		    	genDate: $('[name="genDate"]').val(),
+   		    	startDate: $('[name="startDate"]').val(),
+   		    	endDate: $('[name="endDate"]').val(),
+   		    	content: $('[name="content"]').val()
+   		    });
+			contentId: arr */
+			
+			let data = {
+				title: $('[name="title"]').val(),
+	   		    writer: $('[name="writer"]').val(),
+	   		    genDate: $('[name="genDate"]').val(),
+	   		    startDate: $('[name="startDate"]').val(),
+	   		    endDate: $('[name="endDate"]').val(),
+	   		    content: $('[name="content"]').val(),
+	   			boardList: arr
+			}
+			
+			console.log($('form').serialize());
+			//console.log(JSON.stringify($("#frm").serializeObject()));
+		    //console.log(JSON.stringify($("#idFrm").serializeObject()));
+		    //let data = JSON.stringify($("#frm").serializeObject()) + JSON.stringify($("#idFrm").serializeObject());
+		    //console.log(data);
 		/* 	//객체를 string으로 변환
 	   		console.log(JSON.stringify(list));
 			var listData = JSON.stringify(list); */
+			 
 	   		//ajax 호출 
 	   		$.ajax({
 	   			url: 'write',
 	   		    type: 'post',
-	   		    data : {"board" :JSON.stringify($("#frm").serializeArray()),
-	   		    	"tour" : JSON.stringify($("#idFrm").serializeArray())
-	   		    },
-	   		 	// contentType: 'application/json; charset=utf-8',
-	   		 	traditional : true,
+	   		    data : JSON.stringify(data),
+	   		    dataType : 'json',
+	   		 	contentType: 'application/json; charset=utf-8',
+	   		 	// traditional : true,
 	   		    success: function (data){
 	   		        console.log(data);
 	   		    },
 	   		    error: function (error){
-	   		        alert(error + "등록이 실패하였습니다.");
+	   		     	console.log(error);
+	   		        alert(error);
 	   		    }
 	   		});
 		});

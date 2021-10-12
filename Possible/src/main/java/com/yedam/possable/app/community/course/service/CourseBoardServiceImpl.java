@@ -75,7 +75,7 @@ public class CourseBoardServiceImpl implements CourseBoardService {
 			courseBoardMapper.courseInsert(course);
 		}
 		System.out.println(list.toString());
-		return list.size();
+		return 0;
 	}
 
 	@Override
