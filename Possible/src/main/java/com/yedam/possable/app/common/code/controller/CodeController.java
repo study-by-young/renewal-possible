@@ -1,5 +1,6 @@
 package com.yedam.possable.app.common.code.controller;
 
+import com.yedam.possable.app.common.code.domain.CodeSubVO;
 import com.yedam.possable.app.common.code.domain.ModelCodeVO;
 import com.yedam.possable.app.common.code.domain.TrimCodeVO;
 import com.yedam.possable.app.common.code.service.CodeService;

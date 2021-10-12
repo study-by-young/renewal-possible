@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.possable.app.company.mapper.CompanyMapper">
+    <resultMap id="company" type="CompanyVO">
+        <id property="seq" column="seq" />
+        <result property="name" column="name" />
+        <result property="postal" column="postal" />
+        <result property="cmpnNum" column="cmpn_num" />
+        <result property="tel" column="tel" />
+        <result property="status" column="status" />
+        <result property="genDate" column="gen_date"/>
+        <result property="uptDate" column="upt_date"/>
+        <result property="addr1" column="addr1"/>
+        <result property="addr2" column="addr2"/>
+        <result property="area" column="area"/>
+        <association property="memberVO"
+                     column="mem_seq"
+                     columnPrefix="mem_"
+                     resultMap="com.yedam.possable.app.member.mapper.MemberMapper.member"
+                     javaType="com.yedam.possable.app.member.domain.MemberVO"/>
+    </resultMap>
     <sql id="criteria">
         <trim prefix="(" suffix=")" prefixOverrides="OR">
             <foreach collection="typeArr" item="type">
@@ -125,7 +143,7 @@
         FROM COMPANY
         WHERE SEQ = #{seq}
     </select>
-    
+
     <!-- 업체 한건-->
     <select id="companySelect" resultType="CompanyVO">
         SELECT SEQ,
@@ -174,19 +192,19 @@
 
     <!-- 업체 업체정보수정(휴대폰번호,이메일,주소) -->
 	<update id="companyInfoUpdate">
-	UPDATE COMPANY SET 
+	UPDATE COMPANY SET
 				  TEL = #{tel},
                   ADDR1 = #{addr1},
                   ADDR2 = #{addr2},
                   AREA = #{area}
 	WHERE SEQ = #{seq}
 	</update>
-	
+
 	<!-- 업체 탈퇴 -->
 	<delete id="deleteCompany">
 	DELETE FROM COMPANY
 	WHERE SEQ = #{seq}
 	</delete>
-	
+
 </mapper>
 

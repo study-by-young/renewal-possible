@@ -1,6 +1,5 @@
 package com.yedam.possable.app.member.controller;
 
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,11 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.car.domain.CarVO;
@@ -39,7 +34,7 @@ import lombok.extern.java.Log;
 
 @Log
 @Controller
-@RequestMapping("/mypage/*")
+@RequestMapping("/mypage")
 public class MypageController {
     @Autowired
     MemberService memberService;
@@ -55,7 +50,7 @@ public class MypageController {
     RentHistoryService rentHistory;
     @Autowired
     PremiumRentService premiumRentService;
-    
+
     //마이페이지 대쉬보드 페이지
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session) {
@@ -75,7 +70,7 @@ public class MypageController {
                            Model model,
                            HttpServletRequest request) {
         MemberVO loginUser = memberService.getLoginMember(authentication);
-        
+
         model.addAttribute("memberList", memberService.read(loginUser));
         return "mypage/editProfile";
     }
@@ -83,7 +78,7 @@ public class MypageController {
     // 회원 정보 수정 처리
     @PostMapping("/editProfile/complete")
     public String editProfile(){
-    	
+
         return "mypage/dashboard";
     }
 
@@ -101,9 +96,9 @@ public class MypageController {
     						   Authentication authentication
     						   ){
     	MemberVO mvo = memberService.getLoginMember(authentication);
-    
+
     	List<EstimateHistoryVO> estimateList = premiumRentService.getUserEstimateList(cri, mvo.getSeq());
-		
+
 		for (int i = 0; i < estimateList.size(); i++) {
 			Map<String, Object> voMap = new HashMap<String, Object>();
 			System.out.println("---------- : " + i + estimateList.size());
@@ -116,11 +111,11 @@ public class MypageController {
 			//model.addAttribute("code", map); // map.add(voMap); //
 			//model.addAttribute("getTrim", getTrim); // Trim 들고옴 //
 			//model.addAttribute("subCode", subCode);
-			
+
 		}
 		model.addAttribute("estList", estimateList);
-		
-		
+
+
         return "mypage/estimateList";
     }
 
@@ -129,7 +124,7 @@ public class MypageController {
     public String estimateView(Model model,
 							   Authentication authentication,
 							   @RequestParam Long seq){
-    	 
+
     	model.addAttribute("estimate", premiumRentService.getEstimate(seq));
         return "mypage/estimateView";
     }
@@ -137,32 +132,31 @@ public class MypageController {
     // 견적 요청 수정
     @GetMapping("/estiamte/update")
     public String estimateUpdateForm(@RequestParam Long seq,
-							          Principal principal,
 							          HttpServletRequest request,
 							          RedirectAttributes attributes,
 							          Authentication authentication,
 							          Model model){
-    	
+
     	 EstimateHistoryVO vo = (EstimateHistoryVO) premiumRentService.getEstimate(seq).get("estimate");
     	 MemberVO mvo = memberService.getLoginMember(authentication);
     	 //String user = ((MemberVO) principal).getId();
-    	
-         String writer = vo.getMemSeq().toString();
-         String user = String.valueOf(mvo.getSeq()).toString();
-         
+
+         String writer = vo.getMemberVO().getSeq().toString();
+         String user = mvo.getSeq().toString();
+
          String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
          String itemOptCode = codeService.getMasterCodeByName("여행용품 옵션").getCode();
-        
+
          if (user == null || !user.equals(writer)) {
              attributes.addFlashAttribute("updateMsg", "작성자만 수정 가능합니다.");
              return "redirect:" + request.getHeader("REFERER");
          }
-         model.addAttribute("brands", codeService.getBrandList()); 
+         model.addAttribute("brands", codeService.getBrandList());
          model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
          model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
-         
+
          model.addAttribute("estimate", premiumRentService.getEstimate(seq));
-         
+
         return "rent/prm/estimateRegForm";
     }
 
@@ -184,23 +178,23 @@ public class MypageController {
     							  Long seq,
 						    	  @ModelAttribute("cri") Criteria cri,
 						    	  RentHistoryVO vo,
-						    	  
+
 						    	  HttpServletRequest request){
-    	
+
     	HttpSession session = request.getSession();
     	MemberVO mvo = (MemberVO) session.getAttribute("member");
-    	
+
     	int total = rentHistory.getHistoryCount();
-    	
+
         model.addAttribute("getView", rentHistory.MyPageRentHistoryList(cri, mvo.getSeq()));
         model.addAttribute("page", new PageVO(cri, total));
         List<RentHistoryVO> rhlist = new ArrayList<RentHistoryVO>();
         rhlist = rentHistory.MyPageRentHistoryList(cri, mvo.getSeq());
-        
+
         for (int i = 0; i < rhlist.size(); i++) {
         	System.out.println(rhlist.get(i).getCarSeq());
         	System.out.println("==================회사코드");
-        	
+
         	System.out.println(rhlist.get(i).getCmpnSeq());
         	CarVO cvo1 = new CarVO();
         	cvo1.setSeq(rhlist.get(i).getCarSeq());
@@ -208,15 +202,15 @@ public class MypageController {
         	System.out.println("======================="+i+"=====================");
         	System.out.println(carService.getCar(cvo1));
         	model.addAttribute("car", carService.getCar(cvo1));
-        	
+
         	CompanyVO cov = new CompanyVO();
         	cov.setSeq(rhlist.get(i).getCmpnSeq());
         	System.out.println("두번쨰 회사 코드==="+rhlist.get(i).getCmpnSeq());
         	model.addAttribute("company", companyService.companyOneSelect(cov));
         }
-        	
-    
-    	
+
+
+
     	return "mypage/rentHistoryList";
     }
 
@@ -270,7 +264,7 @@ public class MypageController {
         return "mypage/estimateView";
     }
 
-    
+
 
 
 

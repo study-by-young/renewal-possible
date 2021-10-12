@@ -21,7 +21,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public MemberVO getLoginMember(Authentication authentication) {
 
-        return ((MemberVO)authentication.getPrincipal());
+        return authentication != null ? (MemberVO) authentication.getPrincipal() : null;
     }
 
     @Override
