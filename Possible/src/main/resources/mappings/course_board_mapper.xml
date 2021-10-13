@@ -50,7 +50,7 @@
 	</select>
 
 	<select id="getList" resultType="CourseBoardVO">
-		SELECT * FROM COURSE_BOARD
+		SELECT * FROM COURSE_BOARD ORDER BY SEQ DESC
 	</select>
 	
 	<select id="read" resultType="CourseBoardVO">

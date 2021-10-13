@@ -1,7 +1,7 @@
 package com.yedam.possable.app.community.course.controller;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.community.course.domain.CourseBoardVO;
 import com.yedam.possable.app.community.course.domain.CourseVO;
@@ -59,12 +60,14 @@ public class CourseBoardController {
     
     @PostMapping("/write")
     @ResponseBody
-    public String courseInsert(@RequestBody Map<String,Object> board) {
-    	System.out.println(board.toString());
-//    	courseBoardService.insert(board);
-//    	System.out.println(board.getSeq());
-//    	Long num = board.getSeq();
-//    	courseBoardService.courseInsert(courseList, num);
+    public String courseInsert(@RequestBody CourseBoardVO board) {
+    	System.out.println(board);	
+ 
+    	//ObjectMapper mapper = new ObjectMapper();
+    	courseBoardService.insert(board);
+    	System.out.println(board.getSeq());
+    	Long num = board.getSeq();
+    	courseBoardService.courseInsert(board.getBoardList(), num);
     	return "test";
     }
 

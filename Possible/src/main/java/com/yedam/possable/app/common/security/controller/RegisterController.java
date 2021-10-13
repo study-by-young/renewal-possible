@@ -28,7 +28,7 @@ public class RegisterController {
     @GetMapping("/user")
     public String userRegForm() {
 
-        return "home";
+        return "member/userRegisterForm";
     }
 
     // 사용자 회원가입 처리

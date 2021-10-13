@@ -187,7 +187,7 @@
                     </div>
                     -->
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 full_width" style="text-align: center;">
-                        <button type="button" class="btn bg-primary-400 btn-float" style="color: white;">검색 <i class="icon-search4 icon-2x" style="font-size: 1rem; color: white;"></i></button>
+                        <button onclick="location.href='list'" type="button" class="btn bg-primary-400 btn-float" style="color: white;">검색 <i class="icon-search4 icon-2x" style="font-size: 1rem; color: white;"></i></button>
                         <button type="button" class="btn btn-lg bg-transparent text-primary border-primary ml-1 legitRipple" data-toggle="modal" data-target="#recommendCarModal" style="font-size: 1rem; font-weight: bold;">추천받기</button>
                     </div>
                 </div>
@@ -400,7 +400,7 @@
 														<div class="x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left" style="width: 30%;">
 															<ul>
 																<li style="width: 100%;">
-                                                                    <a href="#" id="viewCarBtn">상세보기</a>
+                                                                    <a href="#" id="viewCarBtn" class="viewCarBtn">상세보기</a>
                                                                 </li>
 															</ul>
 														</div>
@@ -416,6 +416,7 @@
                                                                             <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>트렁크: ${car.trunk}</li>
                                                                             <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>문: ${car.door}</li>
                                                                             <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>연비: ${car.kmpl}</li>
+                                                                            <!-- model 반복 안에서 carSeq or cmpnSeq 받아와서 ajax로 OneSelect문 돌리고 결과물 ul 밑에 li 추가하는 걸로 하면 될 듯 -->
                                                                             <%-- <c:forEach var="itm" items="${items}">
                                                                             </c:forEach> --%>
                                                                         </ul>
@@ -458,17 +459,41 @@
 																				<!-- 기본으로 첫번째 행이 선택되어 있도록 -->
 																				<tbody>
 																				<c:forEach var="model" items="${car.modelList}">
+																				<c:forEach var="insurance" items="${model.insuranceList}">
+																				<c:forEach var="review" items="${model.reviewList}">
 																					<tr class="cmpn_list_tr">
 																						<td style="width: 40%;">
-																							<label><input type="radio" id="" name="cmpn">&nbsp;&nbsp;${model.name}</label>
+																							<label><input type="radio" id="cmpn" name="cmpn">&nbsp;&nbsp;${model.name}</label>
 																							<input type="hidden" id="cmpnSeq" name="cmpnSeq" value="${model.cmpnSeq}">
 																							<input type="hidden" id="seq" name="seq" value="${model.seq}">
 																						</td>
-																						<td style="width: 15%;">${model.cmpnSeq} {만25세}</td>
-																						<td style="width: 15%;">${model.seq} 보험</td>
-																						<td style="width: 15%;">리뷰 {개수}</td>
+																						<td style="width: 15%;">
+																							<c:if test="${insurance.optCode eq 'IOP01'}">
+																								만 22세
+																							</c:if>
+																							<c:if test="${insurance.optCode eq 'IOP02'}">
+																								만 25세
+																							</c:if>
+																						</td>
+																						<td style="width: 15%;">
+																							<c:if test="${insurance.optCode eq 'IOP01'}">
+																								일반자차
+																							</c:if>
+																							<c:if test="${insurance.optCode eq 'IOP02'}">
+																								완전자차
+																							</c:if>
+																						</td>
+																						<td style="width: 15%;">
+																							<!-- 리뷰리스트가 null일 경우 해당 차량모델을 보유하고 있더라도 업체가 출력되지 않음 수정 필요 -->
+																							<c:if test="${empty model.reviewList}">
+																								리뷰 0 개
+																							</c:if>
+																							리뷰 ${review.cnt} 개
+																						</td>
 																						<td style="width: 15%; text-align: right;">${model.price}</td>
 																					</tr>
+																				</c:forEach>
+																				</c:forEach>
 																				</c:forEach>	
 																				</tbody>
 																			</table>
@@ -715,10 +740,52 @@
     });
     
     
-    // 상세조회 버튼
-    $('#viewCarBtn').on('click', function(){
+    var searchArea = $('#searchArea').val();
+    var searchStart = $('#searchStart').val();
+    var searchEnd = $('#searchEnd').val();
+    
+
+    var cmpnSeq;
+    var seq;
+    $('.cmpn_list_tr').on('click', function(){
+    	$(this).find('input').prop('checked', 'true');
     	
+    	cmpnSeq = $(this).find('input[name="cmpnSeq"]').val();
+    	seq = $(this).find('input[name="seq"]').val();
+  
+    	
+    	
+    	var chk = $(this).find('input').is(':checked');
+   		if(chk == true){			
+    		$(this).css('background-color', 'yellow');
+   		} else{
+   			$(this).css('background-color', 'red');
+   		}
     });
+    
+    
+    vo = {
+   		cmpnSeq : cmpnSeq,
+		seq : seq	
+    };
+    // 상세조회 버튼
+    $('.viewCarBtn').on('click', function(){
+    	$.ajax({
+    		url: 'view',
+    		data: {
+    			vo
+    		},
+    		dataType: 'text',
+    		success: function(data){
+    			console.log(data);
+    			alert('성공');
+    		},
+    		error: function(xhr, status, message){
+				alert('status: ' + status + ' er: ' + message);
+			}
+    	});
+    });
+
 	
 </script>
 <!-- x car book sidebar section Wrapper End -->

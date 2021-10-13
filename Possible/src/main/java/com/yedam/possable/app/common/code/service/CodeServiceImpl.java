@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CodeServiceImpl implements CodeService{
+public class CodeServiceImpl implements CodeService {
     @Autowired
     CodeMapper codeMapper;
 
@@ -54,6 +54,11 @@ public class CodeServiceImpl implements CodeService{
     }
 
     @Override
+    public BrandCodeVO getBrandByName(String name) {
+        return codeMapper.getBrandByName(name);
+    }
+
+    @Override
     public List<ModelCodeVO> getModelList(String brandCode) {
         return codeMapper.getModelList(brandCode);
     }
@@ -64,6 +69,11 @@ public class CodeServiceImpl implements CodeService{
     }
 
     @Override
+    public ModelCodeVO getModelByName(String name) {
+        return codeMapper.getModelByName(name);
+    }
+
+    @Override
     public List<TrimCodeVO> getTrimList(String modelCode) {
         return codeMapper.getTrimList(modelCode);
     }
@@ -71,5 +81,10 @@ public class CodeServiceImpl implements CodeService{
     @Override
     public TrimCodeVO getTrim(String code) {
         return codeMapper.getTrim(code);
+    }
+
+    @Override
+    public TrimCodeVO getTrimByName(String name) {
+        return codeMapper.getTrimByName(name);
     }
 }

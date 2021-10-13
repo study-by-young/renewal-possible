@@ -43,10 +43,10 @@ public class AdminController {
 
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session,Model model, @ModelAttribute("cri") Criteria cri) {
-    	
+
 		model.addAttribute("notice", noticeService.getList(cri));
 		 model.addAttribute("comRegList", companyService.companyRegList());
-    	
+
     	return "admin/dashboard";
     }
 
@@ -119,7 +119,7 @@ public class AdminController {
         MemberVO memVo = new MemberVO();
         memVo.setSeq(memSeq);
         memVo.setAuthor("ROLE_COMPANY");
-        vo.setMemSeq(memSeq);
+        vo.setMemberVO(memVo);
         memberService.authorUpdate(memVo);
 
         int result = companyService.companyRegUpdate(vo);

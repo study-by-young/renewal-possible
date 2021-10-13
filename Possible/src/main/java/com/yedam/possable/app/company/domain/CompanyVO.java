@@ -1,5 +1,6 @@
 package com.yedam.possable.app.company.domain;
 
+import com.yedam.possable.app.member.domain.MemberVO;
 import lombok.Data;
 
 import java.util.Date;
@@ -18,6 +19,7 @@ public class CompanyVO {
     private Date genDate;
     private Date uptDate;
 
-    private Long memSeq;
+    private MemberVO memberVO;
+//    private Long memSeq;
 }
 

@@ -15,7 +15,7 @@
 </select>
 
 <update id="update">
-	UPDATE TOUR SET ADDR1 = #{addr1}, AREACODE = #{areaCode}, CAT1 = #{cat1}, CAT2 = #{cat2}, CAT3 = #{cat3}, CONTENTTYPEID = #{contentTypeId}, CREATEDTIME = #{createdTime}, FIRSTIMAGE = #{firstImage}, FIRSTIMAGE2 = #{firstImage2}, MAPX = #{mapX}, MAPY = #{mapY}, MLEVEL = #{mLevel}, MODIFIEDTIME = #{modifiedTime}, READCOUNT = #{readCount}, SIGUNGUCODE = #{sigunguCode}, TITLE = #{title}, ZIPCODE = #{zipCode} 
+	UPDATE TOUR SET ADDR1 = #{addr1}, AREACODE = #{areaCode}, CAT1 = #{cat1}, CAT2 = #{cat2}, CAT3 = #{cat3}, CONTENTTYPEID = #{contentTypeId}, CREATEDTIME = #{createdTime}, FIRSTIMAGE = #{firstImage}, FIRSTIMAGE2 = #{firstImage2}, MAPX = #{mapX}, MAPY = #{mapY}, MLEVEL = #{mLevel}, MODIFIEDTIME = #{modifiedTime}, READCOUNT = #{readCount}, SIGUNGUCODE = #{sigunguCode}, TITLE = #{title}, ZIPCODE = #{zipCode}
 	WHERE CONTENTID = #{contentId}
 </update>
 
@@ -25,5 +25,12 @@
 
 <select id="getList" resultType="TestVO">
 	SELECT DISTINCT * FROM TOUR
+</select>
+
+<select id="getLatestList" resultType="TestVO">
+	<![CDATA[
+	SELECT ROWNUM, t.* FROM (SELECT * FROM tour ORDER BY contentid) t
+	WHERE ROWNUM < 10
+	]]>
 </select>
 </mapper>

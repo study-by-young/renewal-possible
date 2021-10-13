@@ -1,6 +1,7 @@
 package com.yedam.possable.app.car.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -20,7 +21,7 @@ public interface CarMapper {
     public List<CarOptionVO> getCarOptions(CarVO vo);
 
     // 차량 보험 조회
-    public List<InsuranceOptionVO> getCarInsurance(Long seq);
+    public List<InsuranceOptionVO> getCarInsurance(CarVO vo);
 
     // 차량 상태 변경
     public int updateStatus(CarVO vo);
@@ -44,5 +45,8 @@ public interface CarMapper {
     public List<CarVO> getDistinctCarList();
     
     // 해당 model을 보유한 업체 리스트 뽑아내기 위한 리스트
-    public List<CarVO> getCarByModel(String carModel);
+    public List<CarVO> getCarByModel(CarVO vo);
+    
+    //차량 옵션 추가
+    public int insertCarOptions(CarOptionVO vo);
 }

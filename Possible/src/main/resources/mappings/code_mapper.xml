@@ -67,4 +67,22 @@
         FROM trim_code
         WHERE code = #{code}
     </select>
+
+    <select id="getBrandByName" resultType="BrandCodeVO">
+        SELECT *
+        FROM brand_code
+        WHERE name = #{name}
+    </select>
+
+    <select id="getModelByName" resultType="ModelCodeVO">
+        SELECT *
+        FROM model_code
+        WHERE name = #{name}
+    </select>
+
+    <select id="getTrimByName" resultType="TrimCodeVO">
+        SELECT *
+        FROM trim_code
+        WHERE name = #{name}
+    </select>
 </mapper>
