@@ -42,7 +42,7 @@ public class CommonRentController {
     private CompanyService companyService;
 
     // 렌트카 리스트
-    @GetMapping("/list")
+    @GetMapping
     public String rentCarList(Model model, Long seq, CarVO vo, RentReviewVO rvo, @ModelAttribute("cri") Criteria cri) {
     	// 자동차 SEQ -> 업체SEQ -> 업체정보, 리뷰개수
     	// 자동차 SEQ -> 보험
