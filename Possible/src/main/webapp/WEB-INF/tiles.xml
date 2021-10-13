@@ -15,10 +15,23 @@
         <put-attribute name="footer" value="/WEB-INF/views/tiles/admin_footer.jsp" />
     </definition>
 
+    <definition name="Template" template="/WEB-INF/views/tiles/template_layout.jsp">
+        <put-attribute name="header" value="/WEB-INF/views/tiles/template_header.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/views/tiles/template_footer.jsp" />
+    </definition>
+
 	<!-- 타일즈 적용하고 싶지 않을 때 설정 -->
 	<definition name="no/*/*" template="/WEB-INF/views/tiles/nolayout.jsp">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
 	</definition>
+
+    <!-- 레이아웃 변경 페이지 설정-->
+    <definition name="rent/prm/*" extends="Template">
+        <put-attribute name="content" value="/WEB-INF/views/rent/prm/{1}.jsp" />
+    </definition>
+    <definition name="home" extends="Template">
+        <put-attribute name="content" value="/WEB-INF/views/home.jsp" />
+    </definition>
 
     <!-- 어드민 및 업체 관리 페이지 설정 -->
     <definition name="admin/*" extends="adminTemplate">

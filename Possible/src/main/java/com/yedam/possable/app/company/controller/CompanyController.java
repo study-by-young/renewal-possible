@@ -54,7 +54,7 @@ public class CompanyController {
     CodeService codeService;
     @Autowired
     PremiumRentService premiumRentService;
-    
+
     //업체 대시보드
     @GetMapping("/dashboard")
     public String dashboard(HttpServletRequest request,
@@ -66,11 +66,11 @@ public class CompanyController {
             attributes.addFlashAttribute("denyMsg", "업체회원이 아닙니다.");
             return "redirect:" + request.getHeader("REFERER");
         }
-        
+
         HttpSession session = request.getSession();
         session.setAttribute("cmpnSeq", companyVO.getSeq());
-        
-        
+
+
         return "company/dashboard";
     }
 
@@ -110,13 +110,13 @@ public class CompanyController {
     	  MemberVO memVo = new MemberVO();
           memVo.setSeq(memSeq);
           memVo.setAuthor("ROLE_USER");
-          vo.setMemSeq(memSeq);
+          vo.setMemberVO(memVo);
           memberService.authorUpdate(memVo);
     		int result = companyService.deleteCompany(vo);
     		if(result == 1) {
-    			rttr.addFlashAttribute("result", "success");			
+    			rttr.addFlashAttribute("result", "success");
     		}
-    		
+
     		return "redirect:/";		//파라미터 전달 X
     }
 
@@ -129,14 +129,16 @@ public class CompanyController {
        model.addAttribute("companyCarList", carList);
         return "company/carList";
     }
-    
+
 
 
     // 업체 보유 렌트카 상세
     @GetMapping("/car/view")
     public String companyCarOneSelect(CarVO vo, Model model, CarOptionVO optVO, @RequestParam Long seq, @RequestParam Long cmpn) {
+        CompanyVO companyVO = new CompanyVO();
+        companyVO.setSeq(cmpn);
        vo.setSeq(seq);
-       vo.setCmpnSeq(cmpn);
+       vo.setCompanyVO(companyVO);
        model.addAttribute("car",carService.getCompanyCar(vo));
        model.addAttribute("opt", carService.getCarOptions(vo));
        return "company/carView"; // JSP에서 company 시퀀스 넘겨줘야함
@@ -165,10 +167,10 @@ public class CompanyController {
         String root_path = session.getServletContext().getRealPath("/");
         String attach_path = "resources/images";
 
-        
+
     	String fileName=null;
 		MultipartFile uploadFile = vo.getUploadFile();
-		
+
 		if (!uploadFile.isEmpty()) {
 			String originalFileName = uploadFile.getOriginalFilename();
 			String ext = FilenameUtils.getExtension(originalFileName);	//확장자 구하기
@@ -177,7 +179,7 @@ public class CompanyController {
 			uploadFile.transferTo(new File(root_path + attach_path + fileName));
 		}
 		vo.setImg1(fileName);
-    	
+
     	// 코드 -> 네임 변환
         vo.setSegment(codeService.getCodeByValue(vo.getSegment()).getName());
         vo.setBrand(codeService.getBrand(vo.getBrand()).getName());
@@ -187,13 +189,13 @@ public class CompanyController {
 
         int result = carService.insertCompanyCar(vo);
         rttr.addFlashAttribute("result", result);
-          
+
         optVO.setCarSeq(vo.getSeq());
         optVO.setOptCode(Arrays.toString(optionsArr));
-        
+
           int result2 = carService.insertCarOptions(optVO);
           rttr.addFlashAttribute("result2", result2);
-          
+
         return "redirect:/company/car";
     }
 
@@ -217,11 +219,11 @@ public class CompanyController {
 
     	int result = 0;
         Long seq = 0L;
-        
+
         for (String i : chArr) {
             seq = Long.parseLong(i);
             vo.setSeq(seq);
-            
+
             carService.deleteCompanyCar(vo);
         }
         result = 1;
@@ -234,18 +236,18 @@ public class CompanyController {
     public String estSubmitList(CompEstiListJoinVO vo,
 					    		Model model,
 					    		@RequestParam Long cmpnSeq,
-					    		Authentication authentication){    	
-    	 
+					    		Authentication authentication){
+
     	System.out.println("넌 뭔데?"+cmpnSeq);
     	vo.setCmpnSeq(cmpnSeq);
     	 System.out.println("이건될까..?"+vo.toString());
     	 System.out.println("이거 뭔데?"+vo.toString());
-    	 
+
     	 List<CompEstiListJoinVO> estimate = premiumRentService.compEstiSubmitList(vo.getCmpnSeq());
     	 System.out.println("제발....."+estimate);
     	 model.addAttribute("estimate", estimate);
     	 //Map<String, Object> attr = new LinkedHashMap<>();
-         
+
         // List<Map<String, Object>> estimateList = premiumRentService.compEstiSubmitList();
 
          //attr.put("estList", estimateList);
@@ -257,7 +259,7 @@ public class CompanyController {
     // 견적 제출 상세
     @GetMapping("/estSubmit/view")
     public String estSubmitView(Model model,@RequestParam Long seq ){
-    		
+
        System.out.println("seq 값 들고오지 그치? ㅎ"+ seq);
         model.addAttribute("estimate",premiumRentService.compEstiSubmitOneSelect(seq));
         System.out.println(premiumRentService.compEstiSubmitOneSelect(seq));
@@ -280,7 +282,7 @@ public class CompanyController {
     @GetMapping("/rent")
     public String rentHistoryList(Model model, @RequestParam Long cmpnSeq){
     	model.addAttribute("rentHistoryList", rentHistoryService.getRentHistoryList(cmpnSeq));
-    	
+
         return "company/rentHistoryList";
     }
 
@@ -290,7 +292,7 @@ public class CompanyController {
     	 model.addAttribute("rentHistory", rentHistoryService.getRentHistory(vo));
     	return "company/rentHistoryView";
     }
-  
+
 
     // -----------------------------------------------------------------------------
 

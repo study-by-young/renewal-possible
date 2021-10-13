@@ -3,6 +3,7 @@ package com.yedam.possable.app.common.security.controller;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -15,11 +16,16 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
 
 @Log
 @Controller
 @RequestMapping("/login")
 public class LoginController {
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
     @Autowired
     private MemberService memberService;
     @Autowired
@@ -31,27 +37,43 @@ public class LoginController {
         if (error != null) {
             model.addAttribute("error", "아이디 또는 비밀번호를 확인해주세요.");
         } else if (logout != null) {
-            model.addAttribute("logout", "logout!");
+            model.addAttribute("logout", "로그아웃 되었습니다!");
         }
 
         return "login/loginForm";
     }
 
+
+
     // 아이디 찾기 폼
     @GetMapping("/findId")
     public String findIdForm() {
         // 아이디 찾기 폼 출력
-        return "home";
+        return "login/findIdForm";
+    }
+
+    @PostMapping("/findId")
+    @ResponseBody
+    public String findIdCheck(@RequestParam Map<String, Object> params) throws ParseException {
+        MemberVO vo = new MemberVO();
+        vo.setName((String)params.get("name"));
+        vo.setBirth(dateFormat.parse((String)params.get("birth")));
+        String findResult = memberService.idFind(vo);
+
+        return findResult != null ? findResult : "";
     }
 
     // 아이디 찾기 처리
     @PostMapping("/findId/findResult")
-    public String findId(MemberVO vo,
-                         Model model) {
-        // vo 안의 요소들로 아이디 검색 후 model에 담아서 리턴, 페이지에서 리턴 값 출력
+    public String findId(@RequestParam("findIdname") String name,
+                         @RequestParam("findIdbirth") String birth,
+                         Model model) throws ParseException {
+        MemberVO vo = new MemberVO();
+        vo.setName(name);
+        vo.setBirth(dateFormat.parse(birth));
         String r = memberService.idFind(vo);
         model.addAttribute("id", r);
-        return "home";
+        return "login/findIdResult";
     }
 
     //이메일 인증번호

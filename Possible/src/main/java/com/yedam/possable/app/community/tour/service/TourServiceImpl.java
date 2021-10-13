@@ -10,7 +10,7 @@ import com.yedam.possable.app.community.tour.mapper.TourMapper;
 
 @Service
 public class TourServiceImpl implements TourService {
-	
+
 	@Autowired TourMapper tourMapper;
 
 	@Override
@@ -41,6 +41,11 @@ public class TourServiceImpl implements TourService {
 	@Override
 	public List<TestVO> getList() {
 		return tourMapper.getList();
+	}
+
+	@Override
+	public List<TestVO> getLatestList() {
+		return tourMapper.getLatestList();
 	}
 
 }

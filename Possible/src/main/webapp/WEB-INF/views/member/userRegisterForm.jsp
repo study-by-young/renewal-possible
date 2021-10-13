@@ -1,3 +1,4 @@
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: admin
@@ -7,167 +8,138 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<style>
-    .register_wrapper_box {
-        float: left;
-        width: 100%;
-        background: #ffffff;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        padding: 50px;
-        margin-bottom: 20px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-    }
-    .card {
-        float : left;
-        width: 100%;
-        background: #ffffff;
-        box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
-        padding: 50px;
-        margin-bottom: 20px;
-        border-radius: 5px;
-    }
-    .bir_dd, .bir_mm, .bir_yy {
-        display: table-cell;
-        table-layout: fixed;
-        width: 200px;
-        vertical-align: middle;
-    .bir_wrap, .name_wrap {
-        display: table;
-        width: 100%;
-    }
-    .ps_box, .ps_box_disable {
-        display: block;
-        position: relative;
-        width: 100%;
-
-        border: solid 1px #dadada;
-        padding: 10px 110px 10px 14px;
-        background: #fff;
-        box-sizing: border-box;
-        vertical-align: top;
-    .bir_wrap {
-        display: table;
-        width: 100%;
-    }
-    .register_wrap {
-        margin-top: 15px;
-    }
-</style>
-
-
-<div class="x_partner_main_wrapper float_left padding_tb_100">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="x_offer_car_heading_wrapper float_left">
-                    <h4>Register Got Your Account</h4>
-                    <h3 class="py-2 my-2">여행갈카 회원가입</h3>
+<div class="btc_tittle_main_wrapper">
+    <div class="mb-3">
+        <div class="page-header page-header-dark bg-primary-600">
+            <div class="container py-2">
+                <div class="page-header-content header-elements-inline">
+                    <div class="page-title">
+                        <h1 class="font-weight-bold">회원가입</h1>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="x_partner_main_wrapper my-5">
+    <div class="container">
         <div class="row">
-            <div class="col-xl-8 offset-xl-2 col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-12">
-                <div class="row">
-                    <div class="card">
-                        <div class="x_offer_car_heading_wrapper float_left">
-                            <div class=" d-none d-sm-none d-xs-none d-md-block text-center">
+            <div class="col-lg-8 offset-lg-2 col-12">
+                <div class="card">
+                    <form id="registerForm" name="registerForm" method="post" class="form-validate-jquery">
+                        <div class="x_offer_car_heading_wrapper card-header bg-white">
+                            <div class="text-center">
                                 <img src="${pageContext.request.contextPath}/resources/images/logo.png" class="img-responsive my-4" alt="logo" title="Logo" style="width: 120px;" />
                             </div>
                         </div>
                         <div class="card-body">
-                            <form id="frm" name="frm" action="memberInsert" method="post">
-
-                                <div class="row">
-                                    <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                        <label for="InputEmail">아이디 입력*</label>
-                                        <input type="text" class="form-control" name="id" id="id" placeholder="아이디입력" style="width: 60%;">
-                                        <button type="button" class="btn btn-primary" id="idChk" name="idChk" onclick="fn_idChk();" >중복체크</button>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-sm-3">
-                                        <label for="InputId">비밀번호</label>
-                                        <input type="password" class="form-control"  id="password" name="password" placeholder="비밀번호입력*">
-                                    </div>
-                                    <div class="form-group col-md-6 col-sm-3">
-                                        <label for="InputId">비밀번호 확인</label>
-                                        <input type="password" class="form-control"  id="passcheck" name="passcheck"  placeholder="비밀번호 확인">
-                                    </div>
-                                </div>
-                                <!-- 이름 Start -->
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-sm-3">
-                                        <label for="Inputname">이름</label>
-                                        <input type="text" class="form-control"  id="name" name="name"  placeholder="이름 입력">
-                                    </div>
-                                </div>
-                                <!-- 이름 END -->
-                                <!-- 생년월일 Start -->
-                                <div class="row">
-                                    <div class="form-group col-md-8 col-sm-6 col-xs-12">
-                                        <label for="birth">생년월일</label>
-                                        <div class="bir_yy">
-                                            <input type="text" class="form-control" id="birth" name="birth" placeholder="YY/MM/DD(입력)" aria-label="년(4자)" class="int" >
+                            <sec:csrfInput/>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for="id" class="col-form-label col-lg-2">아이디 <span class="text-danger">*</span></label>
+                                        <div class="col-lg-10">
+                                            <div class="input-group">
+                                                <input name="id" id="id" type="text" class="form-control no-empty" required>
+                                                <div class="input-group-append">
+                                                    <button type="button" class="btn btn-primary" onclick="fn_idChk();" >중복체크</button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- 생년월일 end -->
-
-                                <!-- 이메일 Start -->
-                                <div class="row">
-                                    <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                        <label for="InputEmail">이메일*</label>
-                                        <input type="text" class="form-control" id="email" name="email" value="" placeholder="이메일입력*">
-                                    </div>
-                                </div>
-                                <!-- 이메일 end -->
-
-                                <!-- 우편번호 Start -->
-                                <label for="InputAddr">주소*</label>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="addrCode" name="addrCode" placeholder="우편번호" style="width: 60%; display: inline;">
-                                    <button type="button" class="btn btn-default" onclick="DaumPostcode();"><i class="fa fa-search"></i> 우편번호 찾기</button>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="addrBasic" name="addrBasic" placeholder="주소">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" id="addrDetail" name="addrDetail" placeholder="상세주소" style="width: 50%; display: inline;">
-                                    <input type="text" class="form-control" id="extraAddress" placeholder="참고항목" style="width: 40%; display: inline;">
-                                </div>
-                                <!-- 주소 종료 -->
-
-                                <!-- 번호 Start-->
-                                <div class="row">
-                                    <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                                        <label for="InputAddr">휴대전화*</label>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="전화번호 입력" style="width: 60%; display: inline;">
-                                            <button type="button" class="btn btn-primary" onclick="">인증번호 받기</button>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for="password" class="col-form-label col-lg-2">비밀번호 <span class="text-danger">*</span></label>
+                                        <div class="col-lg-10">
+                                            <input name="password" id="password" type="password" class="form-control password no-empty">
                                         </div>
                                     </div>
                                 </div>
-                                <!-- 번호 end -->
-
-                                <!-- csrf토큰 -->
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-
-                                <div class="login_btn_wrapper register_wrap register_wrapper_btn">
-                                    <button class="btn btn-primary btn-lg btn-block login_btn" id="registerBtn" >회원가입 </button>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for="repeat_password" class="col-form-label col-lg-2">비밀번호 확인 <span class="text-danger">*</span></label>
+                                        <div class="col-lg-10">
+                                            <input name="repeat_password" id="repeat_password" type="password" class="form-control no-empty repeat-password" required>
+                                        </div>
+                                    </div>
                                 </div>
-                            </form>
-                            <div><hr class="hr-or"></div>
-
-                            <div class="login_message">
-                                <p>이미 회원이신가요? <a href="login"> 로그인 하러 가기 </a> </p>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group row">
+                                        <label for="name" class="col-form-label col-lg-4">이름 <span class="text-danger">*</span></label>
+                                        <div class="col-lg-8">
+                                            <input name="name" id="name" type="text" class="form-control no-empty" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group row">
+                                        <label for="birth" class="col-form-label col-lg-4">생년월일 <span class="text-danger">*</span></label>
+                                        <div class="col-lg-8">
+                                            <input name="birth" id="birth" type="text" class="form-control pickadate" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for="name" class="col-form-label col-lg-2">이메일 <span class="text-danger">*</span></label>
+                                        <div class="col-lg-10">
+                                            <input name="email" id="email" type="text" class="form-control no-empty" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <label for="phone" class="col-form-label col-lg-2">휴대전화 <span class="text-danger">*</span></label>
+                                        <div class="col-lg-10">
+                                            <div class="input-group">
+                                                <input name="phone" id="phone" type="text" class="form-control no-empty" required>
+                                                <div class="input-group-append">
+                                                    <button type="button" class="btn btn-primary" onclick="" >인증번호 받기</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label>주소 <span class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <div class="col-lg-6">
+                                            <div class="input-group">
+                                                <input name="addrCode" id="addrCode" type="text" class="form-control no-empty" placeholder="우편번호" required>
+                                                <div class="input-group-append">
+                                                    <button type="button" class="btn btn-primary" onclick="" >주소 검색</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <div class="col-12">
+                                            <input name="addrBasic" id="addrBasic" type="text" class="form-control no-empty" placeholder="기본주소" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group row">
+                                        <div class="col-12">
+                                            <input name="addrDetail" id="addrDetail" type="text" class="form-control" placeholder="상세주소">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
-
+                            <div class="login_btn_wrapper register_wrap register_wrapper_btn text-center">
+                                <button class="btn btn-primary btn-lg w-25 login_btn" id="registerBtn" >회원가입 </button>
+                            </div>
+                            <div class="login_message mt-3">
+                                <p>이미 회원이신가요? <a href="${pageContext.request.contextPath}/login"> 로그인 하러 가기 </a> </p>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -178,6 +150,9 @@
 
 
 <script>
+    $(function(){
+
+    })
     //지도 api
     function DaumPostcode() {
         new daum.Postcode({
@@ -254,5 +229,7 @@
         alert("회원가입이 완료되었습니다.")
         frm.submit();
     });
+
+
 
 </script>

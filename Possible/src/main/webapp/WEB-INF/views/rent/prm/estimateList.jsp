@@ -11,12 +11,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <div class="btc_tittle_main_wrapper">
-    <div class="btc_tittle_img_overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 full_width">
-                <div class="btc_tittle_left_heading">
-                    <h1>렌트 견적 요청 목록</h1>
+    <div class="mb-3">
+        <div class="page-header page-header-dark bg-primary-600">
+            <div class="container py-2">
+                <div class="page-header-content header-elements-inline">
+                    <div class="page-title">
+                        <h1 class="font-weight-bold">렌트 견적 요청 목록</h1>
+                        <h6>나만의 렌트카를 요청해보세요!</h6>
+                    </div>
                 </div>
             </div>
         </div>
@@ -30,108 +32,124 @@
             <div class="col-12">
                 <div class="x_carbooking_right_section_wrapper float_left">
                     <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-<%--                            <div class="x_carbook_right_select_box_wrapper float_left">--%>
-<%--                                <select class="myselect">--%>
-<%--                                    <option>Sort by Price</option>--%>
-<%--                                    <option>12$</option>--%>
-<%--                                    <option>13$</option>--%>
-<%--                                    <option>14$</option>--%>
-<%--                                </select>--%>
-<%--                            </div>--%>
-                            <p>총 ${pagination.total}건</p>
+                        <div class="col-6 align-self-center">
+                            <span>총 ${pagination.total}건</span>
+                            <%--                            <div class="d-inline-block">--%>
+                            <%--                                <select class="select">--%>
+                            <%--                                    <option>Sort by Price</option>--%>
+                            <%--                                    <option>12$</option>--%>
+                            <%--                                    <option>13$</option>--%>
+                            <%--                                    <option>14$</option>--%>
+                            <%--                                </select>--%>
+                            <%--                            </div>--%>
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                            <div class="x_carbook_right_tabs_box_wrapper float_left">
-                                <ul class="nav nav-tabs">
-                                    <li class="nav-item">
-                                        <a class="btn btn-primary" href="insert"><i class="icon-pencil7 align-baseline"></i> 견적 요청</a>
-                                    </li>
-                                </ul>
+                        <div class="col-6">
+                            <div class="text-right">
+                                <a class="btn btn-primary" href="estimate/register"><i class="icon-pencil7 align-baseline"></i> 견적 요청</a>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="x_car_book_tabs_content_main_wrapper">
-                                <div class="tab-content">
-                                    <div id="menu1" class="tab-pane fade active show">
-                                        <div class="row">
-                                            <c:forEach var="est" items="${estList}" varStatus="status">
-                                                <c:set var="estimate" value="${est.get('estimate')}" />
-                                                <c:set var="options" value="${est.get('options')}" />
-                                                <c:set var="items" value="${est.get('items')}" />
-                                                <div class="col-md-12">
-                                                    <div class="x_car_offer_main_boxes_wrapper float_left">
-                                                        <div class="x_car_offer_starts x_car_offer_starts_list_img float_left border-0">
-                                                            <div class="x_car_offer_img x_car_offer_img_list float_left">
-                                                                <img src="${pageContext.request.contextPath}/resources/images/cars/Genesis/genesis_g90.png" alt="img" class="img-fluid">
-                                                            </div>
-                                                            <div class="x_car_offer_price x_car_offer_price_list float_left">
-                                                            </div>
+                        <div class="col-12">
+                            <div class="x_car_book_tabs_content_main_wrapper my-4">
+                                <div class="row">
+                                    <c:forEach var="est" items="${estList}" varStatus="status">
+                                        <c:set var="estimate" value="${est.get('estimate')}" />
+                                        <c:set var="options" value="${est.get('options')}" />
+                                        <c:set var="items" value="${est.get('items')}" />
+                                        <div class="premium_rent_list_item col-12">
+                                            <div class="card">
+                                                <div class="row">
+                                                    <div class="col-lg-3 align-self-center">
+                                                        <div class="card-img-actions p-3">
+                                                            <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}/resources/images/cars/Genesis/genesis_g90.png" alt="">
                                                         </div>
-                                                        <div class="x_car_offer_starts_list_img_cont border-left">
-                                                            <div class="x_car_offer_heading x_car_offer_heading_list float_left">
-                                                                <h5 class="pt-3">${estimate.brand} ${estimate.model}</h5>
-                                                                <p>${estimate.trim}</p>
-                                                                <hr class="my-2">
-                                                                <p> 기간 : <fmt:formatDate value="${estimate.startDate}" pattern="yy년 MM월 dd일" /> ~ <fmt:formatDate value="${estimate.endDate}" pattern="yy년 MM월 dd일" /></p>
-                                                                <p> 장소 : ${estimate.takePlaceBasic} ${estimate.takePlaceDetail}</p>
-                                                            </div>
-                                                            <div class="x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left">
-                                                                <ul>
-                                                                    <li>
-                                                                        <a href="view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">상세보기</a>
-                                                                    </li>
-                                                                </ul>
-                                                            </div>
-                                                            <div class="x_car_offer_heading x_car_offer_heading_listing float_left">
-                                                                <ul class="">
-                                                                    <li>
-                                                                        <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 차량 옵션</span>
-                                                                            <ul class="list">
-                                                                                <c:forEach var="opt" items="${options}">
-                                                                                    <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${opt}
-                                                                                    </li>
-                                                                                </c:forEach>
-                                                                            </ul>
+                                                    </div>
+                                                    <div class="col-lg-9 border-left">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col-lg-9">
+                                                                    <div class="x_car_offer_heading x_car_offer_heading_list float_left">
+                                                                        <h5 class="font-weight-bold">
+                                                                                ${estimate.brand} ${estimate.model}<br><small>${estimate.trim}</small>
+                                                                        </h5>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-3">
+                                                                    <a class="btn btn-block btn-primary"
+                                                                       href="estimate/view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">
+                                                                        상세보기
+                                                                    </a>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <hr class="my-2">
+                                                                    <p class="text-grey-600">
+                                                                        <i class="h3 icon-calendar pr-2 mb-0"></i>
+                                                                        <fmt:formatDate value="${estimate.startDate}" pattern="yy년 MM월 dd일" /> ~ <fmt:formatDate value="${estimate.endDate}" pattern="yy년 MM월 dd일" />
+                                                                    </p>
+                                                                    <p class="text-grey-600">
+                                                                        <i class="h3 icon-location4 pr-2 mb-0"></i> ${estimate.takePlaceBasic} ${estimate.takePlaceDetail}
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="card border-primary-300 border-1">
+                                                                        <div class="card-body">
+                                                                            <div class="row align-items-center">
+                                                                                <div class="col-2">
+                                                                                    <i class="icon-checkmark4"></i> 차량 옵션
+                                                                                </div>
+                                                                                <div class="col-10">
+                                                                                    <ul class="list-unstyled mb-0">
+                                                                                        <c:forEach var="opt" items="${options}">
+                                                                                            <li class="d-inline-block pr-3 mb-1"><i class="icon-checkbox-checked2 text-primary"></i> ${opt}
+                                                                                            </li>
+                                                                                        </c:forEach>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                    </li>
-                                                                    <li>
-                                                                        <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 여행 옵션</span>
-                                                                            <ul class="list">
-                                                                                <c:forEach var="itm" items="${items}">
-                                                                                    <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${itm}
-                                                                                    </li>
-                                                                                </c:forEach>
-                                                                            </ul>
+                                                                    </div>
+                                                                    <div class="card border-primary-300 border-1">
+                                                                        <div class="card-body">
+                                                                            <div class="row align-items-center">
+                                                                                <div class="col-2">
+                                                                                    <i class="icon-checkmark4"></i> 여행 옵션
+                                                                                </div>
+                                                                                <div class="col-10">
+                                                                                    <ul class="list-unstyled mb-0">
+                                                                                        <c:forEach var="itm" items="${items}">
+                                                                                            <li class="d-inline-block pr-3 mb-1"><i class="icon-checkbox-checked2 text-primary"></i> ${itm}
+                                                                                            </li>
+                                                                                        </c:forEach>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                    </li>
-                                                                </ul>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </c:forEach>
-
-                                            <div class="col-md-12">
-                                                <div class="pager_wrapper prs_blog_pagi_wrapper">
-                                                    <ul class="pagination">
-                                                        <li>
-                                                            <a class="page-arrow" href="?pageNum=${pagination.startPage-1}&amount=${pagination.cri.amount}" <c:if test="${!pagination.prev }">style="display: none"</c:if>><i class="flaticon-left-arrow"></i></a>
-                                                        </li>
-                                                        <c:forEach begin="${pagination.startPage }" end="${pagination.endPage }" var="num">
-                                                            <li class="btc_shop_pagi">
-                                                                <a href="?pageNum=${num }&amount=${pagination.cri.amount}"
-                                                                   <c:if test="${param.getOrDefault('pageNum',1) == num}">class="active"</c:if>
-                                                                >${num }</a>
-                                                            </li>
-                                                        </c:forEach>
-                                                        <li>
-                                                            <a class="page-arrow" href="?pageNum=${pagination.endPage+1}&amount=${pagination.cri.amount}" <c:if test="${!pagination.next }">style="display: none"</c:if>><i class="flaticon-right-arrow"></i></a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
                                             </div>
+                                        </div>
+                                    </c:forEach>
+
+                                    <div class="col-md-12">
+                                        <div class="pager_wrapper prs_blog_pagi_wrapper">
+                                            <ul class="pagination">
+                                                <li>
+                                                    <a class="page-arrow" href="?pageNum=${pagination.startPage-1}&amount=${pagination.cri.amount}" <c:if test="${!pagination.prev }">style="display: none"</c:if>><i class="flaticon-left-arrow"></i></a>
+                                                </li>
+                                                <c:forEach begin="${pagination.startPage }" end="${pagination.endPage }" var="num">
+                                                    <li class="btc_shop_pagi">
+                                                        <a href="?pageNum=${num }&amount=${pagination.cri.amount}"
+                                                           <c:if test="${param.getOrDefault('pageNum',1) == num}">class="active"</c:if>
+                                                        >${num }</a>
+                                                    </li>
+                                                </c:forEach>
+                                                <li>
+                                                    <a class="page-arrow" href="?pageNum=${pagination.endPage+1}&amount=${pagination.cri.amount}" <c:if test="${!pagination.next }">style="display: none"</c:if>><i class="flaticon-right-arrow"></i></a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -146,10 +164,13 @@
 <!-- x car book sidebar section Wrapper End -->
 <script>
     <c:if test="${resultMsg != null}">
-        alert("${resultMsg}");
+    customAlert("견적 요청", "${resultMsg}");
     </c:if>
     <c:if test="${denyMsg != null}">
-    alert("${denyMsg}");
+    customAlert("접근 불가", '${denyMsg}');
+    </c:if>
+    <c:if test="${deleteMsg != null}">
+    customAlert("견적 삭제", "${deleteMsg}");
     </c:if>
 
     $(function () {

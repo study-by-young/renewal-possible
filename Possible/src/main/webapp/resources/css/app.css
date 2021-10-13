@@ -1,0 +1,109 @@
+.navbar-brand {min-width:150px;}
+
+.carousel-item {
+    background-size: cover;
+    background: url(../images/slider1.jpg) 50% 0 repeat-y;
+    min-height: 600px;
+}
+
+.btc_team_main_wrapper {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background: url(../images/t_bg.jpg) 50% 0 repeat-y;
+    background-size: cover;
+}
+
+.x_counter_main_wrapper {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+.x_icon {
+    display: inline-block;
+    width: 130px;
+    height: 130px;
+    line-height: 130px;
+    overflow: hidden;
+    position: relative;
+}
+
+.x_icon i {
+    z-index: 2;
+}
+
+.x_icon:after {
+    content: '';
+    width: 135px;
+    height: 135px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    background: transparent;
+    position: absolute;
+    left: 500px;
+    right: 500px;
+    top: 500px;
+    bottom: 500px;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.x_cou_main_box_wrapper:hover .x_icon:after {
+    background: #4f5dec;
+    left: -1px;
+    right: -1px;
+    top: -1px;
+    bottom: -1px;
+}
+
+.main-review-card-wrapper .card-text{
+    max-height: 90px;
+    overflow: hidden;
+}
+.main-score-bg {
+    width:100px;
+    height: 15px;
+    background: url("../images/review-star-bg.png") no-repeat left/100px;
+}
+
+.main-score-bg .main-score {
+    display: block;
+    height: 15px;
+    background: url("../images/review-star-fill.png") no-repeat left/100px;
+}
+
+
+/* 프리미엄 렌트 리스트 */
+.premium_rent_list_item:hover .card-img-actions {
+    -webkit-animation: movebounce 2.9s linear infinite;
+    animation: movebounce 2.9s linear infinite;
+}
+
+@keyframes movebounce {
+    0% {
+        transform: translateX(0px);
+    }
+
+    50% {
+        transform: translateX(20px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}
+@keyframes moveleftbounce {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(20px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}

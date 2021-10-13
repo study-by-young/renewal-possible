@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.possable.app.member.mapper.MemberMapper">
+	<resultMap id="member" type="MemberVO">
+		<id property="seq" column="seq" />
+		<result property="id" column="id" />
+		<result property="password" column="password" />
+		<result property="name" column="name" />
+		<result property="birth" column="birth" />
+		<result property="email" column="email" />
+		<result property="phone" column="phone" />
+		<result property="addrCode" column="addr_code" />
+		<result property="addrBasic" column="addr_basic" />
+		<result property="addrDetail" column="addr_detail" />
+		<result property="author" column="author" />
+		<result property="status" column="status" />
+		<result property="genDate" column="gen_date" />
+		<result property="uptDate" column="upt_date" />
+		<result property="loginStatus" column="login_status" />
+	</resultMap>
 	<!-- 검색 기능 -->
 	<sql id="criteria">
 				<trim prefix="(" suffix=")" prefixOverrides="OR">
@@ -192,5 +209,5 @@
                   ADDR_DETAIL = #{addrDetail}
 	WHERE ID = #{id}
 	</update>
-	
+
 </mapper>
