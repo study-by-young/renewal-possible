@@ -266,11 +266,7 @@
     </select>
 
     <!-- 업체용 견적 제출 확인 리스트 -->
-<<<<<<< HEAD
-    <select id="compEstiSubmitList" resultType="CompEstiListJoinVO">
-=======
     <select id="compEstiSubmitList" resultMap="CompEstiListJoin">
->>>>>>> refs/remotes/origin/geon_branch_Company_estiSubmit
         SELECT e.SEQ,
                e.ESTI_SEQ,
                e.CAR_SEQ,
@@ -449,7 +445,7 @@
        		ON e.esti_seq = eh.seq
 	        WHERE e.seq= #{seq}
    	</select>
-</mapper>
+   	
     <resultMap type="CompEstiListJoinVO" id="CompEstiListJoin">
     	<id property="seq" column="seq"/>
     	<result property="items" column="items"/>
