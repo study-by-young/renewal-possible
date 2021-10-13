@@ -84,6 +84,7 @@ public class CarServiceImpl implements CarService {
 		return carMapper.insertCompanyCar(vo);
 	}
 
+	@Override
 	public int insertCarOptions(CarOptionVO vo) {
 		// TODO Auto-generated method stub
 		return carMapper.insertCarOptions(vo);
@@ -93,4 +94,14 @@ public class CarServiceImpl implements CarService {
 	public int getTotalCount(Criteria cri) {
 		return carMapper.getTotalCount(cri);
 	}
+
+	@Override
+    public List<CarVO> getCarList_map(Criteria cri) {
+        return carMapper.getCarList_map(cri);
+    }
+
+    @Override
+    public CarVO getCar_map(CarVO vo) {
+        return carMapper.getCar_map(vo);
+    }
 }

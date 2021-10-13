@@ -30,8 +30,8 @@ public class EstimateHistoryVO {
     private Date genDate;
     private Date uptDate;
 
-    private BrandCodeVO brandName;
-    private CodeSubVO segmentName;
+    private String brandName;
+    private String segmentName;
     private ModelCodeVO modelCodeVO;
     private TrimCodeVO trimCodeVO;
     private MemberVO memberVO;
