@@ -20,6 +20,6 @@ public class CompanyVO {
     private Date uptDate;
 
     private MemberVO memberVO;
-//    private Long memSeq;
+    private Long memSeq;
 }
 

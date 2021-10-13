@@ -30,8 +30,10 @@
 				<div class="card-body py-0">
 						<div class="row">
 							<div class="col-sm-12">
-							<form id="frm" name="frm" action="#" method="post" enctype="multipart/form-data">
+							<form id="frm" name="frm" action="update" method="post" enctype="multipart/form-data">
 								<input type="hidden" class="form-control" name='cmpnSeq' value='${cmpnSeq}'>
+								<input type="hidden" class="form-control" name='seq' value='${car.seq}'>
+								
 								<div class="col-md-12">
 										<div class="row">
 										<ul class="list-unstyled row">
@@ -209,6 +211,7 @@
   										</ul>
 									</div>
 										</div>
+										<button id="del" class="btn btn-danger" formaction="delete" style="float:right; margin-bottom:15px; margin-left:5px;">삭제</button>
 										<button id="up" class="btn btn-primary" style="float:right; margin-bottom:15px;">수정</button>
 								</form>
 									</div>
@@ -222,6 +225,22 @@
 	</div>
 	</div>
 <script>
+
+	$("#up").on("click", function(){
+		if(confirm("수정하시겠습니까?") == true ){
+			document.form.submit();
+		}else{
+			return false;
+		}
+	});
+	
+	$("#del").on("click", function(){
+		if(confirm("삭제하시겠습니까?") == true ){
+			document.form.submit();
+		}else{
+			return false;
+		}
+	});
 
     let brand = $('#brand');
     let model = $('#model');
@@ -291,13 +310,7 @@
 
     }
     
-    $("#up").on("click", function(){
-		if(confirm("수정하시겠습니까?") == true ){
-			document.form.submit();
-		}else{
-			return false;
-		}
-	});
+ 
     
   
 </script>

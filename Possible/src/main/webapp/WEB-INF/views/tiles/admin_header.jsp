@@ -14,7 +14,7 @@
  <!-- Main navbar -->
 	<div class="navbar navbar-dark navbar-expand-md bg-indigo content-boxed">
 		<div class="navbar-brand wmin-200">
-			<a href="#" class="d-inline-block">
+			<a href="${pageContext.request.contextPath}/" class="d-inline-block">
 				<img src="${pageContext.request.contextPath}/resources/images/Logo.svg" alt="" style="height: 1.8rem;">
 			</a>
 		</div>
@@ -33,25 +33,28 @@
 					</ul>
 				</li>
 
+							 <sec:authorize access="isAuthenticated()">
 				<li class="nav-item dropdown dropdown-user">
 					<a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
 						<img src="../../../../global_assets/images/placeholders/placeholder.jpg" class="rounded-circle mr-2" height="34" alt="">
 						<span>
-							 <sec:authorize access="isAuthenticated()">
 								<sec:authentication
 										property="principal.name" />님
 								<input type="hidden" name="${_csrf.parameterName }"
 									value="${_csrf.token }">
-							</sec:authorize>
 					</span>
 					</a>
 					
 					<div class="dropdown-menu dropdown-menu-right">
-						<a href="#" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
+					<form action="${pageContext.request.contextPath}/logout" method="post" id="logoutFrm" name="logoutFrm">
+						<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" >
+						<a href="#" id="logOutBtn" class="dropdown-item"><i class="icon-switch2"></i> Logout</a>
+					</form>
 					</div>
 				</li>
+						</sec:authorize>
 			</ul>
-		</div>
+  		</div>
 	</div>
 	<!-- /main navbar -->
 
@@ -61,7 +64,12 @@
 		<div class="breadcrumb-line breadcrumb-line-light content-boxed header-elements-md-inline">
 			<div class="d-flex">
 				<div class="breadcrumb">
-					<a href="index.html" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+				<c:if test="${member.author eq 'ROLE_ADMIN'}">
+					<a href="${pageContext.request.contextPath}/admin/dashboard" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+				</c:if>
+				<c:if test="${member.author eq 'ROLE_COMPANY'}">
+					<a href="${pageContext.request.contextPath}/company/dashboard" class="breadcrumb-item"><i class="icon-home2 mr-2"></i> Home</a>
+				</c:if>
 					<span class="breadcrumb-item active">Dashboard</span>
 				</div>
 
@@ -95,7 +103,7 @@
 
 		<div class="page-header-content header-elements-md-inline content-boxed">
 			<div class="page-title d-flex">
-				<h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Home</span> - Dashboard</h4>
+				<h4><span class="font-weight-semibold"></span></h4>
 				<a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
 			</div>
 		</div>
@@ -110,6 +118,13 @@
 </div>
 
 <script>
+    $(function(){
+    	$('#logOutBtn').css('cursor','pointer');
+    	$('#logOutBtn').on("click",function(){
+    		logoutFrm.submit();
+    	});
+    });
+    
     // Basic initialization
     var navbarTop = document.querySelector('.fixed-top');
     // Construct an instance of Headroom, passing the element
@@ -127,4 +142,5 @@
 
     // Initialise
     headroomTop.init();
+    
 </script>

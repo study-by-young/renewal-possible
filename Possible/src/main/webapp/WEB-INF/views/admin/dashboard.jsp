@@ -8,26 +8,22 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<style type="text/css">
+
+
+</style>
 
 <!-- Main content -->
 		<div class="content-wrapper">
 
 			<!-- Content area -->
 			<div class="content">
-
-<%-- <a href="${pageContext.request.contextPath}/admin/maintenance/member">회원관리</a>
-
-<a href="${pageContext.request.contextPath}/admin/maintenance/company">업체등록관리</a>
-
-<a href="${pageContext.request.contextPath}/admin/maintenance/confirmCompany">업체정보관리</a>
-
-<a href="${pageContext.request.contextPath}/admin/maintenance/report">신고글관리</a>
- --%>
-
 	<!-- Striped rows -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title"><a href="${pageContext.request.contextPath}/admin/maintenance/company">미승인 업체(최신 3개)</a></h5>
+						<h5 class="card-title"><a href="${pageContext.request.contextPath}/admin/maintenance/company">미승인 업체(최신 3개)</a>&nbsp;<span class="badge bg-pink badge-pill">New</span></h5>
 						<div class="header-elements">
 							<div class="list-icons">
 		                		<a class="list-icons-item" data-action="collapse"></a>
@@ -39,18 +35,22 @@
 
 					<div class="card-body">
 					<div class="table-responsive">
-						<table class="table table-striped">
+						<table class="table table-striped" >
 							<thead>
 								<tr>
-									<th>번호</th>
-									<th>제목</th>
+									<th width="80">번호</th>
+									<th width="400" style="text-align:center">업체명</th>
+									<th>등록일자</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="comRegList" end="2" items="${comRegList }">
 								<tr>
-									<td>${comRegList.seq}</td>
-									<td><a href="${pageContext.request.contextPath}/admin/maintenance/company/view?seq=${comRegList.seq}">${comRegList.name}</a></td>
+									<td width="80">${comRegList.seq}</td>
+									<td width="400" style="text-align:center"><a href="${pageContext.request.contextPath}/admin/maintenance/company/view?seq=${comRegList.seq}">${comRegList.name}</a></td>
+									<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${comRegList.genDate }"/></td>
+									<td style="text-align:right"><button type="button" class="btn bg-pink-300 rounded-round" onclick="location.href='${pageContext.request.contextPath}/admin/maintenance/company/view?seq=${comRegList.seq}' ">상세보기</button></td>
 								</tr>
 								</c:forEach>
 							</tbody>
@@ -81,15 +81,19 @@
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>번호</th>
-									<th>제목</th>
+									<th width="80">번호</th>
+									<th width="400" style="text-align:center">제목</th>
+									<th>작성일자</th>
+									<th>수정일자</th>							
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="notice" end="2" items="${notice }">
 								<tr>
-									<td>${notice.seq}</td>
-									<td><a href="${pageContext.request.contextPath}/notice/get?seq=${notice.seq }">${notice.title }</a></td>
+									<td width="80">${notice.seq}</td>
+									<td width="400"><a href="${pageContext.request.contextPath}/notice/get?seq=${notice.seq }">${notice.title }</a></td>
+									<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${notice.genDate }"/></td>
+									<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${notice.uptDate }"/></td>
 								</tr>
 								</c:forEach>
 							</tbody>
