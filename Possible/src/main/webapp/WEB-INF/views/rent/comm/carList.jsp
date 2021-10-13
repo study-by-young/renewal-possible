@@ -231,7 +231,7 @@ console.log($("#startDate").datepicker("getDate"));
 							<option value="TC"
 								<c:out value="${pageMaker.cri.type eq 'TC' ? 'selected':''}"/>>제목 or 내용</option>
 						</select> &nbsp; 
-						<input class="input" name="keyword" value="${pageMaker.cri.keyword}"> 
+						<!-- <input class="input" name="keyword" value="${pageMaker.cri.keyword}"> -->
 						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> 
 						<input type="hidden" name="amount" value="${pageMaker.cri.amount}">&nbsp;
 						<button class="custom-btn btn-primary" onclick="$('[name=pageNum]').val(1)">검색</button>
