@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.service.CarService;
+import com.yedam.possable.app.common.code.domain.CodeMasterVO;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
@@ -74,7 +75,8 @@ public class CommonRentController {
     	// 모델별로 대표 하나만 보여주기
     	model.addAttribute("list", allList);
     	model.addAttribute("pageMaker", new PageVO(cri, total));
-        model.addAttribute("areaCodes", codeService.getCodesByParentCode("지역"));
+    	CodeMasterVO codeMasterVO = codeService.getMasterCodeByName("지역");
+		model.addAttribute("areaCodes",codeService.getCodesByParentCode(codeMasterVO.getCode()));
         return "rent/comm/carList";
     }
     

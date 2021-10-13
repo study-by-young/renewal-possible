@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.possable.app.community.course.mapper.CourseBoardMapper">
 
+	<resultMap id="courseBoard" type="CourseBoardVO">
+		<id property="seq" column="seq" />
+		<result property="title" column="title" />
+		<result property="writer" column="writer" />
+		<result property="content" column="content" />
+		<result property="views" column="views" />
+		<result property="startDate" column="start_date" />
+		<result property="endDate" column="end_date" />
+		<result property="people" column="people" />
+		<result property="genDate" column="gen_date" />
+		<result property="uptDate" column="upt_date" />
+	</resultMap>
+
 	<sql id="criteria">
 		<trim prefix="(" suffix=")" prefixOverrides="OR">
 			<foreach collection="typeArr" item="type">

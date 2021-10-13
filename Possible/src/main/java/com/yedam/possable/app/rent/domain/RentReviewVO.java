@@ -1,5 +1,9 @@
 package com.yedam.possable.app.rent.domain;
 
+import com.yedam.possable.app.community.course.domain.CourseBoardVO;
+import com.yedam.possable.app.company.domain.CompanyVO;
+import com.yedam.possable.app.member.domain.MemberVO;
+
 import lombok.Data;
 
 @Data
@@ -9,9 +13,14 @@ public class RentReviewVO {
     private String content;
     private Long score;
 
-    private Long historySeq;
-    private Long memSeq;
-    private Long courseSeq;
+    private RentHistoryVO rentHistoryVO;
+    private MemberVO memberVO;
+    private CourseBoardVO courseBoardVO;
+    private CompanyVO companyVO;
+    private Long cnt; // 일반렌트 차량 목록 조회 시 리뷰 개수 출력에 이용
+    
+    //private Long historySeq;
+    //private Long memSeq;
+    //private Long courseSeq;
     private Long cmpnSeq;
-    private Long cnt;
 }

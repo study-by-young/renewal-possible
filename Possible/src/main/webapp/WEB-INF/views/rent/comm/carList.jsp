@@ -14,9 +14,6 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/pickers/pickadate/legacy.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/notifications/jgrowl.min.js"></script>
 
-<script>
-console.log($("#startDate").datepicker("getDate"));
-</script>
 
 <style>
 .page_link ul {
@@ -151,10 +148,52 @@ console.log($("#startDate").datepicker("getDate"));
 <!-- btc tittle Wrapper Start -->
 <div class="btc_tittle_main_wrapper">
 	<div class="container">
+	<div class="x_title_inner_num_wrapper float_left py-3 my-0">
+		<form name="searchCar" action="commonRent/list" onsubmit="">
+               <div class="row p-3">
+                   <div class="col-md-3">
+                       <h6>지역</h6>
+                       <div class="form-group">
+                           <select id="searchArea" name="searchArea" class="form-control select">
+                               <c:forEach var="area" items="${areaCodes}">
+                                   <option value="${area.code}">${area.name}</option>
+                               </c:forEach>
+                           </select>
+                       </div>
+                   </div>
+
+                   <div class="col-md-3">
+                       <h6>대여 날짜</h6>
+                       <div class="input-group mb-3">
+                           <span class="input-group-prepend">
+                               <span class="input-group-text"><i class="icon-calendar"></i></span>
+                           </span>
+                           <input type="text" id="start" name="start" class="form-control pickadate-format">
+                       </div>
+                   </div>
+                   <div class="col-md-1 text-center align-self-center h5">
+                       <p id="dateRange" class="badge badge-info ">7일</p>
+                       <p><i class="icon-arrow-right8"></i></p>
+                   </div>
+                   <div class="col-md-3">
+                       <h6>반납 날짜</h6>
+                       <div class="input-group mb-3">
+                           <span class="input-group-prepend">
+                               <span class="input-group-text"><i class="icon-calendar"></i></span>
+                           </span>
+                           <input type="text" id="end" name="end" class="form-control pickadate-format">
+                       </div>
+                   </div>
+                   <div class="col-md-2">
+                       <button class="btn btn-primary h-100 w-100"><span class="h5 align-middle">렌트카 검색</span></button>
+                   </div>
+               </div>
+           </form>
+		</div>
+	<!--
         <form>
             <div class="x_title_inner_num_wrapper float_left py-3 my-0">
                 <div class="row align-items-center">
-                
                 	<div class="col-lg-3 col-md-6 col-sm-6 col-12 full_width">
                         <div class="form-group">
                             <label for="searchArea" class="label-font">지역</label><br>
@@ -177,7 +216,7 @@ console.log($("#startDate").datepicker("getDate"));
                             <input id="endDate" name="endDate" type="text" class="form-control datepicker" placeholder="날짜를 선택하세요.">
                         </div>
                     </div>
-                    <!-- 
+                    
                     <div class="col-lg-2 col-md-6 col-12 full_width">
                         <div class="form-group">
                             <label>탑승 인원</label>
@@ -189,7 +228,7 @@ console.log($("#startDate").datepicker("getDate"));
                             </div>
                         </div>
                     </div>
-                    -->
+                    
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 full_width" style="text-align: center;">
                         <button onclick="location.href='list'" type="button" class="btn bg-primary-400 btn-float" style="color: white;">검색 <i class="icon-search4 icon-2x" style="font-size: 1rem; color: white;"></i></button>
                         <button type="button" class="btn btn-lg bg-transparent text-primary border-primary ml-1 legitRipple" data-toggle="modal" data-target="#recommendCarModal" style="font-size: 1rem; font-weight: bold;">추천받기</button>
@@ -197,6 +236,7 @@ console.log($("#startDate").datepicker("getDate"));
                 </div>
             </div>
         </form>
+        -->
 	</div>
 </div>
 
@@ -563,7 +603,42 @@ console.log($("#startDate").datepicker("getDate"));
 	</div>
 </div>
 
+
 <script>
+    let now = new Date();
+    let defaultReturnDate = new Date();
+    defaultReturnDate = defaultReturnDate.setDate((now.getDate() + 7))
+
+    $(function(){
+        initPickadate();
+    })
+
+    function initPickadate(){
+        let startPicker = $("#start").pickadate('picker');
+        let endPicker = $("#end").pickadate('picker');
+
+        startPicker.set('select', now);
+        endPicker.set({
+            min : 1,
+            select : defaultReturnDate
+        });
+
+        startPicker.on('close', function(){
+            let minDate = new Date(startPicker.get('select','yyyy,mm,dd'));
+            minDate.setDate(minDate.getDate()+1);
+            endPicker.set('min', minDate).set('clear');
+            $('#dateRange').text('');
+        });
+
+        endPicker.on('close', function(){
+            let minDate = startPicker.get('select','dd');
+            let maxDate = endPicker.get('select','dd');
+            let range = parseInt(maxDate) - parseInt(minDate);
+            $('#dateRange').text(range + "일");
+        })
+    }
+
+    
     var Select2Selects = function() {
         // Select2 examples
         var _componentSelect2 = function() {
@@ -602,175 +677,7 @@ console.log($("#startDate").datepicker("getDate"));
 
     // Setup module
     // ------------------------------
-
-    var DateTimePickers = function() {
-
-            // Pickadate picker
-        var _componentPickadate = function() {
-            if (!$().pickadate) {
-                console.warn('Warning - picker.js and/or picker.date.js is not loaded.');
-                return;
-            }
-
-            var now = new Date();
-            // Localization
-            $('.pickadate-translated').pickadate({
-                monthsFull: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-                weekdaysShort: ['일', '월', '화', '수', '목', '금', '토'],
-                today: '',
-                clear: '',
-                formatSubmit: 'yyyy/mm/dd',
-                format: 'yyyy/mm/dd(ddd)',
-                min: [now.getFullYear(),now.getMonth(),now.getDate() + 1]
-            });
-        };
-
-        // Pickatime picker
-        var _componentPickatime = function() {
-            if (!$().pickatime) {
-                console.warn('Warning - picker.js and/or picker.time.js is not loaded.');
-                return;
-            }
-
-            // Default functionality
-            $('.pickatime').pickatime();
-
-            // Clear button
-            $('.pickatime-clear').pickatime({
-                clear: ''
-            });
-
-            // Time formats
-            $('.pickatime-format').pickatime({
-
-                // Escape any “rule” characters with an exclamation mark (!).
-                format: 'T!ime selected: h:i a',
-                formatLabel: '<b>h</b>:i <!i>a</!i>',
-                formatSubmit: 'HH:i',
-                hiddenPrefix: 'prefix__',
-                hiddenSuffix: '__suffix'
-            });
-
-            // Send hidden value
-            $('.pickatime-hidden').pickatime({
-                formatSubmit: 'HH:i',
-                hiddenName: true
-            });
-
-            // Editable input
-            var $input_time = $('.pickatime-editable').pickatime({
-                editable: true,
-                onClose: function() {
-                    $('.datepicker').focus();
-                }
-            });
-            var picker_time = $input_time.pickatime('picker');
-            $input_time.on('click', function(event) {
-                if (picker_time.get('open')) {
-                    picker_time.close();
-                } else {
-                    picker_time.open();
-                }
-                event.stopPropagation();
-            });
-
-            // Time intervals
-            $('.pickatime-intervals').pickatime({
-                interval: 150
-            });
-
-
-            // Time limits
-            $('.pickatime-limits').pickatime({
-                min: [7,30],
-                max: [14,0]
-            });
-
-            // Using integers as hours
-            $('.pickatime-limits-integers').pickatime({
-                disable: [
-                    3, 5, 7
-                ]
-            });
-
-            // Disable times
-            $('.pickatime-disabled').pickatime({
-                disable: [
-                    [0,30],
-                    [2,0],
-                    [8,30],
-                    [9,0]
-                ]
-            });
-
-            // Disabling ranges
-            $('.pickatime-range').pickatime({
-                disable: [
-                    1,
-                    [1, 30, 'inverted'],
-                    { from: [4, 30], to: [10, 30] },
-                    [6, 30, 'inverted'],
-                    { from: [8, 0], to: [9, 0], inverted: true }
-                ]
-            });
-
-            // Disable all with exeption
-            $('.pickatime-disableall').pickatime({
-                disable: [
-                    true,
-                    3, 5, 7,
-                    [0,30],
-                    [2,0],
-                    [8,30],
-                    [9,0]
-                ]
-            });
-
-            // Events
-            $('.pickatime-events').pickatime({
-                onStart: function() {
-                    console.log('Hello there :)')
-                },
-                onRender: function() {
-                    console.log('Whoa.. rendered anew')
-                },
-                onOpen: function() {
-                    console.log('Opened up')
-                },
-                onClose: function() {
-                    console.log('Closed now')
-                },
-                onStop: function() {
-                    console.log('See ya.')
-                },
-                onSet: function(context) {
-                    console.log('Just set stuff:', context)
-                }
-            });
-        };
-
-        return {
-            init: function () {
-                _componentPickadate();
-                _componentPickatime();
-            }
-        }
-    }();
-
-// Initialize module
-// ------------------------------
-
-    document.addEventListener('DOMContentLoaded', function() {
-        DateTimePickers.init();
-    });
     
-    
-    var searchArea = $('#searchArea').val();
-    var startDate = $('#startDate').value;
-    var endDate = $('#endDate').value;
-    
-    console.log(startDate);
-    console.log(endDate);
     
 
    var cmpnSeq_val;
@@ -783,19 +690,11 @@ console.log($("#startDate").datepicker("getDate"));
   
     	console.log("업체" + cmpnSeq_val, seq_val);
     	
-    	
-    	var chk = $(this).find('input').is(':checked');
-   		if(chk == true){			
-    		$(this).css('background-color', 'yellow');
-   		} else {
-   			$(this).css('background-color', 'red');
-   		}
-   		
     });
 
     // 상세조회 버튼
     $('.viewCarBtn').on('click', function(){
-		location.href="view?cmpnSeq=" + cmpnSeq_val + "&seq=" + seq_val;// + "&startDate=" + startDate + "&endDate=" + endDate;    	
+		location.href="commonRent/view?cmpnSeq=" + cmpnSeq_val + "&seq=" + seq_val;// + "&startDate=" + startDate + "&endDate=" + endDate;    	
     });
   		
     
@@ -811,4 +710,5 @@ console.log($("#startDate").datepicker("getDate"));
     });
 	
 </script>
+
 <!-- x car book sidebar section Wrapper End -->

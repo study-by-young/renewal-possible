@@ -2,6 +2,49 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.possable.app.rent.mapper.RentHistoryMapper">
 	
+	<resultMap id="rentHistory" type="RentHistoryVO">
+		<id property="seq" column="seq" />
+		<result property="rentType" column="rent_type" />
+		<result property="startDate" column="start_date" />
+		<result property="endDate" column="end_date" />
+		<result property="receiver" column="receiver" />
+		<result property="price" column="price" />
+		<result property="estimate" column="estimate" />
+		<result property="status" column="status" />
+		<result property="genDate" column="gen_date" />
+		<result property="uptDate" column="upt_date" />
+		<result property="takePlaceCode" column="take_place_code" />
+		<result property="takePlaceBasic" column="take_place_basic" />
+		<result property="takePlaceDetail" column="take_place_detail" />
+		<result property="merchantUid" column="merchant_uid" />
+		<result property="payMethod" column="pay_method" />
+		<result property="phone" column="phone" />
+		<result property="birth" column="birth" />
+		<result property="email" column="email" />
+		<result property="receiverB" column="receiver_b" />
+		<result property="phoneB" column="phone_b" />
+		<result property="birthB" column="birth_b" />
+		<result property="emailB" column="email_b" />
+		
+		<association property="carVO"
+	    			 column= "car_seq"	
+	    			 columnPrefix="car_"
+	    			 resultMap="com.yedam.possable.app.car.mapper.CarMapper.car"
+	    			 javaType="CarVO"/>
+	    			  
+		<association property="memberVO"
+	                 column="mem_seq"
+	                 columnPrefix="mem_"
+	                 resultMap="com.yedam.possable.app.member.mapper.MemberMapper.member"
+	                 javaType="MemberVO"/>
+	                 
+		<association property="companyVO"
+	    			 column="cmpn_seq"
+	    			 columnPrefix="cmpn_"
+	    			 resultMap="com.yedam.possable.app.company.mapper.CompanyMapper.company"
+	    			 javaType="CompanyVO"/>
+	</resultMap>
+	
 	<!-- 업체 렌트내역 리스트 -->
 	<select id="getRentHistoryList" resultType="RentHistoryVO">
              SELECT

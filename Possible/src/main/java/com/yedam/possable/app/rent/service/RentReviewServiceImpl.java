@@ -20,4 +20,34 @@ public class RentReviewServiceImpl implements RentReviewService {
 		return rentReviewMapper.getReviewListByCmpnSeq(vo);
 	}
 
+	@Override
+	public List<RentReviewVO> getRentReviewListByCompany(RentReviewVO vo) {
+		return rentReviewMapper.getRentReviewListByCompany(vo);
+	}
+	
+	@Override
+	public List<RentReviewVO> getRentReviewListByMember(RentReviewVO vo) {
+		return rentReviewMapper.getRentReviewListByMember(vo);
+	}	
+
+	@Override
+	public RentReviewVO getRentReview(RentReviewVO vo) {
+		return rentReviewMapper.getRentReview(vo);
+	}
+
+	@Override
+	public int insertRentReview(RentReviewVO vo) {
+		return rentReviewMapper.insertRentReview(vo);
+	}
+
+	@Override
+	public int updateRentReview(RentReviewVO vo) {
+		return rentReviewMapper.updateRentReview(vo);
+	}
+
+	@Override
+	public int deleteRentReview(Long seq) {
+		return rentReviewMapper.deleteRentReview(seq);
+	}
+
 }
