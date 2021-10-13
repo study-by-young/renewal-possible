@@ -372,7 +372,7 @@ function returnSearchId() {
 		$.ajax({
 
 			type : 'GET',
-			url : 'mailCheck?email=' + email+ id,
+			url : 'mailCheck?email=' + email,
 
 			success : function(data){
 				alert("인증메일이 발송 되었습니다.");

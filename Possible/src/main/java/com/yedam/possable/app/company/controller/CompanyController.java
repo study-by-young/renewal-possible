@@ -239,6 +239,7 @@ public class CompanyController {
 					    		Authentication authentication){
 
     	System.out.println("넌 뭔데?"+cmpnSeq);
+    	
     	vo.setCmpnSeq(cmpnSeq);
     	 System.out.println("이건될까..?"+vo.toString());
     	 System.out.println("이거 뭔데?"+vo.toString());
@@ -259,10 +260,15 @@ public class CompanyController {
     // 견적 제출 상세
     @GetMapping("/estSubmit/view")
     public String estSubmitView(Model model,@RequestParam Long seq ){
-
+    	
+    	 String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
+    	 System.out.println("========="+carOptCode);
+    	 
        System.out.println("seq 값 들고오지 그치? ㅎ"+ seq);
         model.addAttribute("estimate",premiumRentService.compEstiSubmitOneSelect(seq));
         System.out.println(premiumRentService.compEstiSubmitOneSelect(seq));
+        model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
+        
     	return "company/estSubmitView";
     }
 

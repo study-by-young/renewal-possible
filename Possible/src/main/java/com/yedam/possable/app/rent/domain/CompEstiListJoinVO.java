@@ -2,8 +2,11 @@ package com.yedam.possable.app.rent.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.company.domain.CompanyVO;
+import com.yedam.possable.app.member.domain.MemberVO;
 
 import lombok.Data;
 
@@ -15,13 +18,11 @@ public class CompEstiListJoinVO {
 	    private String items;
 	    private Long price;
 	    private String memo;
+	   @DateTimeFormat(pattern = "yyyy/MM/dd")
 	    private Date genDate;
+	   @DateTimeFormat(pattern = "yyyy/MM/dd")
 	    private Date uptDate;
-
-	    private Long estiSeq;
-	    private Long cmpnSeq;
-	    private Long carSeq;
-	    
+	   
 	//private CarVO carVO;
 	    private String carNum;
 	    private String brand;
@@ -36,8 +37,16 @@ public class CompEstiListJoinVO {
 	    private Long trunk;
 	    private Long door;
 	    private Long kmpl;
+	    //private String name;
+	    private String memName;
+	    private String phone; //회원전화번호
+	    //private Long estiSeq;
+	    private Long cmpnSeq;
+	    //private Long carSeq;
+	    
+		private MemberVO memberVO;
+		private CarVO carVO;
+		private CompanyVO companyVO;
+		
 	   
-	//private CompanyVO companyVO; 
-	    private String name;
-	    private Long memSeq;
 }

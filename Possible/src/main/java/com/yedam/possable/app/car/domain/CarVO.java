@@ -34,6 +34,7 @@ public class CarVO {
     private Date genDate;
     private Date uptDate;
 
+    
     private CompanyVO companyVO;
     private List<CarVO> modelList; // 해당하는 모델의 차량을 보유하고 있는 업체의 시퀀스를 출력하기 위해 추가
     private String name; // getCarByModel() 에서 COMPANY 테이블과 JOIN해서 추가된 컬럼

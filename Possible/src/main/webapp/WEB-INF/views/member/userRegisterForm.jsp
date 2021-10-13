@@ -111,7 +111,7 @@
                                             <div class="input-group">
                                                 <input name="addrCode" id="addrCode" type="text" class="form-control no-empty" placeholder="우편번호" required>
                                                 <div class="input-group-append">
-                                                    <button type="button" class="btn btn-primary" onclick="" >주소 검색</button>
+                                                    <button type="button" class="btn btn-primary" onclick="DaumPostcode();" >주소 검색</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -204,7 +204,7 @@
         var csrfTokenValue ="${_csrf.token}";
 
         $.ajax({
-            url : "idChk",
+            url : "../idChk",
             type: "post",
             dataType: "json",
             beforeSend : function(xhr){
