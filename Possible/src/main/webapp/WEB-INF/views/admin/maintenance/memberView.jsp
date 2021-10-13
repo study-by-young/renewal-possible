@@ -4,21 +4,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <style type="text/css">
-.dash {
-	background: #ffffff;
-	box-shadow: 0px 0 8px rgb(0 0 0/ 10%);
-	float: left;
-	width: 100%;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	margin-top: 0px;
-	margin-bottom: 70px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	
-}
-
 .pagination {
 	justify-content: center;
 }
@@ -45,25 +30,28 @@
 	appearance: none;
 }
 
-.card-body{
-	padding:50px;
+.card-body {
+    padding: 50px;
 }
 </style>
+		<!-- Main content -->
+		<div class="content-wrapper">
 
+			<!-- Content area -->
+			<div class="content">
 
-<div class="col-md-8">
-	<div class="blog_single_comment_heading">
-		<h4>회원 관리</h4>
-	</div>
-		<!-- 2 columns form -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title">회원정보수정</h5>
-					
+						<h6 class="card-title">회원정보수정</h6>
+						<div class="header-elements">
+							
+						</div>
 					</div>
 
-					<div class="card-body">
-						<form role="form" action="view" method="post">
+					<div class="card-body py-0">
+						<div class="row">
+							<div class="col-sm-12">
+									<form role="form" action="view" method="post">
 							<div class="row">
 								<div class="col-md-12">
 									<fieldset>
@@ -164,10 +152,19 @@
 						  		<button class="btn btn-primary" id="list_btn">목록</button>
 							</div>
 						</form>
+						<br>
+								</div>
+							</div>
+
+
+							
+							
+						</div>
 					</div>
+
 				</div>
-				<!-- /2 columns form -->
 </div>
+
 <script>
 
 $("#up").on("click", function(){

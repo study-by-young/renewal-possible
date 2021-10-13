@@ -2,6 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yedam.possable.app.car.mapper.CarMapper">
+    <resultMap id="car" type="CarVO">
+        <id property="seq" column="seq" />
+        <result property="carNum" column="car_num" />
+        <result property="brand" column="brand" />
+        <result property="model" column="model" />
+        <result property="segment" column="segment" />
+        <result property="trim" column="trim" />
+        <result property="color" column="color" />
+        <result property="year" column="year" />
+        <result property="fuel" column="fuel" />
+        <result property="passenger" column="passenger" />
+        <result property="mission" column="mission" />
+        <result property="trunk" column="trunk" />
+        <result property="door" column="door" />
+        <result property="kmpl" column="kmpl" />
+        <result property="price" column="price" />
+        <result property="status" column="status" />
+        <result property="img1" column="img1" />
+        <result property="img2" column="img2" />
+        <result property="img3" column="img3" />
+        <result property="genDate" column="gen_date" />
+        <result property="uptDate" column="upt_date" />
+        <association property="companyVO"
+                     column="cmpn_seq"
+                     columnPrefix="cmpn_"
+                     resultMap="com.yedam.possable.app.company.mapper.CompanyMapper.company"
+                     javaType="com.yedam.possable.app.company.domain.CompanyVO"/>
+    </resultMap>
     <select id="getCarList" resultType="CarVO">
         SELECT seq,
                cmpn_seq,
@@ -25,6 +53,31 @@
                upt_date
         FROM car
     </select>
+
+    <select id="carList" resultType="CarVO">
+        SELECT seq,
+               cmpn_seq,
+               car_num,
+               brand,
+               model,
+               segment,
+               trim,
+               color,
+               year,
+               fuel,
+               passenger,
+               mission,
+               trunk,
+               door,
+               kmpl,
+               price,
+               img1,
+               img2,
+               img3,
+               upt_date
+        FROM car
+    </select>
+
     <select id="getCar" resultType="CarVO">
         SELECT seq,
                cmpn_seq,
@@ -107,14 +160,15 @@
                UPT_DATE,
                CAR_NUM
         FROM CAR
-        WHERE SEQ = #{carSeq}
-          AND cmpn_seq = #{cmpn.seq}
+        WHERE SEQ = #{seq}
+        AND cmpn_seq = #{cmpnSeq}
+        ORDER BY SEQ
     </select>
     <delete id="deleteCompanyCar">
         DELETE
         FROM CAR
-        WHERE SEQ = #{carSeq}
-          AND cmpn_seq = #{cmpn.seq}
+        WHERE SEQ = #{seq}
+          AND cmpn_seq = #{cmpnSeq}
     </delete>
     <update id="updateCompanyCar">
         UPDATE car
@@ -172,4 +226,96 @@
         WHERE seq = #{seq}
           AND cmpn_seq = #{cmpnSeq}
     </update>
+
+    <!-- 차량 model 중복제거 리스트 조회 -->
+    <select id="getDistinctCarList" resultType="CarVO">
+    	SELECT *
+		FROM (SELECT ROW_NUMBER() OVER(
+		  								PARTITION BY MODEL
+		  								ORDER BY SEQ ) CNT
+		  			 , CAR.*
+			  FROM CAR)
+		WHERE CNT = 1
+    </select>
+
+    <!-- 해당 model을 보유한 업체 리스트 뽑아내기 위한 리스트 -->
+    <select id="getCarByModel" resultType="CarVO">
+    	SELECT CAR.*, COMPANY.*
+		FROM CAR JOIN COMPANY
+		ON CAR.CMPN_SEQ = COMPANY.SEQ
+		WHERE MODEL = #{model}
+    </select>
+
+    <!-- seq로 보험 조회하기 -->
+    <select id="getInsuranceByCar" resultType="CarVO">
+    SELECT CAR.SEQ, INSURANCE_OPTION.OPT_CODE, INSURANCE_OPTION.PRICE
+	FROM CAR JOIN INSURANCE_OPTION
+	ON CAR.SEQ = INSURANCE_OPTION.CAR_SEQ
+	WHERE SEQ = #{seq}
+    </select>
+
+    <insert id="insertCompanyCar">
+    	<selectKey keyProperty="seq" resultType="long" order="BEFORE">
+			SELECT SEQ_CAR.NEXTVAL FROM DUAL
+		</selectKey>
+    	INSERT INTO CAR(
+				    	SEQ,
+						BRAND,
+						MODEL,
+						SEGMENT,
+						TRIM,
+						COLOR,
+						YEAR,
+						FUEL,
+						PASSENGER,
+						MISSION,
+						TRUNK,
+						DOOR,
+						KMPL,
+						PRICE,
+						STATUS,
+						IMG1,
+						IMG2,
+						IMG3,
+						GEN_DATE,
+						UPT_DATE,
+						CMPN_SEQ,
+						CAR_NUM
+						)
+			 VALUES (
+						#{seq},
+						#{brand},
+						#{model},
+						#{segment},
+						#{trim},
+						#{color},
+						#{year},
+						#{fuel},
+						#{passenger},
+						#{mission},
+						#{trunk},
+						#{door},
+						#{kmpl},
+						#{price},
+						'대기',
+						#{img1},
+						#{img2},
+						#{img3},
+						sysdate,
+						sysdate,
+						#{cmpnSeq},
+						#{carNum}
+					)
+    </insert>
+
+    <insert id="insertCarOptions">
+    	INSERT INTO CAR_OPTION(
+    						 OPT_CODE,
+    						 CAR_SEQ
+							)
+					VALUES(
+							#{optCode},
+							#{carSeq}
+						  )
+    </insert>
 </mapper>

@@ -20,29 +20,30 @@
     }
 
 </style>
+<!-- Main content -->
+		<div class="content-wrapper">
+	<!-- Content area -->
+			<div class="content">
 
-<div class="container">
-    <h2>보유렌터카</h2>
-    <input type="hidden" name="seq" value="1">
+		
+		<input type="hidden" name="cmpnSeq" value="${cmpnSeq}">
     <div class="row">
         <div class="allCheck">
             <input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label>
         </div>
-        <div class="delBtn">
-            <button type="button" class="selectDelete_btn">선택 삭제</button>
-        </div>
     </div>
     <div class="row">
         <c:forEach var="companyCarList" items="${companyCarList }">
-            <div class="card" style="width:200px">
+            <div class="card" style="width:850px; margin:5px">
                 <input type="checkbox" name="chBox" class="chBox" data-seq="${companyCarList.seq }" />
                 <img class="card-img-top" src="${companyCarList.img1 }" alt="Card image" style="width:100%">
                 <div class="stateBanner badge-primary">${companyCarList.status }</div>
                 <div class="card-body">
                     <h4 class="card-title">
 
-                        <a class="show" href="#" data-seq='${companyCarList.seq }' data-toggle="modal" data-target="#myModal">
-
+                        <a class="show" href="${pageContext.request.contextPath}/company/car/view?seq=${companyCarList.seq}&cmpn=${companyCarList.cmpnSeq}">
+								
+								${companyCarList.seq },
                                 ${companyCarList.cmpnSeq },
                                 ${companyCarList.brand},
                                 ${companyCarList.model },
@@ -52,38 +53,17 @@
                     </h4>
                 </div>
             </div>
-            &nbsp;&nbsp;&nbsp;&nbsp;
         </c:forEach>
     </div>
-</div>
-
-
-<!-- The Modal -->
-<div class="modal" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Modal Heading</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-
-            <!-- Modal body -->
-            <div class="modal-body">
-
-
-            </div>
-
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">수정</button>
-            </div>
-
+        <span style="float:right; padding-left:5px;"><button type="button" class="btn btn-primary" onclick="location.href='car/register?cmpnSeq=${cmpnSeq}'">등록</button></span>    
+        <div class="delBtn" style="float:right"> 
+            <button type="button" class="selectDelete_btn btn btn-danger">선택 삭제</button>
         </div>
-    </div>
 </div>
 
+
+
+</div>
 <script>
     $(function(){	//page ready  이벤트 페이지가 준비되면 실행
 
@@ -100,20 +80,6 @@
             $("#allCheck").prop("checked", false);
         });
 
-        //조회
-        $(".show").on("click",function(){
-
-            $.ajax({
-                url : "companyCarOneSelect",
-                method : "get",		//post
-                data : {seq : this.dataset.seq},
-                // async : false,	//아작스처리 끝나야 다음이 실행됨 동기식
-                success : function(data){	//컨트롤러의 리턴값
-                    console.log(data);
-                    makeLi(data);
-                }
-            });
-        }); //show click end
 
         //삭제
 
@@ -128,12 +94,12 @@
                 });
 
                 $.ajax({
-                    url : "companyCarDel",
+                    url : "car/delete",
                     type : "post",
                     data : {chbox : checkArr},
                     success : function(result){
                         if(result == 1) {
-                            location.href = "${pageContext.request.contextPath}/companyDashboard";
+                            location.href = "${pageContext.request.contextPath}/company/dashboard";
                         } else {
                             alert("삭제 실패");
                         }

@@ -4,20 +4,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <style type="text/css">
-.dash {
-	background: #ffffff;
-	box-shadow: 0px 0 8px rgb(0 0 0/ 10%);
-	float: left;
-	width: 100%;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	margin-top: 0px;
-	margin-bottom: 70px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	
-}
 
 .pagination {
 	justify-content: center;
@@ -49,20 +35,24 @@
 	padding:50px;
 }
 </style>
+	<!-- Main content -->
+		<div class="content-wrapper">
 
-<div class="col-md-8">
-	<div class="blog_single_comment_heading">
-		<h4>업체 승인</h4>
-	</div>
-		<!-- 2 columns form -->
+			<!-- Content area -->
+			<div class="content">
+
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title">업체정보</h5>
-					
+						<h6 class="card-title">업체리스트</h6>
+						<div class="header-elements">
+							
+						</div>
 					</div>
 
-					<div class="card-body">
-						<form role="form" action="view/confirm" method="post">
+					<div class="card-body py-0">
+						<div class="row">
+							<div class="col-sm-12">
+									<form role="form" action="view/confirm" method="post">
 							<div class="row">
 								<div class="col-md-12">
 										<input type="hidden" class="form-control" name='seq' value='<c:out value="${comRegList.seq}"/>' readonly="readonly">
@@ -135,23 +125,27 @@
 							<div class="text-right">
 							<c:if test="${comRegList.status eq 'PST02'}">
 								<button id="reg" class="btn btn-primary">승인</button>
-								<button id="del" formaction="view/ban" class="btn btn-primary">거부</button>
+								<button id="del" formaction="view/deny" class="btn btn-primary">거부</button>
 							</c:if>
 							<c:if test="${comRegList.status eq 'PST01'}">
-								<button id="del" formaction="view/ban" class="btn btn-primary">거부</button>
-								<a class="btn btn-primary" id="list_btn" href="${pageContext.request.contextPath}/admin/maintenance/company">목록</a>
+								<button id="del" formaction="view/deny" class="btn btn-primary">거부</button>
+								<a class="btn btn-primary" id="list_btn" href="${pageContext.request.contextPath}/admin/maintenance/confirmCompany">목록</a>
 							</c:if>
 							<c:if test="${comRegList.status eq 'PST03'}">
 								<button id="reg" class="btn btn-primary">승인</button>
-								<a class="btn btn-primary" id="list_btn" href="${pageContext.request.contextPath}/admin/maintenance/company">목록</a>
+								<a class="btn btn-primary" id="list_btn" href="${pageContext.request.contextPath}/admin/maintenance/confirmCompany">목록</a>
 							</c:if>
 							</div>
 						</form>
+						<br>
+								</div>
+							</div>
+						</div>
 					</div>
+
 				</div>
-				
-				<!-- /2 columns form -->
 </div>
+
 <script>
 
 $("#reg").on("click", function(){

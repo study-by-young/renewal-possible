@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.community.course.domain.CourseBoardVO;
+import com.yedam.possable.app.community.course.domain.CourseVO;
 import com.yedam.possable.app.community.course.mapper.CourseBoardMapper;
 import com.yedam.possable.app.community.tour.domain.TestVO;
 
@@ -45,8 +46,6 @@ public class CourseBoardServiceImpl implements CourseBoardService {
 		return courseBoardMapper.tourList();
 	}
 
-
-
 	@Override
 	public int getTotalCount(Criteria cri) {
 		return courseBoardMapper.getTotalCount(cri);
@@ -55,6 +54,33 @@ public class CourseBoardServiceImpl implements CourseBoardService {
 	@Override
 	public List<TestVO> tourList(Criteria cri) {
 		return courseBoardMapper.tourList(cri);
+	}
+
+	@Override
+	public int courseCnt(CourseBoardVO vo) {
+		return courseBoardMapper.courseCnt(vo);
+	}
+
+	@Override
+	public List<TestVO> courseSelect(CourseBoardVO vo) {
+		return courseBoardMapper.courseSelect(vo);
+	}
+
+	@Override
+	public int courseInsert(List<CourseVO> list, Long num) {
+		long cnt = 1;
+		for (CourseVO course : list) {
+			course.setCourseSeq(num);
+			course.setPlaceNo(cnt++);
+			courseBoardMapper.courseInsert(course);
+		}
+		System.out.println(list.toString());
+		return 0;
+	}
+
+	@Override
+	public Long maxSeq() {
+		return courseBoardMapper.maxSeq();
 	}
 
 }

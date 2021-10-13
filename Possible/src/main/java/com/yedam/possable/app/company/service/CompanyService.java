@@ -17,6 +17,9 @@ public interface CompanyService {
 
     //업체 한건
     public CompanyVO companyOneSelect(CompanyVO vo);
+    
+	//업체 조회
+	public CompanyVO companySelect(Long cmpnSeq);
 
     //전체 데이터 건수
     public int getTotalCount(Criteria cri);
@@ -36,10 +39,13 @@ public interface CompanyService {
     // 업체 여행 상품 조회
     public List<String> getCompanyItems(CompanyVO vo);
 
-  //업체정보수정
+    //업체정보수정
     public int companyInfoUpdate(CompanyVO vo);
+    
+    //업체탈퇴
+    public int deleteCompany(CompanyVO vo);
 
     //수익차트
     public HashMap<String, Object> companyIncome();
-
+    
 }

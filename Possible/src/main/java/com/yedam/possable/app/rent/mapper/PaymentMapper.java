@@ -2,6 +2,9 @@ package com.yedam.possable.app.rent.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 
 public interface PaymentMapper {
@@ -23,4 +26,5 @@ public interface PaymentMapper {
 	
 	// 렌트 내역 seq 조회
 	public Long readSeq(String merchantUid);
+
 }

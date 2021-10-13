@@ -122,15 +122,8 @@
 				action="${pageContext.request.contextPath}/faq/list"
 				method="get">
 				<select name="type" class="select">
-					<option
-						<c:out value="${empty pageMaker.cri.type ? 'selected':''}"/>>선택</option>
 					<option value="T"
 						<c:out value="${pageMaker.cri.type eq 'T' ? 'selected':''}"/>>제목</option>
-					<option value="C"
-						<c:out value="${pageMaker.cri.type eq 'C' ? 'selected':''}"/>>내용</option>
-					<option value="TC"
-						<c:out value="${pageMaker.cri.type eq 'TC' ? 'selected':''}"/>>제목
-						or 내용</option>
 				</select> &nbsp; 
 				<input class="input" name="keyword" value="${pageMaker.cri.keyword}"> 
 				<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> 
@@ -140,19 +133,53 @@
 		</div>
  
  
- <br>
  
- <c:forEach items="${list}" var="faq">
-<button class="accordion">${faq.title}</button>
-<div class="panel">
-    <p>${faq.content}</p>
-</div>
  
-</c:forEach>
- 
+ <!-- 메뉴 -->
+      <div class="lr_bc_first_box_img_cont_wrapper">
+         <ul>
+            <li><a href="${pageContext.request.contextPath}/faq/#">대여안내</a></li>
+            <li><a href="${pageContext.request.contextPath}/faq/#">인수/반납</a></li>
+            <li><a href="${pageContext.request.contextPath}/faq/#">자차보험</a></li>
+            <li><a href="${pageContext.request.contextPath}/faq/#">취소/환불</a></li>
+         </ul>
+      </div>
+                        
+	 <div class="lr_bc_first_box_img_cont_wrapper">
+	 	<c:forEach items="${list}" var="faq">
+			<button class="accordion">${faq.title}</button>
+			<div class="panel">
+	    	<p>${faq.content}</p>
+	    	<div class="lr_bc_first_box_img_cont_wrapper" align="right">
+	    		<button class="btn btn-dark" type="button" onclick="location.href='update?seq=${faq.seq}'">수정</button>
+				<button id="deleteBtn" type="button" class="btn btn-dark">삭제</button><p>
+			</div>
+			</div>
+		</c:forEach>
+	<br>
+	</div>
+
  
 	</div>
+	
+		<div align="right">
+		<button type="button" class="btn btn-primary"
+			onclick="location.href='insert'">등록</button>
+	</div>
+	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-laballedby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+<br>
 <!-- <script>
     var acc = document.getElementsByClassName("accordion");
     var i;
@@ -197,4 +224,43 @@
 	 
 		  }
 	}
-	</script>
+	
+	$(document).ready(function() {
+		var insertResult = '<c:out value="${insertResult}"/>';
+		var deleteResult = '<c:out value="${deleteResult}"/>';
+		checkModal(insertResult, deleteResult);
+		
+	 	function checkModal(insertResult, deleteResult) {
+			if (insertResult === '' && deleteResult === '') {
+				return;
+			}
+			if (parseInt(insertResult) > 0) {
+				$('.modal-body').html("글이 등록되었습니다.");
+			}
+			if (parseInt(deleteResult) > 0) {
+				$('.modal-body').html("글 삭제가 완료되었습니다.");
+			}
+			$('#myModal').modal('show');
+		} 	
+	})
+	
+	
+	$('#deleteBtn').on('click', function() {
+
+		var result = confirm('삭제 하시겠습니까?');
+
+		if (result == true) {
+			location.href = 'delete?seq=${faq.seq}';
+			form.find("#seq").remove();
+			form.attr("action",
+					"${pageContext.request.contextPath}/faq/list?pageNum="
+							+ $('#pageNum').val() + "&amount="
+							+ $('#amount').val());
+			form.submit();
+		} else {
+			return;
+		}
+	})
+	
+	
+</script>

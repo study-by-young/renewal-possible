@@ -5,45 +5,44 @@
 
 <!DOCTYPE html>
 <style>
-.card {
-	float : left;
-	width: 100%;
-	background: #ffffff;
-	box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
-	padding: 50px;
-	margin-bottom: 20px;
-	border-radius: 5px;
+.card-body {
+    padding: 50px;
 }
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> <!-- 우편주소 api -->
 
-<div class="x_contact_title_main_wrapper float_left padding_tb_100">
-	<div class="container">
-		<div class="row">
-			<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-				<div class="x_blog_left_side_wrapper float_left">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="lr_bc_first_box_main_wrapper">
-								<!-- 업체등록 START -->
-									<form id="frm" name="frm" action="edit" method="post">
+<!-- Main content -->
+		<div class="content-wrapper">
+
+			<!-- Content area -->
+			<div class="content">
+
+				<div class="card">
+					<div class="card-header header-elements-inline">
+						<h6 class="card-title">업체정보수정</h6>
+						<div class="header-elements">
+							
+						</div>
+					</div>
+
+					<div class="card-body py-0">
+						<div class="row">
+							<div class="col-sm-12">
 								<div class="col-md-12">
-									<div class="blog_single_comment_heading">
-										<h4>업체수정</h4>
-									</div>
-									<div class="card">
+									<form id="frm" name="frm" action="editInfo/complete" method="post">
+									
 										<div class="row">
 											<input type="hidden" name='seq' value="${company.seq}">
 										   	<input type="hidden" name='memSeq' value="${company.memSeq}">
 										   	<div class="form-group col-md-6 col-sm-3">
 											   	<label for="InputId">업체명*</label>
-											    <input type="text" class="form-control"  id="name" name="name" value="${company.name }">
+											    <input type="text" class="form-control"  id="name" name="name" value="${company.name }" readonly>
 											</div>   
 										</div>
 										<div class="row">
 											<div class="form-group col-md-6 col-sm-3">
 												<label for="InputId">사업자번호*</label>
-												<input type="text" class="form-control"  id="cmpnNum" name="cmpnNum" value="${company.cmpnNum }">
+												<input type="text" class="form-control"  id="cmpnNum" name="cmpnNum" value="${company.cmpnNum }" readonly> 
 											</div>
 										</div>
 										<div class="row">
@@ -72,22 +71,20 @@
   	                      				<!-- 주소 종료 -->
   	                      				 <div class="row justify-content-end">
 										      <button id="up" type="submit" class="btn btn-primary mr-2">수정</button>
+										      <button id="del" formaction="editInfo/delete" type="submit" class="btn btn-danger" style="margin-right:.625rem!important">탈퇴</button>
 										      <button class="btn btn-danger">취소 </button>
 										 </div>
+							</form>
 									</div>
+									<br>
 									<!-- card BODY END -->
 								</div>
 								<!-- 업체등록 END -->	
-							</form>
-							</div>
+								</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		</div>
-	</div>
 </div>
-
 
 <script>
 function DaumPostcode() {
@@ -141,6 +138,14 @@ function DaumPostcode() {
 
 $("#up").on("click", function(){
 	if(confirm("수정하시겠습니까?") == true ){
+		document.form.submit();
+	}else{
+		return false;
+	}
+});
+
+$("#del").on("click", function(){
+	if(confirm("탈퇴하시겠습니까?") == true ){
 		document.form.submit();
 	}else{
 		return false;

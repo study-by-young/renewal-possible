@@ -34,139 +34,121 @@ import lombok.extern.java.Log;
 
 @Log
 @Controller
-@RequestMapping("/community/notice")
+@RequestMapping("/notice/*")
 public class NoticeController {
-    @Autowired
-    NoticeService noticeService;
 
-    // 공지사항 리스트
-    @GetMapping
-    public String noticeList(Model model,
-                             @ModelAttribute("cri") Criteria cri) {
-        // System.out.println("cri=====" + cri);
-        int total = noticeService.getTotalCount(cri);
-        model.addAttribute("list", noticeService.getList(cri));
-        model.addAttribute("pageMaker", new PageVO(cri, total));
-        return "community/notice/list";
-    }
+	@Autowired
+	NoticeService noticeService;
 
-    // 공지사항 게시글 보기
-    @GetMapping("/view")
-    public String noticeView(Model model,
-                             NoticeVO vo,
-                             @ModelAttribute("cri") Criteria cri) {
-        noticeService.plusViews(vo);
-        model.addAttribute("notice", noticeService.read(vo));
+	@GetMapping("/list")
+	public void list(Model model, @ModelAttribute("cri") Criteria cri) {
+		// System.out.println("cri=====" + cri);
+		int total = noticeService.getTotalCount(cri);
+		model.addAttribute("list", noticeService.getList(cri));
+		model.addAttribute("pageMaker", new PageVO(cri, total));
+	}
 
-        return "community/notice/view";
-    }
+	@GetMapping("/get")
+	public void get(Model model, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
+		noticeService.plusViews(vo);
+		model.addAttribute("notice", noticeService.read(vo));
+	}
 
-    // 공지사항 글쓰기
-    @GetMapping("/write")
-    public String noticeWrite(Model model,
-                              @ModelAttribute("cri") Criteria cri) {
-        return "community/notice/write";
-    }
+	@GetMapping("/insert")
+	public void insertForm(Model model, @ModelAttribute("cri") Criteria cri) {
+		
+	}
 
-    // 공지사항 업데이트 폼
-    @GetMapping("/view/update")
-    public String noticeUpdateForm(Model model, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
-        model.addAttribute("notice", noticeService.read(vo));
+	@PostMapping("/insert")
+	public String insert(Model model, RedirectAttributes rttr
+				, NoticeVO vo, NoticeFileVO filevo
+				, MultipartFile[] uploadFile, @ModelAttribute("cri") Criteria cri) {
+		//vo.setAttachList(list);
+		noticeService.insert(vo);
+		vo.setSeq(noticeService.readSeq());
+		filevo.setNoticeSeq(vo.getSeq());
+			log.info(filevo.toString());
+		model.addAttribute("file", filevo);
+		rttr.addFlashAttribute("insertResult", vo.getSeq());
 
-        return "community/notice/write";
-    }
+		return "redirect:/notice/list";
+	}
 
-    // 공지사항 업데이트
-    @PostMapping("/view/update")
-    public String noticeUpdate(Model model,
-                               RedirectAttributes rttr,
-                               NoticeVO vo,
-                               NoticeFileVO filevo,
-                               MultipartFile[] uploadFile,
-                               @ModelAttribute("cri") Criteria cri) {
-        //vo.setAttachList(list);
-        noticeService.insert(vo);
-        vo.setSeq(noticeService.readSeq());
-        filevo.setNoticeSeq(vo.getSeq());
-        log.info(filevo.toString());
-        model.addAttribute("file", filevo);
-        rttr.addFlashAttribute("insertResult", vo.getSeq());
+	@GetMapping("/update")
+	public void updateForm(Model model, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
+		model.addAttribute("notice", noticeService.read(vo));
+	}
 
-        return "redirect:/view";
-    }
-//
-//    @PostMapping("/update")
-//    public String update(RedirectAttributes rttr, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
-//        int result = noticeService.update(vo);
-//        if (result == 1) { /*+ INDEX_DESC(IDX_NOTICE) */
-//            rttr.addFlashAttribute("updateResult", vo.getSeq());
-//        }
-//
-//        rttr.addAttribute("seq", vo.getSeq());
-//        rttr.addAttribute("pageNum", cri.getPageNum());
-//        rttr.addAttribute("amount", cri.getAmount());
-//
-//        return "redirect:/notice/get";
-//    }
+	@PostMapping("/update")
+	public String update(RedirectAttributes rttr, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
+		int result = noticeService.update(vo);
+		if (result == 1) { /*+ INDEX_DESC(IDX_NOTICE) */
+			rttr.addFlashAttribute("updateResult", vo.getSeq());
+		}
 
-    @GetMapping("/view/delete")
-    public String deleteNotice(RedirectAttributes rttr,
-                               NoticeVO vo,
-                               @ModelAttribute("cri") Criteria cri) {
-        int result = noticeService.delete(vo);
+		rttr.addAttribute("seq", vo.getSeq());
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
 
-        if (result == 1) {
-            rttr.addFlashAttribute("deleteResult", vo.getSeq());
-        }
+		return "redirect:/notice/get";
+	}
 
-        rttr.addAttribute("pageNum", cri.getPageNum());
-        rttr.addAttribute("amount", cri.getAmount());
+	@GetMapping("/delete")
+	public String delete(RedirectAttributes rttr, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
+		int result = noticeService.delete(vo);
 
-        return "redirect:/notice";
-    }
+		if (result == 1) {
+			rttr.addFlashAttribute("deleteResult", vo.getSeq());
+		}
 
-    @RequestMapping(value = "/download")
-    public void cvplFileDownload(@RequestParam Map<String, Object> commandMap, HttpServletRequest request,
-                                 HttpServletResponse response) throws IOException {
-        String name = (String) commandMap.get("name");
-        // name으로 첨부파일 검색
-        NoticeFileVO attachVO = noticeService.attachRead(name);
-        String fileName = "";
-        if (attachVO != null) {
-            fileName = attachVO.getOrgName();
-        }
-        File uFile = new File("c:/upload", name + fileName);
-        long fSize = uFile.length();
-        if (fSize > 0) {
-            String mimetype = "application/x-msdownload";
-            response.setContentType(mimetype);
-            response.setHeader("Content-Disposition",
-                    "attachment;filename=\"" + URLEncoder.encode(fileName, "utf-8") + "\""); // 한글깨짐방지
-            // setDisposition(atchFileId, request, response);
-            BufferedInputStream in = null;
-            BufferedOutputStream out = null;
-            try {
-                in = new BufferedInputStream(new FileInputStream(uFile));
-                out = new BufferedOutputStream(response.getOutputStream());
-                FileCopyUtils.copy(in, out);
-                out.flush();
-            } catch (IOException ex) {
-            } finally {
-                in.close();
-                response.getOutputStream().flush();
-                response.getOutputStream().close();
-            }
-        } else {
-            response.setContentType("application/x-msdownload");
-            PrintWriter printwriter = response.getWriter();
-            printwriter.println("<html>");
-            printwriter.println("<h2>Could not get file name:<br>" + fileName + "</h2>");
-            printwriter.println("<center><h3><a href='javascript: history.go(-1)'>Back</a></h3></center>");
-            printwriter.println("&copy; webAccess");
-            printwriter.println("</html>");
-            printwriter.flush();
-            printwriter.close();
-        }
+		rttr.addAttribute("pageNum", cri.getPageNum());
+		rttr.addAttribute("amount", cri.getAmount());
 
-    }
+		return "redirect:/notice/list";
+	}
+
+	@RequestMapping(value = "/download")
+	public void cvplFileDownload(@RequestParam Map<String, Object> commandMap, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String name = (String) commandMap.get("name");
+		// name으로 첨부파일 검색
+		NoticeFileVO attachVO = noticeService.attachRead(name);
+		String fileName = "";
+		if (attachVO != null) {
+			fileName = attachVO.getOrgName();
+		}
+		File uFile = new File("c:/upload", name + fileName);
+		long fSize = uFile.length();
+		if (fSize > 0) {
+			String mimetype = "application/x-msdownload";
+			response.setContentType(mimetype);
+			response.setHeader("Content-Disposition",
+					"attachment;filename=\"" + URLEncoder.encode(fileName, "utf-8") + "\""); // 한글깨짐방지
+			// setDisposition(atchFileId, request, response);
+			BufferedInputStream in = null;
+			BufferedOutputStream out = null;
+			try {
+				in = new BufferedInputStream(new FileInputStream(uFile));
+				out = new BufferedOutputStream(response.getOutputStream());
+				FileCopyUtils.copy(in, out);
+				out.flush();
+			} catch (IOException ex) {
+			} finally {
+				in.close();
+				response.getOutputStream().flush();
+				response.getOutputStream().close();
+			}
+		} else {
+			response.setContentType("application/x-msdownload");
+			PrintWriter printwriter = response.getWriter();
+			printwriter.println("<html>");
+			printwriter.println("<h2>Could not get file name:<br>" + fileName + "</h2>");
+			printwriter.println("<center><h3><a href='javascript: history.go(-1)'>Back</a></h3></center>");
+			printwriter.println("&copy; webAccess");
+			printwriter.println("</html>");
+			printwriter.flush();
+			printwriter.close();
+		}
+
+	}
 }

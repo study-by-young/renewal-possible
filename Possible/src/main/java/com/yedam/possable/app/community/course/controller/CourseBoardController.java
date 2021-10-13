@@ -1,15 +1,24 @@
 package com.yedam.possable.app.community.course.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.community.course.domain.CourseBoardVO;
+import com.yedam.possable.app.community.course.domain.CourseVO;
 import com.yedam.possable.app.community.course.service.CourseBoardService;
+import com.yedam.possable.app.community.course.service.CourseService;
 import com.yedam.possable.app.community.tour.domain.TestVO;
 
 @Controller
@@ -17,6 +26,7 @@ import com.yedam.possable.app.community.tour.domain.TestVO;
 public class CourseBoardController {
 	@Autowired
 	CourseBoardService courseBoardService;
+	CourseService courseService;
 
 	// 전체조회
 	@GetMapping
@@ -25,11 +35,12 @@ public class CourseBoardController {
 	    return "community/course/list";
 	}
 
-	// 단건조회
+	// 단건조회(수정페이지)
 	@GetMapping("/view")
-	public String courseView(Model model,
-                             CourseBoardVO board) {
+	public String courseView(Model model, CourseBoardVO board, CourseVO course) {
 		model.addAttribute("board", courseBoardService.read(board));
+		model.addAttribute("cnt", courseBoardService.courseCnt(board));
+		model.addAttribute("course", courseBoardService.courseSelect(board));
 		return "community/course/view";
 	}
 
@@ -38,11 +49,26 @@ public class CourseBoardController {
 	public String courseWriteForm(Model model) {
 	    return "community/course/write";
 	}
-
+	
 	// 등록 처리
+	/*
+	 * @PostMapping("/write") public String courseWrite(Model model, CourseBoardVO
+	 * board, CourseVO course){ courseBoardService.insert(board);
+	 * 
+	 * return "redirect:/community/course"; }
+	 */
+    
     @PostMapping("/write")
-    public String courseWrite(){
-	    return "redirect:/view";
+    @ResponseBody
+    public String courseInsert(@RequestBody CourseBoardVO board) {
+    	System.out.println(board);	
+ 
+    	//ObjectMapper mapper = new ObjectMapper();
+    	courseBoardService.insert(board);
+    	System.out.println(board.getSeq());
+    	Long num = board.getSeq();
+    	courseBoardService.courseInsert(board.getBoardList(), num);
+    	return "test";
     }
 
     // 수정 폼

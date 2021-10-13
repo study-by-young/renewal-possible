@@ -3,27 +3,34 @@
 <mapper namespace="com.yedam.possable.app.community.tour.mapper.TourMapper">
 
 <insert id="insert">
-	INSERT INTO TOURTEST VALUES (#{addr1, jdbcType=VARCHAR}, #{areaCode, jdbcType=VARCHAR}, #{cat1, jdbcType=VARCHAR}, #{cat2, jdbcType=VARCHAR}, #{cat3, jdbcType=VARCHAR}, #{contentId, jdbcType=VARCHAR}, #{contentTypeId, jdbcType=VARCHAR}, #{createdTime, jdbcType=VARCHAR}, #{firstImage, jdbcType=VARCHAR}, #{firstImage2, jdbcType=VARCHAR}, #{mapX, jdbcType=VARCHAR}, #{mapY, jdbcType=VARCHAR}, #{mLevel, jdbcType=VARCHAR}, #{modifiedTime, jdbcType=VARCHAR}, #{readCount, jdbcType=VARCHAR}, #{sigunguCode, jdbcType=VARCHAR}, #{title, jdbcType=VARCHAR}, #{zipCode, jdbcType=VARCHAR})
+	INSERT INTO TOUR VALUES (#{addr1, jdbcType=VARCHAR}, #{areaCode, jdbcType=VARCHAR}, #{cat1, jdbcType=VARCHAR}, #{cat2, jdbcType=VARCHAR}, #{cat3, jdbcType=VARCHAR}, #{contentId, jdbcType=VARCHAR}, #{contentTypeId, jdbcType=VARCHAR}, #{createdTime, jdbcType=VARCHAR}, #{firstImage, jdbcType=VARCHAR}, #{firstImage2, jdbcType=VARCHAR}, #{mapX, jdbcType=VARCHAR}, #{mapY, jdbcType=VARCHAR}, #{mLevel, jdbcType=VARCHAR}, #{modifiedTime, jdbcType=VARCHAR}, #{readCount, jdbcType=VARCHAR}, #{sigunguCode, jdbcType=VARCHAR}, #{title, jdbcType=VARCHAR}, #{zipCode, jdbcType=VARCHAR})
 </insert>
 
 <select id="maxDate" resultType="long">
-	SELECT MAX(MODIFIEDTIME) FROM TOURTEST
+	SELECT MAX(MODIFIEDTIME) FROM TOUR
 </select>
 
 <select id="contentId" resultType="TestVO">
-	SELECT DISTINCT CONTENTID FROM TOURTEST
+	SELECT DISTINCT CONTENTID FROM TOUR
 </select>
 
 <update id="update">
-	UPDATE TOURTEST SET ADDR1 = #{addr1}, AREACODE = #{areaCode}, CAT1 = #{cat1}, CAT2 = #{cat2}, CAT3 = #{cat3}, CONTENTTYPEID = #{contentTypeId}, CREATEDTIME = #{createdTime}, FIRSTIMAGE = #{firstImage}, FIRSTIMAGE2 = #{firstImage2}, MAPX = #{mapX}, MAPY = #{mapY}, MLEVEL = #{mLevel}, MODIFIEDTIME = #{modifiedTime}, READCOUNT = #{readCount}, SIGUNGUCODE = #{sigunguCode}, TITLE = #{title}, ZIPCODE = #{zipCode} 
+	UPDATE TOUR SET ADDR1 = #{addr1}, AREACODE = #{areaCode}, CAT1 = #{cat1}, CAT2 = #{cat2}, CAT3 = #{cat3}, CONTENTTYPEID = #{contentTypeId}, CREATEDTIME = #{createdTime}, FIRSTIMAGE = #{firstImage}, FIRSTIMAGE2 = #{firstImage2}, MAPX = #{mapX}, MAPY = #{mapY}, MLEVEL = #{mLevel}, MODIFIEDTIME = #{modifiedTime}, READCOUNT = #{readCount}, SIGUNGUCODE = #{sigunguCode}, TITLE = #{title}, ZIPCODE = #{zipCode}
 	WHERE CONTENTID = #{contentId}
 </update>
 
 <delete id="delete">
-	DELETE FROM TOURTEST WHERE CONTENTID = #{contentId}
+	DELETE FROM TOUR WHERE CONTENTID = #{contentId}
 </delete>
 
 <select id="getList" resultType="TestVO">
-	SELECT DISTINCT * FROM TOURTEST
+	SELECT DISTINCT * FROM TOUR
+</select>
+
+<select id="getLatestList" resultType="TestVO">
+	<![CDATA[
+	SELECT ROWNUM, t.* FROM (SELECT * FROM tour ORDER BY contentid) t
+	WHERE ROWNUM < 10
+	]]>
 </select>
 </mapper>

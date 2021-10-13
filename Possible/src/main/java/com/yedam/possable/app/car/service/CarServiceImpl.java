@@ -1,14 +1,15 @@
 package com.yedam.possable.app.car.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.yedam.possable.app.car.domain.CarOptionVO;
 import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.domain.InsuranceOptionVO;
 import com.yedam.possable.app.car.mapper.CarMapper;
 import com.yedam.possable.app.company.domain.CompanyVO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class CarServiceImpl implements CarService {
@@ -52,17 +53,38 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarVO getCompanyCar(Long seq, CompanyVO vo) {
-        return carMapper.getCompanyCar(seq, vo);
+    public CarVO getCompanyCar(CarVO vo) {
+        return carMapper.getCompanyCar(vo);
     }
 
     @Override
-    public int deleteCompanyCar(Long seq, CompanyVO vo) {
-        return carMapper.deleteCompanyCar(seq, vo);
+    public int deleteCompanyCar(CarVO vo) {
+        return carMapper.deleteCompanyCar(vo);
     }
 
     @Override
     public int updateCompanyCar(CarVO carVO, CompanyVO cmpnVO) {
         return carMapper.updateCompanyCar(carVO, cmpnVO);
     }
+
+	@Override
+	public List<CarVO> getDistinctCarList() {
+		return carMapper.getDistinctCarList();
+	}
+
+	@Override
+	public List<CarVO> getCarByModel(CarVO vo) {
+		return carMapper.getCarByModel(vo);
+	}
+
+	@Override
+	public int insertCompanyCar(CarVO vo) {
+		// TODO Auto-generated method stub
+		return carMapper.insertCompanyCar(vo);
+	}
+
+	public int insertCarOptions(CarOptionVO vo) {
+		// TODO Auto-generated method stub
+		return carMapper.insertCarOptions(vo);
+	}
 }

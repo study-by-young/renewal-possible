@@ -2,9 +2,11 @@ package com.yedam.possable.app.rent.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.mapper.PaymentMapper;
 
@@ -42,5 +44,7 @@ public class PaymentServiceImpl implements PaymentService {
 	public Long readSeq(String merchantUid) {
 		return paymentMapper.readSeq(merchantUid);
 	}
+
+	
 
 }

@@ -79,5 +79,16 @@ public class CompanyServiceImpl implements CompanyService {
 		// TODO Auto-generated method stub
 		return companyMapper.companyInfoUpdate(vo);
 	}
+
+	@Override
+	public int deleteCompany(CompanyVO vo) {
+		// TODO Auto-generated method stub
+		return companyMapper.deleteCompany(vo);
+	}
+	
+	@Override
+	public CompanyVO companySelect(Long cmpnSeq) {
+		return companyMapper.companySelect(cmpnSeq);
+	}
 }
 

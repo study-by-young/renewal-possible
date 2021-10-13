@@ -21,11 +21,17 @@ public interface CodeMapper {
 
     public BrandCodeVO getBrand(String code);                           // 브랜드 단건 조회
 
+    public BrandCodeVO getBrandByName(String name);                     // 브랜드 단건 조회
+
     public List<ModelCodeVO> getModelList(String brandCode);            // 모델 조회
 
     public ModelCodeVO getModel(String code);                           // 모델 단건 조회
 
+    public ModelCodeVO getModelByName(String name);                     // 모델 단건 조회
+
     public List<TrimCodeVO> getTrimList(String modelCode);              // 트림 조회
 
     public TrimCodeVO getTrim(String code);                             // 트림 단건 조회
+
+    public TrimCodeVO getTrimByName(String name);                       // 트림 단건 조회
 }

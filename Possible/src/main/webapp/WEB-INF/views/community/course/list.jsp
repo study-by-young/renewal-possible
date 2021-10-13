@@ -53,7 +53,7 @@
 							</div>
 							<div class="btc_team_img_bot_cont_wrapper">
 								<h4>
-									<a href="${pageContext.request.contextPath}/tourCourseSelect">${list.title }</a>
+									<a href="${pageContext.request.contextPath}/community/course/view?seq=${list.seq}">${list.title }</a>
 								</h4>
 								<p>${list.writer }</p>
 							</div>

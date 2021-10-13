@@ -1,16 +1,18 @@
 package com.yedam.possable.app.rent.service;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.rent.domain.CompEstiListJoinVO;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 import com.yedam.possable.app.rent.mapper.PremiumRentMapper;
+
+import lombok.extern.java.Log;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+@Log
 @Service
 public class PremiumRentServiceImpl implements PremiumRentService{
     @Autowired
@@ -19,11 +21,10 @@ public class PremiumRentServiceImpl implements PremiumRentService{
     @Override
     public List<Map<String, Object>> getEstimateList(Criteria cri) {
         // 견적 리스트 조회 시 차, 여행 옵션 바인딩
-        List<Map<String, Object>> estimateList = new ArrayList<>();
+        List<Map<String, Object>> estimateList = new LinkedList<>();
 
         for(EstimateHistoryVO vo : premiumRentMapper.getEstimateList(cri)){
             Map<String, Object> estimate = new HashMap<>();
-
             estimate.put("estimate", vo);
             estimate.put("options", strToArr(vo.getOptions()));
             estimate.put("items", strToArr(vo.getItems()));
@@ -39,9 +40,9 @@ public class PremiumRentServiceImpl implements PremiumRentService{
         // 견적 리스트 조회 시 차, 여행 옵션 바인딩
         Map<String, Object> estimate = new HashMap<>();
         EstimateHistoryVO vo = premiumRentMapper.getEstimate(seq);
-
+        List<String> options = List.of(strToArr(vo.getOptions()));
         estimate.put("estimate", vo);
-        estimate.put("options", strToArr(vo.getOptions()));
+        estimate.put("options", options);
         estimate.put("items", strToArr(vo.getItems()));
 
         return estimate;
@@ -68,6 +69,28 @@ public class PremiumRentServiceImpl implements PremiumRentService{
     }
 
     private String[] strToArr(String str) {
-        return str.substring(1,str.length()-1).trim().split(",");
+        String[] strArr = str.substring(1,str.length()-1).trim().split(",");
+        for(int i=0; i< strArr.length; i++){
+            strArr[i] = strArr[i].trim();
+        }
+        return strArr;
     }
+
+	@Override
+	public List<EstimateHistoryVO> getUserEstimateList(Criteria cri, @Param("seq") Long seq) {
+
+		return premiumRentMapper.getUserEstimateList(cri, seq);
+	}
+
+	@Override
+	public List<CompEstiListJoinVO> compEstiSubmitList(Long seq) {
+		// TODO  업체 확인용 견적서 상세 리스트
+		return premiumRentMapper.compEstiSubmitList(seq);
+	}
+
+	@Override
+	public CompEstiListJoinVO compEstiSubmitOneSelect(Long seq) {
+		// TODO  업체 확인용 견적서 단건 조회
+		return premiumRentMapper.compEstiSubmitOneSelect(seq);
+	}
 }

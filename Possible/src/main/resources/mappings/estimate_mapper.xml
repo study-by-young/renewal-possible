@@ -1,41 +1,97 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yedam.possable.app.rent.mapper.PremiumRentMapper">
-    <select id="getEstimateList" resultType="EstimateHistoryVO">
+    <resultMap id="estimateHistory" type="EstimateHistoryVO">
+        <id property="seq" column="seq"/>
+        <result property="brand" column="brand"/>
+        <result property="segment" column="segment"/>
+        <result property="model" column="model"/>
+        <result property="trim" column="trim"/>
+        <result property="options" column="options"/>
+        <result property="items" column="items"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="takePlaceCode" column="take_place_code"/>
+        <result property="takePlaceBasic" column="take_place_basic"/>
+        <result property="takePlaceDetail" column="take_place_detail"/>
+        <result property="genDate" column="gen_date"/>
+        <result property="uptDate" column="upt_date"/>
+        <result property="memo" column="memo"/>
+        <association property="memberVO"
+                     column="mem_seq"
+                     columnPrefix="mem_"
+                     resultMap="com.yedam.possable.app.member.mapper.MemberMapper.member"
+                     javaType="MemberVO"/>
+    </resultMap>
+
+    <select id="getEstimateList" resultMap="estimateHistory">
         SELECT *
         FROM ( SELECT
-                    /*+ INDEX_DESC(tb IDX_ESTIMATE_HISTORY) */
-                    ROWNUM RN,
-                    seq,
-                    brand,
-                    segment,
-                    model,
-                    trim,
-                    options,
-                    items,
-                    start_date,
-                    end_date,
-                    take_place_code,
-                    take_place_basic,
-                    take_place_detail,
-                    gen_date,
-                    upt_date,
-                    mem_seq
-                FROM estimate_history tb
-                <where>
-                    <![CDATA[ ROWNUM <= #{pageNum} * #{amount} ]]>
-                </where>
+        ROWNUM RN,
+        EH.seq,
+        EH.options,
+        EH.items,
+        EH.start_date,
+        EH.end_date,
+        EH.memo,
+        EH.take_place_code,
+        EH.take_place_basic,
+        EH.take_place_detail,
+        EH.gen_date,
+        EH.upt_date,
+        BC.name AS brand,
+        MC.name AS model,
+        MC.img,
+        TC.name AS trim,
+        TC.fuel,
+        CS.name AS segment,
+        M.seq AS mem_seq
+        FROM ( SELECT *
+            FROM estimate_history
+            <where>
+                <![CDATA[ ROWNUM <= #{pageNum} * #{amount} ]]>
+            </where>
+        ) EH
+        LEFT OUTER JOIN brand_code BC ON EH.brand = BC.code
+        LEFT OUTER JOIN model_code MC ON EH.model = MC.code
+        LEFT OUTER JOIN trim_code TC ON EH.trim = TC.code
+        LEFT OUTER JOIN code_sub CS ON EH.segment = CS.code
+        LEFT OUTER JOIN member M ON EH.mem_seq = M.seq
         )
         WHERE RN > (#{pageNum} - 1) * #{amount}
     </select>
 
     <select id="getEstimate" resultType="EstimateHistoryVO">
-        SELECT *
-        FROM estimate_history
-        WHERE seq = #{seq}
+        SELECT EH.seq,
+               EH.options,
+               EH.items,
+               EH.start_date,
+               EH.end_date,
+               EH.memo,
+               EH.take_place_code,
+               EH.take_place_basic,
+               EH.take_place_detail,
+               EH.gen_date,
+               EH.upt_date,
+               BC.name AS brand,
+               MC.name AS model,
+               MC.img,
+               TC.name AS trim,
+               TC.fuel,
+               CS.name AS segment,
+               M.seq   AS mem_seq
+        FROM (SELECT *
+              FROM estimate_history
+              WHERE seq = #{seq}
+                     ) EH
+                     LEFT OUTER JOIN brand_code BC ON EH.brand = BC.code
+                     LEFT OUTER JOIN model_code MC ON EH.model = MC.code
+                     LEFT OUTER JOIN trim_code TC ON EH.trim = TC.code
+                     LEFT OUTER JOIN code_sub CS ON EH.segment = CS.code
+                     LEFT OUTER JOIN member M ON EH.mem_seq = M.seq
     </select>
 
-    <insert id="insertEstimate" parameterType="EstimateHistoryVO">
+    <insert id="insertEstimate">
         <selectKey keyProperty="seq" resultType="long" order="BEFORE">
             SELECT SEQ_ESTIMATE_HISTORY.NEXTVAL FROM dual
         </selectKey>
@@ -49,6 +105,7 @@
         end_date,
         options,
         items,
+        memo,
         take_place_code,
         take_place_basic,
         take_place_detail,
@@ -63,6 +120,7 @@
         #{endDate},
         #{options},
         #{items},
+        #{memo},
         #{takePlaceCode},
         #{takePlaceBasic},
         #{takePlaceDetail},
@@ -73,29 +131,153 @@
     <update id="updateEstimate">
         UPDATE estimate_history
         <set>
-            <if test="brand != null">brand = #{brand},</if>
-            <if test="segment != null">segment = #{segment},</if>
-            <if test="model != null">model = #{model},</if>
-            <if test="trim != null">trim = #{trim},</if>
-            <if test="startDate != null">start_date = #{startDate},</if>
-            <if test="endDate != null">end_date = #{endDate},</if>
-            <if test="options != null">options = #{options},</if>
-            <if test="items != null">items = #{items},</if>
-            <if test="takePlaceCode != null">take_place_code = #{takePlaceCode},</if>
-            <if test="takePlaceBasic != null">take_place_basic = #{takePlaceBasic},</if>
-            <if test="takePlaceDetail != null">take_place_detail = #{takePlaceDetail},</if>
-            upt_date = SYSDATE,
+            <if test="brand != null">
+                brand = #{brand},
+            </if>
+            <if test="segment != null">
+                segment = #{segment},
+            </if>
+            <if test="model != null">
+                model = #{model},
+            </if>
+            <if test="trim != null">
+                trim = #{trim},
+            </if>
+            <if test="startDate != null">
+                start_date = #{startDate},
+            </if>
+            <if test="endDate != null">
+                end_date = #{endDate},
+            </if>
+            <if test="options != null">
+                options = #{options},
+            </if>
+            <if test="items != null">
+                items = #{items},
+            </if>
+            <if test="memo != null">
+                memo = #{memo},
+            </if>
+            <if test="takePlaceCode != null">
+                take_place_code = #{takePlaceCode},
+            </if>
+            <if test="takePlaceBasic != null">
+                take_place_basic = #{takePlaceBasic},
+            </if>
+            <if test="takePlaceDetail != null">
+                take_place_detail = #{takePlaceDetail},
+            </if>
+            upt_date = SYSDATE
         </set>
         WHERE seq = #{seq}
     </update>
 
     <delete id="deleteEstimate">
-        DELETE FROM estimate_history
+        DELETE
+        FROM estimate_history
         WHERE seq = #{seq}
     </delete>
 
     <select id="getEstimateCount" resultType="int">
         SELECT COUNT(*)
         FROM estimate_history
+    </select>
+
+    <!-- 마이페이지 유저 프리미엄 견적 리스트 -->
+    <select id="getUserEstimateList" resultMap="estimateHistory">
+        SELECT ROWNUM     RN,
+               EH.seq,
+               EH.options,
+               EH.items,
+               EH.start_date,
+               EH.end_date,
+               EH.memo,
+               EH.take_place_code,
+               EH.take_place_basic,
+               EH.take_place_detail,
+               EH.gen_date,
+               EH.upt_date,
+               BC.name AS brand,
+               MC.name AS model,
+               MC.img,
+               TC.name AS trim,
+               TC.fuel,
+               CS.name AS segment,
+               M.seq   AS mem_seq
+        FROM (SELECT *
+              FROM estimate_history
+              WHERE seq = #{seq}
+                     ) EH
+                     LEFT OUTER JOIN brand_code BC ON EH.brand = BC.code
+                     LEFT OUTER JOIN model_code MC ON EH.model = MC.code
+                     LEFT OUTER JOIN trim_code TC ON EH.trim = TC.code
+                     LEFT OUTER JOIN code_sub CS ON EH.segment = CS.code
+                     LEFT OUTER JOIN member M ON EH.mem_seq = M.seq
+    </select>
+    <!-- 업체용 견적 제출 확인 리스트 -->
+    <select id="compEstiSubmitList" resultType="CompEstiListJoinVO">
+        SELECT e.SEQ,
+               e.ESTI_SEQ,
+               e.CAR_SEQ,
+               e.CMPN_SEQ,
+               eh.MEM_SEQ,
+               c.BRAND,
+               c.MODEL,
+               c.SEGMENT,
+               c.COLOR,
+               c.KMPL,
+               c.FUEL,
+               c.TRUNK,
+               c.DOOR,
+               c.MISSION,
+               c.YEAR,
+               e.ITEMS,
+               e.PRICE,
+               e.MEMO,
+               e.GEN_DATE,
+               e.UPT_DATE,
+               com.NAME,
+               com.TEL
+        FROM esti_submit_history e
+                     INNER JOIN CAR c
+                ON c.seq = e.car_seq
+                     INNER JOIN COMPANY com
+                ON com.seq = c.cmpn_seq
+                     JOIN estimate_history eh
+                ON e.esti_seq = eh.seq
+        WHERE e.cmpn_seq = #{seq}
+    </select>
+    <!--프리미엄 렌트카 한건 조회 -->
+    <select id="compEstiSubmitOneSelect" resultType="CompEstiListJoinVO">
+        SELECT e.SEQ,
+               e.ESTI_SEQ,
+               e.CAR_SEQ,
+               e.CMPN_SEQ,
+               eh.MEM_SEQ,
+               c.BRAND,
+               c.MODEL,
+               c.SEGMENT,
+               c.COLOR,
+               c.KMPL,
+               c.FUEL,
+               c.TRUNK,
+               c.DOOR,
+               c.MISSION,
+               c.YEAR,
+               e.ITEMS,
+               e.PRICE,
+               e.MEMO,
+               e.GEN_DATE,
+               e.UPT_DATE,
+               com.NAME,
+               com.TEL
+        FROM esti_submit_history e
+                     INNER JOIN CAR c
+                ON c.seq = e.car_seq
+                     INNER JOIN COMPANY com
+                ON com.seq = c.cmpn_seq
+                     JOIN estimate_history eh
+                ON e.esti_seq = eh.seq
+        WHERE e.seq = #{seq}
     </select>
 </mapper>

@@ -29,24 +29,4 @@ public class CarController {
 
         return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(carOptions);
     }
-
-//    @GetMapping("/list")
-//    public void getCarList(Model model) {
-//        model.addAttribute("carList", carService.getCarList());
-//    }
-//
-//    @GetMapping("/rentFin")
-//    public String rentFin() {
-//        return "car/rentFin";
-//    }
-//
-//    @GetMapping("/info")
-//    public String info() {
-//        return "car/info";
-//    }
-//
-//    @GetMapping("/rent")
-//    public String rent() {
-//        return "car/rent";
-//    }
 }
