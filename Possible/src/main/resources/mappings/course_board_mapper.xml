@@ -79,8 +79,28 @@
 		INSERT INTO COURSE VALUES (#{courseSeq}, #{seq}, #{placeNo}, #{contentId})
 	</insert>
 	
-	<select id="maxSeq" resultType="long">
-		SELECT MAX(SEQ) FROM COURSE_BOARD
+	<update id="plusViews">
+		UPDATE COURSE_BOARD
+		SET VIEWS = VIEWS + 1
+		WHERE SEQ = #{seq}
+	</update>
+	
+	<insert id="plusLike">
+		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
+			SELECT SEQ_COURSE_BOARD_LIKE.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO COURSE_BOARD_LIKE VALUES(#{seq}, #{boardSeq}, #{memberSeq})
+	</insert>
+	
+	<delete id="minusLike">
+		DELETE FROM COURSE_BOARD_LIKE WHERE BOARD_SEQ = #{boardSeq} AND MEMBER_SEQ = #{memberSeq}
+	</delete>
+	
+	<select id="countLike" resultType="int">
+		SELECT COUNT(*) FROM COURSE_BOARD_LIKE WHERE BOARD_SEQ = #{seq}
 	</select>
 	
+	<select id="checkLike">
+		SELECT COUNT(*) FROM COURSE_BOARD WHERE BOARD_SEQ = #{boardSeq} AND MEMBER_SEQ = #{memberSeq}
+	</select>
 </mapper>

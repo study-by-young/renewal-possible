@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.community.course.domain.CourseBoardLikeVO;
 import com.yedam.possable.app.community.course.domain.CourseBoardVO;
 import com.yedam.possable.app.community.course.domain.CourseVO;
 import com.yedam.possable.app.community.course.mapper.CourseBoardMapper;
@@ -79,8 +80,23 @@ public class CourseBoardServiceImpl implements CourseBoardService {
 	}
 
 	@Override
-	public Long maxSeq() {
-		return courseBoardMapper.maxSeq();
+	public boolean plusViews(CourseBoardVO vo) {
+		return courseBoardMapper.plusViews(vo);
+	}
+
+	@Override
+	public int plusLike(CourseBoardLikeVO vo) {
+		return courseBoardMapper.plusLike(vo);
+	}
+
+	@Override
+	public int minusLike(CourseBoardLikeVO vo) {
+		return courseBoardMapper.minusLike(vo);
+	}
+
+	@Override
+	public int countLike(CourseBoardVO vo) {
+		return courseBoardMapper.countLike(vo);
 	}
 
 }

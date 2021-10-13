@@ -33,7 +33,7 @@ response.setContentType("text/html; charset=utf-8");
 				<div
 					class="col-xl-5 offset-xl-1 col-lg-6 col-md-6 col-sm-12 col-xs-12">
 					<div class="contect_form2">
-						<input id="writer" name="writer" value="티키" type="text"
+						<input id="writer" name="writer" value="${user }" type="text"
 							placeholder="Writer" readonly="readonly">
 					</div>
 				</div>
