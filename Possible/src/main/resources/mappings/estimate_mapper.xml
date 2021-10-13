@@ -379,6 +379,7 @@
     <select id="getEstSubmitCount" resultType="int">
     </select>
 
+	<!-- 
    	<select id="compEstiSubmitList" resultType="CompEstiListJoinVO" >
    			SELECT  e.SEQ, 
 					e.ESTI_SEQ, 
@@ -411,8 +412,9 @@
        		ON e.esti_seq = eh.seq
 	        WHERE e.cmpn_seq= #{seq}
    	</select>
+   	 -->
    	
-    <!--프리미엄 렌트카 한건 조회 -->
+    <!--프리미엄 렌트카 한건 조회
    	<select id ="compEstiSubmitOneSelect" resultType="CompEstiListJoinVO">
    			SELECT  e.SEQ, 
 					e.ESTI_SEQ, 
@@ -445,6 +447,7 @@
        		ON e.esti_seq = eh.seq
 	        WHERE e.seq= #{seq}
    	</select>
+   	 -->
    	
     <resultMap type="CompEstiListJoinVO" id="CompEstiListJoin">
     	<id property="seq" column="seq"/>
