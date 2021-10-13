@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
@@ -40,10 +43,11 @@ public class CommonRentController {
 
     // 렌트카 리스트
     @GetMapping("/list")
-    public String rentCarList(Model model, Long seq, CarVO vo, RentReviewVO rvo) {
+    public String rentCarList(Model model, Long seq, CarVO vo, RentReviewVO rvo, @ModelAttribute("cri") Criteria cri) {
     	// 자동차 SEQ -> 업체SEQ -> 업체정보, 리뷰개수
     	// 자동차 SEQ -> 보험
-    	List<CarVO> allList = carService.getDistinctCarList();
+    	int total = carService.getTotalCount(cri);
+    	List<CarVO> allList = carService.getDistinctCarList(cri);
     	for(int i=0; i<allList.size(); i++) {
     		CarVO selectedCarInfo = allList.get(i);		
     		List<CarVO> modelList = carService.getCarByModel(selectedCarInfo);
@@ -69,14 +73,14 @@ public class CommonRentController {
     	
     	// 모델별로 대표 하나만 보여주기
     	model.addAttribute("list", allList);
-
+    	model.addAttribute("pageMaker", new PageVO(cri, total));
         model.addAttribute("areaCodes", codeService.getCodesByParentCode("지역"));
         return "rent/comm/carList";
     }
     
     // 렌트카 상세보기
     @GetMapping("/view")
-    public String rentCarView(Model model, CarVO vo, CompanyVO cmpnVo) {
+    public String rentCarView(Model model, CarVO vo, CompanyVO cmpnVo, @ModelAttribute("cri") Criteria cri) {
     	System.out.println("================" + vo);
     	model.addAttribute("car", carService.getCompanyCar(vo));
     	cmpnVo.setSeq(vo.getCmpnSeq());
@@ -86,7 +90,7 @@ public class CommonRentController {
     	// 넘어와야 하는 값
     	// startDate, endDate, searchArea, carSeq, cmpnSeq
 
-    	List<CarVO> allList = carService.getDistinctCarList();
+    	List<CarVO> allList = carService.getDistinctCarList(cri);
     	for(int i=0; i<allList.size(); i++) {
     		CarVO selectedCarInfo = allList.get(i);		
     		List<CarVO> modelList = carService.getCarByModel(selectedCarInfo);

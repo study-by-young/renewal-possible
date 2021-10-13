@@ -30,31 +30,26 @@
                      resultMap="com.yedam.possable.app.company.mapper.CompanyMapper.company"
                      javaType="com.yedam.possable.app.company.domain.CompanyVO"/>
     </resultMap>
+    
+	<!-- 검색 기능 -->
+	<sql id="criteria">
+		<trim prefix="(" suffix=")" prefixOverrides="OR">
+        	<foreach collection="typeArr" item="type">
+            	<trim prefix="OR">
+            		<choose>
+				    	<when test="type == 'T'.toString()">
+				        	TITLE LIKE '%' || #{keyword} || '%'
+				        </when>
+				        <when test="type == 'C'.toString()">
+				        	CONTENT LIKE '%' || #{keyword} || '%'
+				        </when>
+            		</choose>
+            	</trim>
+            </foreach>
+    	</trim>
+	</sql>    
+    
     <select id="getCarList" resultType="CarVO">
-        SELECT seq,
-               cmpn_seq,
-               car_num,
-               brand,
-               model,
-               segment,
-               trim,
-               color,
-               year,
-               fuel,
-               passenger,
-               mission,
-               trunk,
-               door,
-               kmpl,
-               price,
-               img1,
-               img2,
-               img3,
-               upt_date
-        FROM car
-    </select>
-
-    <select id="carList" resultType="CarVO">
         SELECT seq,
                cmpn_seq,
                car_num,
@@ -229,13 +224,14 @@
 
     <!-- 차량 model 중복제거 리스트 조회 -->
     <select id="getDistinctCarList" resultType="CarVO">
-    	SELECT *
-		FROM (SELECT ROW_NUMBER() OVER(
-		  								PARTITION BY MODEL
-		  								ORDER BY SEQ ) CNT
-		  			 , CAR.*
-			  FROM CAR)
-		WHERE CNT = 1
+		SELECT * 
+		FROM (SELECT /*+ INDEX_DESC(CAR IDX_CAR) */ ROWNUM RN, a.*
+		        FROM (SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.* FROM CAR) a
+		        <where> 
+                	<include refid="criteria"></include>
+                	<![CDATA[ AND CNT = 1 AND ROWNUM <= #{pageNum} * #{amount}) ]]>
+                </where>
+		WHERE RN > (#{pageNum} - 1) * #{amount}
     </select>
 
     <!-- 해당 model을 보유한 업체 리스트 뽑아내기 위한 리스트 -->
@@ -318,4 +314,13 @@
 							#{carSeq}
 						  )
     </insert>
+    
+    <select id="getTotalCount" resultType="int">
+		SELECT COUNT(*) FROM (
+				SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.* 
+				FROM CAR)
+		<where>
+			<include refid="criteria"></include>
+		</where>
+	</select>
 </mapper>

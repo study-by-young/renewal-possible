@@ -219,6 +219,27 @@ console.log($("#startDate").datepicker("getDate"));
 </div>
 <!-- End of 차량 추천 Modal -->
 
+				<div class="custom-input">
+					<form id="actionForm" action="${pageContext.request.contextPath}/commonRent/list" method="get">
+						<select name="type" class="select">
+							<option
+								<c:out value="${empty pageMaker.cri.type ? 'selected':''}"/>>선택</option>
+							<option value="T"
+								<c:out value="${pageMaker.cri.type eq 'T' ? 'selected':''}"/>>제목</option>
+							<option value="C"
+								<c:out value="${pageMaker.cri.type eq 'C' ? 'selected':''}"/>>내용</option>
+							<option value="TC"
+								<c:out value="${pageMaker.cri.type eq 'TC' ? 'selected':''}"/>>제목 or 내용</option>
+						</select> &nbsp; 
+						<input class="input" name="keyword" value="${pageMaker.cri.keyword}"> 
+						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> 
+						<input type="hidden" name="amount" value="${pageMaker.cri.amount}">&nbsp;
+						<button class="custom-btn btn-primary" onclick="$('[name=pageNum]').val(1)">검색</button>
+					</form>
+				</div>
+
+
+
 <!-- x car book sidebar section Wrapper Start -->
 <div class="x_car_book_sider_main_Wrapper float_left mt-5">
 	<div class="container">
@@ -234,7 +255,6 @@ console.log($("#startDate").datepicker("getDate"));
 
 									<h3>상세검색</h3>
 									<hr>
-
 									<!-- 모델명 -->
 									<div class="panel panel-default">
 										<div class="panel-heading">
@@ -519,16 +539,15 @@ console.log($("#startDate").datepicker("getDate"));
 											<div class="col-md-12">
 												<div class="pager_wrapper prs_blog_pagi_wrapper">
 													<ul class="pagination">
-														<li><a href="#"><i class="flaticon-left-arrow"></i></a>
-														</li>
-														<li class="btc_shop_pagi"><a href="#">01</a></li>
-														<li class="btc_shop_pagi"><a href="#">02</a></li>
-														<li class="btc_third_pegi btc_shop_pagi"><a href="#">03</a>
-														</li>
-														<li class="hidden-xs btc_shop_pagi"><a href="#">...</a>
-														</li>
-														<li><a href="#"><i class="flaticon-right-arrow"></i></a>
-														</li>
+														<c:if test="${pageMaker.prev}">
+															<li><a href="${pageMaker.startPage-1}"><i class="flaticon-left-arrow"></i></a></li>
+														</c:if>
+														<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="num">
+															<li class="btc_shop_pagi"><a href="${num}">${num}</a></li>
+														</c:forEach>
+														<c:if test="${pageMaker.next}">
+															<li><a href="${pageMaker.endPage+1}"><i class="flaticon-right-arrow"></i></a></li>
+														</c:if>
 													</ul>
 												</div>
 											</div>
@@ -779,6 +798,17 @@ console.log($("#startDate").datepicker("getDate"));
 		location.href="view?cmpnSeq=" + cmpnSeq_val + "&seq=" + seq_val;// + "&startDate=" + startDate + "&endDate=" + endDate;    	
     });
   		
+    
+    $(function() {
+    	var actionForm = $("#actionForm");
+
+    	$(".pagination a").on("click", function(e) {
+    		e.preventDefault(); //a, submit 경우에 쓸 수 있음 태그의 원래기능을 막고 정의한 함수 실행
+    		var p = $(this).attr("href");
+    		$('[name="pageNum"]').val(p);
+    		actionForm.submit();
+    	});
+    });
 	
 </script>
 <!-- x car book sidebar section Wrapper End -->
