@@ -32,6 +32,7 @@ import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
 import com.yedam.possable.app.rent.domain.CompEstiListJoinVO;
+import com.yedam.possable.app.rent.domain.EstiSubmitHistoryVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.service.PremiumRentService;
 import com.yedam.possable.app.rent.service.RentHistoryService;
@@ -274,14 +275,34 @@ public class CompanyController {
 
     // 견적 제출 수정 폼
     @GetMapping("/estSubmit/update")
-    public String estSubmitUpdateForm(){
-        return "";
+    public String estSubmitUpdateForm() {
+    	return "";
     }
 
     // 견적 제출 수정 처리
     @PostMapping("/estSubmit/update")
-    public String updateEstSubmit(){
-        return "";
+    public String updateEstSubmit(CompEstiListJoinVO vo,
+    							  @RequestParam Long cmpnSeq,
+			  					  @RequestParam("options") String[] itemsArr,
+			  					  RedirectAttributes attributes){
+    	vo.setItems(Arrays.toString(itemsArr));
+    	System.out.println("넌뭐니?"+cmpnSeq);
+    	vo.setCmpnSeq(cmpnSeq);
+    	System.out.println("바뀐값이 무엇이드냐!!"+vo.getItems());
+    	int result = premiumRentService.CompEstimateUpdate(vo);
+    	System.out.println(cmpnSeq + "뭐냐?");
+    	String message = "";
+
+    	System.out.println("0?1?"+result);
+    	if (result == 1) {
+    		message = "견적이 수정 되었습니다.";
+    	} else {
+    		message = "견적 수정에 실패했습니다. \n잠시후 다시 시도해주세요";
+    	}
+    	attributes.addFlashAttribute("message" , result);
+    	attributes.addAttribute("seq", vo.getSeq());
+    	return "redirect:/company/estSubmit?cmpnSeq=" + vo.getSeq();
+    	
     }
 
     // 렌트 내역 리스트

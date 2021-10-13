@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.rent.domain.CompEstiListJoinVO;
+import com.yedam.possable.app.rent.domain.EstiSubmitHistoryVO;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 import com.yedam.possable.app.rent.mapper.PremiumRentMapper;
 
@@ -101,11 +102,15 @@ public class PremiumRentServiceImpl implements PremiumRentService{
         estimate.put("estimate", vo);
         estimate.put("options", options);
         estimate.put("items", strToArr(vo.getItems()));
-        System.out.println("어떻게 나눠져있니?"+ strToArr(vo.getItems().toString()));
-        System.out.println("뭔데 니 진짜 ㅡㅡ"+estimate);
         return estimate;
 		
 		
 		//return premiumRentMapper.compEstiSubmitOneSelect(seq);
+	}
+
+	@Override
+	public int CompEstimateUpdate(CompEstiListJoinVO vo) {
+		// TODO Auto-generated method stub
+		return premiumRentMapper.CompEstimateUpdate(vo);
 	}
 }

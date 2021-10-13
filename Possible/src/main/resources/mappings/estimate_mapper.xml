@@ -285,6 +285,12 @@
                 ON eh.mem_seq = mem.seq
         WHERE e.seq = #{seq}
     </select>
+    <update id="CompEstimateUpdate" >
+    UPDATE ESTI_SUBMIT_HISTORY 
+	SET ITEMS =#{items}
+	WHERE SEQ =#{seq}
+    
+    </update>
     <resultMap type="CompEstiListJoinVO" id="CompEstiListJoin">
     	<id property="seq" column="seq"/>
     	<result property="items" column="items"/>
