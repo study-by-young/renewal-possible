@@ -141,6 +141,7 @@
                trunk,
                door,
                kmpl,
+               status,
                price,
                img1,
                img2,
@@ -173,7 +174,7 @@
                CAR_NUM
         FROM CAR
         WHERE SEQ = #{seq}
-        AND cmpn_seq = #{cmpnSeq}
+        AND cmpn_seq = #{companyVO.seq}
         ORDER BY SEQ
     </select>
     <delete id="deleteCompanyCar">

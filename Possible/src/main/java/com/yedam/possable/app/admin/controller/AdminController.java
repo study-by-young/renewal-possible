@@ -102,8 +102,9 @@ public class AdminController {
     @GetMapping("/maintenance/company/view")
     public String nonConfirmCompanyView(Model model,
                                         CompanyVO vo){
-        vo = companyService.companyOneSelect(vo);
-
+    	    	
+    	vo = companyService.companyOneSelect(vo);
+   
         String status = codeService.getCodeByValue(vo.getStatus()).getName();
 
         model.addAttribute("comRegList", vo);

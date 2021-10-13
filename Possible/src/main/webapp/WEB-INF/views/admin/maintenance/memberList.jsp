@@ -3,9 +3,7 @@
 
 <style type="text/css">
 
-.pagination {
-	justify-content: center;
-}
+
 
 .select {
 	width: 70px; /* 원하는 너비설정 */
@@ -98,14 +96,14 @@
 							<div class="col-sm-12">
 								<div class="d-flex align-items-center justify-content-center mb-2">
 							<div id="pageButton">
-  	<ul class="pagination">
+  	<ul class="pagination pagination-flat align-self-center">
 		<c:if test="${pageMaker.prev }">
 			<li class="page-item"><a class="page-link" href="${pageMaker.startPage-1}">이전</a></li>
 			<span aria-hidden="true">&laquo;</span>
 		</c:if>
 		<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }"
 			var="num">
-				<li class="page-item"><a class="page-link" href="${num }">${num }</a></li>
+				<li class="page-item" ><a class="page-link" href="${num }">${num }</a></li>
 		</c:forEach>
 		<c:if test="${pageMaker.next }">
 			<li class="page-item"><a class="page-link" href="${pageMaker.endPage+1}">다음</a></li>
@@ -145,4 +143,12 @@
 			actionForm.submit();
 		});
 	});
+	
+	   $(function(){
+		     var pageBtn = $("ul > li");   
+		      pageBtn.find("a").click(function(){   
+		      pageBtn.removeClass("active");     // pageBtn 속에 (active) 클래스를 삭제.
+		      $(this).parent().addClass("active"); // 클릭한 a에 (active)클래스를 넣는다.
+		     })
+		    });
 </script>

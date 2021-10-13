@@ -79,7 +79,7 @@
         'PST02',
         sysdate,
         sysdate,
-        #{memSeq},
+        #{memberVO.seq},
         #{addr1},
         #{addr2},
         #{area}
@@ -92,13 +92,15 @@
                 /*+ INDEX_DESC (COMPANY IDX_COMPANY) */
                 ROWNUM RN,
                 SEQ,
+                MEM_SEQ,
                 NAME,
                 POSTAL,
                 CMPN_NUM,
                 ADDR1,
                 ADDR2,
                 AREA,
-                TEL
+                TEL,
+                GEN_DATE
         FROM COMPANY
         WHERE STATUS = 'PST02'
     </select>

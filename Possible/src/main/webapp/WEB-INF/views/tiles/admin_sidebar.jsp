@@ -49,21 +49,9 @@
 						</h6>
 					</div>
 													
-						<div class="sidebar-user-material-footer">
-							<a href="#user-nav" class="d-flex justify-content-between align-items-center text-shadow-dark dropdown-toggle" data-toggle="collapse"><span>My account</span></a>
-						</div>
+						
 					</div>
 
-					<div class="collapse" id="user-nav">
-						<ul class="nav nav-sidebar">
-							<li class="nav-item">
-								<a href="#" class="nav-link">
-									<i class="icon-switch2"></i>
-									<span>Logout</span>
-								</a>
-							</li>
-						</ul>
-					</div>
 				</div>
 				<!-- /user menu -->
 
