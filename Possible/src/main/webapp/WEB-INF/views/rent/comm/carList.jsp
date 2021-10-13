@@ -14,6 +14,10 @@
 <script src="${pageContext.request.contextPath}/resources/js/plugins/pickers/pickadate/legacy.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins/notifications/jgrowl.min.js"></script>
 
+<script>
+console.log($("#startDate").datepicker("getDate"));
+</script>
+
 <style>
 .page_link ul {
 	background: #e6e6e6;
@@ -163,14 +167,14 @@
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 full_width">
                         <div class="form-group">
-                            <label class="label-font">렌트 시작 날짜</label>
-                            <input id="searchStart" name="searchStart" type="text" class="form-control datepicker" placeholder="날짜를 선택하세요.">
+                            <label for="startDate" class="label-font">렌트 시작 날짜</label>
+                            <input id="startDate" name="startDate" type="text" class="form-control datepicker" placeholder="날짜를 선택하세요.">
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6 col-sm-6 col-12 full_width">
                         <div class="form-group">
-                            <label class="label-font">렌트 반납 날짜</label>
-                            <input id="searchEnd" name="searchEnd" type="text" class="form-control datepicker" placeholder="날짜를 선택하세요.">
+                            <label for="endDate" class="label-font">렌트 반납 날짜</label>
+                            <input id="endDate" name="endDate" type="text" class="form-control datepicker" placeholder="날짜를 선택하세요.">
                         </div>
                     </div>
                     <!-- 
@@ -331,7 +335,7 @@
 
 									<div class="x_slider_checout_right x_slider_checout_right_carbooking x_slider_checout_right_carbooking_fiter">
 										<ul style="padding-left: 32px;">
-											<li><a href="#">상세검색<i class="fa fa-arrow-right"></i></a>
+											<li><a href="view">상세검색<i class="fa fa-arrow-right"></i></a>
 											</li>
 										</ul>
 									</div>
@@ -422,6 +426,7 @@
                                                                         </ul>
                                                                     </div>
                                                                 </li>
+                                                                <!-- 
                                                                 <li>
                                                                     <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 차량 옵션</span>
                                                                         <ul class="list">
@@ -431,6 +436,7 @@
                                                                         </ul>
                                                                     </div>
                                                                 </li>
+                                                                 -->
                                                             </ul>
                                                         </div>
 														
@@ -440,7 +446,7 @@
 													<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 														<div class="x_carbooking_right_section_wrapper float_left">
 															<div class="row">
-																<!-- 업체 정렬 -->
+																<!-- 업체 정렬
 																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="margin-bottom: 15px;">
 																	<div class="x_carbook_right_tabs_box_wrapper float_left">
 																		<p style="margin-right: 5px;">
@@ -449,10 +455,10 @@
 																		</p>
 																	</div>
 																</div>
-																<!-- End 업체 정렬 -->
+																End 업체 정렬 -->
 																
 																<!-- 해당 차량 보유 업체 목록 -->
-																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 25px; padding-right: 30px; margin-bottom: 20px;">
+																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 25px; padding-right: 30px; margin-bottom: 20px; margin-top: 20px;">
 																	<div class="x_carbook_right_tabs_box_wrapper float_left">
 																		<form>
 																			<table class="cmpn_list"> 
@@ -741,51 +747,38 @@
     
     
     var searchArea = $('#searchArea').val();
-    var searchStart = $('#searchStart').val();
-    var searchEnd = $('#searchEnd').val();
+    var startDate = $('#startDate').value;
+    var endDate = $('#endDate').value;
+    
+    console.log(startDate);
+    console.log(endDate);
     
 
-    var cmpnSeq;
-    var seq;
+   var cmpnSeq_val;
+   var seq_val;
     $('.cmpn_list_tr').on('click', function(){
-    	$(this).find('input').prop('checked', 'true');
-    	
-    	cmpnSeq = $(this).find('input[name="cmpnSeq"]').val();
-    	seq = $(this).find('input[name="seq"]').val();
+    	$(this).find('input[type="radio"]').prop('checked', 'true');
+
+    	cmpnSeq_val = $(this).children('td').children('input[name="cmpnSeq"]').val();
+    	seq_val = $(this).children('td').children('input[name="seq"]').val();
   
+    	console.log("업체" + cmpnSeq_val, seq_val);
     	
     	
     	var chk = $(this).find('input').is(':checked');
    		if(chk == true){			
     		$(this).css('background-color', 'yellow');
-   		} else{
+   		} else {
    			$(this).css('background-color', 'red');
    		}
-    });
-    
-    
-    vo = {
-   		cmpnSeq : cmpnSeq,
-		seq : seq	
-    };
-    // 상세조회 버튼
-    $('.viewCarBtn').on('click', function(){
-    	$.ajax({
-    		url: 'view',
-    		data: {
-    			vo
-    		},
-    		dataType: 'text',
-    		success: function(data){
-    			console.log(data);
-    			alert('성공');
-    		},
-    		error: function(xhr, status, message){
-				alert('status: ' + status + ' er: ' + message);
-			}
-    	});
+   		
     });
 
+    // 상세조회 버튼
+    $('.viewCarBtn').on('click', function(){
+		location.href="view?cmpnSeq=" + cmpnSeq_val + "&seq=" + seq_val;// + "&startDate=" + startDate + "&endDate=" + endDate;    	
+    });
+  		
 	
 </script>
 <!-- x car book sidebar section Wrapper End -->

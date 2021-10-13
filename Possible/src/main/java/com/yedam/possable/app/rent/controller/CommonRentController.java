@@ -10,11 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
+import com.yedam.possable.app.company.domain.CompanyVO;
+import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.domain.RentReviewVO;
 import com.yedam.possable.app.rent.service.PaymentService;
@@ -34,6 +35,8 @@ public class CommonRentController {
     private CarService carService;
     @Autowired
     private RentReviewService rentReviewService;
+    @Autowired
+    private CompanyService companyService;
 
     // 렌트카 리스트
     @GetMapping("/list")
@@ -73,14 +76,31 @@ public class CommonRentController {
     
     // 렌트카 상세보기
     @GetMapping("/view")
-    @ResponseBody
-    public String rentCarView(Model model, RedirectAttributes rttr, CarVO vo) {
-    	model.addAttribute("list", carService.getCarList());
-    	rttr.addAttribute("car", carService.getCompanyCar(vo));
+    public String rentCarView(Model model, CarVO vo, CompanyVO cmpnVo) {
+    	System.out.println("================" + vo);
+    	model.addAttribute("car", carService.getCompanyCar(vo));
+    	cmpnVo.setSeq(vo.getCmpnSeq());
+    	System.out.println("=-----cmpn" + cmpnVo);
+    	model.addAttribute("company", companyService.companyOneSelect(cmpnVo));
+    	
     	// 넘어와야 하는 값
     	// startDate, endDate, searchArea, carSeq, cmpnSeq
+
+    	List<CarVO> allList = carService.getDistinctCarList();
+    	for(int i=0; i<allList.size(); i++) {
+    		CarVO selectedCarInfo = allList.get(i);		
+    		List<CarVO> modelList = carService.getCarByModel(selectedCarInfo);
+        	
+    		for(int j=0; j<modelList.size(); j++) {
+        		CarVO selectedModelInfo = modelList.get(j);
+        		modelList.get(j).setInsuranceList(carService.getCarInsurance(selectedModelInfo));
+        		modelList.get(j).setReviewList(rentReviewService.getReviewListByCmpnSeq(selectedModelInfo));
+    		}
+    		allList.get(i).setModelList(modelList);
+    	}    	
+    	model.addAttribute("list", allList);
     	
-        return "redirect:/rent/comm/carView";
+        return "rent/comm/carView";
     }
  
     // 렌트카 상세보기(test)
