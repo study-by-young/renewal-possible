@@ -24,11 +24,18 @@
         <result property="img3" column="img3" />
         <result property="genDate" column="gen_date" />
         <result property="uptDate" column="upt_date" />
+        <association property="modelCodeVO"
+                     columnPrefix="model_"
+                     resultMap="com.yedam.possable.app.common.code.mapper.CodeMapper.model"
+                     javaType="ModelCodeVO"/>
+        <association property="trimCodeVO"
+                     columnPrefix="trim_"
+                     resultMap="com.yedam.possable.app.common.code.mapper.CodeMapper.trim"
+                     javaType="TrimCodeVO"/>
         <association property="companyVO"
-                     column="cmpn_seq"
                      columnPrefix="cmpn_"
                      resultMap="com.yedam.possable.app.company.mapper.CompanyMapper.company"
-                     javaType="com.yedam.possable.app.company.domain.CompanyVO"/>
+                     javaType="CompanyVO"/>
         <collection property="optionList"
                     resultMap="carOption"
                     columnPrefix="co_"
@@ -38,7 +45,7 @@
                     columnPrefix="io_"
                     ofType="InsuranceOptionVO"/>
     </resultMap>
-    
+
 	<!-- 검색 기능 -->
 	<sql id="criteria">
 		<trim prefix="(" suffix=")" prefixOverrides="OR">
@@ -55,8 +62,8 @@
             	</trim>
             </foreach>
     	</trim>
-	</sql>    
-    
+	</sql>
+
     <resultMap id="carOption" type="CarOptionVO">
         <id property="optCode" column="opt_code"/>
         <result property="carSeq" column="car_seq"/>
@@ -242,10 +249,10 @@
 
     <!-- 차량 model 중복제거 리스트 조회 -->
     <select id="getDistinctCarList" resultType="CarVO">
-		SELECT * 
+		SELECT *
 		FROM (SELECT /*+ INDEX_DESC(CAR IDX_CAR) */ ROWNUM RN, a.*
 		        FROM (SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.* FROM CAR) a
-		        <where> 
+		        <where>
                 	<include refid="criteria"></include>
                 	<![CDATA[ AND CNT = 1 AND ROWNUM <= #{pageNum} * #{amount}) ]]>
                 </where>
@@ -332,10 +339,10 @@
 							#{carSeq}
 						  )
     </insert>
-    
+
     <select id="getTotalCount" resultType="int">
 		SELECT COUNT(*) FROM (
-				SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.* 
+				SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.*
 				FROM CAR)
 		<where>
 			<include refid="criteria"></include>
@@ -393,25 +400,27 @@
     <select id="getCar_map" resultMap="car">
         SELECT C.seq,
                C.car_num,
-               C.brand,
-               C.model,
-               C.segment,
-               C.trim,
-               C.color,
                C.year,
-               C.fuel,
                C.passenger,
-               C.mission,
                C.trunk,
                C.door,
                C.kmpl,
                C.price,
-               C.status,
                C.img1,
                C.img2,
                C.img3,
                C.gen_date,
                C.upt_date,
+               C.cmpn_seq,
+            B.name AS brand,
+            S.name AS segment,
+            COL.name AS color,
+            F.name AS fuel,
+            M.name AS mission,
+            STATUS.name AS status,
+               MC.name     AS model_name,
+               MC.img      AS model_img,
+               TC.name     AS trim_name,
                CM.name     AS cmpn_name,
                CM.postal   AS cmpn_postal,
                CM.addr1    AS cmpn_addr1,
@@ -423,9 +432,17 @@
         FROM (SELECT *
               FROM car
               WHERE seq = #{seq}
-         ) C
-         LEFT OUTER JOIN company CM ON C.cmpn_seq = CM.seq
-         LEFT OUTER JOIN car_option CO ON C.seq = CO.car_seq
-         LEFT OUTER JOIN insurance_option IO ON C.seq = IO.car_seq
+                     ) C
+            LEFT OUTER JOIN code_sub B ON C.brand = B.code
+            LEFT OUTER JOIN code_sub S ON C.segment = S.code
+            LEFT OUTER JOIN code_sub COL ON C.color = COL.code
+            LEFT OUTER JOIN code_sub F ON C.fuel = F.code
+            LEFT OUTER JOIN code_sub M ON C.mission = M.code
+            LEFT OUTER JOIN code_sub STATUS ON C.status = STATUS.code
+                     LEFT OUTER JOIN model_code MC ON C.model = MC.code
+                     LEFT OUTER JOIN trim_code TC ON C.trim = TC.code
+                     LEFT OUTER JOIN company CM ON C.cmpn_seq = CM.seq
+                     LEFT OUTER JOIN car_option CO ON C.seq = CO.car_seq
+                     LEFT OUTER JOIN insurance_option IO ON C.seq = IO.car_seq
     </select>
 </mapper>
