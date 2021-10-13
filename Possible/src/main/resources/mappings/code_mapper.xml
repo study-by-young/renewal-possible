@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.yedam.possable.app.common.code.mapper.CodeMapper">
+    <resultMap id="masterCode" type="CodeMasterVO">
+        <id property="code" column="code"/>
+        <result property="name" column="name"/>
+    </resultMap>
+    <resultMap id="subCode" type="CodeSubVO">
+        <id property="code" column="code"/>
+        <result property="name" column="name"/>
+        <association property="masterCode"
+                     column="master_code"
+                     resultMap="masterCode"
+                     columnPrefix="master_"
+                     javaType="java.lang.String"/>
+    </resultMap>
+    <resultMap id="brand" type="BrandCodeVO">
+        <id property="code" column="code" />
+        <result property="name" column="name" />
+    </resultMap>
+    <resultMap id="model" type="ModelCodeVO">
+        <id property="code" column="code" />
+        <result property="name" column="name" />
+        <result property="img" column="img" />
+        <result property="segCode" column="seg_code" />
+        <association property="brandCode"
+                     column="brand_code"
+                     columnPrefix="brand_"
+                     resultMap="brand"
+                     javaType="java.lang.String" />
+    </resultMap>
+    <resultMap id="trim" type="TrimCodeVO">
+        <id property="code" column="code" />
+        <result property="name" column="name" />
+        <result property="fuel" column="fuel"/>
+        <association property="modelCodeVO"
+                     column="model_code"
+                     resultMap="model"
+                     columnPrefix="model_"
+                     javaType="string"/>
+    </resultMap>
+
     <select id="getMasterCodes" resultType="CodeMasterVO">
         SELECT *
         FROM code_master

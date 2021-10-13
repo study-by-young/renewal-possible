@@ -29,7 +29,44 @@
                      columnPrefix="cmpn_"
                      resultMap="com.yedam.possable.app.company.mapper.CompanyMapper.company"
                      javaType="com.yedam.possable.app.company.domain.CompanyVO"/>
+        <collection property="optionList"
+                    resultMap="carOption"
+                    columnPrefix="co_"
+                    ofType="CarOptionVO"/>
+        <collection property="insuranceList"
+                    resultMap="insuranceOption"
+                    columnPrefix="io_"
+                    ofType="InsuranceOptionVO"/>
     </resultMap>
+    
+	<!-- 검색 기능 -->
+	<sql id="criteria">
+		<trim prefix="(" suffix=")" prefixOverrides="OR">
+        	<foreach collection="typeArr" item="type">
+            	<trim prefix="OR">
+            		<choose>
+				    	<when test="type == 'T'.toString()">
+				        	TITLE LIKE '%' || #{keyword} || '%'
+				        </when>
+				        <when test="type == 'C'.toString()">
+				        	CONTENT LIKE '%' || #{keyword} || '%'
+				        </when>
+            		</choose>
+            	</trim>
+            </foreach>
+    	</trim>
+	</sql>    
+    
+    <resultMap id="carOption" type="CarOptionVO">
+        <id property="optCode" column="opt_code"/>
+        <result property="carSeq" column="car_seq"/>
+    </resultMap>
+    <resultMap id="insuranceOption" type="InsuranceOptionVO">
+        <id property="optCode" column="opt_code"/>
+        <result property="carSeq" column="car_seq"/>
+        <result property="price" column="price"/>
+    </resultMap>
+
     <select id="getCarList" resultType="CarVO">
         SELECT seq,
                cmpn_seq,
@@ -53,31 +90,6 @@
                upt_date
         FROM car
     </select>
-
-    <select id="carList" resultType="CarVO">
-        SELECT seq,
-               cmpn_seq,
-               car_num,
-               brand,
-               model,
-               segment,
-               trim,
-               color,
-               year,
-               fuel,
-               passenger,
-               mission,
-               trunk,
-               door,
-               kmpl,
-               price,
-               img1,
-               img2,
-               img3,
-               upt_date
-        FROM car
-    </select>
-
     <select id="getCar" resultType="CarVO">
         SELECT seq,
                cmpn_seq,
@@ -129,6 +141,7 @@
                trunk,
                door,
                kmpl,
+               status,
                price,
                img1,
                img2,
@@ -161,7 +174,7 @@
                CAR_NUM
         FROM CAR
         WHERE SEQ = #{seq}
-        AND cmpn_seq = #{cmpnSeq}
+        AND cmpn_seq = #{companyVO.seq}
         ORDER BY SEQ
     </select>
     <delete id="deleteCompanyCar">
@@ -229,13 +242,14 @@
 
     <!-- 차량 model 중복제거 리스트 조회 -->
     <select id="getDistinctCarList" resultType="CarVO">
-    	SELECT *
-		FROM (SELECT ROW_NUMBER() OVER(
-		  								PARTITION BY MODEL
-		  								ORDER BY SEQ ) CNT
-		  			 , CAR.*
-			  FROM CAR)
-		WHERE CNT = 1
+		SELECT * 
+		FROM (SELECT /*+ INDEX_DESC(CAR IDX_CAR) */ ROWNUM RN, a.*
+		        FROM (SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.* FROM CAR) a
+		        <where> 
+                	<include refid="criteria"></include>
+                	<![CDATA[ AND CNT = 1 AND ROWNUM <= #{pageNum} * #{amount}) ]]>
+                </where>
+		WHERE RN > (#{pageNum} - 1) * #{amount}
     </select>
 
     <!-- 해당 model을 보유한 업체 리스트 뽑아내기 위한 리스트 -->
@@ -318,4 +332,100 @@
 							#{carSeq}
 						  )
     </insert>
+    
+    <select id="getTotalCount" resultType="int">
+		SELECT COUNT(*) FROM (
+				SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.* 
+				FROM CAR)
+		<where>
+			<include refid="criteria"></include>
+		</where>
+	</select>
+
+    <select id="getCarList_map" resultMap="car">
+        SELECT * FROM (
+        SELECT
+        ROWNUM RN,
+        C.seq,
+        C.car_num,
+        C.brand,
+        C.model,
+        C.segment,
+        C.trim,
+        C.color,
+        C.year,
+        C.fuel,
+        C.passenger,
+        C.mission,
+        C.trunk,
+        C.door,
+        C.kmpl,
+        C.price,
+        C.status,
+        C.img1,
+        C.img2,
+        C.img3,
+        C.gen_date,
+        C.upt_date,
+        CM.name AS cmpn_name,
+        CM.postal AS cmpn_postal,
+        CM.addr1 AS cmpn_addr1,
+        CM.addr2 AS cmpn_addr2,
+        CM.tel AS cmpn_tel,
+        CO.opt_code AS co_opt_code,
+        IO.opt_code AS io_opt_code,
+        IO.price AS io_price
+        FROM ( SELECT
+        /*+ INDEX_DESC(CAR IDX_CAR) */
+        *
+        FROM car
+        <where>
+            <![CDATA[ ROWNUM <= #{pageNum} * #{amount} ]]>
+        </where>
+        ) C
+        LEFT OUTER JOIN company CM ON C.cmpn_seq = CM.seq
+        LEFT OUTER JOIN car_option CO ON C.seq = CO.car_seq
+        LEFT OUTER JOIN insurance_option IO ON C.seq = IO.car_seq
+        )
+        WHERE RN > (#{pageNum} - 1) * #{amount}
+    </select>
+
+    <select id="getCar_map" resultMap="car">
+        SELECT C.seq,
+               C.car_num,
+               C.brand,
+               C.model,
+               C.segment,
+               C.trim,
+               C.color,
+               C.year,
+               C.fuel,
+               C.passenger,
+               C.mission,
+               C.trunk,
+               C.door,
+               C.kmpl,
+               C.price,
+               C.status,
+               C.img1,
+               C.img2,
+               C.img3,
+               C.gen_date,
+               C.upt_date,
+               CM.name     AS cmpn_name,
+               CM.postal   AS cmpn_postal,
+               CM.addr1    AS cmpn_addr1,
+               CM.addr2    AS cmpn_addr2,
+               CM.tel      AS cmpn_tel,
+               CO.opt_code AS co_opt_code,
+               IO.opt_code AS io_opt_code,
+               IO.price    AS io_price
+        FROM (SELECT *
+              FROM car
+              WHERE seq = #{seq}
+         ) C
+         LEFT OUTER JOIN company CM ON C.cmpn_seq = CM.seq
+         LEFT OUTER JOIN car_option CO ON C.seq = CO.car_seq
+         LEFT OUTER JOIN insurance_option IO ON C.seq = IO.car_seq
+    </select>
 </mapper>

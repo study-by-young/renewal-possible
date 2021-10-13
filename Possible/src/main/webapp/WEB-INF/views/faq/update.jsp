@@ -19,16 +19,16 @@
 					<div class="contect_form1">
 						<input type="text" name="title" placeholder="질문내용 *"
 							value="${faq.title}">
-					</div>
+					</div><br>
 				</div>
-				<div
+				<%-- <div
 					class="col-xl-5 offset-xl-1 col-lg-4 col-md-4 col-sm-12 col-xs-12">
 					<div class="contect_form2">
 						<input type="text" name="writer" placeholder="Writer"
 							value="${faq.writer}" readonly="readonly">
 					</div>
 					<br>
-				</div>
+				</div> --%>
 				<div class="col-xl-5 offset-xl-1 col-lg-4 col-md-4 col-sm-12 col-xs-12">
 					<div class="contect_form2">
 						<select name="category" class="select">
@@ -39,7 +39,7 @@
 							<option value="취소/환불">취소/환불</option>
 						</select>
 					</div>
-				</div>	
+				</div>
 				<div
 					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="contect_form4">
@@ -50,6 +50,7 @@
 				<div
 					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12"
 					align="right">
+					<input type="hidden" name="seq" value="${faq.seq }"> 
 					<button type="submit" class="btn btn-primary">수정</button>
 					<button type="button" class="btn btn-dark"
 						onclick="location.href='list'">목록</button>
@@ -60,6 +61,6 @@
 </div>
 
 <script>
-	CKEDITOR.instances.content.getData()
-	$('#content').attr("required", true)
+	CKEDITOR.instances.content.getData();
+	$('#content').attr("required", true);
 </script>

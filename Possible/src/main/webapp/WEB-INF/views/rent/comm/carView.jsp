@@ -241,10 +241,11 @@
 <!-- btc tittle Wrapper Start -->
 <div class="btc_tittle_main_wrapper">
 	<div class="container">
+		<!--
 		<form>
 			<div class="x_title_inner_num_wrapper float_left py-3 my-0">
 				<div class="row align-items-center">
-
+					
 					<div class="col-lg-3 col-md-6 col-sm-6 col-12 full_width">
 						<div class="form-group">
 							<label for="searchArea" class="label-font">지역</label><br> <select
@@ -255,6 +256,7 @@
 							</select>
 						</div>
 					</div>
+					
 					<div class="col-lg-3 col-md-6 col-sm-6 col-12 full_width">
 						<div class="form-group">
 							<label class="label-font">렌트 시작 날짜</label> <input
@@ -262,6 +264,7 @@
 								class="form-control datepicker" placeholder="날짜를 선택하세요.">
 						</div>
 					</div>
+					
 					<div class="col-lg-3 col-md-6 col-sm-6 col-12 full_width">
 						<div class="form-group">
 							<label class="label-font">렌트 반납 날짜</label> <input id="searchEnd"
@@ -269,7 +272,7 @@
 								placeholder="날짜를 선택하세요.">
 						</div>
 					</div>
-					<!-- 
+					 
                     <div class="col-lg-2 col-md-6 col-12 full_width">
                         <div class="form-group">
                             <label>탑승 인원</label>
@@ -281,7 +284,7 @@
                             </div>
                         </div>
                     </div>
-                    -->
+                    
 					<div class="col-lg-3 col-md-6 col-sm-6 col-12 full_width"
 						style="text-align: center;">
 						<button type="button" class="btn bg-primary-400 btn-float"
@@ -297,8 +300,10 @@
 				</div>
 			</div>
 		</form>
+		-->
 	</div>
 </div>
+
 
 
 <!-- 차량 추천 Modal -->
@@ -342,7 +347,7 @@
 										<div class="panel-heading">
 											<div class="x_slider_form_input_wrapper float_left">
 												<h3>대여요금(자차보험 미포함)</h3>
-												<div style="float: right;">{car.price}</div>
+												<div style="float: right;">${car.price}</div>
 											</div>
 										</div>
 									</div>
@@ -350,8 +355,8 @@
 									<div class="panel panel-default">
 										<div class="panel-heading">
 											<div class="x_slider_form_input_wrapper float_left">
-												<h3>할인적용</h3>
-												<div style="float: right;">{car.price}</div>
+												<h3>자차보험</h3>
+												<div style="float: right;">${car.price}</div>
 											</div>
 										</div>
 									</div>
@@ -360,7 +365,7 @@
 										<div class="panel-heading">
 											<div class="x_slider_form_input_wrapper float_left">
 												<h3>예상 결제액</h3>
-												<div style="float: right;">{car.price}</div>
+												<div style="float: right;">${car.price + car.price}</div>
 											</div>
 										</div>
 									</div>
@@ -375,31 +380,25 @@
 								</div>
 							</div>
 
-							<!-- 가격비교 // 클릭하면 해당 업체의 상세 페이지로 이동 -->
+							<!-- 가격비교 // 클릭하면 해당 업체의 상세 페이지로 이동 
 							<div>
-								<!-- Filter Results -->
 								<div class="car-filter accordion car_booking_onliy_side">
 									<h3>가격비교</h3>
 									<hr>
-
 									<div>
 										<table class="compare_cmpn">
+											<c:forEach var="list" items="${list}">
 											<tr class="compare_cmpn_tr">
 												<td style="width: 5%;"><i class="fa fa-check"></i></td>
-												<td style="width: 62%;">제주제주차빌려</td>
-												<td style="width: 37%;">25,600원</td>
+												<td style="width: 60%;">${list.name}</td>
+												<td style="width: 35%; text-align: right;">${list.price}원</td>
 											</tr>
-											<tr class="compare_cmpn_tr">
-												<td style="width: 5%;"><i class="fa fa-check"></i></td>
-												<td style="width: 62%;">{company.name}</td>
-												<td style="width: 37%;">{car.price}</td>
-											</tr>
+											</c:forEach>
 										</table>
 									</div>
-
 								</div>
 							</div>
-							<!-- End of 가격비교 -->
+							 End of 가격비교 -->
 
 						</div>
 					</div>
@@ -430,10 +429,10 @@
 										<div class="col-md-12 pb-4">
 											<div class="x_car_detail_slider_bottom_cont float_left">
 												<div class="x_car_detail_slider_bottom_cont_left">
-													<h3>{car.model}</h3>
-													<span style="padding-left: 0px;">{car.brand} /
-														{car.year}년 / {car.fuel} / {car.passenger}인</span> <span
-														class="small text-muted pt-2">{car.trim}</span>
+													<h3>${car.model}</h3>
+													<span style="padding-left: 0px;">${car.brand} /
+														${car.year}년 / ${car.fuel} / ${car.passenger}인</span> <span
+														class="small text-muted pt-2">${car.trim}</span>
 												</div>
 											</div>
 
@@ -505,23 +504,23 @@
 															<div>
 																<ul class="option-box">
 																	<li><i class="fa fa-snowflake-o"
-																		style="font-size: 12px;"></i>&nbsp;&nbsp;{car.year}년식</li>
+																		style="font-size: 12px;"></i>&nbsp;&nbsp;${car.year}년식</li>
 																	<li><i class="fa fa-snowflake-o"
-																		style="font-size: 12px;"></i>&nbsp;&nbsp;{car.fuel}</li>
+																		style="font-size: 12px;"></i>&nbsp;&nbsp;${car.fuel}</li>
 																	<li><i class="fa fa-snowflake-o"
-																		style="font-size: 12px;"></i>&nbsp;&nbsp;{car.segment}</li>
+																		style="font-size: 12px;"></i>&nbsp;&nbsp;${car.segment}</li>
 																	<li><i class="fa fa-snowflake-o"
-																		style="font-size: 12px;"></i>&nbsp;&nbsp;{car.passenger}인</li>
+																		style="font-size: 12px;"></i>&nbsp;&nbsp;${car.passenger}인</li>
 																	<li><i class="fa fa-snowflake-o"
-																		style="font-size: 12px;"></i>&nbsp;&nbsp;{car.color}</li>
+																		style="font-size: 12px;"></i>&nbsp;&nbsp;${car.color}</li>
 																	<li><i class="fa fa-snowflake-o"
-																		style="font-size: 12px;"></i>&nbsp;&nbsp;{car.mission}</li>
+																		style="font-size: 12px;"></i>&nbsp;&nbsp;${car.mission}</li>
 																	<li><i class="fa fa-snowflake-o"
-																		style="font-size: 12px;"></i>&nbsp;&nbsp;{car.trunk}개</li>
+																		style="font-size: 12px;"></i>&nbsp;&nbsp;${car.trunk}개</li>
 																	<li><i class="fa fa-snowflake-o"
-																		style="font-size: 12px;"></i>&nbsp;&nbsp;{car.door}개</li>
+																		style="font-size: 12px;"></i>&nbsp;&nbsp;${car.door}개</li>
 																	<li><i class="fa fa-snowflake-o"
-																		style="font-size: 12px;"></i>&nbsp;&nbsp;{car.kmpl}</li>
+																		style="font-size: 12px;"></i>&nbsp;&nbsp;${car.kmpl}</li>
 																</ul>
 															</div>
 														</div>
@@ -601,7 +600,7 @@
 															<div>
 																<ul class="option-box-text">
 																	<li style="font-weight: 700; font-size: 17px;">업체명
-																		{company.name}</li>
+																		${company.name}</li>
 																</ul>
 																<!-- 업체 위치 지도에 찍었으면 좋겠음 -->
 																<div class="col-md-12" style="margin-bottom: 20px;">
@@ -614,8 +613,8 @@
 																</div>
 																<ul class="option-box-text">
 																	<li><i class="fa fa-check"
-																		style="font-size: 12px;"></i>&nbsp;&nbsp;<strong>주소</strong>&nbsp;&nbsp;&nbsp;&nbsp;{company.addrBasic}
-																		{comapny.addrDetail}</li>
+																		style="font-size: 12px;"></i>&nbsp;&nbsp;<strong>주소</strong>&nbsp;&nbsp;&nbsp;&nbsp;${company.addr1}
+																		${comapny.addr2}</li>
 																	<li><i class="fa fa-check"
 																		style="font-size: 12px;"></i>&nbsp;&nbsp;<strong>전화</strong>&nbsp;&nbsp;&nbsp;&nbsp;053-421-2460</li>
 																</ul>

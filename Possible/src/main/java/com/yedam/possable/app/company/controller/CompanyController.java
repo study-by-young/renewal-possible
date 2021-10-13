@@ -71,7 +71,6 @@ public class CompanyController {
         HttpSession session = request.getSession();
         session.setAttribute("cmpnSeq", companyVO.getSeq());
 
-
         return "company/dashboard";
     }
 
@@ -130,8 +129,6 @@ public class CompanyController {
        model.addAttribute("companyCarList", carList);
         return "company/carList";
     }
-
-
 
     // 업체 보유 렌트카 상세
     @GetMapping("/car/view")
@@ -200,36 +197,33 @@ public class CompanyController {
         return "redirect:/company/car";
     }
 
-    // 업체 렌트카 수정 폼
-    @GetMapping("/car/update")
-    public String carUpdateForm(){
-        return "company/carRegForm";
-    }
-
-    // 업체 렌트카 수정 처리
+     // 업체 렌트카 수정 처리
     @PostMapping("/car/update")
-    public String updateCar(){
-        return "";
+    public String updateCar(CarVO vo, CompanyVO comVO, Model model, RedirectAttributes attributes, @RequestParam Long cmpnSeq){
+    	
+    	comVO.setSeq(cmpnSeq);
+    	
+    	int result = carService.updateCompanyCar(vo, comVO);
+        if (result == 1) {
+            attributes.addFlashAttribute("result", "success");
+        }
+
+        return "redirect:/";
     }
 
     // 업체 렌트카 삭제 처리
     @ResponseBody
     @PostMapping("/car/delete")
-    public int deleteCar(CarVO vo, HttpSession session,
-                            @RequestParam(value = "chbox[]") List<String> chArr){
-
-    	int result = 0;
-        Long seq = 0L;
-
-        for (String i : chArr) {
-            seq = Long.parseLong(i);
-            vo.setSeq(seq);
-
-            carService.deleteCompanyCar(vo);
-        }
-        result = 1;
-
-        return result;
+    public String deleteCar(CarVO vo, @RequestParam("seq") Long seq, @RequestParam("cmpnSeq") Long cmpnSeq, RedirectAttributes rttr){
+    	
+    	vo.setSeq(seq);
+    	vo.setCmpnSeq(cmpnSeq);
+    	
+    	int result = carService.deleteCompanyCar(vo);
+		if(result == 1) {
+			rttr.addFlashAttribute("result", "success");			
+		}
+		return "redirect:company/dashboard";
     }
 
     // 견적 제출 리스트

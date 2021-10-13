@@ -11,26 +11,44 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 public interface PremiumRentMapper {
-    // 견적서 리스트
+    // 견적 요청서 리스트
     public List<EstimateHistoryVO> getEstimateList(Criteria cri);
 
-    // 견적서 단건 조회
+    // 견적 요청서  단건 조회
     public EstimateHistoryVO getEstimate(Long seq);
 
-    // 견적서 작성
+    // 견적 요청서  작성
     public int insertEstimate(EstimateHistoryVO vo);
 
-    // 견적서 수정
+    // 견적 요청서  수정
     public int updateEstimate(EstimateHistoryVO vo);
 
-    // 견적서 삭제
+    // 견적 요청서  삭제
     public int deleteEstimate(Long seq);
 
-    // 견적서 총 갯수 조회
+    // 견적 요청서  총 갯수 조회
     public int getEstimateCount();
 
+    // 견적서 리스트
+    public List<EstiSubmitHistoryVO> getEstSubmitListByEstiSeq(@Param("cri") Criteria cri, @Param("seq") Long seq);
+
+    // 견적서 단건 조회
+    public EstiSubmitHistoryVO getEstSubmit(Long seq);
+
+    // 견적서  작성
+    public int insertEstSubmit(EstiSubmitHistoryVO vo);
+
+    // 견적서  수정
+    public int updateEstSubmit(EstiSubmitHistoryVO vo);
+
+    // 견적서  삭제
+    public int deleteEstSubmit(Long seq);
+
+    // 견적서  총 갯수 조회
+    public int getEstSubmitCount();
+
     // 회원 마이페이지 견적서 리스트
-    public List<EstimateHistoryVO> getUserEstimateList(@Param("cri") Criteria cri, @Param("seq") Long seq);
+    public List<EstimateHistoryVO> getEstimateListByUserSeq(@Param("cri") Criteria cri, @Param("seq") Long seq);
 
     // 업체 확인용 견적서 상세 리스트
     public List<CompEstiListJoinVO> compEstiSubmitList(Long seq);

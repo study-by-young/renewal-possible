@@ -1,9 +1,9 @@
 package com.yedam.possable.app.community.course.controller;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,20 +13,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.community.course.domain.CourseBoardLikeVO;
 import com.yedam.possable.app.community.course.domain.CourseBoardVO;
 import com.yedam.possable.app.community.course.domain.CourseVO;
 import com.yedam.possable.app.community.course.service.CourseBoardService;
 import com.yedam.possable.app.community.course.service.CourseService;
 import com.yedam.possable.app.community.tour.domain.TestVO;
+import com.yedam.possable.app.member.domain.MemberVO;
+import com.yedam.possable.app.member.service.MemberService;
 
 @Controller
 @RequestMapping("/community/course")
 public class CourseBoardController {
 	@Autowired
 	CourseBoardService courseBoardService;
+	@Autowired
 	CourseService courseService;
+	@Autowired
+	MemberService memberService;
 
 	// 전체조회
 	@GetMapping
@@ -37,16 +42,22 @@ public class CourseBoardController {
 
 	// 단건조회(수정페이지)
 	@GetMapping("/view")
-	public String courseView(Model model, CourseBoardVO board, CourseVO course) {
+	public String courseView(Model model, CourseBoardVO board, CourseVO course, Authentication authentication) {
+		courseBoardService.plusViews(board);
 		model.addAttribute("board", courseBoardService.read(board));
 		model.addAttribute("cnt", courseBoardService.courseCnt(board));
+		model.addAttribute("likes", courseBoardService.countLike(board));
 		model.addAttribute("course", courseBoardService.courseSelect(board));
+		MemberVO loginUser = memberService.getLoginMember(authentication);
+		model.addAttribute("user", loginUser.getSeq());
 		return "community/course/view";
 	}
 
 	//등록폼
 	@GetMapping("/write")
-	public String courseWriteForm(Model model) {
+	public String courseWriteForm(Model model, Authentication authentication) {
+		MemberVO loginUser = memberService.getLoginMember(authentication);
+		model.addAttribute("user", loginUser.getId());
 	    return "community/course/write";
 	}
 	
@@ -115,6 +126,14 @@ public class CourseBoardController {
 		// model.addAttribute("pageMaker", new PageVO(cri, total));
 		List<TestVO> list = courseBoardService.tourList(cri);
 		return list;
+	}
+	
+	@RequestMapping(value = "/plusLike")
+	@ResponseBody
+	public int plusLike(@RequestBody CourseBoardLikeVO vo) {
+		int i = 1;
+		courseBoardService.plusLike(vo);
+		return i;
 	}
 
 }

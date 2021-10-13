@@ -25,14 +25,14 @@ public class PremiumRentServiceImpl implements PremiumRentService{
 
     @Override
     public List<Map<String, Object>> getEstimateList(Criteria cri) {
-        // 견적 리스트 조회 시 차, 여행 옵션 바인딩
+        // 조회 시 차, 여행 옵션 바인딩
         List<Map<String, Object>> estimateList = new LinkedList<>();
 
         for(EstimateHistoryVO vo : premiumRentMapper.getEstimateList(cri)){
             Map<String, Object> estimate = new HashMap<>();
             estimate.put("estimate", vo);
-            estimate.put("options", strToArr(vo.getOptions()));
-            estimate.put("items", strToArr(vo.getItems()));
+            estimate.put("options", List.of(strToArr(vo.getOptions())));
+            estimate.put("items", List.of(strToArr(vo.getItems())));
 
             estimateList.add(estimate);
         }
@@ -42,13 +42,12 @@ public class PremiumRentServiceImpl implements PremiumRentService{
 
     @Override
     public Map<String, Object> getEstimate(Long seq) {
-        // 견적 리스트 조회 시 차, 여행 옵션 바인딩
+        // 조회 시 차, 여행 옵션 바인딩
         Map<String, Object> estimate = new HashMap<>();
         EstimateHistoryVO vo = premiumRentMapper.getEstimate(seq);
-        List<String> options = List.of(strToArr(vo.getOptions()));
         estimate.put("estimate", vo);
-        estimate.put("options", options);
-        estimate.put("items", strToArr(vo.getItems()));
+        estimate.put("options", List.of(strToArr(vo.getOptions())));
+        estimate.put("items", List.of(strToArr(vo.getItems())));
 
         return estimate;
     }
@@ -73,6 +72,36 @@ public class PremiumRentServiceImpl implements PremiumRentService{
         return premiumRentMapper.getEstimateCount();
     }
 
+    @Override
+    public List<EstiSubmitHistoryVO> getEstSubmitListByEstiSeq(Criteria cri, Long seq) {
+        return premiumRentMapper.getEstSubmitListByEstiSeq(cri,seq);
+    }
+
+    @Override
+    public EstiSubmitHistoryVO getEstSubmit(Long seq) {
+        return premiumRentMapper.getEstSubmit(seq);
+    }
+
+    @Override
+    public int insertEstSubmit(EstiSubmitHistoryVO vo) {
+        return premiumRentMapper.insertEstSubmit(vo);
+    }
+
+    @Override
+    public int updateEstSubmit(EstiSubmitHistoryVO vo) {
+        return premiumRentMapper.updateEstSubmit(vo);
+    }
+
+    @Override
+    public int deleteEstSubmit(Long seq) {
+        return premiumRentMapper.deleteEstSubmit(seq);
+    }
+
+    @Override
+    public int getEstSubmitCount() {
+        return premiumRentMapper.getEstSubmitCount();
+    }
+
     private String[] strToArr(String str) {
         String[] strArr = str.substring(1,str.length()-1).trim().split(",");
         for(int i=0; i< strArr.length; i++){
@@ -82,9 +111,9 @@ public class PremiumRentServiceImpl implements PremiumRentService{
     }
 
 	@Override
-	public List<EstimateHistoryVO> getUserEstimateList(Criteria cri, @Param("seq") Long seq) {
+	public List<EstimateHistoryVO> getEstimateListByUserSeq(Criteria cri, @Param("seq") Long seq) {
 
-		return premiumRentMapper.getUserEstimateList(cri, seq);
+		return premiumRentMapper.getEstimateListByUserSeq(cri, seq);
 	}
 
 	@Override

@@ -73,7 +73,7 @@
 											</li>
 												<li class="col-md-4">
 												<label class="d-block">세그먼트 
-												<select name="segment" id="segment" class="form-control select-fixed-single" required>
+												<select name="segment" id="segment" class="form-control select-fixed-single" onchange="searchByBrand()" required>
 															<optgroup label="세그먼트">
 																<option>세그먼트를 선택하세요</option>
 																<c:forEach var="segment" items="${segment}">
@@ -281,6 +281,9 @@
             }
         });
     }
+
+    
+    
 
     function updateCarInfo(){
 

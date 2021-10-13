@@ -38,6 +38,11 @@ public class HomeController {
 		return "home";
 	}
 
+	@RequestMapping("/pagination")
+    public String pagination(){
+	    return "tiles/pagination";
+    }
+
 	@RequestMapping("/errorPage")
     public String errorPage(){
 	    return "errorPage";

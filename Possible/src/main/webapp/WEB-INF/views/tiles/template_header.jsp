@@ -91,7 +91,17 @@
 </div>
 <!-- /main navbar -->
 <script>
-	$(function(){
+    <c:if test="${resultMsg != null}">
+        customAlert('<c:out value="${resultTitle}" default="알림" />' , "${resultMsg}");
+    </c:if>
+    <c:if test="${alertMsg != null}">
+        customAlert('<c:out value="${alertTitle}" default="경고" />', '${alertMsg}');
+    </c:if>
+<%--    <c:if test="${deleteMsg != null}">--%>
+<%--    customAlert("견적 삭제", "${deleteMsg}");--%>
+<%--    </c:if>--%>
+
+    $(function(){
 		$('#logOutBtn').on("click",function(){
 			logoutFrm.submit();
 		});

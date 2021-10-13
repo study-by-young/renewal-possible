@@ -84,5 +84,17 @@
 				<include refid="criteria"></include>
 			</where>
 	</select>
+	
+	<select id="getCategoryList" resultType="FaqVO">
+		SELECT SEQ
+			 , TITLE
+			 , CONTENT
+			 , GEN_DATE
+			 , UPT_DATE
+			 , CATEGORY
+		FROM FAQ
+		WHERE CATEGORY = #{category}
+		ORDER BY SEQ DESC
+	</select>
 
 </mapper>

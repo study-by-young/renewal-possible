@@ -9,6 +9,7 @@ import com.yedam.possable.app.car.domain.CarOptionVO;
 import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.domain.InsuranceOptionVO;
 import com.yedam.possable.app.car.mapper.CarMapper;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.company.domain.CompanyVO;
 
 @Service
@@ -68,8 +69,8 @@ public class CarServiceImpl implements CarService {
     }
 
 	@Override
-	public List<CarVO> getDistinctCarList() {
-		return carMapper.getDistinctCarList();
+	public List<CarVO> getDistinctCarList(Criteria cri) {
+		return carMapper.getDistinctCarList(cri);
 	}
 
 	@Override
@@ -83,8 +84,24 @@ public class CarServiceImpl implements CarService {
 		return carMapper.insertCompanyCar(vo);
 	}
 
+	@Override
 	public int insertCarOptions(CarOptionVO vo) {
 		// TODO Auto-generated method stub
 		return carMapper.insertCarOptions(vo);
 	}
+
+	@Override
+	public int getTotalCount(Criteria cri) {
+		return carMapper.getTotalCount(cri);
+	}
+
+	@Override
+    public List<CarVO> getCarList_map(Criteria cri) {
+        return carMapper.getCarList_map(cri);
+    }
+
+    @Override
+    public CarVO getCar_map(CarVO vo) {
+        return carMapper.getCar_map(vo);
+    }
 }

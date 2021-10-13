@@ -1,5 +1,7 @@
 package com.yedam.possable.app.rent.domain;
 
+import com.yedam.possable.app.car.domain.CarVO;
+import com.yedam.possable.app.company.domain.CompanyVO;
 import lombok.Data;
 
 import java.util.Date;
@@ -13,7 +15,10 @@ public class EstiSubmitHistoryVO {
     private Date genDate;
     private Date uptDate;
 
-    private Long estiSeq;
-    private Long cmpnSeq;
-    private Long carSeq;
+    private EstimateHistoryVO estimateHistoryVO;
+    private CompanyVO companyVO;
+    private CarVO carVO;
+//    private Long estiSeq;
+//    private Long cmpnSeq;
+//    private Long carSeq;
 }

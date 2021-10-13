@@ -3,6 +3,7 @@ package com.yedam.possable.app.community.course.service;
 import java.util.List;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.community.course.domain.CourseBoardLikeVO;
 import com.yedam.possable.app.community.course.domain.CourseBoardVO;
 import com.yedam.possable.app.community.course.domain.CourseVO;
 import com.yedam.possable.app.community.tour.domain.TestVO;
@@ -31,6 +32,12 @@ public interface CourseBoardService {
 	
 	public int courseInsert(List<CourseVO> list, Long num);
 	
-	public Long maxSeq();
+	public boolean plusViews(CourseBoardVO vo);
+	
+	public int plusLike(CourseBoardLikeVO vo);
+	
+	public int minusLike(CourseBoardLikeVO vo);
+	
+	public int countLike(CourseBoardVO vo);
 
 }

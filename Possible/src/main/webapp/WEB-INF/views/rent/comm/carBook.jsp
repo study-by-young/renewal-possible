@@ -326,13 +326,13 @@
 										
 										<ul class="list-unstyled row driver2" style="margin-bottom: 50px;">
 											<li style="padding: 15px; padding-bottom: 10px; padding-top: 0px; font-weight: bold; color: black;}">제 2 운전자 정보</li>
-											<li class="col-md-12"><label>이름* <input id="receiverB" name="receiverB" type="text" placeholder="" class="form-control">
+											<li class="col-md-12"><label>이름* <input id="receiver2" name="receiver2" type="text" placeholder="" class="form-control">
 											</label></li>
-											<li class="col-md-12"><label>연락처* <input id="phoneB" name="phoneB" type="text" placeholder="" class="form-control">
+											<li class="col-md-12"><label>연락처* <input id="phone2" name="phone2" type="text" placeholder="" class="form-control">
 											</label></li>
-											<li class="col-md-12"><label>생년월일(yy/mm/dd)* <br><input id="birthB" name="birthB" type="text" placeholder="" class="form-control">
+											<li class="col-md-12"><label>생년월일(yy/mm/dd)* <br><input id="birth2" name="birthB" type="text" placeholder="" class="form-control">
 											</label></li>
-											<li class="col-md-12"><label>이메일* <input id="emailB" name="emailB" type="text" placeholder="" class="form-control">
+											<li class="col-md-12"><label>이메일* <input id="email2" name="email2" type="text" placeholder="" class="form-control">
 											</label></li>
 										</ul>
 										
