@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
@@ -26,6 +27,15 @@ public class FaqController {
 		int total = faqService.getTotalCount(cri);
 		model.addAttribute("list", faqService.getList(cri));
 		model.addAttribute("pageMaker", new PageVO(cri, total));
+	}
+	
+	@GetMapping("/category")
+	@ResponseBody
+	public String category(String category, RedirectAttributes rttr, @ModelAttribute("cri") Criteria cri) {
+		faqService.getCategoryList(cri, category);
+		rttr.addAttribute("categoryTab", faqService.getCategoryList(cri, category));
+		
+		return "redirect:/faq/list";
 	}
 	
 	@GetMapping("/get")
@@ -67,7 +77,7 @@ public class FaqController {
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
 		
-		return "redirect:/faq/get";
+		return "redirect:/faq/list";
 	}
 	
 	@GetMapping("/delete")

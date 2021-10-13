@@ -51,4 +51,12 @@ public class FaqServiceImpl implements FaqService {
 		return faqMapper.getTotalCount(cri);
 	}
 
+	@Override
+	public List<FaqVO> getCategoryList(Criteria cri, String category) {
+		// TODO Auto-generated method stub
+		return faqMapper.getCategoryList(cri, category);
+	}
+
+	
+
 }
