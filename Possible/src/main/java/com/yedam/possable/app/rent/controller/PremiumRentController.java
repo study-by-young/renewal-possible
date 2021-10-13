@@ -5,6 +5,9 @@ import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.yedam.possable.app.common.code.domain.BrandCodeVO;
+import com.yedam.possable.app.common.code.domain.ModelCodeVO;
+import com.yedam.possable.app.common.code.domain.TrimCodeVO;
 import com.yedam.possable.app.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -64,17 +67,16 @@ public class PremiumRentController {
     public String estimateRegisterForm(Model model,
                                        Authentication authentication,
                                        RedirectAttributes attributes) {
-        MemberVO loginUser = memberService.getLoginMember(authentication);
-        if(loginUser == null || !loginUser.getAuthor().equals("ROLE_USER")) {
-            attributes.addFlashAttribute("denyMsg", "회원만 작성 가능합니다.");
-            return "redirect:../estimate";
-        }
+//        MemberVO loginUser = memberService.getLoginMember(authentication);
+//        if(loginUser == null || !loginUser.getAuthor().equals("ROLE_USER")) {
+//            attributes.addFlashAttribute("denyMsg", "회원만 작성 가능합니다.");
+//            return "redirect:../estimate";
+//        }
 
         String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
         String itemOptCode = codeService.getMasterCodeByName("여행용품 옵션").getCode();
 
         model.addAttribute("brands", codeService.getBrandList());
-        model.addAttribute("segments", codeService.getCodesByParentCode("SEG"));
         model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
         model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
 
@@ -88,31 +90,25 @@ public class PremiumRentController {
                                    @RequestParam("options") String[] optionsArr,
                                    @RequestParam("items") String[] itemsArr,
                                    RedirectAttributes attributes) {
-        if(memberService.getLoginMember(authentication) == null){
-            attributes.addFlashAttribute("denyMsg", "잘못된 접근입니다!");
-            return "redirect:/premiumRent/estimate";
-        }
+//        if(memberService.getLoginMember(authentication) == null){
+//            attributes.addFlashAttribute("denyMsg", "잘못된 접근입니다!");
+//            return "redirect:/premiumRent/estimate";
+//        }
         // 옵션 배열 -> 스트링
         vo.setOptions(Arrays.toString(optionsArr));
         vo.setItems(Arrays.toString(itemsArr));
 
-        // 코드 -> 네임 변환
-        vo.setSegment(codeService.getCodeByValue(vo.getSegment()).getName());
-        vo.setBrand(codeService.getBrand(vo.getBrand()).getName());
-        vo.setModel(codeService.getModel(vo.getModel()).getName());
-        vo.setTrim(codeService.getTrim(vo.getTrim()).getName());
-
         int result = premiumRentService.insertEstimate(vo);
         if (result != 0) {
+
             attributes.addFlashAttribute("resultMsg", "견적 요청이 등록되었습니다.");
         } else {
             attributes.addFlashAttribute("resultMsg",  "견적 요청이 등록되지 않았습니다.\n 잠시후 다시 시도해주세요.");
             return "redirect:/premiumRent/estimate";
         }
+       attributes.addAttribute("seq", vo.getSeq());
 
-
-
-        return "redirect:/premiumRent/estimate/view?seq=" + vo.getSeq();
+        return "redirect:/premiumRent/estimate/view";
     }
 
     // 견적 요청 상세
@@ -123,14 +119,16 @@ public class PremiumRentController {
                                HttpServletRequest request,
                                Model model,
                                @ModelAttribute Criteria cri) {
-        MemberVO user = memberService.getLoginMember(authentication);
-        if (user == null || user.getAuthor().equals("USER")) {
-            String denyMsg = "업체회원만 열람 가능합니다.";
-            attributes.addFlashAttribute("denyMsg", denyMsg);
+//        MemberVO user = memberService.getLoginMember(authentication);
+//        if (user == null || user.getAuthor().equals("USER")) {
+//            String denyMsg = "업체회원만 열람 가능합니다.";
+//            attributes.addFlashAttribute("denyMsg", denyMsg);
+//
+//            return "redirect:" + request.getHeader("REFERER");
+//        }
+//        List<EstiSubmitHistoryVO> estiSubmitHistoryVOList = premiumRentService;
 
-            return "redirect:" + request.getHeader("REFERER");
-        }
-
+        model.addAttribute("submitList", premiumRentService.getEstSubmitListByEstiSeq(new Criteria(), seq));
         model.addAttribute("estimate", premiumRentService.getEstimate(seq));
 
         return "rent/prm/estimateView";
@@ -141,33 +139,33 @@ public class PremiumRentController {
     public String estimateDelete(@RequestParam Long seq,
                                  Authentication authentication,
                                  RedirectAttributes attributes) {
-        MemberVO user = memberService.getLoginMember(authentication);
-        if (user == null) {
-            String denyMsg = "잘못된 접근입니다.";
-            attributes.addFlashAttribute("denyMsg", denyMsg);
-
-            return "redirect:/premiumRent/estimate";
-        }
-        EstimateHistoryVO vo = (EstimateHistoryVO) premiumRentService.getEstimate(seq).get("estimate");
-        MemberVO writer = new MemberVO();
-        writer.setSeq(vo.getMemberVO().getSeq());
-        String userId = user.getId();
-        String writerId = memberService.memberOneSelect(writer).getId();
-
-        if (!userId.equals(writerId)) {
-            attributes.addFlashAttribute("denyMsg", "작성자만 삭제 가능합니다.");
-            return "redirect:/premiumRent/estimate";
-        }
+//        MemberVO user = memberService.getLoginMember(authentication);
+//        if (user == null) {
+//            String denyMsg = "잘못된 접근입니다.";
+//            attributes.addFlashAttribute("denyMsg", denyMsg);
+//
+//            return "redirect:/premiumRent/estimate";
+//        }
+//        EstimateHistoryVO vo = (EstimateHistoryVO) premiumRentService.getEstimate(seq).get("estimate");
+//        MemberVO writer = new MemberVO();
+//        writer.setSeq(vo.getMemberVO().getSeq());
+//        String userId = user.getId();
+//        String writerId = memberService.memberOneSelect(writer).getId();
+//
+//        if (!userId.equals(writerId)) {
+//            attributes.addFlashAttribute("denyMsg", "작성자만 삭제 가능합니다.");
+//            return "redirect:/premiumRent/estimate";
+//        }
 
         int deleteResult = premiumRentService.deleteEstimate(seq);
 
-        String deleteMsg = "";
+        String resultMsg = "";
         if (deleteResult == 1) {
-            deleteMsg = "견적 요청이 삭제되었습니다.";
+            resultMsg = "견적 요청이 삭제되었습니다.";
         } else {
-            deleteMsg = "견적 요청 삭제에 실패했습니다.\n잠시 후 다시 시도해주세요.";
+            resultMsg = "견적 요청 삭제에 실패했습니다.\n잠시 후 다시 시도해주세요.";
         }
-        attributes.addFlashAttribute("deleteMsg", deleteMsg);
+        attributes.addFlashAttribute("resultMsg", resultMsg);
 
         return "redirect:/premiumRent/estimate";
     }
@@ -179,24 +177,26 @@ public class PremiumRentController {
                                      HttpServletRequest request,
                                      RedirectAttributes attributes,
                                      Model model) {
-        // principal 객체로 견적 소유자 검증(id or seq)
         EstimateHistoryVO vo = (EstimateHistoryVO) premiumRentService.getEstimate(seq).get("estimate");
-        MemberVO writer = new MemberVO();
-        writer.setSeq(vo.getMemberVO().getSeq());
-        String userId = memberService.getLoginMember(authentication).getId();
-        String writerId = memberService.memberOneSelect(writer).getId();
-
-        if (userId == null || !userId.equals(writerId)) {
-            attributes.addFlashAttribute("updateMsg", "작성자만 수정 가능합니다.");
-            return "redirect:" + request.getHeader("REFERER");
-        }
+//        MemberVO writer = new MemberVO();
+//        writer.setSeq(vo.getMemberVO().getSeq());
+//        String userId = memberService.getLoginMember(authentication).getId();
+//        String writerId = memberService.memberOneSelect(writer).getId();
+//
+//        if (userId == null || !userId.equals(writerId)) {
+//            attributes.addFlashAttribute("updateMsg", "작성자만 수정 가능합니다.");
+//            return "redirect:" + request.getHeader("REFERER");
+//        }
 
         String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
         String itemOptCode = codeService.getMasterCodeByName("여행용품 옵션").getCode();
+        List<BrandCodeVO> brands = codeService.getBrandList();
+        List<ModelCodeVO> models = codeService.getModelList(vo.getBrand());
+        List<TrimCodeVO> trims = codeService.getTrimList(vo.getTrim());
 
-        model.addAttribute("brands", codeService.getBrandList());
-        model.addAttribute("models", codeService.getModelList(codeService.getBrandByName(vo.getBrand()).getCode()));
-        model.addAttribute("trims", codeService.getTrimList(codeService.getModelByName(vo.getModel()).getCode()));
+        model.addAttribute("brands", brands);
+        model.addAttribute("models", models);
+        model.addAttribute("trims", trims);
         model.addAttribute("estimate", premiumRentService.getEstimate(seq));
         model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
         model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
@@ -214,12 +214,6 @@ public class PremiumRentController {
         vo.setOptions(Arrays.toString(optionsArr));
         vo.setItems(Arrays.toString(itemsArr));
 
-        // 코드 -> 네임 변환
-        vo.setSegment(codeService.getCodeByValue(vo.getSegment()).getName());
-        vo.setBrand(codeService.getBrand(vo.getBrand()).getName());
-        vo.setModel(codeService.getModel(vo.getModel()).getName());
-        vo.setTrim(codeService.getTrim(vo.getTrim()).getName());
-
         int updateResult = premiumRentService.updateEstimate(vo);
 
         String resultMsg = "";
@@ -228,7 +222,7 @@ public class PremiumRentController {
         } else {
             resultMsg = "견적 수정에 실패했습니다. \n잠시후 다시 시도해주세요.";
         }
-        attributes.addFlashAttribute("updateMsg", resultMsg);
+        attributes.addFlashAttribute("resultMsg", resultMsg);
         attributes.addAttribute("seq", vo.getSeq());
 
         return "redirect:/premiumRent/estimate/view";
@@ -298,7 +292,12 @@ public class PremiumRentController {
 
     // 견적 제출 등록 폼
     @GetMapping("submit/register")
-    public String submitRegForm() {
+    public String submitRegForm(@RequestParam("seq") Long estimateSeq,
+                                Authentication authentication,
+                                Model model) {
+        MemberVO loginUser = memberService.getLoginMember(authentication);
+        CompanyVO companyVO = companyService.getCompanyByMemSeq(loginUser);
+        model.addAttribute("carList", carService.getCompanyCarList(companyVO));
         return "rent/prm/submitRegForm";
     }
 

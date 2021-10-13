@@ -21,9 +21,9 @@
     </definition>
 
 	<!-- 타일즈 적용하고 싶지 않을 때 설정 -->
-	<definition name="no/*/*" template="/WEB-INF/views/tiles/nolayout.jsp">
-		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
-	</definition>
+    <definition name="tiles/pagination" template="/WEB-INF/views/tiles/nolayout.jsp">
+        <put-attribute name="content" value="/WEB-INF/views/tiles/pagination.jsp" />
+    </definition>
 
     <!-- 레이아웃 변경 페이지 설정-->
     <definition name="rent/prm/*" extends="Template">
@@ -31,6 +31,12 @@
     </definition>
     <definition name="home" extends="Template">
         <put-attribute name="content" value="/WEB-INF/views/home.jsp" />
+    </definition>
+    <definition name="login/*" extends="Template">
+        <put-attribute name="content" value="/WEB-INF/views/login/{1}.jsp" />
+    </definition>
+    <definition name="member/*" extends="Template">
+        <put-attribute name="content" value="/WEB-INF/views/member/{1}.jsp" />
     </definition>
 
     <!-- 어드민 및 업체 관리 페이지 설정 -->

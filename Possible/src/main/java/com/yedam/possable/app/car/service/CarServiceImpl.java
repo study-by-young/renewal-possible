@@ -2,6 +2,7 @@ package com.yedam.possable.app.car.service;
 
 import java.util.List;
 
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -87,4 +88,14 @@ public class CarServiceImpl implements CarService {
 		// TODO Auto-generated method stub
 		return carMapper.insertCarOptions(vo);
 	}
+
+    @Override
+    public List<CarVO> getCarList_map(Criteria cri) {
+        return carMapper.getCarList_map(cri);
+    }
+
+    @Override
+    public CarVO getCar_map(CarVO vo) {
+        return carMapper.getCar_map(vo);
+    }
 }

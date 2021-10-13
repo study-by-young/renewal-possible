@@ -34,104 +34,104 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <sec:csrfInput/>
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group row">
-                                        <label for="id" class="col-form-label col-lg-2">아이디 <span class="text-danger">*</span></label>
-                                        <div class="col-lg-10">
-                                            <div class="input-group">
-                                                <input name="id" id="id" type="text" class="form-control no-empty" required>
-                                                <div class="input-group-append">
-                                                    <button type="button" class="btn btn-primary" onclick="fn_idChk();" >중복체크</button>
+                                <sec:csrfInput/>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <label for="id" class="col-form-label col-lg-2">아이디 <span class="text-danger">*</span></label>
+                                            <div class="col-lg-10">
+                                                <div class="input-group">
+                                                    <input name="id" id="id" type="text" class="form-control no-empty" required>
+                                                    <div class="input-group-append">
+                                                        <button type="button" class="btn btn-primary" onclick="fn_idChk();" >중복체크</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group row">
-                                        <label for="password" class="col-form-label col-lg-2">비밀번호 <span class="text-danger">*</span></label>
-                                        <div class="col-lg-10">
-                                            <input name="password" id="password" type="password" class="form-control password no-empty">
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <label for="password" class="col-form-label col-lg-2">비밀번호 <span class="text-danger">*</span></label>
+                                            <div class="col-lg-10">
+                                                <input name="password" id="password" type="password" class="form-control password no-empty">
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group row">
-                                        <label for="repeat_password" class="col-form-label col-lg-2">비밀번호 확인 <span class="text-danger">*</span></label>
-                                        <div class="col-lg-10">
-                                            <input name="repeat_password" id="repeat_password" type="password" class="form-control no-empty repeat-password" required>
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <label for="repeat_password" class="col-form-label col-lg-2">비밀번호 확인 <span class="text-danger">*</span></label>
+                                            <div class="col-lg-10">
+                                                <input name="repeat_password" id="repeat_password" type="password" class="form-control no-empty repeat-password" required>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6 col-12">
-                                    <div class="form-group row">
-                                        <label for="name" class="col-form-label col-lg-4">이름 <span class="text-danger">*</span></label>
-                                        <div class="col-lg-8">
-                                            <input name="name" id="name" type="text" class="form-control no-empty" required>
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-group row">
+                                            <label for="name" class="col-form-label col-lg-4">이름 <span class="text-danger">*</span></label>
+                                            <div class="col-lg-8">
+                                                <input name="name" id="name" type="text" class="form-control no-empty" required>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6 col-12">
-                                    <div class="form-group row">
-                                        <label for="birth" class="col-form-label col-lg-4">생년월일 <span class="text-danger">*</span></label>
-                                        <div class="col-lg-8">
-                                            <input name="birth" id="birth" type="text" class="form-control pickadate" required>
+                                    <div class="col-lg-6 col-12">
+                                        <div class="form-group row">
+                                            <label for="birth" class="col-form-label col-lg-4">생년월일 <span class="text-danger">*</span></label>
+                                            <div class="col-lg-8">
+                                                <input name="birth" id="birth" type="text" class="form-control pickadate" required>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group row">
-                                        <label for="name" class="col-form-label col-lg-2">이메일 <span class="text-danger">*</span></label>
-                                        <div class="col-lg-10">
-                                            <input name="email" id="email" type="text" class="form-control no-empty" required>
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <label for="name" class="col-form-label col-lg-2">이메일 <span class="text-danger">*</span></label>
+                                            <div class="col-lg-10">
+                                                <input name="email" id="email" type="text" class="form-control no-empty" required>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group row">
-                                        <label for="phone" class="col-form-label col-lg-2">휴대전화 <span class="text-danger">*</span></label>
-                                        <div class="col-lg-10">
-                                            <div class="input-group">
-                                                <input name="phone" id="phone" type="text" class="form-control no-empty" required>
-                                                <div class="input-group-append">
-                                                    <button type="button" class="btn btn-primary" onclick="" >인증번호 받기</button>
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <label for="phone" class="col-form-label col-lg-2">휴대전화 <span class="text-danger">*</span></label>
+                                            <div class="col-lg-10">
+                                                <div class="input-group">
+                                                    <input name="phone" id="phone" type="text" class="form-control no-empty" required>
+                                                    <div class="input-group-append">
+                                                        <button type="button" class="btn btn-primary" onclick="" >인증번호 받기</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <label>주소 <span class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group row">
-                                        <div class="col-lg-6">
-                                            <div class="input-group">
-                                                <input name="addrCode" id="addrCode" type="text" class="form-control no-empty" placeholder="우편번호" required>
-                                                <div class="input-group-append">
-                                                    <button type="button" class="btn btn-primary" onclick="" >주소 검색</button>
+                                    <div class="col-12">
+                                        <label>주소 <span class="text-danger">*</span></label>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <div class="col-lg-6">
+                                                <div class="input-group">
+                                                    <input name="addrCode" id="addrCode" type="text" class="form-control no-empty" placeholder="우편번호" required>
+                                                    <div class="input-group-append">
+                                                        <button type="button" class="btn btn-primary" onclick="" >주소 검색</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <input name="addrBasic" id="addrBasic" type="text" class="form-control no-empty" placeholder="기본주소" required>
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <input name="addrBasic" id="addrBasic" type="text" class="form-control no-empty" placeholder="기본주소" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                <input name="addrDetail" id="addrDetail" type="text" class="form-control" placeholder="상세주소">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            <input name="addrDetail" id="addrDetail" type="text" class="form-control" placeholder="상세주소">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="login_btn_wrapper register_wrap register_wrapper_btn text-center">
                                 <button class="btn btn-primary btn-lg w-25 login_btn" id="registerBtn" >회원가입 </button>
                             </div>

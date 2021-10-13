@@ -31,7 +31,7 @@
 <div class="x_car_book_sider_main_Wrapper my-4">
     <div class="container">
         <form id="estimateForm" name="estimateForm" method="post">
-            <input type="hidden" name="memSeq" id="memSeq" value="<sec:authentication property="principal.seq" />" >
+<%--            <input type="hidden" name="memSeq" id="memSeq" value="<sec:authentication property="principal.seq" />" >--%>
             <div class="row">
                 <div class="col-lg-10 col-12 offset-lg-1 ">
                     <div class="x_carbooking_right_section_wrapper card">
@@ -43,35 +43,11 @@
                                 <div class="col-lg-9">
                                     <div id="carSelection" class="mb-5">
                                         <ul class="nav nav-tabs nav-tabs-highlight nav-justified mb-0">
-                                            <%--                                            <li class="nav-item"><a href="#select-tab1" class="nav-link active" data-toggle="tab">간편 선택</a></li>--%>
-                                            <li class="nav-item"><a href="#select-tab2" class="nav-link active" data-toggle="tab">차종 선택</a></li>
+                                            <li class="nav-item"><a class="nav-link active">차종 선택</a></li>
                                         </ul>
 
                                         <div class="tab-content card card-body border border-top-0 rounded-top-0 shadow-0 mb-0">
-                                            <%--                                            <div class="tab-pane fade show active" id="select-tab1">--%>
-                                            <%--                                                <div class="row">--%>
-                                            <%--                                                    <div class="col-lg-6 form-group">--%>
-                                            <%--                                                        <label class="w-100">브랜드</label>--%>
-                                            <%--                                                        <select name="easyBrand" id="easyBrand" class="select form-control">--%>
-                                            <%--                                                            <option disabled selected>브랜드를 선택하세요</option>--%>
-                                            <%--                                                            <c:forEach var="brand" items="${brands}">--%>
-                                            <%--                                                                <option value="${brand.code}">${brand.name}</option>--%>
-                                            <%--                                                            </c:forEach>--%>
-                                            <%--                                                        </select>--%>
-                                            <%--                                                    </div>--%>
-                                            <%--                                                    <div class="col-lg-6 form-group">--%>
-                                            <%--                                                        <label class="w-100">세그먼트</label>--%>
-                                            <%--                                                        <select name="easySegment" id="easySegment" class="select form-control" onchange="selectSegment(this)">--%>
-                                            <%--                                                            <option disabled selected>세그먼트를 선택하세요</option>--%>
-                                            <%--                                                            <c:forEach var="segment" items="${segments}">--%>
-                                            <%--                                                                <option value="${segment.code}">${segment.name}</option>--%>
-                                            <%--                                                            </c:forEach>--%>
-                                            <%--                                                        </select>--%>
-                                            <%--                                                    </div>--%>
-                                            <%--                                                </div>--%>
-                                            <%--                                            </div>--%>
-
-                                            <div class="tab-pane fade show active" id="select-tab2">
+                                            <div class="tab-pane fade show active">
                                                 <div class="row">
                                                     <div class="col-4 form-group">
                                                         <label class="w-100">브랜드</label>
@@ -79,7 +55,7 @@
                                                             <option disabled>브랜드를 선택하세요</option>
                                                             <c:forEach var="brand" items="${brands}">
                                                                 <option value="${brand.code}"
-                                                                        <c:if test="${brand.name == est.brand}">selected</c:if>>
+                                                                        <c:if test="${brand.code == est.brand}">selected</c:if>>
                                                                         ${brand.name}
                                                                 </option>
                                                             </c:forEach>
@@ -93,7 +69,7 @@
                                                                 <option value="${model.code}"
                                                                         data-img-src="${model.img}"
                                                                         data-seg="${model.segCode}"
-                                                                        <c:if test="${model.name == est.model}"> selected </c:if>>
+                                                                        <c:if test="${model.code == est.model}"> selected </c:if>>
                                                                         ${model.name}
                                                                 </option>
                                                             </c:forEach>
@@ -120,11 +96,11 @@
                                 <div class="x_car_book_left_siderbar_wrapper col-lg-3 pl-lg-3 mb-5">
                                     <div class="card-img text-center text-lg-left">
                                         <div class="card-img-top">
-                                            <img class="img-fluid" src="${pageContext.request.contextPath}${model}" alt="car_img">
+                                            <img class="img-fluid" src="${pageContext.request.contextPath}${est.modelCodeVO.img}" alt="car_img">
                                         </div>
                                         <div class="x_car_access_filer_top_img my-2">
-                                            <h5></h5>
-                                            <p></p>
+                                            <h5>${est.brandName} ${est.modelCodeVO.name}</h5>
+                                            <p>${est.trimCodeVO.name}</p>
                                         </div>
                                     </div>
                                 </div>

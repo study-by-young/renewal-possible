@@ -97,7 +97,7 @@ public class MypageController {
     						   ){
     	MemberVO mvo = memberService.getLoginMember(authentication);
 
-    	List<EstimateHistoryVO> estimateList = premiumRentService.getUserEstimateList(cri, mvo.getSeq());
+    	List<EstimateHistoryVO> estimateList = premiumRentService.getEstimateListByUserSeq(cri, mvo.getSeq());
 
 		for (int i = 0; i < estimateList.size(); i++) {
 			Map<String, Object> voMap = new HashMap<String, Object>();

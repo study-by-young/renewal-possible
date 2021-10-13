@@ -69,7 +69,7 @@
                                                                 <div class="col-lg-9">
                                                                     <div class="x_car_offer_heading x_car_offer_heading_list float_left">
                                                                         <h5 class="font-weight-bold">
-                                                                                ${estimate.brand} ${estimate.model}<br><small>${estimate.trim}</small>
+                                                                                ${estimate.brandName} ${estimate.modelCodeVO.name}<br><small>${estimate.trimCodeVO.name}</small>
                                                                         </h5>
                                                                     </div>
                                                                 </div>
@@ -133,25 +133,8 @@
                                         </div>
                                     </c:forEach>
 
-                                    <div class="col-md-12">
-                                        <div class="pager_wrapper prs_blog_pagi_wrapper">
-                                            <ul class="pagination">
-                                                <li>
-                                                    <a class="page-arrow" href="?pageNum=${pagination.startPage-1}&amount=${pagination.cri.amount}" <c:if test="${!pagination.prev }">style="display: none"</c:if>><i class="flaticon-left-arrow"></i></a>
-                                                </li>
-                                                <c:forEach begin="${pagination.startPage }" end="${pagination.endPage }" var="num">
-                                                    <li class="btc_shop_pagi">
-                                                        <a href="?pageNum=${num }&amount=${pagination.cri.amount}"
-                                                           <c:if test="${param.getOrDefault('pageNum',1) == num}">class="active"</c:if>
-                                                        >${num }</a>
-                                                    </li>
-                                                </c:forEach>
-                                                <li>
-                                                    <a class="page-arrow" href="?pageNum=${pagination.endPage+1}&amount=${pagination.cri.amount}" <c:if test="${!pagination.next }">style="display: none"</c:if>><i class="flaticon-right-arrow"></i></a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                                    <jsp:include page="/pagination" />
+
                                 </div>
                             </div>
                         </div>
@@ -163,16 +146,6 @@
 </div>
 <!-- x car book sidebar section Wrapper End -->
 <script>
-    <c:if test="${resultMsg != null}">
-    customAlert("견적 요청", "${resultMsg}");
-    </c:if>
-    <c:if test="${denyMsg != null}">
-    customAlert("접근 불가", '${denyMsg}');
-    </c:if>
-    <c:if test="${deleteMsg != null}">
-    customAlert("견적 삭제", "${deleteMsg}");
-    </c:if>
-
     $(function () {
         $('.page-arrow').on('click', function(e){
             if(this.value == null){

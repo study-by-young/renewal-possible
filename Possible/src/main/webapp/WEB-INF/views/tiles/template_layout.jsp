@@ -53,6 +53,7 @@
     <script src="${pageContext.request.contextPath}/resources/js/plugins/forms/styling/switch.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/plugins/notifications/bootbox.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/plugins/forms/validation/validate.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/plugins/pagination/bs_pagination.min.js"></script>
 
     <!-- Modules Load -->
     <script src="${pageContext.request.contextPath}/resources/js/modules/fix_hidable_navbar.js"></script>

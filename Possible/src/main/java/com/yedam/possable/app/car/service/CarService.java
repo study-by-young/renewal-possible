@@ -3,6 +3,7 @@ package com.yedam.possable.app.car.service;
 import com.yedam.possable.app.car.domain.CarOptionVO;
 import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.domain.InsuranceOptionVO;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -30,7 +31,7 @@ public interface CarService {
 
     // 업체 차량 조회
     public CarVO getCompanyCar(CarVO vo);
-    
+
     //업체 차량 등록
     public int insertCompanyCar(CarVO vo);
 
@@ -42,10 +43,16 @@ public interface CarService {
 
     // 차량 model 중복제거 리스트 조회
     public List<CarVO> getDistinctCarList();
-    
+
     // 해당 model을 보유한 업체 리스트 뽑아내기 위한 리스트
     public List<CarVO> getCarByModel(CarVO vo);
-    
+
     //차량 옵션 추가
     public int insertCarOptions(CarOptionVO vo);
+
+    // 차량 리스트 조회
+    public List<CarVO> getCarList_map(Criteria cri);
+
+    // 차량 조회
+    public CarVO getCar_map(CarVO vo);
 }
