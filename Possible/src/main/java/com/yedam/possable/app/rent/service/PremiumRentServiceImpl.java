@@ -1,5 +1,14 @@
 package com.yedam.possable.app.rent.service;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.rent.domain.CompEstiListJoinVO;
 import com.yedam.possable.app.rent.domain.EstiSubmitHistoryVO;
@@ -7,11 +16,6 @@ import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 import com.yedam.possable.app.rent.mapper.PremiumRentMapper;
 
 import lombok.extern.java.Log;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.*;
 
 @Log
 @Service
@@ -119,8 +123,19 @@ public class PremiumRentServiceImpl implements PremiumRentService{
 	}
 
 	@Override
-	public CompEstiListJoinVO compEstiSubmitOneSelect(Long seq) {
+	public Map<String, Object> compEstiSubmitOneSelect(Long seq) {
 		// TODO  업체 확인용 견적서 단건 조회
-		return premiumRentMapper.compEstiSubmitOneSelect(seq);
+		Map<String, Object> estimate = new HashMap<>();
+		CompEstiListJoinVO vo = premiumRentMapper.compEstiSubmitOneSelect(seq);
+        List<String> options = List.of(strToArr(vo.getItems()));
+        estimate.put("estimate", vo);
+        estimate.put("options", options);
+        estimate.put("items", strToArr(vo.getItems()));
+        System.out.println("어떻게 나눠져있니?"+ strToArr(vo.getItems().toString()));
+        System.out.println("뭔데 니 진짜 ㅡㅡ"+estimate);
+        return estimate;
+		
+		
+		//return premiumRentMapper.compEstiSubmitOneSelect(seq);
 	}
 }

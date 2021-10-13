@@ -35,6 +35,7 @@
                      resultMap="com.yedam.possable.app.member.mapper.MemberMapper.member"
                      javaType="MemberVO"/>
     </resultMap>
+    
     <resultMap id="estiSubmitHistory" type="EstiSubmitHistoryVO">
         <id property="seq" column="seq"/>
         <result property="items" column="items"/>
@@ -265,7 +266,11 @@
     </select>
 
     <!-- 업체용 견적 제출 확인 리스트 -->
+<<<<<<< HEAD
     <select id="compEstiSubmitList" resultType="CompEstiListJoinVO">
+=======
+    <select id="compEstiSubmitList" resultMap="CompEstiListJoin">
+>>>>>>> refs/remotes/origin/geon_branch_Company_estiSubmit
         SELECT e.SEQ,
                e.ESTI_SEQ,
                e.CAR_SEQ,
@@ -299,7 +304,7 @@
     </select>
 
     <!--프리미엄 렌트카 한건 조회 -->
-    <select id="compEstiSubmitOneSelect" resultType="CompEstiListJoinVO">
+    <select id="compEstiSubmitOneSelect" resultMap="CompEstiListJoin">
         SELECT e.SEQ,
                e.ESTI_SEQ,
                e.CAR_SEQ,
@@ -314,6 +319,7 @@
                c.TRUNK,
                c.DOOR,
                c.MISSION,
+               c.PASSENGER,
                c.YEAR,
                e.ITEMS,
                e.PRICE,
@@ -321,14 +327,18 @@
                e.GEN_DATE,
                e.UPT_DATE,
                com.NAME,
-               com.TEL
+               com.TEL,
+               mem.NAME as memName,
+               mem.PHONE as phone 
         FROM esti_submit_history e
                      INNER JOIN CAR c
                 ON c.seq = e.car_seq
                      INNER JOIN COMPANY com
                 ON com.seq = c.cmpn_seq
-                     JOIN estimate_history eh
+                     INNER JOIN estimate_history eh
                 ON e.esti_seq = eh.seq
+                	INNER JOIN Member mem
+                ON eh.mem_seq = mem.seq
         WHERE e.seq = #{seq}
     </select>
 
@@ -439,4 +449,46 @@
        		ON e.esti_seq = eh.seq
 	        WHERE e.seq= #{seq}
    	</select>
+</mapper>
+    <resultMap type="CompEstiListJoinVO" id="CompEstiListJoin">
+    	<id property="seq" column="seq"/>
+    	<result property="items" column="items"/>
+    	<result property="price" column="price"/>
+    	<result property="memo" column="memo"/>
+    	<result property="genDate" column="gen_date"/>
+    	<result property="uptDate" column="upt_date"/>
+    	<result property="carNum" column="car_num"/>
+    	<result property="brand" column="brand"/>
+    	<result property="segment" column="segment"/>
+    	<result property="model" column="model"/>
+    	<result property="trim" column="trim"/>
+    	<result property="color" column="color"/>
+    	<result property="year" column="year"/>
+    	<result property="fuel" column="fuel"/>
+    	<result property="passenger" column="passenger"/>
+    	<result property="mission" column="mission"/>
+    	<result property="trunk" column="trunk"/>
+    	<result property="door" column="door"/>
+    	<result property="kmpl" column="kmpl"/>
+    	<result property="memName" column="memName"/>
+    	<result property="phone" column="phone"/>
+	    
+	     <association property="memberVO"
+	                  column="mem_seq"
+	                  columnPrefix="mem_"
+	                  resultMap="com.yedam.possable.app.member.mapper.MemberMapper.member"
+	                  javaType="MemberVO"/>
+	                  
+	     <association property="carVO"
+	    			  column= "car_seq"	
+	    			  columnPrefix="car_"
+	    			  resultMap="com.yedam.possable.app.car.mapper.CarMapper.car"
+	    			  javaType="CarVO"/>
+	    			  
+	     <association property="companyVO"
+	    			  column="cmpn_seq"
+	    			  columnPrefix="cmpn_"
+	    			  resultMap="com.yedam.possable.app.company.mapper.CompanyMapper.company"
+	    			  javaType="CompanyVO"/>			                  
+    </resultMap>
 </mapper>

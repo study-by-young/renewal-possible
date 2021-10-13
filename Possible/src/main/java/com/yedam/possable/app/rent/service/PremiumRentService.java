@@ -54,5 +54,5 @@ public interface PremiumRentService{
     public List<CompEstiListJoinVO> compEstiSubmitList(Long seq);
 
     // 업체 확인용 견적서 단건 조회
-    public CompEstiListJoinVO compEstiSubmitOneSelect(Long seq);
+    public Map<String, Object> compEstiSubmitOneSelect(Long seq);
 }

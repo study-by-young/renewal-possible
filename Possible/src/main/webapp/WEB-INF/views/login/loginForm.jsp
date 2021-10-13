@@ -205,4 +205,106 @@
             });
         });
     });
+
+	$('#searchI').html(contents);
+	$('#findIdBtn').show();
+}
+	var code = "";
+	var inputCode = $('#numberInput').val();
+	//인증번호 이메일 전송
+	$("#mailCheck").on("click", function(){
+		var email = $("#email").val();
+		var id = $("#id").val();
+		var numberInput = $("#numberInput");
+		var boxWrap = $(".mail_check_input_box");
+		$.ajax({
+
+			type : 'GET',
+			url : 'mailCheck?email=' + email,
+
+			success : function(data){
+				alert("인증메일이 발송 되었습니다.");
+				console.log("값은?"+data);
+				numberInput.attr("disabled",false);
+				boxWrap.attr("id", "mail_check_input_box_true");
+				code = data;
+			}
+		});
+	});
+	//인증코드 결과
+	$("#numberInput").blur(function(){
+
+		var inputCode = $('#numberInput').val(); //인증번호 입력란
+	 	var checkResult = $("#mail_check_input_box_warn");    // 비교 결과
+
+	 	if(inputCode == code){
+	 		checkResult.html("인증번호가 일치합니다.");
+	        checkResult.attr("class", "correct");
+	 	} else{
+	 		checkResult.html("인증번호를 다시 확인해주세요.");
+	 	    checkResult.attr("class", "incorrect");
+	 	}
+	});
+
+	//인증 성공시 비밀번호 변경 폼으로
+	$("#newPassBtn").on("click",function(){
+		var getId = $(".idChk").val();
+		console.log(getId);
+		var email = $("#email").val();
+
+		if(!$(".idChk").val()) {
+			alert("아이디를 입력해주세요.");
+			$(".idChk").focus();
+			return false;
+		}
+
+		if(!$("#email").val()) {
+			alert("이메일을 입력해주세요.");
+			$("#email").focus();
+			return false;
+		}
+		if($('#numberInput').val() == ""){
+			alert("인증번호를 입력해주세요.");
+			$('#numberInput').focus();
+		}
+
+		isInputCode = $('#numberInput').val();
+		console.log($('#numberInput').val());
+
+		if(code == isInputCode){
+			alert("메일이 인증되었습니다.");
+			$("#passChange").modal();
+			$('#closeClick').trigger('click');
+
+		}else {
+			alert("메일인증을 거쳐야 비밀번호 변경이 가능합니다.");
+
+			return false;
+		}
+
+	//비밀번호 변경
+	$("#PassBtn").on("click",function(){
+		var password = $('.passChk').val();
+		console.log(getId);
+		console.log(password);
+		 $.ajax({
+	         type : "post",
+	         url : "/passFindUpdate",
+	         data : {password : password, id : getId},
+	         beforeSend : function(xhr){
+	            xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+	         },
+	         success : function(data){
+	            if(data == true){
+	            	console.log(data);
+	            	alert("비밀번호 변경 성공.");
+	            	$('#PassCloseClick').trigger('click');
+	            }
+	         },
+	         error : function(){
+	        	 alert("실패");
+	         }
+	      });
+		});
+	});
 </script>

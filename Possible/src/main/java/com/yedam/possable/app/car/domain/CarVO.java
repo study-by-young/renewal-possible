@@ -41,6 +41,7 @@ public class CarVO {
     private String segmentName;
     private ModelCodeVO modelCodeVO;
     private TrimCodeVO trimCodeVO;
+    
     private CompanyVO companyVO;
     
     private Long cmpnSeq; // commonRent 기능 구현에서 사용
