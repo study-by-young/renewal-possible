@@ -29,7 +29,7 @@
 <div class="x_car_book_sider_main_Wrapper my-4">
     <div class="container">
         <form id="estimateForm" name="estimateForm" method="post">
-            <input type="hidden" name="memSeq" id="memSeq" value="1">
+            <input type="hidden" name="estimateHistoryVO.estiSeq" id="estimateHistoryVO.estiSeq" value="${seq}">
             <div class="row">
                 <div class="col-xl-9">
                     <div class="card">
@@ -59,28 +59,29 @@
                             </div>
 
                             <ul class="list-unstyled row">
-                                <li class="col-md-12">
-
-                                </li>
                                 <li class="col-md-12 my-3">
-                                    <label>차량 옵션</label>
-                                    <hr class="my-2">
-                                    <div class="x_slider_checkbox_bottom_filter_use">
+                                    <h5>차량 옵션</h5>
+                                    <div class="x_slider_checkbox_bottom_filter_use row">
                                         <c:forEach var="option" items="${carOpt}" varStatus="status">
-                                            <label class="pr-3">
-                                                <input name="options" id="options" type="checkbox" value="${option.code}" disabled>
-                                                    ${option.name}</label>
+                                            <div class="mb-2 col-lg-3 col-md-4 col-6">
+                                                <div class="custom-control custom-checkbox custom-control-inline">
+                                                    <input type="checkbox" name="options" id="options${status.index}" class="custom-control-input" disabled>
+                                                    <label class="custom-control-label" for="options${status.index}">${option.name}</label>
+                                                </div>
+                                            </div>
                                         </c:forEach>
                                     </div>
                                 </li>
                                 <li class="col-md-12 my-3">
-                                    <label>캠핑 옵션</label>
-                                    <hr class="my-2">
-                                    <div class="x_slider_checkbox_bottom_filter_use">
+                                    <h5>캠핑 옵션</h5>
+                                    <div class="x_slider_checkbox_bottom_filter_use row">
                                         <c:forEach var="option" items="${carOpt}" varStatus="status">
-                                            <label class="pr-3">
-                                                <input name="items" id="items" type="checkbox" value="${option.name}">
-                                                    ${option.name}</label>
+                                            <div class="mb-2 col-lg-3 col-md-4 col-6">
+                                                <div class="custom-control custom-checkbox custom-control-inline">
+                                                    <input type="checkbox" name="items" id="items${status.index}" class="custom-control-input" value="${option.code}">
+                                                    <label class="custom-control-label" for="items${status.index}">${option.name}</label>
+                                                </div>
+                                            </div>
                                         </c:forEach>
                                     </div>
                                 </li>
@@ -89,6 +90,12 @@
                                     <label for="memo">참고 사항</label>
                                     <div class="border">
                                         <textarea name="memo" id="memo" class="form-control border-bottom-0 px-2"></textarea>
+                                    </div>
+                                </li>
+                                <li class="col-md-12 mb-3 ">
+                                    <label for="price">렌트 가격</label>
+                                    <div class="form-group">
+                                        <input type="number" name="price" id="price" class="form-control">
                                     </div>
                                 </li>
                             </ul>
@@ -100,58 +107,32 @@
                 </div>
                 <div class="col-xl-3">
                     <div class="card">
+                        <c:set var="est" value="${estimate.get('estimate')}" />
                         <div class="card-header bg-white">
                             <h4 class="mb-0">견적 요청서 요약</h4>
                         </div>
                         <div class="card-body">
                             <div class="x_car_access_filer_top_img">
-                                <img class="img-fluid" src="images/c2.png" alt="car_img">
-                                <h3></h3>
+                                <img class="img-fluid" src="${pageContext.request.contextPath}${est.modelCodeVO.img}" alt="car_img">
+                                <h5 class="pt-2">${est.brandName} ${est.modelCodeVO.name}<br>
+                                    <small class="text-muted">${est.trimCodeVO.name}</small>
+                                </h5>
                             </div>
+
                             <div class="panel panel-default x_car_inner_acc_acordion_padding">
-                                <div class="panel-heading car_checkout_caret">
-                                    <h5 class="panel-title"> <a href="#"> 렌트 시작 날짜</a> </h5>
-                                </div>
-                                <div class="collapse show">
-                                    <div class="panel-body">
-                                        <div class="x_car_acc_filter_date">
-                                            <ul>
-                                                <li>Tue 16 Jan 2018 @ 10:00</li>
-                                                <li>Barcelona, Airport</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                <h5 class="panel-title"> 렌트 날짜</h5>
+                                <ul>
+                                    <li>대여 : <fmt:formatDate value="${est.startDate}" pattern="yyyy년 MM월 dd일"/> </li>
+                                    <li>반납 : <fmt:formatDate value="${est.endDate}" pattern="yyyy년 MM월 dd일"/></li>
+                                </ul>
                             </div>
                             <div class="panel panel-default x_car_inner_acc_acordion_padding x_car_inner_acc_acordion_padding_last">
-                                <div class="panel-heading car_checkout_caret">
-                                    <h5 class="panel-title"> <a href="#"> 렌트 종료 날짜</a> </h5>
-                                </div>
-                                <div class="collapse show">
-                                    <div class="panel-body">
-                                        <div class="x_car_acc_filter_date">
-                                            <ul>
-                                                <li>Tue 16 Jan 2018 @ 10:00</li>
-                                                <li>Barcelona, Airport</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default x_car_inner_acc_acordion_padding x_car_inner_acc_acordion_padding_last">
-                                <div class="panel-heading car_checkout_caret">
-                                    <h5 class="panel-title"> <a href="#"> 렌트카 수령 장소</a> </h5>
-                                </div>
-                                <div class="collapse show">
-                                    <div class="panel-body">
-                                        <div class="x_car_acc_filter_date">
-                                            <ul>
-                                                <li>Tue 17 Jan 2018 @ 10:00</li>
-                                                <li>Barcelona, Airport</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                <h5 class="panel-title"> 수령 장소</h5>
+                                <p class="pl-3">
+                                    (${est.takePlaceCode})<br>
+                                        ${est.takePlaceBasic}<br>
+                                        ${est.takePlaceDetail}
+                                </p>
                             </div>
                         </div>
                     </div>
