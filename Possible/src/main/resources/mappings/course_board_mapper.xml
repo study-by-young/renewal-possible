@@ -116,4 +116,8 @@
 	<select id="checkLike" resultType="int">
 		SELECT COUNT(*) FROM COURSE_BOARD_LIKE WHERE BOARD_SEQ = #{seq} AND MEMBER_SEQ = #{memberSeq}
 	</select>
+	
+	<delete id="delete">
+		DELETE FROM COURSE_BOARD WHERE SEQ = #{seq}
+	</delete>
 </mapper>

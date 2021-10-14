@@ -304,15 +304,17 @@ response.setContentType("text/html; charset=utf-8");
 	   			url: 'write',
 	   		    type: 'post',
 	   		    data : JSON.stringify(data),
-	   		    dataType : 'json',
+	   		    dataType : 'text',
 	   		 	contentType: 'application/json; charset=utf-8',
-	   		 	// traditional : true,
 	   		    success: function (data){
 	   		        console.log(data);
+	   		     	alert("등록이 완료되었습니다.");
+	   		     	if (data == "success") {
+	   		        	location.href = "../course";
+	   		     	}
 	   		    },
 	   		    error: function (error){
 	   		     	console.log(error);
-	   		        alert(error);
 	   		    }
 	   		});
 		});

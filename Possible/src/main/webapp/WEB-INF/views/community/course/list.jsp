@@ -4,29 +4,12 @@
 <!DOCTYPE html>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<html lang="en">
 
-<head>
-<meta charset="utf-8" />
-<title>Xpedia</title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<meta name="description" content="Xpedia" />
-<meta name="keywords" content="Xpedia" />
-<meta name="author" content="" />
-<meta name="MobileOptimized" content="320" />
-<!--Template style -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/xpedia.css" />
-<!--favicon-->
-<link rel="shortcut icon" type="image/png" href="images/fevicon.png" />
 <style type="text/css">
 .x_slider_checout_right li a {
 	float: right;
 }
 </style>
-</head>
-
-<body>
 
 	<div class="x_inner_team_main_wrapper float_left padding_tb_100">
 		<div class="container">
@@ -77,35 +60,3 @@
 			</div>
 		</div>
 	</div>
-
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/modernizr.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/select2.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.menu-aim.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/owl.carousel.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/own-menu.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.countTo.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.inview.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.bxslider.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.magnific-popup.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/xpedia.js"></script>
-	<!-- custom js-->
-</body>
-
-</html>

@@ -55,6 +55,7 @@ public class CourseBoardController {
 			return "community/course/view";
 		}
 		model.addAttribute("user", loginUser.getSeq());
+		model.addAttribute("id", loginUser.getId());
 		like.setBoardSeq(board.getSeq());
 		like.setMemberSeq(loginUser.getSeq());
 		model.addAttribute("checkLike",courseBoardService.checkLike(like));
@@ -87,7 +88,7 @@ public class CourseBoardController {
     	System.out.println(board.getSeq());
     	Long num = board.getSeq();
     	courseBoardService.courseInsert(board.getBoardList(), num);
-    	return "community/course";
+    	return "success";
     }
 
     // 수정 폼
@@ -103,9 +104,11 @@ public class CourseBoardController {
     }
 
     // 코스 삭제
-    @GetMapping("/view/delete")
-    public String courseDelete(){
-	    return "redirect:../../";
+    @PostMapping("/view/delete")
+    public String courseDelete(CourseBoardVO board){
+    	System.out.println(board.toString());
+    	courseBoardService.delete(board);
+	    return "redirect:/community/course";
     }
 
     // 코스 댓글 작성
