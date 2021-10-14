@@ -81,11 +81,11 @@
                                     </div>
                                     <br>
                                     <!-- 후기작성 -->
-                                    <form id="writeReviewForm" action="" method="">
+                                    <form id="writeReviewForm" action="writeReview" method="post">
 	                                    <div class="contect_form4 xcontect_form4">
-	                                    	<input type="hidden" id="historySeq" name="historySeq" value="">${history.seq}
-	                                    	<input type="hidden" id="memSeq" name="memSeq" value=""> ${user.seq}
-	                                    	<input type="hidden" id="cmpnSeq" name="cmpnSeq" value=""> ${company.seq}
+	                                    	<input type="hidden" id="history_seq" name="history_seq" value="${history.seq}">
+	                                    	<input type="hidden" id="mem_seq" name="mem_seq" value="${user.seq}">
+	                                    	<input type="hidden" id="cmpn_seq" name="cmpn_seq" value="${company.seq}"> 
 	                                        <table>
 	                                            <tr>
 	                                                <td>
@@ -94,11 +94,11 @@
 		                                                	<c:if test="${user.id eq course.writer}">
 		                                                		<c:forEach var="course" items="${courseList}">
 				                                                    <option value="">${course.title}</option>
-				                                                    <input type="hidden" id="courseSeq" name="courseSeq" value="${course.seq}">
+				                                                    <input type="hidden" id="course_seq" name="course_seq" value="${course.seq}">
 			                                                    </c:forEach>
 		                                                    </c:if>
-		                                                    <c:if test="${user.id != course.writer}">
-		                                                    	<option value="" selected>작성한 여행코스가 없습니다.</option>
+		                                                    <c:if test="${user.id ne course.writer}">
+		                                                    	<option value="">작성한 여행코스가 없습니다.</option>
 		                                                    </c:if>
 		                                                </select>
 	                                                </td>
@@ -118,8 +118,7 @@
 	                                        <textarea id="content" name="content" rows="4" placeholder="Write Content"></textarea>
 	                                        <br><br>
 	                                        <div align="center">
-	                                            <button type="button" class="btn" onclick="location.href='#'"
-	                                                    style="text-align: center; background: #4f5dec; color: #ffffff; border: 1px solid transparent;">등록
+	                                            <button type="submit" class="btn" style="text-align: center; background: #4f5dec; color: #ffffff; border: 1px solid transparent;">등록
 	                                            </button>
 	                                        </div>
 	                                    </div>

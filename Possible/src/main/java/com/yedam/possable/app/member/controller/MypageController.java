@@ -31,6 +31,7 @@ import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
+import com.yedam.possable.app.rent.domain.RentReviewVO;
 import com.yedam.possable.app.rent.service.PaymentService;
 import com.yedam.possable.app.rent.service.PremiumRentService;
 import com.yedam.possable.app.rent.service.RentHistoryService;
@@ -260,14 +261,14 @@ public class MypageController {
     	// 차량 seq로 차량 한건 조회해서 model 뿌려주기
     	// 내가 작성한 코스글 seq가 필요함 (mem_seq로 코스글 조회해서 select option으로 뿌려주면 될 듯)
     	
-    	
         return "mypage/rentReviewForm";
     }
 
     // 렌트 후기 등록 처리
     @PostMapping("/rent/view/writeReview")
-    public String writeRentReview(){
-        return "";
+    public String writeRentReview(RentReviewVO vo){
+    	rentReviewService.insertRentReview(vo);
+        return "mypage/rentHistoryList";
     }
     
     // 렌트 후기 수정 처리

@@ -34,7 +34,7 @@
 
 		<security:access-denied-handler ref="loginAccessDeniedHandler"/>
 
-		<security:csrf disabled="false" />
+		<security:csrf disabled="true" />
 	</security:http>
 
 	<security:authentication-manager>
