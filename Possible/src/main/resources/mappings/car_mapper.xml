@@ -181,7 +181,18 @@
         DELETE
         FROM CAR
         WHERE SEQ = #{seq}
-          AND cmpn_seq = #{cmpnSeq}
+    </delete>
+    
+    <delete id = "deleteCarOption">
+    	DELETE 
+    	FROM CAR_OPTION
+    	WHERE CAR_SEQ = #{carSeq}
+    </delete>
+    
+    <delete id = "deleteInsOption">
+    	DELETE 
+    	FROM INSURANCE_OPTION
+    	WHERE CAR_SEQ = #{carSeq}
     </delete>
     <update id="updateCompanyCar">
         UPDATE car
@@ -311,7 +322,7 @@
 						#{door},
 						#{kmpl},
 						#{price},
-						'대기',
+						'CST01',
 						#{img1},
 						#{img2},
 						#{img3},

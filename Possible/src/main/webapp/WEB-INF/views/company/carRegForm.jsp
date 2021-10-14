@@ -221,6 +221,9 @@
     let brand = $('#brand');
     let model = $('#model');
     let trim = $('#trim');
+    let segment = $('segment');
+    let fuel = $('fuel');
+    
 
     $('#startDate').datepicker({
         minDate:'+1D'

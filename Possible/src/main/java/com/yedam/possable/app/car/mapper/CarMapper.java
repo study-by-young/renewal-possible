@@ -57,4 +57,10 @@ public interface CarMapper {
 
     // 차량 조회
     public CarVO getCar_map(CarVO vo);
+    
+    //차량 옵션 삭제
+    public int deleteCarOption(CarOptionVO vo);
+    
+    //차량 보험 삭제
+    public int deleteInsOption(InsuranceOptionVO vo);
 }

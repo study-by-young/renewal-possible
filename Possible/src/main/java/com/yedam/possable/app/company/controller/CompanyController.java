@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.car.domain.CarOptionVO;
 import com.yedam.possable.app.car.domain.CarVO;
+import com.yedam.possable.app.car.domain.InsuranceOptionVO;
 import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.company.domain.CompanyVO;
@@ -132,13 +135,15 @@ public class CompanyController {
     // 업체 보유 렌트카 상세
     @GetMapping("/car/view")
     public String companyCarOneSelect(CarVO vo, Model model, CarOptionVO optVO, @RequestParam Long seq, @RequestParam Long cmpn) {
-        CompanyVO companyVO = new CompanyVO();
+    	CompanyVO companyVO = new CompanyVO();
         companyVO.setSeq(cmpn);
        vo.setSeq(seq);
        vo.setCompanyVO(companyVO);
-       model.addAttribute("car",carService.getCompanyCar(vo));
-       model.addAttribute("opt", carService.getCarOptions(vo));
-       return "company/carView"; // JSP에서 company 시퀀스 넘겨줘야함
+       optVO.setCarSeq(seq);
+       String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
+       model.addAttribute("car",carService.getCompanyCar(vo)); 
+       model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
+       return "company/carView"; 
     }
 
     // 업체 렌트카 등록 폼
@@ -148,6 +153,7 @@ public class CompanyController {
          String fuelCode = codeService.getMasterCodeByName("연료").getCode();
          String statusCode = codeService.getMasterCodeByName("차 상태").getCode();
          String segmentCode = codeService.getMasterCodeByName("세그먼트").getCode();
+         
          model.addAttribute("brands", codeService.getBrandList());
          model.addAttribute("segment", codeService.getCodesByParentCode(segmentCode));
          model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
@@ -183,17 +189,20 @@ public class CompanyController {
         vo.setModel(codeService.getModel(vo.getModel()).getName());
         vo.setTrim(codeService.getTrim(vo.getTrim()).getName());
         vo.setFuel(codeService.getCodeByValue(vo.getFuel()).getName());
-
+        	
         int result = carService.insertCompanyCar(vo);
         rttr.addFlashAttribute("result", result);
 
         optVO.setCarSeq(vo.getSeq());
         optVO.setOptCode(Arrays.toString(optionsArr));
 
-          int result2 = carService.insertCarOptions(optVO);
-          rttr.addFlashAttribute("result2", result2);
+          
+        	//int result2 = carService.insertCarOptions(null, null);
+          
+          
+         // rttr.addFlashAttribute("result2", result2);
 
-        return "redirect:/company/car";
+        return "redirect:/company/dashboard";
     }
 
      // 업체 렌트카 수정 처리
@@ -211,18 +220,20 @@ public class CompanyController {
     }
 
     // 업체 렌트카 삭제 처리
-    @ResponseBody
     @PostMapping("/car/delete")
-    public String deleteCar(CarVO vo, @RequestParam("seq") Long seq, @RequestParam("cmpnSeq") Long cmpnSeq, RedirectAttributes rttr){
+    public String deleteCar(CarVO vo, CarOptionVO optVO, InsuranceOptionVO insVO, @RequestParam("seq") Long seq, RedirectAttributes rttr){
     	
     	vo.setSeq(seq);
-    	vo.setCmpnSeq(cmpnSeq);
+    	optVO.setCarSeq(seq);
+    	insVO.setCarSeq(seq);
+    	carService.deleteCarOption(optVO);
+    	carService.deleteInsOption(insVO);
     	
     	int result = carService.deleteCompanyCar(vo);
 		if(result == 1) {
 			rttr.addFlashAttribute("result", "success");			
 		}
-		return "redirect:company/dashboard";
+		return "redirect:/company/dashboard";
     }
 
     // 견적 제출 리스트
