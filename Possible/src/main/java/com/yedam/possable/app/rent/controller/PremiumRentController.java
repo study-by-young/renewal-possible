@@ -297,7 +297,15 @@ public class PremiumRentController {
                                 Model model) {
         MemberVO loginUser = memberService.getLoginMember(authentication);
         CompanyVO companyVO = companyService.getCompanyByMemSeq(loginUser);
-        model.addAttribute("carList", carService.getCompanyCarList(companyVO));
+        log.info(carService.getCompanyCarList_map(companyVO).toString());
+        model.addAttribute("test", "test'");
+        model.addAttribute("carList", carService.getCompanyCarList_map(companyVO));
+
+        String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
+        String itemOptCode = codeService.getMasterCodeByName("여행용품 옵션").getCode();
+        model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
+        model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
+
         return "rent/prm/submitRegForm";
     }
 

@@ -4,9 +4,12 @@
 <mapper namespace="com.yedam.possable.app.car.mapper.CarMapper">
     <resultMap id="car" type="CarVO">
         <id property="seq" column="seq" />
+        <result property="cmpnSeq" column="cmpn_seq"/>
         <result property="carNum" column="car_num" />
         <result property="brand" column="brand" />
         <result property="segment" column="segment" />
+        <result property="model" column="model"/>
+        <result property="trim" column="trim"/>
         <result property="color" column="color" />
         <result property="year" column="year" />
         <result property="fuel" column="fuel" />
@@ -403,12 +406,12 @@
             <![CDATA[ ROWNUM <= #{pageNum} * #{amount} ]]>
         </where>
         ) C
-        LEFT OUTER JOIN code_sub BRAND ON C.brand = BRAND.code
         LEFT OUTER JOIN code_sub SEGMENT ON C.segment = SEGMENT.code
         LEFT OUTER JOIN code_sub COLOR ON C.color = COLOR.code
         LEFT OUTER JOIN code_sub FUEL ON C.fuel = FUEL.code
         LEFT OUTER JOIN code_sub MISSON ON C.mission = MISSON.code
         LEFT OUTER JOIN code_sub STATUS ON C.status = STATUS.code
+        LEFT OUTER JOIN brand_code BRAND ON C.brand = BRAND.code
         LEFT OUTER JOIN model_code MC ON C.model = MC.code
         LEFT OUTER JOIN trim_code TC ON C.trim = TC.code
         LEFT OUTER JOIN company CM ON C.cmpn_seq = CM.seq
@@ -419,51 +422,119 @@
     </select>
 
     <select id="getCar_map" resultMap="car">
-        SELECT C.seq,
-               C.car_num,
-               C.year,
-               C.passenger,
-               C.trunk,
-               C.door,
-               C.kmpl,
-               C.price,
-               C.img1,
-               C.img2,
-               C.img3,
-               C.gen_date,
-               C.upt_date,
-               C.cmpn_seq,
-            B.name AS brand,
-            S.name AS segment,
-            COL.name AS color,
-            F.name AS fuel,
-            M.name AS mission,
-            STATUS.name AS status,
-               MC.name     AS model_name,
-               MC.img      AS model_img,
-               TC.name     AS trim_name,
-               CM.name     AS cmpn_name,
-               CM.postal   AS cmpn_postal,
-               CM.addr1    AS cmpn_addr1,
-               CM.addr2    AS cmpn_addr2,
-               CM.tel      AS cmpn_tel,
-               CO.opt_code AS co_opt_code,
-               IO.opt_code AS io_opt_code,
-               IO.price    AS io_price
-        FROM (SELECT *
-              FROM car
-              WHERE seq = #{seq}
-                     ) C
-            LEFT OUTER JOIN code_sub B ON C.brand = B.code
-            LEFT OUTER JOIN code_sub S ON C.segment = S.code
-            LEFT OUTER JOIN code_sub COL ON C.color = COL.code
-            LEFT OUTER JOIN code_sub F ON C.fuel = F.code
-            LEFT OUTER JOIN code_sub M ON C.mission = M.code
-            LEFT OUTER JOIN code_sub STATUS ON C.status = STATUS.code
-                     LEFT OUTER JOIN model_code MC ON C.model = MC.code
-                     LEFT OUTER JOIN trim_code TC ON C.trim = TC.code
-                     LEFT OUTER JOIN company CM ON C.cmpn_seq = CM.seq
-                     LEFT OUTER JOIN car_option CO ON C.seq = CO.car_seq
-                     LEFT OUTER JOIN insurance_option IO ON C.seq = IO.car_seq
+        SELECT
+        C.seq,
+        C.car_num,
+        C.brand,
+        C.segment,
+        C.model,
+        C.trim,
+        C.color,
+        C.year,
+        C.fuel,
+        C.passenger,
+        C.mission,
+        C.trunk,
+        C.door,
+        C.kmpl,
+        C.price,
+        C.status,
+        C.img1,
+        C.img2,
+        C.img3,
+        C.gen_date,
+        C.upt_date,
+        BRAND.name AS brand_name,
+        SEGMENT.name AS segment_name,
+        COLOR.name AS color_name,
+        FUEL.name AS fuel_name,
+        MISSON.name AS mission_name,
+        STATUS.name AS status_name,
+        MC.name     AS model_name,
+        MC.img      AS model_img,
+        TC.name     AS trim_name,
+        CM.name     AS cmpn_name,
+        CM.postal   AS cmpn_postal,
+        CM.addr1    AS cmpn_addr1,
+        CM.addr2    AS cmpn_addr2,
+        CM.tel      AS cmpn_tel,
+        CO.opt_code AS co_opt_code,
+        IO.opt_code AS io_opt_code,
+        IO.price    AS io_price
+        FROM ( SELECT
+        *
+        FROM car
+        WHERE seq = #{seq}
+        ) C
+        LEFT OUTER JOIN code_sub SEGMENT ON C.segment = SEGMENT.code
+        LEFT OUTER JOIN code_sub COLOR ON C.color = COLOR.code
+        LEFT OUTER JOIN code_sub FUEL ON C.fuel = FUEL.code
+        LEFT OUTER JOIN code_sub MISSON ON C.mission = MISSON.code
+        LEFT OUTER JOIN code_sub STATUS ON C.status = STATUS.code
+        LEFT OUTER JOIN brand_code BRAND ON C.brand = BRAND.code
+        LEFT OUTER JOIN model_code MC ON C.model = MC.code
+        LEFT OUTER JOIN trim_code TC ON C.trim = TC.code
+        LEFT OUTER JOIN company CM ON C.cmpn_seq = CM.seq
+        LEFT OUTER JOIN car_option CO ON C.seq = CO.car_seq
+        LEFT OUTER JOIN insurance_option IO ON C.seq = IO.car_seq
+    </select>
+
+    <select id="getCompanyCarList_map" resultMap="car">
+        SELECT
+        C.seq,
+        C.car_num,
+        C.brand,
+        C.segment,
+        C.model,
+        C.trim,
+        C.color,
+        C.year,
+        C.fuel,
+        C.passenger,
+        C.mission,
+        C.trunk,
+        C.door,
+        C.kmpl,
+        C.price,
+        C.status,
+        C.img1,
+        C.img2,
+        C.img3,
+        C.gen_date,
+        C.upt_date,
+        BRAND.name AS brand_name,
+        SEGMENT.name AS segment_name,
+        COLOR.name AS color_name,
+        FUEL.name AS fuel_name,
+        MISSON.name AS mission_name,
+        STATUS.name AS status_name,
+        MC.name     AS model_name,
+        MC.img      AS model_img,
+        TC.name     AS trim_name,
+        CM.name     AS cmpn_name,
+        CM.postal   AS cmpn_postal,
+        CM.addr1    AS cmpn_addr1,
+        CM.addr2    AS cmpn_addr2,
+        CM.tel      AS cmpn_tel,
+        CO.opt_code AS co_opt_code,
+        IO.opt_code AS io_opt_code,
+        IO.price    AS io_price
+        FROM ( SELECT
+        /*+ INDEX_DESC(CAR IDX_CAR) */
+        *
+        FROM car
+        WHERE cmpn_seq = #{seq}
+        ) C
+        LEFT OUTER JOIN code_sub SEGMENT ON C.segment = SEGMENT.code
+        LEFT OUTER JOIN code_sub COLOR ON C.color = COLOR.code
+        LEFT OUTER JOIN code_sub FUEL ON C.fuel = FUEL.code
+        LEFT OUTER JOIN code_sub MISSON ON C.mission = MISSON.code
+        LEFT OUTER JOIN code_sub STATUS ON C.status = STATUS.code
+        LEFT OUTER JOIN brand_code BRAND ON C.brand = BRAND.code
+        LEFT OUTER JOIN model_code MC ON C.model = MC.code
+        LEFT OUTER JOIN trim_code TC ON C.trim = TC.code
+        LEFT OUTER JOIN company CM ON C.cmpn_seq = CM.seq
+        LEFT OUTER JOIN car_option CO ON C.seq = CO.car_seq
+        LEFT OUTER JOIN insurance_option IO ON C.seq = IO.car_seq
     </select>
 </mapper>

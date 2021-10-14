@@ -49,7 +49,7 @@ public interface CarMapper {
 
     //차량 옵션 추가
     public int insertCarOptions(CarOptionVO vo);
-    
+
     public int getTotalCount(Criteria cri);
 
     // 차량 리스트 조회
@@ -57,4 +57,8 @@ public interface CarMapper {
 
     // 차량 조회
     public CarVO getCar_map(CarVO vo);
+
+    // 업체 차량 리스트 조회
+    public List<CarVO> getCompanyCarList_map(CompanyVO vo);
+
 }

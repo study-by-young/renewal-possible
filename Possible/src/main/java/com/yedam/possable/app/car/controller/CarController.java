@@ -2,6 +2,7 @@ package com.yedam.possable.app.car.controller;
 
 import java.util.List;
 
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import com.yedam.possable.app.car.domain.CarOptionVO;
 import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.service.CarService;
 
+@Log
 @RestController
 @RequestMapping("/car")
 public class CarController {
@@ -31,6 +33,8 @@ public class CarController {
     public CarVO getCar(@PathVariable("seq") Long carSeq){
         CarVO vo = new CarVO();
         vo.setSeq(carSeq);
+
+        log.info(carService.getCar_map(vo).toString());
         return carService.getCar_map(vo);
     }
 }

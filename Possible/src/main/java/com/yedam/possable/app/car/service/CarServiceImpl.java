@@ -104,4 +104,9 @@ public class CarServiceImpl implements CarService {
     public CarVO getCar_map(CarVO vo) {
         return carMapper.getCar_map(vo);
     }
+
+    @Override
+    public List<CarVO> getCompanyCarList_map(CompanyVO vo) {
+        return carMapper.getCompanyCarList_map(vo);
+    }
 }
