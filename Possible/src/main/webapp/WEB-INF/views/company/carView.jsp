@@ -200,13 +200,21 @@
 											   <li class="col-md-12 my-3">
                                                 <label>차량 옵션</label>
                                                 <hr class="my-2">
-                                                <div class="x_slider_checkbox_bottom_filter_use">
-                                                    <c:forEach var="option" items="${carOpt}" varStatus="status">
-                                                        <label class="pr-3">
-                                                        <input name="options" id="options" type="checkbox" value="${option.name}">
-                                                        ${option.name}</label>
-                                                    </c:forEach>
+                                              <div class="row">
+                                        <c:forEach var="option" items="${carOpt}" varStatus="status">
+                                            <div class="mb-2 col-lg-3 col-md-4 col-6">
+                                                <div class="custom-control custom-checkbox custom-control-inline">
+                                                    <input type="checkbox"
+                                                           name="options"
+                                                           id="options${status.index}"
+                                                           class="custom-control-input"
+                                                           value="${option.name}"
+                                                           <c:if test="${options.contains(option.name)}">checked</c:if>>
+                                                    <label class="custom-control-label" for="options${status.index}">${option.name}</label>
                                                 </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
                                             </li>
   										</ul>
 									</div>
