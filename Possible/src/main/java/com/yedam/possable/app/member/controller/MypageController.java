@@ -24,6 +24,7 @@ import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
+import com.yedam.possable.app.community.course.service.CourseBoardService;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.member.domain.MemberVO;
@@ -57,6 +58,8 @@ public class MypageController {
     PremiumRentService premiumRentService;
     @Autowired
     RentReviewService rentReviewService;
+    @Autowired
+    CourseBoardService courseBoardService;
 
     //마이페이지 대쉬보드 페이지
     @GetMapping("/dashboard")
@@ -185,8 +188,8 @@ public class MypageController {
     							  Long seq,
 						    	  @ModelAttribute("cri") Criteria cri,
 						    	  RentHistoryVO vo,
-
-						    	  HttpServletRequest request){
+						    	  HttpServletRequest request,
+						    	  Authentication authentication){
 
     	HttpSession session = request.getSession();
     	MemberVO mvo = (MemberVO) session.getAttribute("member");
@@ -212,7 +215,7 @@ public class MypageController {
 
         	CompanyVO cov = new CompanyVO();
         	cov.setSeq(rhlist.get(i).getCmpnSeq());
-        	System.out.println("두번쨰 회사 코드==="+rhlist.get(i).getCmpnSeq());
+        	System.out.println("두번째 회사 코드==="+rhlist.get(i).getCmpnSeq());
         	model.addAttribute("company", companyService.companyOneSelect(cov));
         }
 
@@ -237,7 +240,26 @@ public class MypageController {
     
     // 렌트 후기 작성/수정 폼
     @GetMapping("/rent/view/writeReview")
-    public String rentReviewForm(Model model){
+    public String rentReviewForm(Model model, Authentication authentication, 
+    							Long seq, Long carSeq, Long cmpnSeq,
+    							CarVO carVo, CompanyVO cmpnVo, RentHistoryVO rhVo){
+    	MemberVO loginUser = memberService.getLoginMember(authentication);
+    	
+    	rhVo.setSeq(seq);
+    	rhVo.setCarSeq(carSeq);
+    	rhVo.setCmpnSeq(cmpnSeq);
+    	carVo.setSeq(rhVo.getCarSeq());
+    	cmpnVo.setSeq(rhVo.getCmpnSeq());
+    	
+    	// 내가 대여한 차량 seq, 업체 seq가 필요함 <---- 렌트히스토리 조회하면 여기 다 있음
+    	model.addAttribute("history", rentHistory.getRentHistory(rhVo));
+    	model.addAttribute("car", carService.getCar(carVo));
+    	model.addAttribute("company", companyService.companyOneSelect(cmpnVo));
+    	model.addAttribute("user", loginUser);
+    	model.addAttribute("courseList", courseBoardService.getList());
+    	// 차량 seq로 차량 한건 조회해서 model 뿌려주기
+    	// 내가 작성한 코스글 seq가 필요함 (mem_seq로 코스글 조회해서 select option으로 뿌려주면 될 듯)
+    	
     	
         return "mypage/rentReviewForm";
     }
