@@ -10,6 +10,12 @@
 	integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+<style type="text/css">
+.x_slider_checout_right li a {
+	float: right;
+}
+</style>
+
 <div class="x_inner_team_main_wrapper float_left padding_tb_100">
 	<div class="container">
 		<div class="row">
@@ -90,9 +96,18 @@
 			</div>
 			<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12"></div>
 		</div>
+		<div class="row" style="margin-top: 10px">
+			<div class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 x_slider_checout_right">
+				<ul>
+					<c:if test="${id eq board.writer}"><li><a class="delete">삭제</a></li></c:if>
+					<li><a href="../course">목록</a></li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </div>
 <input type="hidden" id="memSeq" value="${user }">
+<input type="hidden" id="boardSeq" value="${board.seq }">
 
 <script>
 
@@ -202,6 +217,24 @@
 				}
 			}
 		});
+	});
+	
+	var seq = $("#boardSeq").val();
+	$(function() {
+		$(".delete").on("click", function() {
+			$.ajax({
+				type : 'POST',
+				url : 'view/delete',
+				data : JSON.stringify({
+					seq : seq,
+				}),
+				dataType : 'json',
+				contentType : 'application/json; charset=utf-8',
+				success : function(data) {
+					alert("삭제가 완료되었습니다.")
+				}
+			})
+		})
 	});
 
 	</script>
