@@ -68,7 +68,11 @@
 						TAKE_PLACE_BASIC,
 						MERCHANT_UID,
 						PAY_METHOD,
-						CMPN_SEQ
+						CMPN_SEQ,
+						<![CDATA[case When (SELECT count(*) FROM RENT_REVIEW where HISTORY_SEQ =RENT_HISTORY.seq) > 0 	THEN '2'
+						              When trunc(END_DATE) < trunc(sysdate) then '1' 
+						              else '0' end ]]>AS review 
+					
              FROM RENT_HISTORY
              WHERE CMPN_SEQ = #{cmpnSeq}
 	</select>
@@ -94,7 +98,10 @@
 						TAKE_PLACE_BASIC,
 						MERCHANT_UID,
 						PAY_METHOD,
-						CMPN_SEQ
+						CMPN_SEQ,
+						<![CDATA[case When (SELECT count(*) FROM RENT_REVIEW where HISTORY_SEQ =RENT_HISTORY.seq) > 0 	THEN '2'
+						              When trunc(END_DATE) < trunc(sysdate) then '1' 
+						              else '0' end ]]>AS review 
              FROM RENT_HISTORY
              WHERE SEQ = #{seq}
 	</select>
@@ -120,7 +127,10 @@
              h.RECEIVER,
              h.STATUS,
              h.RENT_TYPE,
-             h.CMPN_SEQ 
+             h.CMPN_SEQ,
+             <![CDATA[case When (SELECT count(*) FROM RENT_REVIEW where HISTORY_SEQ =h.seq) > 0 	THEN '2'
+						              When trunc(END_DATE) < trunc(sysdate) then '1' 
+						              else '0' end ]]>AS review 
              FROM RENT_HISTORY h INNER JOIN MEMBER m
              ON h.MEM_SEQ = m.SEQ
             <where>

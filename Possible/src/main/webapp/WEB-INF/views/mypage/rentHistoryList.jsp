@@ -74,7 +74,10 @@
                                             <img src="${pageContext.request.contextPath}/resources/images/cars/Hyundai/santafe.png" alt="img" class="img-fluid">
                                         </div>
                                         <div class="x_car_offer_starts_list_img_cont border-left">
-						
+											${getView.merchantUid }
+			
+			
+		
                                             <div class="row">
                                                 <div class="col-8 x_car_offer_heading_listing float_left">
                                                     <label for="inputRentOrReturn"class="h5">대여/반납일</label>
@@ -86,10 +89,22 @@
                                                 	<button type="button" class="btn btn-sm" data-toggle="modal" data-target="#rentInfoDetail ">상세보기</button>
                                                 </div>
                                                 <div class="col-2 x_car_offer_heading_listing float_left">
+                                                    <c:if test="${getView.status eq '예약완료' }">
+                                                    	<button class="refundBtn" id="refundBtn" type="button" value="${getView.merchantUid}">취소하기</button>
+                                                    </c:if>
+                                                   
+                                                    <c:if test="${getView.review eq '2' }">
+                                                    	<button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
+                                                            style="background: #4f5dec; color: #ffffff;  ">
+                                                        후기수정
+                                                    </button>
+                                                    </c:if>
+                                                    <c:if test="${getView.review ne '2' }">
                                                     <button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
-                                                            style="background: #4f5dec; color: #ffffff; ">
+                                                            style="background: #4f5dec; color: #ffffff;  " <c:if test="${getView.review eq '0' }"> disabled="disabled"</c:if>>
                                                         후기작성
                                                     </button>
+                                                    </c:if>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -270,5 +285,34 @@
 </c:forEach>
 <!-- x blog main and sidebar Wrapper End -->
 <script>
-	$()
+//forEach 돌리고 id로 불러오면 첫번째 버튼만 활성화 되기 때문에 class로 불러온다.
+$('.refundBtn').on('click', function(e){
+	e.preventDefault();
+	if(confirm('예약을 취소하시겠습니까?')){
+		let uid = $(this).val();
+		
+		$.ajax({
+			url: '../refund/' + uid,
+			type: 'post',
+			data: { uid : uid },
+			dataType: 'text',
+			success: function(){
+				alert('예약이 취소되었습니다.');
+			}
+		}).done(function(data, textStatus, xhr) { // 결제취소 성공 시 db에 update 처리
+			// console.log(xhr);
+			$.ajax({
+				url: 'paymentCancel/' + uid,
+				type: 'put',
+				dataType: 'text',
+				success: function(){},
+				error: function(){}
+			});				
+		}).fail(function(xhr, status, message) {
+			alert('status: ' + status + ' er: ' + message);
+		});
+	} else {
+		return false;
+	}
+});
 </script>

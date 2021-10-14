@@ -164,6 +164,5 @@ $("#updateBtn").on("click",function(){
 	}else{
 		
 	}
-	
-	});
+});
 </script>

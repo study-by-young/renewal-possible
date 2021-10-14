@@ -78,13 +78,15 @@ public class PaymentController {
     } */
     
     
-    // 결제취소 후 DB 수정(status 변경)
-    @PutMapping("/paymentCancel/{uid}")
-    @ResponseBody
-    public String paymentCancel(@PathVariable String uid, RedirectAttributes rttr) {
-    	paymentService.paymentCancel(uid);
-    	return "redirect:/payment/rentHistory";
-    }   
+	/*
+	 * // 결제취소 후 DB 수정(status 변경)
+	 * 
+	 * @PutMapping("/paymentCancel/{uid}")
+	 * 
+	 * @ResponseBody public String paymentCancel(@PathVariable String uid,
+	 * RedirectAttributes rttr) { paymentService.paymentCancel(uid); return
+	 * "redirect:/payment/rentHistory"; }
+	 */
 
     
 	// 결제 검증을 위한 코드 (미구현, 테스트 중)
