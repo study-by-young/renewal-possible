@@ -47,6 +47,9 @@
             <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                 <div class="x_blog_left_side_wrapper float_left">
                     <div class="row">
+                        
+                        
+                        
                         <div class="col-md-12">
                             <div class="lr_bc_first_box_main_wrapper">
 
@@ -62,13 +65,82 @@
                                     </ul>
                                 </div>
                                 <br> <br> <br>
-
+								
+								
+								 <div class="col-12">
+									 <div class="x_car_book_tabs_content_main_wrapper my-4">
+									 	 <div class="row">
+									 	 	 <c:forEach var="getView" items="${getView}" varStatus="status">
+												<div class="premium_rent_list_item col-12">
+													<div class="card">
+														<div class="row">
+															  <div class="col-lg-3 align-self-center">
+                                                        		<div class="card-img-actions p-3">
+                                                        			<img class="card-img-top img-fluid" src="${pageContext.request.contextPath}/resources/images/cars/Hyundai/santafe.png" alt="img" >
+                                                        		</div>
+                                                    		</div>
+                                                    		<div class="col-lg-9 border-left">
+                                                    			<div class="card-body">
+                                                    				 <div class="row">
+                                                    				 	 <div class="col-lg-9">
+                                                    				 	 	<div class="x_car_offer_heading x_car_offer_heading_list float_left">
+                                                                        		<h5 class="font-weight-bold">
+                                                                                ${car.brand } ${car.model }<br>
+                                                                       			</h5>
+                                                                    		</div>
+                                                    				 	 </div>
+                                                    				 	 <div class="col-lg-3">
+                                                    				 		<button type="button" class="btn btn-block btn-default" data-toggle="modal" data-target="#rentInfoDetail${status.index } ">상세보기</button>
+                                                                    		
+                                                                		</div>
+                                                                		 <div class="col-12">
+                                                                    		<hr class="my-2">
+                                                                    		<p class="text-grey-600">
+                                                                        		<i class="h3 icon-calendar pr-2 mb-0"></i>
+                                                                        		<fmt:formatDate value="${getView.startDate}" pattern="yy년 MM월 dd일" /> ~ <fmt:formatDate value="${getView.endDate}" pattern="yy년 MM월 dd일" />
+                                                                   			</p>
+                                                                    		<%-- <p class="text-grey-600">
+                                                                        		<i class="h3 icon-location4 pr-2 mb-0"></i> ${estimate.takePlaceBasic} ${estimate.takePlaceDetail}
+                                                                    		</p> --%>
+                                                                		</div>
+                                                                		 <div class="col-12">
+                                                                		 	<div class="card border-primary-300 border-1">
+                                                                		 		<div class="card-body">
+                                                                		 			<div class="row align-items-center">
+                                                                		 				 <div class="col-4">
+                                                                                    		<i class="icon-checkmark4"></i> 차량
+                                                                               			 </div>
+                                                                               			  <div class="col-8">
+                                                                                    		<span class="list-unstyled mb-0"> ${car.brand } ${car.model }</span>
+                                                                                		</div>
+                                                                                		
+                                                                                		 <div class="col-4">
+                                                                                    		<i class="icon-checkmark4"></i> 대여업체
+                                                                               			 </div>
+                                                                               			  <div class="col-8">
+                                                                                    		<span class="list-unstyled mb-0"> ${company.name }</span>
+                                                                                		</div>
+                                                                		 			</div>
+                                                                		 		</div>
+                                                                		 	</div>
+                                                                		 </div>
+                                                    				 </div><!-- row -->
+                                                    			</div>
+                                                    		</div>
+														</div>
+													</div>
+												</div>									 	 	 
+									 	 	 </c:forEach>
+									 	 </div>
+									 </div>
+								 </div>
+								
                                 <!-- 렌트내역 -->
                                 <div class="col-md-12">	
                                     <div class="blog_single_comment_heading">
                                         <h4>렌트내역</h4>
                                     </div>
-                                    	<c:forEach var="getView" items="${getView}" varStatus="i" >
+                                    	<c:forEach var="getView" items="${getView}" varStatus="status" >
                                     <div class="dash x_car_offer_main_boxes_wrapper float_left">
                                         <div class="x_car_offer_starts x_car_offer_starts_list_img float_left border-1">
                                             <img src="${pageContext.request.contextPath}/resources/images/cars/Hyundai/santafe.png" alt="img" class="img-fluid">
@@ -86,24 +158,25 @@
                                                     </p>
                                                 </div>
                                                 <div class="col-2 x_car_offer_heading_listing float_left">
-                                                	<button type="button" class="btn btn-sm" data-toggle="modal" data-target="#rentInfoDetail ">상세보기</button>
+                                                	<button type="button" class="btn btn-sm" data-toggle="modal" data-target="#rentInfoDetail${status.index } ">상세보기</button>
                                                 </div>
                                                 <div class="col-2 x_car_offer_heading_listing float_left">
-                                                    <c:if test="${getView.status eq '예약완료' }">
+                                                    <c:if test="${getView.status eq '예약중' }">
                                                     	<button class="refundBtn" id="refundBtn" type="button" value="${getView.merchantUid}">취소하기</button>
-                                                    </c:if>
-                                                   
-                                                    <c:if test="${getView.review eq '2' }">
-                                                    	<button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
-                                                            style="background: #4f5dec; color: #ffffff;  ">
-                                                        후기수정
-                                                    </button>
-                                                    </c:if>
-                                                    <c:if test="${getView.review ne '2' }">
-                                                    <button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
-                                                            style="background: #4f5dec; color: #ffffff;  " <c:if test="${getView.review eq '0' }"> disabled="disabled"</c:if>>
-                                                        후기작성
-                                                    </button>
+	                                                   	
+	                                                    <c:if test="${getView.review eq '2' }">
+	                                                    	<button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
+	                                                            style="background: #4f5dec; color: #ffffff;  ">
+	                                                        후기수정
+	                                                    </button>
+	                                                    </c:if>
+	                                                    
+	                                                    <c:if test="${getView.review ne '2' }">
+	                                                    <button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
+	                                                            style="background: #4f5dec; color: #ffffff;"<c:if test="${getView.review eq '0' }"> disabled="disabled"</c:if>>
+	                                                        후기작성
+	                                                    </button>
+	                                                    </c:if>
                                                     </c:if>
                                                 </div>
                                             </div>
@@ -135,7 +208,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal fade " id="rentInfoDetail" tabindex="-1" role="dialog" aria-labelledby="rentInfoDetail ${i.index}" aria-hidden="true">
+                                    <div class="modal fade " id="rentInfoDetail${status.index }" tabindex="-1" role="dialog" aria-labelledby="rentInfoDetail" aria-hidden="true">
 								 	<div class="modal-dialog modal-lg" role="document">
 									   	<div class="modal-content">
 									     	<div class="modal-header">
@@ -197,7 +270,7 @@
                     </div>
                 </div>
             </div>
-
+				
             <!-- 사이드바 -->
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                 <div class="x_blog_right_side_wrapper float_left">
@@ -315,4 +388,5 @@ $('.refundBtn').on('click', function(e){
 		return false;
 	}
 });
+$
 </script>
