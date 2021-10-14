@@ -30,7 +30,11 @@
 					</p>
 				</div>
 				<div>
-					<span style="margin-right: 30px"><i id="heart" class="far fa-heart">&nbsp;</i><span id="likeCnt">${likes }</span></span>
+					<span style="margin-right: 30px">
+						<c:if test="${user eq null}"><i id="heart" class="far fa-heart">&nbsp;</i></c:if>
+						<c:if test="${checkLike eq 0}"><i id="heart" class="far fa-heart">&nbsp;</i></c:if>
+						<c:if test="${checkLike eq 1}"><i id="heart" class="fa fa-heart-o">&nbsp;</i></c:if>
+					<span id="likeCnt">${likes }</span>개</span>
 					<!-- <span style="margin-right: 30px"><i class="fas fa-share-alt">&nbsp;10회</i></span> -->
 					<span style="float: right;"><i class="far fa-eye">&nbsp;${board.views }회</i></span>
 				</div>
@@ -88,6 +92,7 @@
 		</div>
 	</div>
 </div>
+<input type="hidden" id="memSeq" value="${user }">
 
 <script>
 
@@ -151,23 +156,51 @@
 
 	});
 	
+	var user = $("#memSeq").val();
+	console.log(user);
 	$(function() {
 		$("#heart").on("click", function() {
-			$.ajax({
-				type : 'POST',
-				url : 'plusLike',
-				data : JSON.stringify({
-					boardSeq : ${board.seq },
-					memberSeq : ${user }
-				}),
-				dataType : 'json',
-				contentType : 'application/json; charset=utf-8',
-				success : function(data) {
-					$("#heart").attr("class", "fa fa-heart-o");
-					$("#likeCnt").text(Number($("#likeCnt").text())+1);
-					console.log(data);
+			if (user != "") {// 로그인 여부 확인
+				if ($("#heart").attr("class") == "far fa-heart"){ // 빈 하트 일 시
+					$.ajax({
+						type : 'POST',
+						url : 'plusLike',
+						data : JSON.stringify({
+							boardSeq : ${board.seq },
+							memberSeq : user
+						}),
+						dataType : 'json',
+						contentType : 'application/json; charset=utf-8',
+						success : function(data) {
+							$("#heart").attr("class", "fa fa-heart-o");
+							$("#likeCnt").text(Number($("#likeCnt").text())+data);
+							console.log(data);
+						}
+					})
+				} else {
+					$.ajax({
+						type : 'POST',
+						url : 'minusLike',
+						data : JSON.stringify({
+							boardSeq : ${board.seq },
+							memberSeq : user
+						}),
+						dataType : 'json',
+						contentType : 'application/json; charset=utf-8',
+						success : function(data) {
+							$("#heart").attr("class", "far fa-heart");
+							$("#likeCnt").text(Number($("#likeCnt").text())-data);
+							console.log(data);
+						}
+					})
 				}
-			})
+			} else {
+				if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
+					location.href="${pageContext.request.contextPath}/login"; 
+				} else {
+					return;
+				}
+			}
 		});
 	});
 

@@ -19,6 +19,11 @@
 	href="${pageContext.request.contextPath}/resources/css/xpedia.css" />
 <!--favicon-->
 <link rel="shortcut icon" type="image/png" href="images/fevicon.png" />
+<style type="text/css">
+.x_slider_checout_right li a {
+	float: right;
+}
+</style>
 </head>
 
 <body>
@@ -45,7 +50,8 @@
 									alt="team_img1">
 								<div class="btc_team_social_tb_wrapper">
 									<h3>
-										<fmt:formatDate value="${list.startDate }" pattern="yyyy-MM-dd" />
+										<fmt:formatDate value="${list.startDate }"
+											pattern="yyyy-MM-dd" />
 										~
 										<fmt:formatDate value="${list.endDate }" pattern="yyyy-MM-dd" />
 									</h3>
@@ -53,13 +59,21 @@
 							</div>
 							<div class="btc_team_img_bot_cont_wrapper">
 								<h4>
-									<a href="${pageContext.request.contextPath}/community/course/view?seq=${list.seq}">${list.title }</a>
+									<a
+										href="${pageContext.request.contextPath}/community/course/view?seq=${list.seq}">${list.title }</a>
 								</h4>
 								<p>${list.writer }</p>
 							</div>
 						</div>
 					</div>
 				</c:forEach>
+			</div>
+			<div class="row" style="margin-top: 10px">
+				<div class="col-12 x_slider_checout_right">
+					<ul>
+						<c:if test="${user ne null}"><li><a href="course/write">등록</a></li></c:if>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</div>

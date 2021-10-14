@@ -40,4 +40,6 @@ public interface CourseBoardMapper {
 	
 	public int countLike(CourseBoardVO vo);
 	
+	public int checkLike(CourseBoardLikeVO vo);
+	
 }

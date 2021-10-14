@@ -35,21 +35,29 @@ public class CourseBoardController {
 
 	// 전체조회
 	@GetMapping
-	public String courseList(Model model) {
+	public String courseList(Model model, Authentication authentication) {
 	    model.addAttribute("list", courseBoardService.getList());
+	    MemberVO loginUser = memberService.getLoginMember(authentication);
+	    model.addAttribute("user", loginUser);
 	    return "community/course/list";
 	}
 
-	// 단건조회(수정페이지)
+	// 단건조회
 	@GetMapping("/view")
-	public String courseView(Model model, CourseBoardVO board, CourseVO course, Authentication authentication) {
+	public String courseView(Model model, CourseBoardVO board, CourseVO course, CourseBoardLikeVO like, Authentication authentication) {
 		courseBoardService.plusViews(board);
 		model.addAttribute("board", courseBoardService.read(board));
 		model.addAttribute("cnt", courseBoardService.courseCnt(board));
 		model.addAttribute("likes", courseBoardService.countLike(board));
 		model.addAttribute("course", courseBoardService.courseSelect(board));
 		MemberVO loginUser = memberService.getLoginMember(authentication);
+		if(loginUser == null) {
+			return "community/course/view";
+		}
 		model.addAttribute("user", loginUser.getSeq());
+		like.setBoardSeq(board.getSeq());
+		like.setMemberSeq(loginUser.getSeq());
+		model.addAttribute("checkLike",courseBoardService.checkLike(like));
 		return "community/course/view";
 	}
 
@@ -79,7 +87,7 @@ public class CourseBoardController {
     	System.out.println(board.getSeq());
     	Long num = board.getSeq();
     	courseBoardService.courseInsert(board.getBoardList(), num);
-    	return "test";
+    	return "community/course";
     }
 
     // 수정 폼
@@ -136,4 +144,12 @@ public class CourseBoardController {
 		return i;
 	}
 
+	@RequestMapping(value = "/minusLike")
+	@ResponseBody
+	public int minusLike(@RequestBody CourseBoardLikeVO vo) {
+		int i = 1;
+		courseBoardService.minusLike(vo);
+		return i;
+	}
+	
 }
