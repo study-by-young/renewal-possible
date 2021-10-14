@@ -25,10 +25,11 @@ public class RentHistoryVO {
     private String takePlaceDetail;
     private String merchantUid;
     private String payMethod;
-
+    
     private Long carSeq;
     private Long memSeq;
     private Long cmpnSeq;
+    private String review; 
     
     // 211014 추가
     private CarVO carVO;

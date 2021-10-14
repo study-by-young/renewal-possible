@@ -70,7 +70,6 @@ public class CompanyController {
         HttpSession session = request.getSession();
         session.setAttribute("cmpnSeq", companyVO.getSeq());
 
-
         return "company/dashboard";
     }
 
@@ -101,7 +100,6 @@ public class CompanyController {
             attributes.addFlashAttribute("result", "success");
         }
         return "redirect:/company/dashboard";
-
     }
 
     // 업체 삭제 처리
@@ -129,8 +127,6 @@ public class CompanyController {
        model.addAttribute("companyCarList", carList);
         return "company/carList";
     }
-
-
 
     // 업체 보유 렌트카 상세
     @GetMapping("/car/view")
@@ -163,13 +159,13 @@ public class CompanyController {
     @PostMapping("/car/register")
     public String registerCar(CarVO vo, HttpServletRequest request, CarOptionVO optVO,  @RequestParam("options") List<CarOptionVO> list, RedirectAttributes rttr) throws IllegalStateException, IOException{
 
-       HttpSession session = request.getSession();
-        String root_path = session.getServletContext().getRealPath("/");
-        String attach_path = "resources/images";
+    	HttpSession session = request.getSession();
+    	String root_path = session.getServletContext().getRealPath("/");
+    	String attach_path = "resources/images";
 
 
-       String fileName=null;
-      MultipartFile uploadFile = vo.getUploadFile();
+     	String fileName=null;
+     	MultipartFile uploadFile = vo.getUploadFile();
 
       if (!uploadFile.isEmpty()) {
          String originalFileName = uploadFile.getOriginalFilename();
@@ -207,6 +203,26 @@ public class CompanyController {
     public String updateCar(){
         return "";
     }
+    
+    
+    
+    // 수정, 삭제처리 어떤 게 사용하는 건지 모르겠어서 일단 하나는 주석처리해두었습니다.
+    
+/*
+    // 업체 렌트카 수정 처리
+    @PostMapping("/car/update")
+    public String updateCar(CarVO vo, CompanyVO comVO, Model model, RedirectAttributes attributes, @RequestParam Long cmpnSeq){
+   	
+    	comVO.setSeq(cmpnSeq);
+   	
+    	int result = carService.updateCompanyCar(vo, comVO);
+        if (result == 1) {
+            attributes.addFlashAttribute("result", "success");
+    }
+
+    return "redirect:/";
+    }
+*/
 
     // 업체 렌트카 삭제 처리
     @ResponseBody
@@ -228,40 +244,54 @@ public class CompanyController {
         return result;
     }
 
+
+/*
+    // 업체 렌트카 삭제 처리
+    @ResponseBody
+    @PostMapping("/car/delete")
+    public String deleteCar(CarVO vo, @RequestParam("seq") Long seq, @RequestParam("cmpnSeq") Long cmpnSeq, RedirectAttributes rttr){
+    	
+    	vo.setSeq(seq);
+    	vo.setCmpnSeq(cmpnSeq);
+    	
+    	int result = carService.deleteCompanyCar(vo);
+		if(result == 1) {
+			rttr.addFlashAttribute("result", "success");			
+		}
+		return "redirect:company/dashboard";
+    }  
+*/  
+    
+    
     // 견적 제출 리스트
     @GetMapping("/estSubmit")
     public String estSubmitList(CompEstiListJoinVO vo,
 					    		Model model,
 					    		@RequestParam Long cmpnSeq,
 					    		Authentication authentication){
-
-    	System.out.println("넌 뭔데?"+cmpnSeq);
-    	
-    	vo.setCmpnSeq(cmpnSeq);
-    	 System.out.println("이건될까..?"+vo.toString());
-    	 System.out.println("이거 뭔데?"+vo.toString());
+    	 vo.setCmpnSeq(cmpnSeq);
 
     	 List<CompEstiListJoinVO> estimate = premiumRentService.compEstiSubmitList(vo.getCmpnSeq());
     	 System.out.println("제발....."+estimate);
     	 model.addAttribute("estimate", estimate);
     	 //Map<String, Object> attr = new LinkedHashMap<>();
 
-        // List<Map<String, Object>> estimateList = premiumRentService.compEstiSubmitList();
+         // List<Map<String, Object>> estimateList = premiumRentService.compEstiSubmitList();
 
          //attr.put("estList", estimateList);
          //System.out.println("너 뭐니?"+estimateList);
          //model.addAllAttributes(attr);
-        return "company/estSubmitList";
+         return "company/estSubmitList";
     }
 
     // 견적 제출 상세
     @GetMapping("/estSubmit/view")
     public String estSubmitView(Model model,@RequestParam Long seq ){
     	
-    	 String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
-    	 System.out.println("========="+carOptCode);
+    	String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
+    	System.out.println("========="+carOptCode);
     	 
-       System.out.println("seq 값 들고오지 그치? ㅎ"+ seq);
+        System.out.println("seq 값 들고오지 그치? ㅎ"+ seq);
         model.addAttribute("estimate",premiumRentService.compEstiSubmitOneSelect(seq));
         System.out.println(premiumRentService.compEstiSubmitOneSelect(seq));
         model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
@@ -277,28 +307,27 @@ public class CompanyController {
 
     // 견적 제출 수정 처리
     @PostMapping("/estSubmit/update")
-    public String updateEstSubmit(CompEstiListJoinVO vo,
-    							  @RequestParam Long cmpnSeq,
+    public String updateEstSubmit(CompEstiListJoinVO vo, @RequestParam Long seq, @RequestParam String status,
 			  					  @RequestParam("options") String[] itemsArr,
 			  					  RedirectAttributes attributes){
+    	System.out.println(status);
     	vo.setItems(Arrays.toString(itemsArr));
-    	System.out.println("넌뭐니?"+cmpnSeq);
-    	vo.setCmpnSeq(cmpnSeq);
-    	System.out.println("바뀐값이 무엇이드냐!!"+vo.getItems());
-    	int result = premiumRentService.CompEstimateUpdate(vo);
-    	System.out.println(cmpnSeq + "뭐냐?");
     	String message = "";
-
-    	System.out.println("0?1?"+result);
-    	if (result == 1) {
+    	String r = "";
+    	if (status.equals("대기중")) {
     		message = "견적이 수정 되었습니다.";
+    		System.out.println(message);
+    		r = "redirect:/company/estSubmit?cmpnSeq=" + vo.getSeq();
+    		 premiumRentService.CompEstimateUpdate(vo);
     	} else {
-    		message = "견적 수정에 실패했습니다. \n잠시후 다시 시도해주세요";
+    		message = "결제가 완료된 견적입니다.";
+    		System.out.println(message);
+    		r = "redirect:/company/estSubmit/view?seq="+vo.getSeq();
     	}
-    	attributes.addFlashAttribute("message" , result);
+    	attributes.addFlashAttribute("message" , message);
     	attributes.addAttribute("seq", vo.getSeq());
-    	return "redirect:/company/estSubmit?cmpnSeq=" + vo.getSeq();
     	
+    	return r;
     }
 
     // 렌트 내역 리스트
@@ -312,7 +341,7 @@ public class CompanyController {
     // 렌트 내역 상세
     @GetMapping("/rent/view")
     public String rentHistoryView(RentHistoryVO vo, Model model){
-    	 model.addAttribute("rentHistory", rentHistoryService.getRentHistory(vo));
+    	model.addAttribute("rentHistory", rentHistoryService.getRentHistory(vo));
     	return "company/rentHistoryView";
     }
 

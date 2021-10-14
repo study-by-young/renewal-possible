@@ -218,6 +218,7 @@ public class MypageController {
         	cov.setSeq(rhlist.get(i).getCmpnSeq());
         	System.out.println("두번째 회사 코드==="+rhlist.get(i).getCmpnSeq());
         	model.addAttribute("company", companyService.companyOneSelect(cov));
+        	//model.addAttribute("sysdate", )
         }
 
 
@@ -225,6 +226,14 @@ public class MypageController {
     	return "mypage/rentHistoryList";
     }
 
+    // 결제취소 후 DB 수정(status 변경)
+    @PutMapping("/paymentCancel/{uid}")
+    @ResponseBody
+    public String paymentCancel(@PathVariable String uid, RedirectAttributes rttr) {
+    	paymentService.paymentCancel(uid);
+    	return "redirect:/mypage/rentHistoryList";
+    }   
+    
     // 회원 렌트 내역 상세
     @GetMapping("/rent/view")
     public String rentHistoryView(){
