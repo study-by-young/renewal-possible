@@ -12,7 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.car.domain.CarVO;
@@ -29,6 +33,7 @@ import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.service.PaymentService;
 import com.yedam.possable.app.rent.service.PremiumRentService;
 import com.yedam.possable.app.rent.service.RentHistoryService;
+import com.yedam.possable.app.rent.service.RentReviewService;
 
 import lombok.extern.java.Log;
 
@@ -50,6 +55,8 @@ public class MypageController {
     RentHistoryService rentHistory;
     @Autowired
     PremiumRentService premiumRentService;
+    @Autowired
+    RentReviewService rentReviewService;
 
     //마이페이지 대쉬보드 페이지
     @GetMapping("/dashboard")
@@ -220,9 +227,18 @@ public class MypageController {
         return "";
     }
 
-    // 렌트 후기 작성 폼
+    //-------------------------------------------------------------------------------
+    
+    // 마이페이지 렌트 후기 조회
+    @GetMapping("review/list")
+    public void mypageRentReviewList() {
+    	
+    }
+    
+    // 렌트 후기 작성/수정 폼
     @GetMapping("/rent/view/writeReview")
-    public String rentReviewForm(){
+    public String rentReviewForm(Model model){
+    	
         return "mypage/rentReviewForm";
     }
 
@@ -231,6 +247,20 @@ public class MypageController {
     public String writeRentReview(){
         return "";
     }
+    
+    // 렌트 후기 수정 처리
+    @PostMapping("/rent/view/updateReview")
+    public void updateRentReview() {
+    	
+    }
+    
+    // 렌트 후기 삭제 처리
+    @PostMapping("/rent/view/deleteReview")
+    public void deleteRentReview(Long seq) {
+    	
+    }
+    
+  //-------------------------------------------------------------------------------
 
     // 커뮤니티 대시보드
     @GetMapping("/community")
