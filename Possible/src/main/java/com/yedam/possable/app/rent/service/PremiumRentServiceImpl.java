@@ -74,7 +74,11 @@ public class PremiumRentServiceImpl implements PremiumRentService{
 
     @Override
     public List<EstiSubmitHistoryVO> getEstSubmitListByEstiSeq(Criteria cri, Long seq) {
-        return premiumRentMapper.getEstSubmitListByEstiSeq(cri,seq);
+        List<EstiSubmitHistoryVO> estSubmitList = premiumRentMapper.getEstSubmitListByEstiSeq(cri, seq);
+        for(EstiSubmitHistoryVO vo : estSubmitList){
+            vo.setItemsArr(List.of(strToArr(vo.getItems())));
+        }
+        return estSubmitList;
     }
 
     @Override
@@ -134,8 +138,8 @@ public class PremiumRentServiceImpl implements PremiumRentService{
         System.out.println("어떻게 나눠져있니?"+ strToArr(vo.getItems().toString()));
         System.out.println("뭔데 니 진짜 ㅡㅡ"+estimate);
         return estimate;
-		
-		
+
+
 		//return premiumRentMapper.compEstiSubmitOneSelect(seq);
 	}
 }

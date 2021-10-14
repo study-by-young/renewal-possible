@@ -317,18 +317,28 @@ public class PremiumRentController {
     public String registerSubmit(EstiSubmitHistoryVO submitVO,
                                  RedirectAttributes attributes,
                                  Authentication authentication,
+                                 @RequestParam("estiSeq") Long estimateSeq,
                                  @RequestParam("selectCar") Long carSeq) {
         MemberVO loginUser = memberService.getLoginMember(authentication);
         if (loginUser == null) {
             return "rent/prm/submitRegForm";
         }
         CompanyVO companyVO = companyService.getCompanyByMemSeq(loginUser);
-        submitVO.setCompanyVO(companyVO);
+
         CarVO carVO = new CarVO();
         carVO.setSeq(carSeq);
         carVO = carService.getCar(carVO);
         carVO.setStatus("CST02");
         carService.updateStatus(carVO);
+
+        EstimateHistoryVO estimateHistoryVO = new EstimateHistoryVO();
+        estimateHistoryVO.setSeq(estimateSeq);
+        estimateHistoryVO = (EstimateHistoryVO) premiumRentService.getEstimate(estimateSeq).get("estimate");
+
+        submitVO.setCompanyVO(companyVO);
+        submitVO.setCarVO(carVO);
+        submitVO.setEstimateHistoryVO(estimateHistoryVO);
+
         int result = premiumRentService.insertEstSubmit(submitVO);
 
         attributes.addFlashAttribute("resultTitle", "제출 결과");

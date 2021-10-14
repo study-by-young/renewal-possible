@@ -29,7 +29,7 @@
 <div class="x_car_book_sider_main_Wrapper my-4">
     <div class="container">
         <form id="estimateForm" name="estimateForm" method="post">
-            <input type="hidden" name="estimateHistoryVO.estiSeq" id="estimateHistoryVO.estiSeq" value="${seq}">
+            <input type="hidden" name="estiSeq" id="estiSeq" value="${seq}">
             <div class="row">
                 <div class="col-xl-9">
                     <div class="card">

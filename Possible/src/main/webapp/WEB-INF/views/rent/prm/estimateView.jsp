@@ -162,41 +162,86 @@
             </div>
         </div>
         <div class="card">
-            <div class="card-header border-bottom">
+            <div class="card-header border-bottom mb-3">
                 <div class="x_slider_form_input_wrapper float_left">
                     <h3 class="font-weight-bold mb-0">견적 리스트</h3>
                 </div>
             </div>
+            <c:if test="${empty submitList}">
             <div class="card-body">
                 <div class="row">
-                    <c:if test="${empty submitList}">
-                        <div class="col-12 text-center">
-                            <h6 class="py-5">아직 제출된 견적이 없습니다!</h6>
+                    <div class="col-12 text-center">
+                        <h6 class="py-5">아직 제출된 견적이 없습니다!</h6>
+                    </div>
+                </div>
+            </div>
+            </c:if>
+
+            <c:forEach var="submit" items="${submitList}" varStatus="status">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-lg-3 align-self-center">
+                            <div class="card-img-actions p-3">
+                                <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${submit.carVO.modelCodeVO.img}" alt="">
+                            </div>
                         </div>
-                    </c:if>
-                    <c:forEach var="submit" items="${submitList}">
-                        <div class="col-12">
-                            <div class="row">
-                                <div class="col-lg-3">
-                                    <div class="card-img">
-                                        <img src="${pageContext.request.contextPath}/resources/images/cars/KIA/k8.png" alt="" class="img-fluid"/>
+                        <div class="col-lg-9 border-left">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-9">
+                                        <div class="x_car_offer_heading x_car_offer_heading_list float_left">
+                                            <h5 class="font-weight-bold">
+                                                    ${submit.carVO.brandName} ${submit.carVO.modelCodeVO.name}<br><small>${submit.carVO.trimCodeVO.name}</small>
+                                            </h5>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-9">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="card border-primary-300 border-1 shadow-0">
-                                                <div class="card-body">
-                                                    <div class="row align-items-center">
-                                                        <div class="col-12">
-                                                            <ul class="list-unstyled mb-0">
-                                                                <c:forEach var="item" items="${items}">
-                                                                    <li class="d-inline-block pr-3 mb-1">
-                                                                        <i class="icon-checkbox-checked2 text-primary"></i> ${item}
-                                                                    </li>
-                                                                </c:forEach>
-                                                            </ul>
-                                                        </div>
+                                    <div class="col-lg-3">
+                                        <a class="btn btn-block btn-primary"
+                                           href="estimate/view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">
+                                            상세보기
+                                        </a>
+                                    </div>
+                                    <div class="col-12">
+                                        <hr class="my-2">
+                                        <p class="text-grey-600">
+                                            <i class="h3 icon-calendar pr-2 mb-0"></i>
+                                            <fmt:formatDate value="${estimate.startDate}" pattern="yy년 MM월 dd일" /> ~ <fmt:formatDate value="${estimate.endDate}" pattern="yy년 MM월 dd일" />
+                                        </p>
+                                        <p class="text-grey-600">
+                                            <i class="h3 icon-location4 pr-2 mb-0"></i> ${estimate.takePlaceBasic} ${estimate.takePlaceDetail}
+                                        </p>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="card border-primary-300 border-1">
+                                            <div class="card-body">
+                                                <div class="row align-items-center">
+                                                    <div class="col-2">
+                                                        <i class="icon-checkmark4"></i> 차량 옵션
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <ul class="list-unstyled mb-0">
+                                                            <c:forEach var="opt" items="${options}">
+                                                                <li class="d-inline-block pr-3 mb-1"><i class="icon-checkbox-checked2 text-primary"></i> ${opt}
+                                                                </li>
+                                                            </c:forEach>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card border-primary-300 border-1">
+                                            <div class="card-body">
+                                                <div class="row align-items-center">
+                                                    <div class="col-2">
+                                                        <i class="icon-checkmark4"></i> 여행 옵션
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <ul class="list-unstyled mb-0">
+                                                            <c:forEach var="itm" items="${items}">
+                                                                <li class="d-inline-block pr-3 mb-1"><i class="icon-checkbox-checked2 text-primary"></i> ${itm}
+                                                                </li>
+                                                            </c:forEach>
+                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>
@@ -205,15 +250,46 @@
                                 </div>
                             </div>
                         </div>
-                    </c:forEach>
+                    </div>
+                </div>
+            </c:forEach>
+
+            <c:forEach var="submit" items="${submitList}">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card-img">
+                            <img src="${pageContext.request.contextPath}/resources/images/cars/KIA/k8.png" alt="" class="img-fluid"/>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card border-primary-300 border-1 shadow-0">
+                                    <div class="card-body">
+                                        <div class="row align-items-center">
+                                            <div class="col-12">
+                                                <ul class="list-unstyled mb-0">
+                                                    <c:forEach var="item" items="${items}">
+                                                        <li class="d-inline-block pr-3 mb-1">
+                                                            <i class="icon-checkbox-checked2 text-primary"></i> ${item}
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <c:if test="${not empty submitList}">
-                <div class="card-footer bg-white">
-                    <jsp:include page="/pagination"/>
-                </div>
-            </c:if>
+            </c:forEach>
         </div>
+        <c:if test="${submitList.size() > 10}">
+            <jsp:include page="/pagination"/>
+        </c:if>
     </div>
 </div>
 <!-- x car book sidebar section Wrapper End -->

@@ -347,7 +347,12 @@
         ESH.price,
         ESH.memo,
         ESH.gen_date,
-        ESH.upt_date
+        ESH.upt_date,
+        ESH.status,
+        MC.img AS car_model_img,
+        MC.name AS car_model_name
+        BC.name AS car_brandName
+        TC.name AS car_trim_name
         FROM ( SELECT
         /*+ INDEX_DESC(ESTI_SUBMIT_HISTORY IDX_ESTI_SUBMIT_HISTORY) */
         *
@@ -357,9 +362,12 @@
             AND <![CDATA[ ROWNUM <= #{cri.pageNum} * #{cri.amount} ]]>
         </where>
         ) ESH
-        LEFT OUTER JOIN estimate_history EC ON ESH.esti_seq = EC.seq
+        LEFT OUTER JOIN estimate_history EH ON ESH.esti_seq = EH.seq
         LEFT OUTER JOIN company CM ON ESH.cmpn_seq = CM.seq
         LEFT OUTER JOIN car C ON ESH.car_seq = C.seq
+        LEFT OUTER JOIN model_code MC ON C.model = MC.code
+        LEFT OUTER JOIN brand_code BC ON C.brand = BC.code
+        LEFT OUTER JOIN trim_code TC ON C.trim = TC.code
         )
         WHERE RN > (#{cri.pageNum} - 1) * #{cri.amount}
     </select>
