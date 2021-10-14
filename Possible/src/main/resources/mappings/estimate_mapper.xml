@@ -35,7 +35,7 @@
                      resultMap="com.yedam.possable.app.member.mapper.MemberMapper.member"
                      javaType="MemberVO"/>
     </resultMap>
-    
+
     <resultMap id="estiSubmitHistory" type="EstiSubmitHistoryVO">
         <id property="seq" column="seq"/>
         <result property="items" column="items"/>
@@ -325,7 +325,7 @@
                com.NAME,
                com.TEL,
                mem.NAME as memName,
-               mem.PHONE as phone 
+               mem.PHONE as phone
         FROM esti_submit_history e
                      INNER JOIN CAR c
                 ON c.seq = e.car_seq
@@ -368,6 +368,30 @@
     </select>
 
     <insert id="insertEstSubmit">
+        <selectKey keyProperty="seq" resultType="long" order="BEFORE">
+            SELECT SEQ_ESTI_SUBMIT_HISTORY.nextval FROM dual
+        </selectKey>
+        INSERT INTO esti_submit_history(
+        seq,
+        items,
+        price,
+        memo,
+        esti_seq,
+        cmpn_seq,
+        car_seq,
+        status,
+        gen_date
+        ) VALUES(
+        #{seq},
+        #{items},
+        #{price},
+        #{memo},
+        #{estimateHistoryVO.seq},
+        #{companyVO.seq},
+        #{carVO.seq},
+        'CST01',
+        SYSDATE
+        )
     </insert>
 
     <update id="updateEstSubmit">
@@ -379,14 +403,14 @@
     <select id="getEstSubmitCount" resultType="int">
     </select>
 
-	<!-- 
+	<!--
    	<select id="compEstiSubmitList" resultType="CompEstiListJoinVO" >
-   			SELECT  e.SEQ, 
-					e.ESTI_SEQ, 
+   			SELECT  e.SEQ,
+					e.ESTI_SEQ,
 			        e.CAR_SEQ,
 			        e.CMPN_SEQ,
 			        eh.MEM_SEQ,
-			        c.BRAND, 
+			        c.BRAND,
 			        c.MODEL,
 			        c.SEGMENT,
 			        c.COLOR,
@@ -397,10 +421,10 @@
 			        c.DOOR,
 			        c.MISSION,
 			        c.YEAR,
-			        e.ITEMS, 
-			        e.PRICE, 
+			        e.ITEMS,
+			        e.PRICE,
 			        e.MEMO,
-			        e.GEN_DATE, 
+			        e.GEN_DATE,
 			        e.UPT_DATE,
 			        com.NAME,
 			        com.TEL
@@ -413,15 +437,15 @@
 	        WHERE e.cmpn_seq= #{seq}
    	</select>
    	 -->
-   	
+
     <!--프리미엄 렌트카 한건 조회
    	<select id ="compEstiSubmitOneSelect" resultType="CompEstiListJoinVO">
-   			SELECT  e.SEQ, 
-					e.ESTI_SEQ, 
+   			SELECT  e.SEQ,
+					e.ESTI_SEQ,
 			        e.CAR_SEQ,
 			        e.CMPN_SEQ,
 			        eh.MEM_SEQ,
-			        c.BRAND, 
+			        c.BRAND,
 			        c.MODEL,
 			        c.SEGMENT,
 			        c.COLOR,
@@ -432,10 +456,10 @@
 			        c.DOOR,
 			        c.MISSION,
 			        c.YEAR,
-			        e.ITEMS, 
-			        e.PRICE, 
+			        e.ITEMS,
+			        e.PRICE,
 			        e.MEMO,
-			        e.GEN_DATE, 
+			        e.GEN_DATE,
 			        e.UPT_DATE,
 			        com.NAME,
 			        com.TEL
@@ -448,7 +472,7 @@
 	        WHERE e.seq= #{seq}
    	</select>
    	 -->
-   	
+
     <resultMap type="CompEstiListJoinVO" id="CompEstiListJoin">
     	<id property="seq" column="seq"/>
     	<result property="items" column="items"/>
@@ -471,23 +495,23 @@
     	<result property="kmpl" column="kmpl"/>
     	<result property="memName" column="memName"/>
     	<result property="phone" column="phone"/>
-	    
+
 	     <association property="memberVO"
 	                  column="mem_seq"
 	                  columnPrefix="mem_"
 	                  resultMap="com.yedam.possable.app.member.mapper.MemberMapper.member"
 	                  javaType="MemberVO"/>
-	                  
+
 	     <association property="carVO"
-	    			  column= "car_seq"	
+	    			  column= "car_seq"
 	    			  columnPrefix="car_"
 	    			  resultMap="com.yedam.possable.app.car.mapper.CarMapper.car"
 	    			  javaType="CarVO"/>
-	    			  
+
 	     <association property="companyVO"
 	    			  column="cmpn_seq"
 	    			  columnPrefix="cmpn_"
 	    			  resultMap="com.yedam.possable.app.company.mapper.CompanyMapper.company"
-	    			  javaType="CompanyVO"/>			                  
+	    			  javaType="CompanyVO"/>
     </resultMap>
 </mapper>

@@ -292,13 +292,14 @@ public class PremiumRentController {
 
     // 견적 제출 등록 폼
     @GetMapping("submit/register")
-    public String submitRegForm(@RequestParam("seq") Long estimateSeq,
+    public String submitRegForm(@ModelAttribute("seq") Long estimateSeq,
                                 Authentication authentication,
                                 Model model) {
         MemberVO loginUser = memberService.getLoginMember(authentication);
+        if (loginUser == null) {
+            return "rent/prm/submitRegForm";
+        }
         CompanyVO companyVO = companyService.getCompanyByMemSeq(loginUser);
-        log.info(carService.getCompanyCarList_map(companyVO).toString());
-        model.addAttribute("test", "test'");
         model.addAttribute("carList", carService.getCompanyCarList_map(companyVO));
 
         String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
@@ -306,12 +307,37 @@ public class PremiumRentController {
         model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
         model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
 
+        Map<String, Object> estimate = premiumRentService.getEstimate(estimateSeq);
+        model.addAttribute("estimate", estimate);
         return "rent/prm/submitRegForm";
     }
 
     // 견적 제출 등록
     @PostMapping("submit/register")
-    public String registerSubmit() {
-        return "redirect:view";
+    public String registerSubmit(EstiSubmitHistoryVO submitVO,
+                                 RedirectAttributes attributes,
+                                 Authentication authentication,
+                                 @RequestParam("selectCar") Long carSeq) {
+        MemberVO loginUser = memberService.getLoginMember(authentication);
+        if (loginUser == null) {
+            return "rent/prm/submitRegForm";
+        }
+        CompanyVO companyVO = companyService.getCompanyByMemSeq(loginUser);
+        submitVO.setCompanyVO(companyVO);
+        CarVO carVO = new CarVO();
+        carVO.setSeq(carSeq);
+        carVO = carService.getCar(carVO);
+        carVO.setStatus("CST02");
+        carService.updateStatus(carVO);
+        int result = premiumRentService.insertEstSubmit(submitVO);
+
+        attributes.addFlashAttribute("resultTitle", "제출 결과");
+        if(result != 0){
+            attributes.addFlashAttribute("resultMsg", "견적이 제출되었습니다.");
+        } else {
+            attributes.addFlashAttribute("resultMsg", "견적 제출에 실패했습니다.");
+        }
+        attributes.addAttribute("seq", submitVO.getEstimateHistoryVO().getSeq());
+        return "redirect:/premiumRent/estimate/view";
     }
 }
