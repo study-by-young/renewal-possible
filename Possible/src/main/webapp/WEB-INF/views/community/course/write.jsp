@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%
+	Date nowTime = new Date();
+	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+%>
 <%
 request.setCharacterEncoding("utf-8");
 %>
@@ -39,7 +45,7 @@ response.setContentType("text/html; charset=utf-8");
 				</div>
 				<div class="col-xl-5 col-lg-6 col-md-6 col-sm-12 col-xs-12">
 					<div class="contect_form2">
-						<input type="text" id="genDate" name="genDate" value="2021-10-07"
+						<input type="text" id="genDate" name="genDate" value="<%= sf.format(nowTime) %>"
 							placeholder="Date" readonly="readonly">
 					</div>
 				</div>
@@ -100,7 +106,7 @@ response.setContentType("text/html; charset=utf-8");
 					style="margin: 10px">
 					<div class="contect_form4 col-12" align="center"
 						style="margin-up: 10px">
-						<textarea id="content" name="content" class="ckeditor"> </textarea>
+						<textarea id="content" name="content" class="ckeditor"></textarea>
 						<!-- 	<textarea rows="5" placeholder="코스에 대한 간략한 설명을 기재할 수 있습니다. 쒸익"></textarea> -->
 					</div>
 				</div>
@@ -108,6 +114,7 @@ response.setContentType("text/html; charset=utf-8");
 					<div class="contect_btn contect_btn_contact">
 						<ul>
 							<li><a class="insert">등록 <i class="fa fa-arrow-right"></i></a></li>
+							<li><a class="list">취소 <i class="fa fa-arrow-right"></i></a></li>
 						</ul>
 					</div>
 				</div>
@@ -317,6 +324,12 @@ response.setContentType("text/html; charset=utf-8");
 	   		     	console.log(error);
 	   		    }
 	   		});
+		});
+	});
+	
+	$(function(){
+		$('.list').on('click', function(){
+			location.href="../course";
 		});
 	});
 

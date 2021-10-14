@@ -21,8 +21,9 @@
 		<div class="row">
 			<div class="col-xl-10 offset-xl-1 col-lg-12 col-md-12">
 				<div>
-					<img src="/app/resources/images/avatar.jpg" class="rounded-circle mr-2" height="34" alt="">
-					<span id="writer">${board.writer }</span>
+					<img src="/app/resources/images/avatar.jpg"
+						class="rounded-circle mr-2" height="34" alt=""> <span
+						id="writer">${board.writer }</span>
 				</div>
 				<div
 					class="x_offer_car_heading_wrapper x_offer_car_tb_heading_wrapper float_left">
@@ -36,11 +37,15 @@
 					</p>
 				</div>
 				<div>
-					<span style="margin-right: 30px">
-						<c:if test="${user eq null}"><i id="heart" class="far fa-heart">&nbsp;</i></c:if>
-						<c:if test="${checkLike eq 0}"><i id="heart" class="far fa-heart">&nbsp;</i></c:if>
-						<c:if test="${checkLike eq 1}"><i id="heart" class="fa fa-heart-o">&nbsp;</i></c:if>
-					<span id="likeCnt">${likes }</span>개</span>
+					<span style="margin-right: 30px"> <c:if
+							test="${user eq null}">
+							<i id="heart" class="far fa-heart">&nbsp;</i>
+						</c:if> <c:if test="${checkLike eq 0}">
+							<i id="heart" class="far fa-heart">&nbsp;</i>
+						</c:if> <c:if test="${checkLike eq 1}">
+							<i id="heart" class="fa fa-heart-o">&nbsp;</i>
+						</c:if> <span id="likeCnt">${likes }</span>개
+					</span>
 					<!-- <span style="margin-right: 30px"><i class="fas fa-share-alt">&nbsp;10회</i></span> -->
 					<span style="float: right;"><i class="far fa-eye">&nbsp;${board.views }회</i></span>
 				</div>
@@ -96,20 +101,32 @@
 			</div>
 			<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12"></div>
 		</div>
-		<div class="row" style="margin-top: 10px">
-			<div class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 x_slider_checout_right">
-				<ul>
-					<c:if test="${id eq board.writer}"><li><a class="delete">삭제</a></li></c:if>
-					<li><a href="../course">목록</a></li>
-				</ul>
+		<form id="frm" name="frm" role="form" action="view/delete"
+			method="post">
+			<div class="row" style="margin-top: 10px">
+				<div
+					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 x_slider_checout_right">
+					<input type="hidden" id="seq" name="seq" value="${board.seq }">
+					<ul>
+						<c:if test="${id eq board.writer}">
+							<li><a href="javascript:delete();" onclick="return false;">삭제</a></li>
+						</c:if>
+						<li><a href="../course">목록</a></li>
+					</ul>
+				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 </div>
 <input type="hidden" id="memSeq" value="${user }">
-<input type="hidden" id="boardSeq" value="${board.seq }">
 
 <script>
+
+	function delete() {
+		if(confirm("정말 삭제하시겠습니까?")==true) {
+			frm.submit();
+		}
+	}
 
 	$(function() {
 		var container = $('#takePlaceMap')[0]; //지도를 담을 영역의 DOM 레퍼런스
@@ -219,7 +236,7 @@
 		});
 	});
 	
-	var seq = $("#boardSeq").val();
+	/* var seq = $("#boardSeq").val();
 	$(function() {
 		$(".delete").on("click", function() {
 			$.ajax({
@@ -228,13 +245,16 @@
 				data : JSON.stringify({
 					seq : seq,
 				}),
-				dataType : 'json',
+				dataType : 'text',
 				contentType : 'application/json; charset=utf-8',
 				success : function(data) {
-					alert("삭제가 완료되었습니다.")
+					alert("삭제가 완료되었습니다.");
+					if (data == "success") {
+						location.href = "../course";
+					}
 				}
 			})
 		})
-	});
+	}); */
 
 	</script>
