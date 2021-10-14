@@ -86,11 +86,11 @@ public class CarServiceImpl implements CarService {
 
 	@Override
 	public int insertCarOptions(List<CarOptionVO> list, Long carSeq) {
-		for (CarOptionVO carOption : list) {
-			carOption.setCarSeq(carSeq);
-			carMapper.insertCarOptions(carOption);
+		// TODO Auto-generated method stub
+		for (CarOptionVO option : list) {
+			option.setCarSeq(carSeq);
+			carMapper.insertCarOptions(option);
 		}
-		System.out.println(list.toString());
 		return 0;
 	}
 
