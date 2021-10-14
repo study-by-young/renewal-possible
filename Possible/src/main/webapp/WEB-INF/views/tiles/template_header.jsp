@@ -40,15 +40,15 @@
 				<li class="nav-item"> <a class="navbar-nav-link d-none d-md-block text-dark" href="${pageContext.request.contextPath}/">홈</a></li>
 				<li class="nav-item"> <a class="navbar-nav-link d-none d-md-block text-dark" href="${pageContext.request.contextPath}/commonRent">일반 렌트</a></li>
 				<li class="nav-item"> <a class="navbar-nav-link d-none d-md-block text-dark" href="${pageContext.request.contextPath}/premiumRent/estimate">프리미엄 렌트</a></li>
-				<li class="nav-item"> <a class="navbar-nav-link d-none d-md-block text-dark" href="${pageContext.request.contextPath}/community/notice">공지사항</a></li>
+				<li class="nav-item"> <a class="navbar-nav-link d-none d-md-block text-dark" href="${pageContext.request.contextPath}/notice/list">공지사항</a></li>
 				<li class="nav-item dropdown">
 					<a href="#" class="navbar-nav-link dropdown-toggle text-dark" data-toggle="dropdown">커뮤니티</a>
 					<div class="dropdown-menu">
 						<a href="${pageContext.request.contextPath}/community/notice" class="dropdown-item"> 공지사항</a>
 						<a href="${pageContext.request.contextPath}/community/course" class="dropdown-item"> 여행코스</a>
 						<a href="${pageContext.request.contextPath}/community/tour" class="dropdown-item"> 여행지</a>
-						<a href="${pageContext.request.contextPath}/community/qna" class="dropdown-item"> 1:1 문의</a>
-						<a href="${pageContext.request.contextPath}/community/faq" class="dropdown-item"> FAQ</a>
+						<a href="${pageContext.request.contextPath}/qna/list" class="dropdown-item"> 1:1 문의</a>
+						<a href="${pageContext.request.contextPath}/faq/list" class="dropdown-item"> FAQ</a>
 					</div>
 				</li>
 				<li class="nav-item"> <a class="navbar-nav-link d-none d-md-block text-dark" href="${pageContext.request.contextPath}/mypage/dashboard">마이페이지</a></li>
