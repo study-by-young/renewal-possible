@@ -37,6 +37,12 @@ public class CarVO {
     private Date genDate;
     private Date uptDate;
 
+    private String brandName;
+    private String segmentName;
+    private String colorName;
+    private String fuelName;
+    private String missionName;
+    private String statusName;
     private ModelCodeVO modelCodeVO;
     private TrimCodeVO trimCodeVO;
     private CompanyVO companyVO;

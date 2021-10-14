@@ -6,9 +6,7 @@
         <id property="seq" column="seq" />
         <result property="carNum" column="car_num" />
         <result property="brand" column="brand" />
-        <result property="model" column="model" />
         <result property="segment" column="segment" />
-        <result property="trim" column="trim" />
         <result property="color" column="color" />
         <result property="year" column="year" />
         <result property="fuel" column="fuel" />
@@ -24,6 +22,12 @@
         <result property="img3" column="img3" />
         <result property="genDate" column="gen_date" />
         <result property="uptDate" column="upt_date" />
+        <result property="brandName" column="brand_name"/>
+        <result property="segmentName" column="segment_name"/>
+        <result property="colorName" column="color_name"/>
+        <result property="fuelName" column="fuel_name"/>
+        <result property="missionName" column="mission_name"/>
+        <result property="statusName" column="status_name"/>
         <association property="modelCodeVO"
                      columnPrefix="model_"
                      resultMap="com.yedam.possable.app.common.code.mapper.CodeMapper.model"
@@ -356,8 +360,8 @@
         C.seq,
         C.car_num,
         C.brand,
-        C.model,
         C.segment,
+        C.model,
         C.trim,
         C.color,
         C.year,
@@ -374,14 +378,23 @@
         C.img3,
         C.gen_date,
         C.upt_date,
-        CM.name AS cmpn_name,
-        CM.postal AS cmpn_postal,
-        CM.addr1 AS cmpn_addr1,
-        CM.addr2 AS cmpn_addr2,
-        CM.tel AS cmpn_tel,
+        BRAND.name AS brand_name,
+        SEGMENT.name AS segment_name,
+        COLOR.name AS color_name,
+        FUEL.name AS fuel_name,
+        MISSON.name AS mission_name,
+        STATUS.name AS status_name,
+        MC.name     AS model_name,
+        MC.img      AS model_img,
+        TC.name     AS trim_name,
+        CM.name     AS cmpn_name,
+        CM.postal   AS cmpn_postal,
+        CM.addr1    AS cmpn_addr1,
+        CM.addr2    AS cmpn_addr2,
+        CM.tel      AS cmpn_tel,
         CO.opt_code AS co_opt_code,
         IO.opt_code AS io_opt_code,
-        IO.price AS io_price
+        IO.price    AS io_price
         FROM ( SELECT
         /*+ INDEX_DESC(CAR IDX_CAR) */
         *
@@ -390,6 +403,14 @@
             <![CDATA[ ROWNUM <= #{pageNum} * #{amount} ]]>
         </where>
         ) C
+        LEFT OUTER JOIN code_sub BRAND ON C.brand = BRAND.code
+        LEFT OUTER JOIN code_sub SEGMENT ON C.segment = SEGMENT.code
+        LEFT OUTER JOIN code_sub COLOR ON C.color = COLOR.code
+        LEFT OUTER JOIN code_sub FUEL ON C.fuel = FUEL.code
+        LEFT OUTER JOIN code_sub MISSON ON C.mission = MISSON.code
+        LEFT OUTER JOIN code_sub STATUS ON C.status = STATUS.code
+        LEFT OUTER JOIN model_code MC ON C.model = MC.code
+        LEFT OUTER JOIN trim_code TC ON C.trim = TC.code
         LEFT OUTER JOIN company CM ON C.cmpn_seq = CM.seq
         LEFT OUTER JOIN car_option CO ON C.seq = CO.car_seq
         LEFT OUTER JOIN insurance_option IO ON C.seq = IO.car_seq
