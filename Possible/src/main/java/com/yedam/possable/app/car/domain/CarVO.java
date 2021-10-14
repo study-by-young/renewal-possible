@@ -16,6 +16,7 @@ import lombok.Data;
 @Data
 public class CarVO {
     private Long seq;
+    private Long cmpnSeq;
     private String carNum;
     private String brand;
     private String segment;
@@ -39,18 +40,20 @@ public class CarVO {
 
     private String brandName;
     private String segmentName;
+    private String colorName;
+    private String fuelName;
+    private String missionName;
+    private String statusName;
     private ModelCodeVO modelCodeVO;
     private TrimCodeVO trimCodeVO;
-    
     private CompanyVO companyVO;
-    
-    private Long cmpnSeq; // commonRent 기능 구현에서 사용
+
     private String name; // getCarByModel() 에서 COMPANY 테이블과 JOIN해서 추가된 컬럼
     private List<CarVO> modelList; // 해당하는 모델의 차량을 보유하고 있는 업체의 시퀀스를 출력하기 위해 추가
     private List<CarOptionVO> optionList;
     private List<InsuranceOptionVO> insuranceList; // 보험 리스트
     private List<RentReviewVO> reviewList; // 리뷰리스트
-    
+
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     private Date startDate;
     @DateTimeFormat(pattern = "yyyy/MM/dd")
