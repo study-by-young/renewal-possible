@@ -82,8 +82,6 @@ public class CourseBoardController {
     @ResponseBody
     public String courseInsert(@RequestBody CourseBoardVO board) {
     	System.out.println(board);	
- 
-    	//ObjectMapper mapper = new ObjectMapper();
     	courseBoardService.insert(board);
     	System.out.println(board.getSeq());
     	Long num = board.getSeq();
