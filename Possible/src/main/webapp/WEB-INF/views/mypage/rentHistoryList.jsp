@@ -86,8 +86,9 @@
                                                 	<button type="button" class="btn btn-sm" data-toggle="modal" data-target="#rentInfoDetail ">상세보기</button>
                                                 </div>
                                                 <div class="col-2 x_car_offer_heading_listing float_left">
-                                                    <button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
-                                                            style="background: #4f5dec; color: #ffffff; ">
+                                                    <button type="button" class="btn btn-sm"
+                                                    		onclick="location.href='rent/view/writeReview?seq=${getView.seq}&carSeq=${getView.carSeq}&cmpnSeq=${getView.cmpnSeq}'"
+                                                            style="background: #4f5dec; color: #ffffff;">
                                                         후기작성
                                                     </button>
                                                 </div>
