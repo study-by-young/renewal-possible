@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +20,7 @@ public class MemberVO implements UserDetails{
 	private String id;
 	private String password;
 	private String name;
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@JsonFormat(pattern = "yyyy/MM/dd")
 	private Date birth;
 	private String email;
@@ -28,8 +30,10 @@ public class MemberVO implements UserDetails{
 	private String addrDetail;
 	private String author;
 	private String status;
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@JsonFormat(pattern = "yyyy/MM/dd")
 	private Date genDate;
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@JsonFormat(pattern = "yyyy/MM/dd")
 	private Date uptDate;
 	private String loginStatus;

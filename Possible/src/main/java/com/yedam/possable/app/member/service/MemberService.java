@@ -54,8 +54,4 @@ public interface MemberService {
 
     //회원 내정보 수정(휴대폰번호,이메일,주소)
     public int memberInfoUpdate(MemberVO vo);
-
-    //회원 단건 조회
-    public MemberVO read(MemberVO vo);
-
 }

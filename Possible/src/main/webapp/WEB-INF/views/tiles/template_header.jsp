@@ -95,7 +95,7 @@
         customAlert('<c:out value="${resultTitle}" default="알림" />' , "${resultMsg}");
     </c:if>
     <c:if test="${alertMsg != null}">
-        customAlert('<c:out value="${alertTitle}" default="경고" />', '${alertMsg}');
+        customAlert('<c:out value="${alertTitle}" default="알림" />', '${alertMsg}');
     </c:if>
 <%--    <c:if test="${deleteMsg != null}">--%>
 <%--    customAlert("견적 삭제", "${deleteMsg}");--%>

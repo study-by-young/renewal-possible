@@ -55,7 +55,7 @@ public class PremiumRentController {
     @GetMapping("/estimate")
     public String estimateList(Model model, @ModelAttribute("cri") Criteria cri) {
         int listCount = premiumRentService.getEstimateCount();
-
+        cri.setAmount(5);
         model.addAttribute("estList", premiumRentService.getEstimateList(cri));
         model.addAttribute("pagination", new PageVO(cri, listCount));
 
@@ -67,11 +67,15 @@ public class PremiumRentController {
     public String estimateRegisterForm(Model model,
                                        Authentication authentication,
                                        RedirectAttributes attributes) {
-//        MemberVO loginUser = memberService.getLoginMember(authentication);
-//        if(loginUser == null || !loginUser.getAuthor().equals("ROLE_USER")) {
-//            attributes.addFlashAttribute("denyMsg", "회원만 작성 가능합니다.");
-//            return "redirect:../estimate";
-//        }
+        MemberVO loginUser = memberService.getLoginMember(authentication);
+        if(loginUser == null){
+            attributes.addFlashAttribute("alertMsg", "로그인 후 이용 가능합니다.");
+            return "redirect:/login";
+        }
+        if(!loginUser.getAuthor().equals("ROLE_USER") && !loginUser.getAuthor().equals("ROLE_ADMIN")) {
+            attributes.addFlashAttribute("alertMsg", "회원만 작성 가능합니다.");
+            return "redirect:/premiumRent/estimate";
+        }
 
         String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
         String itemOptCode = codeService.getMasterCodeByName("여행용품 옵션").getCode();
@@ -90,17 +94,23 @@ public class PremiumRentController {
                                    @RequestParam("options") String[] optionsArr,
                                    @RequestParam("items") String[] itemsArr,
                                    RedirectAttributes attributes) {
-//        if(memberService.getLoginMember(authentication) == null){
-//            attributes.addFlashAttribute("denyMsg", "잘못된 접근입니다!");
-//            return "redirect:/premiumRent/estimate";
-//        }
+        MemberVO loginUser = memberService.getLoginMember(authentication);
+
+        if(loginUser == null){
+            attributes.addFlashAttribute("alertMsg", "잘못된 접근입니다.");
+            return "redirect:/login";
+        }
+        if(!loginUser.getAuthor().equals("ROLE_USER") && !loginUser.getAuthor().equals("ROLE_ADMIN")) {
+            attributes.addFlashAttribute("alertMsg", "잘못된 접근입니다.");
+            return "redirect:/premiumRent/estimate";
+        }
+
         // 옵션 배열 -> 스트링
         vo.setOptions(Arrays.toString(optionsArr));
         vo.setItems(Arrays.toString(itemsArr));
 
         int result = premiumRentService.insertEstimate(vo);
         if (result != 0) {
-
             attributes.addFlashAttribute("resultMsg", "견적 요청이 등록되었습니다.");
         } else {
             attributes.addFlashAttribute("resultMsg",  "견적 요청이 등록되지 않았습니다.\n 잠시후 다시 시도해주세요.");
@@ -116,19 +126,26 @@ public class PremiumRentController {
     public String estimateView(@RequestParam Long seq,
                                Authentication authentication,
                                RedirectAttributes attributes,
-                               HttpServletRequest request,
                                Model model,
-                               @ModelAttribute Criteria cri) {
+                               @RequestParam("sPageNum") int submitPage,
+                               @ModelAttribute("cri") Criteria cri) {
 //        MemberVO user = memberService.getLoginMember(authentication);
-//        if (user == null || user.getAuthor().equals("USER")) {
-//            String denyMsg = "업체회원만 열람 가능합니다.";
-//            attributes.addFlashAttribute("denyMsg", denyMsg);
+//        EstimateHistoryVO estimate = premiumRentService.getEstimate(seq);
 //
-//            return "redirect:" + request.getHeader("REFERER");
+//        if(user == null){
+//            attributes.addFlashAttribute("alertMsg", "로그인 후 이용 가능합니다.");
+//            return "redirect:/login";
 //        }
-//        List<EstiSubmitHistoryVO> estiSubmitHistoryVOList = premiumRentService;
+//
+//        if(!estimate.getMemberVO().getId().equals(user.getId())){
+//            if (!user.getAuthor().equals("ROLE_COMPANY") && !user.getAuthor().equals("ROLE_ADMIN")) {
+//                attributes.addFlashAttribute("alertMsg", "업체회원 및 작성자만 열람 가능합니다.");
+//                return "redirect:/premiumRent/estimate";
+//            }
+//        }
 
-        model.addAttribute("submitList", premiumRentService.getEstSubmitListByEstiSeq(new Criteria(), seq));
+        Criteria submitCri = new Criteria(submitPage,5);
+        model.addAttribute("submitList", premiumRentService.getEstSubmitListByEstiSeq(submitCri, seq));
         model.addAttribute("estimate", premiumRentService.getEstimate(seq));
 
         return "rent/prm/estimateView";
@@ -138,28 +155,26 @@ public class PremiumRentController {
     @GetMapping("/estimate/view/delete")
     public String estimateDelete(@RequestParam Long seq,
                                  Authentication authentication,
+                                 HttpServletRequest request,
                                  RedirectAttributes attributes) {
-//        MemberVO user = memberService.getLoginMember(authentication);
-//        if (user == null) {
-//            String denyMsg = "잘못된 접근입니다.";
-//            attributes.addFlashAttribute("denyMsg", denyMsg);
-//
-//            return "redirect:/premiumRent/estimate";
-//        }
-//        EstimateHistoryVO vo = (EstimateHistoryVO) premiumRentService.getEstimate(seq).get("estimate");
-//        MemberVO writer = new MemberVO();
-//        writer.setSeq(vo.getMemberVO().getSeq());
-//        String userId = user.getId();
-//        String writerId = memberService.memberOneSelect(writer).getId();
-//
-//        if (!userId.equals(writerId)) {
-//            attributes.addFlashAttribute("denyMsg", "작성자만 삭제 가능합니다.");
-//            return "redirect:/premiumRent/estimate";
-//        }
+        MemberVO user = memberService.getLoginMember(authentication);
+        EstimateHistoryVO estimate = premiumRentService.getEstimate(seq);
+
+        if (authentication == null) {
+            attributes.addFlashAttribute("alertMsg", "잘못된 접근입니다.");
+            return "redirect:" + request.getHeader("REFERER");
+        }
+
+        if(!estimate.getMemberVO().getId().equals(user.getId())){
+            if (!user.getAuthor().equals("ROLE_ADMIN")) {
+                attributes.addFlashAttribute("alertMsg", "작성자만 삭제 가능합니다.");
+                return "redirect:" + request.getHeader("REFERER");
+            }
+        }
 
         int deleteResult = premiumRentService.deleteEstimate(seq);
 
-        String resultMsg = "";
+        String resultMsg;
         if (deleteResult == 1) {
             resultMsg = "견적 요청이 삭제되었습니다.";
         } else {
@@ -177,7 +192,7 @@ public class PremiumRentController {
                                      HttpServletRequest request,
                                      RedirectAttributes attributes,
                                      Model model) {
-        EstimateHistoryVO vo = (EstimateHistoryVO) premiumRentService.getEstimate(seq).get("estimate");
+        EstimateHistoryVO vo = premiumRentService.getEstimate(seq);
 //        MemberVO writer = new MemberVO();
 //        writer.setSeq(vo.getMemberVO().getSeq());
 //        String userId = memberService.getLoginMember(authentication).getId();
@@ -234,7 +249,7 @@ public class PremiumRentController {
                              @RequestParam Long seq,
                              HttpServletRequest request,
                              Principal principal) {
-        Map<String, Object> estimate = premiumRentService.getEstimate(seq);
+        EstimateHistoryVO estimate = premiumRentService.getEstimate(seq);
 //        if(principal == null){
 //            return "redirect:" + request.getHeader("REFERER");
 //        }
@@ -307,7 +322,7 @@ public class PremiumRentController {
         model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
         model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
 
-        Map<String, Object> estimate = premiumRentService.getEstimate(estimateSeq);
+        EstimateHistoryVO estimate = premiumRentService.getEstimate(estimateSeq);
         model.addAttribute("estimate", estimate);
         return "rent/prm/submitRegForm";
     }
@@ -333,7 +348,7 @@ public class PremiumRentController {
 
         EstimateHistoryVO estimateHistoryVO = new EstimateHistoryVO();
         estimateHistoryVO.setSeq(estimateSeq);
-        estimateHistoryVO = (EstimateHistoryVO) premiumRentService.getEstimate(estimateSeq).get("estimate");
+        estimateHistoryVO = premiumRentService.getEstimate(estimateSeq);
 
         submitVO.setCompanyVO(companyVO);
         submitVO.setCarVO(carVO);

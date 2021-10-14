@@ -71,7 +71,7 @@ public class MypageController {
                            HttpServletRequest request) {
         MemberVO loginUser = memberService.getLoginMember(authentication);
 
-        model.addAttribute("memberList", memberService.read(loginUser));
+        model.addAttribute("memberList", memberService.memberOneSelect(loginUser));
         return "mypage/editProfile";
     }
 
@@ -97,7 +97,7 @@ public class MypageController {
     						   ){
     	MemberVO mvo = memberService.getLoginMember(authentication);
 
-    	List<EstimateHistoryVO> estimateList = premiumRentService.getEstimateListByUserSeq(cri, mvo.getSeq());
+    	List<EstimateHistoryVO> estimateList = premiumRentService.getEstimateListByMemSeq(cri, mvo.getSeq());
 
 		for (int i = 0; i < estimateList.size(); i++) {
 			Map<String, Object> voMap = new HashMap<String, Object>();
@@ -137,7 +137,7 @@ public class MypageController {
 							          Authentication authentication,
 							          Model model){
 
-    	 EstimateHistoryVO vo = (EstimateHistoryVO) premiumRentService.getEstimate(seq).get("estimate");
+    	 EstimateHistoryVO vo = premiumRentService.getEstimate(seq);
     	 MemberVO mvo = memberService.getLoginMember(authentication);
     	 //String user = ((MemberVO) principal).getId();
 
@@ -284,7 +284,7 @@ public class MypageController {
     //업체전환 신청처리
     @PostMapping("/chngRole")
     public String chngRole(Model model, CompanyVO vo,  @RequestParam("memSeq") Long memSeq, RedirectAttributes rttr) {
-    	
+
     	MemberVO memVo = new MemberVO();
 		memVo.setSeq(memSeq);
 		vo.setMemberVO(memVo);
