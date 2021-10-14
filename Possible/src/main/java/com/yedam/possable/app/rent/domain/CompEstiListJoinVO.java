@@ -43,10 +43,11 @@ public class CompEstiListJoinVO {
 	    //private Long estiSeq;
 	    private Long cmpnSeq;
 	    //private Long carSeq;
+	    private String status;
 	    
 		private MemberVO memberVO;
 		private CarVO carVO;
 		private CompanyVO companyVO;
 		
-	   
+		//String[] itemsArr;
 }

@@ -58,6 +58,8 @@ ul{
 							<div class="card-body">
 								<form id="estimatefrm" name="estimatefrm" method="post" action="../estSubmit/update">
 									<div class="row down_margin">
+									<input type="hidden" name="seq" value="${est.seq }">
+									<input type="text" name="status" value=${est.status }>
 										<div class="col-4">
 											<label class="font-weight-bold">외형 </label>
 											<input type="text" class="form-control" id="segment" name="segment" value="${est.segment }" disabled>
@@ -152,7 +154,16 @@ ul{
 		</div> <!-- 컨테이너  -->
 	</div>
 <script>
+
 $("#updateBtn").on("click",function(){
-	estimatefrm.submit();
+	var text = confirm("정말 수정하시겠습니까?");
+	var message = '${message}';
+	if(text){
+		estimatefrm.submit();
+		alert(message);
+	}else{
+		
+	}
+	
 	});
 </script>

@@ -33,6 +33,7 @@ import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
 import com.yedam.possable.app.rent.domain.CompEstiListJoinVO;
 import com.yedam.possable.app.rent.domain.EstiSubmitHistoryVO;
+import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.service.PremiumRentService;
 import com.yedam.possable.app.rent.service.RentHistoryService;
@@ -232,12 +233,7 @@ public class CompanyController {
 					    		Model model,
 					    		@RequestParam Long cmpnSeq,
 					    		Authentication authentication){
-
-    	System.out.println("넌 뭔데?"+cmpnSeq);
-    	
     	vo.setCmpnSeq(cmpnSeq);
-    	 System.out.println("이건될까..?"+vo.toString());
-    	 System.out.println("이거 뭔데?"+vo.toString());
 
     	 List<CompEstiListJoinVO> estimate = premiumRentService.compEstiSubmitList(vo.getCmpnSeq());
     	 System.out.println("제발....."+estimate);
@@ -276,26 +272,28 @@ public class CompanyController {
     // 견적 제출 수정 처리
     @PostMapping("/estSubmit/update")
     public String updateEstSubmit(CompEstiListJoinVO vo,
-    							  @RequestParam Long cmpnSeq,
+    								@RequestParam Long seq,
+    								@RequestParam String status,
 			  					  @RequestParam("options") String[] itemsArr,
 			  					  RedirectAttributes attributes){
+    	System.out.println(status);
     	vo.setItems(Arrays.toString(itemsArr));
-    	System.out.println("넌뭐니?"+cmpnSeq);
-    	vo.setCmpnSeq(cmpnSeq);
-    	System.out.println("바뀐값이 무엇이드냐!!"+vo.getItems());
-    	int result = premiumRentService.CompEstimateUpdate(vo);
-    	System.out.println(cmpnSeq + "뭐냐?");
     	String message = "";
-
-    	System.out.println("0?1?"+result);
-    	if (result == 1) {
+    	String r = "";
+    	if (status.equals("대기중")) {
     		message = "견적이 수정 되었습니다.";
+    		System.out.println(message);
+    		r = "redirect:/company/estSubmit?cmpnSeq=" + vo.getSeq();
+    		 premiumRentService.CompEstimateUpdate(vo);
     	} else {
-    		message = "견적 수정에 실패했습니다. \n잠시후 다시 시도해주세요";
+    		message = "결제가 완료된 견적입니다.";
+    		System.out.println(message);
+    		r = "redirect:/company/estSubmit/view?seq="+vo.getSeq();
     	}
-    	attributes.addFlashAttribute("message" , result);
+    	attributes.addFlashAttribute("message" , message);
     	attributes.addAttribute("seq", vo.getSeq());
-    	return "redirect:/company/estSubmit?cmpnSeq=" + vo.getSeq();
+    	
+    	return r;
     	
     }
 
