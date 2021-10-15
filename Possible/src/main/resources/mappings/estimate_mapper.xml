@@ -37,6 +37,7 @@
 
     <resultMap id="estiSubmitHistory" type="EstiSubmitHistoryVO">
         <id property="seq" column="seq"/>
+        <result property="items" column="items"/>
         <result property="price" column="price"/>
         <result property="memo" column="memo"/>
         <result property="status" column="status"/>

@@ -37,16 +37,18 @@
 
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h6 class="card-title">업체미승인리스트</h6>
+						<h4 class="card-title"><a href="${pageContext.request.contextPath}/admin/maintenance/company" class="nav-link">업체미승인리스트</a></h4>
 						<div class="header-elements">
-							
+							<div class="list-icons">
+		                		<a class="list-icons-item" data-action="collapse"></a>
+		                	</div>
 						</div>
 					</div>
-
-					<div class="card-body py-0">
+					<hr style="margin:0px">
+					<div class="card-body" style="padding:0px">
 						<div class="row">
 							<div class="col-sm-12">
-								<div class="d-flex align-items-center justify-content-center mb-2">
+								<div class="table-responsive">
 									<form id="actionForm" action="companyOneSelect" method="get">
 		<table class="table table-hover">
 			<thead>

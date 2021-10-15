@@ -196,7 +196,7 @@
                                                 <div class="x_slider_checkbox_bottom_filter_use">
                                                     <c:forEach var="option" items="${carOpt}" varStatus="status">
                                                         <label class="pr-3">
-                                                        <input name="options" id="options" type="checkbox" value="${option.name}">
+                                                        <input name="options" id="options" type="checkbox" value="${option.code}">
                                                         ${option.name}</label>
                                                     </c:forEach>
                                                 </div>
@@ -221,9 +221,7 @@
     let brand = $('#brand');
     let model = $('#model');
     let trim = $('#trim');
-    let segment = $('segment');
-    let fuel = $('fuel');
-    
+      
 
     $('#startDate').datepicker({
         minDate:'+1D'

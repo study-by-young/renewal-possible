@@ -85,25 +85,93 @@
 
 	<!-- 검색 기능 -->
 	<sql id="criteria">
-		<trim prefix="(" suffix=")" prefixOverrides="OR">
-        	<foreach collection="typeArr" item="type">
-            	<trim prefix="OR">
-            		<choose>
-				    	<when test="type == 'T'.toString()">
-				        	TITLE LIKE '%' || #{keyword} || '%'
-				        </when>
-				        <when test="type == 'C'.toString()">
-				        	CONTENT LIKE '%' || #{keyword} || '%'
-				        </when>
-            		</choose>
-            	</trim>
-            </foreach>
-    	</trim>
+		<if test="model != null and model != ''">
+			AND MODEL LIKE '%' || #{model} || '%'
+		</if>
+		<if test="segment != null and segment != ''">
+			AND SEGMENT = #{segment}
+		</if>
+		<if test="fuel != null and fuel != ''">
+			AND FUEL = #{fuel}
+		</if>
+		<if test="year != null and year != ''">
+			AND YEAR = #{year}
+		</if>
+		<if test="brand != null and brand != ''">
+			AND BRAND = #{brand}
+		</if>
+		<if test="passenger != null and passenger != ''">
+			AND PASSENGER = #{passenger}
+		</if>
+		<if test="passenger = 5">
+			AND PASSENGER >= #{passenger}
+		</if>
 	</sql>
 
-    <select id="getCarList" resultMap="car">
-        SELECT
-            *
+    <!-- 차량 model 중복제거 리스트 조회 -->
+    <select id="getDistinctCarList" resultType="CarVO">
+		SELECT SEQ,
+				BRAND,
+				MODEL,
+				SEGMENT,
+				TRIM,
+				COLOR,
+				YEAR,
+				FUEL,
+				PASSENGER,
+				MISSION,
+				TRUNK,
+				DOOR,
+				KMPL,
+				PRICE,
+				STATUS,
+				IMG1,
+				IMG2,
+				IMG3,
+				GEN_DATE,
+				UPT_DATE,
+				CMPN_SEQ,
+				CAR_NUM
+		FROM (SELECT /*+ INDEX_DESC(CAR IDX_CAR) */ ROWNUM RN, a.*
+		        FROM (SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.* FROM CAR) a
+		        <where>
+                	<include refid="criteria"></include>
+                	<![CDATA[ AND CNT = 1 AND ROWNUM <= #{pageNum} * #{amount}) ]]>
+                </where>
+		WHERE RN > (#{pageNum} - 1) * #{amount}
+    </select>
+
+    <resultMap id="carOption" type="CarOptionVO">
+        <id property="optCode" column="opt_code"/>
+        <result property="carSeq" column="car_seq"/>
+    </resultMap>
+    <resultMap id="insuranceOption" type="InsuranceOptionVO">
+        <id property="optCode" column="opt_code"/>
+        <result property="carSeq" column="car_seq"/>
+        <result property="price" column="price"/>
+    </resultMap>
+
+    <select id="getCarList" resultType="CarVO">
+        SELECT seq,
+               cmpn_seq,
+               car_num,
+               brand,
+               model,
+               segment,
+               trim,
+               color,
+               year,
+               fuel,
+               passenger,
+               mission,
+               trunk,
+               door,
+               kmpl,
+               price,
+               img1,
+               img2,
+               img3,
+               upt_date
         FROM car
     </select>
     <select id="getCar" resultMap="car">
@@ -132,6 +200,7 @@
             *
         FROM CAR
         WHERE CMPN_SEQ = #{seq}
+        ORDER BY SEQ DESC
     </select>
     <select id="getCompanyCar" resultMap="car">
         SELECT
@@ -145,6 +214,16 @@
         DELETE
         FROM CAR
         WHERE SEQ = #{seq}
+    </delete>
+    <delete id="deleteOption">
+    	DELETE
+    	FROM CAR_OPTION
+    	WHERE CAR_SEQ = #{carSeq}
+    </delete>
+    <delete id="deleteIns">
+    	DELETE
+    	FROM INSURANCE_OPTION
+    	WHERE CAR_SEQ = #{carSeq}
     </delete>
     <update id="updateCompanyCar">
         UPDATE car
@@ -201,18 +280,6 @@
             upt_date = SYSDATE
         WHERE seq = #{seq}
     </update>
-
-    <!-- 차량 model 중복제거 리스트 조회 -->
-    <select id="getDistinctCarList" resultType="CarVO">
-		SELECT *
-		FROM (SELECT /*+ INDEX_DESC(CAR IDX_CAR) */ ROWNUM RN, a.*
-		        FROM (SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.* FROM CAR) a
-		        <where>
-                	<include refid="criteria"></include>
-                	<![CDATA[ AND CNT = 1 AND ROWNUM <= #{pageNum} * #{amount}) ]]>
-                </where>
-		WHERE RN > (#{pageNum} - 1) * #{amount}
-    </select>
 
     <!-- 해당 model을 보유한 업체 리스트 뽑아내기 위한 리스트 -->
     <select id="getCarByModel" resultType="CarVO">
@@ -273,7 +340,7 @@
 						#{door},
 						#{kmpl},
 						#{price},
-						'대기',
+						'CST01',
 						#{img1},
 						#{img2},
 						#{img3},

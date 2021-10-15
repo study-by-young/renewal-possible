@@ -16,10 +16,10 @@ public interface RentHistoryMapper {
     public RentHistoryVO getRentHistory(RentHistoryVO vo);
     
     public List<RentHistoryVO> rentHistoryList();
-    
-	// 회원 렌트내역 리스트 조회
-	public List<RentHistoryVO> MyPageRentHistoryList(@Param("cri") Criteria cri, @Param("seq") Long seq);
 	
+    // 마이페이지 회원 렌트내역 리스트 조회
+    public List<RentHistoryVO> MyPageRentHistoryList(@Param("cri") Criteria cri, @Param("seq")Long seq);
+    
 	//전체수 검사
 	public int getHistoryCount();
 }

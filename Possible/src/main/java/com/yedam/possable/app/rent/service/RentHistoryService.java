@@ -17,9 +17,9 @@ public interface RentHistoryService {
     
     public List<RentHistoryVO> rentHistoryList();
     
-    //회원 렌트내역 리스트 조회
- 	public List<RentHistoryVO> MyPageRentHistoryList(@Param("cri") Criteria cri, @Param("seq") Long seq);
- 	
+    // 2021-10-15일 회원 렌트내역 리스트 조회
+    public List<RentHistoryVO> MyPageRentHistoryList(@Param("cri") Criteria cri, @Param("seq")Long seq);
+    
  	//전체수 검사
  	public int getHistoryCount();
 }

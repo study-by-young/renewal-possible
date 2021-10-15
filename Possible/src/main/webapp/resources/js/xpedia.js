@@ -159,7 +159,7 @@ $(document).ready(function() {
 
   $(document).ready(function() {
     $('.btc_ln_slider_wrapper .owl-carousel').owlCarousel({
-      loop: true,
+      loop: false,
       margin: 10,
       autoplay: false,
       responsiveClass: true,
@@ -180,7 +180,7 @@ $(document).ready(function() {
         1000: {
           items: 3,
           nav: true,
-          loop: true,
+          loop: false,
           margin: 20,
         },
       },

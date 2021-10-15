@@ -2,9 +2,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <style type="text/css">
-
-
-
 .select {
 	width: 70px; /* 원하는 너비설정 */
 	padding: .5em .4em; /* 여백으로 높이 설정 */
@@ -27,99 +24,106 @@
 	appearance: none;
 }
 </style>
-		<!-- Main content -->
-		<div class="content-wrapper">
+<!-- Main content -->
+<div class="content-wrapper">
 
-			<!-- Content area -->
-			<div class="content">
+	<!-- Content area -->
+	<div class="content">
 
-				<div class="card">
-					<div class="card-header header-elements-inline">
-						<h4 class="card-title"><a href="${pageContext.request.contextPath}/admin/maintenance/member" class="nav-link">회원관리</a></h4>
-						<div class="header-elements">
-							
-						</div>
+		<div class="card">
+			<div class="card-header header-elements-inline">
+				<h4 class="card-title">
+					<a
+						href="${pageContext.request.contextPath}/admin/maintenance/member"
+						class="nav-link">회원관리</a>
+				</h4>
+				<div class="header-elements">
+					<div class="list-icons">
+						<a class="list-icons-item" data-action="collapse"></a>
 					</div>
-
-					<div class="card-body py-0">
-						<div class="row">
-					
-
-							<div class="col-sm-12">
-								<div class="d-flex align-items-center justify-content-center mb-2">
-									<table class="table table-hover">
-									<thead>
-										<tr>
-											<th>번호</th>
-											<th>아이디</th>
-											<th>전화번호</th>
-											<th>이름</th>
-											<th>권한</th>
-											<th>상세보기</th>
-										</tr>
-									</thead>
-									<tbody>
-									<c:forEach var="memberList" items="${memberList }">
-										<tr>
-											<td>${memberList.seq }</td>
-											<td>${memberList.id}</td>
-											<td>${memberList.phone }</td>
-											<td>${memberList.name }</td>
-											<td>${memberList.author }</td>
-											<td><a class="move" href="${memberList.seq }">상세보기</a></td>
-										</tr>
-									</c:forEach>
-								</tbody>
-								</table>
-
-								</div>
-							</div>
-							
-							<div class="col-sm-12">
-								<div class="d-flex align-items-center justify-content-center mb-2">
-									<div align="center">
-										<form id="actionForm" action="member" method="get">
-											<select name="type" class="select" >
-												<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
-												<option value="I" ${pageMaker.cri.type =='I'? 'selected' : "" }>아이디</option>
-												<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>이름</option>
-												<option value="P" ${pageMaker.cri.type =='P'? 'selected' : "" }>전화번호</option>
-												<option value="A" ${pageMaker.cri.type =='P'? 'selected' : "" }>권한</option>
-											</select> <input class="input" name="keyword" value="${pageMaker.cri.keyword }"> <input
-												type="hidden" name="pageNum" value="1"> <input type="hidden"
-												name="amount" value="${pageMaker.cri.amount }">
-											<button class="btn btn-primary" onclick="$('[name=pageNum]').val(1)">Search</button>
-										</form>
-									</div>
-								</div>
-							</div>
-							
-
-							<div class="col-sm-12">
-								<div class="d-flex align-items-center justify-content-center mb-2">
-							<div id="pageButton">
-  	<ul class="pagination pagination-flat align-self-center">
-		<c:if test="${pageMaker.prev }">
-			<li class="page-item"><a class="page-link" href="${pageMaker.startPage-1}">이전</a></li>
-			<span aria-hidden="true">&laquo;</span>
-		</c:if>
-		<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }"
-			var="num">
-				<li class="page-item" ><a class="page-link" href="${num }">${num }</a></li>
-		</c:forEach>
-		<c:if test="${pageMaker.next }">
-			<li class="page-item"><a class="page-link" href="${pageMaker.endPage+1}">다음</a></li>
-			<span aria-hidden="true">&laquo;</span>
-		</c:if>
-	</ul>
-	</div>
-	</div>
-	</div>
-							
-						</div>
-					</div>
+				</div>
+			</div>
+			<hr style="margin: 0px">
+			<div class="card-body" style="padding: 0px">
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>아이디</th>
+								<th>전화번호</th>
+								<th>이름</th>
+								<th>권한</th>
+								<th>상세보기</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="memberList" items="${memberList }">
+								<tr>
+									<td>${memberList.seq }</td>
+									<td>${memberList.id}</td>
+									<td>${memberList.phone }</td>
+									<td>${memberList.name }</td>
+									<td>${memberList.author }</td>
+									<td><a class="move" href="${memberList.seq }">상세보기</a></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 
 				</div>
+			</div>
+			<hr style="margin: 0px">
+			<br>
+			<div class="col-sm-12">
+				<div class="d-flex align-items-center justify-content-center mb-2">
+					<div align="center">
+						<form id="actionForm" action="member" method="get">
+							<select name="type" class="select">
+								<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
+								<option value="I" ${pageMaker.cri.type =='I'? 'selected' : "" }>아이디</option>
+								<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>이름</option>
+								<option value="P" ${pageMaker.cri.type =='P'? 'selected' : "" }>전화번호</option>
+								<option value="A" ${pageMaker.cri.type =='P'? 'selected' : "" }>권한</option>
+							</select> <input class="input" name="keyword"
+								value="${pageMaker.cri.keyword }"> <input type="hidden"
+								name="pageNum" value="1"> <input type="hidden"
+								name="amount" value="${pageMaker.cri.amount }">
+							<button class="btn btn-primary"
+								onclick="$('[name=pageNum]').val(1)">Search</button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-sm-12">
+				<div class="d-flex align-items-center justify-content-center mb-2">
+					<div id="pageButton">
+						<ul class="pagination pagination-flat align-self-center">
+							<c:if test="${pageMaker.prev }">
+								<li class="page-item"><a class="page-link"
+									href="${pageMaker.startPage-1}">이전</a></li>
+								<span aria-hidden="true">&laquo;</span>
+							</c:if>
+							<c:forEach begin="${pageMaker.startPage }"
+								end="${pageMaker.endPage }" var="num">
+								<li class="page-item"><a class="page-link" href="${num }">${num }</a></li>
+							</c:forEach>
+							<c:if test="${pageMaker.next }">
+								<li class="page-item"><a class="page-link"
+									href="${pageMaker.endPage+1}">다음</a></li>
+								<span aria-hidden="true">&laquo;</span>
+							</c:if>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>
 </div>
 </div>
 <script>
