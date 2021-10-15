@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.Date" %>
-<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%
-	Date nowTime = new Date();
-	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+Date nowTime = new Date();
+SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 <%
 request.setCharacterEncoding("utf-8");
@@ -20,7 +20,7 @@ response.setContentType("text/html; charset=utf-8");
 	overflow: auto;
 }
 </style>
-<form id="frm" name="frm" role="form">	
+<form id="frm" name="frm" role="form">
 	<div class="x_contact_title_main_wrapper float_left padding_tb_100">
 		<div class="container">
 			<div class="row">
@@ -37,6 +37,12 @@ response.setContentType("text/html; charset=utf-8");
 					</div>
 				</div>
 				<div
+					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="contect_form1">
+						<button id="minusPeople" type="button" class="btn btn-outline-light text-dark">-</button><span id="people">1</span><button id="plusPeople" type="button" class="btn btn-outline-light text-dark">+</button>
+					</div>
+				</div>
+				<div
 					class="col-xl-5 offset-xl-1 col-lg-6 col-md-6 col-sm-12 col-xs-12">
 					<div class="contect_form2">
 						<input id="writer" name="writer" value="${user }" type="text"
@@ -45,8 +51,9 @@ response.setContentType("text/html; charset=utf-8");
 				</div>
 				<div class="col-xl-5 col-lg-6 col-md-6 col-sm-12 col-xs-12">
 					<div class="contect_form2">
-						<input type="text" id="genDate" name="genDate" value="<%= sf.format(nowTime) %>"
-							placeholder="Date" readonly="readonly">
+						<input type="text" id="genDate" name="genDate"
+							value="<%=sf.format(nowTime)%>" placeholder="Date"
+							readonly="readonly">
 					</div>
 				</div>
 				<div
@@ -114,7 +121,8 @@ response.setContentType("text/html; charset=utf-8");
 					<div class="contect_btn contect_btn_contact">
 						<ul>
 							<li><a class="insert">등록 <i class="fa fa-arrow-right"></i></a></li>
-							<li><a class="list">취소 <i class="fa fa-arrow-right"></i></a></li>
+							<li><a class="returnList">취소 <i
+									class="fa fa-arrow-right"></i></a></li>
 						</ul>
 					</div>
 				</div>
@@ -123,6 +131,16 @@ response.setContentType("text/html; charset=utf-8");
 	</div>
 </form>
 <script>
+
+	$("#plusPeople").on("click", function() {
+		$("#people").text(Number($("#people").text())+1);	
+	});
+	$("#minusPeople").on("click", function() {
+		if(Number($("#people").text())>1) {
+			$("#people").text(Number($("#people").text())-1);	
+		}
+	});
+	
 	$(function() {
 		var container = $('#takePlaceMap')[0]; //지도를 담을 영역의 DOM 레퍼런스
 		var options = { //지도를 생성할 때 필요한 기본 옵션
@@ -181,72 +199,92 @@ response.setContentType("text/html; charset=utf-8");
 		var markersIdx = [];
 		var markerIdx = 0;
 		var polyline;
+
+		var forCheck = [];
 		$("#tourList")
 				.on(
 						"click",
 						"li",
 						function() {
-							$("#selectList")
-									.append(
-											'<li data-markerIdx="' + markerIdx + '" style="cursor: pointer;"><i class="fa fa-long-arrow-right"></i>&nbsp;&nbsp;'
-													+ $(this).text()
-													+ '<span style="float: right"><i class="fa fa-times-circle"></i></span></li>')
-									.append('<hr>')
-									.append('<input type="hidden" id="contentId" name="contentId" value="'+$(this).attr("data-contentId")+'">');
-							
-							// 마커가 표시될 위치입니다 
-							var markerPosition = new kakao.maps.LatLng($(this).attr("data-mapY"), $(this).attr("data-mapX"));
+							if (forCheck.indexOf($(this).attr("data-contentId")) == -1) {
+								forCheck.push($(this).attr("data-contentId"));
+								console.log(forCheck);
+								$("#selectList")
+										.append(
+												'<li data-markerIdx="' + markerIdx + '" style="cursor: pointer;"><i class="fa fa-long-arrow-right"></i>&nbsp;&nbsp;'
+														+ $(this).text()
+														+ '<span style="float: right"><i class="fa fa-times-circle"></i></span></li>')
+										.append('<hr>')
+										.append(
+												'<input type="hidden" id="contentId" name="contentId" value="'
+														+ $(this)
+																.attr(
+																		"data-contentId")
+														+ '">');
 
-							// 마커를 생성합니다
-							marker = new kakao.maps.Marker({
-								position : markerPosition
-							});
+								// 마커가 표시될 위치입니다 
+								var markerPosition = new kakao.maps.LatLng($(
+										this).attr("data-mapY"), $(this).attr(
+										"data-mapX"));
 
-							// 마커가 지도 위에 표시되도록 설정합니다
-							marker.setMap(map);
-
-							markers.push(marker);
-							markersIdx.push(markerIdx);
-							console.log(markerPosition.getLat());
-							console.log(markerPosition.getLng());
-							markerIdx++;
-							// 이동할 위도 경도 위치를 생성합니다 
-							var moveLatLon = new kakao.maps.LatLng(
-									markerPosition.getLat(), markerPosition
-											.getLng());
-
-							// 지도 중심을 부드럽게 이동시킵니다
-							// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
-							map.panTo(moveLatLon);
-
-							if (markers.length >= 2) {
-								var xy1 = markers[(markerIdx - 2)]
-										.getPosition();
-								var xy2 = markers[(markerIdx - 1)]
-										.getPosition();
-								var x1 = xy1.getLat();
-								var y1 = xy1.getLng();
-								var x2 = xy2.getLat();
-								var y2 = xy2.getLng();
-								// 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
-								var linePath = [ new kakao.maps.LatLng(x1, y1),
-										new kakao.maps.LatLng(x2, y2) ];
-
-								// 지도에 표시할 선을 생성합니다
-								polyline = new kakao.maps.Polyline({
-									path : linePath, // 선을 구성하는 좌표배열 입니다
-									strokeWeight : 5, // 선의 두께 입니다
-									strokeColor : '#9999FF', // 선의 색깔입니다
-									strokeOpacity : 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
-									strokeStyle : 'solid' // 선의 스타일입니다
+								// 마커를 생성합니다
+								marker = new kakao.maps.Marker({
+									position : markerPosition
 								});
 
-								// 지도에 선을 표시합니다 
-								polyline.setMap(map);
+								// 마커가 지도 위에 표시되도록 설정합니다
+								marker.setMap(map);
+
+								markers.push(marker);
+								markersIdx.push(markerIdx);
+								console.log(markerPosition.getLat());
+								console.log(markerPosition.getLng());
+								markerIdx++;
+								// 이동할 위도 경도 위치를 생성합니다 
+								var moveLatLon = new kakao.maps.LatLng(
+										markerPosition.getLat(), markerPosition
+												.getLng());
+
+								// 지도 중심을 부드럽게 이동시킵니다
+								// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+								map.panTo(moveLatLon);
+
+								if (markers.length >= 2) {
+									var xy1 = markers[(markerIdx - 2)]
+											.getPosition();
+									var xy2 = markers[(markerIdx - 1)]
+											.getPosition();
+									var x1 = xy1.getLat();
+									var y1 = xy1.getLng();
+									var x2 = xy2.getLat();
+									var y2 = xy2.getLng();
+									// 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
+									var linePath = [
+											new kakao.maps.LatLng(x1, y1),
+											new kakao.maps.LatLng(x2, y2) ];
+
+									// 지도에 표시할 선을 생성합니다
+									polyline = new kakao.maps.Polyline({
+										path : linePath, // 선을 구성하는 좌표배열 입니다
+										strokeWeight : 5, // 선의 두께 입니다
+										strokeColor : '#9999FF', // 선의 색깔입니다
+										strokeOpacity : 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+										strokeStyle : 'solid' // 선의 스타일입니다
+									});
+
+									// 지도에 선을 표시합니다 
+									polyline.setMap(map);
+
+								}
+							} else {
+								alert("이미 등록된 장소입니다.");
+								return false;
 							}
 						});
 
 		$("#selectList").on("click", "li", function() {
+			forCheck.splice(forCheck.indexOf($(this).next().next().val()),1);
+			console.log(forCheck);
 			var targetIdx = $(this).attr("data-markerIdx");
 			console.log(targetIdx);
 			$(this).next().next().remove();
@@ -259,77 +297,109 @@ response.setContentType("text/html; charset=utf-8");
 			polyline.setMap(null);
 		});
 	});
-	
+
 	// course insert
-	$(function(){
+	$(function() {
+		//코스 담을 배열
 		var arr = [];
-		$('.insert').on('click', function(){
-	    	//값들의 갯수 -> 배열 길이를 지정
-	    	var contentIds = $("input[name=contentId]");
-	    	
-			//배열에 값 주입
-			for(var i=0; i<contentIds.length; i++){   
-				let orgName = contentIds.eq(i).attr("name");
-				
-				//contentIds.eq(i).attr("name", orgName + i);
-				var temp = { contentId : contentIds.eq(i).val()}
-				arr.push(temp);
-		    }
-			
-			
-			/* let data = JSON.stringify({
-   		    	title: $('[name="title"]').val(),
-   		    	writer: $('[name="writer"]').val(),
-   		    	genDate: $('[name="genDate"]').val(),
-   		    	startDate: $('[name="startDate"]').val(),
-   		    	endDate: $('[name="endDate"]').val(),
-   		    	content: $('[name="content"]').val()
-   		    });
-			contentId: arr */
-			
-			let data = {
-				title: $('[name="title"]').val(),
-	   		    writer: $('[name="writer"]').val(),
-	   		    genDate: $('[name="genDate"]').val(),
-	   		    startDate: $('[name="startDate"]').val(),
-	   		    endDate: $('[name="endDate"]').val(),
-	   		    content: $('[name="content"]').val(),
-	   			boardList: arr
+
+		$('.insert').on('click', function() {
+			//입력값 검증
+			if ($("#title").val().length == 0) {
+				alert("제목은 필수값입니다.")
+				$("#title").focus();
+				return false;
 			}
-			
-			console.log($('form').serialize());
+			if ($("#startDate").val().length == 0) {
+				alert("시작 날짜는 필수값입니다.")
+				$("#startDate").focus();
+				return false;
+			}
+			if ($("#endDate").val().length == 0) {
+				alert("종료 날짜는 필수값입니다.")
+				$("#endDate").focus();
+				return false;
+			}
+			if (CKEDITOR.instances.content.getData().length == 0) {
+				alert("내용은 필수값입니다.")
+				CKEDITOR.instances.content.focus();
+				return false;
+			}
+
+			//값들의 갯수 -> 배열 길이를 지정
+			var contentIds = $("input[name=contentId]");
+
+			//배열에 값 주입
+			for (var i = 0; i < contentIds.length; i++) {
+				let orgName = contentIds.eq(i).attr("name");
+				//contentIds.eq(i).attr("name", orgName + i);
+				var temp = {
+					contentId : contentIds.eq(i).val()
+				}
+				arr.push(temp);
+			}
+
+			//코스 2개 이상만 등록 가넝한.
+			if (arr.length < 2) {
+				alert("코스 등록은 2개 이상부터 가능합니다.");
+				return false;
+			}
+
+			/* let data = JSON.stringify({
+			   	title: $('[name="title"]').val(),
+			   	writer: $('[name="writer"]').val(),
+			   	genDate: $('[name="genDate"]').val(),
+			   	startDate: $('[name="startDate"]').val(),
+			   	endDate: $('[name="endDate"]').val(),
+			   	content: $('[name="content"]').val()
+			   });
+			contentId: arr */
+
+			let data = {
+				title : $('[name="title"]').val(),
+				writer : $('[name="writer"]').val(),
+				genDate : $('[name="genDate"]').val(),
+				startDate : $('[name="startDate"]').val(),
+				endDate : $('[name="endDate"]').val(),
+				people : $("#people").text(),
+				content : CKEDITOR.instances.content.getData(),
+				boardList : arr
+			}
+			console.log(data);
+
+			//console.log($('form').serialize());
 			//console.log(JSON.stringify($("#frm").serializeObject()));
-		    //console.log(JSON.stringify($("#idFrm").serializeObject()));
-		    //let data = JSON.stringify($("#frm").serializeObject()) + JSON.stringify($("#idFrm").serializeObject());
-		    //console.log(data);
-		/* 	//객체를 string으로 변환
-	   		console.log(JSON.stringify(list));
-			var listData = JSON.stringify(list); */
-			 
-	   		//ajax 호출 
-	   		$.ajax({
-	   			url: 'write',
-	   		    type: 'post',
-	   		    data : JSON.stringify(data),
-	   		    dataType : 'text',
-	   		 	contentType: 'application/json; charset=utf-8',
-	   		    success: function (data){
-	   		        console.log(data);
-	   		     	alert("등록이 완료되었습니다.");
-	   		     	if (data == "success") {
-	   		        	location.href = "../course";
-	   		     	}
-	   		    },
-	   		    error: function (error){
-	   		     	console.log(error);
-	   		    }
-	   		});
+			//console.log(JSON.stringify($("#idFrm").serializeObject()));
+			//let data = JSON.stringify($("#frm").serializeObject()) + JSON.stringify($("#idFrm").serializeObject());
+			//console.log(data);
+			/* 	//객체를 string으로 변환
+				console.log(JSON.stringify(list));
+				var listData = JSON.stringify(list); */
+
+			//ajax 호출 
+			$.ajax({
+				url : 'write',
+				type : 'post',
+				data : JSON.stringify(data),
+				dataType : 'text',
+				contentType : 'application/json; charset=utf-8',
+				success : function(data) {
+					console.log(data);
+					alert("등록이 완료되었습니다.");
+					if (data == "success") {
+						location.href = "../course";
+					}
+				},
+				error : function(error) {
+					console.log(error);
+				}
+			}); 
 		});
 	});
-	
-	$(function(){
-		$('.list').on('click', function(){
-			location.href="../course";
+
+	$(function() {
+		$('.returnList').on('click', function() {
+			location.href = "../course";
 		});
 	});
 
