@@ -19,6 +19,11 @@
                      javaType="MemberVO"/>
     </resultMap>
 
+    <resultMap id="companyItemList" type="CompanyItemVO">
+        <id property="optCode" column="opt_code"/>
+        <result property="optName" column="opt_name"/>
+    </resultMap>
+
     <sql id="criteria">
         <trim prefix="(" suffix=")" prefixOverrides="OR">
             <foreach collection="typeArr" item="type">
@@ -141,10 +146,13 @@
         WHERE mem_seq = #{seq}
     </select>
 
-    <select id="getCompanyItems" resultType="string">
-        SELECT opt_code
+    <select id="getCompanyItems" resultMap="companyItemList">
+        SELECT
+                item_option.opt_code,
+                code_sub.name
         FROM item_option
-        WHERE cmpn_seq = #{seq}
+                     INNER JOIN code_sub ON code_sub.code = item_option.opt_code
+        WHERE item_option.cmpn_seq = #{seq}
     </select>
 
     <!-- 업체 업체정보수정(휴대폰번호,이메일,주소) -->

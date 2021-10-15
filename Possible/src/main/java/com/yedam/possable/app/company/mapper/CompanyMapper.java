@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.company.domain.CompanyItemVO;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.member.domain.MemberVO;
 
@@ -36,7 +37,7 @@ public interface CompanyMapper {
     public CompanyVO getCompanyByMemSeq(MemberVO vo);
 
     // 업체 여행 상품 조회
-    public List<String> getCompanyItems(CompanyVO vo);
+    public List<CompanyItemVO> getCompanyItems(CompanyVO vo);
 
     //업체정보수정
     public int companyInfoUpdate(CompanyVO vo);

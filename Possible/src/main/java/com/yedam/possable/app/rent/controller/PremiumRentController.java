@@ -307,18 +307,28 @@ public class PremiumRentController {
     @GetMapping("submit/register")
     public String submitRegForm(@ModelAttribute("seq") Long estimateSeq,
                                 Authentication authentication,
+                                RedirectAttributes attributes,
+                                HttpServletRequest request,
                                 Model model) {
-        MemberVO loginUser = memberService.getLoginMember(authentication);
-        if (loginUser == null) {
-            return "rent/prm/submitRegForm";
+        if (authentication == null) {
+            attributes.addFlashAttribute("alertMsg", "잘못된 접근입니다.");
+            return "redirect:" + request.getHeader("REFERER");
         }
+
+        MemberVO loginUser = memberService.getLoginMember(authentication);
+
+        if (!loginUser.getAuthor().equals("ROLE_COMPANY") && !loginUser.getAuthor().equals("ROLE_ADMIN")) {
+            attributes.addFlashAttribute("alertMsg", "업체회원만 작성 가능합니다.");
+            return "redirect:/premiumRent/estimate";
+        }
+
         CompanyVO companyVO = companyService.getCompanyByMemSeq(loginUser);
         model.addAttribute("carList", carService.getCompanyCarList(companyVO));
 
+
         String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
-        String itemOptCode = codeService.getMasterCodeByName("여행용품 옵션").getCode();
         model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
-        model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
+        model.addAttribute("itemOpt", companyService.getCompanyItems(companyVO));
 
         EstimateHistoryVO estimate = premiumRentService.getEstimate(estimateSeq);
         model.addAttribute("estimate", estimate);
