@@ -62,7 +62,6 @@
 				</div>
 <!-- /striped rows -->
 
-
 	<!-- Striped rows -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
