@@ -10,13 +10,20 @@
 	integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+<style type="text/css">
+.x_slider_checout_right li a {
+	float: right;
+}
+</style>
+
 <div class="x_inner_team_main_wrapper float_left padding_tb_100">
 	<div class="container">
 		<div class="row">
 			<div class="col-xl-10 offset-xl-1 col-lg-12 col-md-12">
 				<div>
-					<img src="/app/resources/images/avatar.jpg" class="rounded-circle mr-2" height="34" alt="">
-					<span id="writer">${board.writer }</span>
+					<img src="/app/resources/images/avatar.jpg"
+						class="rounded-circle mr-2" height="34" alt=""> <span
+						id="writer">${board.writer }</span>
 				</div>
 				<div
 					class="x_offer_car_heading_wrapper x_offer_car_tb_heading_wrapper float_left">
@@ -30,7 +37,15 @@
 					</p>
 				</div>
 				<div>
-					<span style="margin-right: 30px"><i id="heart" class="far fa-heart">&nbsp;</i><span id="likeCnt">${likes }</span></span>
+					<span style="margin-right: 30px"> <c:if
+							test="${user eq null}">
+							<i id="heart" class="far fa-heart">&nbsp;</i>
+						</c:if> <c:if test="${checkLike eq 0}">
+							<i id="heart" class="far fa-heart">&nbsp;</i>
+						</c:if> <c:if test="${checkLike eq 1}">
+							<i id="heart" class="fa fa-heart-o">&nbsp;</i>
+						</c:if> <span id="likeCnt">${likes }</span>개
+					</span>
 					<!-- <span style="margin-right: 30px"><i class="fas fa-share-alt">&nbsp;10회</i></span> -->
 					<span style="float: right;"><i class="far fa-eye">&nbsp;${board.views }회</i></span>
 				</div>
@@ -86,10 +101,32 @@
 			</div>
 			<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12"></div>
 		</div>
+		<form id="frm" name="frm" role="form" action="view/delete"
+			method="post">
+			<div class="row" style="margin-top: 10px">
+				<div
+					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 x_slider_checout_right">
+					<input type="hidden" id="seq" name="seq" value="${board.seq }">
+					<ul>
+						<c:if test="${id eq board.writer}">
+							<li><a href="javascript:delete();" onclick="return false;">삭제</a></li>
+						</c:if>
+						<li><a href="../course">목록</a></li>
+					</ul>
+				</div>
+			</div>
+		</form>
 	</div>
 </div>
+<input type="hidden" id="memSeq" value="${user }">
 
 <script>
+
+	function delete() {
+		if(confirm("정말 삭제하시겠습니까?")==true) {
+			frm.submit();
+		}
+	}
 
 	$(function() {
 		var container = $('#takePlaceMap')[0]; //지도를 담을 영역의 DOM 레퍼런스
@@ -151,24 +188,73 @@
 
 	});
 	
+	var user = $("#memSeq").val();
+	console.log(user);
 	$(function() {
 		$("#heart").on("click", function() {
-			$.ajax({
-				type : 'POST',
-				url : 'plusLike',
-				data : JSON.stringify({
-					boardSeq : ${board.seq },
-					memberSeq : ${user }
-				}),
-				dataType : 'json',
-				contentType : 'application/json; charset=utf-8',
-				success : function(data) {
-					$("#heart").attr("class", "fa fa-heart-o");
-					$("#likeCnt").text(Number($("#likeCnt").text())+1);
-					console.log(data);
+			if (user != "") {// 로그인 여부 확인
+				if ($("#heart").attr("class") == "far fa-heart"){ // 빈 하트 일 시
+					$.ajax({
+						type : 'POST',
+						url : 'plusLike',
+						data : JSON.stringify({
+							boardSeq : ${board.seq },
+							memberSeq : user
+						}),
+						dataType : 'json',
+						contentType : 'application/json; charset=utf-8',
+						success : function(data) {
+							$("#heart").attr("class", "fa fa-heart-o");
+							$("#likeCnt").text(Number($("#likeCnt").text())+data);
+							console.log(data);
+						}
+					})
+				} else {
+					$.ajax({
+						type : 'POST',
+						url : 'minusLike',
+						data : JSON.stringify({
+							boardSeq : ${board.seq },
+							memberSeq : user
+						}),
+						dataType : 'json',
+						contentType : 'application/json; charset=utf-8',
+						success : function(data) {
+							$("#heart").attr("class", "far fa-heart");
+							$("#likeCnt").text(Number($("#likeCnt").text())-data);
+							console.log(data);
+						}
+					})
 				}
-			})
+			} else {
+				if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
+					location.href="${pageContext.request.contextPath}/login"; 
+				} else {
+					return;
+				}
+			}
 		});
 	});
+	
+	/* var seq = $("#boardSeq").val();
+	$(function() {
+		$(".delete").on("click", function() {
+			$.ajax({
+				type : 'POST',
+				url : 'view/delete',
+				data : JSON.stringify({
+					seq : seq,
+				}),
+				dataType : 'text',
+				contentType : 'application/json; charset=utf-8',
+				success : function(data) {
+					alert("삭제가 완료되었습니다.");
+					if (data == "success") {
+						location.href = "../course";
+					}
+				}
+			})
+		})
+	}); */
 
 	</script>

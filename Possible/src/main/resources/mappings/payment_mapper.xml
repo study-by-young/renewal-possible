@@ -55,7 +55,7 @@
 		SELECT * 
 		FROM RENT_HISTORY
 		WHERE MEM_SEQ = 2
-		AND STATUS = '예약완료'
+		AND STATUS = '예약중'
 	</select>
 	
 	<!-- 결제취소 시 RENT_HISTORY 테이블 처리 -->

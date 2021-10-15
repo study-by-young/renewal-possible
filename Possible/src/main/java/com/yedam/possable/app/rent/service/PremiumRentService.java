@@ -56,4 +56,7 @@ public interface PremiumRentService{
     // 업체 확인용 견적서 단건 조회
     public Map<String, Object> compEstiSubmitOneSelect(Long seq);
 
+
+    // 업체 견적서 수정
+    public int CompEstimateUpdate(CompEstiListJoinVO vo);
 }

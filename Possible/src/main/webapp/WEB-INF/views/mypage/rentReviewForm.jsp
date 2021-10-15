@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 
 
@@ -49,6 +51,7 @@
                                 </div>
                                 <br> <br> <br>
 
+
                                 <!-- 후기 -->
                                 <div class="col-md-12">
                                     <div class="blog_single_comment_heading">
@@ -67,7 +70,8 @@
                                                 <div class="col-12">
                                                     <div class="card-body">
                                                         <p>
-                                                            차량명, 대여날짜 표시
+                                                            차량명: ${car.model}, ${company.name}
+                                                            렌트기간: <fmt:formatDate value="${history.startDate}" pattern="yyyy/MM/dd"/> ~ <fmt:formatDate value="${history.endDate}" pattern="yyyy/MM/dd"/>
                                                         </p>
                                                     </div>
                                                     <br><br>
@@ -77,34 +81,48 @@
                                     </div>
                                     <br>
                                     <!-- 후기작성 -->
-                                    <div class="contect_form4 xcontect_form4">
-                                        <table>
-                                            <tr>
-                                                <td><select>
-                                                    <option>여행코스 게시글 선택 (옆으로 늘리고 싶은데 왜 안늘려지냐구..)</option>
-                                                    <option>Ketchup</option>
-                                                    <option>Relish</option>
-                                                </select>
-                                                </td>
-                                                <td><select class="selectpicker">
-                                                    <option>별점 선택</option>
-                                                    <option>5</option>
-                                                    <option>4</option>
-                                                    <option>3</option>
-                                                    <option>2</option>
-                                                    <option>1</option>
-                                                </select>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                        <textarea rows="4" placeholder="Write Comment"></textarea>
-                                        <br><br>
-                                        <div align="center">
-                                            <button type="button" class="btn" onclick="location.href='#'"
-                                                    style="text-align: center; background: #4f5dec; color: #ffffff; border: 1px solid transparent;">등록
-                                            </button>
-                                        </div>
-                                    </div>
+                                    <form id="writeReviewForm" action="writeReview" method="post">
+	                                    <div class="contect_form4 xcontect_form4">
+	                                    	<input type="hidden" id="history_seq" name="history_seq" value="${history.seq}">
+	                                    	<input type="hidden" id="mem_seq" name="mem_seq" value="${user.seq}">
+	                                    	<input type="hidden" id="cmpn_seq" name="cmpn_seq" value="${company.seq}"> 
+	                                        <table>
+	                                            <tr>
+	                                                <td>
+		                                                <select id="course" name="course" class="selectpicker">
+		                                                    <option value="" selected>내가 작성한 여행코스</option>
+		                                                	<c:if test="${user.id eq course.writer}">
+		                                                		<c:forEach var="course" items="${courseList}">
+				                                                    <option value="">${course.title}</option>
+				                                                    <input type="hidden" id="course_seq" name="course_seq" value="${course.seq}">
+			                                                    </c:forEach>
+		                                                    </c:if>
+		                                                    <c:if test="${user.id ne course.writer}">
+		                                                    	<option value="">작성한 여행코스가 없습니다.</option>
+		                                                    </c:if>
+		                                                </select>
+	                                                </td>
+	                                                <td>
+		                                                <select id="score" name="score" class="selectpicker">
+		                                                    <option value="" selected>평점</option>
+		                                                    <option value="5">5</option>
+		                                                    <option value="4">4</option>
+		                                                    <option value="3">3</option>
+		                                                    <option value="2">2</option>
+		                                                    <option value="1">1</option>
+		                                                </select>
+	                                                </td>
+	                                            </tr>
+	                                        </table>
+	                                        <textarea id="title" name="title" rows="1" placeholder="Write Title"></textarea>
+	                                        <textarea id="content" name="content" rows="4" placeholder="Write Content"></textarea>
+	                                        <br><br>
+	                                        <div align="center">
+	                                            <button type="submit" class="btn" style="text-align: center; background: #4f5dec; color: #ffffff; border: 1px solid transparent;">등록
+	                                            </button>
+	                                        </div>
+	                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

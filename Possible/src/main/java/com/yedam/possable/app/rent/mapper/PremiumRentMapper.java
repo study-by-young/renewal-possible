@@ -55,4 +55,7 @@ public interface PremiumRentMapper {
 
     // 업체 확인용 견적서 단건 조회
     public CompEstiListJoinVO compEstiSubmitOneSelect(Long seq);
+    
+    // 업체 견적서 수정
+    public int CompEstimateUpdate(CompEstiListJoinVO vo);
 }

@@ -56,18 +56,20 @@ ul{
 							</div>
 							
 							<div class="card-body">
-								<form id="estimate" name="estimate" method="post">
+								<form id="estimatefrm" name="estimatefrm" method="post" action="../estSubmit/update">
 									<div class="row down_margin">
+									<input type="hidden" name="seq" value="${est.seq }">
+									<input type="text" name="status" value=${est.status }>
 										<div class="col-4">
-											<label class="font-weight-bold">외형 :</label>
+											<label class="font-weight-bold">외형 </label>
 											<input type="text" class="form-control" id="segment" name="segment" value="${est.segment }" disabled>
 										</div>
 										<div class="col-4">
-											<label class="font-weight-bold">브랜드 :</label>
+											<label class="font-weight-bold">브랜드 </label>
 											<input type="text" class="form-control" id="brand" name="brand" value="${est.brand }" disabled>
 										</div>
 										<div class="col-4">
-											<label class="font-weight-bold">모델명 :</label>
+											<label class="font-weight-bold">모델명 </label>
 											<input type="text" class="form-control" id="model" name="model" value="${est.model }" disabled>
 										</div>
 									</div>
@@ -140,7 +142,7 @@ ul{
 										</div>
 									</div>
 									<div class="text-right">
-										<button type="button" class="btn btn-primary">수정하기<i class="icon-paperplane ml-2"></i></button>
+										<button type="button" class="btn btn-primary" id="updateBtn">수정하기<i class="icon-paperplane ml-2"></i></button>
 										<button type="button" class="btn btn-danger">삭제하기<i class="icon-paperplane ml-2"></i></button>
 									</div>
 								</form>
@@ -153,4 +155,14 @@ ul{
 	</div>
 <script>
 
+$("#updateBtn").on("click",function(){
+	var text = confirm("정말 수정하시겠습니까?");
+	var message = '${message}';
+	if(text){
+		estimatefrm.submit();
+		alert(message);
+	}else{
+		
+	}
+});
 </script>

@@ -83,11 +83,21 @@ public class CarServiceImpl implements CarService {
 		// TODO Auto-generated method stub
 		return carMapper.insertCompanyCar(vo);
 	}
-
+	
 	@Override
 	public int insertCarOptions(CarOptionVO vo) {
 		// TODO Auto-generated method stub
-		return carMapper.insertCarOptions(vo);
+		return 0;
+	}
+
+	@Override
+	public int insertCarOptions(List<CarOptionVO> list, Long carSeq) {
+		// TODO Auto-generated method stub
+		for (CarOptionVO option : list) {
+			option.setCarSeq(carSeq);
+			carMapper.insertCarOptions(option);
+		}
+		return 0;
 	}
 
 	@Override

@@ -45,7 +45,7 @@
                 <nav class="hs_main_menu d-none d-sm-none d-xs-none d-md-block float-left">
                     <ul>
                         <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/">홈</a></li>
-                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/commonRent/list">일반 렌트</a></li>
+                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/commonRent">일반 렌트</a></li>
                         <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/premiumRent/estimate">프리미엄 렌트</a></li>
                         <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/notice/list">공지사항</a></li>
                         <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/community/course">커뮤니티</a></li>
@@ -78,7 +78,7 @@
                                     <a href="#0" class="cd-close">Close</a>
                                     <ul class="cd-dropdown-content">
                                         <li> <a href="${pageContext.request.contextPath}/">홈</a></li>
-                                        <li> <a href="${pageContext.request.contextPath}/commonRent/list">일반 렌트</a></li>
+                                        <li> <a href="${pageContext.request.contextPath}/commonRent">일반 렌트</a></li>
                                         <li> <a href="${pageContext.request.contextPath}/premiumRent/estimate/list">프리미엄 렌트</a></li>
                                         <li> <a href="${pageContext.request.contextPath}/notice/list">공지사항</a></li>
                                         <li class="has-children">커뮤니티

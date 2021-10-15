@@ -414,7 +414,7 @@
 
             $.ajax({
                 type : 'POST',
-                url : '../../memberInfoUpdate',
+                url : '../memberInfoUpdate',
                 data : {id : id,
                     phone : phone,
                     email: email,

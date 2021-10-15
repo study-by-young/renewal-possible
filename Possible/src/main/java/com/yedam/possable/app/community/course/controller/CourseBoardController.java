@@ -35,21 +35,30 @@ public class CourseBoardController {
 
 	// 전체조회
 	@GetMapping
-	public String courseList(Model model) {
+	public String courseList(Model model, Authentication authentication) {
 	    model.addAttribute("list", courseBoardService.getList());
+	    MemberVO loginUser = memberService.getLoginMember(authentication);
+	    model.addAttribute("user", loginUser);
 	    return "community/course/list";
 	}
 
-	// 단건조회(수정페이지)
+	// 단건조회
 	@GetMapping("/view")
-	public String courseView(Model model, CourseBoardVO board, CourseVO course, Authentication authentication) {
+	public String courseView(Model model, CourseBoardVO board, CourseVO course, CourseBoardLikeVO like, Authentication authentication) {
 		courseBoardService.plusViews(board);
 		model.addAttribute("board", courseBoardService.read(board));
 		model.addAttribute("cnt", courseBoardService.courseCnt(board));
 		model.addAttribute("likes", courseBoardService.countLike(board));
 		model.addAttribute("course", courseBoardService.courseSelect(board));
 		MemberVO loginUser = memberService.getLoginMember(authentication);
+		if(loginUser == null) {
+			return "community/course/view";
+		}
 		model.addAttribute("user", loginUser.getSeq());
+		model.addAttribute("id", loginUser.getId());
+		like.setBoardSeq(board.getSeq());
+		like.setMemberSeq(loginUser.getSeq());
+		model.addAttribute("checkLike",courseBoardService.checkLike(like));
 		return "community/course/view";
 	}
 
@@ -73,13 +82,11 @@ public class CourseBoardController {
     @ResponseBody
     public String courseInsert(@RequestBody CourseBoardVO board) {
     	System.out.println(board);	
- 
-    	//ObjectMapper mapper = new ObjectMapper();
     	courseBoardService.insert(board);
     	System.out.println(board.getSeq());
     	Long num = board.getSeq();
     	courseBoardService.courseInsert(board.getBoardList(), num);
-    	return "test";
+    	return "success";
     }
 
     // 수정 폼
@@ -95,9 +102,11 @@ public class CourseBoardController {
     }
 
     // 코스 삭제
-    @GetMapping("/view/delete")
-    public String courseDelete(){
-	    return "redirect:../../";
+    @PostMapping("/view/delete")
+    public String courseDelete(CourseBoardVO board){
+    	System.out.println(board.toString());
+    	courseBoardService.delete(board);
+	    return "redirect:/community/course";
     }
 
     // 코스 댓글 작성
@@ -136,4 +145,12 @@ public class CourseBoardController {
 		return i;
 	}
 
+	@RequestMapping(value = "/minusLike")
+	@ResponseBody
+	public int minusLike(@RequestBody CourseBoardLikeVO vo) {
+		int i = 1;
+		courseBoardService.minusLike(vo);
+		return i;
+	}
+	
 }

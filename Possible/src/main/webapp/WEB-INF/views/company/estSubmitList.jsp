@@ -28,7 +28,6 @@
 					<div class="card-body">
 					
 					</div>
-					${estimate }
 					<div class="table-responsive">
 						<table class="table">
 							<thead>

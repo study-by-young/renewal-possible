@@ -21,14 +21,15 @@ import com.yedam.possable.app.community.tour.domain.TestVO;
 import com.yedam.possable.app.community.tour.service.TourService;
 
 @Controller
-@RequestMapping("/tour/*")
+@RequestMapping("/community/tour")
 public class TourController {
 	
 	@Autowired TourService tourService;
 	
-	@GetMapping("/list")
-	public void list(Model model) {
+	@GetMapping
+	public String list(Model model) {
 		model.addAttribute("list", tourService.getList());
+		return "community/tour/list";
 	}
 
 	@GetMapping("/test")

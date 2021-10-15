@@ -12,7 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.car.domain.CarVO;
@@ -20,15 +24,18 @@ import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
+import com.yedam.possable.app.community.course.service.CourseBoardService;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
+import com.yedam.possable.app.rent.domain.RentReviewVO;
 import com.yedam.possable.app.rent.service.PaymentService;
 import com.yedam.possable.app.rent.service.PremiumRentService;
 import com.yedam.possable.app.rent.service.RentHistoryService;
+import com.yedam.possable.app.rent.service.RentReviewService;
 
 import lombok.extern.java.Log;
 
@@ -50,6 +57,10 @@ public class MypageController {
     RentHistoryService rentHistory;
     @Autowired
     PremiumRentService premiumRentService;
+    @Autowired
+    RentReviewService rentReviewService;
+    @Autowired
+    CourseBoardService courseBoardService;
 
     //마이페이지 대쉬보드 페이지
     @GetMapping("/dashboard")
@@ -178,8 +189,8 @@ public class MypageController {
     							  Long seq,
 						    	  @ModelAttribute("cri") Criteria cri,
 						    	  RentHistoryVO vo,
-
-						    	  HttpServletRequest request){
+						    	  HttpServletRequest request,
+						    	  Authentication authentication){
 
     	HttpSession session = request.getSession();
     	MemberVO mvo = (MemberVO) session.getAttribute("member");
@@ -205,8 +216,9 @@ public class MypageController {
 
         	CompanyVO cov = new CompanyVO();
         	cov.setSeq(rhlist.get(i).getCmpnSeq());
-        	System.out.println("두번쨰 회사 코드==="+rhlist.get(i).getCmpnSeq());
+        	System.out.println("두번째 회사 코드==="+rhlist.get(i).getCmpnSeq());
         	model.addAttribute("company", companyService.companyOneSelect(cov));
+        	//model.addAttribute("sysdate", )
         }
 
 
@@ -214,23 +226,73 @@ public class MypageController {
     	return "mypage/rentHistoryList";
     }
 
+    // 결제취소 후 DB 수정(status 변경)
+    @PutMapping("/paymentCancel/{uid}")
+    @ResponseBody
+    public String paymentCancel(@PathVariable String uid, RedirectAttributes rttr) {
+    	paymentService.paymentCancel(uid);
+    	return "redirect:/mypage/rentHistoryList";
+    }   
+    
     // 회원 렌트 내역 상세
     @GetMapping("/rent/view")
     public String rentHistoryView(){
         return "";
     }
 
-    // 렌트 후기 작성 폼
+    //-------------------------------------------------------------------------------
+    
+    // 마이페이지 렌트 후기 조회
+    @GetMapping("review/list")
+    public void mypageRentReviewList() {
+    	
+    }
+    
+    // 렌트 후기 작성/수정 폼
     @GetMapping("/rent/view/writeReview")
-    public String rentReviewForm(){
+    public String rentReviewForm(Model model, Authentication authentication, 
+    							Long seq, Long carSeq, Long cmpnSeq,
+    							CarVO carVo, CompanyVO cmpnVo, RentHistoryVO rhVo){
+    	MemberVO loginUser = memberService.getLoginMember(authentication);
+    	
+    	rhVo.setSeq(seq);
+    	rhVo.setCarSeq(carSeq);
+    	rhVo.setCmpnSeq(cmpnSeq);
+    	carVo.setSeq(rhVo.getCarSeq());
+    	cmpnVo.setSeq(rhVo.getCmpnSeq());
+    	
+    	// 내가 대여한 차량 seq, 업체 seq가 필요함 <---- 렌트히스토리 조회하면 여기 다 있음
+    	model.addAttribute("history", rentHistory.getRentHistory(rhVo));
+    	model.addAttribute("car", carService.getCar(carVo));
+    	model.addAttribute("company", companyService.companyOneSelect(cmpnVo));
+    	model.addAttribute("user", loginUser);
+    	model.addAttribute("courseList", courseBoardService.getList());
+    	// 차량 seq로 차량 한건 조회해서 model 뿌려주기
+    	// 내가 작성한 코스글 seq가 필요함 (mem_seq로 코스글 조회해서 select option으로 뿌려주면 될 듯)
+    	
         return "mypage/rentReviewForm";
     }
 
     // 렌트 후기 등록 처리
     @PostMapping("/rent/view/writeReview")
-    public String writeRentReview(){
-        return "";
+    public String writeRentReview(RentReviewVO vo){
+    	rentReviewService.insertRentReview(vo);
+        return "mypage/rentHistoryList";
     }
+    
+    // 렌트 후기 수정 처리
+    @PostMapping("/rent/view/updateReview")
+    public void updateRentReview() {
+    	
+    }
+    
+    // 렌트 후기 삭제 처리
+    @PostMapping("/rent/view/deleteReview")
+    public void deleteRentReview(Long seq) {
+    	
+    }
+    
+  //-------------------------------------------------------------------------------
 
     // 커뮤니티 대시보드
     @GetMapping("/community")

@@ -49,6 +49,8 @@ public interface CarMapper {
 
     //차량 옵션 추가
     public int insertCarOptions(CarOptionVO vo);
+    
+    public int insertCarOptions(List<CarOptionVO> list, Long carSeq);
 
     public int getTotalCount(Criteria cri);
 
