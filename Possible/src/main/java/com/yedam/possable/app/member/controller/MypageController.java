@@ -1,9 +1,6 @@
 package com.yedam.possable.app.member.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -110,26 +107,12 @@ public class MypageController {
     						   Authentication authentication
     						   ){
     	MemberVO mvo = memberService.getLoginMember(authentication);
-
+    	
     	List<EstimateHistoryVO> estimateList = premiumRentService.getEstimateListByUserSeq(cri, mvo.getSeq());
-
-		for (int i = 0; i < estimateList.size(); i++) {
-			Map<String, Object> voMap = new HashMap<String, Object>();
-			System.out.println("---------- : " + i + estimateList.size());
-//			TrimCodeVO getTrim = codeService.getTrim(estimateList.get(i).getTrim());
-//			CodeSubVO subCode = codeService.getCodeByValue(estimateList.get(i).getSegment());
-//			System.out.println("니 뭐들어있는데???" + estimateList.get(i).getSegment());
-//			System.out.println("값 다들고 오는거 맞지? :" + subCode.toString());
-//			System.out.println("subCode" + subCode);
-//			model.addAttribute("getTrim",getTrim);
-			//model.addAttribute("code", map); // map.add(voMap); //
-			//model.addAttribute("getTrim", getTrim); // Trim 들고옴 //
-			//model.addAttribute("subCode", subCode);
-
-		}
-		model.addAttribute("estList", estimateList);
-
-
+    	System.out.println("뭐야? 이거?"+ premiumRentService.getEstimateListByUserSeq(cri, mvo.getSeq()));
+		model.addAttribute("estList", premiumRentService.getEstimateListByUserSeq(cri, mvo.getSeq()));
+		
+		
         return "mypage/estimateList";
     }
 
@@ -189,44 +172,21 @@ public class MypageController {
     // 회원 렌트 내역
     @GetMapping("/rent")
     public String MyPageRentHistoryList(Model model,
-    							  Long seq,
-						    	  @ModelAttribute("cri") Criteria cri,
-						    	  RentHistoryVO vo,
-						    	  HttpServletRequest request,
-						    	  Authentication authentication){
-
-    	HttpSession session = request.getSession();
-    	MemberVO mvo = (MemberVO) session.getAttribute("member");
-
+    							  		Long seq,
+    							  		@ModelAttribute("cri") Criteria cri,
+    							  		RentHistoryVO vo,
+    							  		Authentication authentication,				
+    							  		HttpServletRequest request){
+			
+    	MemberVO mvo = memberService.getLoginMember(authentication);
     	int total = rentHistory.getHistoryCount();
-
-        model.addAttribute("getView", rentHistory.MyPageRentHistoryList(cri, mvo.getSeq()));
-        model.addAttribute("page", new PageVO(cri, total));
-        List<RentHistoryVO> rhlist = new ArrayList<RentHistoryVO>();
-        rhlist = rentHistory.MyPageRentHistoryList(cri, mvo.getSeq());
-
-        for (int i = 0; i < rhlist.size(); i++) {
-        	System.out.println(rhlist.get(i).getCarSeq());
-        	System.out.println("==================회사코드");
-
-        	System.out.println(rhlist.get(i).getCmpnSeq());
-        	CarVO cvo1 = new CarVO();
-        	cvo1.setSeq(rhlist.get(i).getCarSeq());
-        	carService.getCar(cvo1);
-        	System.out.println("======================="+i+"=====================");
-        	System.out.println(carService.getCar(cvo1));
-        	model.addAttribute("car", carService.getCar(cvo1));
-
-        	CompanyVO cov = new CompanyVO();
-        	cov.setSeq(rhlist.get(i).getCmpnSeq());
-        	System.out.println("두번째 회사 코드==="+rhlist.get(i).getCmpnSeq());
-        	model.addAttribute("company", companyService.companyOneSelect(cov));
-        	//model.addAttribute("sysdate", )
-        }
-
-
-
+    	vo.setMemSeq(mvo.getSeq());
+    	
+    	model.addAttribute("page", new PageVO(cri, total));
+    	model.addAttribute("historyList", rentHistory.MyPageRentHistoryList(cri, vo.getMemSeq()));
+    	
     	return "mypage/rentHistoryList";
+    	
     }
 
     // 결제취소 후 DB 수정(status 변경)
