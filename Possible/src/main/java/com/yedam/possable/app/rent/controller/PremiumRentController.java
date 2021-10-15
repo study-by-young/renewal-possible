@@ -192,22 +192,26 @@ public class PremiumRentController {
                                      HttpServletRequest request,
                                      RedirectAttributes attributes,
                                      Model model) {
-        EstimateHistoryVO vo = premiumRentService.getEstimate(seq);
-//        MemberVO writer = new MemberVO();
-//        writer.setSeq(vo.getMemberVO().getSeq());
-//        String userId = memberService.getLoginMember(authentication).getId();
-//        String writerId = memberService.memberOneSelect(writer).getId();
-//
-//        if (userId == null || !userId.equals(writerId)) {
-//            attributes.addFlashAttribute("updateMsg", "작성자만 수정 가능합니다.");
-//            return "redirect:" + request.getHeader("REFERER");
-//        }
+        if(authentication == null) {
+            attributes.addFlashAttribute("alertMsg", "잘못된 접근입니다.");
+            return "redirect:" + request.getHeader("REFERER");
+        }
+
+        EstimateHistoryVO estimate = premiumRentService.getEstimate(seq);
+        MemberVO loginMember = memberService.getLoginMember(authentication);
+
+        if(!estimate.getMemberVO().getId().equals(loginMember.getId())){
+            if (!loginMember.getAuthor().equals("ROLE_ADMIN")) {
+                attributes.addFlashAttribute("alertMsg", "작성자만 수정 가능합니다.");
+                return "redirect:" + request.getHeader("REFERER");
+            }
+        }
 
         String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
         String itemOptCode = codeService.getMasterCodeByName("여행용품 옵션").getCode();
         List<BrandCodeVO> brands = codeService.getBrandList();
-        List<ModelCodeVO> models = codeService.getModelList(vo.getBrand());
-        List<TrimCodeVO> trims = codeService.getTrimList(vo.getTrim());
+        List<ModelCodeVO> models = codeService.getModelList(estimate.getBrand());
+        List<TrimCodeVO> trims = codeService.getTrimList(estimate.getTrim());
 
         model.addAttribute("brands", brands);
         model.addAttribute("models", models);
@@ -231,7 +235,7 @@ public class PremiumRentController {
 
         int updateResult = premiumRentService.updateEstimate(vo);
 
-        String resultMsg = "";
+        String resultMsg;
         if (updateResult == 1) {
             resultMsg = "견적이 수정되었습니다.";
         } else {

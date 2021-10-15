@@ -12,11 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.car.domain.CarVO;
@@ -232,8 +228,8 @@ public class MypageController {
     public String paymentCancel(@PathVariable String uid, RedirectAttributes rttr) {
     	paymentService.paymentCancel(uid);
     	return "redirect:/mypage/rentHistoryList";
-    }   
-    
+    }
+
     // 회원 렌트 내역 상세
     @GetMapping("/rent/view")
     public String rentHistoryView(){
@@ -241,26 +237,26 @@ public class MypageController {
     }
 
     //-------------------------------------------------------------------------------
-    
+
     // 마이페이지 렌트 후기 조회
     @GetMapping("review/list")
     public void mypageRentReviewList() {
-    	
+
     }
-    
+
     // 렌트 후기 작성/수정 폼
     @GetMapping("/rent/view/writeReview")
-    public String rentReviewForm(Model model, Authentication authentication, 
+    public String rentReviewForm(Model model, Authentication authentication,
     							Long seq, Long carSeq, Long cmpnSeq,
     							CarVO carVo, CompanyVO cmpnVo, RentHistoryVO rhVo){
     	MemberVO loginUser = memberService.getLoginMember(authentication);
-    	
+
     	rhVo.setSeq(seq);
     	rhVo.setCarSeq(carSeq);
     	rhVo.setCmpnSeq(cmpnSeq);
     	carVo.setSeq(rhVo.getCarSeq());
     	cmpnVo.setSeq(rhVo.getCmpnSeq());
-    	
+
     	// 내가 대여한 차량 seq, 업체 seq가 필요함 <---- 렌트히스토리 조회하면 여기 다 있음
     	model.addAttribute("history", rentHistory.getRentHistory(rhVo));
     	model.addAttribute("car", carService.getCar(carVo));
@@ -269,7 +265,7 @@ public class MypageController {
     	model.addAttribute("courseList", courseBoardService.getList());
     	// 차량 seq로 차량 한건 조회해서 model 뿌려주기
     	// 내가 작성한 코스글 seq가 필요함 (mem_seq로 코스글 조회해서 select option으로 뿌려주면 될 듯)
-    	
+
         return "mypage/rentReviewForm";
     }
 
@@ -279,19 +275,19 @@ public class MypageController {
     	rentReviewService.insertRentReview(vo);
         return "mypage/rentHistoryList";
     }
-    
+
     // 렌트 후기 수정 처리
     @PostMapping("/rent/view/updateReview")
     public void updateRentReview() {
-    	
+
     }
-    
+
     // 렌트 후기 삭제 처리
     @PostMapping("/rent/view/deleteReview")
     public void deleteRentReview(Long seq) {
-    	
+
     }
-    
+
   //-------------------------------------------------------------------------------
 
     // 커뮤니티 대시보드
