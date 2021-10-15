@@ -99,4 +99,9 @@ public class CourseBoardServiceImpl implements CourseBoardService {
 		return courseBoardMapper.countLike(vo);
 	}
 
+	@Override
+	public int checkLike(CourseBoardLikeVO vo) {
+		return courseBoardMapper.checkLike(vo);
+	}
+
 }

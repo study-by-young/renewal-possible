@@ -73,17 +73,6 @@
 											<label>시작일자</label> 
 											<input class="form-control" name='startDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${rentHistory.startDate }"/>' readonly="readonly">				
 										</div>
-										
-										<div class="form-group">
-											<label>수령일자</label> 
-											<input class="form-control" name='receiveDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${rentHistory.receiveDate }"/>' readonly="readonly">				
-										</div>
-										
-										<div class="form-group">
-											<label>반납일자</label> 
-											<input class="form-control" name='returnDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${rentHistory.returnDate }"/>' readonly="readonly">				
-										</div>
-										
 										<div class="form-group">
 											<label>끝일자</label> 
 											<input class="form-control" name='endDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${rentHistory.endDate }"/>' readonly="readonly">				

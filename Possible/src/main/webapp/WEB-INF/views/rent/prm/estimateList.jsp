@@ -51,10 +51,7 @@
                         <div class="col-12">
                             <div class="x_car_book_tabs_content_main_wrapper my-4">
                                 <div class="row">
-                                    <c:forEach var="est" items="${estList}" varStatus="status">
-                                        <c:set var="estimate" value="${est.get('estimate')}" />
-                                        <c:set var="options" value="${est.get('options')}" />
-                                        <c:set var="items" value="${est.get('items')}" />
+                                    <c:forEach var="estimate" items="${estList}" varStatus="status">
                                         <div class="premium_rent_list_item col-12">
                                             <div class="card">
                                                 <div class="row">
@@ -69,7 +66,7 @@
                                                                 <div class="col-lg-9">
                                                                     <div class="x_car_offer_heading x_car_offer_heading_list float_left">
                                                                         <h5 class="font-weight-bold">
-                                                                                ${estimate.brandName} ${estimate.modelCodeVO.name}<br><small>${estimate.trimCodeVO.name}</small>
+                                                                                ${estimate.brandCodeVO.name} ${estimate.modelCodeVO.name}<br><small>${estimate.trimCodeVO.name}</small>
                                                                         </h5>
                                                                     </div>
                                                                 </div>
@@ -98,7 +95,7 @@
                                                                                 </div>
                                                                                 <div class="col-10">
                                                                                     <ul class="list-unstyled mb-0">
-                                                                                        <c:forEach var="opt" items="${options}">
+                                                                                        <c:forEach var="opt" items="${estimate.optionList}">
                                                                                             <li class="d-inline-block pr-3 mb-1"><i class="icon-checkbox-checked2 text-primary"></i> ${opt}
                                                                                             </li>
                                                                                         </c:forEach>
@@ -115,7 +112,7 @@
                                                                                 </div>
                                                                                 <div class="col-10">
                                                                                     <ul class="list-unstyled mb-0">
-                                                                                        <c:forEach var="itm" items="${items}">
+                                                                                        <c:forEach var="itm" items="${estimate.itemList}">
                                                                                             <li class="d-inline-block pr-3 mb-1"><i class="icon-checkbox-checked2 text-primary"></i> ${itm}
                                                                                             </li>
                                                                                         </c:forEach>
@@ -132,9 +129,7 @@
                                             </div>
                                         </div>
                                     </c:forEach>
-
                                     <jsp:include page="/pagination" />
-
                                 </div>
                             </div>
                         </div>

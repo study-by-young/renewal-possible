@@ -25,9 +25,9 @@ var FormValidation = function() {
         }
 
         jQuery.extend(jQuery.validator.messages, {
-            required: "이 항목은 비워 둘 수 없습니다..",
+            required: "이 항목은 비워 둘 수 없습니다.",
             remote: "Please fix this field.",
-            email: "이메일 형식이 올바르지 않습니다..",
+            email: "이메일 형식이 올바르지 않습니다.",
             url: "Please enter a valid URL.",
             date: "Please enter a valid date.",
             dateISO: "Please enter a valid date (ISO).",
@@ -85,6 +85,7 @@ var FormValidation = function() {
             },
             rules: {
                 password: {
+                    required: true,
                     minlength: 8
                 },
                 repeat_password: {
@@ -143,6 +144,9 @@ var FormValidation = function() {
                 }
             },
             messages: {
+                password: {
+                    required : "이 항목은 비워 둘 수 없습니다."
+                },
                 custom: {
                     required: 'This is a custom error message'
                 },

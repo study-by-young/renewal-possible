@@ -39,5 +39,7 @@ public interface CourseBoardService {
 	public int minusLike(CourseBoardLikeVO vo);
 	
 	public int countLike(CourseBoardVO vo);
+	
+	public int checkLike(CourseBoardLikeVO vo);
 
 }

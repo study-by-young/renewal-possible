@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: admin
@@ -28,7 +29,7 @@
 <div class="x_car_book_sider_main_Wrapper my-4">
     <div class="container">
         <form id="estimateForm" name="estimateForm" method="post">
-            <input type="hidden" name="memSeq" id="memSeq" value="1">
+            <input type="hidden" name="estiSeq" id="estiSeq" value="${seq}">
             <div class="row">
                 <div class="col-xl-9">
                     <div class="card">
@@ -42,7 +43,7 @@
                                     <option disabled selected>렌트카를 선택하세요. 선택된 렌트카는 견적 제출 이후 예약불가 상태로 변경됩니다.</option>
                                     <optgroup label="예약 가능 렌트카">
                                         <c:forEach var="car" items="${carList}">
-                                            <option value="${car.seq}">${car.brand} ${car.model} ${car.trim} / ${car.segment} / ${car.carNum}</option>
+                                            <option value="${car.seq}">${car.brandName} ${car.modelCodeVO.name} ${car.trimCodeVO.name} / ${car.segmentName} / ${car.carNum}</option>
                                         </c:forEach>
                                     </optgroup>
                                 </select>
@@ -58,61 +59,44 @@
                             </div>
 
                             <ul class="list-unstyled row">
-                                <li class="col-md-12">
-
-                                </li>
                                 <li class="col-md-12 my-3">
-                                    <label>차량 옵션</label>
-                                    <hr class="my-2">
-                                    <div class="x_slider_checkbox_bottom_filter_use">
-                                        <c:forEach var="option" items="${carOptions}" varStatus="status">
-                                            <label class="pr-3">
-                                                <input name="options" id="options" type="checkbox" value="${option.code}" disabled>
-                                                    ${option.name}</label>
-                                        </c:forEach>
-                                    </div>
-                                </li>
-                                <li class="col-md-12 my-3">
-                                    <label>캠핑 옵션</label>
-                                    <hr class="my-2">
-                                    <div class="x_slider_checkbox_bottom_filter_use">
+                                    <h5>차량 옵션</h5>
+                                    <div class="x_slider_checkbox_bottom_filter_use row">
                                         <c:forEach var="option" items="${carOpt}" varStatus="status">
-                                            <label class="pr-3">
-                                                <input name="items" id="items" type="checkbox" value="${option.name}">
-                                                    ${option.name}</label>
+                                            <div class="mb-2 col-lg-3 col-md-4 col-6">
+                                                <div class="custom-control custom-checkbox custom-control-inline">
+                                                    <input type="checkbox" name="options" id="options${status.index}" class="custom-control-input" disabled>
+                                                    <label class="custom-control-label" for="options${status.index}">${option.name}</label>
+                                                </div>
+                                            </div>
                                         </c:forEach>
                                     </div>
+                                </li>
+                                <li class="col-md-12 my-3">
+                                    <h5>캠핑 옵션</h5>
+                                    <div class="x_slider_checkbox_bottom_filter_use row">
+                                        <c:forEach var="option" items="${carOpt}" varStatus="status">
+                                            <div class="mb-2 col-lg-3 col-md-4 col-6">
+                                                <div class="custom-control custom-checkbox custom-control-inline">
+                                                    <input type="checkbox" name="items" id="items${status.index}" class="custom-control-input" value="${option.code}">
+                                                    <label class="custom-control-label" for="items${status.index}">${option.name}</label>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
+                                    </div>
+                                </li>
 
-                                </li>
-                                <li class="col-md-6 mb-3">
-                                </li>
-                                <li class="col-md-6 mb-3">
-                                </li>
-                                <li class="col-md-12">
-                                    <label>렌트카 수령 장소</label>
-                                    <hr class="my-2">
-                                </li>
-                                <li class="col-md-6 mb-3">
-                                    <label for="takePlaceCode">우편번호</label>
-                                    <input type="text" id="takePlaceCode" name="takePlaceCode" class="form-control" required>
-                                </li>
-                                <li class="col-md-6 mb-3 align-self-end">
-                                    <button type="button" class="btn " onclick="daumPostcode($('#postalWrapper')[0],takePlaceCode,takePlaceBasic,takePlaceDetail)">주소 검색</button>
-                                </li>
-                                <li class="col-md-6 mb-3">
-                                    <label for="takePlaceBasic">기본 주소</label>
-                                    <input type="text" id="takePlaceBasic" name="takePlaceBasic" placeholder="기본 주소" class="form-control" required>
-                                </li>
-                                <li class="col-md-6 mb-3 ">
-                                    <label for="takePlaceDetail">상세 주소</label>
-                                    <input type="text" id="takePlaceDetail" name="takePlaceDetail" placeholder="상세 주소" class="form-control">
-                                </li>
-                                <li class="col-md-12 mb-3">
-                                    <div id="postalWrapper" class="border"></div>
-                                </li>
-                                <li class="col-md-12 mb-3">
+                                <li class="col-md-12 mb-3 ">
                                     <label for="memo">참고 사항</label>
-                                    <textarea name="memo" id="memo" class="form-control"></textarea>
+                                    <div class="border">
+                                        <textarea name="memo" id="memo" class="form-control border-bottom-0 px-2"></textarea>
+                                    </div>
+                                </li>
+                                <li class="col-md-12 mb-3 ">
+                                    <label for="price">렌트 가격</label>
+                                    <div class="form-group">
+                                        <input type="number" name="price" id="price" class="form-control">
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -123,58 +107,32 @@
                 </div>
                 <div class="col-xl-3">
                     <div class="card">
+                        <c:set var="est" value="${estimate.get('estimate')}" />
                         <div class="card-header bg-white">
-                            <h4 class="mb-0">견적 상세</h4>
+                            <h4 class="mb-0">견적 요청서 요약</h4>
                         </div>
                         <div class="card-body">
                             <div class="x_car_access_filer_top_img">
-                                <img class="img-fluid" src="images/c2.png" alt="car_img">
-                                <h3></h3>
+                                <img class="img-fluid" src="${pageContext.request.contextPath}${est.modelCodeVO.img}" alt="car_img">
+                                <h5 class="pt-2">${est.brandName} ${est.modelCodeVO.name}<br>
+                                    <small class="text-muted">${est.trimCodeVO.name}</small>
+                                </h5>
                             </div>
+
                             <div class="panel panel-default x_car_inner_acc_acordion_padding">
-                                <div class="panel-heading car_checkout_caret">
-                                    <h5 class="panel-title"> <a href="#"> 렌트 시작 날짜</a> </h5>
-                                </div>
-                                <div class="collapse show">
-                                    <div class="panel-body">
-                                        <div class="x_car_acc_filter_date">
-                                            <ul>
-                                                <li>Tue 16 Jan 2018 @ 10:00</li>
-                                                <li>Barcelona, Airport</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                <h5 class="panel-title"> 렌트 날짜</h5>
+                                <ul>
+                                    <li>대여 : <fmt:formatDate value="${est.startDate}" pattern="yyyy년 MM월 dd일"/> </li>
+                                    <li>반납 : <fmt:formatDate value="${est.endDate}" pattern="yyyy년 MM월 dd일"/></li>
+                                </ul>
                             </div>
                             <div class="panel panel-default x_car_inner_acc_acordion_padding x_car_inner_acc_acordion_padding_last">
-                                <div class="panel-heading car_checkout_caret">
-                                    <h5 class="panel-title"> <a href="#"> 렌트 종료 날짜</a> </h5>
-                                </div>
-                                <div class="collapse show">
-                                    <div class="panel-body">
-                                        <div class="x_car_acc_filter_date">
-                                            <ul>
-                                                <li>Tue 16 Jan 2018 @ 10:00</li>
-                                                <li>Barcelona, Airport</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel panel-default x_car_inner_acc_acordion_padding x_car_inner_acc_acordion_padding_last">
-                                <div class="panel-heading car_checkout_caret">
-                                    <h5 class="panel-title"> <a href="#"> 렌트카 수령 장소</a> </h5>
-                                </div>
-                                <div class="collapse show">
-                                    <div class="panel-body">
-                                        <div class="x_car_acc_filter_date">
-                                            <ul>
-                                                <li>Tue 17 Jan 2018 @ 10:00</li>
-                                                <li>Barcelona, Airport</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
+                                <h5 class="panel-title"> 수령 장소</h5>
+                                <p class="pl-3">
+                                    (${est.takePlaceCode})<br>
+                                        ${est.takePlaceBasic}<br>
+                                        ${est.takePlaceDetail}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -185,6 +143,7 @@
 </div>
 <!-- x car book sidebar section Wrapper End -->
 <script>
+    let resultJson;
     $(function(){
 
     })
@@ -195,36 +154,73 @@
             url: "${pageContext.request.contextPath}/car/" + carSeq,
             dataType: 'json',
             success: function(result){
-                let carInfoWrapper = $('<div/>')
-                    .append('<div class="row">' +
-                        '<div class="col-lg-3">' +
-                        '<div class="card-img">' +
-                        <%--'<img src="${pageContext.request.contextPath}' + result.+ '" alt="" class="img-fluid"/>' +--%>
-                        '</div>' +
-                        '</div>' +
-                        '<div class="col-lg-9">' +
-                        '<div class="row">' +
-                        '<div class="col-12">' +
-                        '<div class="card border-primary-300 border-1 shadow-0">' +
-                        '<div class="card-body">' +
-                        '<div class="row align-items-center">' +
-                        '<div class="col-12">' +
-                        '<ul class="list-unstyled mb-0">' +
-                        <%--'<c:forEach var="item" items="${items}">' +--%>
-                        '<li class="d-inline-block pr-3 mb-1">' +
-                        <%--'<i class="icon-checkbox-checked2 text-primary"></i> ${item}' +--%>
-                        '</li>' +
-                        <%--'</c:forEach>' +--%>
-                        '</ul>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>' +
-                        '</div>');
-                console.log(result);
+                resultJson = result;
+                genDate = new Date(result.genDate);
+                let htmlStr = '<div class="row">' +
+                    '<div class="col-lg-3 align-self-center">' +
+                    '<div class="card-img">' +
+                    '<img src="${pageContext.request.contextPath}' + result.modelCodeVO.img + '" alt="" class="img-fluid"/>' +
+                    '</div>' +
+                    '</div>' +
+                    '<div class="col-lg-9 pl-4">' +
+                    '<ul class="row list-unstyled mb-0">' +
+                    '<li class="col-12 pr-3 mb-1">' +
+                    '<i class="fas fa-car"></i> 차종 : ' + result.brandName + ' ' + result.modelName + ' ' + result.trimName +
+                    '</li>' +
+                    '<li class="col-lg-6 pr-3 mb-1">' +
+                    '<i class="fas fa-car"></i> 번호 : ' + result.carNum +
+                    '</li>' +
+                    '<li class="col-lg-6 pr-3 mb-1">' +
+                    '<i class="fas fa-pen-fancy"></i> 색상 : ' + result.colorName +
+                    '</li>' +
+                    '<li class="col-lg-6 pr-3 mb-1">' +
+                    '<i class="fas fa-calendar-alt"></i> 연식 : ' + result.year +
+                    '</li>' +
+                    '<li class="col-lg-6 pr-3 mb-1">' +
+                    '<i class="fas fa-oil-can"></i> 연료 : ' + result.fuelName +
+                    '</li>' +
+                    '<li class="col-lg-6 pr-3 mb-1">' +
+                    '<i class="fas fa-cogs"></i> 변속 : ' + result.missionName +
+                    '</li>' +
+                    '<li class="col-lg-6 pr-3 mb-1">' +
+                    '<i class="fas fa-user-friends"></i> 탑승인원 : ' + result.passenger +
+                    '</li>' +
+                    '<li class="col-lg-6 pr-3 mb-1">' +
+                    '<i class="fas fa-inbox"></i> 트렁크 : ' + result.trunk +
+                    '</li>' +
+                    '<li class="col-lg-6 pr-3 mb-1">' +
+                    '<i class="fas fa-door-open"></i> 문갯수 : ' + result.door +
+                    '</li>' +
+                    '<li class="col-lg-6 pr-3 mb-1">' +
+                    '<i class="fas fa-road"></i> 연비 : ' + result.kmpl + 'km/l' +
+                    '</li>' +
+                    '<li class="col-lg-6 pr-3 mb-1">' +
+                    '<i class="fas fa-calendar-alt"></i> 등록일 : ' + genDate.getFullYear() + '년 ' + (genDate.getMonth() + 1) + '월 ' + genDate.getDate() + '일' +
+                    '</li>' +
+                    '</ul>' +
+                    '</div>' +
+                    '<hr>' +
+                    '<div class="col-12 border-top mt-2 pt-2">' +
+                    '<div class="row justify-content-center">';
+                if(result.img1 !=null){
+                    htmlStr += '<div class="col-lg-4"><img src="${pageContext.request.contextPath}' + result.img1 + '" alt="" class="img-fluid"></div>';
+                }
+                if(result.img2 !=null){
+                    htmlStr += '<div class="col-lg-4"><img src="${pageContext.request.contextPath}' + result.img2 + '" alt="" class="img-fluid"></div>';
+                }
+                if(result.img3 !=null){
+                    htmlStr += '<div class="col-lg-4"><img src="${pageContext.request.contextPath}' + result.img3 + '" alt="" class="img-fluid"></div>';
+                }
+                htmlStr += '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>' +
+                    '</div>';
+
+                let carInfoWrapper = $('<div/>').append(htmlStr);
+
+
+                $('#selectCarInfo .card-body').html(carInfoWrapper);
             }
         })
     }

@@ -43,7 +43,7 @@
 
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h6 class="card-title">업체리스트</h6>
+						<h6 class="card-title"><a href="#">업체리스트</a></h6>
 						<div class="header-elements">
 							
 						</div>
@@ -125,10 +125,10 @@
 							<div class="text-right">
 							<c:if test="${comRegList.status eq 'PST02'}">
 								<button id="reg" class="btn btn-primary">승인</button>
-								<button id="del" formaction="view/deny" class="btn btn-primary">거부</button>
+								<button id="del" formaction="view/deny" class="btn btn-danger">거부</button>
 							</c:if>
 							<c:if test="${comRegList.status eq 'PST01'}">
-								<button id="del" formaction="view/deny" class="btn btn-primary">거부</button>
+								<button id="del" formaction="view/deny" class="btn btn-danger">거부</button>
 								<a class="btn btn-primary" id="list_btn" href="${pageContext.request.contextPath}/admin/maintenance/confirmCompany">목록</a>
 							</c:if>
 							<c:if test="${comRegList.status eq 'PST03'}">

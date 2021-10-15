@@ -64,8 +64,8 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public int updateCompanyCar(CarVO carVO, CompanyVO cmpnVO) {
-        return carMapper.updateCompanyCar(carVO, cmpnVO);
+    public int updateCompanyCar(CarVO carVO) {
+        return carMapper.updateCompanyCar(carVO);
     }
 
 	@Override
@@ -87,21 +87,21 @@ public class CarServiceImpl implements CarService {
 	@Override
 	public int insertCarOptions(CarOptionVO vo) {
 		// TODO Auto-generated method stub
-		return carMapper.insertCarOptions(vo);
+		return 0;
+	}
+
+	@Override
+	public int insertCarOptions(List<CarOptionVO> list, Long carSeq) {
+		// TODO Auto-generated method stub
+		for (CarOptionVO option : list) {
+			option.setCarSeq(carSeq);
+			carMapper.insertCarOptions(option);
+		}
+		return 0;
 	}
 
 	@Override
 	public int getTotalCount(Criteria cri) {
 		return carMapper.getTotalCount(cri);
 	}
-
-	@Override
-    public List<CarVO> getCarList_map(Criteria cri) {
-        return carMapper.getCarList_map(cri);
-    }
-
-    @Override
-    public CarVO getCar_map(CarVO vo) {
-        return carMapper.getCar_map(vo);
-    }
 }
