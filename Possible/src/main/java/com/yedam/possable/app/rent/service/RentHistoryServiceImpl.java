@@ -27,12 +27,6 @@ public class RentHistoryServiceImpl implements RentHistoryService {
 	}
 
 	@Override
-	public List<RentHistoryVO> MyPageRentHistoryList(@Param("cri") Criteria cri, @Param("seq") Long seq) {
-		// TODO // 회원 렌트내역 리스트 조회
-		return rentHistoryMapper.MyPageRentHistoryList(cri,seq);
-	}
-
-	@Override
 	public int getHistoryCount() {
 		// TODO Auto-generated method stub
 		return rentHistoryMapper.getHistoryCount();
@@ -41,6 +35,12 @@ public class RentHistoryServiceImpl implements RentHistoryService {
 	@Override
 	public List<RentHistoryVO> rentHistoryList() {
 		return rentHistoryMapper.rentHistoryList();
+	}
+
+	@Override
+	public List<RentHistoryVO> MyPageRentHistoryList(@Param("cri") Criteria cri, @Param("seq")Long seq) {
+		// TODO Auto-generated method stub
+		return rentHistoryMapper.MyPageRentHistoryList(cri, seq);
 	}
 
 }

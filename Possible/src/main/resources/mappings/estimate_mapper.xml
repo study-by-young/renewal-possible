@@ -19,6 +19,7 @@
         <result property="memo" column="memo"/>
         <result property="brandName" column="brand_name"/>
         <result property="segmentName" column="segment_name"/>
+       
         <association property="modelCodeVO"
                      column="model"
                      columnPrefix="model_"
@@ -226,7 +227,7 @@
         SELECT COUNT(*)
         FROM estimate_history
     </select>
-
+	
     <!-- 마이페이지 유저 프리미엄 견적 요청 조회 -->
     <select id="getEstimateListByUserSeq" resultMap="estimateHistory">
         SELECT * FROM (
@@ -242,11 +243,11 @@
         EH.take_place_detail,
         EH.gen_date,
         EH.upt_date,
-        BC.name AS brand,
-        MC.name AS model,
-        MC.img,
-        TC.name AS trim,
-        TC.fuel,
+        BC.name AS brand_name,
+        MC.name AS model_name,
+        MC.img  AS model_img,
+        TC.name AS trim_name,
+        TC.fuel AS trim_fuel,
         CS.name AS segment,
         M.seq AS mem_seq
         FROM (SELECT *

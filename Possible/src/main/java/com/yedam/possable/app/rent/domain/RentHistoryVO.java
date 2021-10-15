@@ -31,6 +31,13 @@ public class RentHistoryVO {
     private Long cmpnSeq;
     private String review; 
     
+    
+    private String carBrand;
+    private String carModel;
+    private String carSegment;
+    private String cmpnName;
+    private String cmpnTel;
+    
     // 211014 추가
     private CarVO carVO;
     private MemberVO memberVO;

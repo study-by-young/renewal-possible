@@ -70,7 +70,7 @@
                                     </div>
 									 <div class="x_car_book_tabs_content_main_wrapper my-4">
 									 	 <div class="row">
-									 	 	 <c:forEach var="getView" items="${getView}" varStatus="status">
+									 	 	 <c:forEach var="est" items="${historyList}" varStatus="status">
 												<div class="premium_rent_list_item col-12">
 													<div class="card">
 														<div class="row">
@@ -87,25 +87,25 @@
                                                                        			<i class="h3 icon-calendar pr-2 mb-0"> 대여/반납일</i>
                                                                   			</p>
                                                                        		<p class="font-weight-bold text-grey-600">
-                                                                              	<fmt:formatDate value="${getView.startDate}" pattern="yy년 MM월 dd일" /> ~ <fmt:formatDate value="${getView.endDate}" pattern="yy년 MM월 dd일" /><br>
+                                                                              	<fmt:formatDate value="${est.startDate}" pattern="yy년 MM월 dd일" /> ~ <fmt:formatDate value="${est.endDate}" pattern="yy년 MM월 dd일" /><br>
                                                                       		</p> 
                                                     				 	 </div>
                                                     				 	 <div class="col-lg-3">
-                                                    				 	 <c:if test="${getView.status eq '예약중' }">
-                                                    				 		<button class="refundBtn" id="refundBtn" type="button" value="${getView.merchantUid}">취소하기</button>
+                                                    				 	 <c:if test="${est.status eq '예약중' }">
+                                                    				 		<button class="refundBtn" id="refundBtn" type="button" value="${est.merchantUid}">취소하기</button>
                                                                 		 </c:if>
                                                                 		 </div>
-                                                    				 	 <div class="col-lg-3">
-	                                                                		<c:if test="${getView.review eq '2' }">
+                                                    				 	 <div class="col-lg-3" style="padding-left: 40px;">
+	                                                                		<c:if test="${est.review eq '2' }">
 		                                                    					<button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
 		                                                            					style="background: #4f5dec; color: #ffffff;  ">
 		                                                        						후기수정
 		                                                    					</button>
 		                                                    			    </c:if>
 		                                                    
-		                                                    				<c:if test="${getView.review ne '2' }">
+		                                                    				<c:if test="${est.review ne '2' }">
 		                                                    					<button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
-		                                                            					style="background: #4f5dec; color: #ffffff;"<c:if test="${getView.review eq '0' }"> disabled="disabled"</c:if>>
+		                                                            					style="background: #4f5dec; color: #ffffff;"<c:if test="${est.review eq '0' }"> disabled="disabled"</c:if>>
 		                                                        						후기작성
 		                                                    					</button>
 	                                                    					</c:if>
@@ -119,27 +119,27 @@
                                                                                     		<i class="h3 icon-location4 pr-2 mb-0"></i> 수령장소 :
                                                                                			</div>
                                                                                			 <div class="col-8" style="padding-left: 0px">
-                                                                                    		<span class="list-unstyled mb-0">  ${getView.takePlaceBasic} ${getView.takePlaceDetail}</span>
+                                                                                    		<span class="list-unstyled mb-0">  ${est.takePlaceBasic} ${est.takePlaceDetail}</span>
                                                                                 		</div>
                                                                                 		
                                                                 		 				<div class="col-4">
                                                                                     		<i class="fa fa-car pr-2 mb-0"></i> 차량 :
                                                                                			</div>
                                                                                			<div class="col-8" style="padding-left: 0px">
-                                                                                    		<span class="list-unstyled mb-0"> ${car.brand } ${car.model }</span>
+                                                                                    		<span class="list-unstyled mb-0"> ${est.carBrand } ${est.carModel }</span>
                                                                                 		</div>
                                                                                 		
                                                                                 		<div class="col-4">
                                                                                     		<i class="fa fa-building pr-2 mb-0" ></i> 대여업체:
                                                                                			</div>
                                                                                			 <div class="col-8" style="padding-left: 0px">
-                                                                                    		<span class="list-unstyled mb-0"> ${company.name }</span>
+                                                                                    		<span class="list-unstyled mb-0"> ${est.cmpnName }</span>
                                                                                 		</div>
                                                                                 		<div class="col-4">
                                                                                     		<i class="fa fa-phone pr-2 mb-0" ></i> 업체번호
                                                                                			</div>
                                                                                			 <div class="col-8" style="padding-left: 0px">
-                                                                                    		<span class="list-unstyled mb-0"> ${company.name }</span>
+                                                                                    		<span class="list-unstyled mb-0"> ${est.cmpnTel }</span>
                                                                                 		</div>
                                                                 		 			</div>
                                                                 		 		</div>
@@ -151,26 +151,26 @@
                                                                                     		<i class="h3 icon-location4 pr-2 mb-0"></i> 결제금액 
                                                                                			</div>
                                                                                			 <div class="col-8" style="padding-left: 0px">
-                                                                                    		<span class="list-unstyled mb-0"> ${getView.price }원</span>
+                                                                                    		<span class="list-unstyled mb-0"> ${est.price }원</span>
                                                                                 		</div>
                                                                                 		
                                                                 		 				<div class="col-4">
                                                                                     		<i class="fa fa-credit-card pr-2 mb-0"></i> 결제방법 
                                                                                			</div>
                                                                                			<div class="col-8" style="padding-left: 0px">
-                                                                                    		<span class="list-unstyled mb-0"> ${getView.payMethod }</span>
+                                                                                    		<span class="list-unstyled mb-0"> ${est.payMethod }</span>
                                                                                 		</div>
                                                                                 		<div class="col-4">
                                                                                     		<i class="icon-checkmark4 pr-2 mb-0" ></i> 예약상태
                                                                                			</div>
                                                                                			 <div class="col-8" style="padding-left: 0px">
-                                                                                    		<span class="list-unstyled mb-0"> ${getView.status }</span>
+                                                                                    		<span class="list-unstyled mb-0"> ${est.status }</span>
                                                                                 		</div>
                                                                                 		<div class="col-4">
                                                                                     		<i class="icon-checkmark4 pr-2 mb-0" ></i> 예약번호
                                                                                			</div>
                                                                                			 <div class="col-8" style="padding-left: 0px">
-                                                                                    		<span class="list-unstyled mb-0"> ${getView.merchantUid }</span>
+                                                                                    		<span class="list-unstyled mb-0"> ${est.merchantUid }</span>
                                                                                 		</div>
                                                                                 		
                                                                 		 			</div>
@@ -189,48 +189,18 @@
 								 </div>
                                 <!-- 렌트내역상세 -->
                                 <div class="col-md-12">	
-                                   <%--  <c:forEach var="getView" items="${getView}" varStatus="status" >
-                                    <div class="modal fade " id="rentInfoDetail${status.index }" tabindex="-1" role="dialog" aria-labelledby="rentInfoDetail" aria-hidden="true">
-								 	<div class="modal-dialog modal-lg" role="document">
-									   	<div class="modal-content">
-									     	<div class="modal-header">
-									       		<button type="button" class="close"  id="PassCloseClick" data-dismiss="modal" aria-label="Close">
-									         		<span aria-hidden="true">&times;</span>
-									       		</button>
-									     	</div>
-									     <div class="modal-body">
-									     	<div class="container">
-										 		<div class="sub_title font-weight-bold ">
-													<h3>렌트내역조회</h3>
-												</div>
-												<div id="passwordChange" >
-													<table class="table">
-														<tr class="h6">
-															<th>결제상태</th>
-															<th>결제금액</th>
-															<th>결제번호</th>
-															<th>예약자명</th>
-															<th>렌트타입</th>
-														</tr>
-														<tr>
-															<td>${getView.status }</td>
-															<td>${getView.price }원</td>
-															<td>${getView.merchantUid }</td>
-															<td>${getView.receiver}</td>
-															<td>${getView.rentType}</td>
-															<td>${i.index }</td>
-														</tr>
-													</table>
-												</div>
-											</div>
-									     	<!-- 모달 Body_End -->
-										  </div>
-										</div>
-									</div>
-								</div><!-- Modal END -->
-                                	</c:forEach> --%>
+                           	      	<div class="card-body">
+					           			<div class="row">
+						                    <c:if test="${empty historyList}">
+						                        <div class="col-12 text-center">
+						                            <h6 class="py-5">아직 랜트 내역이 없습니다!<br>여행갈카 렌트 서비스를 이용해 여행을 떠나보세요! </h6>
+						                        </div>
+						                    </c:if>
+						                </div>
+					            	</div>
                                     <div class="pager_wrapper prs_blog_pagi_wrapper">
                                         <ul class="pagination">
+                                         <c:if test="${not empty historyList}">
                                             <li>
                                                 <a class="page-arrow" href="?pageNum=${page.startPage-1}&amount=${page.cri.amount}" <c:if test="${!page.prev }">style="display: none"</c:if>><i class="flaticon-left-arrow"></i></a>
                                             </li>
@@ -244,6 +214,7 @@
                                             <li>
                                                 <a class="page-arrow" href="?pageNum=${page.endPage+1}&amount=${page.cri.amount}" <c:if test="${!page.next }">style="display: none"</c:if>><i class="flaticon-right-arrow"></i></a>
                                             </li>
+                                        </c:if>
                                         </ul>
                                     </div>
                                 </div>
@@ -331,10 +302,8 @@
         </div>
     </div>
 </div>
-<!-- 모달창 -->
-<c:forEach var="getView" items="${getView}" >
+ 			
 
-</c:forEach>
 <!-- x blog main and sidebar Wrapper End -->
 <script>
 //forEach 돌리고 id로 불러오면 첫번째 버튼만 활성화 되기 때문에 class로 불러온다.

@@ -44,9 +44,49 @@
                                 <!-- 견적관리 -->
                                 <div class="col-md-12">
                                     <div class="blog_single_comment_heading">
-                                        <h4>프리미엄 견적 신청 관리</h4>
+                                        <h4>나의 프리미엄 견적 신청 관리</h4>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                	<div class="x_car_book_tabs_content_main_wrapper my-4">
+						            	<div class="row">  
+						            		<c:forEach var="est" items="${estList}" varStatus="status">
+						            		${est }
+						            			<div class="premium_rent_list_item col-12">
+						            				<div class="card">
+						            					<div class="row">
+						            						<div class="col-lg-4 aling-self-center">
+						            							<div class="card-img-actions p-3">
+                                                            		<img class="card-img-top img-fluid" src="${pageContext.request.contextPath}/resources/images/cars/Genesis/genesis_g90.png" alt="">
+                                                        		</div>
+						            						</div>
+						            						<div class="col-lg-8 border-left">
+						            							<div class="card-body">
+						            								<div class="row">
+						            									<div class="col-lg-9">
+                                                                    		<div class="x_car_offer_heading x_car_offer_heading_list float_left">
+                                                                        		<h5 class="font-weight-bold">
+                                                                                ${est.brand} ${est.modelCodeVO.name}<br><small>${estimate.trimCodeVO.name}</small>
+                                                                        		</h5>
+                                                                    		</div>
+                                                                		</div>
+                                                                		<div class="col-lg-3">
+                                                                    		<a class="btn btn-block btn-primary"
+                                                                      		   href="estimate/view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">
+                                                                        	 	상세보기
+                                                                   			 </a>
+                                                                		</div>
+						            								</div>
+						            							</div>
+						            						</div>
+						            					</div>
+						            				</div>
+						            			</div>
+						            		</c:forEach>
+						            	</div>             	
+                                	</div>
+                                </div>
+                                
 								<div class="col-md-12">
 									<div class="x_car_book_tabs_content_main_wrapper">
 										<div class="tab-content">
@@ -54,6 +94,7 @@
 												<div class="row">
 													<div class="col-md-12">
 													<!-- 여기서부터 main-box-wrapper -->
+													${estList }
 														<c:forEach var="estimate" items="${estList}">
 														<div class="x_car_offer_main_boxes_wrapper float_left">
 															<div class="x_car_offer_starts x_car_offer_starts_list_img float_left border-0">
