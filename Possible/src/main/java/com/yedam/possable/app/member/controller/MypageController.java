@@ -200,7 +200,7 @@ public class MypageController {
 
     	vo.setMemSeq(mvo.getSeq());
     	
-    	model.addAttribute("page", new PageVO(cri, total));
+    	model.addAttribute("pagination", new PageVO(cri, total));
     	model.addAttribute("historyList", rentHistory.MyPageRentHistoryList(cri, vo.getMemSeq()));
     	
 /*=======

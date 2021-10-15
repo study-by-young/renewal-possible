@@ -122,7 +122,7 @@
         </div>
     </c:forEach>
     <div>
-        <c:if test="${submitList.size() > 5}">
+        <c:if test="${historyList.size() > 5}">
         <jsp:include page="/pagination"/>
         </c:if>
     </div>

@@ -50,7 +50,8 @@
                                 <div class="col-md-12">
                                 	<div class="x_car_book_tabs_content_main_wrapper my-4">
 						            	<div class="row">  
-						            		<c:forEach var="est" items="${estList}" varStatus="status">
+						            	<jsp:include page="/premiumRent/submit?seq=${estimate.seq}&sPageNum=1"/>
+						            		<%-- <c:forEach var="est" items="${estList}" varStatus="status">
 						            		${est }
 						            			<div class="premium_rent_list_item col-12">
 						            				<div class="card">
@@ -82,118 +83,10 @@
 						            					</div>
 						            				</div>
 						            			</div>
-						            		</c:forEach>
+						            		</c:forEach> --%>
 						            	</div>             	
                                 	</div>
                                 </div>
-                                
-								<div class="col-md-12">
-									<div class="x_car_book_tabs_content_main_wrapper">
-										<div class="tab-content">
-											<div id="home" class="tab-pane fade active show">
-												<div class="row">
-													<div class="col-md-12">
-													<!-- 여기서부터 main-box-wrapper -->
-													${estList }
-														<c:forEach var="estimate" items="${estList}">
-														<div class="x_car_offer_main_boxes_wrapper float_left">
-															<div class="x_car_offer_starts x_car_offer_starts_list_img float_left border-0">
-																<div class="x_car_offer_img x_car_offer_img_list float_left">
-																	<img src="${pageContext.request.contextPath}/resources/images/cars/Genesis/genesis_g90.png" alt="img" class="img-fluid">
-																</div>
-																<div class="x_car_offer_price x_car_offer_price_list float_left">
-                                                        		</div>
-															</div>
-														<div class="x_car_offer_starts_list_img_cont border-left">
-															<div class="x_car_offer_heading x_car_offer_heading_list float_left" style="width: 70%;">
-																<h5 class="pt-3">${estimate.brand} ${estimate.model} </h5>
-																<p class="p6">대여/반납일</p>
-																<p><fmt:formatDate value="${estimate.startDate}" pattern="yyyy/MM/dd"/> ~ <fmt:formatDate value="${estimate.endDate}" pattern="yyyy/MM/dd" /> </p>
-																<hr class="my-2">
-																<p>신청일자 : <span class="h6"><fmt:formatDate value="${estimate.genDate}" pattern="yyyy/MM/dd"/></span></p>
-																<p><i class="fa fa-map-marker-alt"></i>수령장소: ${estimate.takePlaceBasic}
-																<p>수령장소 상세정보 : ${estimate.takePlaceDetail}
-																
-															</div>
-															<div class="x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left" style="width: 30%;">
-																<ul>
-																	<li style="width: 100%;">
-	                                                                    <a href="${pageContext.request.contextPath}/company/estimate/view?seq=${estimate.seq}">견적상세보기</a>
-	                                                                </li>
-																</ul>
-															</div>
-													
-															<!-- 옵션 / 업체를 선택하면 해당 업체가 보유하고 있는 옵션 표시 -->
-															<div class="x_car_offer_heading x_car_offer_heading_listing float_left">
-                                                            	<ul class="">
-                                                                	<li>
-                                                                    	<div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 차량 옵션</span>
-                                                                        	<ul class="list">
-	                                                                            <c:forEach var="opt" items="${estimate.options}">
-	                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${opt}</li>
-	                                                                            </c:forEach>
-                                                                        </ul>
-                                                                   	 	</div>
-                                                                	</li>
-                                                                	<li>
-                                                                   		<div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 여행 옵션</span>
-                                                                        	<ul class="list">
-	                                                                            <c:forEach var="itm" items="${estimate.items}">
-	                                                                                <li class="dpopy_li"><i class="fa fa-snowflake-o"></i> ${itm}</li>
-	                                                                            </c:forEach>
-                                                                        	</ul>
-                                                                    	</div>
-                                                                	</li>
-                                                            	</ul>
-                                                        	</div>
-                                                        	
-														</div>
-													<!-- 업체 정렬 -->
-													<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-														<div class="x_carbooking_right_section_wrapper float_left">
-															<div class="row">
-																<!-- 해당 차량 보유 업체 목록 -->
-																<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" style="padding-left: 25px; padding-right: 30px; margin-bottom: 20px; border-top: 1px solid gainsboro">
-																	<div class="x_carbook_right_tabs_box_wrapper float_left">
-																		 
-																		    <div class="col-2 x_car_offer_bottom_btn x_car_offer_bottom_btn_list float_left" style="width: 30%; padding-right: 15px">
-																				<ul>
-																					<li style="width: 100%; "><a href="#">견적제출하기</a>
-																					</li>
-																				</ul>
-																			</div>
-								
-																	</div>
-																</div>
-																<!-- End 해당 차량 보유 업체 목록 -->
-															</div>
-														</div>
-													</div>
-												</div>
-												</c:forEach>
-											</div>
-											 <!-- 페이징 -->
-											<!-- <div class="col-md-12">
-												<div class="pager_wrapper prs_blog_pagi_wrapper">
-													<ul class="pagination">
-														<li><a href="#"><i class="flaticon-left-arrow"></i></a>
-														</li>
-														<li class="btc_shop_pagi"><a href="#">01</a></li>
-														<li class="btc_shop_pagi"><a href="#">02</a></li>
-														<li class="btc_third_pegi btc_shop_pagi"><a href="#">03</a>
-														</li>
-														<li class="hidden-xs btc_shop_pagi"><a href="#">...</a>
-														</li>
-														<li><a href="#"><i class="flaticon-right-arrow"></i></a>
-														</li>
-													</ul>
-												</div>
-											</div>  --> 
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
                     </div>
                 </div>
             </div>
