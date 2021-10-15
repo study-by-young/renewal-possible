@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.car.domain.CarOptionVO;
 import com.yedam.possable.app.car.domain.CarVO;
+import com.yedam.possable.app.car.domain.InsuranceOptionVO;
 import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.company.domain.CompanyVO;
@@ -122,8 +125,23 @@ public class CompanyController {
     @GetMapping("/car")
     public String companyCarList(CompanyVO vo,Model model, @RequestParam Long cmpnSeq){
         vo.setSeq(cmpnSeq);
-
-       List<CarVO> carList = carService.getCompanyCarList(vo);
+       
+        List<Map<String, Object>> carList = new LinkedList<>();
+        List<CarVO> voList = carService.getCompanyCarList(vo);
+        
+        for(CarVO carVO : voList) {
+            Map<String, Object> voMap = new HashMap<>();
+            String status = codeService.getCodeByValue(carVO.getStatus()).getName();
+            String brand = codeService.getBrand(carVO.getBrand()).getName();
+            String model2 = codeService.getModel(carVO.getModel()).getName();
+  
+            voMap.put("carVO", carVO);
+            voMap.put("status", status);
+            voMap.put("brand", brand);
+            voMap.put("model", model2);
+            
+            carList.add(voMap);
+        }
        model.addAttribute("companyCarList", carList);
         return "company/carList";
     }
@@ -135,8 +153,22 @@ public class CompanyController {
         companyVO.setSeq(cmpn);
        vo.setSeq(seq);
        vo.setCompanyVO(companyVO);
-       model.addAttribute("car",carService.getCompanyCar(vo));
-       model.addAttribute("opt", carService.getCarOptions(vo));
+       
+       vo = carService.getCompanyCar(vo);
+       
+       String brand = codeService.getBrand(vo.getBrand()).getName();
+       String model2 = codeService.getModel(vo.getModel()).getName();
+       String segment = codeService.getCodeByValue(vo.getSegment()).getName();
+       String trim = codeService.getTrim(vo.getTrim()).getName();
+       String fuel = codeService.getCodeByValue(vo.getFuel()).getName();
+       
+       model.addAttribute("car", vo);
+       model.addAttribute("brand", brand);
+       model.addAttribute("model2", model2);
+       model.addAttribute("segment", segment);
+       model.addAttribute("trim", trim);
+       model.addAttribute("fuel", fuel);
+       model.addAttribute("carOpt", carService.getCarOptions(vo));
        return "company/carView"; // JSP에서 company 시퀀스 넘겨줘야함
     }
 
@@ -157,15 +189,13 @@ public class CompanyController {
 
     // 업체 렌트카 등록 처리
     @PostMapping("/car/register")
-    public String registerCar(CarVO vo, HttpServletRequest request, CarOptionVO optVO,  @RequestParam("options") List<CarOptionVO> list, RedirectAttributes rttr) throws IllegalStateException, IOException{
+    public String registerCar(CarVO vo, HttpServletRequest request, CarOptionVO optVO,  @RequestParam("options") String[] optionsArr, RedirectAttributes rttr) throws IllegalStateException, IOException{
 
-    	HttpSession session = request.getSession();
-    	String root_path = session.getServletContext().getRealPath("/");
-    	String attach_path = "resources/images";
-
-
-     	String fileName=null;
-     	MultipartFile uploadFile = vo.getUploadFile();
+       HttpSession session = request.getSession();
+        String root_path = session.getServletContext().getRealPath("/");
+        String attach_path = "resources/images";
+        String fileName=null;
+      MultipartFile uploadFile = vo.getUploadFile();
 
       if (!uploadFile.isEmpty()) {
          String originalFileName = uploadFile.getOriginalFilename();
@@ -182,14 +212,21 @@ public class CompanyController {
         vo.setModel(codeService.getModel(vo.getModel()).getName());
         vo.setTrim(codeService.getTrim(vo.getTrim()).getName());
         vo.setFuel(codeService.getCodeByValue(vo.getFuel()).getName());
-
         int result = carService.insertCompanyCar(vo);
         rttr.addFlashAttribute("result", result);
+        
+        int result2 = 0;
+        
+        for(String options : optionsArr) {
+        	 optVO.setCarSeq(vo.getSeq());
+        	 optVO.setOptCode(options);
+        	 System.out.println(optVO);
+        	 result2 = carService.insertCarOptions(optVO);
+        	}
+        
+        rttr.addFlashAttribute("result2", result2);
 
-        Long carSeq = vo.getSeq();
-        int result2 = carService.insertCarOptions(vo.getOptionList(), carSeq);
-        rttr.addFlashAttribute("result2", result2);	
-        return "redirect:/company/car";
+        return "redirect:/company/dashboard";
     }
 
     // 업체 렌트카 수정 폼
@@ -224,45 +261,25 @@ public class CompanyController {
     }
 */
 
+
     // 업체 렌트카 삭제 처리
     @ResponseBody
     @PostMapping("/car/delete")
-    public int deleteCar(CarVO vo, HttpSession session,
-                            @RequestParam(value = "chbox[]") List<String> chArr){
-
-    	int result = 0;
-        Long seq = 0L;
-
-        for (String i : chArr) {
-            seq = Long.parseLong(i);
-            vo.setSeq(seq);
-
-            carService.deleteCompanyCar(vo);
-        }
-        result = 1;
-
-        return result;
-    }
-
-
-/*
-    // 업체 렌트카 삭제 처리
-    @ResponseBody
-    @PostMapping("/car/delete")
-    public String deleteCar(CarVO vo, @RequestParam("seq") Long seq, @RequestParam("cmpnSeq") Long cmpnSeq, RedirectAttributes rttr){
+    public String deleteCar(CarVO vo, CarOptionVO optVO, InsuranceOptionVO insVO, @RequestParam Long seq, RedirectAttributes rttr){
     	
     	vo.setSeq(seq);
-    	vo.setCmpnSeq(cmpnSeq);
+    	optVO.setCarSeq(seq);
+    	insVO.setCarSeq(seq);
+    	carService.deleteOption(optVO);
+    	carService.deleteIns(insVO);
     	
     	int result = carService.deleteCompanyCar(vo);
 		if(result == 1) {
 			rttr.addFlashAttribute("result", "success");			
 		}
-		return "redirect:company/dashboard";
+		return "redirect:/company/dashboard";
     }  
-*/  
-    
-    
+
     // 견적 제출 리스트
     @GetMapping("/estSubmit")
     public String estSubmitList(CompEstiListJoinVO vo,

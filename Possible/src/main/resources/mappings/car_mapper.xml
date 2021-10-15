@@ -163,6 +163,7 @@
                upt_date
         FROM CAR
         WHERE CMPN_SEQ = #{seq}
+        ORDER BY SEQ DESC
     </select>
     <select id="getCompanyCar" resultType="CarVO">
         SELECT SEQ,
@@ -195,7 +196,16 @@
         DELETE
         FROM CAR
         WHERE SEQ = #{seq}
-          AND cmpn_seq = #{cmpnSeq}
+    </delete>
+    <delete id="deleteOption">
+    	DELETE
+    	FROM CAR_OPTION
+    	WHERE CAR_SEQ = #{carSeq}
+    </delete>
+    <delete id="deleteIns">
+    	DELETE
+    	FROM INSURANCE_OPTION
+    	WHERE CAR_SEQ = #{carSeq}
     </delete>
     <update id="updateCompanyCar">
         UPDATE car
@@ -325,7 +335,7 @@
 						#{door},
 						#{kmpl},
 						#{price},
-						'대기',
+						'CST01',
 						#{img1},
 						#{img2},
 						#{img3},
