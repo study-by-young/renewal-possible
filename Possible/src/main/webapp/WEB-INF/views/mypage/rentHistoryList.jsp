@@ -37,7 +37,6 @@
         margin-top: 30px;
         border-left : 0px solid #eeeeee;
     }
-
 </style>
 
 <!-- x blog main and sidebar Wrapper Start -->
@@ -47,9 +46,6 @@
             <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
                 <div class="x_blog_left_side_wrapper float_left">
                     <div class="row">
-                        
-                        
-                        
                         <div class="col-md-12">
                             <div class="lr_bc_first_box_main_wrapper">
 
@@ -68,6 +64,9 @@
 								
 								
 								 <div class="col-12">
+								  <div class="blog_single_comment_heading">
+                                        <h4>렌트내역</h4>
+                                    </div>
 									 <div class="x_car_book_tabs_content_main_wrapper my-4">
 									 	 <div class="row">
 									 	 	 <c:forEach var="getView" items="${getView}" varStatus="status">
@@ -82,44 +81,97 @@
                                                     		<div class="col-lg-9 border-left">
                                                     			<div class="card-body">
                                                     				 <div class="row">
-                                                    				 	 <div class="col-lg-9">
-                                                    				 	 	<div class="x_car_offer_heading x_car_offer_heading_list float_left">
-                                                                        		<h5 class="font-weight-bold">
-                                                                                ${car.brand } ${car.model }<br>
-                                                                       			</h5>
-                                                                    		</div>
+                                                    				 	 <div class="col-lg-6">
+                                                                       		<p class="text-grey-600">
+                                                                       			<i class="h3 icon-calendar pr-2 mb-0"> 대여/반납일</i>
+                                                                  			</p>
+                                                                       		<p class="font-weight-bold text-grey-600">
+                                                                              	<fmt:formatDate value="${getView.startDate}" pattern="yy년 MM월 dd일" /> ~ <fmt:formatDate value="${getView.endDate}" pattern="yy년 MM월 dd일" /><br>
+                                                                      		</p> 
                                                     				 	 </div>
                                                     				 	 <div class="col-lg-3">
-                                                    				 		<button type="button" class="btn btn-block btn-default" data-toggle="modal" data-target="#rentInfoDetail${status.index } ">상세보기</button>
-                                                                    		
-                                                                		</div>
+                                                    				 	 <c:if test="${getView.status eq '예약중' }">
+                                                    				 		<button class="refundBtn" id="refundBtn" type="button" value="${getView.merchantUid}">취소하기</button>
+                                                                		 </c:if>
+                                                                		 </div>
+                                                    				 	 <div class="col-lg-3">
+	                                                                		<c:if test="${getView.review eq '2' }">
+		                                                    					<button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
+		                                                            					style="background: #4f5dec; color: #ffffff;  ">
+		                                                        						후기수정
+		                                                    					</button>
+		                                                    			    </c:if>
+		                                                    
+		                                                    				<c:if test="${getView.review ne '2' }">
+		                                                    					<button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
+		                                                            					style="background: #4f5dec; color: #ffffff;"<c:if test="${getView.review eq '0' }"> disabled="disabled"</c:if>>
+		                                                        						후기작성
+		                                                    					</button>
+	                                                    					</c:if>
+                                                                		 </div>
+                                                                		
                                                                 		 <div class="col-12">
-                                                                    		<hr class="my-2">
-                                                                    		<p class="text-grey-600">
-                                                                        		<i class="h3 icon-calendar pr-2 mb-0"></i>
-                                                                        		<fmt:formatDate value="${getView.startDate}" pattern="yy년 MM월 dd일" /> ~ <fmt:formatDate value="${getView.endDate}" pattern="yy년 MM월 dd일" />
-                                                                   			</p>
-                                                                    		<%-- <p class="text-grey-600">
-                                                                        		<i class="h3 icon-location4 pr-2 mb-0"></i> ${estimate.takePlaceBasic} ${estimate.takePlaceDetail}
-                                                                    		</p> --%>
-                                                                		</div>
-                                                                		 <div class="col-12">
-                                                                		 	<div class="card border-primary-300 border-1">
+                                                                		 	<div class="card border-primary-300 border-1"  style="margin-bottom: 15px;">
                                                                 		 		<div class="card-body">
                                                                 		 			<div class="row align-items-center">
-                                                                		 				 <div class="col-4">
-                                                                                    		<i class="icon-checkmark4"></i> 차량
-                                                                               			 </div>
-                                                                               			  <div class="col-8">
+                                                                                		<div class="col-4">
+                                                                                    		<i class="h3 icon-location4 pr-2 mb-0"></i> 수령장소 :
+                                                                               			</div>
+                                                                               			 <div class="col-8" style="padding-left: 0px">
+                                                                                    		<span class="list-unstyled mb-0">  ${getView.takePlaceBasic} ${getView.takePlaceDetail}</span>
+                                                                                		</div>
+                                                                                		
+                                                                		 				<div class="col-4">
+                                                                                    		<i class="fa fa-car pr-2 mb-0"></i> 차량 :
+                                                                               			</div>
+                                                                               			<div class="col-8" style="padding-left: 0px">
                                                                                     		<span class="list-unstyled mb-0"> ${car.brand } ${car.model }</span>
                                                                                 		</div>
                                                                                 		
-                                                                                		 <div class="col-4">
-                                                                                    		<i class="icon-checkmark4"></i> 대여업체
-                                                                               			 </div>
-                                                                               			  <div class="col-8">
+                                                                                		<div class="col-4">
+                                                                                    		<i class="fa fa-building pr-2 mb-0" ></i> 대여업체:
+                                                                               			</div>
+                                                                               			 <div class="col-8" style="padding-left: 0px">
                                                                                     		<span class="list-unstyled mb-0"> ${company.name }</span>
                                                                                 		</div>
+                                                                                		<div class="col-4">
+                                                                                    		<i class="fa fa-phone pr-2 mb-0" ></i> 업체번호
+                                                                               			</div>
+                                                                               			 <div class="col-8" style="padding-left: 0px">
+                                                                                    		<span class="list-unstyled mb-0"> ${company.name }</span>
+                                                                                		</div>
+                                                                		 			</div>
+                                                                		 		</div>
+                                                                		 	</div>
+                                                                		 	<div class="card border-primary-300 border-1">
+                                                                		 		<div class="card-body">
+                                                                		 			<div class="row align-items-center">
+                                                                                		<div class="col-4">
+                                                                                    		<i class="h3 icon-location4 pr-2 mb-0"></i> 결제금액 
+                                                                               			</div>
+                                                                               			 <div class="col-8" style="padding-left: 0px">
+                                                                                    		<span class="list-unstyled mb-0"> ${getView.price }원</span>
+                                                                                		</div>
+                                                                                		
+                                                                		 				<div class="col-4">
+                                                                                    		<i class="fa fa-credit-card pr-2 mb-0"></i> 결제방법 
+                                                                               			</div>
+                                                                               			<div class="col-8" style="padding-left: 0px">
+                                                                                    		<span class="list-unstyled mb-0"> ${getView.payMethod }</span>
+                                                                                		</div>
+                                                                                		<div class="col-4">
+                                                                                    		<i class="icon-checkmark4 pr-2 mb-0" ></i> 예약상태
+                                                                               			</div>
+                                                                               			 <div class="col-8" style="padding-left: 0px">
+                                                                                    		<span class="list-unstyled mb-0"> ${getView.status }</span>
+                                                                                		</div>
+                                                                                		<div class="col-4">
+                                                                                    		<i class="icon-checkmark4 pr-2 mb-0" ></i> 예약번호
+                                                                               			</div>
+                                                                               			 <div class="col-8" style="padding-left: 0px">
+                                                                                    		<span class="list-unstyled mb-0"> ${getView.merchantUid }</span>
+                                                                                		</div>
+                                                                                		
                                                                 		 			</div>
                                                                 		 		</div>
                                                                 		 	</div>
@@ -134,88 +186,9 @@
 									 	 </div>
 									 </div>
 								 </div>
-								
-                                <!-- 렌트내역 -->
+                                <!-- 렌트내역상세 -->
                                 <div class="col-md-12">	
-                                    <div class="blog_single_comment_heading">
-                                        <h4>렌트내역</h4>
-                                    </div>
-                                    	<c:forEach var="getView" items="${getView}" varStatus="status" >
-                                    <div class="dash x_car_offer_main_boxes_wrapper float_left">
-                                        <div class="x_car_offer_starts x_car_offer_starts_list_img float_left border-1">
-                                            <img src="${pageContext.request.contextPath}/resources/images/cars/Hyundai/santafe.png" alt="img" class="img-fluid">
-                                        </div>
-                                        <div class="x_car_offer_starts_list_img_cont border-left">
-											${getView.merchantUid }
-			
-			
-		
-                                            <div class="row">
-                                                <div class="col-8 x_car_offer_heading_listing float_left">
-                                                    <label for="inputRentOrReturn"class="h5">대여/반납일</label>
-                                                    <p class="h6">
-                                                    	<fmt:formatDate value="${getView.startDate}" pattern="yyyy/MM/dd"/> ~ <fmt:formatDate value="${getView.endDate}" pattern="yyyy/MM/dd" /> 
-                                                    </p>
-                                                </div>
-                                                <div class="col-2 x_car_offer_heading_listing float_left">
-                                                	<button type="button" class="btn btn-sm" data-toggle="modal" data-target="#rentInfoDetail${status.index } ">상세보기</button>
-                                                </div>
-                                                <div class="col-2 x_car_offer_heading_listing float_left">
-
-													<!-- 후기작성 기능 구현중 -->
-                                                    <button type="button" class="btn btn-sm"
-                                                    		onclick="location.href='rent/view/writeReview?seq=${getView.seq}&carSeq=${getView.carSeq}&cmpnSeq=${getView.cmpnSeq}'"
-                                                            style="background: #4f5dec; color: #ffffff;">
-                                                        후기작성
-                                                    </button>
-
-                                                    <c:if test="${getView.status eq '예약중' }">
-                                                    	<button class="refundBtn" id="refundBtn" type="button" value="${getView.merchantUid}">취소하기</button>
-	                                                   	
-	                                                    <c:if test="${getView.review eq '2' }">
-	                                                    	<button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
-	                                                            style="background: #4f5dec; color: #ffffff;  ">
-	                                                        후기수정
-	                                                    </button>
-	                                                    </c:if>
-	                                                    
-	                                                    <c:if test="${getView.review ne '2' }">
-	                                                    <button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
-	                                                            style="background: #4f5dec; color: #ffffff;"<c:if test="${getView.review eq '0' }"> disabled="disabled"</c:if>>
-	                                                        후기작성
-	                                                    </button>
-	                                                    </c:if>
-                                                    </c:if>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12 x_car_offer_heading x_car_offer_heading_listing float_left">
-                                                    <ul class="">
-                                                        <li>차량</li>
-                                                        <li style="text-align: right;">${car.brand } ${car.model }</li>
-                                                        <li>대여업체</li>
-                                                        <li style="text-align: right;">${company.name }</li>
-                                                        <li>보험</li>
-                                                        <li style="text-align: right;">완전자차</li>
-                                                        <li>수령장소</li>
-                                                        <li style="text-align: right;">${getView.takePlaceBasic } ${getView.takePlaceDetail }</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12 x_car_offer_heading x_car_offer_heading_listing float_left">
-                                                    <ul class="">
-                                                        <li>결제금액</li>
-                                                        <li style="text-align: right;">${getView.price }원</li>
-                                                        <li>결제방법</li>
-                                                        <li style="text-align: right;">${getView.payMethod }</li>
-                                                        <li>결제번호</li>
-                                                        <li style="text-align: right;">${getView.merchantUid }</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   <%--  <c:forEach var="getView" items="${getView}" varStatus="status" >
                                     <div class="modal fade " id="rentInfoDetail${status.index }" tabindex="-1" role="dialog" aria-labelledby="rentInfoDetail" aria-hidden="true">
 								 	<div class="modal-dialog modal-lg" role="document">
 									   	<div class="modal-content">
@@ -249,12 +222,12 @@
 													</table>
 												</div>
 											</div>
-									     	<!-- 모달 BodyEnd -->
+									     	<!-- 모달 Body_End -->
 										  </div>
 										</div>
 									</div>
-								</div>
-                                	</c:forEach>
+								</div><!-- Modal END -->
+                                	</c:forEach> --%>
                                     <div class="pager_wrapper prs_blog_pagi_wrapper">
                                         <ul class="pagination">
                                             <li>
@@ -278,7 +251,6 @@
                     </div>
                 </div>
             </div>
-				
             <!-- 사이드바 -->
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                 <div class="x_blog_right_side_wrapper float_left">
@@ -301,10 +273,8 @@
                                                 <input type="hidden" name="${_csrf.parameterName }"
                                                        value="${_csrf.token }">
                                             </sec:authorize>
-
                                         </h3>
                                     </div>
-
                                 </div>
                                 <div class="jp_rightside_job_categories_content">
                                     <ul>
@@ -356,7 +326,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> <!-- side_bar -->
         </div>
     </div>
 </div>
@@ -365,10 +335,8 @@
 
 </c:forEach>
 <!-- x blog main and sidebar Wrapper End -->
-
-
 <script>
-<!-- forEach 돌리고 id로 불러오면 첫번째 버튼만 활성화 되기 때문에 class로 불러온다. -->
+//forEach 돌리고 id로 불러오면 첫번째 버튼만 활성화 되기 때문에 class로 불러온다.
 $('.refundBtn').on('click', function(e){
 	e.preventDefault();
 	if(confirm('예약을 취소하시겠습니까?')){
@@ -398,5 +366,5 @@ $('.refundBtn').on('click', function(e){
 		return false;
 	}
 });
-
+$
 </script>

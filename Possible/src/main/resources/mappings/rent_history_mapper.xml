@@ -66,11 +66,7 @@
 						TAKE_PLACE_BASIC,
 						MERCHANT_UID,
 						PAY_METHOD,
-						CMPN_SEQ,
-						<![CDATA[case When (SELECT count(*) FROM RENT_REVIEW where HISTORY_SEQ =RENT_HISTORY.seq) > 0 	THEN '2'
-						              When trunc(END_DATE) < trunc(sysdate) then '1' 
-						              else '0' end ]]>AS review 
-					
+						CMPN_SEQ
              FROM RENT_HISTORY
              WHERE CMPN_SEQ = #{cmpnSeq}
 	</select>
@@ -93,11 +89,7 @@
 						TAKE_PLACE_DETAIL,
 						TAKE_PLACE_BASIC,
 						MERCHANT_UID,
-						PAY_METHOD,
-						CMPN_SEQ,
-						<![CDATA[case When (SELECT count(*) FROM RENT_REVIEW where HISTORY_SEQ =RENT_HISTORY.seq) > 0 	THEN '2'
-						              When trunc(END_DATE) < trunc(sysdate) then '1' 
-						              else '0' end ]]>AS review 
+						PAY_METHOD
              FROM RENT_HISTORY
              WHERE SEQ = #{seq}
 	</select>
