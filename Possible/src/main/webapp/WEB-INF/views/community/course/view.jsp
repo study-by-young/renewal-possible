@@ -14,6 +14,11 @@
 .x_slider_checout_right li a {
 	float: right;
 }
+.btc_team_img_cont_wrapper h4 {
+    height: 50px;
+    overflow: hidden;
+    word-break: keep-all;
+}
 </style>
 
 <div class="x_inner_team_main_wrapper float_left padding_tb_100">
@@ -32,25 +37,25 @@
 						${board.title }
 					</h3>
 					<p>
-						<span id="coursePlace"></span>&nbsp;&nbsp; | &nbsp;&nbsp;코스 총 거리 :
-						<span id="courseKm"></span> km
+						<i class="fa fa-map" aria-hidden="true"></i> : <span id="coursePlace"></span>&nbsp;&nbsp; | &nbsp;&nbsp;코스 총 거리 :
+						<span id="courseKm"></span> km&nbsp;&nbsp; | &nbsp;&nbsp;<i class="fa fa-user" aria-hidden="true"></i> : ${board.people }
 					</p>
 				</div>
 				<div>
-					<span style="margin-right: 30px"> <c:if
+					<span style="margin-right: 30px;"> <c:if
 							test="${user eq null}">
 							<i id="heart" class="far fa-heart">&nbsp;</i>
 						</c:if> <c:if test="${checkLike eq 0}">
 							<i id="heart" class="far fa-heart">&nbsp;</i>
 						</c:if> <c:if test="${checkLike eq 1}">
-							<i id="heart" class="fa fa-heart-o">&nbsp;</i>
-						</c:if> <span id="likeCnt">${likes }</span>개
+							<i id="heart" class="fa fa-heart-o" style="color: red">&nbsp;</i>
+						</c:if> <span id="likeCnt">${likes }</span> LIKE
 					</span>
 					<!-- <span style="margin-right: 30px"><i class="fas fa-share-alt">&nbsp;10회</i></span> -->
-					<span style="float: right;"><i class="far fa-eye">&nbsp;${board.views }회</i></span>
+					<span style="float: right;"><i class="far fa-eye"></i>&nbsp;${board.views } VIEWS</span>
 				</div>
 				<hr>
-				<div>${board.content }</div>
+				<div style="margin-top: 50px; margin-bottom: 50px;">${board.content }</div>
 				<div id="takePlaceMap"
 					style="margin-top: 10px; margin-bottom: 10px; height: 400px;"></div>
 				<div
@@ -69,11 +74,16 @@
 										<div class="item">
 											<div class="btc_team_slider_cont_main_wrapper">
 												<div class="btc_team_img_wrapper">
-													<img src="${course.firstImage}" alt="team_img1">
+													<c:if test="${course.firstImage ne null}">
+														<img src="${course.firstImage}" alt="tourImg" style="height: 200px;">
+													</c:if>
+													<c:if test="${course.firstImage eq null}">
+														<img src="${pageContext.request.contextPath}/resources/images/no_image.jpg" alt="tourImg" style="height: 200px;">
+													</c:if>
 												</div>
 												<div class="btc_team_img_cont_wrapper">
 													<h4>
-														<a href="#">${course.title}</a>
+														<a>${course.title}</a>
 													</h4>
 													<p id="courseAddr">${course.addr1}</p>
 												</div>
@@ -109,7 +119,7 @@
 					<input type="hidden" id="seq" name="seq" value="${board.seq }">
 					<ul>
 						<c:if test="${id eq board.writer}">
-							<li><a href="javascript:delete();" onclick="return false;">삭제</a></li>
+							<li><a href="javascript:void(0);" onclick="boardDelete();">삭제</a></li>
 						</c:if>
 						<li><a href="../course">목록</a></li>
 					</ul>
@@ -121,12 +131,6 @@
 <input type="hidden" id="memSeq" value="${user }">
 
 <script>
-
-	function delete() {
-		if(confirm("정말 삭제하시겠습니까?")==true) {
-			frm.submit();
-		}
-	}
 
 	$(function() {
 		var container = $('#takePlaceMap')[0]; //지도를 담을 영역의 DOM 레퍼런스
@@ -156,8 +160,7 @@
 		}
 
 		// 이동할 위도 경도 위치를 생성합니다 
-		var midNo = Math.round(positions.length/2);
-		var moveLatLon = new kakao.maps.LatLng(positions[midNo].latlng.getLat(), positions[midNo].latlng.getLng());
+		var moveLatLon = new kakao.maps.LatLng(positions[0].latlng.getLat(), positions[0].latlng.getLng());
 
 		// 지도 중심을 부드럽게 이동시킵니다
 		// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
@@ -204,7 +207,7 @@
 						dataType : 'json',
 						contentType : 'application/json; charset=utf-8',
 						success : function(data) {
-							$("#heart").attr("class", "fa fa-heart-o");
+							$("#heart").attr("class", "fa fa-heart-o").css("color","red");
 							$("#likeCnt").text(Number($("#likeCnt").text())+data);
 							console.log(data);
 						}
@@ -220,7 +223,7 @@
 						dataType : 'json',
 						contentType : 'application/json; charset=utf-8',
 						success : function(data) {
-							$("#heart").attr("class", "far fa-heart");
+							$("#heart").attr("class", "far fa-heart").css("color","");
 							$("#likeCnt").text(Number($("#likeCnt").text())-data);
 							console.log(data);
 						}
@@ -236,25 +239,13 @@
 		});
 	});
 	
-	/* var seq = $("#boardSeq").val();
-	$(function() {
-		$(".delete").on("click", function() {
-			$.ajax({
-				type : 'POST',
-				url : 'view/delete',
-				data : JSON.stringify({
-					seq : seq,
-				}),
-				dataType : 'text',
-				contentType : 'application/json; charset=utf-8',
-				success : function(data) {
-					alert("삭제가 완료되었습니다.");
-					if (data == "success") {
-						location.href = "../course";
-					}
-				}
-			})
-		})
-	}); */
+	function boardDelete() {
+		if(confirm("정말 삭제하시겠습니까?")==true) {
+			frm.submit();
+			alert("삭제가 완료되었습니다.");
+		} else {
+			return;
+		}
+	}
 
 	</script>
