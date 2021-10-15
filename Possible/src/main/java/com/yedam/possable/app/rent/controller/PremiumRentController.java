@@ -127,7 +127,6 @@ public class PremiumRentController {
                                Authentication authentication,
                                RedirectAttributes attributes,
                                Model model,
-                               @RequestParam("sPageNum") int submitPage,
                                @ModelAttribute("cri") Criteria cri) {
 //        MemberVO user = memberService.getLoginMember(authentication);
 //        EstimateHistoryVO estimate = premiumRentService.getEstimate(seq);
@@ -144,8 +143,6 @@ public class PremiumRentController {
 //            }
 //        }
 
-        Criteria submitCri = new Criteria(submitPage,5);
-        model.addAttribute("submitList", premiumRentService.getEstSubmitListByEstiSeq(submitCri, seq));
         model.addAttribute("estimate", premiumRentService.getEstimate(seq));
 
         return "rent/prm/estimateView";
@@ -226,9 +223,25 @@ public class PremiumRentController {
     // 견적 요청 수정 제출
     @PostMapping("estimate/view/update")
     public String estimateUpdate(EstimateHistoryVO vo,
+                                 Authentication authentication,
+                                 HttpServletRequest request,
                                  @RequestParam("options") String[] optionsArr,
                                  @RequestParam("items") String[] itemsArr,
                                  RedirectAttributes attributes) {
+        if(authentication == null) {
+            attributes.addFlashAttribute("alertMsg", "잘못된 접근입니다.");
+            return "redirect:" + request.getHeader("REFERER");
+        }
+
+        MemberVO loginMember = memberService.getLoginMember(authentication);
+
+        if(!vo.getMemberVO().getId().equals(loginMember.getId())){
+            if (!loginMember.getAuthor().equals("ROLE_ADMIN")) {
+                attributes.addFlashAttribute("alertMsg", "작성자만 수정 가능합니다.");
+                return "redirect:" + request.getHeader("REFERER");
+            }
+        }
+
         // 옵션 배열 -> 스트링
         vo.setOptions(Arrays.toString(optionsArr));
         vo.setItems(Arrays.toString(itemsArr));
@@ -243,6 +256,7 @@ public class PremiumRentController {
         }
         attributes.addFlashAttribute("resultMsg", resultMsg);
         attributes.addAttribute("seq", vo.getSeq());
+        attributes.addAttribute("sPageNum", 1);
 
         return "redirect:/premiumRent/estimate/view";
     }
@@ -251,38 +265,18 @@ public class PremiumRentController {
     @GetMapping("/submit")
     public String submitList(Model model,
                              @RequestParam Long seq,
-                             HttpServletRequest request,
-                             Principal principal) {
-        EstimateHistoryVO estimate = premiumRentService.getEstimate(seq);
-//        if(principal == null){
-//            return "redirect:" + request.getHeader("REFERER");
-//        }
-//        MemberVO memberVO = ((MemberVO) principal);
-//        CompanyVO companyVO = companyService.getCompanyByMemSeq(memberVO);      // pricipal에서 업체 시퀀스 조회
-//        List<CarVO> carList = carService.getCompanyCarList(companyVO);          // 업체시퀀스로 카 리스트 조회
-//        List<String> companyItems = companyService.getCompanyItems(companyVO);  // 업체시퀀스로 업체아이템 조회
+                             @RequestParam("sPageNum") int submitPageNum,
+                             @ModelAttribute("cri") Criteria cri) {
+        int submitCount = premiumRentService.getEstSubmitCount(seq);
+        cri.setAmount(5);
+        cri.setPageNum(submitPageNum);
+        List<EstiSubmitHistoryVO> submitList = premiumRentService.getEstSubmitListByEstiSeq(cri, seq);
+        log.info(submitList.toString());
+        log.info(cri.toString());
+        model.addAttribute("submitList",submitList);
+        model.addAttribute("pagination", new PageVO(cri,submitCount));
 
-        MemberVO memberVO = new MemberVO();
-        memberVO.setSeq(22L);
-        CompanyVO companyVO = companyService.getCompanyByMemSeq(memberVO);      // pricipal에서 업체 시퀀스 조회
-        List<CarVO> carList = carService.getCompanyCarList(companyVO);          // 업체시퀀스로 카 리스트 조회
-        List<String> companyItems = companyService.getCompanyItems(companyVO);  // 업체시퀀스로 업체아이템 조회
-        String carOptionCode = codeService.getMasterCodeByName("차량 옵션").getCode();
-        List<CodeSubVO> carOptions = codeService.getCodesByParentCode(carOptionCode);
-
-        model.addAttribute("companyVO", companyVO);
-        model.addAttribute("carList", carList);
-        model.addAttribute("companyItems", companyItems);
-        model.addAttribute("estimate", estimate);
-        model.addAttribute("carOptions", carOptions);
         return "rent/prm/submitList";
-    }
-
-    // 견적 제출 상세
-    @PostMapping("submit/view")
-    public String submitView(RedirectAttributes attributes,
-                             EstiSubmitHistoryVO vo) {
-        return "/rent/prm/submitView";
     }
 
     // 견적 제출 수정
@@ -319,7 +313,7 @@ public class PremiumRentController {
             return "rent/prm/submitRegForm";
         }
         CompanyVO companyVO = companyService.getCompanyByMemSeq(loginUser);
-        model.addAttribute("carList", carService.getCompanyCarList_map(companyVO));
+        model.addAttribute("carList", carService.getCompanyCarList(companyVO));
 
         String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
         String itemOptCode = codeService.getMasterCodeByName("여행용품 옵션").getCode();

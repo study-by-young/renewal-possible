@@ -25,32 +25,62 @@
         <result property="img3" column="img3" />
         <result property="genDate" column="gen_date" />
         <result property="uptDate" column="upt_date" />
-        <result property="brandName" column="brand_name"/>
-        <result property="segmentName" column="segment_name"/>
-        <result property="colorName" column="color_name"/>
-        <result property="fuelName" column="fuel_name"/>
-        <result property="missionName" column="mission_name"/>
-        <result property="statusName" column="status_name"/>
+        <association property="brandCodeVO"
+                     column="brand"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getBrand"
+                     javaType="BrandCodeVO"/>
         <association property="modelCodeVO"
-                     columnPrefix="model_"
-                     resultMap="com.yedam.possable.app.common.code.mapper.CodeMapper.model"
+                     column="model"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getModel"
                      javaType="ModelCodeVO"/>
         <association property="trimCodeVO"
-                     columnPrefix="trim_"
-                     resultMap="com.yedam.possable.app.common.code.mapper.CodeMapper.trim"
+                     column="trim"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getTrim"
                      javaType="TrimCodeVO"/>
+        <association property="segmentCodeVO"
+                     column="segment"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        <association property="missionCodeVO"
+                     column="mission"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        <association property="colorCodeVO"
+                     column="color"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        <association property="fuelCodeVO"
+                     column="fuel"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        <association property="statusCodeVO"
+                     column="status"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
         <association property="companyVO"
-                     columnPrefix="cmpn_"
-                     resultMap="com.yedam.possable.app.company.mapper.CompanyMapper.company"
+                     column="cmpn_seq"
+                     select="com.yedam.possable.app.company.mapper.CompanyMapper.companyOneSelect"
                      javaType="CompanyVO"/>
         <collection property="optionList"
+                    column="seq"
                     resultMap="carOption"
-                    columnPrefix="co_"
                     ofType="CarOptionVO"/>
         <collection property="insuranceList"
+                    column="seq"
                     resultMap="insuranceOption"
-                    columnPrefix="io_"
                     ofType="InsuranceOptionVO"/>
+    </resultMap>
+
+    <resultMap id="carOption" type="CarOptionVO">
+        <id property="optCode" column="opt_code"/>
+        <result property="optName" column="opt_name"/>
+        <result property="carSeq" column="car_seq"/>
+    </resultMap>
+    <resultMap id="insuranceOption" type="InsuranceOptionVO">
+        <id property="optCode" column="opt_code"/>
+        <result property="optName" column="opt_name"/>
+        <result property="price" column="price"/>
+        <result property="carSeq" column="car_seq"/>
     </resultMap>
 
 	<!-- 검색 기능 -->
@@ -71,121 +101,41 @@
     	</trim>
 	</sql>
 
-    <resultMap id="carOption" type="CarOptionVO">
-        <id property="optCode" column="opt_code"/>
-        <result property="carSeq" column="car_seq"/>
-    </resultMap>
-    <resultMap id="insuranceOption" type="InsuranceOptionVO">
-        <id property="optCode" column="opt_code"/>
-        <result property="carSeq" column="car_seq"/>
-        <result property="price" column="price"/>
-    </resultMap>
-
-    <select id="getCarList" resultType="CarVO">
-        SELECT seq,
-               cmpn_seq,
-               car_num,
-               brand,
-               model,
-               segment,
-               trim,
-               color,
-               year,
-               fuel,
-               passenger,
-               mission,
-               trunk,
-               door,
-               kmpl,
-               price,
-               img1,
-               img2,
-               img3,
-               upt_date
+    <select id="getCarList" resultMap="car">
+        SELECT
+            *
         FROM car
     </select>
-    <select id="getCar" resultType="CarVO">
-        SELECT seq,
-               cmpn_seq,
-               car_num,
-               brand,
-               model,
-               segment,
-               trim,
-               color,
-               year,
-               fuel,
-               passenger,
-               mission,
-               trunk,
-               door,
-               kmpl,
-               price,
-               img1,
-               img2,
-               img3,
-               upt_date
+    <select id="getCar" resultMap="car">
+        SELECT
+            *
         FROM car
         WHERE seq = #{seq}
     </select>
-    <select id="getCarOptions" resultType="CarOptionVO">
-        SELECT opt_code
-        FROM car_option
+    <select id="getCarOptions" resultMap="carOption">
+        SELECT CO.opt_code,
+               CS.name AS opt_name
+        FROM car_option CO
+            INNER JOIN code_sub CS ON CS.code = CO.opt_code
         WHERE car_seq = #{seq}
     </select>
-    <select id="getCarInsurance" resultType="InsuranceOptionVO">
-        SELECT opt_code,
-               price
-        FROM insurance_option
+    <select id="getCarInsurance" resultMap="insuranceOption">
+        SELECT IO.opt_code,
+               IO.price,
+                CS.name AS opt_name
+        FROM insurance_option IO
+            INNER JOIN code_sub CS ON CS.code = IO.opt_code
         WHERE car_seq = #{seq}
     </select>
-    <select id="getCompanyCarList" resultType="CarVO">
-        SELECT seq,
-               cmpn_seq,
-               car_num,
-               brand,
-               model,
-               segment,
-               trim,
-               color,
-               year,
-               fuel,
-               passenger,
-               mission,
-               trunk,
-               door,
-               kmpl,
-               status,
-               price,
-               img1,
-               img2,
-               img3,
-               upt_date
+    <select id="getCompanyCarList" resultMap="car">
+        SELECT
+            *
         FROM CAR
         WHERE CMPN_SEQ = #{seq}
     </select>
-    <select id="getCompanyCar" resultType="CarVO">
-        SELECT SEQ,
-               BRAND,
-               MODEL,
-               SEGMENT,
-               TRIM,
-               COLOR,
-               YEAR,
-               FUEL,
-               PASSENGER,
-               MISSION,
-               TRUNK,
-               DOOR,
-               KMPL,
-               PRICE,
-               STATUS,
-               IMG1,
-               IMG2,
-               IMG3,
-               GEN_DATE,
-               UPT_DATE,
-               CAR_NUM
+    <select id="getCompanyCar" resultMap="car">
+        SELECT
+            *
         FROM CAR
         WHERE SEQ = #{seq}
         AND cmpn_seq = #{companyVO.seq}
@@ -195,7 +145,6 @@
         DELETE
         FROM CAR
         WHERE SEQ = #{seq}
-          AND cmpn_seq = #{cmpnSeq}
     </delete>
     <update id="updateCompanyCar">
         UPDATE car
@@ -241,8 +190,8 @@
             </if>
             upt_date = SYSDATE
         </set>
-        WHERE seq = #{car.seq}
-        AND cmpn_seq = #{cmpn.seq}
+        WHERE seq = #{seq}
+        AND cmpn_seq = #{companyVO.seq}
         AND status NOT IN('CST02, CST03')
     </update>
 
@@ -251,7 +200,6 @@
         SET status = #{status},
             upt_date = SYSDATE
         WHERE seq = #{seq}
-          AND cmpn_seq = #{cmpnSeq}
     </update>
 
     <!-- 차량 model 중복제거 리스트 조회 -->
@@ -352,7 +300,7 @@
 				SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.*
 				FROM CAR)
 		<where>
-			<include refid="criteria"></include>
+			<include refid="criteria" />
 		</where>
 	</select>
 
@@ -419,122 +367,5 @@
         LEFT OUTER JOIN insurance_option IO ON C.seq = IO.car_seq
         )
         WHERE RN > (#{pageNum} - 1) * #{amount}
-    </select>
-
-    <select id="getCar_map" resultMap="car">
-        SELECT
-        C.seq,
-        C.car_num,
-        C.brand,
-        C.segment,
-        C.model,
-        C.trim,
-        C.color,
-        C.year,
-        C.fuel,
-        C.passenger,
-        C.mission,
-        C.trunk,
-        C.door,
-        C.kmpl,
-        C.price,
-        C.status,
-        C.img1,
-        C.img2,
-        C.img3,
-        C.gen_date,
-        C.upt_date,
-        BRAND.name AS brand_name,
-        SEGMENT.name AS segment_name,
-        COLOR.name AS color_name,
-        FUEL.name AS fuel_name,
-        MISSON.name AS mission_name,
-        STATUS.name AS status_name,
-        MC.name     AS model_name,
-        MC.img      AS model_img,
-        TC.name     AS trim_name,
-        CM.name     AS cmpn_name,
-        CM.postal   AS cmpn_postal,
-        CM.addr1    AS cmpn_addr1,
-        CM.addr2    AS cmpn_addr2,
-        CM.tel      AS cmpn_tel,
-        CO.opt_code AS co_opt_code,
-        IO.opt_code AS io_opt_code,
-        IO.price    AS io_price
-        FROM ( SELECT
-        *
-        FROM car
-        WHERE seq = #{seq}
-        ) C
-        LEFT OUTER JOIN code_sub SEGMENT ON C.segment = SEGMENT.code
-        LEFT OUTER JOIN code_sub COLOR ON C.color = COLOR.code
-        LEFT OUTER JOIN code_sub FUEL ON C.fuel = FUEL.code
-        LEFT OUTER JOIN code_sub MISSON ON C.mission = MISSON.code
-        LEFT OUTER JOIN code_sub STATUS ON C.status = STATUS.code
-        LEFT OUTER JOIN brand_code BRAND ON C.brand = BRAND.code
-        LEFT OUTER JOIN model_code MC ON C.model = MC.code
-        LEFT OUTER JOIN trim_code TC ON C.trim = TC.code
-        LEFT OUTER JOIN company CM ON C.cmpn_seq = CM.seq
-        LEFT OUTER JOIN car_option CO ON C.seq = CO.car_seq
-        LEFT OUTER JOIN insurance_option IO ON C.seq = IO.car_seq
-    </select>
-
-    <select id="getCompanyCarList_map" resultMap="car">
-        SELECT
-        C.seq,
-        C.car_num,
-        C.brand,
-        C.segment,
-        C.model,
-        C.trim,
-        C.color,
-        C.year,
-        C.fuel,
-        C.passenger,
-        C.mission,
-        C.trunk,
-        C.door,
-        C.kmpl,
-        C.price,
-        C.status,
-        C.img1,
-        C.img2,
-        C.img3,
-        C.gen_date,
-        C.upt_date,
-        BRAND.name AS brand_name,
-        SEGMENT.name AS segment_name,
-        COLOR.name AS color_name,
-        FUEL.name AS fuel_name,
-        MISSON.name AS mission_name,
-        STATUS.name AS status_name,
-        MC.name     AS model_name,
-        MC.img      AS model_img,
-        TC.name     AS trim_name,
-        CM.name     AS cmpn_name,
-        CM.postal   AS cmpn_postal,
-        CM.addr1    AS cmpn_addr1,
-        CM.addr2    AS cmpn_addr2,
-        CM.tel      AS cmpn_tel,
-        CO.opt_code AS co_opt_code,
-        IO.opt_code AS io_opt_code,
-        IO.price    AS io_price
-        FROM ( SELECT
-        /*+ INDEX_DESC(CAR IDX_CAR) */
-        *
-        FROM car
-        WHERE cmpn_seq = #{seq}
-        ) C
-        LEFT OUTER JOIN code_sub SEGMENT ON C.segment = SEGMENT.code
-        LEFT OUTER JOIN code_sub COLOR ON C.color = COLOR.code
-        LEFT OUTER JOIN code_sub FUEL ON C.fuel = FUEL.code
-        LEFT OUTER JOIN code_sub MISSON ON C.mission = MISSON.code
-        LEFT OUTER JOIN code_sub STATUS ON C.status = STATUS.code
-        LEFT OUTER JOIN brand_code BRAND ON C.brand = BRAND.code
-        LEFT OUTER JOIN model_code MC ON C.model = MC.code
-        LEFT OUTER JOIN trim_code TC ON C.trim = TC.code
-        LEFT OUTER JOIN company CM ON C.cmpn_seq = CM.seq
-        LEFT OUTER JOIN car_option CO ON C.seq = CO.car_seq
-        LEFT OUTER JOIN insurance_option IO ON C.seq = IO.car_seq
     </select>
 </mapper>

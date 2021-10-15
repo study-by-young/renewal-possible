@@ -45,7 +45,7 @@ public interface PremiumRentService{
     public int deleteEstSubmit(Long seq);
 
     // 견적서  총 갯수 조회
-    public int getEstSubmitCount();
+    public int getEstSubmitCount(Long seq);
 
     // 회원 마이페이지 견적서 리스트
     public List<EstimateHistoryVO> getEstimateListByMemSeq(@Param("cri") Criteria cri, @Param("seq") Long seq);

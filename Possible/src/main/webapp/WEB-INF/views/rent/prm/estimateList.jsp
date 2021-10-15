@@ -72,7 +72,7 @@
                                                                 </div>
                                                                 <div class="col-lg-3">
                                                                     <a class="btn btn-block btn-primary"
-                                                                       href="estimate/view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}&sPageNum=1">
+                                                                       href="estimate/view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">
                                                                         상세보기
                                                                     </a>
                                                                 </div>
@@ -129,9 +129,7 @@
                                             </div>
                                         </div>
                                     </c:forEach>
-
                                     <jsp:include page="/pagination" />
-
                                 </div>
                             </div>
                         </div>

@@ -104,8 +104,8 @@ public class PremiumRentServiceImpl implements PremiumRentService{
     }
 
     @Override
-    public int getEstSubmitCount() {
-        return premiumRentMapper.getEstSubmitCount();
+    public int getEstSubmitCount(Long seq) {
+        return premiumRentMapper.getEstSubmitCount(seq);
     }
 
     private String[] strToArr(String str) {

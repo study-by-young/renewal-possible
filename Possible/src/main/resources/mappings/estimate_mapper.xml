@@ -169,7 +169,8 @@
     </delete>
 
     <select id="getEstimateCount" resultType="int">
-        SELECT COUNT(*)
+        SELECT
+            COUNT(*)
         FROM estimate_history
     </select>
 
@@ -324,14 +325,18 @@
     </delete>
 
     <select id="getEstSubmitCount" resultType="int">
+        SELECT
+                COUNT(*)
+        FROM esti_submit_history
+        WHERE esti_seq = #{seq}
     </select>
 
 	<update id="CompEstimateUpdate" >
-		UPDATE ESTI_SUBMIT_HISTORY 
+		UPDATE ESTI_SUBMIT_HISTORY
 		SET ITEMS = #{items}
 		WHERE SEQ = #{seq}
     </update>
-   	
+
     <resultMap type="CompEstiListJoinVO" id="CompEstiListJoin">
     	<id property="seq" column="seq"/>
     	<result property="items" column="items"/>
