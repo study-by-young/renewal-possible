@@ -43,6 +43,7 @@ public class AdminController {
     NoticeService noticeService;
     @Autowired
 	QnaService qnaService;
+
 	
 
     @GetMapping("/dashboard")

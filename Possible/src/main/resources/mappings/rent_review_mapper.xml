@@ -121,4 +121,11 @@
 		WHERE SEQ = #{seq}
 	</delete>
 
+	<!-- 업체관리자 리뷰조회 -->
+	<select id="getCompanyReivewList" resultType="RentReviewVO">
+		select r.seq, r.title, r.content, r.score, r.cmpn_seq, r.mem_seq, m.name
+		from rent_review r  inner join member m 
+		on r.mem_seq = m.seq 
+		where r.cmpn_seq = #{cmpnSeq}
+	</select>
 </mapper>

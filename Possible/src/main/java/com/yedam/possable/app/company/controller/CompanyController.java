@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -20,11 +21,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.yedam.possable.app.car.domain.CarOptionVO;
 import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.domain.InsuranceOptionVO;
@@ -36,8 +39,10 @@ import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
 import com.yedam.possable.app.rent.domain.CompEstiListJoinVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
+import com.yedam.possable.app.rent.domain.RentReviewVO;
 import com.yedam.possable.app.rent.service.PremiumRentService;
 import com.yedam.possable.app.rent.service.RentHistoryService;
+import com.yedam.possable.app.rent.service.RentReviewService;
 
 import lombok.extern.java.Log;
 
@@ -57,12 +62,14 @@ public class CompanyController {
     CodeService codeService;
     @Autowired
     PremiumRentService premiumRentService;
+    @Autowired
+    RentReviewService rentReviewService;
 
     //업체 대시보드
     @GetMapping("/dashboard")
     public String dashboard(HttpServletRequest request,
                             RedirectAttributes attributes,
-                            Authentication authentication) {
+                            Authentication authentication, Model model) {
         MemberVO loginUser = memberService.getLoginMember(authentication);
         CompanyVO companyVO = companyService.getCompanyByMemSeq(loginUser);
         if (companyVO == null) {
@@ -72,13 +79,25 @@ public class CompanyController {
 
         HttpSession session = request.getSession();
         session.setAttribute("cmpnSeq", companyVO.getSeq());
+        System.out.println(companyVO.getSeq());
 
+        model.addAttribute("salesList", rentHistoryService.getCompanySales(companyVO.getSeq()));
+        model.addAttribute("todayList",rentHistoryService.getCompanytodayCar(companyVO.getSeq()));
+        model.addAttribute("reviewList",rentReviewService.getCompanyReivewList(companyVO.getSeq()));
         return "company/dashboard";
     }
+    
+    @ResponseBody
+    @GetMapping("salesList")
+    public  String salesList(Locale locale, Model model,  CompanyVO vo) {
+		Gson gson = new Gson();
+		List<RentHistoryVO> list = rentHistoryService.getCompanySales(vo.getSeq());
+		return gson.toJson(list);
+	}
 
     //업체 정보 수정 페이지
     @GetMapping("/editInfo")
-    public String editCompanyInfoForm(CompanyVO vo, Model model, @RequestParam Long cmpnSeq) {
+    public String editCompanyInfoForm(CompanyVO vo, Model model, @RequestParam("cmpnSeq") Long cmpnSeq) {
 
         vo.setSeq(cmpnSeq);
         model.addAttribute("company", companyService.companyOneSelect(vo));
@@ -235,17 +254,17 @@ public class CompanyController {
         return "company/carRegForm";
     }
 
-    // 업체 렌트카 수정 처리
-    @PostMapping("/car/update")
-    public String updateCar(){
-        return "";
-    }
+//    // 업체 렌트카 수정 처리
+//    @PostMapping("/car/update")
+//    public String updateCar(){
+//        return "";
+//    }
     
     
     
     // 수정, 삭제처리 어떤 게 사용하는 건지 모르겠어서 일단 하나는 주석처리해두었습니다.
     
-/*
+
     // 업체 렌트카 수정 처리
     @PostMapping("/car/update")
     public String updateCar(CarVO vo, CompanyVO comVO, Model model, RedirectAttributes attributes, @RequestParam Long cmpnSeq){
@@ -259,7 +278,7 @@ public class CompanyController {
 
     return "redirect:/";
     }
-*/
+
 
 
     // 업체 렌트카 삭제 처리
@@ -365,15 +384,4 @@ public class CompanyController {
 
     // -----------------------------------------------------------------------------
 
-
-
-    //차트 테스트
-    @GetMapping("/incomeTest")
-    public String incomeTest(Model model) {
-
-        HashMap<String, Object> map = companyService.companyIncome();
-        System.out.println(map);
-
-        return "company/incomeTest";
-    }
 }
