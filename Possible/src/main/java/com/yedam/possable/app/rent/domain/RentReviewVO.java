@@ -18,11 +18,11 @@ public class RentReviewVO {
     private CourseBoardVO courseBoardVO;
     private CompanyVO companyVO;
     private Long cnt; // 일반렌트 차량 목록 조회 시 리뷰 개수 출력에 이용
-   
+
     private String name;
-    
-    //private Long historySeq;
-    //private Long memSeq;
-    //private Long courseSeq;
+
+    private Long historySeq;
+    private Long memSeq;
+    private Long courseSeq;
     private Long cmpnSeq;
 }

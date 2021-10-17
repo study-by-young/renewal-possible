@@ -13,7 +13,9 @@ public interface CourseBoardService {
 	public List<CourseBoardVO> getList(Criteria cri);
 
 	public CourseBoardVO read(CourseBoardVO vo);
-
+	
+	public List<CourseBoardVO> getWriter(String writer);
+	
 	public int insert(CourseBoardVO vo);
 
 	public int update(CourseBoardVO vo);

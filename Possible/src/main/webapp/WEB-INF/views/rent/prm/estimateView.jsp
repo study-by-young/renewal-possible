@@ -9,9 +9,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<c:set var="est" value="${estimate.get('estimate')}" />
-<c:set var="options" value="${estimate.get('options')}" />
-<c:set var="items" value="${estimate.get('items')}" />
 <div class="btc_tittle_main_wrapper">
     <div class="mb-3">
         <div class="page-header page-header-dark bg-primary-600">
@@ -33,14 +30,15 @@
         <div class="card">
             <div class="card-img">
                 <div class="text-center mt-3">
-                    <img src="${pageContext.request.contextPath}${est.modelCodeVO.img}" alt="fresh_food_img">
+                    <img src="${pageContext.request.contextPath}${estimate.modelCodeVO.img}" alt="fresh_food_img">
                 </div>
             </div>
+            ${estimate.seq }
             <div class="card-header border-bottom">
                 <div class="x_slider_form_input_wrapper float_left">
                     <h2 class="text-center font-weight-bold">
-                        ${est.brandName} ${est.modelCodeVO.name}
-                        <p class="small text-muted">${est.trimCodeVO.name}</p>
+                        ${estimate.brandCodeVO.name} ${estimate.modelCodeVO.name}
+                        <p class="small text-muted">${estimate.trimCodeVO.name}</p>
                     </h2>
                 </div>
             </div>
@@ -54,7 +52,7 @@
                                         <label class="h5 font-weight-bold">대여 날짜</label>
                                         <div class="form-control w-75 mx-auto bg-primary text-white h-auto rounded-pill">
                                             <span class="h6">
-                                                <fmt:formatDate value="${est.startDate}" pattern="yy/MM/dd (EE)"/>
+                                                <fmt:formatDate value="${estimate.startDate}" pattern="yy/MM/dd (EE)"/>
                                             </span>
                                         </div>
                                     </div>
@@ -69,7 +67,7 @@
                                         <label class="h5 font-weight-bold">반납 날짜</label>
                                         <div class="form-control w-75 mx-auto bg-primary text-white h-auto rounded-pill">
                                             <span class="h6">
-                                                <fmt:formatDate value="${est.endDate}" pattern="yy/MM/dd (EE)"/>
+                                                <fmt:formatDate value="${estimate.endDate}" pattern="yy/MM/dd (EE)"/>
                                             </span>
                                         </div>
                                     </div>
@@ -81,7 +79,7 @@
                                     </div>
                                     <div id="takePlaceMap" class="mb-3" style="height:300px;"></div>
                                     <h6>주소</h6>
-                                    <p class="h-auto">${est.takePlaceCode} ${est.takePlaceBasic} ${est.takePlaceDetail}</p>
+                                    <p class="h-auto">${estimate.takePlaceCode} ${estimate.takePlaceBasic} ${estimate.takePlaceDetail}</p>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="h5 font-weight-bold"><i class="icon-checkmark4"></i> 차량 옵션</label>
@@ -90,7 +88,7 @@
                                             <div class="row align-items-center">
                                                 <div class="col-12">
                                                     <ul class="list-unstyled mb-0">
-                                                        <c:forEach var="opt" items="${options}">
+                                                        <c:forEach var="opt" items="${estimate.optionList}">
                                                             <li class="d-inline-block pr-3 mb-1">
                                                                 <i class="icon-checkbox-checked2 text-primary"></i> ${opt}
                                                             </li>
@@ -107,7 +105,7 @@
                                             <div class="row align-items-center">
                                                 <div class="col-12">
                                                     <ul class="list-unstyled mb-0">
-                                                        <c:forEach var="item" items="${items}">
+                                                        <c:forEach var="item" items="${estimate.itemList}">
                                                             <li class="d-inline-block pr-3 mb-1">
                                                                 <i class="icon-checkbox-checked2 text-primary"></i> ${item}
                                                             </li>
@@ -121,7 +119,7 @@
                                     <label class="h5 font-weight-bold"><i class="icon-checkmark4"></i> 참고 사항</label>
                                     <div class="card border-primary-300 border-1 shadow-0">
                                         <div class="card-body">
-                                            <p>${est.memo}</p>
+                                            <p>${estimate.memo}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -132,164 +130,27 @@
             </div>
             <div class="card-footer">
                 <div class="text-center">
-                    <a href="${pageContext.request.contextPath}/premiumRent/submit/register?seq=${est.seq}" class="btn btn-primary btn-lg w-25">
-                        <h5 class="mb-0">견적 작성</h5>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/premiumRent/estimate/view/update?seq=${est.seq}" class="btn btn-primary btn-lg w-25">
-                        <h5 class="mb-0">수정하기</h5>
-                    </a>
-                    <button onclick = "confirmDelete()" class="btn btn-outline-danger btn-lg w-25">
-                        <span class="h5 mb-0">삭제하기</span>
-                    </button>
-<%--                    <sec:authorize access="hasAnyRole('COMPANY','ADMIN')">--%>
-<%--                        <a href="${pageContext.request.contextPath}/premiumRent/submit/register?seq=${est.seq}" class="btn btn-primary btn-lg w-25">--%>
-<%--                            <h5 class="mb-0">견적 작성</h5>--%>
-<%--                        </a>--%>
-<%--                    </sec:authorize>--%>
-<%--                    <sec:authentication property="principal.seq" var="loginUserSeq" />--%>
-<%--                    <sec:authorize access="hasRole('USER')">--%>
+                    <sec:authorize access="hasAnyRole('COMPANY','ADMIN')">
+                        <a href="${pageContext.request.contextPath}/premiumRent/submit/register?seq=${estimate.seq}" class="btn btn-primary btn-lg w-25">
+                            <h5 class="mb-0">견적 작성</h5>
+                        </a>
+                    </sec:authorize>
+                    <sec:authentication property="principal.seq" var="loginUserSeq" />
+                    <sec:authorize access="hasRole('USER')">
 
-<%--                        <c:if test="${est.memSeq == loginUserSeq}">--%>
-<%--                            <a href="${pageContext.request.contextPath}/premiumRent/estimate/view/update?seq=${est.seq}" class="btn btn-primary btn-lg w-25">--%>
-<%--                                <h5 class="mb-0">수정하기</h5>--%>
-<%--                            </a>--%>
-<%--                            <button onclick = "confirmDelete()" class="btn btn-outline-danger btn-lg w-25">--%>
-<%--                                <span class="h5 mb-0">삭제하기</span>--%>
-<%--                            </button>--%>
-<%--                        </c:if>--%>
-<%--                    </sec:authorize>--%>
+                        <c:if test="${estimate.memberVO.seq == loginUserSeq}">
+                            <a href="${pageContext.request.contextPath}/premiumRent/estimate/view/update?seq=${estimate.seq}" class="btn btn-primary btn-lg w-25">
+                                <h5 class="mb-0">수정하기</h5>
+                            </a>
+                            <button onclick = "confirmDelete()" class="btn btn-outline-danger btn-lg w-25">
+                                <span class="h5 mb-0">삭제하기</span>
+                            </button>
+                        </c:if>
+                    </sec:authorize>
                 </div>
             </div>
         </div>
-        <div class="card">
-            <div class="card-header border-bottom mb-3">
-                <div class="x_slider_form_input_wrapper float_left">
-                    <h3 class="font-weight-bold mb-0">견적 리스트</h3>
-                </div>
-            </div>
-            <c:if test="${empty submitList}">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12 text-center">
-                        <h6 class="py-5">아직 제출된 견적이 없습니다!</h6>
-                    </div>
-                </div>
-            </div>
-            </c:if>
-
-            <c:forEach var="submit" items="${submitList}" varStatus="status">
-                <div class="card">
-                    <div class="row">
-                        <div class="col-lg-3 align-self-center">
-                            <div class="card-img-actions p-3">
-                                <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${submit.carVO.modelCodeVO.img}" alt="">
-                            </div>
-                        </div>
-                        <div class="col-lg-9 border-left">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-9">
-                                        <div class="x_car_offer_heading x_car_offer_heading_list float_left">
-                                            <h5 class="font-weight-bold">
-                                                    ${submit.carVO.brandName} ${submit.carVO.modelCodeVO.name}<br><small>${submit.carVO.trimCodeVO.name}</small>
-                                            </h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <a class="btn btn-block btn-primary"
-                                           href="estimate/view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">
-                                            상세보기
-                                        </a>
-                                    </div>
-                                    <div class="col-12">
-                                        <hr class="my-2">
-                                        <p class="text-grey-600">
-                                            <i class="h3 icon-calendar pr-2 mb-0"></i>
-                                            <fmt:formatDate value="${estimate.startDate}" pattern="yy년 MM월 dd일" /> ~ <fmt:formatDate value="${estimate.endDate}" pattern="yy년 MM월 dd일" />
-                                        </p>
-                                        <p class="text-grey-600">
-                                            <i class="h3 icon-location4 pr-2 mb-0"></i> ${estimate.takePlaceBasic} ${estimate.takePlaceDetail}
-                                        </p>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="card border-primary-300 border-1">
-                                            <div class="card-body">
-                                                <div class="row align-items-center">
-                                                    <div class="col-2">
-                                                        <i class="icon-checkmark4"></i> 차량 옵션
-                                                    </div>
-                                                    <div class="col-10">
-                                                        <ul class="list-unstyled mb-0">
-                                                            <c:forEach var="opt" items="${options}">
-                                                                <li class="d-inline-block pr-3 mb-1"><i class="icon-checkbox-checked2 text-primary"></i> ${opt}
-                                                                </li>
-                                                            </c:forEach>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card border-primary-300 border-1">
-                                            <div class="card-body">
-                                                <div class="row align-items-center">
-                                                    <div class="col-2">
-                                                        <i class="icon-checkmark4"></i> 여행 옵션
-                                                    </div>
-                                                    <div class="col-10">
-                                                        <ul class="list-unstyled mb-0">
-                                                            <c:forEach var="itm" items="${items}">
-                                                                <li class="d-inline-block pr-3 mb-1"><i class="icon-checkbox-checked2 text-primary"></i> ${itm}
-                                                                </li>
-                                                            </c:forEach>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </c:forEach>
-
-            <c:forEach var="submit" items="${submitList}">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="card-img">
-                            <img src="${pageContext.request.contextPath}/resources/images/cars/KIA/k8.png" alt="" class="img-fluid"/>
-                        </div>
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="card border-primary-300 border-1 shadow-0">
-                                    <div class="card-body">
-                                        <div class="row align-items-center">
-                                            <div class="col-12">
-                                                <ul class="list-unstyled mb-0">
-                                                    <c:forEach var="item" items="${items}">
-                                                        <li class="d-inline-block pr-3 mb-1">
-                                                            <i class="icon-checkbox-checked2 text-primary"></i> ${item}
-                                                        </li>
-                                                    </c:forEach>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </c:forEach>
-        </div>
-        <c:if test="${submitList.size() > 10}">
-            <jsp:include page="/pagination"/>
-        </c:if>
+        <jsp:include page="/premiumRent/submit?seq=${estimate.seq}&sPageNum=1"/>
     </div>
 </div>
 <!-- x car book sidebar section Wrapper End -->
@@ -323,6 +184,9 @@
                 map.setCenter(coords);
             }
         });
+
+        IMP.init('imp77605435'); /* 가맹점 식별코드 초기화 */
+
     });
 
     function confirmDelete(){
@@ -330,7 +194,7 @@
             '정말 삭제하시겠습니까?',
             function(result){
                 if(result){
-                    location.href = "${pageContext.request.contextPath}/premiumRent/estimate/view/delete?seq=${est.seq}";
+                    location.href = "${pageContext.request.contextPath}/premiumRent/estimate/view/delete?seq=${estimate.seq}";
                 }
             })
     }

@@ -1,10 +1,8 @@
 package com.yedam.possable.app.rent.service;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.yedam.possable.app.common.code.mapper.CodeMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,34 +20,38 @@ import lombok.extern.java.Log;
 public class PremiumRentServiceImpl implements PremiumRentService{
     @Autowired
     PremiumRentMapper premiumRentMapper;
+    @Autowired
+    CodeMapper codeMapper;
 
     @Override
-    public List<Map<String, Object>> getEstimateList(Criteria cri) {
+    public List<EstimateHistoryVO> getEstimateList(Criteria cri) {
         // 조회 시 차, 여행 옵션 바인딩
-        List<Map<String, Object>> estimateList = new LinkedList<>();
+        List<EstimateHistoryVO> estimateList = new LinkedList<>();
 
         for(EstimateHistoryVO vo : premiumRentMapper.getEstimateList(cri)){
-            Map<String, Object> estimate = new HashMap<>();
-            estimate.put("estimate", vo);
-            estimate.put("options", List.of(strToArr(vo.getOptions())));
-            estimate.put("items", List.of(strToArr(vo.getItems())));
-
-            estimateList.add(estimate);
+            if(vo.getOptions() != null){
+                vo.setItemList(List.of(strToArr(vo.getOptions())));
+            }
+            if(vo.getItems() != null){
+                vo.setOptionList(List.of(strToArr(vo.getItems())));
+            }
+            estimateList.add(vo);
         }
 
         return estimateList;
     }
 
     @Override
-    public Map<String, Object> getEstimate(Long seq) {
+    public EstimateHistoryVO getEstimate(Long seq) {
         // 조회 시 차, 여행 옵션 바인딩
-        Map<String, Object> estimate = new HashMap<>();
         EstimateHistoryVO vo = premiumRentMapper.getEstimate(seq);
-        estimate.put("estimate", vo);
-        estimate.put("options", List.of(strToArr(vo.getOptions())));
-        estimate.put("items", List.of(strToArr(vo.getItems())));
-
-        return estimate;
+        if(vo.getOptions() != null){
+            vo.setOptionList(List.of(strToArr(vo.getOptions())));
+        }
+        if(vo.getItems() != null){
+            vo.setItemList(List.of(strToArr(vo.getItems())));
+        }
+        return vo;
     }
 
     @Override
@@ -76,7 +78,11 @@ public class PremiumRentServiceImpl implements PremiumRentService{
     public List<EstiSubmitHistoryVO> getEstSubmitListByEstiSeq(Criteria cri, Long seq) {
         List<EstiSubmitHistoryVO> estSubmitList = premiumRentMapper.getEstSubmitListByEstiSeq(cri, seq);
         for(EstiSubmitHistoryVO vo : estSubmitList){
-            vo.setItemsArr(List.of(strToArr(vo.getItems())));
+            List<String> itemList = new ArrayList<>();
+            for(String item : strToArr(vo.getItems())){
+                itemList.add(codeMapper.getCodeByValue(item).getName());
+            }
+            vo.setItemsList(itemList);
         }
         return estSubmitList;
     }
@@ -102,12 +108,12 @@ public class PremiumRentServiceImpl implements PremiumRentService{
     }
 
     @Override
-    public int getEstSubmitCount() {
-        return premiumRentMapper.getEstSubmitCount();
+    public int getEstSubmitCount(Long seq) {
+        return premiumRentMapper.getEstSubmitCount(seq);
     }
 
     private String[] strToArr(String str) {
-        String[] strArr = str.substring(1,str.length()-1).trim().split(",");
+        String[] strArr = str.trim().split(",");
         for(int i=0; i< strArr.length; i++){
             strArr[i] = strArr[i].trim();
         }
@@ -115,9 +121,9 @@ public class PremiumRentServiceImpl implements PremiumRentService{
     }
 
 	@Override
-	public List<EstimateHistoryVO> getEstimateListByUserSeq(Criteria cri, @Param("seq") Long seq) {
+	public List<EstimateHistoryVO> getEstimateListByMemSeq(Criteria cri, @Param("seq") Long seq) {
 
-		return premiumRentMapper.getEstimateListByUserSeq(cri, seq);
+		return premiumRentMapper.getEstimateListByMemSeq(cri, seq);
 	}
 
 	@Override
@@ -145,5 +151,11 @@ public class PremiumRentServiceImpl implements PremiumRentService{
 	public int CompEstimateUpdate(CompEstiListJoinVO vo) {
 		// TODO Auto-generated method stub
 		return premiumRentMapper.CompEstimateUpdate(vo);
+	}
+
+	@Override
+	public EstimateHistoryVO getEstimateListInMyPage(Long seq) {
+		// TODO Auto-generated method stub
+		return premiumRentMapper.getEstimateListInMyPage(seq);
 	}
 }

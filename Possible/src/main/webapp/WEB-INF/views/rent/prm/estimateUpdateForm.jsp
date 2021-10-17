@@ -9,9 +9,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:set var="est" value="${estimate.get('estimate')}" />
-<c:set var="options" value="${estimate.get('options')}" />
-<c:set var="items" value="${estimate.get('items')}" />
 <!-- btc tittle Wrapper Start -->
 <div class="btc_tittle_main_wrapper">
     <div class="mb-3">
@@ -31,7 +28,7 @@
 <div class="x_car_book_sider_main_Wrapper my-4">
     <div class="container">
         <form id="estimateForm" name="estimateForm" method="post">
-<%--            <input type="hidden" name="memSeq" id="memSeq" value="<sec:authentication property="principal.seq" />" >--%>
+            <input type="hidden" name="memberVO.seq" id="memberVO" value="<sec:authentication property="principal.seq" />" >
             <div class="row">
                 <div class="col-lg-10 col-12 offset-lg-1 ">
                     <div class="x_carbooking_right_section_wrapper card">
@@ -50,39 +47,39 @@
                                             <div class="tab-pane fade show active">
                                                 <div class="row">
                                                     <div class="col-4 form-group">
-                                                        <label class="w-100">브랜드</label>
+                                                        <label for="brand" class="w-100">브랜드</label>
                                                         <select name="brand" id="brand" class="select form-control" onchange="searchModelByBrand()">
                                                             <option disabled>브랜드를 선택하세요</option>
                                                             <c:forEach var="brand" items="${brands}">
                                                                 <option value="${brand.code}"
-                                                                        <c:if test="${brand.code == est.brand}">selected</c:if>>
+                                                                        <c:if test="${brand.code == estimate.brandCodeVO.code}">selected</c:if>>
                                                                         ${brand.name}
                                                                 </option>
                                                             </c:forEach>
                                                         </select>
                                                     </div>
                                                     <div class="col-4 form-group">
-                                                        <label  class="w-100">모델</label>
+                                                        <label for="model" class="w-100">모델</label>
                                                         <select name="model" id="model" class="select form-control" onchange="searchTrimByModel()">
                                                             <option disabled>브랜드를 선택하세요</option>
                                                             <c:forEach var="model" items="${models}">
                                                                 <option value="${model.code}"
                                                                         data-img-src="${model.img}"
                                                                         data-seg="${model.segCode}"
-                                                                        <c:if test="${model.code == est.model}"> selected </c:if>>
+                                                                        <c:if test="${model.code == estimate.modelCodeVO.code}"> selected </c:if>>
                                                                         ${model.name}
                                                                 </option>
                                                             </c:forEach>
                                                         </select>
                                                     </div>
                                                     <div class="col-4 form-group">
-                                                        <label class="w-100">트림</label>
-                                                        <input type="hidden" name="segment" id="segment" value="${est.segment}">
+                                                        <label for="trim" class="w-100">트림</label>
+                                                        <input type="hidden" name="segment" id="segment" value="${estimate.segmentCodeVO.code}">
                                                         <select name="trim" id="trim" class="select form-control" onchange="selectTrim(this)">
                                                             <option disabled>모델을 선택하세요</option>
                                                             <c:forEach var="trim" items="${trims}">
                                                                 <option value="${trim.code}"
-                                                                        <c:if test="${trim.name == est.trim}"> selected </c:if>>
+                                                                        <c:if test="${trim.code == estimate.trimCodeVO.code}"> selected </c:if>>
                                                                         ${trim.name}
                                                                 </option>
                                                             </c:forEach>
@@ -96,11 +93,11 @@
                                 <div class="x_car_book_left_siderbar_wrapper col-lg-3 pl-lg-3 mb-5">
                                     <div class="card-img text-center text-lg-left">
                                         <div class="card-img-top">
-                                            <img class="img-fluid" src="${pageContext.request.contextPath}${est.modelCodeVO.img}" alt="car_img">
+                                            <img class="img-fluid" src="${pageContext.request.contextPath}${estimate.modelCodeVO.img}" alt="car_img">
                                         </div>
                                         <div class="x_car_access_filer_top_img my-2">
-                                            <h5>${est.brandName} ${est.modelCodeVO.name}</h5>
-                                            <p>${est.trimCodeVO.name}</p>
+                                            <h5>${estimate.brandCodeVO.name} ${estimate.modelCodeVO.name}</h5>
+                                            <p>${estimate.trimCodeVO.name}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -108,7 +105,7 @@
                             <div class="row ">
                                 <div class="col-md-5 mb-3">
                                     <div class="form-group">
-                                        <h5 for="start">대여 날짜</h5>
+                                        <label class="h5" for="start">대여 날짜</label>
                                         <input type="text" id="start" name="start" class="form-control pickadate-format">
                                     </div>
                                 </div>
@@ -117,7 +114,7 @@
                                 </div>
                                 <div class="col-md-5 mb-3">
                                     <div class="form-group">
-                                        <h5 for="end">반납 날짜</h5>
+                                        <label class="h5" for="end">반납 날짜</label>
                                         <input type="text" id="end" name="end" class="form-control pickadate-format">
                                     </div>
                                 </div>
@@ -132,7 +129,7 @@
                                                            id="options${status.index}"
                                                            class="custom-control-input"
                                                            value="${option.name}"
-                                                           <c:if test="${options.contains(option.name)}">checked</c:if>>
+                                                           <c:if test="${estimate.optionList.contains(option.name)}">checked</c:if>>
                                                     <label class="custom-control-label" for="options${status.index}">${option.name}</label>
                                                 </div>
                                             </div>
@@ -150,7 +147,7 @@
                                                            id="items${status.index}"
                                                            class="custom-control-input"
                                                            value="${option.name}"
-                                                           <c:if test="${options.contains(option.name)}">checked</c:if>>
+                                                           <c:if test="${estimate.optionList.contains(option.name)}">checked</c:if>>
                                                     <label class="custom-control-label" for="items${status.index}">${option.name}</label>
                                                 </div>
                                             </div>
@@ -163,9 +160,9 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <h5 class="mb-0">우편번호</h5>
+                                        <label for="takePlaceCode" class="h5 mb-0">우편번호</label>
                                         <div class="input-group">
-                                            <input type="text" id="takePlaceCode" name="takePlaceCode" class="form-control" value="${est.takePlaceCode}" required>
+                                            <input type="text" id="takePlaceCode" name="takePlaceCode" class="form-control" value="${estimate.takePlaceCode}" required>
                                             <span class="input-group-append">
 												<button type="button" class="btn btn-outline-primary" onclick="daumPostcode($('#postalWrapper')[0],takePlaceCode,takePlaceBasic,takePlaceDetail)">주소 검색</button>
 											</span>
@@ -175,14 +172,14 @@
                                 <div class="w-100"></div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <h5 class="mb-0">기본 주소</h5>
-                                        <input type="text" id="takePlaceBasic" name="takePlaceBasic" placeholder="기본 주소" class="form-control" value="${est.takePlaceBasic}" required>
+                                        <label for="takePlaceBasic" class="h5 mb-0">기본 주소</label>
+                                        <input type="text" id="takePlaceBasic" name="takePlaceBasic" placeholder="기본 주소" class="form-control" value="${estimate.takePlaceBasic}" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <h5 class="mb-0">상세 주소</h5>
-                                        <input type="text" id="takePlaceDetail" name="takePlaceDetail" placeholder="상세 주소" class="form-control" value="${est.takePlaceDetail}">
+                                        <label for="takePlaceDetail" class="h5 mb-0">상세 주소</label>
+                                        <input type="text" id="takePlaceDetail" name="takePlaceDetail" placeholder="상세 주소" class="form-control" value="${estimate.takePlaceDetail}">
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -191,7 +188,7 @@
                                 <div class="col-12 mb-3">
                                     <h5>참고 사항</h5>
                                     <div class="border">
-                                        <textarea name="memo" id="memo" class="form-control border-bottom-0 px-2">${est.memo}</textarea>
+                                        <textarea name="memo" id="memo" class="form-control border-bottom-0 px-2">${estimate.memo}</textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -281,10 +278,10 @@
         let startPicker = $("#start").pickadate('picker');
         let endPicker = $("#end").pickadate('picker');
 
-        startPicker.set('select', new Date('<fmt:formatDate value="${est.startDate}" pattern="yyyy/MM/dd" />') );
+        startPicker.set('select', new Date('<fmt:formatDate value="${estimate.startDate}" pattern="yyyy/MM/dd" />') );
         endPicker.set({
             min : 1,
-            select : new Date('<fmt:formatDate value="${est.endDate}" pattern="yyyy/MM/dd" />')
+            select : new Date('<fmt:formatDate value="${estimate.endDate}" pattern="yyyy/MM/dd" />')
         });
 
         startPicker.on('close', function(){

@@ -3,6 +3,8 @@ package com.yedam.possable.app.car.domain;
 import java.util.Date;
 import java.util.List;
 
+import com.yedam.possable.app.common.code.domain.BrandCodeVO;
+import com.yedam.possable.app.common.code.domain.CodeSubVO;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -38,14 +40,14 @@ public class CarVO {
     private Date genDate;
     private Date uptDate;
 
-    private String brandName;
-    private String segmentName;
-    private String colorName;
-    private String fuelName;
-    private String missionName;
-    private String statusName;
+    private BrandCodeVO brandCodeVO;
     private ModelCodeVO modelCodeVO;
     private TrimCodeVO trimCodeVO;
+    private CodeSubVO segmentCodeVO;
+    private CodeSubVO colorCodeVO;
+    private CodeSubVO fuelCodeVO;
+    private CodeSubVO missionCodeVO;
+    private CodeSubVO statusCodeVO;
     private CompanyVO companyVO;
 
     private String name; // getCarByModel() 에서 COMPANY 테이블과 JOIN해서 추가된 컬럼

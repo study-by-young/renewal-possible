@@ -135,14 +135,4 @@ public class MemberServiceImpl implements MemberService {
 
 		return memberMapper.memberInfoUpdate(vo);
 	}
-
-	@Override
-	public MemberVO read(MemberVO vo) {
-		// TODO Auto-generated method stub
-		return memberMapper.read(vo);
-	}
-
-
-
-
 }

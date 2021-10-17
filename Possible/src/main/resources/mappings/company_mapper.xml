@@ -15,10 +15,15 @@
         <result property="area" column="area"/>
         <association property="memberVO"
                      column="mem_seq"
-                     columnPrefix="mem_"
-                     resultMap="com.yedam.possable.app.member.mapper.MemberMapper.member"
-                     javaType="com.yedam.possable.app.member.domain.MemberVO"/>
+                     select="com.yedam.possable.app.member.mapper.MemberMapper.memberOneSelect"
+                     javaType="MemberVO"/>
     </resultMap>
+
+    <resultMap id="companyItemList" type="CompanyItemVO">
+        <id property="optCode" column="opt_code"/>
+        <result property="optName" column="opt_name"/>
+    </resultMap>
+
     <sql id="criteria">
         <trim prefix="(" suffix=")" prefixOverrides="OR">
             <foreach collection="typeArr" item="type">
@@ -47,8 +52,7 @@
         SELECT COUNT(*)
         FROM COMPANY
         <where>
-            <include refid="criteria">
-            </include>
+            <include refid="criteria"/>
         </where>
     </select>
 
@@ -87,37 +91,21 @@
     </insert>
 
     <!-- 업체 미승인 리스트 -->
-    <select id="companyRegList" resultType="CompanyVO">
+    <select id="companyRegList" resultMap="company">
         SELECT
                 /*+ INDEX_DESC (COMPANY IDX_COMPANY) */
                 ROWNUM RN,
-                SEQ,
-                MEM_SEQ,
-                NAME,
-                POSTAL,
-                CMPN_NUM,
-                ADDR1,
-                ADDR2,
-                AREA,
-                TEL,
-                GEN_DATE
+                COMPANY.*
         FROM COMPANY
         WHERE STATUS = 'PST02'
     </select>
 
     <!-- 업체 승인 리스트 -->
-    <select id="companyList" resultType="CompanyVO">
+    <select id="companyList" resultMap="company">
         SELECT
         /*+ INDEX_DESC(COMPANY IDX_COMPANY) */
-        ROWNUM RN, SEQ,
-        NAME,
-        POSTAL,
-        CMPN_NUM,
-        ADDR1,
-        ADDR2,
-        AREA,
-        TEL,
-        STATUS
+        ROWNUM RN,
+        COMPANY.*
         FROM COMPANY
         <where>
             <include refid="criteria">
@@ -129,37 +117,9 @@
     </select>
 
     <!-- 업체 한건-->
-    <select id="companyOneSelect" resultType="CompanyVO">
-        SELECT SEQ,
-               MEM_SEQ,
-               NAME,
-               POSTAL,
-               CMPN_NUM,
-               TEL,
-               ADDR1,
-               ADDR2,
-               AREA,
-               STATUS,
-               GEN_DATE,
-               UPT_DATE
-        FROM COMPANY
-        WHERE SEQ = #{seq}
-    </select>
-
-    <!-- 업체 한건-->
-    <select id="companySelect" resultType="CompanyVO">
-        SELECT SEQ,
-               MEM_SEQ,
-               NAME,
-               POSTAL,
-               CMPN_NUM,
-               TEL,
-               ADDR1,
-               ADDR2,
-               AREA,
-               STATUS,
-               GEN_DATE,
-               UPT_DATE
+    <select id="companyOneSelect" resultMap="company">
+        SELECT
+            *
         FROM COMPANY
         WHERE SEQ = #{seq}
     </select>
@@ -180,16 +140,19 @@
         WHERE SEQ = #{seq}
     </update>
 
-    <select id="getCompanyByMemSeq" resultType="CompanyVO">
+    <select id="getCompanyByMemSeq" resultMap="company">
         SELECT *
         FROM company
         WHERE mem_seq = #{seq}
     </select>
 
-    <select id="getCompanyItems" resultType="string">
-        SELECT opt_code
+    <select id="getCompanyItems" resultMap="companyItemList">
+        SELECT
+                item_option.opt_code,
+                code_sub.name
         FROM item_option
-        WHERE cmpn_seq = #{seq}
+                     INNER JOIN code_sub ON code_sub.code = item_option.opt_code
+        WHERE item_option.cmpn_seq = #{seq}
     </select>
 
     <!-- 업체 업체정보수정(휴대폰번호,이메일,주소) -->
@@ -207,6 +170,5 @@
 	DELETE FROM COMPANY
 	WHERE SEQ = #{seq}
 	</delete>
-
 </mapper>
 

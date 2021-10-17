@@ -22,7 +22,7 @@
                 <div class="card">
                     <h3 class="card-title text-center my-4 font-weight-bold">여행갈카 로그인</h3>
                     <div class="card-body">
-                        <form id="loginForm" name="loginForm" action="login" method="post">
+                        <form id="loginForm" name="loginForm" action="login" method="post" class="form-validate-jquery">
                             <sec:csrfInput/>
                             <div class="row">
                                 <label for="loginId" class="col-form-label col-2">
@@ -30,7 +30,7 @@
                                 </label>
                                 <div class="col-10">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="loginId" name="loginId" required>
+                                        <input type="text" class="form-control no-empty" id="loginId" name="loginId" required>
                                     </div>
                                 </div>
                                 <label for="loginPassword" class="col-form-label col-2">
@@ -38,7 +38,7 @@
                                 </label>
                                 <div class="col-10">
                                     <div class="form-group">
-                                        <input type="password" class="form-control" id="loginPassword" name="loginPassword" required>
+                                        <input type="password" class="form-control no-empty" id="loginPassword" name="loginPassword" required>
                                     </div>
                                 </div>
                             </div>
