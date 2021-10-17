@@ -10,14 +10,12 @@
 		
 		<association property="rentHistoryVO"
 	                 column="history_seq"
-	                 columnPrefix="history_"
-	                 resultMap="com.yedam.possable.app.rent.mapper.RentHistoryMapper.rentHistory"
+	                 select="com.yedam.possable.app.rent.mapper.RentHistoryMapper.getRentHistory"
 	                 javaType="RentHistoryVO"/>
 		
 	    <association property="memberVO"
 	                 column="mem_seq"
-	                 columnPrefix="mem_"
-	                 resultMap="com.yedam.possable.app.member.mapper.MemberMapper.member"
+	                 select="com.yedam.possable.app.member.mapper.MemberMapper.memberOneSelect"
 	                 javaType="MemberVO"/>
 	           
 	    <association property="courseBoardVO"
@@ -28,8 +26,7 @@
 	                 
 	    <association property="companyVO"
 	    			 column="cmpn_seq"
-	    			 columnPrefix="cmpn_"
-	    			 resultMap="com.yedam.possable.app.company.mapper.CompanyMapper.company"
+	    			 select="com.yedam.possable.app.company.mapper.CompanyMapper.companyOneSelect"
 	    			 javaType="CompanyVO"/>               
 	</resultMap>
 
@@ -100,10 +97,10 @@
 				, #{title}
 				, #{content}
 				, #{score}
-				, #{rentHistoryVO.seq}
+				, #{historyVO.Seq}
 				, #{memberVO.seq}
 				, #{courseBoardVO.seq}
-				, #{companyVO.seq} )
+				, #{Company.Seq} )
 	</insert>
 	
 	<!-- 수정 -->

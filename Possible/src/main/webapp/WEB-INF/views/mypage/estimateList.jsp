@@ -44,21 +44,20 @@
                                 <!-- 견적관리 -->
                                 <div class="col-md-12">
                                     <div class="blog_single_comment_heading">
-                                        <h4>나의 프리미엄 견적 신청 관리</h4>
+                                        <h4>나의 프리미엄 견적 신청 내역</h4>
                                     </div>
                                 </div>
+                                <c:if test="${!empty estimate}">
+                              
                                 <div class="col-md-12">
                                 	<div class="x_car_book_tabs_content_main_wrapper my-4">
 						            	<div class="row">  
-						            	<jsp:include page="/premiumRent/submit?seq=${estimate.seq}&sPageNum=1"/>
-						            		<%-- <c:forEach var="est" items="${estList}" varStatus="status">
-						            		${est }
-						            			<div class="premium_rent_list_item col-12">
+						            			<div class="premium_rent_list_item col-12" >
 						            				<div class="card">
 						            					<div class="row">
-						            						<div class="col-lg-4 aling-self-center">
+						            						<div class="col-lg-4 aling-self-center" style="margin-top: 70px;">
 						            							<div class="card-img-actions p-3">
-                                                            		<img class="card-img-top img-fluid" src="${pageContext.request.contextPath}/resources/images/cars/Genesis/genesis_g90.png" alt="">
+                                                            		<img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${estimate.modelCodeVO.img}" alt="">
                                                         		</div>
 						            						</div>
 						            						<div class="col-lg-8 border-left">
@@ -67,7 +66,7 @@
 						            									<div class="col-lg-9">
                                                                     		<div class="x_car_offer_heading x_car_offer_heading_list float_left">
                                                                         		<h5 class="font-weight-bold">
-                                                                                ${est.brand} ${est.modelCodeVO.name}<br><small>${estimate.trimCodeVO.name}</small>
+                                                                                ${estimate.brand} ${estimate.modelCodeVO.name}<br><small>${estimate.trimCodeVO.name}</small>
                                                                         		</h5>
                                                                     		</div>
                                                                 		</div>
@@ -77,21 +76,71 @@
                                                                         	 	상세보기
                                                                    			 </a>
                                                                 		</div>
+                                                                		<div class="col-12">
+                                                                    		<hr class="my-2">
+                                                                    		<p class="text-grey-600">
+                                                                        		<i class="h3 icon-calendar pr-2 mb-0"></i>
+                                                                        		<fmt:formatDate value="${estimate.startDate}" pattern="yy년 MM월 dd일" /> ~ <fmt:formatDate value="${estimate.endDate}" pattern="yy년 MM월 dd일" />
+                                                                    		</p>
+                                                                   			<p class="text-grey-600">
+                                                                        		<i class="h3 icon-location4 pr-2 mb-0"></i> ${estimate.takePlaceBasic} ${estimate.takePlaceDetail}
+                                                                    		</p>
+                                                                		</div>
+                                                                		<div class="col-12">
+                                                                    		<div class="card border-primary-300 border-1">
+                                                                        		<div class="card-body">
+                                                                            		<div class="row align-items-center">
+                                                                         				<div class="col-3">
+                                                                                    		<i class="icon-checkmark4"></i> 차량 옵션
+                                                                                		</div>
+                                                                                		<div class="col-9">
+                                                                                    		<ul class="list-unstyled mb-0">
+                                                                                        		<c:forEach var="opt" items="${estimate.options}">
+                                                                                            		<li class="d-inline-block pr-3 mb-1"><i class="icon-checkbox-checked2 text-primary"></i> ${opt}
+                                                                                            		</li>
+                                                                                        		</c:forEach>
+                                                                                    		</ul>
+                                                                                		</div>
+                                                                            		</div>
+                                                                        		</div>
+                                                                    		</div>
+                                                                    		<div class="card border-primary-300 border-1">
+                                                                        		<div class="card-body">
+                                                                            		<div class="row align-items-center">
+                                                                                		<div class="col-3">
+                                                                                    		<i class="icon-checkmark4"></i> 여행 옵션
+                                                                                		</div>
+                                                                                		<div class="col-9">
+                                                                                    		<ul class="list-unstyled mb-0">
+                                                                                        		<c:forEach var="itm" items="${estimate.items}">
+                                                                                            		<li class="d-inline-block pr-3 mb-1"><i class="icon-checkbox-checked2 text-primary"></i> ${itm}
+                                                                                           			</li>
+                                                                                        		</c:forEach>
+                                                                                    		</ul>
+                                                                                		</div>
+                                                                            		</div>
+                                                                        		</div>
+                                                                    		</div>
+                                                                		</div>
 						            								</div>
 						            							</div>
 						            						</div>
 						            					</div>
 						            				</div>
 						            			</div>
-						            		</c:forEach> --%>
-						            	</div>             	
+						            		</div>             	
+                                		</div>
+                                	</div><!--  -->
+                                	</c:if>
+                                	<div class="col-md-12">
+                                		 <jsp:include page="/premiumRent/submit?seq=${estimate.seq}&sPageNum=1"/>
                                 	</div>
-                                </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                  				</div>
+                			</div>
+           				</div>
+        			</div>
+    			</div>
+               
 
             <!-- 사이드바 -->
             <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">

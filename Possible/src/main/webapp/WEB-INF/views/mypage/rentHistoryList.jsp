@@ -102,13 +102,16 @@
 		                                                        						후기수정
 		                                                    					</button>
 		                                                    			    </c:if>
-		                                                    
+		                                                    				
+		                                                    				<c:if test="${est.status eq '예약중' }">
 		                                                    				<c:if test="${est.review ne '2' }">
-		                                                    					<button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
+		                                                    					<a class="btn btn-sm" 
+		                                                    					   href="rent/view/writeReview?seq=${est.seq}"
 		                                                            					style="background: #4f5dec; color: #ffffff;"<c:if test="${est.review eq '0' }"> disabled="disabled"</c:if>>
 		                                                        						후기작성
-		                                                    					</button>
+		                                                    					</a>
 	                                                    					</c:if>
+		                                                    				</c:if>
                                                                 		 </div>
                                                                 		
                                                                 		 <div class="col-12">

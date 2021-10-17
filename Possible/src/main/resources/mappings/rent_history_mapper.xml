@@ -50,7 +50,7 @@
 	</resultMap>
 	
 	<!-- 업체 렌트내역 리스트 -->
-	<select id="getRentHistoryList" resultType="RentHistoryVO">
+	<select id="getRentHistoryList" resultMap="rentHistory">
              SELECT
              /*+ INDEX_DESC(RENT_HISTORY IDX_RENT_HISTORY) */
              ROWNUM RN, SEQ,
@@ -97,41 +97,13 @@
              FROM RENT_HISTORY
              WHERE SEQ = #{seq}
 	</select>
-	
-	<!-- 회원 렌트 내역 조회 -->
-<!-- 	<select id="MyPageRentHistoryList" resultType="RentHistoryVO">
-      SELECT *
-      FROM (
-             SELECT
-             /*+ INDEX_DESC(RENT_HISTORY IDX_RENT_HISTORY) */
-             ROWNUM RN,
-             h.SEQ ,
-             h.CAR_SEQ, 
-             h.MEM_SEQ, 
-             m.NAME,
-             h.PRICE, 
-             h.PAY_METHOD, 
-             h.TAKE_PLACE_BASIC,
-             h.TAKE_PLACE_DETAIL,
-             h.MERCHANT_UID, 
-             h.START_DATE, 
-             h.END_DATE,
-             h.RECEIVER,
-             h.STATUS,
-             h.RENT_TYPE,
-             h.CMPN_SEQ,
-             <![CDATA[case When (SELECT count(*) FROM RENT_REVIEW where HISTORY_SEQ =h.seq) > 0 	THEN '2'
-						              When trunc(END_DATE) < trunc(sysdate) then '1' 
-						              else '0' end ]]>AS review 
-             FROM RENT_HISTORY h INNER JOIN MEMBER m
-             ON h.MEM_SEQ = m.SEQ
-            <where>
-                <![CDATA[   AND ROWNUM <= #{cri.pageNum} * #{cri.amount} ]]>
-            </where>
-             and m.SEQ = #{seq}
-          )
-    		WHERE RN > (#{cri.pageNum} - 1) * #{cri.amount}
-	</select> -->
+	<!-- 마이페이지 한건 조회 -->
+	<select id="getRentHistoryInMypage" resultMap="rentHistory">
+		SELECT * FROM 
+		RENT_HISTORY
+        WHERE SEQ = #{seq}
+      
+	</select>
 	
 	<select id="getHistoryCount" resultType="int">
         SELECT COUNT(*)

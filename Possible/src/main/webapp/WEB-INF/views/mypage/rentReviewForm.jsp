@@ -50,9 +50,11 @@
                                     </ul>
                                 </div>
                                 <br> <br> <br>
-
-
+								${historyList}
+								${historyList.memberVO.seq }
                                 <!-- 후기 -->
+                                ${historyList.status }d aav
+                                
                                 <div class="col-md-12">
                                     <div class="blog_single_comment_heading">
                                         <h4>후기 작성</h4>
@@ -83,9 +85,12 @@
                                     <!-- 후기작성 -->
                                     <form id="writeReviewForm" action="writeReview" method="post">
 	                                    <div class="contect_form4 xcontect_form4">
-	                                    	<input type="hidden" id="history_seq" name="history_seq" value="${history.seq}">
+	                                    	<%-- <input type="hidden" id="history_seq" name="history_seq" value="${history.seq}">
 	                                    	<input type="hidden" id="mem_seq" name="mem_seq" value="${user.seq}">
-	                                    	<input type="hidden" id="cmpn_seq" name="cmpn_seq" value="${company.seq}"> 
+	                                    	<input type="hidden" id="cmpn_seq" name="cmpn_seq" value="${company.seq}"> --%>
+	                                    	<input type="text" name="memSeq" id="memSeq"value="${historyList.memberVO.seq }">
+                                			<input type="text" name="historySeq" id="historySeq"value="${historyList.seq }">
+                                			<input type="text" name="cmpnSeq" id="cmpnSeq" value="${historyList.companyVO.seq }"> 
 	                                        <table>
 	                                            <tr>
 	                                                <td>
