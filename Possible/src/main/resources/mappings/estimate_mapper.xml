@@ -194,6 +194,17 @@
         )
         WHERE RN > (#{cri.pageNum} - 1) * #{cri.amount}
     </select>
+	<!--  -->
+	<select id="getEstimateListInMyPage" resultMap="estimateHistory">
+	select * FROM(
+              select eh.*
+             /*+ INDEX_DESC(ESTIMATE_HISTORY IDX_ESTIMATE_HISTORY) */
+             from estimate_history eh INNER JOIN Member m
+             ON eh.MEM_SEQ = m.SEQ
+             where m.SEQ = #{seq}
+             ORDER  BY eh.SEQ DESC)
+             WHERE ROWNUM = 1
+	</select>
 
     <!-- 업체용 견적 제출 확인 리스트 -->
     <select id="compEstiSubmitList" resultMap="CompEstiListJoin">

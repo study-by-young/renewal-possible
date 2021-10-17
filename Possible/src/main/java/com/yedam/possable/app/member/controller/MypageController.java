@@ -12,14 +12,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
+import com.yedam.possable.app.community.course.domain.CourseBoardVO;
 import com.yedam.possable.app.community.course.service.CourseBoardService;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
@@ -99,30 +106,26 @@ public class MypageController {
     // 견적 요청 리스트
     @GetMapping("/estimate")
     public String estimateList(Model model,
+
     						   @ModelAttribute("cri") Criteria cri,
     						   Authentication authentication
     						   ){
     	MemberVO mvo = memberService.getLoginMember(authentication);
 
+
+    	//List<EstimateHistoryVO> estimateList = premiumRentService.getEstimateListByUserSeq(cri, mvo.getSeq());
+    	//System.out.println("뭐야? 이거?"+ premiumRentService.getEstimateListByUserSeq(cri, mvo.getSeq()));
+		//model.addAttribute("estList", premiumRentService.getEstimateListByUserSeq(cri, mvo.getSeq()));
+
     	List<EstimateHistoryVO> estimateList = premiumRentService.getEstimateListByMemSeq(cri, mvo.getSeq());
-    	System.out.println("뭐야? 이거?"+ premiumRentService.getEstimateListByMemSeq(cri, mvo.getSeq()));
-		model.addAttribute("estList", premiumRentService.getEstimateListByMemSeq(cri, mvo.getSeq()));
-
 		for (int i = 0; i < estimateList.size(); i++) {
-			Map<String, Object> voMap = new HashMap<String, Object>();
-			System.out.println("---------- : " + i + estimateList.size());
-//			TrimCodeVO getTrim = codeService.getTrim(estimateList.get(i).getTrim());
-//			CodeSubVO subCode = codeService.getCodeByValue(estimateList.get(i).getSegment());
-//			System.out.println("니 뭐들어있는데???" + estimateList.get(i).getSegment());
-//			System.out.println("값 다들고 오는거 맞지? :" + subCode.toString());
-//			System.out.println("subCode" + subCode);
-//			model.addAttribute("getTrim",getTrim);
-			//model.addAttribute("code", map); // map.add(voMap); //
-			//model.addAttribute("getTrim", getTrim); // Trim 들고옴 //
-			//model.addAttribute("subCode", subCode);
-
+			estimateList.get(i).getMemberVO().getSeq();
+			System.out.println("뭐임?"+estimateList.get(i).getMemberVO().getSeq());
+			model.addAttribute("estimate", premiumRentService.getEstimateListInMyPage(estimateList.get(i).getMemberVO().getSeq()));
+			System.out.println("이거되나?"+premiumRentService.getEstimateListInMyPage(estimateList.get(i).getMemberVO().getSeq()));
 		}
 		model.addAttribute("estList", estimateList);
+		//model.addAttribute("estimate", premiumRentService.getEstimate(mvo.getSeq()));
 
 
         return "mypage/estimateList";
@@ -191,11 +194,14 @@ public class MypageController {
     							  		HttpServletRequest request){
 
     	MemberVO mvo = memberService.getLoginMember(authentication);
-    	int total = rentHistory.getHistoryCount();
+
     	vo.setMemSeq(mvo.getSeq());
 
-    	model.addAttribute("page", new PageVO(cri, total));
+    	int total = rentHistory.getHistoryCount();
+
+    	model.addAttribute("pagination", new PageVO(cri, total));
     	model.addAttribute("historyList", rentHistory.MyPageRentHistoryList(cri, vo.getMemSeq()));
+
 
     	return "mypage/rentHistoryList";
 
@@ -225,36 +231,59 @@ public class MypageController {
 
     // 렌트 후기 작성/수정 폼
     @GetMapping("/rent/view/writeReview")
-    public String rentReviewForm(Model model, Authentication authentication,
-    							Long seq, Long carSeq, Long cmpnSeq,
-    							CarVO carVo, CompanyVO cmpnVo, RentHistoryVO rhVo){
-    	MemberVO loginUser = memberService.getLoginMember(authentication);
+    public String rentReviewForm(@RequestParam Long seq,
+					            Authentication authentication,
+					            RedirectAttributes attributes,
+					            Model model,
+					            CourseBoardVO cvo,
+					            RentHistoryVO vo){
 
-    	rhVo.setSeq(seq);
-    	rhVo.setCarSeq(carSeq);
-    	rhVo.setCmpnSeq(cmpnSeq);
-    	carVo.setSeq(rhVo.getCarSeq());
-    	cmpnVo.setSeq(rhVo.getCmpnSeq());
+    	MemberVO mvo = memberService.getLoginMember(authentication);
 
-    	// 내가 대여한 차량 seq, 업체 seq가 필요함 <---- 렌트히스토리 조회하면 여기 다 있음
-    	model.addAttribute("history", rentHistory.getRentHistory(rhVo));
-    	model.addAttribute("car", carService.getCar(carVo));
-    	model.addAttribute("company", companyService.companyOneSelect(cmpnVo));
-    	model.addAttribute("user", loginUser);
-    	model.addAttribute("courseList", courseBoardService.getList());
-    	// 차량 seq로 차량 한건 조회해서 model 뿌려주기
-    	// 내가 작성한 코스글 seq가 필요함 (mem_seq로 코스글 조회해서 select option으로 뿌려주면 될 듯)
+    	System.out.println("왜니는 null인데"+rentHistory.getRentHistoryInMypage(seq));
+    	model.addAttribute("historyList", rentHistory.getRentHistoryInMypage(seq));
+    	List<CourseBoardVO> courseList = courseBoardService.getWriter(mvo.getId());
+    	System.out.println(courseList+ "맞겠지?");
+
+    	model.addAttribute("courseList", courseList);
 
         return "mypage/rentReviewForm";
     }
 
     // 렌트 후기 등록 처리
     @PostMapping("/rent/view/writeReview")
-    public String writeRentReview(RentReviewVO vo){
+    public String writeRentReview(Model model,
+            				      Authentication authentication,
+            				      RedirectAttributes attributes,
+            				      RentReviewVO vo){
     	rentReviewService.insertRentReview(vo);
-        return "mypage/rentHistoryList";
+        return "redirect:/mypage/rent";
     }
+    //updateRentReview
+    // 렌트 수정 폼
+    @GetMapping("/rent/view/updateReview")
+    public String UpdaterentReviewForm(@RequestParam Long seq,
+							            Authentication authentication,
+							            RedirectAttributes attributes,
+							            Model model,
+							            RentReviewVO rentReview,
+							            CourseBoardVO cvo,
+							            RentHistoryVO vo) {
 
+    	MemberVO mvo = memberService.getLoginMember(authentication);
+    	rentReview.setMemSeq(mvo.getSeq());
+    	System.out.println("렌트안에 뭐가?"+rentReview);
+    	System.out.println("넌 뭐니?"+rentReviewService.getRentReview(rentReview));
+    	model.addAttribute("getRentReview", rentReviewService.getRentReview(rentReview));
+    	model.addAttribute("historyList", rentHistory.getRentHistoryInMypage(seq));
+    	List<CourseBoardVO> courseList = courseBoardService.getWriter(mvo.getId());
+    	System.out.println(courseList+ "맞겠지?");
+
+    	model.addAttribute("courseList", courseList);
+
+
+    	return "mypage/updateRentReviewForm";
+    }
     // 렌트 후기 수정 처리
     @PostMapping("/rent/view/updateReview")
     public void updateRentReview() {

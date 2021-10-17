@@ -152,4 +152,10 @@ public class PremiumRentServiceImpl implements PremiumRentService{
 		// TODO Auto-generated method stub
 		return premiumRentMapper.CompEstimateUpdate(vo);
 	}
+
+	@Override
+	public EstimateHistoryVO getEstimateListInMyPage(Long seq) {
+		// TODO Auto-generated method stub
+		return premiumRentMapper.getEstimateListInMyPage(seq);
+	}
 }
