@@ -146,39 +146,6 @@
 		WHERE RN > (#{pageNum} - 1) * #{amount}
     </select>
 	
-    <resultMap id="carOption" type="CarOptionVO">
-        <id property="optCode" column="opt_code"/>
-        <result property="carSeq" column="car_seq"/>
-    </resultMap>
-    <resultMap id="insuranceOption" type="InsuranceOptionVO">
-        <id property="optCode" column="opt_code"/>
-        <result property="carSeq" column="car_seq"/>
-        <result property="price" column="price"/>
-    </resultMap>
-
-    <select id="getCarList" resultType="CarVO">
-        SELECT seq,
-               cmpn_seq,
-               car_num,
-               brand,
-               model,
-               segment,
-               trim,
-               color,
-               year,
-               fuel,
-               passenger,
-               mission,
-               trunk,
-               door,
-               kmpl,
-               price,
-               img1,
-               img2,
-               img3,
-               upt_date
-        FROM car
-    </select>
     <select id="getCar" resultMap="car">
         SELECT
             *
@@ -230,7 +197,7 @@
     	DELETE
     	FROM INSURANCE_OPTION
     	WHERE CAR_SEQ = #{carSeq}
->>>>>>> refs/remotes/origin/sub_main
+
     </delete>
     <update id="updateCompanyCar">
         UPDATE car
