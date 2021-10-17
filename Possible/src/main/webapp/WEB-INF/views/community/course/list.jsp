@@ -9,12 +9,56 @@
 .x_slider_checout_right li a {
 	float: right;
 }
+.custom-input input {
+    /* width: 100%; */
+    height: 42px;
+    padding-left: 10px;
+    border: 1px solid #e8e8e8;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 5px;
+}
+.custom-btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
 </style>
 
 	<div class="x_inner_team_main_wrapper float_left padding_tb_100">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
+					<div class="custom-input" style="margin-bottom: 50px;">
+						<form id="actionForm"
+							action="${pageContext.request.contextPath}/community/course"
+							method="get">
+							<select name="type" class="select">
+								<option value="T"
+									<c:out value="${pageMaker.cri.type eq 'T' ? 'selected':''}"/>>제목</option>
+								<option value="C"
+									<c:out value="${pageMaker.cri.type eq 'C' ? 'selected':''}"/>>내용</option>
+								<option value="TC"
+									<c:out value="${pageMaker.cri.type eq 'TC' ? 'selected':''}"/>>제목
+									or 내용</option>
+							</select> &nbsp; 
+							<input class="input" name="keyword" value="${pageMaker.cri.keyword}"> 
+							<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> 
+							<input type="hidden" name="amount" value="${pageMaker.cri.amount}">&nbsp;
+							<button class="custom-btn btn-primary" onclick="$('[name=pageNum]').val(1)">검색</button>
+						</form>
+					</div>
 					<div
 						class="x_offer_car_heading_wrapper x_offer_car_tb_heading_wrapper float_left">
 						<h4>Tour Course</h4>
@@ -30,7 +74,7 @@
 							<div class="btc_team_img_bot_wrapper">
 								<img
 									src="${pageContext.request.contextPath}/resources/images/tb1.jpg"
-									alt="team_img1">
+									alt="Course">
 								<div class="btc_team_social_tb_wrapper">
 									<h3>
 										<fmt:formatDate value="${list.startDate }"

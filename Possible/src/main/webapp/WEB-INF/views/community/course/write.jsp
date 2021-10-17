@@ -342,6 +342,7 @@ response.setContentType("text/html; charset=utf-8");
 			//코스 2개 이상만 등록 가넝한.
 			if (arr.length < 2) {
 				alert("코스 등록은 2개 이상부터 가능합니다.");
+				arr = [];
 				return false;
 			}
 

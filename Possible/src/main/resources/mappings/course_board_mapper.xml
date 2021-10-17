@@ -32,6 +32,23 @@
 		</trim>
 	</sql>
 	
+	<sql id="listCriteria">
+		<trim prefix="(" suffix=")" prefixOverrides="OR">
+        	<foreach collection="typeArr" item="type">
+            	<trim prefix="OR">
+            		<choose>
+				    	<when test="type == 'T'.toString()">
+				        	TITLE LIKE '%' || #{keyword} || '%'
+				        </when>
+				        <when test="type == 'C'.toString()">
+				        	CONTENT LIKE '%' || #{keyword} || '%'
+				        </when>
+            		</choose>
+            	</trim>
+            </foreach>
+    	</trim>
+	</sql>
+	
 	<select id="getTotalCount" resultType="int">
 			SELECT COUNT(*) 
 			FROM TOUR
@@ -63,7 +80,18 @@
 	</select>
 
 	<select id="getList" resultType="CourseBoardVO">
-		SELECT * FROM COURSE_BOARD ORDER BY SEQ DESC
+		SELECT SEQ, TITLE, WRITER, CONTENT, VIEWS, START_DATE, END_DATE, PEOPLE, GEN_DATE, UPT_DATE
+		FROM (
+			SELECT /*+ INDEX_DESC(COURSE_BOARD IDX_COURSE_BOARD) */ 
+			ROWNUM RN, SEQ, TITLE, WRITER, CONTENT, VIEWS, START_DATE, END_DATE, PEOPLE, GEN_DATE, UPT_DATE
+			FROM COURSE_BOARD
+			<where> 
+                <include refid="listCriteria"></include>
+                <![CDATA[   AND ROWNUM <= #{pageNum} * #{amount} ]]>
+             </where>
+			)
+		WHERE RN > (#{pageNum} - 1) * #{amount}
+		ORDER BY SEQ DESC
 	</select>
 	
 	<select id="read" resultType="CourseBoardVO">
@@ -121,10 +149,4 @@
 		DELETE FROM COURSE_BOARD WHERE SEQ = #{seq}
 	</delete>
 	
-	<select id="getMyCourse" resultType="CourseBoardVO">
-	select c.seq, c.title, c.writer, c.content, c.views, c.start_date,
-	c.end_date, c.people, c.gen_date, c.upt_date, m.id
-	from course_board c join member m on c.writer = m.id 
-	where m.id = #{writer}
-	</select>
 </mapper>

@@ -26,7 +26,6 @@ import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.community.course.domain.CourseBoardVO;
 import com.yedam.possable.app.community.course.service.CourseBoardService;
-import com.yedam.possable.app.community.qna.domain.QnaVO;
 import com.yedam.possable.app.community.qna.service.QnaService;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
@@ -69,12 +68,16 @@ public class MypageController {
 
     //마이페이지 대쉬보드 페이지
     @GetMapping("/dashboard")
-    public String dashboard(HttpSession session, Model model, Authentication authentication, CourseBoardVO courseVO, RentHistoryVO rentVO, @ModelAttribute("cri") Criteria cri) {
+    public String dashboard(HttpSession session, Model model, 
+    					Authentication authentication, 
+    					CourseBoardVO courseVO, RentHistoryVO rentVO, 
+    					@ModelAttribute("cri") Criteria cri) {
     	MemberVO memVO = memberService.getLoginMember(authentication);
     	System.out.println(memVO.getId());
     	courseVO.setWriter(memVO.getId());
     	rentVO.setSeq(memVO.getSeq());
-    	model.addAttribute("myCourse", courseBoardService.getMyCourse(courseVO));
+    	// model.addAttribute("myCourse", courseBoardService.getMyCourse(courseVO));
+    	model.addAttribute("myCourse", courseBoardService.getList(cri));
     	model.addAttribute("historyList", rentHistory.MyPageRentHistoryList(cri, rentVO.getMemSeq()));
     	return "mypage/dashboard";
     }
@@ -226,7 +229,8 @@ public class MypageController {
     @GetMapping("/rent/view/writeReview")
     public String rentReviewForm(Model model, Authentication authentication, 
     							Long seq, Long carSeq, Long cmpnSeq,
-    							CarVO carVo, CompanyVO cmpnVo, RentHistoryVO rhVo){
+    							CarVO carVo, CompanyVO cmpnVo, RentHistoryVO rhVo,
+    							Criteria cri){
     	MemberVO loginUser = memberService.getLoginMember(authentication);
     	
     	rhVo.setSeq(seq);
@@ -240,7 +244,7 @@ public class MypageController {
     	model.addAttribute("car", carService.getCar(carVo));
     	model.addAttribute("company", companyService.companyOneSelect(cmpnVo));
     	model.addAttribute("user", loginUser);
-    	model.addAttribute("courseList", courseBoardService.getList());
+    	model.addAttribute("courseList", courseBoardService.getList(cri));
     	// 차량 seq로 차량 한건 조회해서 model 뿌려주기
     	// 내가 작성한 코스글 seq가 필요함 (mem_seq로 코스글 조회해서 select option으로 뿌려주면 될 듯)
     	
@@ -270,11 +274,12 @@ public class MypageController {
 
     // 커뮤니티 대시보드
     @GetMapping("/community")
-    public String community(Model model, Authentication authentication, CourseBoardVO vo){
+    public String community(Model model, Authentication authentication, CourseBoardVO vo, Criteria cri){
     	MemberVO memVO = memberService.getLoginMember(authentication);
     	System.out.println(memVO.getId());
     	vo.setWriter(memVO.getId());
-    	model.addAttribute("myCourse", courseBoardService.getMyCourse(vo));
+    	//model.addAttribute("myCourse", courseBoardService.getMyCourse(vo));
+    	model.addAttribute("myCourse", courseBoardService.getList(cri));
         return "mypage/community";
     }
 
