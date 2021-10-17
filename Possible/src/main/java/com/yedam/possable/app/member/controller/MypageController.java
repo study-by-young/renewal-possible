@@ -104,13 +104,9 @@ public class MypageController {
     						   ){
     	MemberVO mvo = memberService.getLoginMember(authentication);
 
-    	List<EstimateHistoryVO> estimateList = premiumRentService.getEstimateListByUserSeq(cri, mvo.getSeq());
-    	System.out.println("뭐야? 이거?"+ premiumRentService.getEstimateListByUserSeq(cri, mvo.getSeq()));
-		model.addAttribute("estList", premiumRentService.getEstimateListByUserSeq(cri, mvo.getSeq()));
-
-
-
     	List<EstimateHistoryVO> estimateList = premiumRentService.getEstimateListByMemSeq(cri, mvo.getSeq());
+    	System.out.println("뭐야? 이거?"+ premiumRentService.getEstimateListByMemSeq(cri, mvo.getSeq()));
+		model.addAttribute("estList", premiumRentService.getEstimateListByMemSeq(cri, mvo.getSeq()));
 
 		for (int i = 0; i < estimateList.size(); i++) {
 			Map<String, Object> voMap = new HashMap<String, Object>();

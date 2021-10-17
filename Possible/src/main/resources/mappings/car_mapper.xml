@@ -141,16 +141,6 @@
 		WHERE RN > (#{pageNum} - 1) * #{amount}
     </select>
 
-    <resultMap id="carOption" type="CarOptionVO">
-        <id property="optCode" column="opt_code"/>
-        <result property="carSeq" column="car_seq"/>
-    </resultMap>
-    <resultMap id="insuranceOption" type="InsuranceOptionVO">
-        <id property="optCode" column="opt_code"/>
-        <result property="carSeq" column="car_seq"/>
-        <result property="price" column="price"/>
-    </resultMap>
-
     <select id="getCarList" resultType="CarVO">
         SELECT seq,
                cmpn_seq,

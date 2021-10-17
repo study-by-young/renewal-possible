@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: admin
@@ -23,6 +24,7 @@
             </div>
         </div>
     </c:if>
+    <sec:authentication property="principal.seq" var="loginUserSeq"/>
     <c:forEach var="submit" items="${submitList}" varStatus="status">
         <div class="card-body">
             <div class="row">
@@ -31,9 +33,14 @@
                         <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${submit.carVO.modelCodeVO.img}" alt="">
                     </div>
                     <div class="text-center shadow-1 p-2">
-                        <c:set var="during" value='${submit.estimateHistoryVO.endDate.date - submit.estimateHistoryVO.startDate.date}' />
-                        <h2 class="font-weight-bold text-blue mb-0">${during * submit.carVO.price}원</h2>
-                        <span>(${submit.carVO.price}원/일)</span>
+                        <c:if test="${loginUserSeq == submit.companyVO.memberVO.seq}">
+                            <c:set var="during" value='${submit.estimateHistoryVO.endDate.date - submit.estimateHistoryVO.startDate.date}' />
+                            <h2 class="font-weight-bold text-blue mb-0">${during * submit.price}원</h2>
+                            <span>(${submit.price}원/일)</span>
+                        </c:if>
+                        <c:if test="${loginUserSeq != submit.companyVO.memberVO.seq}">
+                            <p>다른 업체의 가격은 볼 수 없습니다.</p>
+                        </c:if>
                     </div>
                 </div>
                 <div class="col-lg-9">
@@ -46,18 +53,18 @@
                             </div>
                         </div>
                         <div class="col-lg-7 mb-3 text-right">
-                            <a class="btn px-3 btn-primary"
-                               href="${pageContext.request.contextPath}/premiumRent/submit/pay?seq=${submit.seq}">
-                                결제하기
-                            </a>
-                            <a class="btn px-3 btn-outline-primary"
-                               href="${pageContext.request.contextPath}/premiumRent/submit/update?seq=${submit.seq}">
-                                수정하기
-                            </a>
-                            <a class="btn px-3 btn-outline-danger"
-                               href="${pageContext.request.contextPath}/premiumRent/submit/delete?seq=${submit.seq}">
-                                삭제
-                            </a>
+                            <sec:authorize access="hasAnyRole('USER','ADMIN')">
+                                <button type="button" class="btn px-3 btn-primary" onclick="testpaymentFnc(this)">결제하기</button>
+                            </sec:authorize>
+                            <c:if test="${loginUserSeq == submit.companyVO.memberVO.seq}">
+                                <a class="btn px-3 btn-outline-primary"
+                                   href="${pageContext.request.contextPath}/premiumRent/submit/update?seq=${submit.estimateHistoryVO.seq}&sSeq=${submit.seq}">
+                                    수정하기
+                                </a>
+                                <button type="button" class="btn px-3 btn-outline-danger" onclick="confirmSubmitDelete(${submit.seq})">
+                                    삭제
+                                </button>
+                            </c:if>
                         </div>
                         <div class="col-12">
                             <p class="text-grey-600">
@@ -110,7 +117,12 @@
                                             <i class="icon-checkmark4"></i> 안내사항
                                         </div>
                                         <div class="col-10">
-                                            ${submit.memo}
+                                            <c:if test="${loginUserSeq == submit.companyVO.memberVO.seq}">
+                                                ${submit.memo}
+                                            </c:if>
+                                            <c:if test="${loginUserSeq != submit.companyVO.memberVO.seq}">
+                                                <p>다른 업체의 내용은 볼 수 없습니다.</p>
+                                            </c:if>
                                         </div>
                                     </div>
                                 </div>
@@ -127,3 +139,14 @@
         </c:if>
     </div>
 </div>
+<script>
+    function confirmSubmitDelete(seq){
+        customConfirm('삭제 요청',
+            '정말 삭제하시겠습니까?',
+            function(result){
+                if(result){
+                    location.href = "${pageContext.request.contextPath}/premiumRent/submit/delete?seq=" + seq;
+                }
+            });
+    }
+</script>

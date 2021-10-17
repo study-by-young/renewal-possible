@@ -1,10 +1,8 @@
 package com.yedam.possable.app.rent.service;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import com.yedam.possable.app.common.code.mapper.CodeMapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +20,8 @@ import lombok.extern.java.Log;
 public class PremiumRentServiceImpl implements PremiumRentService{
     @Autowired
     PremiumRentMapper premiumRentMapper;
+    @Autowired
+    CodeMapper codeMapper;
 
     @Override
     public List<EstimateHistoryVO> getEstimateList(Criteria cri) {
@@ -46,10 +46,10 @@ public class PremiumRentServiceImpl implements PremiumRentService{
         // 조회 시 차, 여행 옵션 바인딩
         EstimateHistoryVO vo = premiumRentMapper.getEstimate(seq);
         if(vo.getOptions() != null){
-            vo.setItemList(List.of(strToArr(vo.getOptions())));
+            vo.setOptionList(List.of(strToArr(vo.getOptions())));
         }
         if(vo.getItems() != null){
-            vo.setOptionList(List.of(strToArr(vo.getItems())));
+            vo.setItemList(List.of(strToArr(vo.getItems())));
         }
         return vo;
     }
@@ -78,7 +78,11 @@ public class PremiumRentServiceImpl implements PremiumRentService{
     public List<EstiSubmitHistoryVO> getEstSubmitListByEstiSeq(Criteria cri, Long seq) {
         List<EstiSubmitHistoryVO> estSubmitList = premiumRentMapper.getEstSubmitListByEstiSeq(cri, seq);
         for(EstiSubmitHistoryVO vo : estSubmitList){
-            vo.setItemsList(List.of(strToArr(vo.getItems())));
+            List<String> itemList = new ArrayList<>();
+            for(String item : strToArr(vo.getItems())){
+                itemList.add(codeMapper.getCodeByValue(item).getName());
+            }
+            vo.setItemsList(itemList);
         }
         return estSubmitList;
     }
@@ -109,7 +113,7 @@ public class PremiumRentServiceImpl implements PremiumRentService{
     }
 
     private String[] strToArr(String str) {
-        String[] strArr = str.substring(1,str.length()-1).trim().split(",");
+        String[] strArr = str.trim().split(",");
         for(int i=0; i< strArr.length; i++){
             strArr[i] = strArr[i].trim();
         }

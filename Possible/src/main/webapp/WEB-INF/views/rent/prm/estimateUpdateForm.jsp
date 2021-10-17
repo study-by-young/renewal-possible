@@ -28,7 +28,7 @@
 <div class="x_car_book_sider_main_Wrapper my-4">
     <div class="container">
         <form id="estimateForm" name="estimateForm" method="post">
-<%--            <input type="hidden" name="memSeq" id="memSeq" value="<sec:authentication property="principal.seq" />" >--%>
+            <input type="hidden" name="memberVO.seq" id="memberVO" value="<sec:authentication property="principal.seq" />" >
             <div class="row">
                 <div class="col-lg-10 col-12 offset-lg-1 ">
                     <div class="x_carbooking_right_section_wrapper card">
@@ -73,7 +73,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-4 form-group">
-                                                        <label fot="trim" class="w-100">트림</label>
+                                                        <label for="trim" class="w-100">트림</label>
                                                         <input type="hidden" name="segment" id="segment" value="${estimate.segmentCodeVO.code}">
                                                         <select name="trim" id="trim" class="select form-control" onchange="selectTrim(this)">
                                                             <option disabled>모델을 선택하세요</option>

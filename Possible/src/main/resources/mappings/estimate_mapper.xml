@@ -290,6 +290,11 @@
     </select>
 
     <select id="getEstSubmit" resultMap="estiSubmitHistory">
+        SELECT
+        /*+ INDEX_DESC(ESTI_SUBMIT_HISTORY IDX_ESTI_SUBMIT_HISTORY) */
+        *
+        FROM esti_submit_history
+        WHERE seq = #{seq}
     </select>
 
     <insert id="insertEstSubmit">
@@ -320,9 +325,22 @@
     </insert>
 
     <update id="updateEstSubmit">
+        UPDATE esti_submit_history
+        SET
+            items = #{items},
+            <if test="price != null">
+                price = #{price},
+            </if>
+            memo = #{memo},
+            upt_date = SYSDATE,
+            car_seq = #{carVO.seq}
+        WHERE seq = #{seq}
     </update>
 
     <delete id="deleteEstSubmit">
+        DELETE
+        FROM esti_submit_history
+        WHERE seq = #{seq}
     </delete>
 
     <select id="getEstSubmitCount" resultType="int">

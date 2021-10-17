@@ -129,32 +129,23 @@
             </div>
             <div class="card-footer">
                 <div class="text-center">
-                    <a href="${pageContext.request.contextPath}/premiumRent/submit/register?seq=${estimate.seq}" class="btn btn-primary btn-lg w-25">
-                        <h5 class="mb-0">견적 작성</h5>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/premiumRent/estimate/view/update?seq=${estimate.seq}" class="btn btn-primary btn-lg w-25">
-                        <h5 class="mb-0">수정하기</h5>
-                    </a>
-                    <button onclick = "confirmDelete()" class="btn btn-outline-danger btn-lg w-25">
-                        <span class="h5 mb-0">삭제하기</span>
-                    </button>
-<%--                    <sec:authorize access="hasAnyRole('COMPANY','ADMIN')">--%>
-<%--                        <a href="${pageContext.request.contextPath}/premiumRent/submit/register?seq=${est.seq}" class="btn btn-primary btn-lg w-25">--%>
-<%--                            <h5 class="mb-0">견적 작성</h5>--%>
-<%--                        </a>--%>
-<%--                    </sec:authorize>--%>
-<%--                    <sec:authentication property="principal.seq" var="loginUserSeq" />--%>
-<%--                    <sec:authorize access="hasRole('USER')">--%>
+                    <sec:authorize access="hasAnyRole('COMPANY','ADMIN')">
+                        <a href="${pageContext.request.contextPath}/premiumRent/submit/register?seq=${estimate.seq}" class="btn btn-primary btn-lg w-25">
+                            <h5 class="mb-0">견적 작성</h5>
+                        </a>
+                    </sec:authorize>
+                    <sec:authentication property="principal.seq" var="loginUserSeq" />
+                    <sec:authorize access="hasRole('USER')">
 
-<%--                        <c:if test="${est.memSeq == loginUserSeq}">--%>
-<%--                            <a href="${pageContext.request.contextPath}/premiumRent/estimate/view/update?seq=${est.seq}" class="btn btn-primary btn-lg w-25">--%>
-<%--                                <h5 class="mb-0">수정하기</h5>--%>
-<%--                            </a>--%>
-<%--                            <button onclick = "confirmDelete()" class="btn btn-outline-danger btn-lg w-25">--%>
-<%--                                <span class="h5 mb-0">삭제하기</span>--%>
-<%--                            </button>--%>
-<%--                        </c:if>--%>
-<%--                    </sec:authorize>--%>
+                        <c:if test="${estimate.memberVO.seq == loginUserSeq}">
+                            <a href="${pageContext.request.contextPath}/premiumRent/estimate/view/update?seq=${estimate.seq}" class="btn btn-primary btn-lg w-25">
+                                <h5 class="mb-0">수정하기</h5>
+                            </a>
+                            <button onclick = "confirmDelete()" class="btn btn-outline-danger btn-lg w-25">
+                                <span class="h5 mb-0">삭제하기</span>
+                            </button>
+                        </c:if>
+                    </sec:authorize>
                 </div>
             </div>
         </div>
@@ -192,6 +183,9 @@
                 map.setCenter(coords);
             }
         });
+
+        IMP.init('imp77605435'); /* 가맹점 식별코드 초기화 */
+
     });
 
     function confirmDelete(){
