@@ -89,20 +89,6 @@
 		})
 	}); */
 	
-	function makeLi(data) {
-		return '<button class="accordion">' + data.title + '</button>'
-			+ '<div class="panel">'
-			+ '<p>' + data.content + '</p>'
-			+ '<div class="lr_bc_first_box_img_cont_wrapper" align="right">'
-			+ '<button class="btn btn-dark" type="button"'
-			+ 'onclick="location.href=' + update?seq=data.seq + '">수정</button>'
-			+ '<button data-seq="' + data.seq + '" id="deleteBtn' + data.seq + 'type="button"'
-			+ 'class="btn btn-dark">삭제</button>'
-			+ '<p>'
-			+ '</div>'
-			+ '</div>';
-	}
-	
 	
 </script>
 
@@ -257,17 +243,32 @@
 			data : {category : $(this).text()},
 			dataType : 'json',
 			success : function(datas) {
-				str = "";
-				for (i=0; i < datas.categoryTab.length; i++) {
-					str += makeLi(datas.categoryTab[i]);
-				$(".categoryContent").html(str);
-				}
+ 				str = "";
+				for (i=0; i < datas.length; i++) {
+					str += makeLi(datas[i]);
+					$(".categoryContent").html(str);
+					console.log(str);
+				} 
 			},
 			error : function() {
 				alert("error");
 			}
 		})
 	});
+	function makeLi(data) {
+	      return '<div class="lr_bc_first_box_img_cont_wrapper">'
+	      + '<button class="accordion">'+data.title+'</button>'
+	      + '<div class="panel">'
+	      + '<p>'+data.content+'</p>'
+	      + '<div class="lr_bc_first_box_img_cont_wrapper" align="right">'
+	      + '<button class="btn btn-dark" type="button" onclick="location.href=update?seq='+data.seq+'">수정</button>'
+	      + '<button data-seq="'+data.seq+'" id="deleteBtn'+data.seq+'" type="button" class="btn btn-dark">삭제</button>'
+	      + '<p></div></div></div>'
+	      /* '<div class="col-md-6">'
+          + '<div class="card mb-2"> <a class="text-default collapsed" data-toggle="collapse" href="update?seq='+ data.seq +'">
+          + '<div class="card-header"><h6 class="card-title"><i class="icon-help mr-2 text-slate"></i>'+ data.title + '</h6></div></a>'
+          + '<div id="question'+ data.seq +'" class="collapse"><div class="card-body">'+ data.content +'</div></div></div></div>'  */
+	}
 		
 	var acc = document.getElementsByClassName("accordion");
 

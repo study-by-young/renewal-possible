@@ -1,5 +1,7 @@
 package com.yedam.possable.app.community.faq.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,11 +34,12 @@ public class FaqController {
 	
 	@GetMapping("/category")
 	@ResponseBody
-	public String category(String category, RedirectAttributes rttr, @ModelAttribute("cri") Criteria cri) {
+	public List<FaqVO> category(@RequestParam (value="category", required=false) String category , RedirectAttributes rttr, @ModelAttribute("cri") Criteria cri) {
+		System.out.println(category);
 		faqService.getCategoryList(cri, category);
-		rttr.addAttribute("categoryTab", faqService.getCategoryList(cri, category));
+		//rttr.addAttribute("categoryTab", faqService.getCategoryList(cri, category));
 		
-		return "redirect:/faq/list";
+		return faqService.getCategoryList(cri, category);
 	}
 	
 	@GetMapping("/get")
