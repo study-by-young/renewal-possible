@@ -109,59 +109,21 @@
 	</sql>
 
     <!-- 차량 model 중복제거 리스트 조회 -->
-    <select id="getDistinctCarList" resultType="CarVO">
-		SELECT SEQ,
-				BRAND,
-				MODEL,
-				SEGMENT,
-				TRIM,
-				COLOR,
-				YEAR,
-				FUEL,
-				PASSENGER,
-				MISSION,
-				TRUNK,
-				DOOR,
-				KMPL,
-				PRICE,
-				STATUS,
-				IMG1,
-				IMG2,
-				IMG3,
-				GEN_DATE,
-				UPT_DATE,
-				CMPN_SEQ,
-				CAR_NUM
+    <select id="getDistinctCarList" resultMap="car">
+		SELECT
+            *
 		FROM (SELECT /*+ INDEX_DESC(CAR IDX_CAR) */ ROWNUM RN, a.*
 		        FROM (SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.* FROM CAR) a
 		        <where>
-                	<include refid="criteria"></include>
-                	<![CDATA[ AND CNT = 1 AND ROWNUM <= #{pageNum} * #{amount}) ]]>
+                	<include refid="criteria" />
+                    AND CNT = 1
+                    <![CDATA[ AND ROWNUM <= #{pageNum} * #{amount}) ]]>
                 </where>
 		WHERE RN > (#{pageNum} - 1) * #{amount}
     </select>
-
-    <select id="getCarList" resultType="CarVO">
-        SELECT seq,
-               cmpn_seq,
-               car_num,
-               brand,
-               model,
-               segment,
-               trim,
-               color,
-               year,
-               fuel,
-               passenger,
-               mission,
-               trunk,
-               door,
-               kmpl,
-               price,
-               img1,
-               img2,
-               img3,
-               upt_date
+    <select id="getCarList" resultMap="car">
+        SELECT
+            *
         FROM car
     </select>
     <select id="getCar" resultMap="car">
@@ -218,43 +180,43 @@
     <update id="updateCompanyCar">
         UPDATE car
         <set>
-            <if test="car.carNum != null">
+            <if test="carNum != null">
                 car_num = #{car.carNum}
             </if>
-            <if test="car.brand != null">
+            <if test="brand != null">
                 brand = #{car.brand}
             </if>
-            <if test="car.model != null">
+            <if test="model != null">
                 model = #{car.model}
             </if>
-            <if test="car.segment != null">
+            <if test="segment != null">
                 segment = #{car.segment}
             </if>
-            <if test="car.trim != null">
+            <if test="trim != null">
                 trim = #{car.trim}
             </if>
-            <if test="car.color != null">
+            <if test="color != null">
                 color = #{car.color}
             </if>
-            <if test="car.year != null">
+            <if test="year != null">
                 year = #{car.year}
             </if>
-            <if test="car.fuel != null">
+            <if test="fuel != null">
                 fuel = #{car.fuel}
             </if>
-            <if test="car.passenger != null">
+            <if test="passenger != null">
                 passenger = #{car.passenger}
             </if>
-            <if test="car.mission != null">
+            <if test="mission != null">
                 mission = #{car.mission}
             </if>
-            <if test="car.trunk != null">
+            <if test="trunk != null">
                 trunk = #{car.trunk}
             </if>
-            <if test="car.kmpl != null">
+            <if test="kmpl != null">
                 kmpl = #{car.kmpl}
             </if>
-            <if test="car.price != null">
+            <if test="price != null">
                 price = #{car.price}
             </if>
             upt_date = SYSDATE
@@ -263,19 +225,17 @@
         AND cmpn_seq = #{companyVO.seq}
         AND status NOT IN('CST02, CST03')
     </update>
-
     <update id="updateStatus">
         UPDATE car
         SET status = #{status},
             upt_date = SYSDATE
         WHERE seq = #{seq}
     </update>
-
     <!-- 해당 model을 보유한 업체 리스트 뽑아내기 위한 리스트 -->
-    <select id="getCarByModel" resultType="CarVO">
-    	SELECT CAR.*, COMPANY.*
-		FROM CAR JOIN COMPANY
-		ON CAR.CMPN_SEQ = COMPANY.SEQ
+    <select id="getCarByModel" resultMap="car">
+    	SELECT
+            *
+		FROM CAR
 		WHERE MODEL = #{model}
     </select>
 
@@ -353,76 +313,11 @@
     </insert>
 
     <select id="getTotalCount" resultType="int">
-		SELECT COUNT(*) FROM (
-				SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.*
-				FROM CAR)
+        SELECT /*+ INDEX_DESC(CAR IDX_CAR) */ COUNT(*)
+        FROM (SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.* FROM CAR)
 		<where>
+            AND CNT = 1
 			<include refid="criteria" />
 		</where>
 	</select>
-
-    <select id="getCarList_map" resultMap="car">
-        SELECT * FROM (
-        SELECT
-        ROWNUM RN,
-        C.seq,
-        C.car_num,
-        C.brand,
-        C.segment,
-        C.model,
-        C.trim,
-        C.color,
-        C.year,
-        C.fuel,
-        C.passenger,
-        C.mission,
-        C.trunk,
-        C.door,
-        C.kmpl,
-        C.price,
-        C.status,
-        C.img1,
-        C.img2,
-        C.img3,
-        C.gen_date,
-        C.upt_date,
-        BRAND.name AS brand_name,
-        SEGMENT.name AS segment_name,
-        COLOR.name AS color_name,
-        FUEL.name AS fuel_name,
-        MISSON.name AS mission_name,
-        STATUS.name AS status_name,
-        MC.name     AS model_name,
-        MC.img      AS model_img,
-        TC.name     AS trim_name,
-        CM.name     AS cmpn_name,
-        CM.postal   AS cmpn_postal,
-        CM.addr1    AS cmpn_addr1,
-        CM.addr2    AS cmpn_addr2,
-        CM.tel      AS cmpn_tel,
-        CO.opt_code AS co_opt_code,
-        IO.opt_code AS io_opt_code,
-        IO.price    AS io_price
-        FROM ( SELECT
-        /*+ INDEX_DESC(CAR IDX_CAR) */
-        *
-        FROM car
-        <where>
-            <![CDATA[ ROWNUM <= #{pageNum} * #{amount} ]]>
-        </where>
-        ) C
-        LEFT OUTER JOIN code_sub SEGMENT ON C.segment = SEGMENT.code
-        LEFT OUTER JOIN code_sub COLOR ON C.color = COLOR.code
-        LEFT OUTER JOIN code_sub FUEL ON C.fuel = FUEL.code
-        LEFT OUTER JOIN code_sub MISSON ON C.mission = MISSON.code
-        LEFT OUTER JOIN code_sub STATUS ON C.status = STATUS.code
-        LEFT OUTER JOIN brand_code BRAND ON C.brand = BRAND.code
-        LEFT OUTER JOIN model_code MC ON C.model = MC.code
-        LEFT OUTER JOIN trim_code TC ON C.trim = TC.code
-        LEFT OUTER JOIN company CM ON C.cmpn_seq = CM.seq
-        LEFT OUTER JOIN car_option CO ON C.seq = CO.car_seq
-        LEFT OUTER JOIN insurance_option IO ON C.seq = IO.car_seq
-        )
-        WHERE RN > (#{pageNum} - 1) * #{amount}
-    </select>
 </mapper>

@@ -7,7 +7,18 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<c:if test="${pagination.startPage == 0}">
+    <div class="col-12">
+        <div class="card card-body text-center">
+            <ul class="pagination pagination-flat align-self-center">
+                    <li class="page-item active">
+                        <a href="?pageNum=1&amount=${pagination.cri.amount}" class="page-link">1</a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</c:if>
+<c:if test="${pagination.startPage != 0}">
 <div class="col-12">
     <div class="card card-body text-center">
         <ul class="pagination pagination-flat align-self-center">
@@ -25,3 +36,4 @@
         </ul>
     </div>
 </div>
+</c:if>

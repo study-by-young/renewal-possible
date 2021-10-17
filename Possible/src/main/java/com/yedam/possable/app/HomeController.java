@@ -3,6 +3,7 @@ package com.yedam.possable.app;
 import com.yedam.possable.app.common.code.domain.CodeMasterVO;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.community.faq.service.FaqService;
 import com.yedam.possable.app.community.tour.service.TourService;
 import lombok.extern.java.Log;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -39,7 +41,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/pagination")
-    public String pagination(){
+    public String pagination(@ModelAttribute("pagination") PageVO pageVO){
 	    return "tiles/pagination";
     }
 

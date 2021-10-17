@@ -32,6 +32,9 @@
     <definition name="rent/prm/*" extends="Template">
         <put-attribute name="content" value="/WEB-INF/views/rent/prm/{1}.jsp" />
     </definition>
+    <definition name="rent/comm/*" extends="Template">
+        <put-attribute name="content" value="/WEB-INF/views/rent/comm/{1}.jsp" />
+    </definition>
     <definition name="home" extends="Template">
         <put-attribute name="content" value="/WEB-INF/views/home.jsp" />
     </definition>
@@ -41,6 +44,7 @@
     <definition name="member/*" extends="Template">
         <put-attribute name="content" value="/WEB-INF/views/member/{1}.jsp" />
     </definition>
+
 
     <!-- 어드민 및 업체 관리 페이지 설정 -->
     <definition name="admin/*" extends="adminTemplate">
