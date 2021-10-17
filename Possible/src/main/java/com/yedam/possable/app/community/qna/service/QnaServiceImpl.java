@@ -52,4 +52,10 @@ public class QnaServiceImpl implements QnaService {
 		return qnaMapper.getTotalCount(cri);
 	}
 
+	@Override
+	public List<QnaVO> getMyQna(Long memSeq) {
+		// TODO Auto-generated method stub
+		return qnaMapper.getMyQna(memSeq);
+	}
+
 }

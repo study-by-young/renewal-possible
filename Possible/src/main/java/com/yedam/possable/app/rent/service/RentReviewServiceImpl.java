@@ -50,4 +50,10 @@ public class RentReviewServiceImpl implements RentReviewService {
 		return rentReviewMapper.deleteRentReview(seq);
 	}
 
+	//업체관리자 리뷰조회
+	@Override
+	public List<RentReviewVO> getCompanyReivewList(Long cmpnSeq) {
+		return rentReviewMapper.getCompanyReivewList(cmpnSeq);
+	}
+
 }

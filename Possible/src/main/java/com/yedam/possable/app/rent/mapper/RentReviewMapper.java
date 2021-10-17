@@ -27,4 +27,7 @@ public interface RentReviewMapper {
 	
 	// 삭제
 	public int deleteRentReview(Long seq);
+	
+	//업체관리자 리뷰 조회
+	public List<RentReviewVO> getCompanyReivewList(Long cmpnSeq);
 }

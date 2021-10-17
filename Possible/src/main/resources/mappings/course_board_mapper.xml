@@ -120,4 +120,11 @@
 	<delete id="delete">
 		DELETE FROM COURSE_BOARD WHERE SEQ = #{seq}
 	</delete>
+	
+	<select id="getMyCourse" resultType="CourseBoardVO">
+	select c.seq, c.title, c.writer, c.content, c.views, c.start_date,
+	c.end_date, c.people, c.gen_date, c.upt_date, m.id
+	from course_board c join member m on c.writer = m.id 
+	where m.id = #{writer}
+	</select>
 </mapper>

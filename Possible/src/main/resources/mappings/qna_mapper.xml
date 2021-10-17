@@ -103,4 +103,11 @@
 			</where>
 	</select>
 	
+	<!-- 마이페이지 문의 조회 -->
+	<select id="getMyQna" resultType="QnaVO">
+	select seq, content, writer, status, gen_date, upt_date, title, answer_cnt, mem_seq 
+	from qna
+	where mem_seq = #{memSeq}
+	</select>
+		
 </mapper>

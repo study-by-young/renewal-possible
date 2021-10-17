@@ -43,4 +43,16 @@ public class RentHistoryServiceImpl implements RentHistoryService {
 		return rentHistoryMapper.MyPageRentHistoryList(cri, seq);
 	}
 
+	@Override
+	public List<RentHistoryVO> getCompanySales(Long cmpnSeq) {
+		// TODO Auto-generated method stub
+		return rentHistoryMapper.getCompanySales(cmpnSeq);
+	}
+
+	@Override
+	public List<RentHistoryVO> getCompanytodayCar(Long cmpnSeq) {
+		// TODO Auto-generated method stub
+		return rentHistoryMapper.getCompanytodayCar(cmpnSeq);
+	}
+
 }
