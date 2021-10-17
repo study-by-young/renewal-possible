@@ -37,7 +37,6 @@
         margin-top: 30px;
         border-left : 0px solid #eeeeee;
     }
-
 </style>
 
 <!-- x blog main and sidebar Wrapper Start -->
@@ -204,6 +203,7 @@
 						                    </c:if>
 						                </div>
 					            	</div>
+<<<<<<< HEAD
 <%-- =======
                                     <div class="blog_single_comment_heading">
                                         <h4>렌트내역</h4>
@@ -326,6 +326,8 @@
                                 	
 								    
 								   <%--  
+=======
+>>>>>>> refs/remotes/origin/sub_main
                                     <div class="pager_wrapper prs_blog_pagi_wrapper">
                                         <ul class="pagination">
                                          <c:if test="${not empty historyList}">
@@ -433,10 +435,8 @@
  			
 
 <!-- x blog main and sidebar Wrapper End -->
-
-
 <script>
-<!-- forEach 돌리고 id로 불러오면 첫번째 버튼만 활성화 되기 때문에 class로 불러온다. -->
+//forEach 돌리고 id로 불러오면 첫번째 버튼만 활성화 되기 때문에 class로 불러온다.
 $('.refundBtn').on('click', function(e){
 	e.preventDefault();
 	if(confirm('예약을 취소하시겠습니까?')){
@@ -466,5 +466,5 @@ $('.refundBtn').on('click', function(e){
 		return false;
 	}
 });
-
+$
 </script>

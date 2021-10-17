@@ -1,9 +1,6 @@
 package com.yedam.possable.app.member.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,10 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
@@ -25,7 +28,6 @@ import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
-import com.yedam.possable.app.rent.domain.CompEstiListJoinVO;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.domain.RentReviewVO;
@@ -51,7 +53,7 @@ public class MypageController {
     @Autowired
     CarService carService;
     @Autowired
-    RentHistoryService rentHistoryService;
+    RentHistoryService rentHistory;
     @Autowired
     PremiumRentService premiumRentService;
     @Autowired
@@ -189,12 +191,13 @@ public class MypageController {
 			
     	MemberVO mvo = memberService.getLoginMember(authentication);
 
-    	int total = rentHistoryService.getHistoryCount();
 
-    	vo.setMemSeq(mvo.getSeq());
+    	int total = rentHistory.getHistoryCount();
+
+
     	
     	model.addAttribute("pagination", new PageVO(cri, total));
-    	model.addAttribute("historyList", rentHistoryService.MyPageRentHistoryList(cri, vo.getMemSeq()));
+    	model.addAttribute("historyList", rentHistory.MyPageRentHistoryList(cri, vo.getMemSeq()));
     	
 
     	return "mypage/rentHistoryList";
@@ -233,8 +236,8 @@ public class MypageController {
     	
     	MemberVO mvo = memberService.getLoginMember(authentication);
     	
-    	System.out.println("왜니는 null인데"+rentHistoryService.getRentHistoryInMypage(seq));
-    	model.addAttribute("historyList", rentHistoryService.getRentHistoryInMypage(seq));
+    	System.out.println("왜니는 null인데"+rentHistory.getRentHistoryInMypage(seq));
+    	model.addAttribute("historyList", rentHistory.getRentHistoryInMypage(seq));
     	
     	
     	//rentHistory.getRentHistory();

@@ -22,7 +22,7 @@
 	<div class="content">
 	<div class="card">
 			<div class="card-header header-elements-inline">
-				<h6 class="card-title">차량등록</h6>
+				<h6 class="card-title">차량상세</h6>
 				<div class="header-elements"></div>
 			</div>
 			<hr>
@@ -39,12 +39,14 @@
 										<ul class="list-unstyled row">
 											<li class="col-md-4">
 												<label class="d-block">브랜드 
+											 	<input type="hidden" class="form-control" name='brand' value='${car.brand}' >
+											 	<input type="hidden" class="form-control" name='model' value='${car.model}' >
+											 	<input type="hidden" class="form-control" name='trim' value='${car.trim}' >
+											 	<input type="hidden" class="form-control" name='segment' value='${car.segment}' >
+											 	<input type="hidden" class="form-control" name='fuel' value='${car.fuel}' >
 												<select name="brand" id="brand" class="form-control select-fixed-single" onchange="searchModelByBrand()" required>
 															<optgroup label="브랜드">
-																<option>${car.brand}</option>
-																<c:forEach var="brand" items="${brands}">
-																	<option value="${brand.code}">${brand.name}</option>
-																</c:forEach>
+																<option>${brand}</option>
 															</optgroup>
 												</select>
 												</label>
@@ -53,10 +55,7 @@
 												<label class="d-block">모델 
 												<select name="model" id="model" class="form-control select-fixed-single" onchange="searchTrimByModel()" required>
 															<optgroup label="모델명">
-																<option>${car.model}</option>
-																<c:forEach var="model" items="${models}">
-																	<option value="${model.code}">${model.name}</option>
-																</c:forEach>
+																<option>${model2}</option>
 															</optgroup>
 												</select>
 												</label>
@@ -65,7 +64,7 @@
 												<label class="d-block">등급
 														<select name="trim" id="trim" class="form-control select-fixed-single" required>
 															<optgroup label="트림">
-																<option>${car.trim}</option>
+																<option>${trim}</option>
 															</optgroup>
 													</select>
 												</label>
@@ -75,10 +74,7 @@
 												<label class="d-block">세그먼트 
 												<select name="segment" id="segment" class="form-control select-fixed-single" required>
 															<optgroup label="세그먼트">
-																<option>${car.segment}</option>
-																<c:forEach var="segment" items="${segment}">
-																	<option value="${segment.code}">${segment.name}</option>
-																</c:forEach>
+																<option>${segment}</option>
 															</optgroup>
 												</select>
 												</label>
@@ -87,10 +83,7 @@
 												<label class="d-block">연료 
 												<select name="fuel" id="fuel" class="form-control select-fixed-single" required>
 															<optgroup label="연료">
-																<option>${car.fuel}</option>
-																<c:forEach var="fuel" items="${fuels}">
-																	<option value="${fuel.code}">${fuel.name}</option>
-																</c:forEach>
+																<option>${fuel}</option>
 															</optgroup>
 													</select>
 												</label>
@@ -204,14 +197,8 @@
                                         <c:forEach var="option" items="${carOpt}" varStatus="status">
                                             <div class="mb-2 col-lg-3 col-md-4 col-6">
                                                 <div class="custom-control custom-checkbox custom-control-inline">
-                                                    <input type="checkbox"
-                                                           name="options"
-                                                           id="options${status.index}"
-                                                           class="custom-control-input"
-                                                           value="${option.name}"
-                                                           <c:if test="${options.contains(option.name)}">checked</c:if>>
-                                                    <label class="custom-control-label" for="options${status.index}">${option.name}</label>
-                                                </div>
+                                                    <i class="icon-checkbox-checked2 text-primary"></i>${option.optCode}
+                                           </div>
                                             </div>
                                         </c:forEach>
                                     </div>

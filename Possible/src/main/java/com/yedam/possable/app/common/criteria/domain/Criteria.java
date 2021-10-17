@@ -11,7 +11,14 @@ public class Criteria {
 
     private String type;
     private String keyword;
-
+    
+    // 일반렌트 자동차 검색
+    private String model;
+    private String segment;
+    private String fuel;
+    private String year;
+    private String brand;
+    private String passenger;
 
     public Criteria() {
     }
@@ -23,6 +30,29 @@ public class Criteria {
 
     public String[] getTypeArr() {
         return type == null ? new String[] {} : type.split("");
+    }    
+    
+    public String[] getModelArr() {
+        return model == null ? new String[] {} : model.split("");
+    }    
+    
+    public String[] getSegmentArr() {
+        return segment == null ? new String[] {} : segment.split("");
     }
-
+    
+    public String[] getFuelArr() {
+        return fuel == null ? new String[] {} : fuel.split("");
+    }
+    
+    public String[] getYearArr() {
+        return year == null ? new String[] {} : year.split("");
+    }
+    
+    public String[] getBrandArr() {
+        return brand == null ? new String[] {} : brand.split("");
+    }
+    
+    public String[] getPassengerArr() {
+        return passenger == null ? new String[] {} : passenger.split("");
+    }
 }

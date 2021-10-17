@@ -9,6 +9,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.community.notice.service.NoticeService;
+import com.yedam.possable.app.community.qna.service.QnaService;
 import com.yedam.possable.app.community.report.domain.ReportVO;
 import com.yedam.possable.app.community.report.service.ReportService;
 import com.yedam.possable.app.common.code.service.CodeService;
@@ -40,14 +41,17 @@ public class AdminController {
     ReportService reportService;
     @Autowired
     NoticeService noticeService;
+    @Autowired
+	QnaService qnaService;
+	
 
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session,Model model, @ModelAttribute("cri") Criteria cri) {
 
 		model.addAttribute("notice", noticeService.getList(cri));
-		 model.addAttribute("comRegList", companyService.companyRegList());
-
-    	return "admin/dashboard";
+		model.addAttribute("comRegList", companyService.companyRegList());
+		model.addAttribute("list",qnaService.getList(cri));
+		return "admin/dashboard";
     }
 
     // 회원 관리 리스트

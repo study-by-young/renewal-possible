@@ -50,7 +50,21 @@ public interface CarService {
     //차량 옵션 추가
     public int insertCarOptions(CarOptionVO vo);
 
+    //차량 옵션 삭제
+    public int deleteOption(CarOptionVO vo);
+    
+    //차량 보험 삭제
+    public int deleteIns(InsuranceOptionVO vo);
+
 	public int insertCarOptions(List<CarOptionVO> list, Long carSeq);
 
     public int getTotalCount(Criteria cri);
+    // 차량 리스트 조회
+    public List<CarVO> getCarList_map(Criteria cri);
+
+    // 차량 조회
+    public CarVO getCar_map(CarVO vo);
+
+    // 업체 차량 리스트 조회
+    public List<CarVO> getCompanyCarList_map(CompanyVO vo);
 }

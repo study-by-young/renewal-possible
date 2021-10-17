@@ -67,7 +67,7 @@
 
 .select_result_wrapper ul li {
 	float: left;
-	width: 12.5%;
+	width: 11.1%;
 }
 
 .select_result_wrapper ul li a {
@@ -259,27 +259,6 @@
 </div>
 <!-- End of 차량 추천 Modal -->
 
-				<div class="custom-input">
-					<form id="actionForm" action="${pageContext.request.contextPath}/commonRent/list" method="get">
-						<select name="type" class="select">
-							<option
-								<c:out value="${empty pageMaker.cri.type ? 'selected':''}"/>>선택</option>
-							<option value="T"
-								<c:out value="${pageMaker.cri.type eq 'T' ? 'selected':''}"/>>제목</option>
-							<option value="C"
-								<c:out value="${pageMaker.cri.type eq 'C' ? 'selected':''}"/>>내용</option>
-							<option value="TC"
-								<c:out value="${pageMaker.cri.type eq 'TC' ? 'selected':''}"/>>제목 or 내용</option>
-						</select> &nbsp; 
-						<!-- <input class="input" name="keyword" value="${pageMaker.cri.keyword}"> -->
-						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> 
-						<input type="hidden" name="amount" value="${pageMaker.cri.amount}">&nbsp;
-						<button class="custom-btn btn-primary" onclick="$('[name=pageNum]').val(1)">검색</button>
-					</form>
-				</div>
-
-
-
 <!-- x car book sidebar section Wrapper Start -->
 <div class="x_car_book_sider_main_Wrapper float_left mt-5">
 	<div class="container">
@@ -295,110 +274,109 @@
 
 									<h3>상세검색</h3>
 									<hr>
-									<!-- 모델명 -->
-									<div class="panel panel-default">
-										<div class="panel-heading">
-											<div class="x_slider_form_input_wrapper float_left">
-												<h3>차량모델</h3>
-												<input type="text" placeholder="자동차 모델명으로 검색">
+									
+									<form id="searchForm" name="searchForm" action="${pageContext.request.contextPath}/commonRent" method="get">
+										<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> 
+										<input type="hidden" name="amount" value="${pageMaker.cri.amount}">&nbsp;
+										<!-- 모델명 -->
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<div class="x_slider_form_input_wrapper float_left">
+													<h3>차량모델</h3>
+													<input id="model" name="model" type="text" placeholder="자동차 모델명으로 검색" <c:out value="${pageMaker.cri.type eq 'M'}"/>>
+												</div>
 											</div>
 										</div>
-									</div>
-									<hr>
+										<hr>
+										<!-- 세그먼트 -->
+										<div class="x_car_book_fillter_select_box">
+											<h5>차량등급</h5>
+											<select class="myselect" id="segment" name="segment">
+												<option value="" selected>전체</option>
+												<option value="SEG01">경형</option>
+												<option value="SEG02">소형</option>
+												<option value="SEG03">준중형</option>
+												<option value="SEG04">중형</option>
+												<option value="SEG05">대형</option>
+												<option value="SEG06">스포츠카</option>
+												<option value="SEG07">SUV</option>
+												<option value="SEG08">기타</option>
+											</select>
+										</div>
+										<hr>
+	
+										<!-- 연료 -->
+										<div class="x_car_book_fillter_select_box">
+											<h5>연료</h5>
+											<select class="myselect" id="fuel" name="fuel">
+												<option value="">전체</option>
+												<option value="FUL01">가솔린</option>
+												<option value="FUL02">디젤</option>
+												<option value="FUL03">하이브리드</option>
+												<option value="FUL04">전기</option>
+											</select>
+										</div>
+										<hr>
+	
+										<!-- 차량제조사/브랜드 -->
+										<div class="x_car_book_fillter_select_box">
+											<h5>제조사</h5>
+											<select class="myselect" id="brand" name="brand">
+												<option value="">전체</option>
+												<option value="HY">현대</option>
+												<option value="GE">제네시스</option>
+												<option value="KI">기아</option>
+												<option value="CH">쉐보레</option>
+												<option value="SA">르노삼성</option>
+												<option value="SS">쌍용</option>
+												<option value="BM">BMW</option>
+												<option value="BZ">벤츠</option>
+												<option value="AU">아우디</option>
+												<option value="TE">테슬라</option>
+												<option value="FX">폭스바겐</option>
+												<option value="ET">기타</option>
+											</select>
+										</div>
+										<hr>	
+	
+										<!-- 연식 -->
+										<div class="x_car_book_fillter_select_box">
+											<h5>차량연식</h5>
+											<select class="myselect" id="year" name="year">
+												<option value="">전체</option>
+												<option value="2022">2022년</option>
+												<option value="2021">2021년</option>
+												<option value="2020">2020년</option>
+												<option value="2019">2019년</option>
+												<option value="2018">2018년</option>
+												<option value="2017">2017년</option>
+											</select>
+										</div>
+										<hr>
+	
+										<!-- 인원 -->
+										<div class="x_car_book_fillter_select_box">
+											<h5>인원</h5>
+											<select class="myselect" id="passenger" name="passenger">
+												<option value="">전체</option>
+												<option value="2">2인</option>
+												<option value="3">3인</option>
+												<option value="4">4인</option>
+												<option value="5">5인이상</option>
+											</select>
+										</div>
+										<hr>
+	
 
-									<!-- 세그먼트 -->
-									<div class="x_car_book_fillter_select_box">
-										<h5>차량등급</h5>
-										<select class="myselect" id="segment" name="segment">
-											<option value="">전체</option>
-											<option value="">경형</option>
-											<option value="">소형</option>
-											<option value="">중형</option>
-											<option value="">대형</option>
-											<option value="">수입</option>
-											<option value="">승합RV</option>
-											<option value="">SUV</option>
-											<option value="">캠핑카</option>
-										</select>
-									</div>
-									<hr>
-
-									<!-- 연료 -->
-									<div class="x_car_book_fillter_select_box">
-										<h5>연료</h5>
-										<select class="myselect" id="fuel" name="fuel">
-											<option value="">전체</option>
-											<option value="">휘발유</option>
-											<option value="">경유</option>
-											<option value="">LPG</option>
-											<option value="">하이브리드</option>
-											<option value="">전기</option>
-										</select>
-									</div>
-									<hr>
-
-									<!-- 연식 -->
-									<div class="x_car_book_fillter_select_box">
-										<h5>차량연식</h5>
-										<select class="myselect" id="year" name="year">
-											<option value="">전체</option>
-											<option value="">2022년</option>
-											<option value="">2021년</option>
-											<option value="">2020년</option>
-											<option value="">2019년</option>
-											<option value="">2018년</option>
-											<option value="">2017년</option>
-											<option value="">2016년</option>
-										</select>
-									</div>
-									<hr>
-
-
-									<!-- 차량제조사/브랜드 -->
-									<div class="x_car_book_fillter_select_box">
-										<h5>제조사</h5>
-										<select class="myselect" id="brand" name="brand">
-											<option value="">전체</option>
-											<option value="">현대</option>
-											<option value="">기아</option>
-											<option value="">르노삼성</option>
-											<option value="">수입</option>
-											<option value="">기타</option>
-										</select>
-									</div>
-									<hr>
-
-									<!-- 인원 -->
-									<div class="x_car_book_fillter_select_box">
-										<h5>인원</h5>
-										<select class="myselect" id="passenger2" name="passenger">
-											<option value="">전체</option>
-											<option value="">1인</option>
-											<option value="">2인</option>
-											<option value="">3인</option>
-											<option value="">4인</option>
-											<option value="">5인이상</option>
-										</select>
-									</div>
-									<hr>
-
-									<!-- 자차보험 -->
-									<div class="x_car_book_fillter_select_box">
-										<h5>자차보험</h5>
-										<select class="myselect" id="insurance2" name="insurance">
-											<option value="">전체</option>
-											<option value="">일반자차</option>
-											<option value="">완전자차</option>
-										</select>
-									</div>
-									<hr>
-
-									<div class="x_slider_checout_right x_slider_checout_right_carbooking x_slider_checout_right_carbooking_fiter">
-										<ul style="padding-left: 32px;">
-											<li><a href="view">상세검색<i class="fa fa-arrow-right"></i></a>
-											</li>
-										</ul>
-									</div>
+	
+										<div class="x_slider_checout_right x_slider_checout_right_carbooking x_slider_checout_right_carbooking_fiter mt-3">
+											<ul style="padding-left: 32px;">
+												<li class="searchFilter"><a href="#">상세검색<i class="fa fa-arrow-right"></i></a>
+												</li>
+											</ul>
+										</div>
+									</form>
+									
 								</div>
 							</div>
 
@@ -423,14 +401,15 @@
 						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
 							<div class="select_result_wrapper">
 								<ul style="width: 100%;">
-									<li class="first_li"><label><a href="#">전체</a><input type="radio" id="" name="searchCategory" style="display: none;" checked></label></li>
-									<li><label><a href="#">경소형</a><input type="radio" id="" name="searchCategory" style="display: none;"></label></li>
-									<li><label><a href="#">준중형</a><input type="radio" id="" name="searchCategory" style="display: none;"></label></li>
-									<li><label><a href="#">중대형</a><input type="radio" id="" name="searchCategory" style="display: none;"></label></li>
-									<li><label><a href="#">승합RV</a><input type="radio" id="" name="searchCategory" style="display: none;"></label></li>
-									<li><label><a href="#">SUV</a><input type="radio" id="" name="searchCategory" style="display: none;"></label></li>
-									<li><label><a href="#">수입</a><input type="radio" id="" name="searchCategory" style="display: none;"></label></li>
-									<li class="last_li"><a href="#">캠핑카</a></li>
+									<li class="first_li"><label><a href="#">전체</a><input type="radio" id="" value="" name="searchCategory" style="display: none;" checked></label></li>
+									<li><label><a href="#">경형</a><input type="radio" id="" value="" name="searchCategory" style="display: none;"></label></li>
+									<li><label><a href="#">소형</a><input type="radio" id="" value="" name="searchCategory" style="display: none;"></label></li>
+									<li><label><a href="#">준중형</a><input type="radio" id="" value="" name="searchCategory" style="display: none;"></label></li>
+									<li><label><a href="#">중형</a><input type="radio" id="" value="" name="searchCategory" style="display: none;"></label></li>
+									<li><label><a href="#">대형</a><input type="radio" id="" value="" name="searchCategory" style="display: none;"></label></li>
+									<li><label><a href="#">스포츠카</a><input type="radio" id="" value="" name="searchCategory" style="display: none;"></label></li>
+									<li><label><a href="#">SUV</a><input type="radio" id="" value="" name="searchCategory" style="display: none;"></label></li>
+									<li class="last_li"><a href="#">기타</a></li>
 								</ul>
 							</div>
 						</div>
@@ -456,7 +435,7 @@
 													</div>
 													<div class="x_car_offer_starts_list_img_cont border-left">
 														<div class="x_car_offer_heading x_car_offer_heading_list float_left" style="width: 70%;">
-															<h5 class="pt-3">${car.brand} ${car.model}</h5>
+															<h5 class="pt-3"> ${car.brand} ${car.model}</h5>
 															<p>${car.trim}</p>
 															<hr class="my-2">
 															<p>${car.year}년 / ${car.fuel} / ${car.passenger}인</p>
@@ -475,7 +454,6 @@
                                                                     <div class="nice-select" tabindex="0">	<span class="current"><i class="fa fa-bars"></i> 차량 정보</span>
                                                                         <ul class="list">
                                                                             <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>등급: ${car.segment}</li>
-                                                                            <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>색상: ${car.color}</li>
                                                                             <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>미션: ${car.mission}</li>
                                                                             <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>트렁크: ${car.trunk}</li>
                                                                             <li class="dpopy_li"><i class="fa fa-snowflake-o"></i>문: ${car.door}</li>
@@ -691,21 +669,38 @@
     	console.log("업체" + cmpnSeq_val, seq_val);
     	
     });
+    
+    $('.select_result_wrapper ul li').on('click', function(){
+    	$(this).find('input[type="radio"]').prop('checked', 'true');
+    	
+    	var chk = $(this).find('input[type="radio"]').is(':checked');
+    	
+    	if(chk == true){
+    		$(this).css('background-color', 'yellow');
+    	}
+    });
+   
 
     // 상세조회 버튼
     $('.viewCarBtn').on('click', function(){
 		location.href="commonRent/view?cmpnSeq=" + cmpnSeq_val + "&seq=" + seq_val;// + "&startDate=" + startDate + "&endDate=" + endDate;    	
     });
-  		
     
     $(function() {
-    	var actionForm = $("#actionForm");
+    	var searchForm = $("#searchForm");
 
-    	$(".pagination a").on("click", function(e) {
+     	$(".pagination a").on("click", function(e) {
     		e.preventDefault(); //a, submit 경우에 쓸 수 있음 태그의 원래기능을 막고 정의한 함수 실행
     		var p = $(this).attr("href");
     		$('[name="pageNum"]').val(p);
-    		actionForm.submit();
+    		searchForm.submit();
+    	});
+    	
+    	$(".searchFilter a").on("click", function(e) {
+    		e.preventDefault(); //a, submit 경우에 쓸 수 있음 태그의 원래기능을 막고 정의한 함수 실행
+    		var p = $(".pagination a").attr("href");
+    		$('[name="pageNum"]').val(p);
+    		searchForm.submit();
     	});
     });
 	
