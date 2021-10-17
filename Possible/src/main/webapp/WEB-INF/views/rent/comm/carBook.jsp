@@ -161,7 +161,7 @@
 								<!-- Resources -->
 								<div class="x_car_access_filer_top_img">
 									<img src="images/c2.png" alt="car_img">
-									<h3>{car.model}</h3>
+									<h3>${car.model}</h3>
 									<p>{car.price}</p>
 								</div>
 								<hr>
@@ -202,7 +202,7 @@
 									</div>
 								</div>
 								<hr>
-								<div class="panel panel-default x_car_inner_acc_acordion_padding x_car_inner_acc_acordion_padding_last">
+								<!-- <div class="panel panel-default x_car_inner_acc_acordion_padding x_car_inner_acc_acordion_padding_last">
 									<div class="panel-heading car_checkout_caret">
 										<h5 class="panel-title">
 											<a href="#">렌트카 대여/반납 장소</a>
@@ -222,7 +222,7 @@
 										</div>
 									</div>
 								</div>
-								<hr>
+								<hr> -->
 								<div class="panel panel-default x_car_inner_acc_acordion_padding x_car_inner_acc_acordion_padding_last">
 									<div class="panel-heading car_checkout_caret">
 										<h5 class="panel-title">
@@ -233,14 +233,10 @@
 										<div class="panel-body">
 											<div class="x_car_acc_filter_date">
 												<ul>
-													<li>렌트타입<span>{rentType}<input type="hidden" id="rentType" name="rentType" value="rentType"></span>
-													</li>
-													<li>ESTIMATE<span>100<input type="hidden" id="estimate" name="estimate" value="100"></span>
-													</li>
-													<li>대여업체<span>100<input type="hidden" value="업체"></span>
+													<li>대여업체<span>${company.name}<input type="hidden" value="업체"></span>
 													</li>
 													<li>차량정보</li>
-														<li>{car.brand}<input type="hidden" value="{car.brand}"></li>
+														<li>${car.brand}<input type="hidden" value="{car.brand}"></li>
 														<li>{car.year}<input type="hidden" value="{car.year}"></li>
 														<li>{car.fuel}<input type="hidden" value="{car.fuel}"></li>
 													<li>옵션</li>
@@ -311,6 +307,7 @@
 											<li><label><input type="radio" name="driver" id="driver2"> 운전자 2명</label></li>
 										</ul>
 									</div>
+									${user}
 									<form class="billing-form">
 										<ul class="list-unstyled row" style="margin-bottom: 50px;">
 											<li style="padding: 10px 15px; font-weight: bold; color: black;}">예약자 정보</li>
