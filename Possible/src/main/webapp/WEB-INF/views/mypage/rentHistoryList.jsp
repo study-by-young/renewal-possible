@@ -69,6 +69,7 @@
                                     </div>
 									 <div class="x_car_book_tabs_content_main_wrapper my-4">
 									 	 <div class="row">
+									 	 ${historyList }
 									 	 	 <c:forEach var="est" items="${historyList}" varStatus="status">
 												<div class="premium_rent_list_item col-12">
 													<div class="card">
@@ -95,14 +96,15 @@
                                                                 		 </c:if>
                                                                 		 </div>
                                                     				 	 <div class="col-lg-3" style="padding-left: 40px;">
-	                                                                		<c:if test="${est.review eq '2' }">
-		                                                    					<button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
-		                                                            					style="background: #4f5dec; color: #ffffff;  ">
+	                                                                		<c:if test="${est.review eq '2' }"><!-- /rent/view/updateReview -->
+		                                                    					<a  class="btn btn-sm" 
+		                                                    						href="rent/view/updateReview?seq=${est.seq}"
+		                                                            					style="background: #4f5dec; color: #ffffff; ">
 		                                                        						후기수정
-		                                                    					</button>
+		                                                    					</a>
 		                                                    			    </c:if>
 		                                                    				
-		                                                    				<c:if test="${est.status eq '예약중' }">
+		                                                    				
 		                                                    				<c:if test="${est.review ne '2' }">
 		                                                    					<a class="btn btn-sm" 
 		                                                    					   href="rent/view/writeReview?seq=${est.seq}"
@@ -110,7 +112,7 @@
 		                                                        						후기작성
 		                                                    					</a>
 	                                                    					</c:if>
-		                                                    				</c:if>
+		                    
                                                                 		 </div>
                                                                 		
                                                                 		 <div class="col-12">
@@ -203,7 +205,7 @@
 						                    </c:if>
 						                </div>
 					            	</div>
-<<<<<<< HEAD
+
 <%-- =======
                                     <div class="blog_single_comment_heading">
                                         <h4>렌트내역</h4>

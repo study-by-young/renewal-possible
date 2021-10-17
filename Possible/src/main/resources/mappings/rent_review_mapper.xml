@@ -20,7 +20,6 @@
 	           
 	    <association property="courseBoardVO"
 	                 column="course_seq"
-	                 columnPrefix="course_"
 	                 resultMap="com.yedam.possable.app.community.course.mapper.CourseBoardMapper.courseBoard"
 	                 javaType="CourseBoardVO"/>    
 	                 
@@ -97,10 +96,10 @@
 				, #{title}
 				, #{content}
 				, #{score}
-				, #{historyVO.Seq}
+				, #{rentHistoryVO.seq}
 				, #{memberVO.seq}
 				, #{courseBoardVO.seq}
-				, #{Company.Seq} )
+				, #{companyVO.seq} )
 	</insert>
 	
 	<!-- 수정 -->

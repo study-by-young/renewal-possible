@@ -55,7 +55,7 @@
 						            			<div class="premium_rent_list_item col-12" >
 						            				<div class="card">
 						            					<div class="row">
-						            						<div class="col-lg-4 aling-self-center" style="margin-top: 70px;">
+						            						<div class="col-lg-4 aling-self-center" style="margin-top: 110px;">
 						            							<div class="card-img-actions p-3">
                                                             		<img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${estimate.modelCodeVO.img}" alt="">
                                                         		</div>

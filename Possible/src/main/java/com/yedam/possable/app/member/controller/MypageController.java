@@ -23,6 +23,7 @@ import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
+import com.yedam.possable.app.community.course.domain.CourseBoardVO;
 import com.yedam.possable.app.community.course.service.CourseBoardService;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
@@ -191,11 +192,10 @@ public class MypageController {
 			
     	MemberVO mvo = memberService.getLoginMember(authentication);
 
-
+    	vo.setMemSeq(mvo.getSeq());
+    	
     	int total = rentHistory.getHistoryCount();
 
-
-    	
     	model.addAttribute("pagination", new PageVO(cri, total));
     	model.addAttribute("historyList", rentHistory.MyPageRentHistoryList(cri, vo.getMemSeq()));
     	
@@ -232,28 +232,18 @@ public class MypageController {
 					            Authentication authentication,
 					            RedirectAttributes attributes,
 					            Model model,
+					            CourseBoardVO cvo,
 					            RentHistoryVO vo){
     	
     	MemberVO mvo = memberService.getLoginMember(authentication);
     	
     	System.out.println("왜니는 null인데"+rentHistory.getRentHistoryInMypage(seq));
     	model.addAttribute("historyList", rentHistory.getRentHistoryInMypage(seq));
+    	List<CourseBoardVO> courseList = courseBoardService.getWriter(mvo.getId());
+    	System.out.println(courseList+ "맞겠지?");
     	
+    	model.addAttribute("courseList", courseList);
     	
-    	//rentHistory.getRentHistory();
-    	//rhVo.setCarSeq(carSeq);
-    	//rhVo.setCmpnSeq(cmpnSeq);
-    	//carVo.setSeq(rhVo.getCarSeq());
-    	//cmpnVo.setSeq(rhVo.getCmpnSeq());
-    	// 내가 대여한 차량 seq, 업체 seq가 필요함 <---- 렌트히스토리 조회하면 여기 다 있음
-    	//model.addAttribute("history", rentHistoryService.getRentHistory(rhVo));
-    	//model.addAttribute("car", carService.getCar(carVo));
-    	//model.addAttribute("company", companyService.companyOneSelect(cmpnVo));
-    	//model.addAttribute("user", mvo);
-    	//model.addAttribute("courseList", courseBoardService.getList());
-    	// 차량 seq로 차량 한건 조회해서 model 뿌려주기
-    	// 내가 작성한 코스글 seq가 필요함 (mem_seq로 코스글 조회해서 select option으로 뿌려주면 될 듯)
-
         return "mypage/rentReviewForm";
     }
 
@@ -264,9 +254,33 @@ public class MypageController {
             				      RedirectAttributes attributes,
             				      RentReviewVO vo){
     	rentReviewService.insertRentReview(vo);
-        return "mypage/rentHistoryList";
+        return "redirect:/mypage/rent";
     }
-
+    //updateRentReview
+    // 렌트 수정 폼
+    @GetMapping("/rent/view/updateReview")
+    public String UpdaterentReviewForm(@RequestParam Long seq,
+							            Authentication authentication,
+							            RedirectAttributes attributes,
+							            Model model,
+							            RentReviewVO rentReview,
+							            CourseBoardVO cvo,
+							            RentHistoryVO vo) {
+    	
+    	MemberVO mvo = memberService.getLoginMember(authentication);
+    	rentReview.setMemSeq(mvo.getSeq());
+    	System.out.println("렌트안에 뭐가?"+rentReview);
+    	System.out.println("넌 뭐니?"+rentReviewService.getRentReview(rentReview));  
+    	model.addAttribute("getRentReview", rentReviewService.getRentReview(rentReview));
+    	model.addAttribute("historyList", rentHistory.getRentHistoryInMypage(seq));
+    	List<CourseBoardVO> courseList = courseBoardService.getWriter(mvo.getId());
+    	System.out.println(courseList+ "맞겠지?");
+    	
+    	model.addAttribute("courseList", courseList);
+    	
+    	
+    	return "mypage/updateRentReviewForm";
+    }
     // 렌트 후기 수정 처리
     @PostMapping("/rent/view/updateReview")
     public void updateRentReview() {
