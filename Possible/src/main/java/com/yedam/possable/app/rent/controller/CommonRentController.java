@@ -3,6 +3,7 @@ package com.yedam.possable.app.rent.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,8 @@ import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
+import com.yedam.possable.app.member.domain.MemberVO;
+import com.yedam.possable.app.member.service.MemberService;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.domain.RentReviewVO;
 import com.yedam.possable.app.rent.service.PaymentService;
@@ -41,6 +44,8 @@ public class CommonRentController {
     private RentReviewService rentReviewService;
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private MemberService memberService;
 
     // 렌트카 리스트
     @GetMapping
@@ -91,7 +96,7 @@ public class CommonRentController {
     	
     	// 넘어와야 하는 값
     	// startDate, endDate, searchArea, carSeq, cmpnSeq
-
+    	
     	List<CarVO> allList = carService.getDistinctCarList(cri);
     	for(int i=0; i<allList.size(); i++) {
     		CarVO selectedCarInfo = allList.get(i);		
@@ -109,15 +114,16 @@ public class CommonRentController {
         return "rent/comm/carView";
     }
  
-    // 렌트카 상세보기(test)
-    @GetMapping("/test")
-    public String test() {
-        return "rent/comm/carTest";
-    }
-
     // 렌트카 예약 폼
     @GetMapping("/view/book")
-    public String rentCarBook() {
+    public String rentCarBook(Model model, CarVO vo, CompanyVO cmpnVo,
+    						Authentication authentication) {
+    	MemberVO loginUser = memberService.getLoginMember(authentication);
+    	model.addAttribute("user", loginUser);
+    	model.addAttribute("car", carService.getCompanyCar(vo));
+    	cmpnVo.setSeq(vo.getCmpnSeq());
+    	model.addAttribute("company", companyService.companyOneSelect(cmpnVo));
+    	
         return "rent/comm/carBook";
     }
 

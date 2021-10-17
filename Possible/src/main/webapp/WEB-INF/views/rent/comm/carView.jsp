@@ -305,27 +305,7 @@
 </div>
 
 
-
-<!-- 차량 추천 Modal -->
-<div id="recommendCarModal" class="modal fade bd-example-modal-lg"
-	tabindex="-1" role="dialog" aria-labelledby="recommendCarModalLabel"
-	aria-hidden="true">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">당신이 찾는 바로 그 차</h5>
-			</div>
-			<div class="modal-body">
-				<p>Modal body text goes here.</p>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- End of 차량 추천 Modal -->
-
+${car}
 <!-- x car book sidebar section Wrapper Start -->
 <div class="x_car_book_sider_main_Wrapper float_left mt-5">
 	<div class="container">
@@ -356,7 +336,7 @@
 										<div class="panel-heading">
 											<div class="x_slider_form_input_wrapper float_left">
 												<h3>자차보험</h3>
-												<div style="float: right;">${car.price}</div>
+												<div style="float: right;">${insurance.price}</div>
 											</div>
 										</div>
 									</div>
@@ -365,7 +345,7 @@
 										<div class="panel-heading">
 											<div class="x_slider_form_input_wrapper float_left">
 												<h3>예상 결제액</h3>
-												<div style="float: right;">${car.price + car.price}</div>
+												<div style="float: right;">${car.price + insurance.price}</div>
 											</div>
 										</div>
 									</div>
@@ -373,7 +353,7 @@
 									<div
 										class="x_slider_checout_right x_slider_checout_right_carbooking x_slider_checout_right_carbooking_fiter">
 										<ul style="padding-left: 32px;">
-											<li><a href="#">예약하기<i class="fa fa-arrow-right"></i></a>
+											<li><a href="view/book?seq=${car.seq}&cmpnSeq=${car.cmpnSeq}">예약하기<i class="fa fa-arrow-right"></i></a>
 											</li>
 										</ul>
 									</div>
