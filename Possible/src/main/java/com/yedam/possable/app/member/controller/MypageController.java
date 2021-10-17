@@ -24,7 +24,10 @@ import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
+import com.yedam.possable.app.community.course.domain.CourseBoardVO;
 import com.yedam.possable.app.community.course.service.CourseBoardService;
+import com.yedam.possable.app.community.qna.domain.QnaVO;
+import com.yedam.possable.app.community.qna.service.QnaService;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.member.domain.MemberVO;
@@ -61,11 +64,19 @@ public class MypageController {
     RentReviewService rentReviewService;
     @Autowired
     CourseBoardService courseBoardService;
+    @Autowired
+    QnaService qnaService;
 
     //마이페이지 대쉬보드 페이지
     @GetMapping("/dashboard")
-    public String dashboard(HttpSession session) {
-        return "mypage/dashboard";
+    public String dashboard(HttpSession session, Model model, Authentication authentication, CourseBoardVO courseVO, RentHistoryVO rentVO, @ModelAttribute("cri") Criteria cri) {
+    	MemberVO memVO = memberService.getLoginMember(authentication);
+    	System.out.println(memVO.getId());
+    	courseVO.setWriter(memVO.getId());
+    	rentVO.setSeq(memVO.getSeq());
+    	model.addAttribute("myCourse", courseBoardService.getMyCourse(courseVO));
+    	model.addAttribute("historyList", rentHistory.MyPageRentHistoryList(cri, rentVO.getMemSeq()));
+    	return "mypage/dashboard";
     }
 
     //회원 정보 수정 전 비밀번호 검증 폼
@@ -259,7 +270,11 @@ public class MypageController {
 
     // 커뮤니티 대시보드
     @GetMapping("/community")
-    public String community(){
+    public String community(Model model, Authentication authentication, CourseBoardVO vo){
+    	MemberVO memVO = memberService.getLoginMember(authentication);
+    	System.out.println(memVO.getId());
+    	vo.setWriter(memVO.getId());
+    	model.addAttribute("myCourse", courseBoardService.getMyCourse(vo));
         return "mypage/community";
     }
 
@@ -295,13 +310,17 @@ public class MypageController {
 
     //마이페이지 나의 문의 페이지
     @GetMapping("/qna")
-    public String qna() {
+    public String qna(Model model, Authentication authentication) {
+    	MemberVO memVO = memberService.getLoginMember(authentication);
+    	
+    	System.out.println(memVO.getSeq());
+    	model.addAttribute("myQna",qnaService.getMyQna(memVO.getSeq()));
         return "mypage/qna";
     }
 
     //업체전환 신청 페이지 페이지
     @GetMapping("/chngRole")
-    public String chngRole(Model model, HttpSession session) {
+    public String chngRole(Model model) {
 
         return "mypage/chngRole";
     }

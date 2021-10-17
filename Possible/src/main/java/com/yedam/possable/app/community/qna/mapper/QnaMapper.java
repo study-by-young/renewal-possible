@@ -24,4 +24,6 @@ public interface QnaMapper {
 	// 답변 수 업데이트, 파라미터가 두개일 시 @Param으로 이름을 지정해준다.
 	public void updateAnswerCnt(@Param("seq") Long seq, @Param("amount") Long amount);
 	
+	//마이페이지 문의 조회
+	public List<QnaVO> getMyQna(Long memSeq);
 }

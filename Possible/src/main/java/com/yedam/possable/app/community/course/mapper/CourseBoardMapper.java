@@ -42,4 +42,6 @@ public interface CourseBoardMapper {
 	
 	public int checkLike(CourseBoardLikeVO vo);
 	
+	//마이페이지 코스
+	public List<CourseBoardVO> getMyCourse(CourseBoardVO vo);
 }

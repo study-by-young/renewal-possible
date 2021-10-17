@@ -101,7 +101,6 @@
 					</div>
 				</div>
 			</div>
-
 			<div class="card-body">
 				<ul class="media-list media-chat media-chat-scrollable mb-3">
 				<c:forEach var="reviewList" end="4" items="${reviewList}">
@@ -142,8 +141,8 @@
 		});
 
 		createChart();
-		console.log("create Chart")
-		console.log(data)
+		console.log("create Chart");
+		console.log(data);
 
 	});
 
@@ -154,12 +153,12 @@
 
 		{
 			label : "일별수익",
-			fillColor : "rgba(151,187,205,0.5)",
-			strokeColor : "rgb(54, 162, 235)",
-			pointColor : "rgb(54, 162, 235)",
+			fillColor : "rgba(220,220,220,0.5)",
+			strokeColor : "rgba(220,220,220,1)",
+			pointColor : "rgba(220,220,220,1)",
 			pointStrokeColor : "#fff",
 			pointHighlightFill : "#fff",
-			pointHighlightStroke : "rgb(54, 162, 235)",
+			pointHighlightStroke : "rgba(220,220,220,1)",
 			data : chartData
 		} ]
 	}

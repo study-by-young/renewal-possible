@@ -104,4 +104,9 @@ public class CourseBoardServiceImpl implements CourseBoardService {
 		return courseBoardMapper.checkLike(vo);
 	}
 
+	@Override
+	public List<CourseBoardVO> getMyCourse(CourseBoardVO vo) {
+		return courseBoardMapper.getMyCourse(vo);
+	}
+
 }

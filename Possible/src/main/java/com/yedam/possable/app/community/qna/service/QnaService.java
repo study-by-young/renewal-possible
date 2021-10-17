@@ -19,4 +19,7 @@ public interface QnaService {
 	
 	public int getTotalCount(Criteria cri);
 	
+	//마이페이지 문의 조회
+	public List<QnaVO> getMyQna(Long memSeq);
+	
 }
