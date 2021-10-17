@@ -14,10 +14,11 @@
 .x_slider_checout_right li a {
 	float: right;
 }
+
 .btc_team_img_cont_wrapper h4 {
-    height: 50px;
-    overflow: hidden;
-    word-break: keep-all;
+	height: 50px;
+	overflow: hidden;
+	word-break: keep-all;
 }
 </style>
 
@@ -37,8 +38,10 @@
 						${board.title }
 					</h3>
 					<p>
-						<i class="fa fa-map" aria-hidden="true"></i> : <span id="coursePlace"></span>&nbsp;&nbsp; | &nbsp;&nbsp;코스 총 거리 :
-						<span id="courseKm"></span> km&nbsp;&nbsp; | &nbsp;&nbsp;<i class="fa fa-user" aria-hidden="true"></i> : ${board.people }
+						<i class="fa fa-map" aria-hidden="true"></i> : <span
+							id="coursePlace"></span>&nbsp;&nbsp; | &nbsp;&nbsp;코스 총 거리 : <span
+							id="courseKm"></span> km&nbsp;&nbsp; | &nbsp;&nbsp;<i
+							class="fa fa-user" aria-hidden="true"></i> : ${board.people }
 					</p>
 				</div>
 				<div>
@@ -52,7 +55,8 @@
 						</c:if> <span id="likeCnt">${likes }</span> LIKE
 					</span>
 					<!-- <span style="margin-right: 30px"><i class="fas fa-share-alt">&nbsp;10회</i></span> -->
-					<span style="float: right;"><i class="far fa-eye"></i>&nbsp;${board.views } VIEWS</span>
+					<span style="float: right;"><i class="far fa-eye"></i>&nbsp;${board.views }
+						VIEWS</span>
 				</div>
 				<hr>
 				<div style="margin-top: 50px; margin-bottom: 50px;">${board.content }</div>
@@ -75,10 +79,13 @@
 											<div class="btc_team_slider_cont_main_wrapper">
 												<div class="btc_team_img_wrapper">
 													<c:if test="${course.firstImage ne null}">
-														<img src="${course.firstImage}" alt="tourImg" style="height: 200px;">
+														<img src="${course.firstImage}" alt="tourImg"
+															style="height: 200px;">
 													</c:if>
 													<c:if test="${course.firstImage eq null}">
-														<img src="${pageContext.request.contextPath}/resources/images/no_image.jpg" alt="tourImg" style="height: 200px;">
+														<img
+															src="${pageContext.request.contextPath}/resources/images/no_image.jpg"
+															alt="tourImg" style="height: 200px;">
 													</c:if>
 												</div>
 												<div class="btc_team_img_cont_wrapper">
@@ -122,6 +129,9 @@
 							<li><a href="javascript:void(0);" onclick="boardDelete();">삭제</a></li>
 						</c:if>
 						<li><a href="../course">목록</a></li>
+						<c:if test="${id ne board.writer}">
+							<li><button type="button" id="reportBtn" class="btn btn-danger">신고</button></li>
+						</c:if>
 					</ul>
 				</div>
 			</div>
@@ -129,6 +139,27 @@
 	</div>
 </div>
 <input type="hidden" id="memSeq" value="${user }">
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">...</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script>
 
@@ -247,5 +278,17 @@
 			return;
 		}
 	}
-
+	
+	$("#reportBtn").on("click", function() {
+		if (user != "") {
+			$("#reportBtn").attr("data-toggle", "modal")
+			$("#reportBtn").attr("data-target", "#exampleModal");
+		} else {
+			if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
+				location.href="${pageContext.request.contextPath}/login"; 
+			} else {
+				return;
+			}
+		}
+	});
 	</script>

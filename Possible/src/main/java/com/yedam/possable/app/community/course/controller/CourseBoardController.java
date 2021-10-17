@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.community.course.domain.CourseBoardLikeVO;
 import com.yedam.possable.app.community.course.domain.CourseBoardVO;
 import com.yedam.possable.app.community.course.domain.CourseVO;
@@ -35,8 +37,10 @@ public class CourseBoardController {
 
 	// 전체조회
 	@GetMapping
-	public String courseList(Model model, Authentication authentication) {
-	    model.addAttribute("list", courseBoardService.getList());
+	public String courseList(Model model, Authentication authentication, @ModelAttribute("cri") Criteria cri) {
+		int total = courseBoardService.getTotalCount(cri);
+		model.addAttribute("list", courseBoardService.getList(cri));
+	    model.addAttribute("pageMaker", new PageVO(cri, total));
 	    MemberVO loginUser = memberService.getLoginMember(authentication);
 	    model.addAttribute("user", loginUser);
 	    return "community/course/list";

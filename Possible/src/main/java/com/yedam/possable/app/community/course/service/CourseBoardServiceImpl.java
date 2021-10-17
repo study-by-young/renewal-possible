@@ -18,8 +18,8 @@ public class CourseBoardServiceImpl implements CourseBoardService {
 	@Autowired CourseBoardMapper courseBoardMapper;
 
 	@Override
-	public List<CourseBoardVO> getList() {
-		return courseBoardMapper.getList();
+	public List<CourseBoardVO> getList(Criteria cri) {
+		return courseBoardMapper.getList(cri);
 	}
 
 	@Override
