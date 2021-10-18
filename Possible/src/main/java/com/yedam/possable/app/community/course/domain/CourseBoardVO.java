@@ -26,4 +26,5 @@ public class CourseBoardVO {
     private Date uptDate;
     
     private List<CourseVO> boardList;
+    private String firstImage;
 }
