@@ -12,32 +12,6 @@
 
 
 <style type="text/css">
-    .dash{
-        background: #ffffff;
-        box-shadow: 0px 0 8px rgb(0 0 0 / 10%);
-        float: left;
-        width: 100%;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        margin-top: 0px;
-        margin-bottom: 70px;
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        border-radius: 10px;
-    }
-
-    .register_wrapper_box {
-        float: left;
-        width: 100%;
-        background: #ffffff;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        padding: 50px;
-        margin-bottom: 20px;
-        -webkit-border-radius: 5px;
-        -moz-border-radius: 5px;
-        border-radius: 5px;
-    }
-
     .card {
         float : left;
         width: 100%;
@@ -47,11 +21,7 @@
         margin-bottom: 20px;
         border-radius: 5px;
     }
-    .info {
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
+  
     .correct{
         color : green;
     }
@@ -60,8 +30,22 @@
     }
 </style>
 
+<div class="btc_tittle_main_wrapper">
+    <div class="mb-3">
+        <div class="page-header page-header-dark bg-primary-600">
+            <div class="container py-2">
+                <div class="page-header-content header-elements-inline">
+                    <div class="page-title">
+                        <h1 class="font-weight-bold">회원 정보 수정</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- x blog main and sidebar Wrapper Start -->
-<div class="x_blog_sidebar_main_wrapper float_left padding_tb_100">
+<div class="x_blog_sidebar_main_wrapper float_left">
     <div class="container">
         <div class="row">
             <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
@@ -71,17 +55,14 @@
                             <div class="lr_bc_first_box_main_wrapper">
 
                                 <!-- 메뉴 -->
-                                <div class="lr_bc_first_box_img_cont_wrapper">
-                                    <ul>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/dashboard">홈</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/editProfile">회원정보수정</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/estimate">견적관리</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/rentHistory">렌트관리</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/community">커뮤니티관리</a></li>
-                                        <li><a href="${pageContext.request.contextPath}/mypage/qna">나의문의</a></li>
-                                    </ul>
-                                </div>
-                                <br> <br> <br>
+                                 <ul class="nav nav-tabs nav-tabs-solid bg-light">
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/dashboard"  data-toggle=""class="nav-link " >홈</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/editProfile"  data-toggle="tab ${pageContext.request.contextPath}/mypage/editProfile" class="nav-link " >회원정보수정</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/estimate" class="nav-link" >견적관리</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/rent" class="nav-link" >렌트관리</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/community" class="nav-link" >커뮤니티관리</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/qna" class="nav-link" >나의문의</a></li>
+								 </ul>
 
                                 <!-- 회원정보수정 -->
                                 <div class="blog_single_comment_heading">
@@ -90,8 +71,6 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <form id="memberInfofrm" name="memberInfofrm" method="post">
-
-
                                             <div class="row">
                                                 <div class="form-group col-md-6 col-sm-6" >
                                                     <label for="InputId" >아이디</label>

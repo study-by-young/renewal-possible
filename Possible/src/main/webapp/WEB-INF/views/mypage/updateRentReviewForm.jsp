@@ -56,21 +56,17 @@
                             <div class="lr_bc_first_box_main_wrapper">
 
                                 <!-- 메뉴 -->
-                                <div class="lr_bc_first_box_img_cont_wrapper">
-                                    <ul>
-                                       <li><a href="${pageContext.request.contextPath}/mypage/dashboard">홈</a></li>
-			                           <li><a href="${pageContext.request.contextPath}/mypage/editProfile">회원정보수정</a></li>
-			                           <li><a href="${pageContext.request.contextPath}/mypage/estimate">견적관리</a></li>
-			                           <li><a href="${pageContext.request.contextPath}/mypage/rent">렌트관리</a></li>
-			                           <li><a href="${pageContext.request.contextPath}/mypage/community">커뮤니티관리</a></li>
-			                           <li><a href="${pageContext.request.contextPath}/mypage/qna">나의문의</a></li>
-                                    </ul>
-                                </div>
-                                <br> <br> <br>
+                                <ul class="nav nav-tabs nav-tabs-solid bg-light">
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/dashboard"  data-toggle=""class="nav-link " >홈</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/editProfile"  data-toggle="tab ${pageContext.request.contextPath}/mypage/editProfile" class="nav-link " >회원정보수정</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/estimate" class="nav-link" >견적관리</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/rent" class="nav-link" >렌트관리</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/community" class="nav-link" >커뮤니티관리</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/qna" class="nav-link" >나의문의</a></li>
+								 </ul>
                                 <div class="col-md-12">
                                     <div class="blog_single_comment_heading">
                                         <h4>후기 작성</h4>
-                                        ${getRentReview }
                                     </div>
                                     <!-- 내역 -->
                                    	<div class="col-md-12">
@@ -81,7 +77,7 @@
 						            					<div class="row">
 						            						<div class="col-lg-4 aling-self-center" style="margin-top: 65px;">
 						            							<div class="card-img-actions p-3">
-                                                            		<img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${historyList.carVO.modelCodeVO.img}" alt="">
+                                                            		<img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${getRentReview.rentHistoryVO.carVO.modelCodeVO.img}" alt="">
                                                         		</div>
 						            						</div>
 						            						<div class="col-lg-8 border-left">
@@ -90,7 +86,7 @@
 						            									<div class="col-lg-12">
                                                                     		<div class="x_car_offer_heading x_car_offer_heading_list float_left">
                                                                         		<h5 class="font-weight-bold">
-                                                                                ${historyList.carVO.brandCodeVO.name } ${historyList.carVO.modelCodeVO.name}(${historyList.carVO.segmentCodeVO.name })<br><small>${historyList.carVO.trimCodeVO.name}</small>
+                                                                                ${getRentReview.rentHistoryVO.carVO.brandCodeVO.name } ${getRentReview.rentHistoryVO.carVO.modelCodeVO.name}(${getRentReview.rentHistoryVO.carVO.segmentCodeVO.name })<br><small>${historyList.carVO.trimCodeVO.name}</small>
                                                                         		</h5>
                                                                     		</div>
                                                                 		</div>
@@ -98,10 +94,10 @@
                                                                     		<hr class="my-2">
                                                                     		<p class="text-grey-600">
                                                                         		<i class="h3 icon-calendar pr-2 mb-0"></i>
-                                                                        		<fmt:formatDate value="${historyList.startDate}" pattern="yy년 MM월 dd일" /> ~ <fmt:formatDate value="${historyList.endDate}" pattern="yy년 MM월 dd일" />
+                                                                        		<fmt:formatDate value="${getRentReview.rentHistoryVO.startDate}" pattern="yy년 MM월 dd일" /> ~ <fmt:formatDate value="${getRentReview.rentHistoryVO.endDate}" pattern="yy년 MM월 dd일" />
                                                                     		</p>
                                                                    			<p class="text-grey-600">
-                                                                        		<i class="h3 icon-location4 pr-2 mb-0"></i> ${historyList.takePlaceBasic} ${historyList.takePlaceDetail}
+                                                                        		<i class="h3 icon-location4 pr-2 mb-0"></i> ${getRentReview.rentHistoryVO.takePlaceBasic} ${getRentReview.rentHistoryVO.takePlaceDetail}
                                                                     		</p>
                                                                 		</div>
                                                                 		<div class="col-12">
@@ -112,13 +108,13 @@
                                                                                     		<i class="icon-checkmark4"></i> 대여 업체
                                                                                 		</div>
                                                                                 		<div class="col-8">
-                                                                                    		${historyList.companyVO.name }
+                                                                                    		${getRentReview.rentHistoryVO.carVO.companyVO.name}
                                                                                 		</div>
                                                                                 		<div class="col-4">
                                                                                     		<i class="icon-checkmark4"></i> 업체 번호
                                                                                 		</div>
                                                                                 		<div class="col-8">
-                                                                                    		${historyList.companyVO.tel }
+                                                                                    		${getRentReview.rentHistoryVO.carVO.companyVO.tel }
                                                                                 		</div>
                                                                             		</div>
                                                                         		</div>
@@ -143,11 +139,11 @@
 						            					<div class="row">
 						            						<div class="col-lg-12">
 						            							<div class="card-body" style="padding-bottom: 15px;">
-						            								<form id="writeReviewForm" action="writeReview" method="post">
+						            								<form id="writeReviewForm" name="writeReviewForm" action="updateReview" method="post">
 						            								<div class="row">
 						            									<div class="col-lg-12">
                                                                 			<div class="row align-items-center">
-                                                                				<textarea id="title" name="title" rows="1" placeholder="제목을 입력해주세요!" class="contect_form4" style="margin-top: 0px;margin-bottom: 20px;"></textarea>
+                                                                				<textarea id="title" name="title" rows="1" placeholder="제목을 입력해주세요!" class="contect_form4" style="margin-top: 0px;margin-bottom: 20px;">${getRentReview.title }</textarea>
                                                                 			</div>
                                                                 		</div>
                                                                			<div class="col-lg-12" style="margin-top: 0px;padding-left: 0px; margin-bottom: 15px;">
@@ -168,7 +164,7 @@
 		                                                						</div>
 		                                                						<div class="col-3">
 				                                                					 <select id="score" name="score" class="selectpicker">
-									                                                    <option value="" selected>평점</option>
+									                                                    <option value="" selected>${getRentReview.score }</option>
 									                                                    <option value="5">5</option>
 									                                                    <option value="4">4</option>
 									                                                    <option value="3">3</option>
@@ -182,17 +178,18 @@
 						            								
                                                                 		<div class="col-lg-12">
                                                                 			<div class="row align-items-center">
-                                                                				<textarea id="content" name="content" rows="4" placeholder="후기 내용을 적어주세요!" class="ckeditor"></textarea>
+                                                                				<textarea id="content" name="content" rows="4" placeholder="후기 내용을 적어주세요!" class="ckeditor" >${getRentReview.content }</textarea>
                                                                 			</div>
                                                                 		</div>
                                                                 	</div>
-		                                                                	<input type="text" name="memSeq" id="memSeq"value="${historyList.memberVO.seq }">
-		                                									<input type="text" name="historySeq" id="historySeq"value="${historyList.seq }">
-		                                									<input type="text" name="cmpnSeq" id="cmpnSeq" value="${historyList.companyVO.seq }"> 	
+		                                                                	<input type="hidden" name="memSeq" id="memSeq"value="${getRentReview.memberVO.seq }">
+		                                									<input type="hidden" name="historySeq" id="historySeq"value="${getRentReview.rentHistoryVO.seq }">
+		                                									<input type="hidden" name="cmpnSeq" id="cmpnSeq" value="${getRentReview.companyVO.seq }"> 	
+		                                									<input type="hidden" name="seq" id="seq" value="${getRentReview.seq }"> 	
                                                                 		<div class="col-lg-12" style="margin-top: 20px;">
 								            								<div class="text-center">
-					                        									<button type="submit" class="btn btn-primary" 
-					                        											style="background: #4f5dec; color: #ffffff;">등록 <i class="icon-paperplane ml-2"></i></button>
+					                        									<button type="button" class="btn btn-primary" id="updateBtn"
+					                        											style="background: #4f5dec; color: #ffffff;">수정하기 <i class="icon-paperplane ml-2"></i></button>
 					                        								</div>
 			                        									</div>
 						            								</form>
@@ -298,7 +295,47 @@
 </div>
 <script>
 	// 데이터 가져오기
-	CKEDITOR.instances.content.getData()
+	
+	
+	 $(function() {
+		$("#updateBtn").on("click",function(){
+			var result = confirm("정말로 수정 하시겠습니까?");
+			if (result){
+				writeReviewForm.submit();
+				alert("수정이 완료되었습니다.");
+			}else{
+				
+			}
+		});
+	 });
+	
+	 CKEDITOR.instances.content.getData();
+	/* $("#updateBtn").on("click",function(){
+		var title = $("#title").val();
+		var score = $("#score").val();
+		var content = $("#content").val();
+		var seq = $("seq").val();
+		
+		$.ajax({
+			type : "POST",
+			url : '../rent/view/updateReview',
+			data : {seq : seq,
+				    title : title,
+				    score: score,
+				    content: content
+				    },
+			success : function(data){
+				var result = confirm("정말로 수정 하시겠습니까?");
+				if(result && data == 1){
+					alert("수정이 완료되었습니다.");
+					console.log(data);
+				}else{
+					
+				}
+			}	    
+		});
+		
+	}); */
 </script>
 <!-- x blog main and sidebar Wrapper End -->
 

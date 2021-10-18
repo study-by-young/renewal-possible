@@ -305,8 +305,9 @@ public class MypageController {
     }
     // 렌트 후기 수정 처리
     @PostMapping("/rent/view/updateReview")
-    public void updateRentReview() {
-
+    public String updateRentReview(RentReviewVO vo) {
+    	rentReviewService.updateRentReview(vo);
+    	 return "redirect:/mypage/rent";
     }
 
     // 렌트 후기 삭제 처리

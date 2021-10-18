@@ -29,17 +29,14 @@
                         <div class="col-md-12">
                             <div class="lr_bc_first_box_main_wrapper">
                                 <!-- 메뉴 -->
-                                <div class="lr_bc_first_box_img_cont_wrapper">
-                                    <ul>
-                                      <li><a href="${pageContext.request.contextPath}/mypage/dashboard">홈</a></li>
-		                              <li><a href="${pageContext.request.contextPath}/mypage/editProfile">회원정보수정</a></li>
-		                              <li><a href="${pageContext.request.contextPath}/mypage/estimate">견적관리</a></li>
-		                              <li><a href="${pageContext.request.contextPath}/mypage/rent">렌트관리</a></li>
-		                              <li><a href="${pageContext.request.contextPath}/mypage/community">커뮤니티관리</a></li>
-		                              <li><a href="${pageContext.request.contextPath}/mypage/qna">나의문의</a></li>
-                                    </ul>
-                                </div>
-                                <br> <br> <br>
+                                <ul class="nav nav-tabs nav-tabs-solid bg-light">
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/dashboard"  data-toggle=""class="nav-link " >홈</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/editProfile"  data-toggle="tab ${pageContext.request.contextPath}/mypage/editProfile" class="nav-link " >회원정보수정</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/estimate" class="nav-link" >견적관리</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/rent" class="nav-link" >렌트관리</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/community" class="nav-link" >커뮤니티관리</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/qna" class="nav-link" >나의문의</a></li>
+								 </ul>
 								<div class="col-md-12">
                                     <div class="blog_single_comment_heading">
                                         <h4>프리미엄 견적 신청 상세정보</h4>

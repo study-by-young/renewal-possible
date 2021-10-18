@@ -9,35 +9,7 @@
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<style type="text/css">
-    .dash{
-        background: #ffffff;
-        box-shadow: 0px 0 8px rgb(0 0 0 / 10%);
-        float: left;
-        width: 100%;
-        padding-top: 20px;
-        padding-bottom: 20px;
-        margin-top: 0px;
-        margin-bottom: 70px;
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        border-radius: 10px;
-    }
-    .x_car_offer_starts_list_img {
-        float: left;
-        width: 250px;
-        padding-top: 90px;
-        /*  border-right: 1px solid #eeeeee; */
-    }
-    .x_car_offer_heading ul {
-        width: 100%;
-        float: left;
-        border-top: 0px solid #eeeeee;
-        border-bottom: 1px solid #eeeeee;
-        margin-top: 30px;
-        border-left : 0px solid #eeeeee;
-    }
-</style>
+
 
 <!-- x blog main and sidebar Wrapper Start -->
 <div class="x_blog_sidebar_main_wrapper float_left padding_tb_100">
@@ -50,19 +22,16 @@
                             <div class="lr_bc_first_box_main_wrapper">
 
                                 <!-- 메뉴 -->
-                                <div class="lr_bc_first_box_img_cont_wrapper">
-                                    <ul>
-                                       <li><a href="${pageContext.request.contextPath}/mypage/dashboard">홈</a></li>
-                              		   <li><a href="${pageContext.request.contextPath}/mypage/editProfile">회원정보수정</a></li>
-		                               <li><a href="${pageContext.request.contextPath}/mypage/estimate">견적관리</a></li>
-		                               <li><a href="${pageContext.request.contextPath}/mypage/rent">렌트관리</a></li>
-		                               <li><a href="${pageContext.request.contextPath}/mypage/community">커뮤니티관리</a></li>
-		                               <li><a href="${pageContext.request.contextPath}/mypage/qna">나의문의</a></li>
-                                    </ul>
-                                </div>
-                                <br> <br> <br>
+                                 <ul class="nav nav-tabs nav-tabs-solid bg-light">
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/dashboard"  data-toggle="tab"class="nav-link " >홈</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/editProfile"  data-toggle="tab ${pageContext.request.contextPath}/mypage/editProfile" class="nav-link " >회원정보수정</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/estimate" class="nav-link" >견적관리</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/rent" class="nav-link" >렌트관리</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/community" class="nav-link" >커뮤니티관리</a></li>
+									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/qna" class="nav-link" >나의문의</a></li>
+								 </ul>
 								
-								
+								${historyList}
 								 <div class="col-12">
 								  <div class="blog_single_comment_heading">
                                         <h4>렌트내역</h4>
