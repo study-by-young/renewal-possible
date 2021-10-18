@@ -66,5 +66,6 @@ public interface CarMapper {
 
     //차량 보험 삭제
     public int deleteIns(InsuranceOptionVO vo);
+
 }
 

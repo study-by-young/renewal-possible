@@ -27,6 +27,26 @@
 	    			 column="cmpn_seq"
 	    			 select="com.yedam.possable.app.company.mapper.CompanyMapper.companyOneSelect"
 	    			 javaType="CompanyVO"/>
+		
+		<association property="brandCodeVO"
+                     column="brand"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getBrand"
+                     javaType="BrandCodeVO"/>
+        
+        <association property="segmentCodeVO"
+                     column="segment"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        
+        <association property="modelCodeVO"
+                     column="model"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getModel"
+                     javaType="ModelCodeVO"/>
+        
+        <association property="trimCodeVO"
+                     column="trim"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getTrim"
+                     javaType="TrimCodeVO"/>
 	</resultMap>
 
 	<!-- 업체별 후기 목록 (commonRent/list) -->
@@ -52,21 +72,15 @@
 	</select>
 
 	<!-- 마이페이지 내가 쓴 리뷰 조회 -->
-	<select id="getRentReviewListByMember" resultType="RentReviewVO">
-		SELECT SEQ
-			, TITLE
-			, CONTENT
-			, SCORE
-			, HISTORY_SEQ
-			, MEM_SEQ
-			, COURSE_SEQ
-			, CMPN_SEQ
-		FROM RENT_REVIEW
-		WHERE MEM_SEQ = #{memberVO.seq}
+	<select id="getRentReviewListByMember" resultMap="rentReview">
+			SELECT r.* FROM 
+			RENT_REVIEW r INNER JOIN RENT_HISTORY h
+			on r.HISTORY_SEQ = h.SEQ
+			WHERE r.MEM_SEQ = #{seq}
 	</select>
 
 	<!-- 단건 조회 -->
-	<select id="getRentReview" resultType="RentReviewVO">
+	<select id="getRentReview" resultMap="rentReview">
 		SELECT SEQ
 			, TITLE
 			, CONTENT

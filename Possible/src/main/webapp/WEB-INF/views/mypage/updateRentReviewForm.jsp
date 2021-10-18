@@ -70,6 +70,7 @@
                                 <div class="col-md-12">
                                     <div class="blog_single_comment_heading">
                                         <h4>후기 작성</h4>
+                                        ${getRentReview }
                                     </div>
                                     <!-- 내역 -->
                                    	<div class="col-md-12">
@@ -132,7 +133,7 @@
 						            		</div>             	
                                 		</div>
                                 	</div>
-                                    
+                                       ${getRentReview.rentHistoryVO.seq }
                                     <!-- 후기작성 -->
                                     <div class="col-md-12">
                                 	<div class="x_car_book_tabs_content_main_wrapper my-4">

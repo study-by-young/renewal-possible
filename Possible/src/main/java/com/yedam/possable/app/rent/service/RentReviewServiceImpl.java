@@ -26,13 +26,13 @@ public class RentReviewServiceImpl implements RentReviewService {
 	}
 	
 	@Override
-	public List<RentReviewVO> getRentReviewListByMember(RentReviewVO vo) {
-		return rentReviewMapper.getRentReviewListByMember(vo);
+	public List<RentReviewVO> getRentReviewListByMember(Long seq) {
+		return rentReviewMapper.getRentReviewListByMember(seq);
 	}	
 
 	@Override
-	public RentReviewVO getRentReview(RentReviewVO vo) {
-		return rentReviewMapper.getRentReview(vo);
+	public RentReviewVO getRentReview(Long seq ) {
+		return rentReviewMapper.getRentReview(seq);
 	}
 
 	@Override
