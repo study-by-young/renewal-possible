@@ -41,7 +41,7 @@
 
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h6 class="card-title">신고글</h6>
+						<h6 class="card-title"></h6>
 						<div class="header-elements">
 							
 						</div>
@@ -56,43 +56,49 @@
 										<input type="hidden" class="form-control" name='memSeq' value='<c:out value="${comRegList.memSeq}"/>' readonly="readonly">
 										
 										<div class="form-group">
-											<label>번호</label> 
+											<h5 class="font-weight-bold"><label>번호</label></h5>
 											<input type="text" class="form-control" name='seq' value='<c:out value="${report.seq}"/>'readonly="readonly">
 										</div>
 										
 										<div class="form-group">
-													<label>제목</label>
-													<input type="text" class="form-control" name='title' value='<c:out value="${report.title}"/>' readonly="readonly">
-												</div>
+											<h5 class="font-weight-bold"><label>제목</label></h5>
+											<input type="text" class="form-control" name='title' value='<c:out value="${report.title}"/>' readonly="readonly">
+										</div>
 											
 												<div class="form-group">
-													<label>내용</label>
+													<h5 class="font-weight-bold"><label>내용</label></h5>
 													<input type="text" class="form-control" name='content' value='<c:out value="${report.content}"/>' readonly="readonly">
 												</div>
 										
 										<div class="form-group">
-											<label>타겟</label> 
+											<h5 class="font-weight-bold"><label>타겟</label></h5> 
 											<input type="text" class="form-control" name='target' value='<c:out value="${report.target}"/>' readonly="readonly">
 										</div>
 										
 										<div class="form-group">
-											<label>작성자</label> 
+											<h5 class="font-weight-bold"><label>작성자</label></h5> 
 											<input type="text" class="form-control" name='writer' value='<c:out value="${report.writer}"/>' readonly="readonly">
 										</div>
 										
 										<div class="form-group">
-											<label>이유</label> 
+											<h5 class="font-weight-bold"><label>이유</label></h5> 
 											<input type="text" class="form-control" name='reason' value='<c:out value="${report.reason}"/>' readonly="readonly">
 										</div>
 										
+										<div class="row">
+										<div class="col-md-6">
 										<div class="form-group">
-											<label>가입일자</label> 
+											<h5 class="font-weight-bold"><label>가입일자</label></h5> 
 											<input class="form-control" name='genDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${report.genDate }"/>' readonly="readonly">				
 										</div>
+										</div>
 										
+										<div class="col-md-6">
 										<div class="form-group">
-											<label>수정일자</label> 
+											<h5 class="font-weight-bold"><label>수정일자</label></h5>
 											<input class="form-control" name='uptDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${report.uptDate }"/>' readonly="readonly">						
+										</div>
+										</div>
 										</div>
 										<div align="right">
 										<a class="btn btn-primary" id="list_btn" href="${pageContext.request.contextPath}/admin/maintenance/report">목록</a>

@@ -43,7 +43,7 @@
 
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h6 class="card-title"><a href="#">업체리스트</a></h6>
+						<h6 class="card-title"></h6>
 						<div class="header-elements">
 							
 						</div>
@@ -59,65 +59,69 @@
  										<input type="hidden" class="form-control" name='memSeq' value='<c:out value="${comRegList.memSeq }"/>' readonly="readonly">
 						
 										<div class="form-group">
-											<label>업체명</label> 
+											<h5 class="font-weight-bold"><label>업체명</label></h5> 
 											<input type="text" class="form-control" name='name' value='<c:out value="${comRegList.name}"/>'readonly="readonly">
 										</div>
 										
 										<div class="form-group">
-													<label>POSTAL</label>
+													<h5 class="font-weight-bold"><label>POSTAL</label></h5>
 													<input type="text" class="form-control" name='cmpnNum' value='<c:out value="${comRegList.postal}"/>' readonly="readonly">
 												</div>
-										
-											
+											<div class="row">
+											<div class="col-md-6">
 												<div class="form-group">
-													<label>사업자번호</label>
+													<h5 class="font-weight-bold"><label>사업자번호</label></h5>
 													<input type="text" class="form-control" name='cmpnNum' value='<c:out value="${comRegList.cmpnNum}"/>' readonly="readonly">
 												</div>
-										
+												</div>
+										<div class="col-md-6">
 										<div class="form-group">
-											<label>대표번호</label> 
+											<h5 class="font-weight-bold"><label>대표번호</label></h5> 
 											<input type="text" class="form-control" name='tel' value='<c:out value="${comRegList.tel}"/>' readonly="readonly">
 										</div>
-										
+										</div>
+										</div>
 										<div class="row">
 											<div class="col-md-4">
 												<div class="form-group">
-												<label>사업지 주소</label> 
+												<h5 class="font-weight-bold"><label>사업지 주소</label></h5> 
 													<input type="text" class="form-control" name='addrCode' value='<c:out value="${comRegList.addr1}"/>' readonly="readonly">
 												</div>
 											</div>
 											
 											<div class="col-md-4">
 												<div class="form-group">
-												<label>&nbsp;</label> 
+												<h5 class="font-weight-bold"><label>&nbsp;</label></h5>
 													<input type="text" class="form-control" name='addrBasic' value='<c:out value="${comRegList.addr2}"/>' readonly="readonly">
 												</div>
 											</div>
 											
 											<div class="col-md-4">
 												<div class="form-group">
-												<label>&nbsp;</label> 
+												<h5 class="font-weight-bold"><label>&nbsp;</label></h5>
 													<input type="text" class="form-control" name='addrDetail'value='<c:out value="${comRegList.area}"/>' readonly="readonly">
 												</div>
 											</div>
 										</div>
 																			
-										<div class="col-md-4">
 												<div class="form-group">
-												<label>상태</label> 
+												<h5 class="font-weight-bold"><label>상태</label></h5>
 													<input type="hidden" class="form-control" name='status' value='<c:out value="${comRegList.status}"/>' readonly="readonly">
 													<input type="text" class="form-control" value='<c:out value="${status}"/>' readonly="readonly">
 												</div>
-											</div>
-										
+										<div class="row">
+										<div class="col-md-6">
 										<div class="form-group">
-											<label>가입일자</label> 
+											<h5 class="font-weight-bold"><label>가입일자</label></h5>
 											<input class="form-control" name='genDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${comRegList.genDate }"/>' readonly="readonly">				
 										</div>
-										
+										</div>
+										<div class="col-md-6">
 										<div class="form-group">
-											<label>수정일자</label> 
+											<h5 class="font-weight-bold"><label>수정일자</label></h5>
 											<input class="form-control" name='uptDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${comRegList.uptDate }"/>' readonly="readonly">						
+										</div>
+										</div>
 										</div>
 								</div>
 								</div>

@@ -199,6 +199,11 @@
     	WHERE CAR_SEQ = #{carSeq}
 
     </delete>
+    <update id="updateCarOptions">
+    	UPDATE CAR_OPTION
+    	SET OPT_CODE = #{optCode}
+    	WHERE CAR_SEQ = #{carSeq}
+    </update>
     <update id="updateCompanyCar">
         UPDATE car
         <set>

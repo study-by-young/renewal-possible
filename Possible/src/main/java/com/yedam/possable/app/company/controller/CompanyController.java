@@ -21,7 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,7 +38,6 @@ import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
 import com.yedam.possable.app.rent.domain.CompEstiListJoinVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
-import com.yedam.possable.app.rent.domain.RentReviewVO;
 import com.yedam.possable.app.rent.service.PremiumRentService;
 import com.yedam.possable.app.rent.service.RentHistoryService;
 import com.yedam.possable.app.rent.service.RentReviewService;
@@ -181,13 +179,18 @@ public class CompanyController {
        String trim = codeService.getTrim(vo.getTrim()).getName();
        String fuel = codeService.getCodeByValue(vo.getFuel()).getName();
 
+       String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
+       
        model.addAttribute("car", vo);
        model.addAttribute("brand", brand);
        model.addAttribute("model2", model2);
        model.addAttribute("segment", segment);
        model.addAttribute("trim", trim);
        model.addAttribute("fuel", fuel);
+       
        model.addAttribute("carOpt", carService.getCarOptions(vo));
+       
+       model.addAttribute("opt", codeService.getCodesByParentCode(carOptCode));
        return "company/carView"; // JSP에서 company 시퀀스 넘겨줘야함
     }
 
@@ -224,13 +227,7 @@ public class CompanyController {
          uploadFile.transferTo(new File(root_path + attach_path + fileName));
       }
       vo.setImg1(fileName);
-
-       // 코드 -> 네임 변환
-        vo.setSegment(codeService.getCodeByValue(vo.getSegment()).getName());
-        vo.setBrand(codeService.getBrand(vo.getBrand()).getName());
-        vo.setModel(codeService.getModel(vo.getModel()).getName());
-        vo.setTrim(codeService.getTrim(vo.getTrim()).getName());
-        vo.setFuel(codeService.getCodeByValue(vo.getFuel()).getName());
+      
         int result = carService.insertCompanyCar(vo);
         rttr.addFlashAttribute("result", result);
 
@@ -267,19 +264,36 @@ public class CompanyController {
 
     // 업체 렌트카 수정 처리
     @PostMapping("/car/update")
-    public String updateCar(CarVO vo, CompanyVO comVO, Model model, RedirectAttributes attributes, @RequestParam Long cmpnSeq){
-
+    public String updateCar(CarVO vo, CarOptionVO optVO, CompanyVO comVO, Model model, RedirectAttributes attributes, @RequestParam Long cmpnSeq){
+   	
     	comVO.setSeq(cmpnSeq);
-
-    	int result = carService.updateCompanyCar(vo);
-        if (result == 1) {
-            attributes.addFlashAttribute("result", "success");
+    	optVO.setCarSeq(vo.getSeq());
+   	
+//    	int result = carService.updateCompanyCar(vo, comVO);
+//        if (result == 1) {
+//            attributes.addFlashAttribute("result", "success");
+//    }
+        
+        int result2 = carService.updateCarOptions(optVO);
+        if (result2 == 1) {
+            attributes.addFlashAttribute("result2", "success");
     }
 
     return "redirect:/";
     }
 
-
+//    //옵션 삭제
+//    @ResponseBody
+//    @PostMapping("deleteOpt")
+//    public boolean deleteOption(CarOptionVO optVO, RedirectAttributes rttr) {
+//    	
+//    	int result = carService.deleteOption(optVO);
+//		if(result == 1) {
+//			rttr.addFlashAttribute("result", "success");			
+//		}
+//		
+//		return result==1 ? true : false;
+//    }
 
     // 업체 렌트카 삭제 처리
     @ResponseBody
