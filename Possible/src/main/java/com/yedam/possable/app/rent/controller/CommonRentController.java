@@ -84,12 +84,14 @@ public class CommonRentController {
     // 렌트카 상세보기
     @GetMapping("/view")
     public String rentCarView(Model model,
-                              CarVO vo,
+                              @RequestParam("seq") Long carSeq,
                               @RequestParam("startDate")
                                   @DateTimeFormat(pattern = "yyyy/MM/dd") Date startDate,
                               @RequestParam("endDate")
                                   @DateTimeFormat(pattern = "yyyy/MM/dd") Date endDate,
                               @ModelAttribute("cri") Criteria cri) {
+        CarVO vo = new CarVO();
+        vo.setSeq(carSeq);
     	model.addAttribute("car", carService.getCar(vo));
         model.addAttribute("start", startDate);
         model.addAttribute("end", endDate);
@@ -103,7 +105,15 @@ public class CommonRentController {
 
     // 렌트카 예약 폼
     @GetMapping("/view/book")
-    public String rentCarBook() {
+    public String rentCarBook(CarVO carVO,
+                              @RequestParam("startDate")
+                              @DateTimeFormat(pattern = "yyyy/MM/dd") Date startDate,
+                              @RequestParam("endDate")
+                                  @DateTimeFormat(pattern = "yyyy/MM/dd") Date endDate,
+                              Model model) {
+        model.addAttribute("car", carService.getCar(carVO));
+        model.addAttribute("start", startDate);
+        model.addAttribute("end", endDate);
         return "rent/comm/carBook";
     }
 

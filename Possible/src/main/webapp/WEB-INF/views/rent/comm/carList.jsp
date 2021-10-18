@@ -18,7 +18,7 @@
 					<div class="x_title_inner_num_wrapper float_left py-3 my-0">
 						<form name="searchCar" action="commonRent" onsubmit="" class="bg-white rounded-lg">
                             <input type="hidden" name="pageNum" value="<c:out value="${cri.pageNum}" default="1"/>">
-                            <input type="hidden" name="amount" value="<c:out value="${cri.amount}" default="5"/>">\
+                            <input type="hidden" name="amount" value="<c:out value="${cri.amount}" default="5"/>">
 							<div class="row p-3">
 								<div class="col-md-3">
 									<h6 class="text-dark">지역</h6>
@@ -34,9 +34,9 @@
 								<div class="col-md-3">
 									<h6>대여 날짜</h6>
 									<div class="input-group mb-3">
-                                   <span class="input-group-prepend">
-                                       <span class="input-group-text"><i class="icon-calendar"></i></span>
-                                   </span>
+                                       <span class="input-group-prepend">
+                                           <span class="input-group-text"><i class="icon-calendar"></i></span>
+                                       </span>
 										<input type="text" id="start" name="start" class="form-control pickadate-format">
 									</div>
 								</div>

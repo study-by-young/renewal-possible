@@ -23,34 +23,39 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xl-3 col-lg-4">
-				<div class="x_car_book_left_siderbar_wrapper float_left card">
-                    <div class="fee-information card-header bg-white car_booking_onliy_side">
-                        <h5 class="card-title">결제정보</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="x_slider_form_input_wrapper float_left form-group">
-                            <h6>대여요금(자차보험 미포함)</h6>
-                            <div class="text-right font-weight-bold text-primary">
-                                <h6>${car.price}원</h6>
+                <form id="payFrm" action="${pageContext.request.contextPath}/commonRent/view/book" method="get">
+                    <input type="hidden" name="seq" value="seq">
+                    <input type="hidden" name="startDate" value="<fmt:formatDate value="${start}" pattern="yyyy/MM/dd" />">
+                    <input type="hidden" name="endDate" value="<fmt:formatDate value="${end}" pattern="yyyy/MM/dd" />">
+                    <div class="x_car_book_left_siderbar_wrapper float_left card">
+                        <div class="fee-information card-header bg-white car_booking_onliy_side">
+                            <h5 class="card-title">결제정보</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="x_slider_form_input_wrapper float_left form-group">
+                                <h6>대여요금(자차보험 미포함)</h6>
+                                <div class="text-right font-weight-bold text-primary">
+                                    <h6>${car.price}원</h6>
+                                </div>
+                            </div>
+                            <div class="x_slider_form_input_wrapper float_left form-group">
+                                <h6>자차보험</h6>
+                                <div class="text-right font-weight-bold text-primary">
+                                    <h6>${car.price}원</h6>
+                                </div>
+                            </div>
+                            <div class="x_slider_form_input_wrapper float_left">
+                                <h6>예상 결제액</h6>
+                                <div class="text-right font-weight-bold text-primary">
+                                    <h6>${car.price + car.price}원</h6>
+                                </div>
                             </div>
                         </div>
-                        <div class="x_slider_form_input_wrapper float_left form-group">
-                            <h6>자차보험</h6>
-                            <div class="text-right font-weight-bold text-primary">
-                                <h6>${car.price}원</h6>
-                            </div>
-                        </div>
-                        <div class="x_slider_form_input_wrapper float_left">
-                            <h6>예상 결제액</h6>
-                            <div class="text-right font-weight-bold text-primary">
-                                <h6>${car.price + car.price}원</h6>
-                            </div>
+                        <div class="x_slider_checout_right card-footer">
+                            <button class="h5 mb-0 btn btn-block btn-primary">예약하기</button>
                         </div>
                     </div>
-                    <div class="x_slider_checout_right card-footer">
-                        <a href="${pageContext.request.contextPath}/commonRent/view/book" class="h5 mb-0 btn btn-block btn-primary">예약하기</a>
-                    </div>
-				</div>
+                </form>
 			</div>
 			<!-- 차량 상세조회 -->
 			<div class="col-xl-9 col-lg-8">
@@ -80,7 +85,7 @@
                                                     style="border-radius: 5rem;"><fmt:formatDate value="${start}" pattern="yy/MM/dd (EEE)"/></p>
                                         </div>
                                     </div>
-                                    <div class="col-md-1 align-self-center">
+                                    <div class="col-md-1 align-self-end">
                                         <div class="form-sec-header text-center">
                                             <p class="text-grey-600"><i class="icon-arrow-right8 icon-2x"></i></p>
                                         </div>
