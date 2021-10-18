@@ -87,9 +87,9 @@
 					
 					<br>
 					<div class="col-sm-12">
-						<div class="d-flex align-items-center justify-content-center mb-2"">
+						<div class="d-flex align-items-center justify-content-center mb-2">
 							<div align="center">
-								<form id="actionForm" action="company" method="get">
+								<form id="actionForm" action="confirmCompany" method="get">
 									<select name="type" class="select">
 										<option value=""
 											${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
@@ -101,12 +101,10 @@
 											${pageMaker.cri.type =='C'? 'selected' : "" }>사업자번호</option>
 										<option value="T"
 											${pageMaker.cri.type =='T'? 'selected' : "" }>대표번호</option>
-										<option value="S"
-											${pageMaker.cri.type =='S'? 'selected' : "" }>상태</option>
 									</select> <input class="input" name="keyword"
-										value="${pageMaker.cri.keyword }"> <input
-										type="hidden" name="pageNum" value="1"> <input
-										type="hidden" name="amount" value="${pageMaker.cri.amount }">
+										value="${pageMaker.cri.keyword }"> <input type="hidden"
+										name="pageNum" value="1"> <input type="hidden" name="amount"
+										value="${pageMaker.cri.amount }">
 									<button class="btn btn-primary"
 										onclick="$('[name=pageNum]').val(1)">Search</button>
 								</form>
@@ -156,7 +154,7 @@
 							var seq = $(this).attr("href"); //클릭한 게시글의 번호를 읽어와서
 							actionForm
 									.append('<input type="hidden" name="seq" value="'+ seq +'">') //여기넣어주고
-							actionForm.attr("action", "company/view") //바꾸기 앞에는 속성이름 뒤에는 바꾸는거
+							actionForm.attr("action", "confirmCompany/view") //바꾸기 앞에는 속성이름 뒤에는 바꾸는거
 							actionForm.submit(); //실행
 						});
 

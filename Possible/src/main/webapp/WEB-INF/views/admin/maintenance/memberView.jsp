@@ -42,7 +42,7 @@
 
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h6 class="card-title">회원정보수정</h6>
+						<h6 class="card-title"></h6>
 						<div class="header-elements">
 							
 						</div>
@@ -56,73 +56,72 @@
 								<div class="col-md-12">
 									<fieldset>
 										<input type="hidden" class="form-control" name='seq' value='<c:out value="${member.seq}"/>' readonly="readonly">
-										
 										<div class="form-group">
-											<label>이름</label> 
+											<h5 class="font-weight-bold"><label>이름</label></h5>
 											<input type="text" class="form-control" name='name' value='<c:out value="${member.name}"/>'readonly="readonly">
 										</div>
 										
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label>아이디</label>
+													<h5 class="font-weight-bold"><label>아이디</label></h5>
 													<input type="text" class="form-control" name='id' value='<c:out value="${member.id}"/>' readonly="readonly">
 												</div>
 											</div>
 											
 											<div class="col-md-6">
 												<div class="form-group">
-													<label>비밀번호</label>
+													<h5 class="font-weight-bold"><label>비밀번호</label></h5>
 													<input type="password" class="form-control" name='password' value='<c:out value="${member.password}"/>' readonly="readonly">
 												</div>
 											</div>
 										</div>
 										
 										<div class="form-group">
-											<label>생년월일</label> 
+											<h5 class="font-weight-bold"><label>생년월일</label></h5>
 											<input type="text" class="form-control" name='birth' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${member.birth }"/>' readonly="readonly">				
 										</div>
 										
 										<div class="form-group">
-											<label>이메일</label> 
+											<h5 class="font-weight-bold"><label>이메일</label></h5>
 											<input type="text" class="form-control" name='email' value='<c:out value="${member.email}"/>' readonly="readonly">
 										</div>
 										
 										<div class="form-group">
-											<label>휴대전화</label> 
+											<h5 class="font-weight-bold"><label>휴대전화</label></h5>
 											<input type="text" class="form-control" name='phone' value='<c:out value="${member.phone}"/>' readonly="readonly">
 										</div>
 										
 										<div class="row">
 											<div class="col-md-4">
 												<div class="form-group">
-												<label>주소</label> 
+												<h5 class="font-weight-bold"><label>주소</label></h5> 
 													<input type="text" class="form-control" name='addrCode' value='<c:out value="${member.addrCode}"/>' readonly="readonly">
 												</div>
 											</div>
 											
 											<div class="col-md-4">
 												<div class="form-group">
-												<label>&nbsp;</label> 
+													<h5 class="font-weight-bold"><label>&nbsp;</label></h5> 
 													<input type="text" class="form-control" name='addrBasic' value='<c:out value="${member.addrBasic}"/>' readonly="readonly">
 												</div>
 											</div>
 											
 											<div class="col-md-4">
 												<div class="form-group">
-												<label>&nbsp;</label> 
+												<h5 class="font-weight-bold"><label>&nbsp;</label></h5> 
 													<input type="text" class="form-control" name='addrDetail'value='<c:out value="${member.addrDetail}"/>' readonly="readonly">
 												</div>
 											</div>
 										</div>
 										
 										<div class="form-group">
-											<label>권한</label> 
+											<h5 class="font-weight-bold"><label>권한</label></h5> 
 											<input type="text" class="form-control" name='author' value='<c:out value="${member.author}"/>' readonly="readonly"> 
 										</div>
 									
 										<div class="form-group">
-											<label>상태</label>
+											<h5 class="font-weight-bold"><label>상태</label></h5>
 											<select name='status' class="form-control form-control-select2">
 												<option value='status' name='status'>${member.status}</option>
 												<c:if test="${member.status eq 'Y' }"><option value='N' name='status'>N</option></c:if>
@@ -133,15 +132,27 @@
 												<c:if test="${member.status eq 'D' }"><option value='N' name='status'>N</option></c:if>
 											</select>
 										</div>
-										
-										<div class="form-group">
-											<label>가입일자</label> 
-											<input class="form-control" name='genDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${member.genDate }"/>' readonly="readonly">				
-										</div>
-										
-										<div class="form-group">
-											<label>수정일자</label> 
-											<input class="form-control" name='uptDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${member.uptDate }"/>' readonly="readonly">						
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<h5 class="font-weight-bold">
+														<label>가입일자</label>
+													</h5>
+													<input class="form-control" name='genDate'
+														value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${member.genDate }"/>'
+														readonly="readonly">
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<h5 class="font-weight-bold">
+														<label>수정일자</label>
+													</h5>
+													<input class="form-control" name='uptDate'
+														value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${member.uptDate }"/>'
+														readonly="readonly">
+												</div>
+											</div>
 										</div>
 									</fieldset>
 								</div>

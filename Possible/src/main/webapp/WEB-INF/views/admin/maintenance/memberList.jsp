@@ -124,8 +124,6 @@
 	</div>
 
 </div>
-</div>
-</div>
 <script>
 	$(function() {
 		var actionForm = $("#actionForm");
