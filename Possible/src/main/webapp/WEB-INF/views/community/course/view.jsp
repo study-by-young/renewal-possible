@@ -195,6 +195,7 @@ translateY(
 	</div>
 </div>
 <input type="hidden" id="memSeq" value="${user }">
+<input type="hidden" id="memId" data-check="${reportCheck }" value="${id }">
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -211,15 +212,29 @@ translateY(
 			<div class="modal-body">
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="reason"
-						id="exampleRadios1" value="option1" checked> <label
-						class="form-check-label" for="exampleRadios1"> Default
-						radio </label>
+						id="exampleRadios1" value="비방 및 욕설" checked> <label
+						class="form-check-label" for="exampleRadios1"> 비방 및 욕설 </label>
 				</div>
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="reason"
-						id="exampleRadios2" value="option2"> <label
-						class="form-check-label" for="exampleRadios2"> Second
-						default radio </label>
+						id="exampleRadios2" value="부적절한 컨텐츠"> <label
+						class="form-check-label" for="exampleRadios2"> 부적절한 컨텐츠 </label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="reason"
+						id="exampleRadios3" value="스팸 및 현혹 행위"> <label
+						class="form-check-label" for="exampleRadios2"> 스팸 및 현혹 행위 </label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="reason"
+						id="exampleRadios4" value="잘못된 정보"> <label
+						class="form-check-label" for="exampleRadios2"> 잘못된 정보 </label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="reason"
+						id="etc"> <label
+						class="form-check-label" for="exampleRadios2"> 기타 </label>
+					<input type="text" class="input" id="etcDetail" disabled="disabled">
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -350,8 +365,13 @@ translateY(
 	
 	$("#reportBtn").on("click", function() {
 		if (user != "") {
-			$("#reportBtn").attr("data-toggle", "modal")
-			$("#reportBtn").attr("data-target", "#exampleModal");
+			if(reportCheck == 0) {
+				$("#reportBtn").attr("data-toggle", "modal")
+				$("#reportBtn").attr("data-target", "#exampleModal");
+			} else {
+				alert("이미 신고한 게시글입니다.");
+				return;
+			}
 		} else {
 			if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
 				location.href="${pageContext.request.contextPath}/login"; 
@@ -361,21 +381,59 @@ translateY(
 		}
 	});
 	
+	var reportCheck = $("#memId").attr("data-check");
+	console.log(reportCheck);
 	$("#reportSubmit").on("click", function() {
-		$.ajax({
-			type : 'POST',
-			url : 'report',
-			data : JSON.stringify({
-				target : $("#seq").val(),
-				writer : user,
-				reason : $('.form-check-input:checked').val()
-			}),
-			dataType : 'text',
-			contentType : 'application/json; charset=utf-8',
-			success : function(data) {
-				alert('신고가 접수되었습니다.');
-				location.href = "../course";
+		if($("input[name=reason]:checked").attr("id") == "etc") {
+			if ($("#etcDetail").val() != "") {
+				$("#etc").val($("#etcDetail").val());
+				$.ajax({
+					type : 'POST',
+					url : 'report',
+					data : JSON.stringify({
+						target : $("#seq").val(),
+						reason : $('.form-check-input:checked').val()
+					}),
+					dataType : 'text',
+					contentType : 'application/json; charset=utf-8',
+					success : function(data) {
+						alert('신고가 접수되었습니다.');
+						location.href = "../course";
+					}
+				})
+			} else {
+				alert("내용을 입력해주세요.")
+				return;
 			}
-		})
+		} else {
+			$.ajax({
+				type : 'POST',
+				url : 'report',
+				data : JSON.stringify({
+					target : $("#seq").val(),
+					reason : $('.form-check-input:checked').val()
+				}),
+				dataType : 'text',
+				contentType : 'application/json; charset=utf-8',
+				success : function(data) {
+					alert('신고가 접수되었습니다.');
+					location.href = "../course";
+				}
+			})
+		}
 	});
+	
+	$(document).ready(function(){
+	    // 라디오버튼 클릭시 이벤트 발생
+	    $("input:radio[name=reason]").click(function(){
+	 
+	        if($("input[name=reason]:checked").attr("id") == "etc"){
+	        	$("#etcDetail").attr("disabled",false);
+	        } else {
+	        	$("#etcDetail").val('');
+	        	$("#etcDetail").attr("disabled",true);
+	        }
+	    });
+	});
+
 	</script>

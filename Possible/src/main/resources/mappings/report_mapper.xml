@@ -63,5 +63,8 @@
 		</selectKey>
 		INSERT INTO REPORT_BOARD VALUES (#{seq}, #{target}, #{writer}, #{reason}, SYSDATE)
 	</insert>
-
+	
+	<select id="reportCount" resultType="int">
+		SELECT COUNT(*) FROM REPORT_BOARD WHERE TARGET = #{seq} AND WRITER = #{writer}
+	</select>
 </mapper>

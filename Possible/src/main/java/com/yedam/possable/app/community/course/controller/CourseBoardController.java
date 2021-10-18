@@ -52,7 +52,7 @@ public class CourseBoardController {
 
 	// 단건조회
 	@GetMapping("/view")
-	public String courseView(Model model, CourseBoardVO board, CourseVO course, CourseBoardLikeVO like, Authentication authentication) {
+	public String courseView(Model model, CourseBoardVO board, CourseVO course, CourseBoardLikeVO like, Authentication authentication, ReportVO report) {
 		courseBoardService.plusViews(board);
 		model.addAttribute("board", courseBoardService.read(board));
 		model.addAttribute("cnt", courseBoardService.courseCnt(board));
@@ -67,6 +67,8 @@ public class CourseBoardController {
 		like.setBoardSeq(board.getSeq());
 		like.setMemberSeq(loginUser.getSeq());
 		model.addAttribute("checkLike",courseBoardService.checkLike(like));
+		report.setWriter(loginUser.getId());
+		model.addAttribute("reportCheck", reportService.reportCount(report));
 		return "community/course/view";
 	}
 

@@ -37,5 +37,11 @@ public class ReportServiceImpl implements ReportService {
 		// TODO Auto-generated method stub
 		return reportMapper.insert(vo);
 	}
+
+	@Override
+	public int reportCount(ReportVO vo) {
+		// TODO Auto-generated method stub
+		return reportMapper.reportCount(vo);
+	}
 	
 }

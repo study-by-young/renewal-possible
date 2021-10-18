@@ -8,7 +8,7 @@ import java.util.Date;
 public class ReportVO {
     private Long seq;
     private String writer;
-    private String target;
+    private Long target;
     private String reason;
     private String code;
     private Date genDate;

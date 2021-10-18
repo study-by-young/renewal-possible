@@ -17,5 +17,8 @@ public interface ReportMapper {
   	public ReportVO getReport(ReportVO vo);
   	
   	public int insert(ReportVO vo);
+  	
+  	//이미 신고한 글 검증
+  	public int reportCount(ReportVO vo);
     
 }
