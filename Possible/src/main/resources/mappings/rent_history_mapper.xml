@@ -94,7 +94,7 @@
 	</select>
 	
 	<!-- 업체 렌트내역 한건 -->
-	<select id="getRentHistory" resultType="RentHistoryVO">
+	<select id="getRentHistory" resultMap="rentHistory">
              SELECT		SEQ,
 						CAR_SEQ,
 						MEM_SEQ,
