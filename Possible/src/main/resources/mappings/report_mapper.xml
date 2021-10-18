@@ -35,7 +35,7 @@
 	<select id="getReportList" resultType="ReportVO">
 		SELECT * FROM (
 		SELECT /*+ INDEX_DESC(REPORT_BOARD IDX_REPORT_BOARD) */
-		ROWNUM RN, SEQ, TITLE, CONTENT, TARGET, WRITER, REASON, GEN_DATE, UPT_DATE
+		ROWNUM RN, SEQ, TARGET, WRITER, REASON, GEN_DATE
 		FROM REPORT_BOARD
 		<where>
 			<include refid="criteria"></include>
@@ -49,15 +49,19 @@
 	<!-- 신고글 한건 -->
 	<select id="getReport" resultType="ReportVO">
 		SELECT SEQ,
-				TITLE,
-				CONTENT,
 				TARGET,
 				WRITER,
 				REASON,
-				GEN_DATE,
-				UPT_DATE
+				GEN_DATE
 		FROM REPORT_BOARD
 		WHERE SEQ = #{seq}
 	</select>
+	
+	<insert id="insert">
+		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
+			SELECT SEQ_REPORT_BOARD.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO REPORT_BOARD VALUES (#{seq}, #{target}, #{writer}, #{reason}, SYSDATE)
+	</insert>
 
 </mapper>

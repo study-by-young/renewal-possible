@@ -15,11 +15,12 @@ public class EstiSubmitHistoryVO {
     private String memo;
     private Date genDate;
     private Date uptDate;
+    private String status;
+    private List<String> itemsList;
 
     private EstimateHistoryVO estimateHistoryVO;
     private CompanyVO companyVO;
     private CarVO carVO;
-    private List<String> itemsArr;
 //    private Long estiSeq;
 //    private Long cmpnSeq;
 //    private Long carSeq;

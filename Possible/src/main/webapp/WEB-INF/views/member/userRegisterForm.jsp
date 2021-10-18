@@ -102,7 +102,6 @@
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="col-12">
                                         <label>주소 <span class="text-danger">*</span></label>
                                     </div>
@@ -114,17 +113,6 @@
                                                     <div class="input-group-append">
                                                         <button type="button" class="btn btn-primary" onclick="" >주소 검색</button>
                                                     </div>
-                                </div>
-                                <div class="col-12">
-                                    <label>주소 <span class="text-danger">*</span></label>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group row">
-                                        <div class="col-lg-6">
-                                            <div class="input-group">
-                                                <input name="addrCode" id="addrCode" type="text" class="form-control no-empty" placeholder="우편번호" required>
-                                                <div class="input-group-append">
-                                                    <button type="button" class="btn btn-primary" onclick="DaumPostcode();" >주소 검색</button>
                                                 </div>
                                             </div>
                                         </div>

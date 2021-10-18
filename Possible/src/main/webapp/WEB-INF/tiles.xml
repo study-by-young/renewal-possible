@@ -24,6 +24,9 @@
     <definition name="tiles/pagination" template="/WEB-INF/views/tiles/nolayout.jsp">
         <put-attribute name="content" value="/WEB-INF/views/tiles/pagination.jsp" />
     </definition>
+    <definition name="rent/prm/submitList" template="/WEB-INF/views/tiles/nolayout.jsp">
+        <put-attribute name="content" value="/WEB-INF/views/rent/prm/submitList.jsp" />
+    </definition>
 
     <!-- 레이아웃 변경 페이지 설정-->
     <definition name="rent/prm/*" extends="Template">

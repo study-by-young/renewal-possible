@@ -34,7 +34,6 @@ public class CarController {
         CarVO vo = new CarVO();
         vo.setSeq(carSeq);
 
-        log.info(carService.getCar_map(vo).toString());
-        return carService.getCar_map(vo);
+        return carService.getCar(vo);
     }
 }

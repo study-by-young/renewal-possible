@@ -8,11 +8,6 @@
     <resultMap id="subCode" type="CodeSubVO">
         <id property="code" column="code"/>
         <result property="name" column="name"/>
-        <association property="masterCode"
-                     column="master_code"
-                     resultMap="masterCode"
-                     columnPrefix="master_"
-                     javaType="java.lang.String"/>
     </resultMap>
     <resultMap id="brand" type="BrandCodeVO">
         <id property="code" column="code" />
@@ -25,8 +20,7 @@
         <result property="segCode" column="seg_code" />
         <association property="brandCode"
                      column="brand_code"
-                     columnPrefix="brand_"
-                     resultMap="brand"
+                     select="getBrand"
                      javaType="java.lang.String" />
     </resultMap>
     <resultMap id="trim" type="TrimCodeVO">
@@ -34,94 +28,94 @@
         <result property="name" column="name" />
         <result property="fuel" column="fuel"/>
         <association property="modelCodeVO"
+                     select="getModel"
                      column="model_code"
-                     resultMap="model"
-                     columnPrefix="model_"
-                     javaType="string"/>
+                     javaType="ModelCodeVO"/>
     </resultMap>
 
-    <select id="getMasterCodes" resultType="CodeMasterVO">
-        SELECT *
+    <select id="getMasterCodes" resultMap="masterCode">
+        SELECT
+            *
         FROM code_master
     </select>
 
-    <select id="getMasterCodeByValue" resultType="CodeMasterVO">
-        SELECT *
+    <select id="getMasterCodeByValue" resultMap="masterCode">
+        SELECT
+            *
         FROM code_master
         WHERE code = #{code}
     </select>
 
-    <select id="getMasterCodeByName" resultType="CodeMasterVO">
-        SELECT *
+    <select id="getMasterCodeByName" resultMap="masterCode">
+        SELECT
+            *
         FROM code_master
         WHERE name = #{name}
     </select>
 
-    <select id="getCodesByParentCode" resultType="CodeSubVO">
-        SELECT *
+    <select id="getCodesByParentCode" resultMap="subCode">
+        SELECT
+            *
         FROM code_sub
         WHERE master_code = #{parentCode}
     </select>
-    <select id="getCodeByName" resultType="CodeSubVO">
-        SELECT *
+
+    <select id="getCodeByName" resultMap="subCode">
+        SELECT
+            *
         FROM code_sub
         WHERE name = #{name}
     </select>
-    <select id="getCodeByValue" resultType="CodeSubVO">
-        SELECT *
+
+    <select id="getCodeByValue" resultMap="subCode">
+        SELECT
+            *
         FROM code_sub
         WHERE code = #{code}
     </select>
 
-    <select id="getBrandList" resultType="BrandCodeVO">
-        SELECT *
+    <select id="getBrandList" resultMap="brand">
+        SELECT
+            *
         FROM brand_code
     </select>
-    <select id="getBrand" resultType="brandCodeVO">
-        SELECT *
+
+    <select id="getBrand" resultMap="brand">
+        SELECT
+            *
         FROM brand_code
         WHERE code = #{code}
     </select>
-    <select id="getModelList" resultType="ModelCodeVO">
-        SELECT *
+
+    <select id="getModelList" resultMap="model">
+        SELECT
+            *
         FROM model_code
         <if test="brandCode != null">
             WHERE brand_code = #{brandCode}
         </if>
     </select>
-    <select id="getModel" resultType="ModelCodeVO">
-        SELECT *
+
+    <select id="getModel" resultMap="model">
+        SELECT
+            *
         FROM model_code
         WHERE code = #{code}
     </select>
-    <select id="getTrimList" resultType="TrimCodeVO">
-        SELECT *
+
+    <select id="getTrimList" resultMap="trim">
+        SELECT
+            *
         FROM trim_code
         <!--        <if test="modelCode != null">-->
         <!--            WHERE model_code = #{modelCode}-->
         <!--        </if>-->
     </select>
-    <select id="getTrim" resultType="TrimCodeVO">
-        SELECT *
+
+    <select id="getTrim" resultMap="trim">
+        SELECT
+            *
         FROM trim_code
         WHERE code = #{code}
-    </select>
-
-    <select id="getBrandByName" resultType="BrandCodeVO">
-        SELECT *
-        FROM brand_code
-        WHERE name = #{name}
-    </select>
-
-    <select id="getModelByName" resultType="ModelCodeVO">
-        SELECT *
-        FROM model_code
-        WHERE name = #{name}
-    </select>
-
-    <select id="getTrimByName" resultType="TrimCodeVO">
-        SELECT *
-        FROM trim_code
-        WHERE name = #{name}
     </select>
 </mapper>

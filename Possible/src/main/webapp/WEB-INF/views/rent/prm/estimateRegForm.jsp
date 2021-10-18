@@ -27,7 +27,7 @@
 <div class="x_car_book_sider_main_Wrapper my-4">
     <div class="container">
         <form id="estimateForm" name="estimateForm" method="post">
-<%--            <input type="hidden" name="memSeq" id="memSeq" value="<sec:authentication property="principal.seq" />" >--%>
+            <input type="hidden" name="memberVO.Seq" id="memberVO.Seq" value="<sec:authentication property="principal.seq" />" >
             <div class="row">
                 <div class="col-lg-10 col-12 offset-lg-1 ">
                     <div class="x_carbooking_right_section_wrapper card">

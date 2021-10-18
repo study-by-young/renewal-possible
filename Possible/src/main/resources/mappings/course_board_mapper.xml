@@ -68,19 +68,19 @@
 		SELECT /*+ INDEX_ASC(TOUR IDX_TOUR)*/ * FROM TOUR
 		<where> 
         	<if test="type == 'A'.toString()">
-				AND CONTENTTYPEID=12 AND TITLE LIKE '%' || #{keyword} || '%'
+				AND ADDR1 IS NOT NULL AND CONTENTTYPEID=12 AND TITLE LIKE '%' || #{keyword} || '%'
 			</if>
 			<if test="type == 'C'.toString()">
-				AND CONTENTTYPEID=14 AND TITLE LIKE '%' || #{keyword} || '%'
+				AND ADDR1 IS NOT NULL AND CONTENTTYPEID=14 AND TITLE LIKE '%' || #{keyword} || '%'
 			</if>
 			<if test="type == 'T'.toString()">
-				TITLE LIKE '%' || #{keyword} || '%'
+				AND ADDR1 IS NOT NULL AND TITLE LIKE '%' || #{keyword} || '%'
 			</if>
         </where>
 	</select>
 
 	<select id="getList" resultType="CourseBoardVO">
-		SELECT SEQ, TITLE, WRITER, CONTENT, VIEWS, START_DATE, END_DATE, PEOPLE, GEN_DATE, UPT_DATE
+		SELECT B.SEQ, B.TITLE, B.WRITER, B.CONTENT, B.VIEWS, B.START_DATE, B.END_DATE, B.PEOPLE, B.GEN_DATE, B.UPT_DATE, J.FIRSTIMAGE
 		FROM (
 			SELECT /*+ INDEX_DESC(COURSE_BOARD IDX_COURSE_BOARD) */ 
 			ROWNUM RN, SEQ, TITLE, WRITER, CONTENT, VIEWS, START_DATE, END_DATE, PEOPLE, GEN_DATE, UPT_DATE
@@ -89,13 +89,18 @@
                 <include refid="listCriteria"></include>
                 <![CDATA[   AND ROWNUM <= #{pageNum} * #{amount} ]]>
              </where>
-			)
+			) B
+		JOIN (SELECT * FROM (SELECT C.COURSE_SEQ, T.FIRSTIMAGE, ROW_NUMBER() OVER (PARTITION BY C.COURSE_SEQ ORDER BY C.COURSE_SEQ DESC) AS RankNo FROM COURSE C JOIN TOUR T ON C.CONTENTID = T.CONTENTID WHERE T.FIRSTIMAGE IS NOT NULL) WHERE RankNo = 1) J
+		ON B.SEQ = J.COURSE_SEQ
 		WHERE RN > (#{pageNum} - 1) * #{amount}
-		ORDER BY SEQ DESC
 	</select>
 	
 	<select id="read" resultType="CourseBoardVO">
 		SELECT * FROM COURSE_BOARD WHERE SEQ = #{seq}
+	</select>
+	
+	<select id="getWriter" resultType="CourseBoardVO">
+		SELECT * FROM COURSE_BOARD WHERE WRITER = #{writer}
 	</select>
 	
 	<insert id="insert">

@@ -39,7 +39,7 @@ public interface CarService {
     public int deleteCompanyCar(CarVO vo);
 
     // 업체 차량 수정
-    public int updateCompanyCar(@Param("car") CarVO carVO, @Param("cmpn") CompanyVO cmpnVO);
+    public int updateCompanyCar(CarVO car);
 
     // 차량 model 중복제거 리스트 조회
     public List<CarVO> getDistinctCarList(Criteria cri);
@@ -49,26 +49,17 @@ public interface CarService {
 
     //차량 옵션 추가
     public int insertCarOptions(CarOptionVO vo);
-    
+
     //차량 옵션 삭제
     public int deleteOption(CarOptionVO vo);
-    
+
     //차량 보험 삭제
     public int deleteIns(InsuranceOptionVO vo);
-    
+
 	public int insertCarOptions(List<CarOptionVO> list, Long carSeq);
 	
 	 //옵션 수정
     public int updateCarOptions(CarOptionVO vo);
 
     public int getTotalCount(Criteria cri);
-
-    // 차량 리스트 조회
-    public List<CarVO> getCarList_map(Criteria cri);
-
-    // 차량 조회
-    public CarVO getCar_map(CarVO vo);
-
-    // 업체 차량 리스트 조회
-    public List<CarVO> getCompanyCarList_map(CompanyVO vo);
 }

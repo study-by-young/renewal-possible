@@ -34,11 +34,6 @@ public class CodeServiceImpl implements CodeService {
     }
 
     @Override
-    public CodeSubVO getCodeByName(String name) {
-        return codeMapper.getCodeByName(name);
-    }
-
-    @Override
     public CodeSubVO getCodeByValue(String code) {
         return codeMapper.getCodeByValue(code);
     }
@@ -54,11 +49,6 @@ public class CodeServiceImpl implements CodeService {
     }
 
     @Override
-    public BrandCodeVO getBrandByName(String name) {
-        return codeMapper.getBrandByName(name);
-    }
-
-    @Override
     public List<ModelCodeVO> getModelList(String brandCode) {
         return codeMapper.getModelList(brandCode);
     }
@@ -66,11 +56,6 @@ public class CodeServiceImpl implements CodeService {
     @Override
     public ModelCodeVO getModel(String code) {
         return codeMapper.getModel(code);
-    }
-
-    @Override
-    public ModelCodeVO getModelByName(String name) {
-        return codeMapper.getModelByName(name);
     }
 
     @Override
@@ -83,8 +68,4 @@ public class CodeServiceImpl implements CodeService {
         return codeMapper.getTrim(code);
     }
 
-    @Override
-    public TrimCodeVO getTrimByName(String name) {
-        return codeMapper.getTrimByName(name);
-    }
 }

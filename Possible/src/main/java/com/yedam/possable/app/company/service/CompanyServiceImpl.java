@@ -3,6 +3,7 @@ package com.yedam.possable.app.company.service;
 import java.util.HashMap;
 import java.util.List;
 
+import com.yedam.possable.app.company.domain.CompanyItemVO;
 import com.yedam.possable.app.member.domain.MemberVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,7 +66,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public List<String> getCompanyItems(CompanyVO vo) {
+    public List<CompanyItemVO> getCompanyItems(CompanyVO vo) {
         return companyMapper.getCompanyItems(vo);
     }
 
@@ -80,7 +81,7 @@ public class CompanyServiceImpl implements CompanyService {
 		// TODO Auto-generated method stub
 		return companyMapper.deleteCompany(vo);
 	}
-	
+
 	@Override
 	public CompanyVO companySelect(Long cmpnSeq) {
 		return companyMapper.companySelect(cmpnSeq);

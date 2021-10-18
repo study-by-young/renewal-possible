@@ -7,5 +7,6 @@ public class InsuranceOptionVO {
     private String optCode;
     private Long price;
 
+    private String optName;
     private Long carSeq;
 }

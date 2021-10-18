@@ -7,12 +7,9 @@ import java.util.Date;
 @Data
 public class ReportVO {
     private Long seq;
-    private String title;
-    private String content;
     private String writer;
     private String target;
     private String reason;
     private String code;
     private Date genDate;
-    private Date uptDate;
 }

@@ -25,13 +25,13 @@ var FormValidation = function() {
         }
 
         jQuery.extend(jQuery.validator.messages, {
-            required: "이 항목은 비워 둘 수 없습니다..",
+            required: "이 항목은 비워 둘 수 없습니다.",
             remote: "Please fix this field.",
-            email: "이메일 형식이 올바르지 않습니다..",
+            email: "이메일 형식이 올바르지 않습니다.",
             url: "Please enter a valid URL.",
             date: "Please enter a valid date.",
             dateISO: "Please enter a valid date (ISO).",
-            number: "Please enter a valid number.",
+            number: "숫자만 입력해주세요.",
             digits: "Please enter only digits.",
             creditcard: "Please enter a valid credit card number.",
             equalTo: "값이 일치하지 않습니다.",
@@ -42,6 +42,9 @@ var FormValidation = function() {
             range: jQuery.validator.format("Please enter a value between {0} and {1}."),
             max: jQuery.validator.format("Please enter a value less than or equal to {0}."),
             min: jQuery.validator.format("Please enter a value greater than or equal to {0}.")
+        });
+        jQuery.validator.addClassRules("number-only", {
+            number: true
         });
 
         // Initialize
@@ -85,6 +88,7 @@ var FormValidation = function() {
             },
             rules: {
                 password: {
+                    required: true,
                     minlength: 8
                 },
                 repeat_password: {
@@ -143,6 +147,9 @@ var FormValidation = function() {
                 }
             },
             messages: {
+                password: {
+                    required : "이 항목은 비워 둘 수 없습니다."
+                },
                 custom: {
                     required: 'This is a custom error message'
                 },

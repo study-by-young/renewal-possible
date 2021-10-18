@@ -15,5 +15,7 @@ public interface ReportMapper {
   	
   	//신고글 한건
   	public ReportVO getReport(ReportVO vo);
+  	
+  	public int insert(ReportVO vo);
     
 }

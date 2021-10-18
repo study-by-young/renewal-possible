@@ -3,7 +3,6 @@ package com.yedam.possable.app.company.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -23,7 +22,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,7 +41,6 @@ import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
 import com.yedam.possable.app.rent.domain.CompEstiListJoinVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
-import com.yedam.possable.app.rent.domain.RentReviewVO;
 import com.yedam.possable.app.rent.service.PremiumRentService;
 import com.yedam.possable.app.rent.service.RentHistoryService;
 import com.yedam.possable.app.rent.service.RentReviewService;
@@ -90,7 +87,7 @@ public class CompanyController {
         model.addAttribute("reviewList",rentReviewService.getCompanyReivewList(companyVO.getSeq()));
         return "company/dashboard";
     }
-    
+
     @ResponseBody
     @GetMapping("salesList")
     public  String salesList(Locale locale, Model model,  CompanyVO vo) {
@@ -151,21 +148,21 @@ public class CompanyController {
     @GetMapping("/car")
     public String companyCarList(CompanyVO vo,Model model, @RequestParam Long cmpnSeq){
         vo.setSeq(cmpnSeq);
-       
+
         List<Map<String, Object>> carList = new LinkedList<>();
         List<CarVO> voList = carService.getCompanyCarList(vo);
-        
+
         for(CarVO carVO : voList) {
             Map<String, Object> voMap = new HashMap<>();
             String status = codeService.getCodeByValue(carVO.getStatus()).getName();
             String brand = codeService.getBrand(carVO.getBrand()).getName();
             String model2 = codeService.getModel(carVO.getModel()).getName();
-  
+
             voMap.put("carVO", carVO);
             voMap.put("status", status);
             voMap.put("brand", brand);
             voMap.put("model", model2);
-            
+
             carList.add(voMap);
         }
        model.addAttribute("companyCarList", carList);
@@ -181,12 +178,13 @@ public class CompanyController {
        vo.setCompanyVO(companyVO);
 
        vo = carService.getCompanyCar(vo);
-       
+
        String brand = codeService.getBrand(vo.getBrand()).getName();
        String model2 = codeService.getModel(vo.getModel()).getName();
        String segment = codeService.getCodeByValue(vo.getSegment()).getName();
        String trim = codeService.getTrim(vo.getTrim()).getName();
        String fuel = codeService.getCodeByValue(vo.getFuel()).getName();
+
        String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
        
        model.addAttribute("car", vo);
@@ -238,16 +236,16 @@ public class CompanyController {
       
         int result = carService.insertCompanyCar(vo);
         rttr.addFlashAttribute("result", result);
-        
+
         int result2 = 0;
-        
+
         for(String options : optionsArr) {
         	 optVO.setCarSeq(vo.getSeq());
         	 optVO.setOptCode(options);
         	 System.out.println(optVO);
         	 result2 = carService.insertCarOptions(optVO);
         	}
-        
+
         rttr.addFlashAttribute("result2", result2);
 
         return "redirect:/company/dashboard";
@@ -264,11 +262,11 @@ public class CompanyController {
 //    public String updateCar(){
 //        return "";
 //    }
-    
-    
-    
+
+
+
     // 수정, 삭제처리 어떤 게 사용하는 건지 모르겠어서 일단 하나는 주석처리해두었습니다.
-    
+
 
     // 업체 렌트카 수정 처리
     @PostMapping("/car/update")
@@ -307,19 +305,19 @@ public class CompanyController {
     @ResponseBody
     @PostMapping("/car/delete")
     public String deleteCar(CarVO vo, CarOptionVO optVO, InsuranceOptionVO insVO, @RequestParam Long seq, RedirectAttributes rttr){
-    	
+
     	vo.setSeq(seq);
     	optVO.setCarSeq(seq);
     	insVO.setCarSeq(seq);
     	carService.deleteOption(optVO);
     	carService.deleteIns(insVO);
-    	
+
     	int result = carService.deleteCompanyCar(vo);
 		if(result == 1) {
-			rttr.addFlashAttribute("result", "success");			
+			rttr.addFlashAttribute("result", "success");
 		}
 		return "redirect:/company/dashboard";
-    }  
+    }
 
     // 견적 제출 리스트
     @GetMapping("/estSubmit")
@@ -345,15 +343,15 @@ public class CompanyController {
     // 견적 제출 상세
     @GetMapping("/estSubmit/view")
     public String estSubmitView(Model model,@RequestParam Long seq ){
-    	
+
     	String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
     	System.out.println("========="+carOptCode);
-    	 
+
         System.out.println("seq 값 들고오지 그치? ㅎ"+ seq);
         model.addAttribute("estimate",premiumRentService.compEstiSubmitOneSelect(seq));
         System.out.println(premiumRentService.compEstiSubmitOneSelect(seq));
         model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
-        
+
     	return "company/estSubmitView";
     }
 
@@ -384,7 +382,7 @@ public class CompanyController {
     	}
     	attributes.addFlashAttribute("message" , message);
     	attributes.addAttribute("seq", vo.getSeq());
-    	
+
     	return r;
     }
 
