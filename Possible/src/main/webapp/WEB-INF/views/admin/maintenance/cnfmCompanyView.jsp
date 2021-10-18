@@ -4,20 +4,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <style type="text/css">
-.dash {
-	background: #ffffff;
-	box-shadow: 0px 0 8px rgb(0 0 0/ 10%);
-	float: left;
-	width: 100%;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	margin-top: 0px;
-	margin-bottom: 70px;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	
-}
 
 .pagination {
 	justify-content: center;
@@ -49,24 +35,31 @@
 	padding:50px;
 }
 </style>
+	<!-- Main content -->
+		<div class="content-wrapper">
 
-<div class="col-md-8">
-			<!-- 2 columns form -->
+			<!-- Content area -->
+			<div class="content">
+
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title"></h5>
-					
+						<h6 class="card-title"></h6>
+						<div class="header-elements">
+							
+						</div>
 					</div>
 
-					<div class="card-body">
-						<form role="form" action="update" method="post">
+					<div class="card-body py-0">
+						<div class="row">
+							<div class="col-sm-12">
+									<form role="form" action="update" method="post">
 							<div class="row">
 								<div class="col-md-12">
 										<input type="hidden" class="form-control" name='seq' value='<c:out value="${comRegList.seq}"/>' readonly="readonly">
-										<input type="hidden" class="form-control" name='memSeq' value='<c:out value="${comRegList.memSeq}"/>' readonly="readonly">
-										
+ 										<input type="hidden" class="form-control" name='memSeq' value='<c:out value="${comRegList.memSeq }"/>' readonly="readonly">
+						
 										<div class="form-group">
-											<h5 class="font-weight-bold"><label>업체명</label></h5>
+											<h5 class="font-weight-bold"><label>업체명</label></h5> 
 											<input type="text" class="form-control" name='name' value='<c:out value="${comRegList.name}"/>'readonly="readonly">
 										</div>
 										
@@ -74,8 +67,7 @@
 													<h5 class="font-weight-bold"><label>POSTAL</label></h5>
 													<input type="text" class="form-control" name='cmpnNum' value='<c:out value="${comRegList.postal}"/>' readonly="readonly">
 												</div>
-										
-										<div class="row">
+											<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
 													<h5 class="font-weight-bold"><label>사업자번호</label></h5>
@@ -89,18 +81,17 @@
 										</div>
 										</div>
 										</div>
-										
 										<div class="row">
 											<div class="col-md-4">
 												<div class="form-group">
-												<h5 class="font-weight-bold"><label>사업지 주소</label></h5>
+												<h5 class="font-weight-bold"><label>사업지 주소</label></h5> 
 													<input type="text" class="form-control" name='addrCode' value='<c:out value="${comRegList.addr1}"/>' readonly="readonly">
 												</div>
 											</div>
 											
 											<div class="col-md-4">
 												<div class="form-group">
-												<h5 class="font-weight-bold"><label>&nbsp;</label></h5> 
+												<h5 class="font-weight-bold"><label>&nbsp;</label></h5>
 													<input type="text" class="form-control" name='addrBasic' value='<c:out value="${comRegList.addr2}"/>' readonly="readonly">
 												</div>
 											</div>
@@ -150,11 +141,15 @@
 							</c:if>
 							</div>
 						</form>
+						<br>
+								</div>
+							</div>
+						</div>
 					</div>
+
 				</div>
-				
-				<!-- /2 columns form -->
 </div>
+
 <script>
 
 $("#reg").on("click", function(){

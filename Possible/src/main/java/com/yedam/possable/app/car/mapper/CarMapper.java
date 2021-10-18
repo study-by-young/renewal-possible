@@ -57,6 +57,8 @@ public interface CarMapper {
     // 차량 리스트 조회
     public List<CarVO> getCarList_map(Criteria cri);
 
+    //옵션 수정
+    public int updateCarOptions(CarOptionVO vo);
     // 차량 조회
     public CarVO getCar_map(CarVO vo);
 

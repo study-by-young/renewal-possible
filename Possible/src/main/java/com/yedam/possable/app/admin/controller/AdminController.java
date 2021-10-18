@@ -44,14 +44,12 @@ public class AdminController {
     @Autowired
 	QnaService qnaService;
 
-	
-
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session,Model model, @ModelAttribute("cri") Criteria cri) {
 
 		model.addAttribute("notice", noticeService.getList(cri));
 		model.addAttribute("comRegList", companyService.companyRegList());
-		model.addAttribute("list",qnaService.getList(cri));
+		model.addAttribute("qnaList", qnaService.getList(cri));
 		return "admin/dashboard";
     }
 
@@ -61,8 +59,8 @@ public class AdminController {
                              @ModelAttribute("cri") Criteria cri) {
 
         int total = memberService.getTotalCount(cri);
-        model.addAttribute("memberList", memberService.memberList(cri));
         model.addAttribute("pageMaker", new PageVO(cri, total));
+        model.addAttribute("memberList", memberService.memberList(cri));
 
         return "admin/maintenance/memberList";
     }
@@ -72,7 +70,7 @@ public class AdminController {
     public String memberView(Model model,
                              MemberVO vo,
                              @ModelAttribute("cri") Criteria cri) {
-        model.addAttribute("member", memberService.memberOneSelect(vo));
+        model.addAttribute("memberView", memberService.memberOneSelect(vo));
         return "admin/maintenance/memberView";
     }
 
@@ -162,12 +160,12 @@ public class AdminController {
             voMap.put("status", status);
             companyList.add(voMap);
         }
-
+        
         System.out.println("cri========" + cri);
         int total = companyService.getTotalCount(cri);
-        model.addAttribute("companyList",companyList);
         System.out.println(companyService.companyList(cri));
         model.addAttribute("pageMaker", new PageVO(cri, total));
+        model.addAttribute("companyList",companyList);
         // model.addAttribute("status", status);
 
         return "admin/maintenance/cnfmCompanyList";

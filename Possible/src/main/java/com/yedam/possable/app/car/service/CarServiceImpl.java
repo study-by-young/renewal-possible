@@ -131,4 +131,10 @@ public class CarServiceImpl implements CarService {
 		// TODO Auto-generated method stub
 		return carMapper.deleteIns(vo);
 	}
+
+	@Override
+	public int updateCarOptions(CarOptionVO vo) {
+		// TODO Auto-generated method stub
+		return carMapper.updateCarOptions(vo);
+	}
 }

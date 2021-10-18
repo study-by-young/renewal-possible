@@ -47,6 +47,34 @@
 					</div>
 				</div>
 			</div>
+			<div class="col-sm-12" style="padding-left:2.5rem">
+						<div class="d-flex">
+							<div align="center">
+								<form id="actionForm" action="confirmCompany" method="get">
+									<select name="type" class="select">
+										<option value=""
+											${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
+										<option value="N"
+											${pageMaker.cri.type =='N'? 'selected' : "" }>업체명</option>
+										<option value="A"
+											${pageMaker.cri.type =='A'? 'selected' : "" }>도시명</option>
+										<option value="C"
+											${pageMaker.cri.type =='C'? 'selected' : "" }>사업자번호</option>
+										<option value="T"
+											${pageMaker.cri.type =='T'? 'selected' : "" }>대표번호</option>
+										<option value="S"
+											${pageMaker.cri.type =='S'? 'selected' : "" }>상태</option>
+									</select> <input class="input" name="keyword"
+										value="${pageMaker.cri.keyword }"> <input type="hidden"
+										name="pageNum" value="1"> <input type="hidden" name="amount"
+										value="${pageMaker.cri.amount }">
+									<button class="btn btn-primary"
+										onclick="$('[name=pageNum]').val(1)">Search</button>
+								</form>
+							</div>
+						</div>
+					</div>
+					<br>
 			<hr style="margin: 0px">
 			<div class="card-body" style="padding: 0px">
 				<div class="row">
@@ -73,74 +101,56 @@
 											<td>${cmpn.cmpnNum }</td>
 											<td>${cmpn.addr1 }${cmpn.addr2 }${cmpn.area }</td>
 											<td>${cmpn.tel }</td>
-											<td>${company.get('status')}</td>
+											<c:choose>
+												<c:when test="${company.get('status') eq '승인'}">
+													<td style="color: blue">${company.get('status')}</td>
+												</c:when>
+												<c:otherwise>
+													<td style="color: red">${company.get('status')}</td>
+												</c:otherwise>
+											</c:choose>
 
 											<td><a class="move" href="${cmpn.seq }">상세보기</a></td>
-
+										
 										</tr>
 									</c:forEach>
 								</tbody>
 							</table>
 						</div>
 					</div>
-					<hr style="margin:0px">
+					</div>
+					</div>
+					<hr style="margin: 0px">
+					<br>
 					
-					<br>
-					<div class="col-sm-12">
-						<div class="d-flex align-items-center justify-content-center mb-2">
-							<div align="center">
-								<form id="actionForm" action="confirmCompany" method="get">
-									<select name="type" class="select">
-										<option value=""
-											${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
-										<option value="N"
-											${pageMaker.cri.type =='N'? 'selected' : "" }>업체명</option>
-										<option value="A"
-											${pageMaker.cri.type =='A'? 'selected' : "" }>도시명</option>
-										<option value="C"
-											${pageMaker.cri.type =='C'? 'selected' : "" }>사업자번호</option>
-										<option value="T"
-											${pageMaker.cri.type =='T'? 'selected' : "" }>대표번호</option>
-									</select> <input class="input" name="keyword"
-										value="${pageMaker.cri.keyword }"> <input type="hidden"
-										name="pageNum" value="1"> <input type="hidden" name="amount"
-										value="${pageMaker.cri.amount }">
-									<button class="btn btn-primary"
-										onclick="$('[name=pageNum]').val(1)">Search</button>
-								</form>
-							</div>
-						</div>
+				<div class="col-sm-12">
+				<div class="d-flex align-items-center justify-content-center mb-2">
+					<div id="pageButton">
+						<ul class="pagination pagination-flat align-self-center">
+							<c:if test="${pageMaker.prev }">
+								<li class="page-item"><a class="page-link"
+									href="${pageMaker.startPage-1}">이전</a></li>
+								<span aria-hidden="true">&laquo;</span>
+							</c:if>
+							<c:forEach begin="${pageMaker.startPage }"
+								end="${pageMaker.endPage }" var="num">
+								<li class="page-item"><a class="page-link" href="${num }">${num }</a></li>
+							</c:forEach>
+							<c:if test="${pageMaker.next }">
+								<li class="page-item"><a class="page-link"
+									href="${pageMaker.endPage+1}">다음</a></li>
+								<span aria-hidden="true">&laquo;</span>
+							</c:if>
+						</ul>
 					</div>
-					<br>
-					<div class="col-sm-12">
-						<div class="d-flex align-items-center justify-content-center mb-2">
-							<div id="pageButton">
-								<ul class="pagination">
-									<c:if test="${pageMaker.prev }">
-										<li class="page-item"><a class="page-link"
-											href="${pageMaker.startPage-1}">이전</a></li>
-										<span aria-hidden="true">&laquo;</span>
-									</c:if>
-									<c:forEach begin="${pageMaker.startPage }"
-										end="${pageMaker.endPage }" var="num">
-										<li class="page-item"><a class="page-link" href="${num }">${num }</a></li>
-									</c:forEach>
-									<c:if test="${pageMaker.next }">
-										<li class="page-item"><a class="page-link"
-											href="${pageMaker.endPage+1}">다음</a></li>
-										<span aria-hidden="true">&laquo;</span>
-									</c:if>
-								</ul>
-							</div>
-						</div>
-					</div>
+				</div>
+			</div>
 
 				</div>
 			</div>
 
 		</div>
-	</div>
-</div>
+
 
 <script>
 	$(function() {

@@ -28,99 +28,105 @@
 	appearance: none;
 }
 </style>
-		<!-- Main content -->
-		<div class="content-wrapper">
+<!-- Main content -->
+<div class="content-wrapper">
 
-			<!-- Content area -->
-			<div class="content">
+	<!-- Content area -->
+	<div class="content">
 
-				<div class="card">
-					<div class="card-header header-elements-inline">
-						<h6 class="card-title">신고글리스트</h6>
-						<div class="header-elements">
-							
-						</div>
+		<div class="card">
+			<div class="card-header header-elements-inline">
+				<h6 class="card-title">
+					<a
+						href="${pageContext.request.contextPath}/admin/maintenance/report"
+						class="nav-link">신고글리스트</a>
+				</h6>
+				<div class="header-elements">
+					<div class="list-icons">
+						<a class="list-icons-item" data-action="collapse"></a>
 					</div>
+				</div>
+			</div>
+			<div class="col-sm-12" style="padding-left: 2.5rem">
+				<div class="d-flex">
+					<div align="center">
+						<form id="actionForm" action="report" method="get">
+							<select name="type" class="select">
+								<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
+								<option value="T" ${pageMaker.cri.type =='N'? 'selected' : "" }>제목</option>
+								<option value="C" ${pageMaker.cri.type =='A'? 'selected' : "" }>내용</option>
+								<option value="W" ${pageMaker.cri.type =='C'? 'selected' : "" }>작성자</option>
+							</select> <input class="input" name="keyword"
+								value="${pageMaker.cri.keyword }"> <input type="hidden"
+								name="pageNum" value="1"> <input type="hidden"
+								name="amount" value="${pageMaker.cri.amount }">
+							<button class="btn btn-primary"
+								onclick="$('[name=pageNum]').val(1)">Search</button>
+						</form>
 
-					<div class="card-body py-0">
-						<div class="row">
-							<div class="col-sm-12">
-								<div class="d-flex align-items-center justify-content-center mb-2">
-									<div align="center">
-										<form id="actionForm" action="report" method="get">
-			<select name="type" class="select" >
-				<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
-				<option value="T" ${pageMaker.cri.type =='N'? 'selected' : "" }>제목</option>
-				<option value="C" ${pageMaker.cri.type =='A'? 'selected' : "" }>내용</option>
-				<option value="W" ${pageMaker.cri.type =='C'? 'selected' : "" }>작성자</option>
-			</select> <input class="input" name="keyword" value="${pageMaker.cri.keyword }">
-			 <input
-				type="hidden" name="pageNum" value="1"> <input type="hidden"
-				name="amount" value="${pageMaker.cri.amount }">
-			<button class="btn btn-primary" onclick="$('[name=pageNum]').val(1)">Search</button>
-		</form>
-
-									</div>
-								</div>
-							</div>
-
-							<div class="col-sm-12">
-								<div class="d-flex align-items-center justify-content-center mb-2">
-									<table class="table table-hover">
-			<thead>
-				<tr>
-					<th>번호</th> 
-					<th>제목</th>
-					<th>내용</th>
-					<th>작성자</th>
-					<th></th>
-				
-				</tr>
-			</thead>
-			<tbody>
-			<c:forEach var="reportList" items="${reportList }">
-				<tr>
-					<td>${reportList.seq }</td>
-					<td>${reportList.title}</td>
-					<td>${reportList.content }</td>
-					<td>${reportList.writer }</td>
-					<td>
-					 <a class="move" href="${reportList.seq }">상세보기</a>
-					</td>
-				</tr>
-			</c:forEach>
-		</tbody>
-		</table>
-
-								</div>
-							</div>
-							<div class="col-sm-12">
-								<div class="d-flex align-items-center justify-content-center mb-2">
-							<div id="pageButton">
-  	<ul class="pagination">
-		<c:if test="${pageMaker.prev }">
-			<li class="page-item"><a class="page-link" href="${pageMaker.startPage-1}">이전</a></li>
-			<span aria-hidden="true">&laquo;</span>
-		</c:if>
-		<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }"
-			var="num">
-				<li class="page-item"><a class="page-link" href="${num }">${num }</a></li>
-		</c:forEach>
-		<c:if test="${pageMaker.next }">
-			<li class="page-item"><a class="page-link" href="${pageMaker.endPage+1}">다음</a></li>
-			<span aria-hidden="true">&laquo;</span>
-		</c:if>
-	</ul>
-	</div>
-	</div>
-	</div>
-							
-						</div>
 					</div>
+				</div>
+			</div>
+			<br>
+			<hr style="margin: 0px">
+			<div class="card-body" style="padding: 0px">
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th width="40">번호</th>
+								<th width="100">제목</th>
+								<th width="100">내용</th>
+								<th width="100">작성자</th>
+								<th width="40"></th>
+
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="reportList" items="${reportList }">
+								<tr>
+									<td>${reportList.seq }</td>
+									<td>${reportList.title}</td>
+									<td>${reportList.content }</td>
+									<td>${reportList.writer }</td>
+									<td><a class="move" href="${reportList.seq }">상세보기</a></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 
 				</div>
+			</div>
+			<hr style="margin: 0px">
+			<br>
+			<div class="col-sm-12">
+				<div class="d-flex align-items-center justify-content-center mb-2">
+					<div id="pageButton">
+						<ul class="pagination">
+							<c:if test="${pageMaker.prev }">
+								<li class="page-item"><a class="page-link"
+									href="${pageMaker.startPage-1}">이전</a></li>
+								<span aria-hidden="true">&laquo;</span>
+							</c:if>
+							<c:forEach begin="${pageMaker.startPage }"
+								end="${pageMaker.endPage }" var="num">
+								<li class="page-item"><a class="page-link" href="${num }">${num }</a></li>
+							</c:forEach>
+							<c:if test="${pageMaker.next }">
+								<li class="page-item"><a class="page-link"
+									href="${pageMaker.endPage+1}">다음</a></li>
+								<span aria-hidden="true">&laquo;</span>
+							</c:if>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
 </div>
-</div>
+
 
 <script>
 	$(function() {
@@ -137,7 +143,7 @@
 							actionForm.attr("action", "report/view") //바꾸기 앞에는 속성이름 뒤에는 바꾸는거
 							actionForm.submit(); //실행
 						});
-		
+
 		$("#pageButton a").on("click", function(e) {
 			e.preventDefault(); //a, submit 경우에 쓸 수 있음 태그의 원래기능을 막고 정의한 함수 실행
 			var p = $(this).attr("href");
@@ -145,5 +151,4 @@
 			actionForm.submit();
 		});
 	});
-	
 </script>

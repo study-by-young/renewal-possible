@@ -57,6 +57,9 @@ public interface CarService {
     public int deleteIns(InsuranceOptionVO vo);
     
 	public int insertCarOptions(List<CarOptionVO> list, Long carSeq);
+	
+	 //옵션 수정
+    public int updateCarOptions(CarOptionVO vo);
 
     public int getTotalCount(Criteria cri);
 
