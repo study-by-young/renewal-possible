@@ -24,7 +24,7 @@
 		<div class="row">
 			<div class="col-xl-3 col-lg-4">
                 <form id="payFrm" action="${pageContext.request.contextPath}/commonRent/view/book" method="get">
-                    <input type="hidden" name="seq" value="seq">
+                    <input type="hidden" name="seq" value="${car.seq}">
                     <input type="hidden" name="startDate" value="<fmt:formatDate value="${start}" pattern="yyyy/MM/dd" />">
                     <input type="hidden" name="endDate" value="<fmt:formatDate value="${end}" pattern="yyyy/MM/dd" />">
                     <div class="x_car_book_left_siderbar_wrapper float_left card">
