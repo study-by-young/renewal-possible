@@ -2,6 +2,7 @@ package com.yedam.possable.app.rent.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.common.code.domain.BrandCodeVO;
 import com.yedam.possable.app.common.code.domain.CodeSubVO;

@@ -7,26 +7,46 @@
 		<result property="title" column="title" />
 		<result property="content" column="content" />
 		<result property="score" column="score" />
-		
+
 		<association property="rentHistoryVO"
 	                 column="history_seq"
 	                 select="com.yedam.possable.app.rent.mapper.RentHistoryMapper.getRentHistory"
 	                 javaType="RentHistoryVO"/>
-		
+
 	    <association property="memberVO"
 	                 column="mem_seq"
 	                 select="com.yedam.possable.app.member.mapper.MemberMapper.memberOneSelect"
 	                 javaType="MemberVO"/>
-	           
+
 	    <association property="courseBoardVO"
 	                 column="course_seq"
 	                 resultMap="com.yedam.possable.app.community.course.mapper.CourseBoardMapper.courseBoard"
-	                 javaType="CourseBoardVO"/>    
-	                 
+	                 javaType="CourseBoardVO"/>
+
 	    <association property="companyVO"
 	    			 column="cmpn_seq"
 	    			 select="com.yedam.possable.app.company.mapper.CompanyMapper.companyOneSelect"
-	    			 javaType="CompanyVO"/>               
+	    			 javaType="CompanyVO"/>
+		
+		<association property="brandCodeVO"
+                     column="brand"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getBrand"
+                     javaType="BrandCodeVO"/>
+        
+        <association property="segmentCodeVO"
+                     column="segment"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        
+        <association property="modelCodeVO"
+                     column="model"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getModel"
+                     javaType="ModelCodeVO"/>
+        
+        <association property="trimCodeVO"
+                     column="trim"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getTrim"
+                     javaType="TrimCodeVO"/>
 	</resultMap>
 
 	<!-- 업체별 후기 목록 (commonRent/list) -->
@@ -48,25 +68,19 @@
 			, COURSE_SEQ
 			, CMPN_SEQ
 		FROM RENT_REVIEW
-		WHERE CMPN_SEQ = #{companyVO.seq}	
+		WHERE CMPN_SEQ = #{companyVO.seq}
 	</select>
-	
+
 	<!-- 마이페이지 내가 쓴 리뷰 조회 -->
-	<select id="getRentReviewListByMember" resultType="RentReviewVO">
-		SELECT SEQ
-			, TITLE
-			, CONTENT
-			, SCORE
-			, HISTORY_SEQ
-			, MEM_SEQ
-			, COURSE_SEQ
-			, CMPN_SEQ
-		FROM RENT_REVIEW
-		WHERE MEM_SEQ = #{memberVO.seq}	
+	<select id="getRentReviewListByMember" resultMap="rentReview">
+			SELECT r.* FROM 
+			RENT_REVIEW r INNER JOIN RENT_HISTORY h
+			on r.HISTORY_SEQ = h.SEQ
+			WHERE r.MEM_SEQ = #{seq}
 	</select>
-	
+
 	<!-- 단건 조회 -->
-	<select id="getRentReview" resultType="RentReviewVO">
+	<select id="getRentReview" resultMap="rentReview">
 		SELECT SEQ
 			, TITLE
 			, CONTENT
@@ -78,7 +92,7 @@
 		FROM RENT_REVIEW
 		WHERE SEQ = #{seq}
 	</select>
-	
+
 	<!-- 등록 -->
 	<insert id="insertRentReview">
 		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
@@ -101,7 +115,7 @@
 				, #{courseBoardVO.seq}
 				, #{companyVO.seq} )
 	</insert>
-	
+
 	<!-- 수정 -->
 	<update id="updateRentReview">
 		UPDATE RENT_REVIEW
@@ -110,11 +124,18 @@
 			, SCORE = #{score}
 		WHERE SEQ = #{seq}
 	</update>
-	
+
 	<!-- 삭제 -->
 	<delete id="deleteRentReview">
 		DELETE FROM RENT_REVIEW
 		WHERE SEQ = #{seq}
 	</delete>
 
+	<!-- 업체관리자 리뷰조회 -->
+	<select id="getCompanyReivewList" resultType="RentReviewVO">
+		select r.seq, r.title, r.content, r.score, r.cmpn_seq, r.mem_seq, m.name
+		from rent_review r  inner join member m
+		on r.mem_seq = m.seq
+		where r.cmpn_seq = #{cmpnSeq}
+	</select>
 </mapper>

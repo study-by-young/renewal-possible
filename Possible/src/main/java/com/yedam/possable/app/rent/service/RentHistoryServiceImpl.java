@@ -13,9 +13,9 @@ import com.yedam.possable.app.rent.mapper.RentHistoryMapper;
 
 @Service
 public class RentHistoryServiceImpl implements RentHistoryService {
-	
+
 	@Autowired RentHistoryMapper rentHistoryMapper;
-	
+
 	@Override
 	public List<RentHistoryVO> getRentHistoryList(Long cmpnSeq) {
 		return rentHistoryMapper.getRentHistoryList(cmpnSeq);
@@ -48,6 +48,18 @@ public class RentHistoryServiceImpl implements RentHistoryService {
 	public RentHistoryVO getRentHistoryInMypage(Long seq) {
 		// TODO Auto-generated method stub
 		return rentHistoryMapper.getRentHistoryInMypage(seq);
+	}
+
+	@Override
+	public List<RentHistoryVO> getCompanySales(Long cmpnSeq) {
+		// TODO Auto-generated method stub
+		return rentHistoryMapper.getCompanySales(cmpnSeq);
+	}
+
+	@Override
+	public List<RentHistoryVO> getCompanytodayCar(Long cmpnSeq) {
+		// TODO Auto-generated method stub
+		return rentHistoryMapper.getCompanytodayCar(cmpnSeq);
 	}
 
 }

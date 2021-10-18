@@ -49,18 +49,23 @@
     margin-top: 15px;
 }
 </style>
-
+<div class="btc_tittle_main_wrapper">
+    <div class="mb-3">
+        <div class="page-header page-header-dark bg-primary-600">
+            <div class="container py-2">
+                <div class="page-header-content header-elements-inline">
+                    <div class="page-title">
+                        <h1 class="font-weight-bold">소셜로그인 추가 회원가입</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="x_partner_main_wrapper float_left padding_tb_100">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="x_offer_car_heading_wrapper float_left">
-						<h4>Register Got Your Account</h4>
-						<h3 class="py-2 my-2">여행갈카 추가회원가입</h3>
-					</div>
-				</div>
-			</div>
+			${kakaoId }
 			<div class="row">
                <div class="col-xl-8 offset-xl-2 col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-12">
                    <div class="row">
@@ -76,7 +81,7 @@
                         			<div class="row">
 	                        			<div class="form-group col-md-12 col-sm-6 col-xs-12">
 	                                		<label for="InputEmail">카카오 아디</label>
-	                                    	<input type="text" id="id" name="id" value="${kakaoId.id }">
+	                                    	<input type="text" id="id" name="id" value="${kakaoId.kakaoId }">
 	                               		</div>
                         			</div>
   									
@@ -84,14 +89,14 @@
   									<div class="row">
   										<div class="form-group col-md-6 col-sm-3">
   											<label for="Inputname">패스워드</label>
-	                                    	<input type="password" class="form-control"  id="password" name="password"  value="${Garbagepass}">
+	                                    	<input type="hidden" class="form-control"  id="password" name="password"  value="${Garbagepass}">
 	                                	</div>
 	                                </div>
 	                                <!-- 이름 Start -->
   									<div class="row">
   										<div class="form-group col-md-6 col-sm-3">
   											<label for="Inputname">이름</label>
-	                                    	<input type="text" class="form-control"  id="name" name="name"  value="${kakaoId.properties.nickname }">
+	                                    	<input type="text" class="form-control"  id="name" name="name"  value="${kakaoId.nickname }">
 	                                	</div>
 	                                </div>
 	                                <!-- 이름 END -->
@@ -111,7 +116,7 @@
 	                                <div class="row">
 	                        			<div class="form-group col-md-12 col-sm-6 col-xs-12">
 	                                		<label for="InputEmail">이메일*</label>
-	                                    	<input type="text" class="form-control" id="email" name="email" value="${kakaoId.kakao_account.email }">
+	                                    	<input type="text" class="form-control" id="email" name="email" value="${kakaoId.email }">
 	                               		</div>
                         			</div>
                         				<!-- 이메일 end -->
@@ -155,8 +160,6 @@
 		                                  <div class="login_message">
                                 			<p>이미 회원이신가요? <a href="login"> 로그인 하러 가기 </a> </p>
                            				  </div>	
-		                                
-	                             	  	  
 	                                </div>
                         	</div>
                    		</div>

@@ -1,4 +1,4 @@
-package com.yedam.possable.app.member.controller;
+	package com.yedam.possable.app.member.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +21,7 @@ import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.community.course.domain.CourseBoardVO;
 import com.yedam.possable.app.community.course.service.CourseBoardService;
+import com.yedam.possable.app.community.qna.service.QnaService;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.member.domain.MemberVO;
@@ -57,11 +58,23 @@ public class MypageController {
     RentReviewService rentReviewService;
     @Autowired
     CourseBoardService courseBoardService;
+    @Autowired
+    QnaService qnaService;
 
     //마이페이지 대쉬보드 페이지
     @GetMapping("/dashboard")
-    public String dashboard(HttpSession session) {
-        return "mypage/dashboard";
+    public String dashboard(HttpSession session, Model model,
+    					Authentication authentication,
+    					CourseBoardVO courseVO, RentHistoryVO rentVO,
+    					@ModelAttribute("cri") Criteria cri) {
+    	MemberVO memVO = memberService.getLoginMember(authentication);
+    	System.out.println(memVO.getId());
+    	courseVO.setWriter(memVO.getId());
+    	rentVO.setSeq(memVO.getSeq());
+    	// model.addAttribute("myCourse", courseBoardService.getMyCourse(courseVO));
+    	model.addAttribute("myCourse", courseBoardService.getList(cri));
+    	model.addAttribute("historyList", rentHistory.MyPageRentHistoryList(cri, rentVO.getMemSeq()));
+    	return "mypage/dashboard";
     }
 
     //회원 정보 수정 전 비밀번호 검증 폼
@@ -119,8 +132,6 @@ public class MypageController {
 		}
 		model.addAttribute("estList", estimateList);
 		//model.addAttribute("estimate", premiumRentService.getEstimate(mvo.getSeq()));
-
-
 
 
         return "mypage/estimateList";
@@ -185,15 +196,20 @@ public class MypageController {
     							  		Long seq,
     							  		@ModelAttribute("cri") Criteria cri,
     							  		RentHistoryVO vo,
+    							  		RentReviewVO rVo,
     							  		Authentication authentication,
     							  		HttpServletRequest request){
 
     	MemberVO mvo = memberService.getLoginMember(authentication);
 
     	vo.setMemSeq(mvo.getSeq());
+    	rVo.setMemSeq(mvo.getSeq());
+    	System.out.println("되니?"+rVo);
+    	System.out.println("======="+rentReviewService.getRentReviewListByMember(rVo.getMemSeq()));
 
+    	//rentReviewService.get
     	int total = rentHistory.getHistoryCount();
-
+    	model.addAttribute("reviewList", rentReviewService.getRentReviewListByMember(rVo.getMemSeq()));
     	model.addAttribute("pagination", new PageVO(cri, total));
     	model.addAttribute("historyList", rentHistory.MyPageRentHistoryList(cri, vo.getMemSeq()));
 
@@ -224,7 +240,7 @@ public class MypageController {
 
     }
 
-    // 렌트 후기 작성/수정 폼
+    // 렌트 후기 작성 폼
     @GetMapping("/rent/view/writeReview")
     public String rentReviewForm(@RequestParam Long seq,
 					            Authentication authentication,
@@ -261,15 +277,16 @@ public class MypageController {
 							            Authentication authentication,
 							            RedirectAttributes attributes,
 							            Model model,
-							            RentReviewVO rentReview,
+
 							            CourseBoardVO cvo,
 							            RentHistoryVO vo) {
 
     	MemberVO mvo = memberService.getLoginMember(authentication);
-    	rentReview.setMemSeq(mvo.getSeq());
-    	System.out.println("렌트안에 뭐가?"+rentReview);
-    	System.out.println("넌 뭐니?"+rentReviewService.getRentReview(rentReview));
-    	model.addAttribute("getRentReview", rentReviewService.getRentReview(rentReview));
+
+
+    	System.out.println("렌트안에 뭐가?"+seq);
+    	System.out.println("넌 뭐니?"+rentReviewService.getRentReview(seq));
+    	model.addAttribute("getRentReview", rentReviewService.getRentReview(seq));
     	model.addAttribute("historyList", rentHistory.getRentHistoryInMypage(seq));
     	List<CourseBoardVO> courseList = courseBoardService.getWriter(mvo.getId());
     	System.out.println(courseList+ "맞겠지?");
@@ -295,7 +312,12 @@ public class MypageController {
 
     // 커뮤니티 대시보드
     @GetMapping("/community")
-    public String community(){
+    public String community(Model model, Authentication authentication, CourseBoardVO vo, Criteria cri){
+    	MemberVO memVO = memberService.getLoginMember(authentication);
+    	System.out.println(memVO.getId());
+    	vo.setWriter(memVO.getId());
+    	//model.addAttribute("myCourse", courseBoardService.getMyCourse(vo));
+    	model.addAttribute("myCourse", courseBoardService.getList(cri));
         return "mypage/community";
     }
 
@@ -331,13 +353,17 @@ public class MypageController {
 
     //마이페이지 나의 문의 페이지
     @GetMapping("/qna")
-    public String qna() {
+    public String qna(Model model, Authentication authentication) {
+    	MemberVO memVO = memberService.getLoginMember(authentication);
+
+    	System.out.println(memVO.getSeq());
+    	model.addAttribute("myQna",qnaService.getMyQna(memVO.getSeq()));
         return "mypage/qna";
     }
 
     //업체전환 신청 페이지 페이지
     @GetMapping("/chngRole")
-    public String chngRole(Model model, HttpSession session) {
+    public String chngRole(Model model) {
 
         return "mypage/chngRole";
     }

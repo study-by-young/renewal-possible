@@ -26,13 +26,13 @@ public class RentReviewServiceImpl implements RentReviewService {
 	}
 	
 	@Override
-	public List<RentReviewVO> getRentReviewListByMember(RentReviewVO vo) {
-		return rentReviewMapper.getRentReviewListByMember(vo);
+	public List<RentReviewVO> getRentReviewListByMember(Long seq) {
+		return rentReviewMapper.getRentReviewListByMember(seq);
 	}	
 
 	@Override
-	public RentReviewVO getRentReview(RentReviewVO vo) {
-		return rentReviewMapper.getRentReview(vo);
+	public RentReviewVO getRentReview(Long seq ) {
+		return rentReviewMapper.getRentReview(seq);
 	}
 
 	@Override
@@ -48,6 +48,12 @@ public class RentReviewServiceImpl implements RentReviewService {
 	@Override
 	public int deleteRentReview(Long seq) {
 		return rentReviewMapper.deleteRentReview(seq);
+	}
+
+	//업체관리자 리뷰조회
+	@Override
+	public List<RentReviewVO> getCompanyReivewList(Long cmpnSeq) {
+		return rentReviewMapper.getCompanyReivewList(cmpnSeq);
 	}
 
 }

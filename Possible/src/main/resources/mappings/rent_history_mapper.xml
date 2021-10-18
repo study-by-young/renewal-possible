@@ -94,7 +94,7 @@
 	</select>
 	
 	<!-- 업체 렌트내역 한건 -->
-	<select id="getRentHistory" resultType="RentHistoryVO">
+	<select id="getRentHistory" resultMap="rentHistory">
              SELECT		SEQ,
 						CAR_SEQ,
 						MEM_SEQ,
@@ -163,4 +163,17 @@
       )
       	WHERE RN > (#{cri.pageNum} - 1) * #{cri.amount}
     </select>
+    
+    <!-- 하루 수익을 이렇게 구하나..? -->
+    <select id="getCompanySales" resultType="RentHistoryVO">
+    	select sum(price) as price, cmpn_seq, TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD') as uptDate from rent_history where cmpn_seq = 241 and status = '예약완료' group by cmpn_seq,TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD') order by TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD')    
+    </select>
+    
+    <select id="getCompanytodayCar" resultType="RentHistoryVO">
+    	select * from rent_history 
+		where cmpn_seq = #{cmpnSeq}
+		and status = '예약완료' 
+		and TO_TIMESTAMP(trunc(start_date),'YYYY-MM-DD') = TO_TIMESTAMP(trunc(sysdate),'YYYY-MM-DD')
+    </select>
+    
 </mapper>

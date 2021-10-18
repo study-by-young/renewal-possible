@@ -17,10 +17,10 @@ public interface RentReviewService {
 	public List<RentReviewVO> getRentReviewListByCompany(RentReviewVO vo);
 	
 	// 마이페이지 내가 쓴 리뷰 조회
-	public List<RentReviewVO> getRentReviewListByMember(RentReviewVO vo);
+	public List<RentReviewVO> getRentReviewListByMember(Long seq);
 	
 	// 단건 조회
-	public RentReviewVO getRentReview(RentReviewVO vo);
+	public RentReviewVO getRentReview(Long seq);
 	
 	// 등록
 	public int insertRentReview(RentReviewVO vo);
@@ -30,4 +30,7 @@ public interface RentReviewService {
 	
 	// 삭제
 	public int deleteRentReview(Long seq);
+	
+	//업체관리자 리뷰 조회
+	public List<RentReviewVO> getCompanyReivewList(Long cmpnSeq);
 }

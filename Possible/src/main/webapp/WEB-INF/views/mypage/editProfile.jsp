@@ -339,9 +339,6 @@
                         checkResult.attr("class", "incorrect");
                     }
                     matchPass = data;
-
-
-
                 }
 
             });

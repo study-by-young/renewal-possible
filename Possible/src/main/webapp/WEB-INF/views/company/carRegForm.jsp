@@ -247,8 +247,13 @@
                         .attr('data-img-src', item['img'])
                         .attr('data-seg',item['segCode'])
                         .text(item['name']);
-
+						
+                    let seg = $('<input>').attr('value', item['segCode'])
+                    		.text(item['segCode']);
+                    
                     model.children('optgroup').append(opt);
+                    model.childern('optgroup').append(seg);
+                    
                 });
 
                 model.select2();

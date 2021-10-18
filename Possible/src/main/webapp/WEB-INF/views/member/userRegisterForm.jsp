@@ -43,7 +43,7 @@
                                                 <div class="input-group">
                                                     <input name="id" id="id" type="text" class="form-control no-empty" required>
                                                     <div class="input-group-append">
-                                                        <button type="button" class="btn btn-primary" onclick="fn_idChk();" >중복체크</button>
+                                                        <button type="button"  id="idChk"class="btn btn-primary" onclick="fn_idChk();" >중복체크</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -198,11 +198,33 @@
         }).open();
     }
     //아이디 중복체크
-
-    function fn_idChk(){
+	
+    
+   $("#idChk").on("click",function(){
+	   var csrfHeaderName = "${_csrf.headerName}";
+       var csrfTokenValue ="${_csrf.token}";
+      
+       $.ajax({
+           url : "../idChk",
+           type: "post",
+           dataType: "json",
+           beforeSend : function(xhr){
+               xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+           },
+           data : {"id" : $('#id').val()},
+           success : function(data){
+               if(data == 1){
+                   alert("중복된 아이디입니다.");
+               }else if(data == 0) {
+                   alert("사용가능한 아이디입니다.")
+               }
+           }
+       });
+   });
+   /*  function fn_idChk(){
         var csrfHeaderName = "${_csrf.headerName}";
         var csrfTokenValue ="${_csrf.token}";
-
+	
         $.ajax({
             url : "../idChk",
             type: "post",
@@ -220,7 +242,7 @@
             }
         });
 
-    }
+    } */
 
     //회원가입이 빈틈
 
@@ -229,7 +251,5 @@
         alert("회원가입이 완료되었습니다.")
         frm.submit();
     });
-
-
-
+	
 </script>

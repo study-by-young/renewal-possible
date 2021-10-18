@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
+import com.yedam.possable.app.member.domain.MemberVO;
+import com.yedam.possable.app.member.service.MemberService;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.domain.RentReviewVO;
 import com.yedam.possable.app.rent.service.PaymentService;
@@ -40,6 +43,8 @@ public class CommonRentController {
     private RentReviewService rentReviewService;
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private MemberService memberService;
 
     // 렌트카 리스트
     @GetMapping
@@ -112,6 +117,14 @@ public class CommonRentController {
         model.addAttribute("car", carService.getCar(carVO));
         model.addAttribute("start", startDate);
         model.addAttribute("end", endDate);
+    public String rentCarBook(Model model, CarVO vo, CompanyVO cmpnVo,
+    						Authentication authentication) {
+    	MemberVO loginUser = memberService.getLoginMember(authentication);
+    	model.addAttribute("user", loginUser);
+    	model.addAttribute("car", carService.getCompanyCar(vo));
+    	cmpnVo.setSeq(vo.getCmpnSeq());
+    	model.addAttribute("company", companyService.companyOneSelect(cmpnVo));
+
         return "rent/comm/carBook";
     }
 

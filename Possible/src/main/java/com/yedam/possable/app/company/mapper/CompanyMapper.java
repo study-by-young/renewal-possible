@@ -45,6 +45,4 @@ public interface CompanyMapper {
     //업체탈퇴
     public int deleteCompany(CompanyVO vo);
 
-    //수익차트
-    public HashMap<String, Object> companyIncome();
 }

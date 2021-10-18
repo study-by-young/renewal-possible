@@ -81,7 +81,7 @@
 				<hr>
 				<div class="contect_btn contect_btn_contact">
 					<ul>
-						<li><a href="#">렌트내역 확인</a></li>
+						<li><a href="${pageContext.request.contextPath}/mypage/rent">렌트내역 확인</a></li>
 					</ul>
 				</div>
 			</div>

@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -20,11 +21,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
 import com.yedam.possable.app.car.domain.CarOptionVO;
 import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.domain.InsuranceOptionVO;
@@ -36,8 +39,10 @@ import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
 import com.yedam.possable.app.rent.domain.CompEstiListJoinVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
+import com.yedam.possable.app.rent.domain.RentReviewVO;
 import com.yedam.possable.app.rent.service.PremiumRentService;
 import com.yedam.possable.app.rent.service.RentHistoryService;
+import com.yedam.possable.app.rent.service.RentReviewService;
 
 import lombok.extern.java.Log;
 
@@ -57,12 +62,14 @@ public class CompanyController {
     CodeService codeService;
     @Autowired
     PremiumRentService premiumRentService;
+    @Autowired
+    RentReviewService rentReviewService;
 
     //업체 대시보드
     @GetMapping("/dashboard")
     public String dashboard(HttpServletRequest request,
                             RedirectAttributes attributes,
-                            Authentication authentication) {
+                            Authentication authentication, Model model) {
         MemberVO loginUser = memberService.getLoginMember(authentication);
         CompanyVO companyVO = companyService.getCompanyByMemSeq(loginUser);
         if (companyVO == null) {
@@ -72,13 +79,25 @@ public class CompanyController {
 
         HttpSession session = request.getSession();
         session.setAttribute("cmpnSeq", companyVO.getSeq());
+        System.out.println(companyVO.getSeq());
 
+        model.addAttribute("salesList", rentHistoryService.getCompanySales(companyVO.getSeq()));
+        model.addAttribute("todayList",rentHistoryService.getCompanytodayCar(companyVO.getSeq()));
+        model.addAttribute("reviewList",rentReviewService.getCompanyReivewList(companyVO.getSeq()));
         return "company/dashboard";
     }
 
+    @ResponseBody
+    @GetMapping("salesList")
+    public  String salesList(Locale locale, Model model,  CompanyVO vo) {
+		Gson gson = new Gson();
+		List<RentHistoryVO> list = rentHistoryService.getCompanySales(vo.getSeq());
+		return gson.toJson(list);
+	}
+
     //업체 정보 수정 페이지
     @GetMapping("/editInfo")
-    public String editCompanyInfoForm(CompanyVO vo, Model model, @RequestParam Long cmpnSeq) {
+    public String editCompanyInfoForm(CompanyVO vo, Model model, @RequestParam("cmpnSeq") Long cmpnSeq) {
 
         vo.setSeq(cmpnSeq);
         model.addAttribute("company", companyService.companyOneSelect(vo));
@@ -125,21 +144,21 @@ public class CompanyController {
     @GetMapping("/car")
     public String companyCarList(CompanyVO vo,Model model, @RequestParam Long cmpnSeq){
         vo.setSeq(cmpnSeq);
-       
+
         List<Map<String, Object>> carList = new LinkedList<>();
         List<CarVO> voList = carService.getCompanyCarList(vo);
-        
+
         for(CarVO carVO : voList) {
             Map<String, Object> voMap = new HashMap<>();
             String status = codeService.getCodeByValue(carVO.getStatus()).getName();
             String brand = codeService.getBrand(carVO.getBrand()).getName();
             String model2 = codeService.getModel(carVO.getModel()).getName();
-  
+
             voMap.put("carVO", carVO);
             voMap.put("status", status);
             voMap.put("brand", brand);
             voMap.put("model", model2);
-            
+
             carList.add(voMap);
         }
        model.addAttribute("companyCarList", carList);
@@ -153,15 +172,15 @@ public class CompanyController {
         companyVO.setSeq(cmpn);
        vo.setSeq(seq);
        vo.setCompanyVO(companyVO);
-       
+
        vo = carService.getCompanyCar(vo);
-       
+
        String brand = codeService.getBrand(vo.getBrand()).getName();
        String model2 = codeService.getModel(vo.getModel()).getName();
        String segment = codeService.getCodeByValue(vo.getSegment()).getName();
        String trim = codeService.getTrim(vo.getTrim()).getName();
        String fuel = codeService.getCodeByValue(vo.getFuel()).getName();
-       
+
        model.addAttribute("car", vo);
        model.addAttribute("brand", brand);
        model.addAttribute("model2", model2);
@@ -214,16 +233,16 @@ public class CompanyController {
         vo.setFuel(codeService.getCodeByValue(vo.getFuel()).getName());
         int result = carService.insertCompanyCar(vo);
         rttr.addFlashAttribute("result", result);
-        
+
         int result2 = 0;
-        
+
         for(String options : optionsArr) {
         	 optVO.setCarSeq(vo.getSeq());
         	 optVO.setOptCode(options);
         	 System.out.println(optVO);
         	 result2 = carService.insertCarOptions(optVO);
         	}
-        
+
         rttr.addFlashAttribute("result2", result2);
 
         return "redirect:/company/dashboard";
@@ -235,50 +254,50 @@ public class CompanyController {
         return "company/carRegForm";
     }
 
-    // 업체 렌트카 수정 처리
-    @PostMapping("/car/update")
-    public String updateCar(){
-        return "";
-    }
-    
-    
-    
+//    // 업체 렌트카 수정 처리
+//    @PostMapping("/car/update")
+//    public String updateCar(){
+//        return "";
+//    }
+
+
+
     // 수정, 삭제처리 어떤 게 사용하는 건지 모르겠어서 일단 하나는 주석처리해두었습니다.
-    
-/*
+
+
     // 업체 렌트카 수정 처리
     @PostMapping("/car/update")
     public String updateCar(CarVO vo, CompanyVO comVO, Model model, RedirectAttributes attributes, @RequestParam Long cmpnSeq){
-   	
+
     	comVO.setSeq(cmpnSeq);
-   	
-    	int result = carService.updateCompanyCar(vo, comVO);
+
+    	int result = carService.updateCompanyCar(vo);
         if (result == 1) {
             attributes.addFlashAttribute("result", "success");
     }
 
     return "redirect:/";
     }
-*/
+
 
 
     // 업체 렌트카 삭제 처리
     @ResponseBody
     @PostMapping("/car/delete")
     public String deleteCar(CarVO vo, CarOptionVO optVO, InsuranceOptionVO insVO, @RequestParam Long seq, RedirectAttributes rttr){
-    	
+
     	vo.setSeq(seq);
     	optVO.setCarSeq(seq);
     	insVO.setCarSeq(seq);
     	carService.deleteOption(optVO);
     	carService.deleteIns(insVO);
-    	
+
     	int result = carService.deleteCompanyCar(vo);
 		if(result == 1) {
-			rttr.addFlashAttribute("result", "success");			
+			rttr.addFlashAttribute("result", "success");
 		}
 		return "redirect:/company/dashboard";
-    }  
+    }
 
     // 견적 제출 리스트
     @GetMapping("/estSubmit")
@@ -304,15 +323,15 @@ public class CompanyController {
     // 견적 제출 상세
     @GetMapping("/estSubmit/view")
     public String estSubmitView(Model model,@RequestParam Long seq ){
-    	
+
     	String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
     	System.out.println("========="+carOptCode);
-    	 
+
         System.out.println("seq 값 들고오지 그치? ㅎ"+ seq);
         model.addAttribute("estimate",premiumRentService.compEstiSubmitOneSelect(seq));
         System.out.println(premiumRentService.compEstiSubmitOneSelect(seq));
         model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
-        
+
     	return "company/estSubmitView";
     }
 
@@ -343,7 +362,7 @@ public class CompanyController {
     	}
     	attributes.addFlashAttribute("message" , message);
     	attributes.addAttribute("seq", vo.getSeq());
-    	
+
     	return r;
     }
 
@@ -365,15 +384,4 @@ public class CompanyController {
 
     // -----------------------------------------------------------------------------
 
-
-
-    //차트 테스트
-    @GetMapping("/incomeTest")
-    public String incomeTest(Model model) {
-
-        HashMap<String, Object> map = companyService.companyIncome();
-        System.out.println(map);
-
-        return "company/incomeTest";
-    }
 }

@@ -10,7 +10,7 @@ import com.yedam.possable.app.community.tour.domain.TestVO;
 
 public interface CourseBoardMapper {
 
-	public List<CourseBoardVO> getList();
+	public List<CourseBoardVO> getList(Criteria cri);
 
 	public CourseBoardVO read(CourseBoardVO vo);
 	
@@ -43,5 +43,5 @@ public interface CourseBoardMapper {
 	public int countLike(CourseBoardVO vo);
 	
 	public int checkLike(CourseBoardLikeVO vo);
-	
+
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <style type="text/css">
 .dash{
@@ -49,12 +51,31 @@
 										</h4>
 									</div>
 									<div class="dash">
-										<table class="table">
-											<tr>
-												<td>번호</td>
-												<td>질문</td>
-												<td>날짜?</td>
-											</tr>
+										<table class="table table-hover">
+											<thead>
+												<tr>
+													<th align="center">제목</th>
+													<th>작성일</th>
+													<th>답변상태</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:forEach var="myQna" items="${myQna}">
+													<tr>
+														<td><a href="${pageContext.request.contextPath}/qna/get?seq=${myQna.seq }">${myQna.title}</a></td>
+														<td><fmt:formatDate pattern="yyyy/MM/dd"
+																value="${myQna.genDate }" /></td>
+														<c:choose>
+															<c:when test="${myQna.answerCnt>='1'}">
+																<td style="color: blue">답변완료</td>
+															</c:when>
+															<c:otherwise>
+																<td style="color: red">답변대기</td>
+															</c:otherwise>
+														</c:choose>
+													</tr>
+												</c:forEach>
+											</tbody>
 										</table>
 									</div>
 								</div>

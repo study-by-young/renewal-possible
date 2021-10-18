@@ -25,4 +25,10 @@ public interface RentHistoryService {
     public RentHistoryVO getRentHistoryInMypage(Long seq);
  	//전체수 검사
  	public int getHistoryCount();
+ 	
+ 	//수익
+ 	public List<RentHistoryVO> getCompanySales(Long cmpnSeq);
+ 	
+ 	//투데이 렌트카 리스트
+ 	public List<RentHistoryVO> getCompanytodayCar(Long cmpnSeq);
 }
