@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.rent.domain.CompEstiListJoinVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.mapper.RentHistoryMapper;
 
@@ -41,6 +42,12 @@ public class RentHistoryServiceImpl implements RentHistoryService {
 	public List<RentHistoryVO> MyPageRentHistoryList(@Param("cri") Criteria cri, @Param("seq")Long seq) {
 		// TODO Auto-generated method stub
 		return rentHistoryMapper.MyPageRentHistoryList(cri, seq);
+	}
+
+	@Override
+	public RentHistoryVO getRentHistoryInMypage(Long seq) {
+		// TODO Auto-generated method stub
+		return rentHistoryMapper.getRentHistoryInMypage(seq);
 	}
 
 }

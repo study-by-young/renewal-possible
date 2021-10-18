@@ -4,9 +4,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<script src="${pageContext.request.contextPath}/resources/js/plugins/extensions/jquery_ui/interactions.min.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/plugins/notifications/jgrowl.min.js"></script>
-
 <c:set var="during" value="${endDate.date - startDate.date}"/>
 <!-- btc tittle Wrapper Start -->
 <div class="btc_tittle_main_wrapper">
@@ -216,11 +213,11 @@
                                                 <div class="row">
                                                     <c:forEach var="car" items="${carList.get(model.model)}">
                                                         <div class="col-12">
-                                                            <div class="card border-primary-300 border-1 rounded">
+                                                            <div class="card border-primary-300 border-1 rounded  mb-1">
                                                                 <div class="card-body">
                                                                     <div class="row">
                                                                         <div class="col-12">
-                                                                            <a href="#" class="text-dark">
+                                                                            <a href="#" onclick="moveToView(${car.seq})" class="text-dark">
                                                                                 <div>
                                                                                     <span class="h5">${car.companyVO.name}</span>
                                                                                     <div class="float-right">
@@ -260,13 +257,21 @@
 
 
 <script>
-    let now = new Date();
-
     $(function(){
         initPickadate();
     })
 
+    function moveToView(seq){
+        location.href = "${pageContext.request.contextPath}/commonRent/view?" +
+                "seq=" + seq + "&" +
+                "pageNum=${param.getOrDefault('pageNum',1)}&" +
+                "amount=${param.getOrDefault('amount', pagination.cri.amount)}&" +
+                "startDate=" + $('[name=\"startDate\"]').val() + "&" +
+                "endDate=" + $('[name=\"endDate\"]').val();
+    }
+
     function initPickadate(){
+        let now = new Date();
         let startPicker = $("#start").pickadate('picker');
         let endPicker = $("#end").pickadate('picker');
 

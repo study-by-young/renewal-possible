@@ -132,3 +132,8 @@
 .page-item.active .page-link {
     background-color: #6495ed;
 }
+
+.nav-tabs-solid .nav-item.show .nav-link.active, .nav-tabs-solid .nav-link.active {
+    color: #fff;
+    background-color: #6495ed;
+}

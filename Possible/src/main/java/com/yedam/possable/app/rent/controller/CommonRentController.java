@@ -44,9 +44,7 @@ public class CommonRentController {
     // 렌트카 리스트
     @GetMapping
     public String rentCarList(Model model,
-							  Long seq,
-							  CarVO vo,
-							  RentReviewVO rvo,
+
 							  @ModelAttribute("startDate")
 								  @DateTimeFormat(pattern = "yyyy/MM/dd") Date startDate,
 							  @ModelAttribute("endDate")
@@ -86,29 +84,20 @@ public class CommonRentController {
 
     // 렌트카 상세보기
     @GetMapping("/view")
-    public String rentCarView(Model model, CarVO vo, CompanyVO cmpnVo, @ModelAttribute("cri") Criteria cri) {
-    	System.out.println("================" + vo);
-    	model.addAttribute("car", carService.getCompanyCar(vo));
-    	cmpnVo.setSeq(vo.getCmpnSeq());
-    	System.out.println("=-----cmpn" + cmpnVo);
-    	model.addAttribute("company", companyService.companyOneSelect(cmpnVo));
+    public String rentCarView(Model model,
+                              CarVO vo,
+                              @RequestParam("startDate")
+                                  @DateTimeFormat(pattern = "yyyy/MM/dd") Date startDate,
+                              @RequestParam("endDate")
+                                  @DateTimeFormat(pattern = "yyyy/MM/dd") Date endDate,
+                              @ModelAttribute("cri") Criteria cri) {
+    	model.addAttribute("car", carService.getCar(vo));
+        model.addAttribute("start", startDate);
+        model.addAttribute("end", endDate);
+        model.addAttribute("reviewList",rentReviewService.getReviewListByCmpnSeq(vo));
 
     	// 넘어와야 하는 값
     	// startDate, endDate, searchArea, carSeq, cmpnSeq
-
-    	List<CarVO> allList = carService.getDistinctCarList(cri);
-    	for(int i=0; i<allList.size(); i++) {
-    		CarVO selectedCarInfo = allList.get(i);
-    		List<CarVO> modelList = carService.getCarByModel(selectedCarInfo);
-
-    		for(int j=0; j<modelList.size(); j++) {
-        		CarVO selectedModelInfo = modelList.get(j);
-        		modelList.get(j).setInsuranceList(carService.getCarInsurance(selectedModelInfo));
-        		modelList.get(j).setReviewList(rentReviewService.getReviewListByCmpnSeq(selectedModelInfo));
-    		}
-    		allList.get(i).setModelList(modelList);
-    	}
-    	model.addAttribute("list", allList);
 
         return "rent/comm/carView";
     }
