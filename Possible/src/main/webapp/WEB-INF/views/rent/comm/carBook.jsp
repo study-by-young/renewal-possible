@@ -169,11 +169,11 @@
 							<h3 class="text-center text-primary font-weight-bold">${car.price}원</h3>
 						</div>
 						<div class="card-body">
-							<div class="form-group">
+							<div class="form-group position-relative">
 								<h6 class="font-weight-bold">대여 날짜</h6>
 								<input type="text" id="start" name="start" class="form-control pickadate-format">
 							</div>
-							<div class="form-group">
+							<div class="form-group position-relative">
 								<h6 class="font-weight-bold">반납 날짜</h6>
 								<input type="text" id="end" name="end" class="form-control pickadate-format">
 							</div>

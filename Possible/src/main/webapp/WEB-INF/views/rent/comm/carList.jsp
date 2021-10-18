@@ -40,8 +40,10 @@
 										<input type="text" id="start" name="start" class="form-control pickadate-format">
 									</div>
 								</div>
-								<div class="col-md-1 text-center align-self-center h5">
-									<p><i class="icon-arrow-right8"></i></p>
+								<div class="col-md-1 text-center align-self-end h5">
+									<p class="mb-3">
+                                        <i class="icon-arrow-right8"></i>
+                                    </p>
 								</div>
 								<div class="col-md-3">
 									<h6>반납 날짜</h6>
@@ -269,7 +271,7 @@
 
         searchForm.find('#start').val('');
         searchForm.find('#end').val('');
-        searchForm.append($('<input/>').attr('name','seq').attr('value',seq));
+        searchForm.append($('<input/>').attr('name','seq').attr('value',seq).attr('type','hidden'));
         let data = $(searchForm[0], filterForm[0]).serialize();
         location.href = "commonRent/view?" + data;
     }

@@ -109,21 +109,18 @@ public class CommonRentController {
     // 렌트카 예약 폼
     @GetMapping("/view/book")
     public String rentCarBook(CarVO carVO,
+                              Authentication authentication,
                               @RequestParam("startDate")
                               @DateTimeFormat(pattern = "yyyy/MM/dd") Date startDate,
                               @RequestParam("endDate")
                                   @DateTimeFormat(pattern = "yyyy/MM/dd") Date endDate,
                               Model model) {
+        MemberVO loginUser = memberService.getLoginMember(authentication);
+
         model.addAttribute("car", carService.getCar(carVO));
         model.addAttribute("start", startDate);
         model.addAttribute("end", endDate);
-    public String rentCarBook(Model model, CarVO vo, CompanyVO cmpnVo,
-    						Authentication authentication) {
-    	MemberVO loginUser = memberService.getLoginMember(authentication);
     	model.addAttribute("user", loginUser);
-    	model.addAttribute("car", carService.getCompanyCar(vo));
-    	cmpnVo.setSeq(vo.getCmpnSeq());
-    	model.addAttribute("company", companyService.companyOneSelect(cmpnVo));
 
         return "rent/comm/carBook";
     }
