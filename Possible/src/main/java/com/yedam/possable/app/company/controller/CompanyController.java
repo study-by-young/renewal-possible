@@ -20,6 +20,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +35,8 @@ import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.domain.InsuranceOptionVO;
 import com.yedam.possable.app.car.service.CarService;
 import com.yedam.possable.app.common.code.service.CodeService;
+import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.company.service.CompanyService;
 import com.yedam.possable.app.member.domain.MemberVO;
@@ -117,12 +120,15 @@ public class CompanyController {
     public String editCompanyInfo(CompanyVO vo,
                                   Model model,
                                   RedirectAttributes attributes){
-
+    	String r = "";
         int result = companyService.companyInfoUpdate(vo);
         if (result == 1) {
             attributes.addFlashAttribute("result", "success");
+            r = "redirect:/company/editInfo?cmpnSeq="+vo.getSeq();
         }
-        return "redirect:/company/dashboard";
+        return r;
+        
+        
     }
 
     // 업체 삭제 처리
@@ -385,6 +391,7 @@ public class CompanyController {
     // 렌트 내역 리스트
     @GetMapping("/rent")
     public String rentHistoryList(Model model, @RequestParam Long cmpnSeq){
+    	
     	model.addAttribute("rentHistoryList", rentHistoryService.getRentHistoryList(cmpnSeq));
 
         return "company/rentHistoryList";

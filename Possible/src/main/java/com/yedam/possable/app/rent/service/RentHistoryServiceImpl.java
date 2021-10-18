@@ -55,4 +55,6 @@ public class RentHistoryServiceImpl implements RentHistoryService {
 		return rentHistoryMapper.getCompanytodayCar(cmpnSeq);
 	}
 
+
+
 }

@@ -28,4 +28,5 @@ public interface RentHistoryService {
  	
  	//투데이 렌트카 리스트
  	public List<RentHistoryVO> getCompanytodayCar(Long cmpnSeq);
+ 	
 }
