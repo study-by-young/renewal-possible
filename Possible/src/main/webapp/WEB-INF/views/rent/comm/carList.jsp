@@ -16,7 +16,9 @@
 						<h6>나만의 렌트카를 요청해보세요!</h6>
 					</div>
 					<div class="x_title_inner_num_wrapper float_left py-3 my-0">
-						<form name="searchCar" action="commonRent/list" onsubmit="" class="bg-white rounded-lg">
+						<form name="searchCar" action="commonRent" onsubmit="" class="bg-white rounded-lg">
+                            <input type="hidden" name="pageNum" value="<c:out value="${cri.pageNum}" default="1"/>">
+                            <input type="hidden" name="amount" value="<c:out value="${cri.amount}" default="5"/>">\
 							<div class="row p-3">
 								<div class="col-md-3">
 									<h6 class="text-dark">지역</h6>
@@ -90,7 +92,7 @@
                     <div class="card-header bg-white">
                         <h5 class="card-title">상세검색</h5>
                     </div>
-                    <form id="searchForm" name="searchForm" action="#" method="get">
+                    <form id="filterForm" name="filterForm" action="#" method="get">
                         <div class="card-body">
                             <!-- 모델명 -->
                             <div class="x_slider_form_input_wrapper form-group">
@@ -262,12 +264,14 @@
     })
 
     function moveToView(seq){
-        location.href = "${pageContext.request.contextPath}/commonRent/view?" +
-                "seq=" + seq + "&" +
-                "pageNum=${param.getOrDefault('pageNum',1)}&" +
-                "amount=${param.getOrDefault('amount', pagination.cri.amount)}&" +
-                "startDate=" + $('[name=\"startDate\"]').val() + "&" +
-                "endDate=" + $('[name=\"endDate\"]').val();
+        let searchForm = $('[name="searchCar"]');
+        let filterForm = $('[name="filterForm"]');
+
+        searchForm.find('#start').val('');
+        searchForm.find('#end').val('');
+        searchForm.append($('<input/>').attr('name','seq').attr('value',seq));
+        let data = $(searchForm[0], filterForm[0]).serialize();
+        location.href = "commonRent/view?" + data;
     }
 
     function initPickadate(){

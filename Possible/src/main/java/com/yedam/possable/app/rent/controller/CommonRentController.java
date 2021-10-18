@@ -44,7 +44,6 @@ public class CommonRentController {
     // 렌트카 리스트
     @GetMapping
     public String rentCarList(Model model,
-
 							  @ModelAttribute("startDate")
 								  @DateTimeFormat(pattern = "yyyy/MM/dd") Date startDate,
 							  @ModelAttribute("endDate")
@@ -52,13 +51,13 @@ public class CommonRentController {
 							  @ModelAttribute("cri") Criteria cri) {
     	// 자동차 SEQ -> 업체SEQ -> 업체정보, 리뷰개수
     	// 자동차 SEQ -> 보험
-    	int total = carService.getTotalCount(cri);
     	List<CarVO> modelList = carService.getDistinctCarList(cri);
-		Map<String, List<CarVO>> carList = new HashMap<>();
+		Map<String, List<CarVO>> carListByModel = new HashMap<>();
+        int countOfModelList = modelList.size();// carService.getTotalCount(cri);  차량 모델 갯수
 
     	for(CarVO modelInfo : modelList) {
     		List<CarVO> carListInModel = carService.getCarByModel(modelInfo);
-    		carList.put(modelInfo.getModel(),carListInModel);
+            carListByModel.put(modelInfo.getModel(),carListInModel);
     	}
 
 		if(endDate.compareTo(startDate) == 0){
@@ -72,11 +71,11 @@ public class CommonRentController {
 
     	// 모델별로 대표 하나만 보여주기
 		model.addAttribute("modelList", modelList);
-    	model.addAttribute("carList", carList);
+    	model.addAttribute("carList", carListByModel);
     	model.addAttribute("segments",codeService.getCodesByParentCode("SEG"));
     	model.addAttribute("fuels", codeService.getCodesByParentCode("FUL"));
     	model.addAttribute("brands", codeService.getBrandList());
-    	model.addAttribute("pagination", new PageVO(cri, total));
+    	model.addAttribute("pagination", new PageVO(cri, countOfModelList));
     	CodeMasterVO codeMasterVO = codeService.getMasterCodeByName("지역");
 		model.addAttribute("areaCodes",codeService.getCodesByParentCode(codeMasterVO.getCode()));
         return "rent/comm/carList";
@@ -100,12 +99,6 @@ public class CommonRentController {
     	// startDate, endDate, searchArea, carSeq, cmpnSeq
 
         return "rent/comm/carView";
-    }
-
-    // 렌트카 상세보기(test)
-    @GetMapping("/test")
-    public String test() {
-        return "rent/comm/carTest";
     }
 
     // 렌트카 예약 폼
