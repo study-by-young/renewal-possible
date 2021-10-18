@@ -3,6 +3,10 @@ package com.yedam.possable.app.rent.domain;
 import java.util.Date;
 
 import com.yedam.possable.app.car.domain.CarVO;
+import com.yedam.possable.app.common.code.domain.BrandCodeVO;
+import com.yedam.possable.app.common.code.domain.CodeSubVO;
+import com.yedam.possable.app.common.code.domain.ModelCodeVO;
+import com.yedam.possable.app.common.code.domain.TrimCodeVO;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.member.domain.MemberVO;
 
@@ -42,6 +46,11 @@ public class RentHistoryVO {
     private CarVO carVO;
     private MemberVO memberVO;
     private CompanyVO companyVO;
+    private BrandCodeVO brandCodeVO;
+    private CodeSubVO segmentCodeVO;
+    private ModelCodeVO modelCodeVO;
+    private TrimCodeVO trimCodeVO;
+    
     
     private String phone;
     private Date birth;

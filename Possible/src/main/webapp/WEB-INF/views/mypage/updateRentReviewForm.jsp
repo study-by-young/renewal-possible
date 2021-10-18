@@ -300,3 +300,4 @@
 	CKEDITOR.instances.content.getData()
 </script>
 <!-- x blog main and sidebar Wrapper End -->
+

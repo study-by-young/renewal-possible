@@ -59,4 +59,12 @@ public interface CarService {
 	public int insertCarOptions(List<CarOptionVO> list, Long carSeq);
 
     public int getTotalCount(Criteria cri);
+    // 차량 리스트 조회
+    public List<CarVO> getCarList_map(Criteria cri);
+
+    // 차량 조회
+    public CarVO getCar_map(CarVO vo);
+
+    // 업체 차량 리스트 조회
+    public List<CarVO> getCompanyCarList_map(CompanyVO vo);
 }
