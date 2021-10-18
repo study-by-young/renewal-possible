@@ -20,6 +20,61 @@
 	overflow: hidden;
 	word-break: keep-all;
 }
+
+@
+-webkit-keyframes bounce { 0%, 20%, 50%, 80%, 100% {
+	-webkit-transform: translateY(0);
+}
+
+40
+%
+{
+-webkit-transform
+:
+translateY(
+-20px
+)
+}
+60
+%
+{
+-webkit-transform
+:
+translateY(
+-20px
+);
+}
+}
+@
+keyframes bounce { 0%, 20%, 50%, 80%, 100% {
+	transform: translateY(0);
+}
+
+40
+%
+{
+transform
+:
+translateY(
+-20px
+);
+}
+60
+%
+{
+transform
+:
+translateY(
+-20px
+);
+}
+}
+.bounce {
+	-webkit-animation-duration: 0.8s;
+	animation-duration: 0.8s;
+	-webkit-animation-name: bounce;
+	animation-name: bounce;
+}
 </style>
 
 <div class="x_inner_team_main_wrapper float_left padding_tb_100">
@@ -130,7 +185,8 @@
 						</c:if>
 						<li><a href="../course">목록</a></li>
 						<c:if test="${id ne board.writer}">
-							<li><button type="button" id="reportBtn" class="btn btn-danger">신고</button></li>
+							<li><button type="button" id="reportBtn"
+									class="btn btn-danger">신고</button></li>
 						</c:if>
 					</ul>
 				</div>
@@ -146,16 +202,29 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<h5 class="modal-title" id="exampleModalLabel">신고글 작성</h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body">...</div>
+			<div class="modal-body">
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="reason"
+						id="exampleRadios1" value="option1" checked> <label
+						class="form-check-label" for="exampleRadios1"> Default
+						radio </label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="reason"
+						id="exampleRadios2" value="option2"> <label
+						class="form-check-label" for="exampleRadios2"> Second
+						default radio </label>
+				</div>
+			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+				<button id="reportSubmit" type="button" class="btn btn-danger">접수</button>
 			</div>
 		</div>
 	</div>
@@ -238,7 +307,7 @@
 						dataType : 'json',
 						contentType : 'application/json; charset=utf-8',
 						success : function(data) {
-							$("#heart").attr("class", "fa fa-heart-o").css("color","red");
+							$("#heart").attr("class", "fa fa-heart-o bounce").css("color","red");
 							$("#likeCnt").text(Number($("#likeCnt").text())+data);
 							console.log(data);
 						}
@@ -290,5 +359,23 @@
 				return;
 			}
 		}
+	});
+	
+	$("#reportSubmit").on("click", function() {
+		$.ajax({
+			type : 'POST',
+			url : 'report',
+			data : JSON.stringify({
+				target : $("#seq").val(),
+				writer : user,
+				reason : $('.form-check-input:checked').val()
+			}),
+			dataType : 'text',
+			contentType : 'application/json; charset=utf-8',
+			success : function(data) {
+				alert('신고가 접수되었습니다.');
+				location.href = "../course";
+			}
+		})
 	});
 	</script>

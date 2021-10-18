@@ -21,6 +21,8 @@ import com.yedam.possable.app.community.course.domain.CourseBoardVO;
 import com.yedam.possable.app.community.course.domain.CourseVO;
 import com.yedam.possable.app.community.course.service.CourseBoardService;
 import com.yedam.possable.app.community.course.service.CourseService;
+import com.yedam.possable.app.community.report.domain.ReportVO;
+import com.yedam.possable.app.community.report.service.ReportService;
 import com.yedam.possable.app.community.tour.domain.TestVO;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
@@ -34,13 +36,15 @@ public class CourseBoardController {
 	CourseService courseService;
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	ReportService reportService;
 
 	// 전체조회
 	@GetMapping
 	public String courseList(Model model, Authentication authentication, @ModelAttribute("cri") Criteria cri) {
 		int total = courseBoardService.getTotalCount(cri);
 		model.addAttribute("list", courseBoardService.getList(cri));
-	    model.addAttribute("pageMaker", new PageVO(cri, total));
+	    model.addAttribute("pagination", new PageVO(cri, total));
 	    MemberVO loginUser = memberService.getLoginMember(authentication);
 	    model.addAttribute("user", loginUser);
 	    return "community/course/list";
@@ -155,6 +159,12 @@ public class CourseBoardController {
 		int i = 1;
 		courseBoardService.minusLike(vo);
 		return i;
+	}
+	
+	@PostMapping("/report")
+	@ResponseBody
+	public int reportInsert(@RequestBody ReportVO report) {
+		return reportService.insert(report);
 	}
 	
 }
