@@ -71,9 +71,9 @@ tr:hover {
 <div class="container">
 	<div style="margin-top: 50px;">
 		<!-- Striped rows -->
-		<div class="card">
+		<div class="card" style="padding: 20px 0px;">
 			<div class="card-header header-elements-inline">
-				<h2 class="card-title">공지사항</h2>
+				<h2 class="card-title" style="font-weight: 600; padding-left: 20px;">공지사항</h2>
 				<div class="header-elements">
 					<div class="list-icons">
 						<a class="list-icons-item" data-action="collapse"></a> <a
@@ -87,7 +87,7 @@ tr:hover {
 				<form id="actionForm"
 					action="${pageContext.request.contextPath}/notice/list"
 					method="get">
-					<div style="display: inline-flex; width: 12%;">
+					<div style="display: inline-flex; width: 12%; padding-left: 20px;">
 						<select name="type" class="select select-wrapper">
 							<option
 								<c:out value="${empty pageMaker.cri.type ? 'selected':''}"/>>선택</option>
@@ -113,9 +113,7 @@ tr:hover {
 						<tr align="center">
 							<th class="col-1">글번호</th>
 							<th class="col-6">제목</th>
-							<th class="col-1">작성자</th>
 							<th>작성일</th>
-							<th>수정일</th>
 							<th class="col-1">조회수</th>
 						</tr>
 					</thead>
@@ -124,10 +122,7 @@ tr:hover {
 							<tr align="center" onclick="readBoard(${notice.seq})">
 								<td>${notice.seq}</td>
 								<td align="left">${notice.title}</td>
-								<td>${notice.writer}</td>
 								<td><fmt:formatDate value="${notice.genDate}"
-										pattern="yy-MM-dd" /></td>
-								<td><fmt:formatDate value="${notice.uptDate}"
 										pattern="yy-MM-dd" /></td>
 								<td>${notice.views}</td>
 							</tr>

@@ -28,7 +28,7 @@
 <div class="container">
 	<div class="card" style="margin-top: 50px; padding: 20px;">
 		<div class="card-header lr_bc_first_box_img_cont_wrapper">
-			<h2 style="font-weight: 700;">${notice.title}</h2>
+			<h2 style="font-weight: 600; margin-bottom: 25px;">${notice.title}</h2>
 			<ul style="padding-left: 5px;">
 				<li><i class="fa fa-user"></i>&nbsp; <a>${notice.writer}</a></li>
 				<li>&nbsp;&nbsp; <i class="fa fa-calendar"></i>&nbsp; <a><fmt:formatDate value="${notice.genDate}" pattern="yy년 MM월 dd일" /></a></li>
