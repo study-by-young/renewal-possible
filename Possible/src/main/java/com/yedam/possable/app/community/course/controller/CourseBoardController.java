@@ -43,6 +43,7 @@ public class CourseBoardController {
 	@GetMapping
 	public String courseList(Model model, Authentication authentication, @ModelAttribute("cri") Criteria cri) {
 		int total = courseBoardService.getTotalCount(cri);
+		cri.setAmount(12);
 		model.addAttribute("list", courseBoardService.getList(cri));
 	    model.addAttribute("pagination", new PageVO(cri, total));
 	    MemberVO loginUser = memberService.getLoginMember(authentication);
@@ -67,7 +68,7 @@ public class CourseBoardController {
 		like.setBoardSeq(board.getSeq());
 		like.setMemberSeq(loginUser.getSeq());
 		model.addAttribute("checkLike",courseBoardService.checkLike(like));
-		report.setWriter(loginUser.getId());
+		report.setReporter(loginUser.getId());
 		model.addAttribute("reportCheck", reportService.reportCount(report));
 		return "community/course/view";
 	}

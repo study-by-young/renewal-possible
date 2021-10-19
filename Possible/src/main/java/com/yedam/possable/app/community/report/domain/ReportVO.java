@@ -12,4 +12,5 @@ public class ReportVO {
     private String reason;
     private String code;
     private Date genDate;
+    private String reporter;
 }

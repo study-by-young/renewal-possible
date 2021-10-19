@@ -27,22 +27,75 @@
 }
 
 40
+
+
+
+
 %
 {
 -webkit-transform
+
+
+
+
 :
-translateY(
+
+
+
+
+translateY
+
+
+(
+
+
+
+
 -20px
+
+
+
+
 )
+
+
+
+
 }
 60
+
+
+
+
 %
 {
 -webkit-transform
+
+
+
+
 :
-translateY(
+
+
+
+
+translateY
+
+
+(
+
+
+
+
 -20px
-);
+
+
+
+
+)
+
+
+;
 }
 }
 @
@@ -51,22 +104,74 @@ keyframes bounce { 0%, 20%, 50%, 80%, 100% {
 }
 
 40
+
+
+
+
 %
 {
 transform
+
+
+
+
 :
-translateY(
+
+
+
+
+translateY
+
+
+(
+
+
+
+
 -20px
-);
+
+
+
+
+)
+
+
+;
 }
 60
+
+
+
+
 %
 {
 transform
+
+
+
+
 :
-translateY(
+
+
+
+
+translateY
+
+
+(
+
+
+
+
 -20px
-);
+
+
+
+
+)
+
+
+;
 }
 }
 .bounce {
@@ -162,9 +267,16 @@ translateY(
 						style="margin-top: 30px; padding: 20px; background-color: white; border: 1px solid blue; border-radius: 10px;">
 						<div class="row">
 							<div class="col-md-12">
-								<div>
-									<h4>장소 이름</h4>
-									<p>주소 어쩌구 저쩌구</p>
+								<div class="panel-heading">
+									<form id="answerForm">
+										<input type="hidden" id="qnaSeq" name="qnaSeq"
+											value="${qna.seq}"> <input id="writer" name="writer"
+											value="${id }"> 
+										<input id="content" name="content" size="30">
+										<!-- 버튼 -->
+										<button type="button" id="saveAnswer">답변등록</button>
+										<button type="button" id="updateAnswer">수정</button>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -195,7 +307,8 @@ translateY(
 	</div>
 </div>
 <input type="hidden" id="memSeq" value="${user }">
-<input type="hidden" id="memId" data-check="${reportCheck }" value="${id }">
+<input type="hidden" id="memId" data-check="${reportCheck }"
+	value="${id }">
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
@@ -223,7 +336,8 @@ translateY(
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="reason"
 						id="exampleRadios3" value="스팸 및 현혹 행위"> <label
-						class="form-check-label" for="exampleRadios2"> 스팸 및 현혹 행위 </label>
+						class="form-check-label" for="exampleRadios2"> 스팸 및 현혹 행위
+					</label>
 				</div>
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="reason"
@@ -231,10 +345,9 @@ translateY(
 						class="form-check-label" for="exampleRadios2"> 잘못된 정보 </label>
 				</div>
 				<div class="form-check">
-					<input class="form-check-input" type="radio" name="reason"
-						id="etc"> <label
-						class="form-check-label" for="exampleRadios2"> 기타 </label>
-					<input type="text" class="input" id="etcDetail" disabled="disabled">
+					<input class="form-check-input" type="radio" name="reason" id="etc">
+					<label class="form-check-label" for="exampleRadios2"> 기타 </label> <input
+						type="text" class="input" id="etcDetail" disabled="disabled">
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -392,7 +505,9 @@ translateY(
 					url : 'report',
 					data : JSON.stringify({
 						target : $("#seq").val(),
-						reason : $('.form-check-input:checked').val()
+						writer : $("#writer").text(),
+						reason : $('.form-check-input:checked').val(),
+						reporter : $("#memId").val()
 					}),
 					dataType : 'text',
 					contentType : 'application/json; charset=utf-8',
@@ -411,7 +526,9 @@ translateY(
 				url : 'report',
 				data : JSON.stringify({
 					target : $("#seq").val(),
-					reason : $('.form-check-input:checked').val()
+					writer : $("#writer").text(),
+					reason : $('.form-check-input:checked').val(),
+					reporter : $("#memId").val()
 				}),
 				dataType : 'text',
 				contentType : 'application/json; charset=utf-8',
