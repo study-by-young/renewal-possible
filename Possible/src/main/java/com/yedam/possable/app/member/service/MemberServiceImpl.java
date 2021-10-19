@@ -135,4 +135,10 @@ public class MemberServiceImpl implements MemberService {
 
 		return memberMapper.memberInfoUpdate(vo);
 	}
+
+	@Override
+	public MemberVO reportOneSelect(String id) {
+		// TODO Auto-generated method stub
+		return memberMapper.reportOneSelect(id);
+	}
 }

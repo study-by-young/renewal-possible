@@ -97,6 +97,13 @@
         FROM MEMBER
         WHERE SEQ = #{seq}
     </select>
+     <!-- 게시글 피신고자 단건 조회 -->
+    <select id="reportOneSelect" resultMap="member">
+        SELECT
+            *
+        FROM MEMBER
+        WHERE ID = #{ID}
+    </select>
     <!-- 아이디 중복 체크  -->
     <select id="idChk" resultType="int">
         SELECT COUNT(*)

@@ -35,7 +35,7 @@
 	<select id="getReportList" resultType="ReportVO">
 		SELECT * FROM (
 		SELECT /*+ INDEX_DESC(REPORT_BOARD IDX_REPORT_BOARD) */
-		ROWNUM RN, SEQ, TARGET, WRITER, REASON, GEN_DATE
+		ROWNUM RN, SEQ, TARGET, WRITER, REASON, GEN_DATE, REPORTER
 		FROM REPORT_BOARD
 		<where>
 			<include refid="criteria"></include>
@@ -52,7 +52,8 @@
 				TARGET,
 				WRITER,
 				REASON,
-				GEN_DATE
+				GEN_DATE,
+				REPORTER
 		FROM REPORT_BOARD
 		WHERE SEQ = #{seq}
 	</select>
