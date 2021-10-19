@@ -61,7 +61,10 @@
 		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
 			SELECT SEQ_REPORT_BOARD.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO REPORT_BOARD VALUES (#{seq}, #{target}, #{writer}, #{reason}, SYSDATE)
+		INSERT INTO REPORT_BOARD VALUES (#{seq}, #{target}, #{writer}, #{reason}, SYSDATE, #{reporter})
 	</insert>
-
+	
+	<select id="reportCount" resultType="int">
+		SELECT COUNT(*) FROM REPORT_BOARD WHERE TARGET = #{seq} AND REPORTER = #{reporter}
+	</select>
 </mapper>

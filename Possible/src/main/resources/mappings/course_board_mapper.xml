@@ -51,7 +51,7 @@
 	
 	<select id="getTotalCount" resultType="int">
 			SELECT COUNT(*) 
-			FROM TOUR
+			FROM COURSE_BOARD
 			<where>
 				<include refid="criteria"></include>
 			</where>
@@ -90,7 +90,7 @@
                 <![CDATA[   AND ROWNUM <= #{pageNum} * #{amount} ]]>
              </where>
 			) B
-		JOIN (SELECT * FROM (SELECT C.COURSE_SEQ, T.FIRSTIMAGE, ROW_NUMBER() OVER (PARTITION BY C.COURSE_SEQ ORDER BY C.COURSE_SEQ DESC) AS RankNo FROM COURSE C JOIN TOUR T ON C.CONTENTID = T.CONTENTID WHERE T.FIRSTIMAGE IS NOT NULL) WHERE RankNo = 1) J
+		LEFT JOIN (SELECT * FROM (SELECT C.COURSE_SEQ, T.FIRSTIMAGE, ROW_NUMBER() OVER (PARTITION BY C.COURSE_SEQ ORDER BY C.COURSE_SEQ DESC) AS RankNo FROM COURSE C JOIN TOUR T ON C.CONTENTID = T.CONTENTID WHERE T.FIRSTIMAGE IS NOT NULL) WHERE RankNo = 1) J
 		ON B.SEQ = J.COURSE_SEQ
 		WHERE RN > (#{pageNum} - 1) * #{amount}
 	</select>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.community.tour.domain.TestVO;
 import com.yedam.possable.app.community.tour.mapper.TourMapper;
 
@@ -39,10 +40,15 @@ public class TourServiceImpl implements TourService {
 	}
 
 	@Override
-	public List<TestVO> getList() {
-		return tourMapper.getList();
+	public List<TestVO> getList(Criteria cri) {
+		return tourMapper.getList(cri);
 	}
 
+	@Override
+	public int getTotalCount(Criteria cri) {
+		return tourMapper.getTotalCount(cri);
+	}
+	
 	@Override
 	public List<TestVO> getLatestList() {
 		return tourMapper.getLatestList();

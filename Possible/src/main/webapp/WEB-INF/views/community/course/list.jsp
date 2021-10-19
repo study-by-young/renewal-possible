@@ -84,9 +84,16 @@
 				<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
 					<div class="btc_team_bot_cont_main_wrapper">
 						<div class="btc_team_img_bot_wrapper">
+							<c:if test="${list.firstImage ne null }">
 							<img
 								src="${list.firstImage}"
 								alt="Course">
+							</c:if>
+							<c:if test="${list.firstImage eq null }">
+							<img
+								src="${pageContext.request.contextPath}/resources/images/no_image.jpg"
+								alt="Course">
+							</c:if>
 							<div class="btc_team_social_tb_wrapper">
 								<h3>
 									<fmt:formatDate value="${list.startDate }" pattern="yyyy-MM-dd" />
@@ -107,22 +114,7 @@
 			</c:forEach>
 		</div>
 		<!-- 페이징 -->
-		<div id="pageButton" style="margin-top: 20px">
-			<ul class="custom-pagination">
-				<c:if test="${pagination.prev }">
-					<li class="page-item"><a href="${pagination.startPage-1}">이전</a></li>
-					<!-- <span aria-hidden="true">&laquo;</span> -->
-				</c:if>
-				<c:forEach begin="${pagination.startPage }"
-					end="${pagination.endPage }" var="num">
-					<li class="page-item"><a href="${num }">${num }</a></li>
-				</c:forEach>
-				<c:if test="${pagination.next }">
-					<li class="page-item"><a href="${pagination.endPage+1}">다음</a></li>
-					<!-- <span aria-hidden="true">&laquo;</span> -->
-				</c:if>
-			</ul>
-		</div>
+		<jsp:include page="/pagination" />
 		<div class="row" style="margin-top: 10px">
 			<div class="col-12 x_slider_checout_right">
 				<ul>
