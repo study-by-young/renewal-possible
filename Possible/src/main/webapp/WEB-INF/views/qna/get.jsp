@@ -100,7 +100,7 @@
 					<div class="card-header">
 						<div class="card-header col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-top: 0px; padding-left: 0px;">
 							<div class="contect_form1">
-								<h2 style="font-weight: 600;">문의 답변 등록</h2>
+								<h2 style="font-weight: 600;">문의 답변 등록(얘는 관리자만 보이게)</h2>
 							</div>
 						</div>
 						<div class="card-header col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px 0px;">
@@ -136,8 +136,6 @@
 		</form>
 	</div>	
 	
-	
-	
 <%-- 	<div class="row">
 		<div class="panel-heading">
 			<form id="answerForm">
@@ -152,30 +150,34 @@
 		</div>
 	</div> --%>
 
-	
+
 	<!-- 답변 보여주는 위치 -->
-	<div class='row'>
+	<div class="row">
 		<div class="col-lg-12">
-		<!-- panel -->
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<i class="fa fa-comments fa-fw"></i>답변
+			<!-- panel -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-comments fa-fw"></i>답변
+				</div>
+				<div class="panel-body">
+					<ul class="chat">
+						<!-- 답변 내용은 여기에 추가됩니다. / 스크립트로 추가 -->
+					</ul>
+				</div>
+				<div class="panel-footer"></div>
 			</div>
-			<div class="panel-body">
-				<ul class="chat">
-					<!-- 답변 내용은 여기에 추가됩니다. / 스크립트로 추가 -->
-				</ul>
-			</div>
-			<div class="panel-footer"></div>
+			<!-- end panel -->
 		</div>
-		<!-- end panel -->
+		<!-- end row -->
 	</div>
-	<!-- end row -->
-</div>
 	
+ 
+ 	<!-- 답변 보여주는 위치 -->
+<!--  	<div class="chat">
+
+	</div>	 -->
 </div>
-<br>
-<br>
+
 <script>
 	// 게시글 삭제
 	$('#deleteBtn').on('click', function() {
@@ -290,7 +292,7 @@
 			});
 		}
 		
-		function makeLi(data) {
+ 		function makeLi(data) {
 			return '<li data-seq="' + data.seq + '"class="left clearfix">'
 					+ '	<div>'
 					+ '		<div class="header">'
@@ -309,6 +311,24 @@
 					+ '			<p align="right"><button id="readQnaAnswer">보기</button>&nbsp;<button id="deleteQnaAnswer">삭제</button></p>'
 					+ '		</div>' + '	</div>' + '</li>'
 		}
+		
+		
+/* 		function makeLi (data) {
+			return	'<div class="chat" style="margin-top: 50px; padding: 20px;">'
+				+	'	<div class="card-header lr_bc_first_box_img_cont_wrapper">''
+				+	'		<h2 style="font-weight: 600; margin-bottom: 25px;" data-seq="' + data.seq + '">' + data.title + '</h2>'
+				+	'		<ul style="padding-left: 5px;">'
+				+	'			<li><i class="fa fa-user"></i>&nbsp; <a>관리자</a></li>'
+				+	'		</ul>'
+				+	'		<hr>'
+				+	'		<div class="card-body">' + data.content + '</div>'
+				+	'	</div>'
+				+	'	<div class="card-footer lr_bc_first_box_img_cont_wrapper" align="right" style="border-bottom: 0px;">'
+				+	'		<button class="btn btn-primary" type="button" id="readQnaAnswer">보기</button>'
+				+	'		<button class="btn btn-dark" type="button" id="deleteQnaAnswer">삭제</button>'
+				+	'	</div>'	
+				+	'</div>';
+		} */
 		
 		$('body')
 		.on(
