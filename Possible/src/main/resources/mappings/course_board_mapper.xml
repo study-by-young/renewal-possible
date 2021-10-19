@@ -51,7 +51,7 @@
 	
 	<select id="getTotalCount" resultType="int">
 			SELECT COUNT(*) 
-			FROM TOUR
+			FROM COURSE_BOARD
 			<where>
 				<include refid="criteria"></include>
 			</where>

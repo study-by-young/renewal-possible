@@ -15,8 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.community.tour.domain.TestVO;
 import com.yedam.possable.app.community.tour.service.TourService;
 
@@ -27,8 +30,11 @@ public class TourController {
 	@Autowired TourService tourService;
 	
 	@GetMapping
-	public String list(Model model) {
-		model.addAttribute("list", tourService.getList());
+	public String list(Model model,
+			@ModelAttribute("cri") Criteria cri) {
+		int total = tourService.getTotalCount(cri);
+		model.addAttribute("list", tourService.getList(cri));
+		model.addAttribute("pagination", new PageVO(cri, total));
 		return "community/tour/list";
 	}
 
