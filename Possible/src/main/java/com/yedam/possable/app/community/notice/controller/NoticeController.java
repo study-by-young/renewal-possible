@@ -45,18 +45,21 @@ public class NoticeController {
 		// System.out.println("cri=====" + cri);
 		int total = noticeService.getTotalCount(cri);
 		model.addAttribute("list", noticeService.getList(cri));
-		model.addAttribute("pageMaker", new PageVO(cri, total));
+		model.addAttribute("pagination", new PageVO(cri, total));
 	}
 
 	@GetMapping("/get")
 	public void get(Model model, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
 		noticeService.plusViews(vo);
 		model.addAttribute("notice", noticeService.read(vo));
+		int total = noticeService.getTotalCount(cri);
+		model.addAttribute("pagination", new PageVO(cri, total));
 	}
 
 	@GetMapping("/insert")
 	public void insertForm(Model model, @ModelAttribute("cri") Criteria cri) {
-		
+		int total = noticeService.getTotalCount(cri);
+		model.addAttribute("pagination", new PageVO(cri, total));
 	}
 
 	@PostMapping("/insert")
@@ -70,6 +73,8 @@ public class NoticeController {
 			log.info(filevo.toString());
 		model.addAttribute("file", filevo);
 		rttr.addFlashAttribute("insertResult", vo.getSeq());
+		int total = noticeService.getTotalCount(cri);
+		model.addAttribute("pagination", new PageVO(cri, total));
 
 		return "redirect:/notice/list";
 	}
@@ -77,10 +82,12 @@ public class NoticeController {
 	@GetMapping("/update")
 	public void updateForm(Model model, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
 		model.addAttribute("notice", noticeService.read(vo));
+		int total = noticeService.getTotalCount(cri);
+		model.addAttribute("pagination", new PageVO(cri, total));
 	}
 
 	@PostMapping("/update")
-	public String update(RedirectAttributes rttr, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
+	public String update(Model model, RedirectAttributes rttr, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
 		int result = noticeService.update(vo);
 		if (result == 1) { /*+ INDEX_DESC(IDX_NOTICE) */
 			rttr.addFlashAttribute("updateResult", vo.getSeq());
@@ -89,12 +96,15 @@ public class NoticeController {
 		rttr.addAttribute("seq", vo.getSeq());
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
+		
+		int total = noticeService.getTotalCount(cri);
+		model.addAttribute("pagination", new PageVO(cri, total));
 
 		return "redirect:/notice/get";
 	}
 
 	@GetMapping("/delete")
-	public String delete(RedirectAttributes rttr, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
+	public String delete(Model model, RedirectAttributes rttr, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
 		int result = noticeService.delete(vo);
 
 		if (result == 1) {
@@ -103,6 +113,9 @@ public class NoticeController {
 
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
+		
+		int total = noticeService.getTotalCount(cri);
+		model.addAttribute("pagination", new PageVO(cri, total));
 
 		return "redirect:/notice/list";
 	}

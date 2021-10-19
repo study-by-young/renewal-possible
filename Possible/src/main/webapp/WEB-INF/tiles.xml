@@ -44,6 +44,12 @@
     <definition name="notice/*" extends="Template">
         <put-attribute name="content" value="/WEB-INF/views/notice/{1}.jsp" />
     </definition>
+    <definition name="faq/*" extends="Template">
+        <put-attribute name="content" value="/WEB-INF/views/faq/{1}.jsp" />
+    </definition>
+    <definition name="qna/*" extends="Template">
+        <put-attribute name="content" value="/WEB-INF/views/qna/{1}.jsp" />
+    </definition>
 
 
     <!-- 어드민 및 업체 관리 페이지 설정 -->

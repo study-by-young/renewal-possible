@@ -26,24 +26,32 @@ public class QnaController {
 				   , @ModelAttribute("cri") Criteria cri) {
 		int total = qnaService.getTotalCount(cri);
 		model.addAttribute("list", qnaService.getList(cri));
-		model.addAttribute("pageMaker", new PageVO(cri, total));
+		model.addAttribute("pagination", new PageVO(cri, total));
 	}
 	
 	@GetMapping("/get")
 	public void get(Model model, QnaVO vo
 				  , @ModelAttribute("cri") Criteria cri) {
 		model.addAttribute("qna", qnaService.read(vo));
+		int total = qnaService.getTotalCount(cri);
+		model.addAttribute("pagination", new PageVO(cri, total));
 	}
 	
 	@GetMapping("/insert")
-	public void insertForm(Model model) {
+	public void insertForm(Model model, @ModelAttribute("cri") Criteria cri) {
+		
+		int total = qnaService.getTotalCount(cri);
+		model.addAttribute("pagination", new PageVO(cri, total));
 		
 	}
 	
 	@PostMapping("/insert")
-	public String insert(RedirectAttributes rttr, QnaVO vo) {
+	public String insert(Model model, RedirectAttributes rttr, QnaVO vo, @ModelAttribute("cri") Criteria cri) {
 		qnaService.insert(vo);
 		rttr.addFlashAttribute("insertResult", vo.getSeq());
+		
+		int total = qnaService.getTotalCount(cri);
+		model.addAttribute("pagination", new PageVO(cri, total));
 		
 		return "redirect:/qna/list";
 	}
@@ -52,10 +60,13 @@ public class QnaController {
 	public void updateForm(Model model, QnaVO vo
 						 , @ModelAttribute("cri") Criteria cri) {
 		model.addAttribute("qna", qnaService.read(vo));
+		
+		int total = qnaService.getTotalCount(cri);
+		model.addAttribute("pagination", new PageVO(cri, total));
 	}
 	
 	@PostMapping("/update")
-	public String update(RedirectAttributes rttr, QnaVO vo
+	public String update(Model model, RedirectAttributes rttr, QnaVO vo
 					   , @ModelAttribute("cri") Criteria cri) {
 		
 		int result = qnaService.update(vo);
@@ -68,11 +79,14 @@ public class QnaController {
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
 		
+		int total = qnaService.getTotalCount(cri);
+		model.addAttribute("pagination", new PageVO(cri, total));
+		
 		return "redirect:/qna/get";
 	}
 	
 	@GetMapping("/delete")
-	public String delete(RedirectAttributes rttr, QnaVO vo
+	public String delete(Model model, RedirectAttributes rttr, QnaVO vo
 					   , @ModelAttribute("cri") Criteria cri) {
 		
 		int result = qnaService.delete(vo);
@@ -83,6 +97,9 @@ public class QnaController {
 		
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
+		
+		int total = qnaService.getTotalCount(cri);
+		model.addAttribute("pagination", new PageVO(cri, total));
 		
 		return "redirect:/qna/list";
 	}

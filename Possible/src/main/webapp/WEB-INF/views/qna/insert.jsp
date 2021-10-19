@@ -41,7 +41,7 @@
 					align="right">
 					<button type="submit" class="btn btn-primary">등록</button>
 					<button type="button" class="btn btn-dark"
-						onclick="location.href='list'">목록</button>
+						onclick="location.href='list?pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}'">목록</button>
 				</div>
 			</div>
 		</form>

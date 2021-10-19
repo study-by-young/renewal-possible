@@ -60,6 +60,11 @@ tr:hover {
 	background: #007bff;
 }
 
+.col-12 {
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
 </style>
 
 
@@ -155,7 +160,7 @@ tr:hover {
 
 	<div align="right">
 		<button type="button" class="btn btn-primary"
-			onclick="location.href='insert?pageNum=${cri.pageNum}&amount=${cri.amount}'">등록</button>
+			onclick="location.href='insert?pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}'">등록</button>
 	</div>
 
 
@@ -173,6 +178,9 @@ tr:hover {
 	<br>
 </div>
 <script>
+var pageNum = ${param.getOrDefault("pageNum",1)};
+var amount = ${param.getOrDefault("amount", pagination.cri.amount)};
+
 $(document).ready(function() {
 	var insertResult = '<c:out value="${insertResult}"/>';
 	var deleteResult = '<c:out value="${deleteResult}"/>';
@@ -213,6 +221,6 @@ $(function() {
 });
 
 function readBoard(seq){
-	location.href = 'get?seq='+seq+'&pageNum='+$('input[name="pageNum"]').val()+'&amount='+$('input[name="amount"]').val();
+	location.href = 'get?seq='+seq+'&pageNum='+pageNum+'&amount='+amount;
 }
 </script>
