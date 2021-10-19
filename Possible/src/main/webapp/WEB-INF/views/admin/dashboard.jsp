@@ -16,6 +16,7 @@
 </style>
 
 <!-- Main content -->
+
 		<div class="content-wrapper">
 
 			<!-- Content area -->
