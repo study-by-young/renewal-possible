@@ -16,7 +16,7 @@
 				<div
 					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="contect_form1">
-						<input type="text" name="title" placeholder="제목 무조끈 *"
+						<input type="text" name="title" placeholder="제목 *"
 							required="required">
 					</div>
 				</div>
