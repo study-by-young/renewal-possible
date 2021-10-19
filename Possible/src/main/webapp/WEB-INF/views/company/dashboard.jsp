@@ -25,7 +25,7 @@
 
 		<div class="card">
 			<div class="card-header header-elements-inline">
-				<h5 class="card-title">일별수익차트(업뎃안됨..수정중..)</h5>
+				<h5 class="card-title"><a href="${pageContext.request.contextPath}/company/dashboard">일별수익차트</a></h5>
 				<div class="header-elements">
 					<div class="list-icons">
 						<a class="list-icons-item" data-action="collapse"></a> <a
@@ -35,17 +35,17 @@
 				</div>
 			</div>
 			<!-- 차트 -->
-			<div style="width: 600px; height: 300px;">
+			<div style="margin: 50px;">
 				<div>
-					<canvas id="canvas"></canvas>
+					<canvas id="canvas" width="600px" height="300px" style="display:block"></canvas>
 				</div>
 			</div>
-		</div>
+			</div>
 
 		<!-- 렌트 내역 (오늘 나가는 거 5개) -->
 		<div class="card">
 			<div class="card-header header-elements-inline">
-				<h5 class="card-title">오늘 나가는 렌트카(5개)</h5>
+				<h5 class="card-title"><a href="${pageContext.request.contextPath}/company/dashboard">오늘 출발하는 렌트카(5개)</a></h5>
 				<div class="header-elements">
 					<div class="list-icons">
 						<a class="list-icons-item" data-action="collapse"></a> <a
@@ -90,7 +90,7 @@
 		<!-- 후기 -->
 		<div class="card">
 			<div class="card-header header-elements-inline">
-				<h6 class="card-title">후기?(5개)</h6>
+				<h5 class="card-title"><a href="${pageContext.request.contextPath}/company/dashboard">후기(5개)</a></h5>
 				<div class="header-elements">
 					<div class="list-icons ml-3">
 						<div class="list-icons-item dropdown">
@@ -171,6 +171,7 @@
 			data : lineChartData,
 
 			options : {
+				 responsive: false,
 				scales : {
 					yAxes : [ {
 						ticks : {

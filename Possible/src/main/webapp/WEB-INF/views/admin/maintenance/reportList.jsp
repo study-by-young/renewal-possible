@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 
 <style type="text/css">
 .pagination {
@@ -53,9 +55,9 @@
 						<form id="actionForm" action="report" method="get">
 							<select name="type" class="select">
 								<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
-								<option value="T" ${pageMaker.cri.type =='N'? 'selected' : "" }>제목</option>
-								<option value="C" ${pageMaker.cri.type =='A'? 'selected' : "" }>내용</option>
-								<option value="W" ${pageMaker.cri.type =='C'? 'selected' : "" }>작성자</option>
+								<option value="T" ${pageMaker.cri.type =='T'? 'selected' : "" }>제목</option>
+								<option value="W" ${pageMaker.cri.type =='W'? 'selected' : "" }>작성자</option>
+								<option value="G" ${pageMaker.cri.type =='G'? 'selected' : "" }>등록일자</option>
 							</select> <input class="input" name="keyword"
 								value="${pageMaker.cri.keyword }"> <input type="hidden"
 								name="pageNum" value="1"> <input type="hidden"
@@ -86,9 +88,9 @@
 							<c:forEach var="reportList" items="${reportList }">
 								<tr>
 									<td>${reportList.seq }</td>
-									<td>${reportList.title}</td>
-									<td>${reportList.content }</td>
+									<td>${reportList.target}</td>
 									<td>${reportList.writer }</td>
+									<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${reportList.genDate}"/></td>
 									<td><a class="move" href="${reportList.seq }">상세보기</a></td>
 								</tr>
 							</c:forEach>

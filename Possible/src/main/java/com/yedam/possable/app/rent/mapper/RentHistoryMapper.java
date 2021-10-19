@@ -12,7 +12,7 @@ import com.yedam.possable.app.rent.domain.RentHistoryVO;
 public interface RentHistoryMapper {
 
 	//업체 렌트내역 리스트
-    public List<RentHistoryVO> getRentHistoryListByCmpnSeq(Long cmpnSeq);
+    public List<RentHistoryVO> getRentHistoryListByCmpnSeq(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq);
 
     //업체 렌트내역 한건
     public RentHistoryVO getRentHistory(Long seq);
@@ -23,9 +23,8 @@ public interface RentHistoryMapper {
     // 마이페이지 회원 렌트내역 리스트 조회
     public List<RentHistoryVO> getRentHistoryListForMyPage(@Param("cri") Criteria cri, @Param("seq")Long seq);
 
-	//전체수 검사
-	public int getTotalCount();
-
+    //전체 데이터 건수
+    public int getTotalCount(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq);
 	//수익
 	public HashMap<String, Object> getLatestCompanySales(Long cmpnSeq);
 

@@ -24,10 +24,9 @@
 	<div class="content">
 	<div class="card">
 			<div class="card-header header-elements-inline">
-				<h6 class="card-title">차량상세</h6>
+				<h6 class="card-title"></h6>
 				<div class="header-elements"></div>
 			</div>
-			<hr>
 			
 				<div class="card-body py-0">
 						<div class="row">
@@ -40,7 +39,7 @@
 										<div class="row">
 										<ul class="list-unstyled row">
 											<li class="col-md-4">
-												<label class="d-block">브랜드 
+												<h5 class="font-weight-bold"><label class="d-block">브랜드
 											 	<input type="hidden" class="form-control" name='brand' value='${car.brand}' >
 											 	<input type="hidden" class="form-control" name='model' value='${car.model}' >
 											 	<input type="hidden" class="form-control" name='trim' value='${car.trim}' >
@@ -51,47 +50,47 @@
 																<option>${brand}</option>
 															</optgroup>
 												</select>
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">모델 
+												<h5 class="font-weight-bold"><label class="d-block">모델 
 												<select name="model" id="model" class="form-control select-fixed-single" onchange="searchTrimByModel()" required>
 															<optgroup label="모델명">
 																<option>${model2}</option>
 															</optgroup>
 												</select>
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">등급
+												<h5 class="font-weight-bold"><label class="d-block">등급
 														<select name="trim" id="trim" class="form-control select-fixed-single" required>
 															<optgroup label="트림">
 																<option>${trim}</option>
 															</optgroup>
 													</select>
-												</label>
+												</label></h5>
 											<br>
 											</li>
 												<li class="col-md-4">
-												<label class="d-block">세그먼트 
+												<h5 class="font-weight-bold"><label class="d-block">세그먼트 
 												<select name="segment" id="segment" class="form-control select-fixed-single" required>
 															<optgroup label="세그먼트">
 																<option>${segment}</option>
 															</optgroup>
 												</select>
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">연료 
+												<h5 class="font-weight-bold"><label class="d-block">연료 
 												<select name="fuel" id="fuel" class="form-control select-fixed-single" required>
 															<optgroup label="연료">
 																<option>${fuel}</option>
 															</optgroup>
 													</select>
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">연식 
+												<h5 class="font-weight-bold"><label class="d-block">연식 
 												<select name="year" id="year" class="form-control select-fixed-single" required>
 															<optgroup label="연식">
 																<option value="">${car.year}</option>
@@ -104,11 +103,11 @@
 																	<option value="2016">2016년</option>
 															</optgroup>
 													</select>
-												</label>
+												</label></h5>
 											<br>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">색깔
+												<h5 class="font-weight-bold"><label class="d-block">색깔
 												<select name="color" id="color" class="form-control select-fixed-single" required>
 															<optgroup label="색깔">
 																<option value="">${car.color}</option>
@@ -121,11 +120,11 @@
 																	<option value="적색">적색</option>
 															</optgroup>
 													</select>
-												</label>
+												</label></h5>
 											
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">인원
+												<h5 class="font-weight-bold"><label class="d-block">인원
 												<select name="passenger" id="passenger" class="form-control select-fixed-single" required>
 															<optgroup label="인원">
 																<option value="">${car.passenger}</option>
@@ -138,10 +137,10 @@
 																	<option value="1">1</option>
 															</optgroup>
 													</select>
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">기어
+												<h5 class="font-weight-bold"><label class="d-block">기어
 												<select name="mission" id="mission" class="form-control select-fixed-single" required>
 															<optgroup label="기어">
 																<option value="">${car.mission}</option>
@@ -149,11 +148,11 @@
 																	<option value="수동">수동</option>
 															</optgroup>
 													</select>
-												</label>
+												</label></h5>
 												<br>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">트렁크
+												<h5 class="font-weight-bold"><label class="d-block">트렁크
 												<select name="trunk" id="trunk" class="form-control select-fixed-single" required>
 															<optgroup label="트렁크">
 																<option value="">${car.trunk}</option>
@@ -161,34 +160,34 @@
 																	<option value="300">300</option>
 															</optgroup>
 													</select>
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">도어
+												<h5 class="font-weight-bold"><label class="d-block">도어
 													<input type="text" class="form-control" name='door' value='${car.door}'>
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">연비
+												<h5 class="font-weight-bold"><label class="d-block">연비
 													<input type="text" class="form-control" name='kmpl' value='${car.kmpl}'>
-												</label>
+												</label></h5>
 											<br>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">가격
+												<h5 class="font-weight-bold"><label class="d-block">가격
 													<input type="text" class="form-control" name='price' value='${car.price}'>
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">차 번호
+												<h5 class="font-weight-bold"><label class="d-block">차 번호
 													<input type="text" class="form-control" name='carNum' value='${car.carNum}'>
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">IMG1
+											<h5 class="font-weight-bold">	<label class="d-block">IMG1
 													<input type="text" class="form-control" name="img1" value='${car.img1}'>
 													 <img src="c:/upload/${car.img1}"  class="thumbImg"/> 
-												</label>
+												</label></h5>
 											</li>
 											
 											 <%--   <li class="col-md-12 my-3">
@@ -206,7 +205,7 @@
                                     </li> --%>
                                     
                                     <li class="col-md-12 my-3">
-                                                <label>차량 옵션</label>
+                                                <h5 class="font-weight-bold"><label>차량 옵션</label></h5>
                                                 <hr class="my-2">
                                                 <div class="x_slider_checkbox_bottom_filter_use">
                                                     <c:forEach var="opt" items="${opt}" varStatus="status">

@@ -47,7 +47,7 @@
 
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h6 class="card-title">번호</h6>
+						<h6 class="card-title"></h6>
 						<div class="header-elements">
 							
 						</div>
@@ -60,82 +60,88 @@
 								<div class="col-md-12">
 										
 										<div class="form-group">
-											<label>번호</label> 
-											<input type="text" class="form-control" name='seq' value='<c:out value="${rentHistory.seq}"/>'readonly="readonly">
+											<input type="hidden" class="form-control" name='seq' value='<c:out value="${rentHistory.seq}"/>'readonly="readonly">
 										</div>
 
 										<div class="form-group">
-											<label>구분</label> 
+											<h5 class="font-weight-bold"><label>구분</label></h5>
 											<input type="text" class="form-control" name='name' value='<c:out value="${rentHistory.rentType}"/>'readonly="readonly">
 										</div>
 										
 										<div class="form-group">
-											<label>시작일자</label> 
-											<input class="form-control" name='startDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${rentHistory.startDate }"/>' readonly="readonly">				
-										</div>
-										<div class="form-group">
-											<label>끝일자</label> 
-											<input class="form-control" name='endDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${rentHistory.endDate }"/>' readonly="readonly">				
-										</div>
-										
-										<div class="form-group">
-											<label>수령자</label>
+											<h5 class="font-weight-bold"><label>수령자</label></h5>
 											<input type="text" class="form-control" name='receiver' value='<c:out value="${rentHistory.receiver}"/>' readonly="readonly">
 										</div>
 										
+									<div class="row">
+									 <div class="col-md-6">
 										<div class="form-group">
-											<label>가격</label>
+											<h5 class="font-weight-bold"><label>출발일자</label></h5>
+											<input class="form-control" name='startDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${rentHistory.startDate }"/>' readonly="readonly">				
+										</div>
+									 </div>
+									  <div class="col-md-6">
+										<div class="form-group">
+											<h5 class="font-weight-bold"><label>도착일자</label></h5>
+											<input class="form-control" name='endDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${rentHistory.endDate }"/>' readonly="readonly">				
+										</div>
+										</div>
+										</div>
+										
+										
+										
+										<div class="form-group">
+											<h5 class="font-weight-bold"><label>가격</label></h5>
 											<input type="text" class="form-control" name='price' value='<c:out value="${rentHistory.price}"/>' readonly="readonly">
 										</div>
 										
 										<div class="form-group">
-											<label>견적</label>
+											<h5 class="font-weight-bold"><label>견적</label></h5>
 											<input type="text" class="form-control" name='estimate' value='<c:out value="${rentHistory.estimate}"/>' readonly="readonly">
 										</div>
 										
 										<div class="form-group">
-											<label>상태</label>
+											<h5 class="font-weight-bold"><label>상태</label></h5>
 											<input type="text" class="form-control" name='status' value='<c:out value="${rentHistory.status}"/>' readonly="readonly">
 										</div>
-										
+										<div class="row">
+									 <div class="col-md-6">
 										<div class="form-group">
-											<label>등록일자</label> 
+											<h5 class="font-weight-bold"><label>등록일자</label></h5>
 											<input class="form-control" name='genDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${rentHistory.genDate }"/>' readonly="readonly">				
 										</div>
-										
+										</div>
+									 <div class="col-md-6">
 										<div class="form-group">
-											<label>갱신일자</label> 
+											<h5 class="font-weight-bold"><label>갱신일자</label></h5>
 											<input class="form-control" name='uptDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${rentHistory.uptDate }"/>' readonly="readonly">				
 										</div>
-										
+										</div>
+										</div>
 										<div class="form-group">
-											<label>takePlaceCode</label>
+											<h5 class="font-weight-bold"><label>takePlaceCode</label></h5>
 											<input type="text" class="form-control" name='takePlaceCode' value='<c:out value="${rentHistory.takePlaceCode}"/>' readonly="readonly">
 										</div>
 										
 										<div class="form-group">
-											<label>takePlaceBasic</label>
+											<h5 class="font-weight-bold"><label>takePlaceBasic</label></h5>
 											<input type="text" class="form-control" name='takePlaceCode' value='<c:out value="${rentHistory.takePlaceBasic}"/>' readonly="readonly">
 										</div>
 										
 										<div class="form-group">
-											<label>takePlaceDetail</label>
+											<h5 class="font-weight-bold"><label>takePlaceDetail</label></h5>
 											<input type="text" class="form-control" name='takePlaceDetail' value='<c:out value="${rentHistory.takePlaceDetail}"/>' readonly="readonly">
 										</div>
 										
 										<div class="form-group">
-											<label>merchantUid</label>
+											<h5 class="font-weight-bold"><label>merchantUid</label></h5>
 											<input type="text" class="form-control" name='merchantUid' value='<c:out value="${rentHistory.merchantUid}"/>' readonly="readonly">
 										</div>
 										
 										<div class="form-group">
-											<label>payMethod</label>
+											<h5 class="font-weight-bold"><label>payMethod</label></h5>
 											<input type="text" class="form-control" name='payMethod' value='<c:out value="${rentHistory.payMethod}"/>' readonly="readonly">
 										</div>
-										
-										
-											
-											
 								</div>
 								</div>
 						

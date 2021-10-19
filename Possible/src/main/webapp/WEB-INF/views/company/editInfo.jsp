@@ -34,23 +34,23 @@
 										<div class="row">
 											<input type="hidden" name='seq' value="${company.seq}">
 										   	<div class="form-group col-md-12">
-											   	<h5 class="font-weight-bold"><label for="InputId">업체명*</label></h5>
+											   	<h5 class="font-weight-bold"><label for="InputId">업체명</label></h5>
 											    <input type="text" class="form-control"  id="name" name="name" value="${company.name }" readonly>
 											</div>   
 										</div>
 										<div class="row">
 											<div class="form-group col-md-6">
-													<h5 class="font-weight-bold"><label for="InputId">사업자번호*</label></h5>
+													<h5 class="font-weight-bold"><label for="InputId">사업자번호</label></h5>
 												<input type="text" class="form-control"  id="cmpnNum" name="cmpnNum" value="${company.cmpnNum }" readonly> 
 											</div>
-											<div class="form-group col-md-6">
-													<h5 class="font-weight-bold"><label for="InputId">업체전화번호*</label></h5>
+											<div class="form-group col-md-6" >
+													<h5 class="font-weight-bold" style="color: blue"><label for="InputId">업체전화번호*</label></h5>
 												<input type="text" class="form-control"  id="tel" name="tel" value="${company.tel }">
 											</div>
 										</div>
 										
 										<!-- 우편번호 Start -->
-                      							<h5 class="font-weight-bold"><label for="InputAddr">주소*</label></h5>
+                      							<h5 class="font-weight-bold" style="color: blue"><label for="InputAddr">주소*</label></h5>
                         				<div class="form-group"> 
                         					<input type="text" class="form-control" id="postal" name="postal" value="${company.postal }" style="width: 30%; display: inline;">
 											 <button type="button" class="btn btn-default" onclick="DaumPostcode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                      
@@ -63,7 +63,7 @@
 											<input type="text" class="form-control" id="extraAddress" placeholder="참고항목" style="width: 40%; display: inline;">
   	                      				</div>
   	                      				<div class="form-group"> 
-											<input type="text" class="form-control" id="area" name="area" value="${company.area }" style="width: 50%; display: inline;">
+											<input type="hidden" class="form-control" id="area" name="area" value="${company.area }" style="width: 50%; display: inline;">
   	                      				</div>
   	                      				<!-- 주소 종료 -->
   	                      				 <div class="row justify-content-end">

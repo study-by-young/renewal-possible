@@ -20,9 +20,7 @@
                      javaType="com.yedam.possable.app.member.domain.MemberVO"/>
     </resultMap>
     <sql id="criteria">
-        <trim prefix="(" suffix=")" prefixOverrides="OR">
-            <foreach collection="typeArr" item="type">
-                <trim prefix="OR">
+        <trim  prefixOverrides="and">
                     <choose>
                         <when test="type == 'N'.toString()">
                             NAME LIKE '%' || #{keyword} || '%'
@@ -39,7 +37,21 @@
                         <when test="type == 'S'.toString()">
                             STATUS LIKE '%' || #{keyword} || '%'
                         </when>
-
+                    </choose>
+        </trim>
+    </sql>
+    
+     <sql id="checkCriteria">
+        <trim prefix="(" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'Y'.toString()">
+                            STATUS LIKE '%' || 'PST01' || '%'
+                        </when>
+                        <when test="type == 'D'.toString()">
+                            STATUS LIKE '%' || 'PST03' || '%'
+                        </when>
                     </choose>
                 </trim>
             </foreach>
@@ -110,7 +122,9 @@
 
     <!-- 업체 승인 리스트 -->
     <select id="companyList" resultType="CompanyVO">
-        SELECT
+     SELECT SEQ, NAME, POSTAL, CMPN_NUM, ADDR1, ADDR2, AREA, TEL, STATUS
+	FROM 
+        (SELECT
         /*+ INDEX_DESC(COMPANY IDX_COMPANY) */
         ROWNUM RN, SEQ,
         NAME,
@@ -123,12 +137,13 @@
         STATUS
         FROM COMPANY
         <where>
-            <include refid="criteria">
-            </include>
+            <include refid="criteria"/>
+            <include refid="checkCriteria"/>
             <![CDATA[
-            AND STATUS = 'PST01' OR STATUS = 'PST03'
+            AND (STATUS = 'PST01' OR STATUS = 'PST03')
             AND ROWNUM <= #{pageNum} * #{amount} ]]>
-        </where>
+        </where>)
+        WHERE RN > (#{pageNum} - 1) * #{amount}
     </select>
 
     <!-- 업체 한건-->

@@ -56,23 +56,12 @@
 										<input type="hidden" class="form-control" name='memSeq' value='<c:out value="${comRegList.memSeq}"/>' readonly="readonly">
 										
 										<div class="form-group">
-											<h5 class="font-weight-bold"><label>번호</label></h5>
-											<input type="text" class="form-control" name='seq' value='<c:out value="${report.seq}"/>'readonly="readonly">
+											<input type="hidden" class="form-control" name='seq' value='<c:out value="${report.seq}"/>'readonly="readonly">
 										</div>
-										
-										<div class="form-group">
-											<h5 class="font-weight-bold"><label>제목</label></h5>
-											<input type="text" class="form-control" name='title' value='<c:out value="${report.title}"/>' readonly="readonly">
-										</div>
-											
-												<div class="form-group">
-													<h5 class="font-weight-bold"><label>내용</label></h5>
-													<input type="text" class="form-control" name='content' value='<c:out value="${report.content}"/>' readonly="readonly">
-												</div>
-										
+																			
 										<div class="form-group">
 											<h5 class="font-weight-bold"><label>타겟</label></h5> 
-											<input type="text" class="form-control" name='target' value='<c:out value="${report.target}"/>' readonly="readonly">
+											<a href="${pageContext.request.contextPath}/community/course/view?seq=${report.target}"><input type="text" class="form-control" name='target' value='<c:out value="${report.target}"/>' readonly="readonly" style="color:red"></a>
 										</div>
 										
 										<div class="form-group">
@@ -93,12 +82,7 @@
 										</div>
 										</div>
 										
-										<div class="col-md-6">
-										<div class="form-group">
-											<h5 class="font-weight-bold"><label>수정일자</label></h5>
-											<input class="form-control" name='uptDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${report.uptDate }"/>' readonly="readonly">						
-										</div>
-										</div>
+										
 										</div>
 										<div align="right">
 										<a class="btn btn-primary" id="list_btn" href="${pageContext.request.contextPath}/admin/maintenance/report">목록</a>
