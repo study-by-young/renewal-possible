@@ -17,45 +17,129 @@
     -moz-border-radius: 10px;
     border-radius: 10px;
 }
-
 </style>
-<!-- <div class="btc_tittle_main_wrapper">
+<div class="btc_tittle_main_wrapper">
     <div class="mb-3">
         <div class="page-header page-header-dark bg-primary-600">
             <div class="container py-2">
                 <div class="page-header-content header-elements-inline">
                     <div class="page-title">
-                        <h1 class="font-weight-bold">회원 정보 수정</h1>
+                        <h1 class="font-weight-bold">마이페이지</h1>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div> -->
+</div>
 <!-- x blog main and sidebar Wrapper Start -->
 <div class="x_blog_sidebar_main_wrapper float_left padding_tb_100">
    <div class="container">
       <div class="row">
+      
+      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+            <div class="x_blog_right_side_wrapper float_left">
+               <div class="row">
+				<%-- <sec:authentication property=""/> --%>
+                  <div class="col-md-12">
+					<div class="card card-body text-center">
+						<a href="#" class="d-inline-block mb-3" style="margin-top: 20px;">
+							<img src="${pageContext.request.contextPath}/resources/images/avatar.jpg" class="rounded-round" width="150" height="150" alt="">
+						</a>
+						<div class="card-header bg-transparent h2">
+							<sec:authorize access="isAuthenticated()">
+								<a class="menu-button" href="${pageContext.request.contextPath}/mypage/dashboard"><sec:authentication
+								   property="principal.name" />님</a>
+								<input type="hidden" name="${_csrf.parameterName }"
+									   value="${_csrf.token }">
+							</sec:authorize>
+						</div>
+						<div class="card-header h5" style="padding-top: 10px;padding-bottom: 10px;padding-right: 10px;padding-left: 10px;">
+							<ul class="nav nav-sidebar" data-nav-type="accordion">
+                            	<c:if test="${member.author eq 'ROLE_USER'}">
+                              		<li class="nav-item"><i class="fa fa-building pr-2 mb-0" ></i><a
+                                 		href="${pageContext.request.contextPath}/mypage/chngRole">업체 전환 신청하기 </a></li>
+							  	</c:if>
+							  	<c:if test="${member.author eq 'ROLE_COMPANY'}">
+                              		<li class="nav-item"><i class="fa fa-building pr-2 mb-0" ></i><a
+                                 		href="${pageContext.request.contextPath}/company/dashboard">업체페이지로 이동 </a></li>
+							  	</c:if>
+                           	</ul>
+                       </div>
+					</div>
+                  </div>
+                  <div class="col-md-12">
+				  	<div class="card mb-2">
+						<div class="card-header bg-transparent header-elements-inline">
+							<span class="text-uppercase font-size-sm font-weight-semibold">메뉴</span>
+							<div class="header-elements">
+								<div class="list-icons">
+			                		<a class="list-icons-item" data-action="collapse"></a>
+		                		</div>
+	                		</div>
+						</div>
+						<div class="card-body p-0">
+							<ul class="nav nav-sidebar nav-tabs-vertical" data-nav-type="accordion">
+								<li class="nav-item h5">
+									<a href="${pageContext.request.contextPath}/mypage/editProfile" class="nav-link text-grey-700 h6"><i class="icon-googleplus5"></i>회원정보 수정</a>
+								</li>
+								<li class="nav-item">
+									<a href="${pageContext.request.contextPath}/mypage/estimate" class="nav-link text-grey-700 h6"><i class="icon-portfolio"></i>견적관리</a>
+								</li>
+								<li class="nav-item">
+									<a href="${pageContext.request.contextPath}/mypage/rent" class="nav-link text-grey-700 h6"><i class="icon-compose"></i>렌트관리</a>
+								</li>
+								<li class="nav-item">
+									<a href="${pageContext.request.contextPath}/mypage/community" class="nav-link text-grey-700 h6"><i class="icon-collaboration"></i>커뮤니티 관리</a>
+								</li>
+								<li class="nav-item">
+									<a href="${pageContext.request.contextPath}/mypage/qna" class="nav-link text-grey-700 h6"><i class="icon-files-empty"></i>나의 문의</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+                  </div>
+                  <div class="col-md-12">
+                  	<div class="card card-body text-center">
+						<div class="mb-3">
+							<h3 class="font-weight-semibold mb-0 mt-1">고객센터</h3>
+						</div>
+						<a class="d-inline-block mb-3" >
+							<img src="${pageContext.request.contextPath}/resources/images/cs_icon_b2.png" class="rounded-round" width="150" height="150" alt="">
+						</a>
+						<div class="mb-3">
+							<h4 class="font-weight-semibold mb-0 mt-1">고객센터 이용안내</h4>
+							<h2 class="d-block text-muted"><strong>1544-2460</strong></h2>
+							<span class="d-block text-muted">평일 09:00~17:50</span>
+							<span class="d-block text-muted">(점심 12:30~13:40)</span>
+						</div>	
+						<button class="btn btn-block btn-primary"type="button" id="custom-button">1:1 상담하러 가기</button>
+					</div>
+                  </div>
+                  <div class="col-md-12">
+                  </div>
+               </div>
+            </div>
+         </div> <!-- 사이드바 종료 -->
+         
          <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
             <div class="x_blog_left_side_wrapper float_left">
                <div class="row">
                   <div class="col-md-12">
                      <div class="lr_bc_first_box_main_wrapper">
-					
                         <!-- 메뉴 -->
-                         <ul class="nav nav-tabs nav-tabs-solid bg-light">
-							<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/dashboard"  data-toggle=""class="nav-link " >홈</a></li>
-							<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/editProfile"  data-toggle="tab ${pageContext.request.contextPath}/mypage/editProfile" class="nav-link " >회원정보수정</a></li>
-							<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/estimate" class="nav-link" >견적관리</a></li>
-							<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/rent" class="nav-link" >렌트관리</a></li>
-							<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/community" class="nav-link" >커뮤니티관리</a></li>
-							<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/qna" class="nav-link" >나의문의</a></li>
-						</ul>
-
+                         <%-- <ul class="nav nav-tabs nav-tabs-bottom border-bottom-0 border-top-0 ">
+							<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/dashboard"  class="nav-link">홈</a></li>
+							<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/editProfile"  class="nav-link">회원정보수정</a></li>
+							<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/estimate" data-toggle="nav_link" class="nav-link">견적관리</a></li>
+							<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/rent" class="nav-link" >렌트관리</a></li>
+							<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/community" class="nav-link" >커뮤니티관리</a></li>
+							<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/qna" class="nav-link" >나의문의</a></li>
+						</ul> --%>
                         <!-- 렌트현황,후기,여행코스 제목 누르면 관련 페이지로 이동 -->
                         <div class="col-md-12">
+                        
                            <div class="blog_single_comment_heading">
-                              <h4><a href="${pageContext.request.contextPath}/rentHistory">렌트내역</a></h4>
+                              <h4><a href="">렌트내역</a></h4>
                            </div>
                               <div class="dash">
                                  <table class="table">
@@ -125,94 +209,7 @@
          </div>
 
          <!-- 사이드바 -->
-         <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-            <div class="x_blog_right_side_wrapper float_left">
-               <div class="row">
-				<%-- <sec:authentication property=""/> --%>
-                  <div class="col-md-12">
-                     <div
-                        class="jp_rightside_job_categories_wrapper jp_rightside_job_categories_wrapper2">
-                        
-                        <div>
-                        <br><br>
-                           <div align="center">
-                              <img style="border-radius: 50%;"   
-                                 src="${pageContext.request.contextPath}/resources/images/comment_img1.jpg"
-                                 alt="comment_img" class="img-responsive img-circle" />
-                           </div>
-                           <br>
-                           <div align="center">
-                           <h3>
-								<sec:authorize access="isAuthenticated()">
-									<a class="menu-button" href="#"><sec:authentication
-										property="principal.name" />님</a>
-									<input type="hidden" name="${_csrf.parameterName }"
-										value="${_csrf.token }">
-								</sec:authorize>
-
-							</h3>
-                           </div>
-                           
-                        </div>
-                        <div class="jp_rightside_job_categories_content">
-                           <ul>
-                              <li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
-                                 href="#">예약완료 </a></li>
-                              <li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
-                                 href="#">쿠폰함 </a></li>
-                            
-                              <c:if test="${member.author eq 'ROLE_USER'}">
-                              <li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
-                                 href="${pageContext.request.contextPath}/mypage/chngRole">업체전환 </a></li>
-							  </c:if>
-							
-							  <c:if test="${member.author eq 'ROLE_COMPANY'}">
-                              <li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
-                                 href="${pageContext.request.contextPath}/company/dashboard">업체페이지로 이동 </a></li>
-							  </c:if>
-                           </ul>
-                            
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-md-12">
-                     <div
-                        class="jp_rightside_job_categories_wrapper jp_rightside_job_categories_wrapper2">
-                        <div >
-                        <br><br>
-                        <div align="center">
-                           <h4>고객센터</h4>
-                           <br>
-                           <div>
-                              <img style="border-radius: 50%;"
-                                 src="${pageContext.request.contextPath}/resources/images/comment_img1.jpg"
-                                 alt="comment_img" class="img-responsive img-circle" />
-                           </div>
-                           <br>
-                           <div align="center">
-                              <h3>1544-1544</h3>
-                           </div>
-                           <hr>
-                        </div>
-                        </div>
-                        <br>
-                        <div align="center">
-                        <h4>카카오톡 1:1 상담</h4>
-                        <br>
-                           <div>
-                              <img style="border-radius: 50%;"
-                                 src="${pageContext.request.contextPath}/resources/images/comment_img1.jpg"
-                                 alt="comment_img" class="img-responsive img-circle" />
-                           </div>
-                        </div>
-                        
-                        <br>
-                        <div class="jp_rightside_career_main_content"></div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
+         
       </div>
    </div>
 </div>
@@ -260,7 +257,7 @@
     }
   })();
   ChannelIO('boot', {
-    "pluginKey": "cca89d8e-722c-46c6-a330-10097ad5cd70"
+    "pluginKey": "cca89d8e-722c-46c6-a330-10097ad5cd70",
+    "customLauncherSelector": "#custom-button"
   });
 </script>
-<!-- End Channel Plugin -->	

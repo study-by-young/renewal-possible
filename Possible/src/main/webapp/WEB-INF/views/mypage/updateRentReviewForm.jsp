@@ -43,8 +43,27 @@
     border-radius: 5px;
     border: 0;
 }
+.nav-tabs-bottom .nav-link::after {
+		position: absolute; content:""; 
+		display: block; 
+		border-bottom: 2px solid #1E88E5; 
+		transition: width 350ms ease-in-out; 
+		left: auto; width: auto;} 
+.nav-tabs-bottom .nav-link:hover::after {width: 100%;  left: 0; } 
 </style>
-
+<div class="btc_tittle_main_wrapper">
+    <div class="mb-3">
+        <div class="page-header page-header-dark bg-primary-600">
+            <div class="container py-2">
+                <div class="page-header-content header-elements-inline">
+                    <div class="page-title">
+                        <h1 class="font-weight-bold">후기수정</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- x blog main and sidebar Wrapper Start -->
 <div class="x_blog_sidebar_main_wrapper float_left padding_tb_100">
     <div class="container">
@@ -54,19 +73,18 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="lr_bc_first_box_main_wrapper">
-
-                                <!-- 메뉴 -->
-                                <ul class="nav nav-tabs nav-tabs-solid bg-light">
-									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/dashboard"  data-toggle=""class="nav-link " >홈</a></li>
-									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/editProfile"  data-toggle="tab ${pageContext.request.contextPath}/mypage/editProfile" class="nav-link " >회원정보수정</a></li>
-									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/estimate" class="nav-link" >견적관리</a></li>
-									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/rent" class="nav-link" >렌트관리</a></li>
-									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/community" class="nav-link" >커뮤니티관리</a></li>
-									<li class="nav-item"><a href="${pageContext.request.contextPath}/mypage/qna" class="nav-link" >나의문의</a></li>
+	                             <!-- 메뉴 -->
+		                         <ul class="nav nav-tabs nav-tabs-bottom border-bottom-0 border-top-0 ">
+									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/dashboard"  class="nav-link">홈</a></li>
+									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/editProfile"  class="nav-link">회원정보수정</a></li>
+									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/estimate" data-toggle="nav_link" class="nav-link">견적관리</a></li>
+									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/rent" class="nav-link" >렌트관리</a></li>
+									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/community" class="nav-link" >커뮤니티관리</a></li>
+									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/qna" class="nav-link" >나의문의</a></li>
 								 </ul>
                                 <div class="col-md-12">
                                     <div class="blog_single_comment_heading">
-                                        <h4>후기 작성</h4>
+                                        <h4>후기 수정</h4>
                                     </div>
                                     <!-- 내역 -->
                                    	<div class="col-md-12">
