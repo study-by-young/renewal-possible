@@ -14,10 +14,10 @@ import com.yedam.possable.app.rent.mapper.PaymentMapper;
 public class PaymentServiceImpl implements PaymentService {
 
 	@Autowired PaymentMapper paymentMapper;
-	
+
 	@Override
 	public int paymentInsert(RentHistoryVO vo) {
-		return paymentMapper.paymentInsert(vo);
+		return paymentMapper.insertPayment(vo);
 	}
 
 	@Override
@@ -45,6 +45,6 @@ public class PaymentServiceImpl implements PaymentService {
 		return paymentMapper.readSeq(merchantUid);
 	}
 
-	
+
 
 }

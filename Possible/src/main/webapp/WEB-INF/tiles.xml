@@ -29,11 +29,8 @@
     </definition>
 
     <!-- 레이아웃 변경 페이지 설정-->
-    <definition name="rent/prm/*" extends="Template">
-        <put-attribute name="content" value="/WEB-INF/views/rent/prm/{1}.jsp" />
-    </definition>
-    <definition name="rent/comm/*" extends="Template">
-        <put-attribute name="content" value="/WEB-INF/views/rent/comm/{1}.jsp" />
+    <definition name="rent/*/*" extends="Template">
+        <put-attribute name="content" value="/WEB-INF/views/rent/{1}/{2}.jsp" />
     </definition>
     <definition name="home" extends="Template">
         <put-attribute name="content" value="/WEB-INF/views/home.jsp" />

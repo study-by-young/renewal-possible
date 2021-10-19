@@ -33,7 +33,7 @@ import lombok.extern.java.Log;
 
 @Log
 @Controller
-@RequestMapping("/payment/*")
+@RequestMapping("/payment")
 public class PaymentController {
 
 	@Autowired PaymentService paymentService;
@@ -45,15 +45,15 @@ public class PaymentController {
     	// 결제페이지로 이동할 때 차 정보, 멤버 정보 가지고 와야 한다.
         return "payment/payment";
     }
-    
+
 	// 결제 데이터 DB 입력
-    @PostMapping("/payment")
+    @PostMapping("/comm")
     @ResponseBody
-    public String payment(Model model, @RequestBody RentHistoryVO vo, RedirectAttributes rttr) {
-		paymentService.paymentInsert(vo);
-		return "payment/paymentFin";
+    public String payment(@RequestBody RentHistoryVO vo) {
+
+        return paymentService.paymentInsert(vo) != 0 ? "true" : "false";
     }
-    
+
     // 결제완료페이지로 이동(결제내역 조회)
     @GetMapping("/paymentFin")
     public String paymentFin(Model model, RentHistoryVO vo, CarVO carVo) {
@@ -63,49 +63,49 @@ public class PaymentController {
     	model.addAttribute("car", carService.getCar(carVo));
     	return "payment/paymentFin";
     }
-    
+
     // 결제내역 조회(마이페이지)
     @GetMapping("/rentHistory")
     public void rentHistory(Model model) {
     	model.addAttribute("list", paymentService.paymentList());
     }
 
-    // 결제취소 후 DB 수정(status 변경) 
+    // 결제취소 후 DB 수정(status 변경)
   /*    @GetMapping("/paymentCancel")
         public String paymentCancel(String uid, RedirectAttributes rttr) {
     	paymentService.paymentCancel(uid);
     	return "payment/rentHistory";
     } */
-    
-    
+
+
 	/*
 	 * // 결제취소 후 DB 수정(status 변경)
-	 * 
+	 *
 	 * @PutMapping("/paymentCancel/{uid}")
-	 * 
+	 *
 	 * @ResponseBody public String paymentCancel(@PathVariable String uid,
 	 * RedirectAttributes rttr) { paymentService.paymentCancel(uid); return
 	 * "redirect:/payment/rentHistory"; }
 	 */
 
-    
+
 	// 결제 검증을 위한 코드 (미구현, 테스트 중)
 	private IamportClient api;
-	
+
 	public PaymentController() {
     	// REST API 키와 REST API secret 를 아래처럼 순서대로 입력한다.
 		this.api = new IamportClient("5643461465743291","f1f4beff20f76010dfe7c6a4a6ac2d966c1b416c995750927a96f195bbfab4748ab148b64c6adb26");
 	}
-		
+
 	@ResponseBody
 	@RequestMapping(value="/verifyIamport/{imp_uid}")
 	public IamportResponse<Payment> paymentByImpUid(
 			Model model
 			, Locale locale
 			, HttpSession session
-			, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException {	
+			, @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException {
 			return api.paymentByImpUid(imp_uid);
-	}	
+	}
 
 
 	@RequestMapping(value="/orderCompleteMobile", produces = "application/text; charset=utf8", method = RequestMethod.GET)
@@ -115,13 +115,13 @@ public class PaymentController {
 			, Model model
 			, Locale locale
 			, HttpSession session) throws IamportResponseException, IOException {
-		
+
 		IamportResponse<Payment> result = api.paymentByImpUid(imp_uid);
-		
+
 		// 결제 가격과 검증결과를 비교한다.
 		if(result.getResponse().getAmount().compareTo(BigDecimal.valueOf(100)) == 0) {
 			System.out.println("검증통과");
 		}
-	}	
-	    
+	}
+
 }
