@@ -3,34 +3,59 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
+<style>
+	ul {
+		list-style: none;
+	}
+	
+	li {
+		float: left;
+	}
+	
+	li:last-child {
+		float: none;
+	}
+	
+	.card-header+.card-footer {
+		border-bottom: 0px;
+	}
+	
+	.card-footer {
+		background-color: white;
+	}
+</style>
+
 <div class="container">
-	<div class="lr_bc_first_box_img_cont_wrapper">
-		<h2>${notice.title}</h2>
-		<ul>
-			<li><i class="fa fa-calendar"></i>&nbsp; <a>${notice.writer}</a></li>
-			<li><i class="fa fa-user-o"></i>&nbsp; <a>${notice.genDate}</a></li>
-			<li><i class="fa fa-comments-o"></i>&nbsp; <a>${notice.views}</a></li>
-		</ul>
-		<p>${notice.content}</p>
-	</div>
-	<div class="lr_bc_first_box_img_cont_wrapper" align="right">
-		<button class="btn btn-primary" type="button" id="list_btn">목록</button>
-		<button class="btn btn-dark" type="button" id="update_btn">수정</button>
-		<button id="deleteBtn" type="button" class="btn btn-dark">삭제</button>
-	</div>
-	<form id="intoForm"
-		action="${pageContext.request.contextPath}/notice/update" method="get">
-		<input type="hidden" id="seq" name="seq"
-			value='<c:out value="${notice.seq}"/>'> <input type="hidden"
-			id="pageNum" name="pageNum" value='<c:out value="${cri.pageNum}"/>'>
-		<input type="hidden" id="amount" name="amount"
-			value='<c:out value="${cri.amount}"/>'>
-	</form>
-	<div class="form-group"><br>
-	    <!-- 첨부파일 -->
-	    <c:forEach var="attach" items="${notice.attachList}">
-	       <p>첨부파일: <a href="download?name=${attach.name}">${attach.orgName}</a></p>
-	    </c:forEach>
+	<div class="card" style="margin-top: 50px; padding: 20px;">
+		<div class="card-header lr_bc_first_box_img_cont_wrapper">
+			<h2 style="font-weight: 700;">${notice.title}</h2>
+			<ul style="padding-left: 5px;">
+				<li><i class="fa fa-user"></i>&nbsp; <a>${notice.writer}</a></li>
+				<li>&nbsp;&nbsp; <i class="fa fa-calendar"></i>&nbsp; <a><fmt:formatDate value="${notice.genDate}" pattern="yy년 MM월 dd일" /></a></li>
+				<li>&nbsp;&nbsp; <i class="fa fa-eye"></i>&nbsp; <a>${notice.views}</a></li>
+			</ul>
+			<div class="form-group">
+			    <!-- 첨부파일 -->
+			    <c:forEach var="attach" items="${notice.attachList}">
+			       <p><i class="fa fa-download" style="size: 12px; padding-left: 5px;"></i>&nbsp;첨부파일: <a href="download?name=${attach.name}">${attach.orgName}</a></p>
+			    </c:forEach>
+	    	</div>
+	    	<hr>
+			<div class="card-body">${notice.content}</div>
+		</div>
+		<div class="card-footer lr_bc_first_box_img_cont_wrapper" align="right" style="border-bottom: 0px;">
+			<button class="btn btn-primary" type="button" id="list_btn">목록</button>
+			<button class="btn btn-dark" type="button" id="update_btn">수정</button>
+			<button id="deleteBtn" type="button" class="btn btn-dark">삭제</button>
+		</div>
+		<form id="intoForm"
+			action="${pageContext.request.contextPath}/notice/update" method="get">
+			<input type="hidden" id="seq" name="seq"
+				value='<c:out value="${notice.seq}"/>'> <input type="hidden"
+				id="pageNum" name="pageNum" value='<c:out value="${cri.pageNum}"/>'>
+			<input type="hidden" id="amount" name="amount"
+				value='<c:out value="${cri.amount}"/>'>
+		</form>
     </div>
 	
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"

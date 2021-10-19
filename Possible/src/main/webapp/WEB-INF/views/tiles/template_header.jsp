@@ -44,7 +44,7 @@
 				<li class="nav-item dropdown">
 					<a href="#" class="navbar-nav-link dropdown-toggle text-dark" data-toggle="dropdown">커뮤니티</a>
 					<div class="dropdown-menu">
-						<a href="${pageContext.request.contextPath}/community/notice" class="dropdown-item"> 공지사항</a>
+						<a href="${pageContext.request.contextPath}/notice/list" class="dropdown-item"> 공지사항</a>
 						<a href="${pageContext.request.contextPath}/community/course" class="dropdown-item"> 여행코스</a>
 						<a href="${pageContext.request.contextPath}/community/tour" class="dropdown-item"> 여행지</a>
 						<a href="${pageContext.request.contextPath}/qna/list" class="dropdown-item"> 1:1 문의</a>

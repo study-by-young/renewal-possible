@@ -81,12 +81,14 @@ tr:hover {
 							class="list-icons-item" data-action="remove"></a>
 					</div>
 				</div>
-
-				<div class="custom-input">
-					<form id="actionForm"
-						action="${pageContext.request.contextPath}/notice/list"
-						method="get">
-						<select name="type" class="select">
+			</div>
+			
+			<div class="custom-input" style="padding: 20px; padding-top: 0px;">
+				<form id="actionForm"
+					action="${pageContext.request.contextPath}/notice/list"
+					method="get">
+					<div style="display: inline-flex; width: 12%;">
+						<select name="type" class="select select-wrapper">
 							<option
 								<c:out value="${empty pageMaker.cri.type ? 'selected':''}"/>>선택</option>
 							<option value="T"
@@ -94,17 +96,17 @@ tr:hover {
 							<option value="C"
 								<c:out value="${pageMaker.cri.type eq 'C' ? 'selected':''}"/>>내용</option>
 							<option value="TC"
-								<c:out value="${pageMaker.cri.type eq 'TC' ? 'selected':''}"/>>제목
-								or 내용</option>
-						</select> &nbsp; 
-						<input class="input" name="keyword" value="${pageMaker.cri.keyword}"> 
-						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> 
-						<input type="hidden" name="amount" value="${param.getOrDefault("amount", pagination.cri.amount)}">&nbsp;
-						<button class="custom-btn btn-primary" onclick="$('[name=pageNum]').val(1)">검색</button>
-					</form>
-				</div>
-
+								<c:out value="${pageMaker.cri.type eq 'TC' ? 'selected':''}"/>>제목 or 내용</option>
+						</select> &nbsp;
+					</div>
+					<input class="input" name="keyword" value="${pageMaker.cri.keyword}"> 
+					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> 
+					<input type="hidden" name="amount" value="${param.getOrDefault("amount", pagination.cri.amount)}">&nbsp;
+					<button class="custom-btn btn-primary" onclick="$('[name=pageNum]').val(1)">검색</button>
+				</form>
 			</div>
+			
+			
 			<div class="table-responsive">
 				<table class="table table-striped">
 					<thead>
