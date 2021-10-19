@@ -16,6 +16,14 @@
         color:#4f5dec;
         border: 1px solid;
     }
+.nav-tabs-bottom .nav-link::after {
+		position: absolute; content:""; 
+		display: block; 
+		border-bottom: 2px solid #1E88E5; 
+		transition: width 350ms ease-in-out; 
+		left: auto; width: auto;} 
+.nav-tabs-bottom .nav-link:hover::after {width: 100%;  left: 0; } 
+    
 </style>
 
 
@@ -28,18 +36,15 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="lr_bc_first_box_main_wrapper">
-                                <!-- 메뉴 -->
-                                <div class="lr_bc_first_box_img_cont_wrapper">
-                                    <ul>
-                                      <li><a href="${pageContext.request.contextPath}/mypage/dashboard">홈</a></li>
-		                              <li><a href="${pageContext.request.contextPath}/mypage/editProfile">회원정보수정</a></li>
-		                              <li><a href="${pageContext.request.contextPath}/mypage/estimate">견적관리</a></li>
-		                              <li><a href="${pageContext.request.contextPath}/mypage/rent">렌트관리</a></li>
-		                              <li><a href="${pageContext.request.contextPath}/mypage/community">커뮤니티관리</a></li>
-		                              <li><a href="${pageContext.request.contextPath}/mypage/qna">나의문의</a></li>
-                                    </ul>
-                                </div>
-                                <br> <br> <br>
+                               <!-- 메뉴 -->
+		                         <ul class="nav nav-tabs nav-tabs-bottom border-bottom-0 border-top-0 ">
+									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/dashboard"  class="nav-link">홈</a></li>
+									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/editProfile"  class="nav-link">회원정보수정</a></li>
+									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/estimate" data-toggle="nav_link" class="nav-link">견적관리</a></li>
+									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/rent" class="nav-link" >렌트관리</a></li>
+									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/community" class="nav-link" >커뮤니티관리</a></li>
+									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/qna" class="nav-link" >나의문의</a></li>
+								 </ul>
 								<div class="col-md-12">
                                     <div class="blog_single_comment_heading">
                                         <h4>프리미엄 견적 신청 상세정보</h4>

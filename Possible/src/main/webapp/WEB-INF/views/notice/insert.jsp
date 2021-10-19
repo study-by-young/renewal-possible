@@ -1,22 +1,88 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<style>
+	.card-header+.card-footer {
+		border-bottom: 0px;
+	}
+	
+	.card-footer {
+		background-color: white;
+		border-top: 0px;
+	}
+	
+	input[type=file] {
+	    display: inline;
+	    width: 20%;
+	}
+	
+	.btn {
+		padding: .4rem .65rem;
+	}
+	
+	.input_title {
+		width: 100%;
+		height: 50px;
+		border: 1px solid lightgray;
+		padding: 10px 8px;
+		border-radius: 5px;
+	}
+	
+	.card {
+    margin-bottom: 3rem;
+    }
+</style>
+
 <div class="x_contact_title_main_wrapper float_left padding_tb_100">
 	<div class="container">
-		<form id="insertForm" name="insertForm" role="form"
-			action="${pageContext.request.contextPath}/notice/insert"
-			method="post" enctype="multipart/form-data">
-			<div class="row">
-				<div class="col-md-12">
-					<div
-						class="x_offer_car_heading_wrapper x_offer_car_heading_wrapper_contact float_left">
-						<h3>공지사항 등록</h3>
+		<div class="card" style="margin-top: 50px; padding: 20px;">
+			<form id="insertForm" name="insertForm" role="form"
+				action="${pageContext.request.contextPath}/notice/insert"
+				method="post" enctype="multipart/form-data">
+				<div class="row">
+					<div class="col-lg-12 col-md-12">
+						<div class="card-header">
+							<div class="card-header col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-top: 0px; padding-left: 0px;">
+								<div class="contect_form1">
+									<h2 style="font-weight: 600;">공지사항 등록</h2>
+								</div>
+							</div>
+							<div class="card-header col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px 0px;">
+								<div class="contect_form1">
+									<input class="input_title" type="text" name="title" placeholder="제목을 입력해주세요." required="required">
+								</div>
+							</div>
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="contect_form2">
+									<input type="hidden" name="writer" placeholder="writer" value="admin" readonly="readonly">
+								</div>
+							</div>
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px; padding-right: 0px;">
+								<div class="contect_form4">
+									<textarea name="content" id="content" class="ckeditor" required="required"></textarea>
+								</div>
+								<br>
+							</div>
+						</div>
+						<div class="form-group" style="padding-left: 20px; padding-right: 20px;">
+							<input type="file" class="form-control" id="uploadFile" name="uploadFile" multiple="multiple">
+							<button type="button" id="uploadBtn" class="btn btn-default">첨부파일 등록</button>
+						</div>
+						<ul id="uploaded" style="list-style: none;"></ul>
+						<input type="hidden" id="noticeSeq" value="${file.noticeSeq}">
+						<div class="card-footer col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+							align="right">
+							<button id="insertBtn" type="button" class="btn btn-primary">등록</button>
+							<button type="button" class="btn btn-dark"
+								onclick="location.href='list?pageNum=${cri.pageNum}&amount=${cri.amount}'">목록</button>
+						</div>
 					</div>
 				</div>
+			</form>
 				<div
 					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="contect_form1">
-						<input type="text" name="title" placeholder="제목 무조끈 *"
+						<input type="text" name="title" placeholder="제목 *"
 							required="required">
 					</div>
 				</div>
@@ -44,19 +110,14 @@
 						onclick="location.href='list?pageNum=${cri.pageNum}&amount=${cri.amount}'">목록</button>
 				</div>
 			</div>
-		</form>
 		<div class="form-group">
 			<label>첨부파일</label><input type="file" class="form-control" id="uploadFile" name="uploadFile" multiple="multiple">
 			<button type="button" id="uploadBtn" class="btn btn-default">첨부파일 등록</button>
 		</div>
-		<ul id="uploaded"></ul>
-		<input type="hidden" id="noticeSeq" value="${file.noticeSeq}">
 	</div>
 </div>
 
 <script>
-	/* CKEDITOR.instances.content.getData() */
-
 	// ckeditor 유효성 검사 (작동안함ㅠ)
 	$("#insertBtn").on("click", function() {
 		check();
@@ -127,16 +188,16 @@
 
 						str += "<li "
           				str += "data-path='" + obj.uploadPath + "'data-name='" + obj.name + "' data-orgname='" + obj.orgName+"' data-type='" + obj.image + "' ><div>";
-						str += "<span>" + obj.orgName + "</span>";
+						str += "<span>" + obj.orgName + "</span>&nbsp;&nbsp;";
 						str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type='file'"; 
-         				str += "class='btn btn-warning btn-circle'><i class='fa fa-times'></i></button><br>";
+         				str += "class='btn btn-primary btn-circle'><i class='fa fa-times'></i></button><br>";
 						// str += "<img src='../resources/img/attach.png'></a>";
 						str += "</div>";
 						str + "</li>";
 					}
 					
 					$("#uploaded").html(str);
-					alert("file uploaded");
+					alert("첨부파일이 등록되었습니다.");
 				},
 				error: function(reject){
 	            	console.error(reject);
@@ -158,7 +219,7 @@
 		})
 
 		$("#uploaded").on("click", "button", function(e) {
-			if (confirm("Remove this file?")) {
+			if (confirm("이 파일을 삭제하시겠습니까?")) {
 				var targetLi = $(this).closest("li");
 				targetLi.remove();
 			}

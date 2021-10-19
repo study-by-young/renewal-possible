@@ -17,4 +17,6 @@ public interface ReportService {
   	public ReportVO getReport(ReportVO vo);
   	
   	public int insert(ReportVO vo);
+  	
+  	public int reportCount(ReportVO vo);
 }

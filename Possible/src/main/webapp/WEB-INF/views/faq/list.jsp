@@ -44,10 +44,9 @@
  --%>
 
 <script type="text/javascript">
-
-	function check(tag){
+	function check(tag) {
 		console.log($(tag).children().text());
-		
+
 		var tab = $(tag).children().text();
 		/* $.ajax({
 			type : 'GET',
@@ -88,8 +87,6 @@
 			}
 		})
 	}); */
-	
-	
 </script>
 
 
@@ -164,7 +161,6 @@
 	<div style="margin-top: 50px;">
 		<h2>FAQ</h2>
 		<br>
-
 		<div class="custom-input">
 			<form id="actionForm"
 				action="${pageContext.request.contextPath}/faq/list" method="get">
@@ -179,12 +175,32 @@
 					onclick="$('[name=pageNum]').val(1)">검색</button>
 			</form>
 		</div>
+		<!-- Light navbar demo -->
+		<div class="mb-4">
+			<div
+				class="navbar navbar-expand-xl navbar-light bg-light navbar-component rounded">
+				<div class="text-center d-xl-none w-100">
+					<button type="button" class="navbar-toggler dropdown-toggle"
+						data-toggle="collapse" data-target="#navbar-demo2-mobile">
+						<i class="icon-unfold mr-2"></i> Light navbar component
+					</button>
+				</div>
 
-
-
+				<div class="navbar-collapse collapse" id="navbar-demo2-mobile">
+					<ul id="category" class="nav navbar-nav tab">
+						<li class="nav-item tabmenu"><a href="#"
+							class="navbar-nav-link active">대여안내</a></li>
+						<li class="nav-item tabmenu" id="tab2"><a href="#" class="navbar-nav-link">인수/반납</a></li>
+						<li class="nav-item tabmenu" id="tab3"><a href="#" class="navbar-nav-link">자차보험</a></li>
+						<li class="nav-item tabmenu" id="tab4"><a href="#" class="navbar-nav-link">취소/환불</a></li>
+					</ul>
+					<div id="tabContent"></div>
+				</div>
+			</div>
+		</div>
 
 		<!-- 메뉴 -->
-		<div class="lr_bc_first_box_img_cont_wrapper">
+<!-- 		<div class="lr_bc_first_box_img_cont_wrapper">
 			<ul id="category" class="tab">
 				<li class="tabmenu">대여안내</li>
 				<li id="tab2" class="tabmenu">인수/반납</li>
@@ -192,7 +208,7 @@
 				<li id="tab4" class="tabmenu">취소/환불</li>
 			</ul>
 			<div id="tabContent"></div>
-		</div>
+		</div> -->
 
 		<div class="lr_bc_first_box_img_cont_wrapper categoryContent"></div>
 
@@ -235,71 +251,82 @@
 </script> -->
 
 <script>
-	
-	$("#category").on("click","li", function(){
+	$("#category").on("click", "li", function() {
 		$.ajax({
 			type : 'GET',
 			url : 'category',
-			data : {category : $(this).text()},
+			data : {
+				category : $(this).text()
+			},
 			dataType : 'json',
 			success : function(datas) {
- 				str = "";
-				for (i=0; i < datas.length; i++) {
+				str = "";
+				for (i = 0; i < datas.length; i++) {
 					str += makeLi(datas[i]);
 					$(".categoryContent").html(str);
+					acc();
 					console.log(str);
-				} 
+				}
 			},
 			error : function() {
 				alert("error");
 			}
 		})
 	});
+
 	function makeLi(data) {
-	      return '<div class="lr_bc_first_box_img_cont_wrapper">'
-	      + '<button class="accordion">'+data.title+'</button>'
-	      + '<div class="panel">'
-	      + '<p>'+data.content+'</p>'
-	      + '<div class="lr_bc_first_box_img_cont_wrapper" align="right">'
-	      + '<button class="btn btn-dark" type="button" onclick="location.href=update?seq='+data.seq+'">수정</button>'
-	      + '<button data-seq="'+data.seq+'" id="deleteBtn'+data.seq+'" type="button" class="btn btn-dark">삭제</button>'
-	      + '<p></div></div></div>'
-	      /* '<div class="col-md-6">'
-          + '<div class="card mb-2"> <a class="text-default collapsed" data-toggle="collapse" href="update?seq='+ data.seq +'">
-          + '<div class="card-header"><h6 class="card-title"><i class="icon-help mr-2 text-slate"></i>'+ data.title + '</h6></div></a>'
-          + '<div id="question'+ data.seq +'" class="collapse"><div class="card-body">'+ data.content +'</div></div></div></div>'  */
+		return '<div class="lr_bc_first_box_img_cont_wrapper">'
+				+ '<button class="accordion">'
+				+ data.title
+				+ '</button>'
+				+ '<div class="panel">'
+				+ '<p>'
+				+ data.content
+				+ '</p>'
+				+ '<div class="lr_bc_first_box_img_cont_wrapper" align="right">'
+				+ '<button class="btn btn-dark" type="button" onclick="location.href=update?seq='
+				+ data.seq
+				+ '">수정</button>'
+				+ '<button data-seq="'+data.seq+'" id="deleteBtn'+data.seq+'" type="button" class="btn btn-dark">삭제</button>'
+				+ '<p></div></div></div>'
+		/* '<div class="col-md-6">'
+		+ '<div class="card mb-2"> <a class="text-default collapsed" data-toggle="collapse" href="update?seq='+ data.seq +'">
+		+ '<div class="card-header"><h6 class="card-title"><i class="icon-help mr-2 text-slate"></i>'+ data.title + '</h6></div></a>'
+		+ '<div id="question'+ data.seq +'" class="collapse"><div class="card-body">'+ data.content +'</div></div></div></div>'  */
 	}
-		
-	var acc = document.getElementsByClassName("accordion");
 
-	for (var i = 0; i < acc.length; i++) {
+	function acc() {
+		/* 아코디언이,,,,,안,,,,,,ㅇ,,,,안열려요,,,,,,,,,,,,,,,,,,,,,,,,, */
+		var acc = document.getElementsByClassName("accordion");
 
-		acc[i].onclick = function() {
-			// 클릭이 일어났을 때 기존에 열려 있던 아코디언을 접는다. (1개의 아코디언만 열리게)
-			for (var j = 0; j < acc.length; j++) {
-				// 버튼 상태에 입혀진 active 라는 클래스를 지운다.
-				acc[j].classList.remove("active");
-				// 버튼 다음에 있는 div 콘텐츠 높이를 0으로 만든다. == 아코디언을 접는다.
-				if (this !== acc[j]) {
-					acc[j].nextElementSibling.style.maxHeight = null;
+		for (var i = 0; i < acc.length; i++) {
+
+			acc[i].onclick = function() {
+				// 클릭이 일어났을 때 기존에 열려 있던 아코디언을 접는다. (1개의 아코디언만 열리게)
+				for (var j = 0; j < acc.length; j++) {
+					// 버튼 상태에 입혀진 active 라는 클래스를 지운다.
+					acc[j].classList.remove("active");
+					// 버튼 다음에 있는 div 콘텐츠 높이를 0으로 만든다. == 아코디언을 접는다.
+					if (this !== acc[j]) {
+						acc[j].nextElementSibling.style.maxHeight = null;
+					}
 				}
-			}
 
-			this.classList.toggle("active");
-			var panel = this.nextElementSibling;
-			if (panel.style.maxHeight) {
-				this.classList.remove("active");
-				panel.style.maxHeight = null;
-			} else {
-				panel.style.maxHeight = panel.scrollHeight + "px";
-			}
+				this.classList.toggle("active");
+				var panel = this.nextElementSibling;
+				if (panel.style.maxHeight) {
+					this.classList.remove("active");
+					panel.style.maxHeight = null;
+				} else {
+					panel.style.maxHeight = panel.scrollHeight + "px";
+				}
 
+			}
 		}
 	}
 
 	$(document).ready(
 
-			
 			function() {
 				var insertResult = '<c:out value="${insertResult}"/>';
 				var updateResult = '<c:out value="${updateResult}"/>';
@@ -345,7 +372,4 @@
 					return;
 				}
 			})
-			
-
-	
 </script>

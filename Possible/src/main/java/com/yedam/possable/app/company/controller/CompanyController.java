@@ -81,8 +81,8 @@ public class CompanyController {
         HttpSession session = request.getSession();
         session.setAttribute("cmpnSeq", companyVO.getSeq());
 
-        model.addAttribute("salesList", rentHistoryService.getCompanySales(companyVO.getSeq()));
-        model.addAttribute("todayList",rentHistoryService.getCompanytodayCar(companyVO.getSeq()));
+        model.addAttribute("salesList", rentHistoryService.getLatestCompanySales(companyVO.getSeq()));
+        model.addAttribute("todayList",rentHistoryService.getCompanyTodayCar(companyVO.getSeq()));
         model.addAttribute("reviewList",rentReviewService.getCompanyReivewList(companyVO.getSeq()));
         return "company/dashboard";
     }
@@ -90,11 +90,11 @@ public class CompanyController {
     @ResponseBody
     @GetMapping("salesList")
     public  String salesList( Authentication authentication, Locale locale, Model model,  CompanyVO vo) {
-    	
+
     	MemberVO loginUser = memberService.getLoginMember(authentication);
     	vo = companyService.getCompanyByMemSeq(loginUser);
     	Gson gson = new Gson();
-		List<RentHistoryVO> list = rentHistoryService.getCompanySales(vo.getSeq());
+        HashMap<String, Object> list = rentHistoryService.getLatestCompanySales(vo.getSeq());
 		return gson.toJson(list);
 	}
 
@@ -126,8 +126,6 @@ public class CompanyController {
             r = "redirect:/company/editInfo?cmpnSeq="+vo.getSeq();
         }
         return r;
-        
-        
     }
 
     // 업체 삭제 처리
@@ -167,7 +165,7 @@ public class CompanyController {
 
             carList.add(voMap);
         }
-        
+
         int total = carService.comTotalCount(cri, cmpnSeq);
         model.addAttribute("pageMaker", new PageVO(cri, total));
         model.addAttribute("companyCarList", carList);
@@ -191,16 +189,16 @@ public class CompanyController {
        String fuel = codeService.getCodeByValue(vo.getFuel()).getName();
 
        String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
-       
+
        model.addAttribute("car", vo);
        model.addAttribute("brand", brand);
        model.addAttribute("model2", model2);
        model.addAttribute("segment", segment);
        model.addAttribute("trim", trim);
        model.addAttribute("fuel", fuel);
-       
+
        model.addAttribute("carOpt", carService.getCarOptions(vo));
-       
+
        model.addAttribute("opt", codeService.getCodesByParentCode(carOptCode));
        return "company/carView"; // JSP에서 company 시퀀스 넘겨줘야함
     }
@@ -238,7 +236,7 @@ public class CompanyController {
          uploadFile.transferTo(new File(root_path + attach_path + fileName));
       }
       vo.setImg1(fileName);
-      
+
         int result = carService.insertCompanyCar(vo);
         rttr.addFlashAttribute("result", result);
 
@@ -276,20 +274,20 @@ public class CompanyController {
     // 업체 렌트카 수정 처리
     @PostMapping("/car/update")
     public String updateCar(CarVO vo, CarOptionVO optVO, CompanyVO comVO, Model model, RedirectAttributes rttr, @RequestParam Long cmpnSeq, @RequestParam("options") String[] optionsArr){
-   	
+
     	String r = "";
-    	
+
     	comVO.setSeq(cmpnSeq);
     	optVO.setCarSeq(vo.getSeq());
-    	
+
     	System.out.println("======="+vo);
-   	
+
     	int result = carService.updateCarPrice(vo);
     	rttr.addFlashAttribute("result", result);
-    	
+
     	int result1 = carService.deleteOption(optVO);
     	rttr.addFlashAttribute("result1", result1);
-    	
+
     	 int result2 = 0;
 
          for(String options : optionsArr) {
@@ -298,7 +296,7 @@ public class CompanyController {
          	 System.out.println(optVO);
          	 result2 = carService.insertCarOptions(optVO);
          	}
-         
+
          rttr.addFlashAttribute("result2", result2);
          r = "redirect:/company/car?cmpnSeq="+cmpnSeq;
 
@@ -309,12 +307,12 @@ public class CompanyController {
 //    @ResponseBody
 //    @PostMapping("deleteOpt")
 //    public boolean deleteOption(CarOptionVO optVO, RedirectAttributes rttr) {
-//    	
+//
 //    	int result = carService.deleteOption(optVO);
 //		if(result == 1) {
-//			rttr.addFlashAttribute("result", "success");			
+//			rttr.addFlashAttribute("result", "success");
 //		}
-//		
+//
 //		return result==1 ? true : false;
 //    }
 
@@ -406,10 +404,10 @@ public class CompanyController {
     // 렌트 내역 리스트
     @GetMapping("/rent")
     public String rentHistoryList(Model model, @RequestParam Long cmpnSeq, @ModelAttribute("cri") Criteria cri){
-    	
+
     	int total = rentHistoryService.getTotalCount(cri,cmpnSeq);
     	System.out.println("total=============="+total);
-    	model.addAttribute("rentHistoryList", rentHistoryService.getRentHistoryList(cri,cmpnSeq));
+    	model.addAttribute("rentHistoryList", rentHistoryService.getRentHistoryListByCmpnSeq(cri,cmpnSeq));
     	model.addAttribute("pageMaker", new PageVO(cri, total));
         System.out.println("rentCri========" + cri);
 
@@ -419,7 +417,7 @@ public class CompanyController {
     // 렌트 내역 상세
     @GetMapping("/rent/view")
     public String rentHistoryView(RentHistoryVO vo, Model model){
-    	model.addAttribute("rentHistory", rentHistoryService.getRentHistory(vo));
+    	model.addAttribute("rentHistory", rentHistoryService.getRentHistory(vo.getSeq()));
     	return "company/rentHistoryView";
     }
 

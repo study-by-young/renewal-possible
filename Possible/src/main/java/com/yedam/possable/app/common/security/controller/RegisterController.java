@@ -68,7 +68,7 @@ public class RegisterController {
     }
 
     //아이디 중복 체크
-    @RequestMapping("/checkId")
+    @RequestMapping("/idChk")
     @ResponseBody
     public int checkId(MemberVO vo) {
         int r = memberService.idChk(vo);

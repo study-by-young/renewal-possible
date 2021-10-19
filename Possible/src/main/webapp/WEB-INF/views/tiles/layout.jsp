@@ -29,6 +29,7 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="${pageContext.request.contextPath}/resources/js/plugins/editors/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f27bcc6bda802ee242aa34341608b2c6"></script>
+    
     <!-- common -->
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/animate.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/bootstrap.min.css"/>
@@ -47,7 +48,6 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/responsive.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/colors.min.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/layout.min.css">
-
     <!-- custom js -->
 <%--    <script src="${pageContext.request.contextPath}/resources/js/own-menu.js"></script>--%>
 

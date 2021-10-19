@@ -132,6 +132,13 @@ response.setContentType("text/html; charset=utf-8");
 </form>
 <script>
 
+	var markers = [];
+	var marker;
+	var markersIdx = [];
+	var markerIdx = 0;
+	var lines = [];
+	var polyline;
+
 	$("#plusPeople").on("click", function() {
 		$("#people").text(Number($("#people").text())+1);	
 	});
@@ -194,11 +201,6 @@ response.setContentType("text/html; charset=utf-8");
 										}
 									})
 						});
-		var markers = [];
-		var marker;
-		var markersIdx = [];
-		var markerIdx = 0;
-		var polyline;
 
 		var forCheck = [];
 		$("#tourList")
@@ -274,7 +276,8 @@ response.setContentType("text/html; charset=utf-8");
 
 									// 지도에 선을 표시합니다 
 									polyline.setMap(map);
-
+									lines.push(polyline);
+									//console.log(lines);
 								}
 							} else {
 								alert("이미 등록된 장소입니다.");
@@ -284,7 +287,6 @@ response.setContentType("text/html; charset=utf-8");
 
 		$("#selectList").on("click", "li", function() {
 			forCheck.splice(forCheck.indexOf($(this).next().next().val()),1);
-			console.log(forCheck);
 			var targetIdx = $(this).attr("data-markerIdx");
 			console.log(targetIdx);
 			$(this).next().next().remove();
@@ -292,9 +294,44 @@ response.setContentType("text/html; charset=utf-8");
 			$(this).remove();
 
 			markers[targetIdx].setMap(null);
-			console.log('list : ' + markersIdx);
-			console.log('idx : ' + markersIdx.indexOf(targetIdx));
-			polyline.setMap(null);
+			/* console.log('list : ' + markersIdx);
+			console.log('idx : ' + markersIdx.indexOf(targetIdx)); */
+			//polyline.setMap(null);
+			for (var l=0 ; l < lines.length ; l++) {
+				lines[l].setMap(null);
+			}
+			console.log(markers);
+ 			if (markers.length >= 2) {
+				for (var m=0 ; m < markers.length ; m++) {
+					var xy1 = markers[m]
+							.getPosition();
+					var xy2 = markers[m+1]
+							.getPosition();
+					var x1 = xy1.getLat();
+					var y1 = xy1.getLng();
+					var x2 = xy2.getLat();
+					var y2 = xy2.getLng();
+					// 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
+					var linePath = [
+							new kakao.maps.LatLng(x1, y1),
+							new kakao.maps.LatLng(x2, y2) ];
+	
+					// 지도에 표시할 선을 생성합니다
+					polyline = new kakao.maps.Polyline({
+						path : linePath, // 선을 구성하는 좌표배열 입니다
+						strokeWeight : 5, // 선의 두께 입니다
+						strokeColor : '#9999FF', // 선의 색깔입니다
+						strokeOpacity : 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+						strokeStyle : 'solid' // 선의 스타일입니다
+					});
+	
+					// 지도에 선을 표시합니다 
+					polyline.setMap(map);
+					lines.push(polyline);
+					console.log(lines);
+				}
+			} 
+			console.log(lines);
 		});
 	});
 

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yedam.possable.app.car.domain.CarVO;
+import com.yedam.possable.app.car.domain.InsuranceOptionVO;
 import com.yedam.possable.app.common.code.domain.BrandCodeVO;
 import com.yedam.possable.app.common.code.domain.CodeSubVO;
 import com.yedam.possable.app.common.code.domain.ModelCodeVO;
@@ -12,12 +13,17 @@ import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.member.domain.MemberVO;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 public class RentHistoryVO {
     private Long seq;
 	private String rentType; /* 구분 */
+    @JsonFormat(pattern = "yy/MM/dd")
+    @DateTimeFormat(pattern = "yy/MM/dd")
 	private Date startDate; /* 시작일자 */
+    @JsonFormat(pattern = "yy/MM/dd")
+    @DateTimeFormat(pattern = "yy/MM/dd")
 	private Date endDate; /* 끝일자 */
     private String receiver;
     private Long price;
@@ -30,34 +36,20 @@ public class RentHistoryVO {
     private String takePlaceDetail;
     private String merchantUid;
     private String payMethod;
-    
+    private String phone;
+    private Date birth;
+    private String email;
+    private String insuranceCode;
     private Long carSeq;
     private Long memSeq;
     private Long cmpnSeq;
-    private String review; 
-    
-    
-    private String carBrand;
-    private String carModel;
-    private String carSegment;
-    private String cmpnName;
-    private String cmpnTel;
-    
+
+    private String review;
+
     // 211014 추가
     private CarVO carVO;
     private MemberVO memberVO;
     private CompanyVO companyVO;
-    private BrandCodeVO brandCodeVO;
-    private CodeSubVO segmentCodeVO;
-    private ModelCodeVO modelCodeVO;
-    private TrimCodeVO trimCodeVO;
-    
-    
-    private String phone;
-    private Date birth;
-    private String email;
-    private String receiverB;
-    private String phoneB;
-    private Date birthB;
-    private String emailB;
+    private InsuranceOptionVO insuranceCodeVO;
+
 }

@@ -29,8 +29,8 @@
     </definition>
 
     <!-- 레이아웃 변경 페이지 설정-->
-    <definition name="rent/prm/*" extends="Template">
-        <put-attribute name="content" value="/WEB-INF/views/rent/prm/{1}.jsp" />
+    <definition name="rent/*/*" extends="Template">
+        <put-attribute name="content" value="/WEB-INF/views/rent/{1}/{2}.jsp" />
     </definition>
     <definition name="home" extends="Template">
         <put-attribute name="content" value="/WEB-INF/views/home.jsp" />
@@ -41,7 +41,22 @@
     <definition name="member/*" extends="Template">
         <put-attribute name="content" value="/WEB-INF/views/member/{1}.jsp" />
     </definition>
-
+    <definition name="notice/*" extends="Template">
+        <put-attribute name="content" value="/WEB-INF/views/notice/{1}.jsp" />
+    </definition>
+    <definition name="faq/*" extends="Template">
+        <put-attribute name="content" value="/WEB-INF/views/faq/{1}.jsp" />
+    </definition>
+    <definition name="qna/*" extends="Template">
+        <put-attribute name="content" value="/WEB-INF/views/qna/{1}.jsp" />
+    </definition>
+    <definition name="community/tour/*" extends="Template">
+        <put-attribute name="content" value="/WEB-INF/views/community/tour/{1}.jsp" />
+    </definition>
+	<definition name="mypage/*" extends="Template">
+        <put-attribute name="content" value="/WEB-INF/views/mypage/{1}.jsp" />
+    </definition>
+	
     <!-- 어드민 및 업체 관리 페이지 설정 -->
     <definition name="admin/*" extends="adminTemplate">
         <put-attribute name="content" value="/WEB-INF/views/admin/{1}.jsp" />
@@ -55,6 +70,8 @@
     <definition name="company/*/*" extends="adminTemplate">
         <put-attribute name="content" value="/WEB-INF/views/company/{1}/{2}.jsp" />
     </definition>
+    
+    
 
 	<definition name="*/*" extends="mainTemplate">
 		<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />

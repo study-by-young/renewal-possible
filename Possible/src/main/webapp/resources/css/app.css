@@ -1,3 +1,10 @@
+.card {
+    border-radius: 1rem;
+}
+.card:not([class*=border-]) .card-header{
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
 .navbar-brand {min-width:150px;}
 
 .carousel-item {
@@ -63,6 +70,7 @@
     overflow: hidden;
 }
 .main-score-bg {
+    display:inline-block;
     width:100px;
     height: 15px;
     background: url("../images/review-star-bg.png") no-repeat left/100px;
@@ -72,6 +80,19 @@
     display: block;
     height: 15px;
     background: url("../images/review-star-fill.png") no-repeat left/100px;
+}
+
+.rentList-score-bg {
+    display:inline-block;
+    width:70px;
+    height: 15px;
+    background: url("../images/review-star-bg.png") no-repeat left/70px;
+}
+
+.rentList-score-bg .rentList-score {
+    display: block;
+    height: 15px;
+    background: url("../images/review-star-fill.png") no-repeat left/70px;
 }
 
 
@@ -111,5 +132,10 @@
 /* pagination */
 .pagination-flat .page-item.active .page-link,
 .page-item.active .page-link {
+    background-color: #6495ed;
+}
+
+.nav-tabs-solid .nav-item.show .nav-link.active, .nav-tabs-solid .nav-link.active {
+    color: #fff;
     background-color: #6495ed;
 }

@@ -1,5 +1,6 @@
 package com.yedam.possable.app.rent.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -11,28 +12,38 @@ import com.yedam.possable.app.rent.domain.RentHistoryVO;
 public interface RentHistoryMapper {
 
 	//업체 렌트내역 리스트
-    public List<RentHistoryVO> getRentHistoryList(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq);
+    public List<RentHistoryVO> getRentHistoryListByCmpnSeq(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq);
 
     //업체 렌트내역 한건
-    public RentHistoryVO getRentHistory(RentHistoryVO vo);
+    public RentHistoryVO getRentHistory(Long seq);
 
-    public List<RentHistoryVO> rentHistoryList();
+    //어드민 전용 렌트 내역 리스트
+    public List<RentHistoryVO> getRentHistoryList();
 
     // 마이페이지 회원 렌트내역 리스트 조회
-    public List<RentHistoryVO> MyPageRentHistoryList(@Param("cri") Criteria cri, @Param("seq")Long seq);
+    public List<RentHistoryVO> getRentHistoryListForMyPage(@Param("cri") Criteria cri, @Param("seq")Long seq);
 
-    // 마이페이지 렌트내역 회원 단건
-    public RentHistoryVO getRentHistoryInMypage(Long seq);
-	
-    //전체수 검사
-	public int getHistoryCount();
+    //전체 데이터 건수
+    public int getTotalCount(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq);
+
+    //전체 데이터 건수
+    public int getTotalCount();
 
 	//수익
-	public List<RentHistoryVO> getCompanySales(Long cmpnSeq);
+	public HashMap<String, Object> getLatestCompanySales(Long cmpnSeq);
 
 	//투데이 렌트카 리스트
-	public List<RentHistoryVO> getCompanytodayCar(Long cmpnSeq);
-	
-	//전체 데이터 건수
-    public int getTotalCount(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq);
+	public List<RentHistoryVO> getCompanyTodayCar(Long cmpnSeq);
+
+    // 결제정보 DB 삽입
+    public int insertRentHistory(RentHistoryVO vo);
+
+    // 회원 현재 진행중인 렌트 내역 조회
+    public RentHistoryVO getRentHistoryForMypage(Long seq);
+
+    // 결제 취소 처리
+    public int refundRentHistory(String merchantUid);
+
+    // 주문번호로 내역 조회
+    public RentHistoryVO getRentHistoryByMUid(String merchantUid);
 }

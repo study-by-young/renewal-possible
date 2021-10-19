@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            <form name="searchCar" action="commonRent/list" onsubmit="">
+            <form name="searchCar" action="commonRent" onsubmit="">
                 <div class="row p-3">
                     <div class="col-md-3">
                         <h6>지역</h6>

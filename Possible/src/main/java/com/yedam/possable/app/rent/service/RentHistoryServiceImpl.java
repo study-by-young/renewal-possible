@@ -1,5 +1,6 @@
 package com.yedam.possable.app.rent.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -17,50 +18,60 @@ public class RentHistoryServiceImpl implements RentHistoryService {
 	@Autowired RentHistoryMapper rentHistoryMapper;
 
 	@Override
-	public List<RentHistoryVO> getRentHistoryList(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq) {
-		return rentHistoryMapper.getRentHistoryList(cri, cmpnSeq);
+	public List<RentHistoryVO> getRentHistoryListByCmpnSeq(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq) {
+		return rentHistoryMapper.getRentHistoryListByCmpnSeq(cri, cmpnSeq);
 	}
 
 	@Override
-	public RentHistoryVO getRentHistory(RentHistoryVO vo) {
+	public RentHistoryVO getRentHistory(Long seq) {
+		return rentHistoryMapper.getRentHistory(seq);
+	}
+
+	@Override
+	public int getTotalCount() {
+		return rentHistoryMapper.getTotalCount();
+	}
+
+	@Override
+	public List<RentHistoryVO> getRentHistoryList() {
+		return rentHistoryMapper.getRentHistoryList();
+	}
+
+	@Override
+	public List<RentHistoryVO> getRentHistoryListForMyPage(@Param("cri") Criteria cri, @Param("seq")Long seq) {
+		return rentHistoryMapper.getRentHistoryListForMyPage(cri, seq);
+	}
+
+	@Override
+	public RentHistoryVO getRentHistoryForMypage(Long seq) {
+		return rentHistoryMapper.getRentHistoryForMypage(seq);
+	}
+
+    @Override
+    public int refundRentHistory(String merchantUid) {
+        return rentHistoryMapper.refundRentHistory(merchantUid);
+    }
+
+    @Override
+    public RentHistoryVO getRentHistoryByMUid(String merchantUid) {
+        return rentHistoryMapper.getRentHistoryByMUid(merchantUid);
+    }
+
+    @Override
+	public HashMap<String, Object> getLatestCompanySales(Long cmpnSeq) {
+		return rentHistoryMapper.getLatestCompanySales(cmpnSeq);
+	}
+
+	@Override
+	public List<RentHistoryVO> getCompanyTodayCar(Long cmpnSeq) {
 		// TODO Auto-generated method stub
-		return rentHistoryMapper.getRentHistory(vo);
+		return rentHistoryMapper.getCompanyTodayCar(cmpnSeq);
 	}
 
-	@Override
-	public int getHistoryCount() {
-		// TODO Auto-generated method stub
-		return rentHistoryMapper.getHistoryCount();
-	}
-
-	@Override
-	public List<RentHistoryVO> rentHistoryList() {
-		return rentHistoryMapper.rentHistoryList();
-	}
-
-	@Override
-	public List<RentHistoryVO> MyPageRentHistoryList(@Param("cri") Criteria cri, @Param("seq")Long seq) {
-		// TODO Auto-generated method stub
-		return rentHistoryMapper.MyPageRentHistoryList(cri, seq);
-	}
-
-	@Override
-	public RentHistoryVO getRentHistoryInMypage(Long seq) {
-		// TODO Auto-generated method stub
-		return rentHistoryMapper.getRentHistoryInMypage(seq);
-	}
-
-	@Override
-	public List<RentHistoryVO> getCompanySales(Long cmpnSeq) {
-		// TODO Auto-generated method stub
-		return rentHistoryMapper.getCompanySales(cmpnSeq);
-	}
-
-	@Override
-	public List<RentHistoryVO> getCompanytodayCar(Long cmpnSeq) {
-		// TODO Auto-generated method stub
-		return rentHistoryMapper.getCompanytodayCar(cmpnSeq);
-	}
+    @Override
+    public int insertRentHistory(RentHistoryVO vo) {
+        return rentHistoryMapper.insertRentHistory(vo);
+    }
 
 	@Override
 	public int getTotalCount(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq) {

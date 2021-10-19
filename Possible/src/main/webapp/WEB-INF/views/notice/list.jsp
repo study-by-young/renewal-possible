@@ -60,28 +60,32 @@ tr:hover {
 	background: #007bff;
 }
 
+.col-12 {
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
 </style>
 
 
 <div class="container">
 	<div style="margin-top: 50px;">
 		<!-- Striped rows -->
-		<div class="card">
+		<div class="card" style="padding: 20px 0px;">
 			<div class="card-header header-elements-inline">
-				<h2 class="card-title">공지사항</h2>
+				<h2 class="card-title" style="font-weight: 600; padding-left: 20px;">공지사항</h2>
 				<div class="header-elements">
-					<div class="list-icons">
+					<div class="list-icons" style="padding-right: 20px;">
 						<a class="list-icons-item" data-action="collapse"></a> <a
-							class="list-icons-item" data-action="reload"></a> <a
-							class="list-icons-item" data-action="remove"></a>
+							class="list-icons-item" data-action="reload"></a>
 					</div>
 				</div>
-
-				<div class="custom-input">
-					<form id="actionForm"
-						action="${pageContext.request.contextPath}/notice/list"
-						method="get">
-						<select name="type" class="select">
+			</div>
+			
+			<div class="custom-input" style="padding: 20px; padding-top: 0px;">
+				<form id="actionForm" action="${pageContext.request.contextPath}/notice/list" method="get">
+					<div style="display: inline-flex; width: 15%; padding-left: 20px;">
+						<select name="type" class="select select-wrapper">
 							<option
 								<c:out value="${empty pageMaker.cri.type ? 'selected':''}"/>>선택</option>
 							<option value="T"
@@ -89,26 +93,24 @@ tr:hover {
 							<option value="C"
 								<c:out value="${pageMaker.cri.type eq 'C' ? 'selected':''}"/>>내용</option>
 							<option value="TC"
-								<c:out value="${pageMaker.cri.type eq 'TC' ? 'selected':''}"/>>제목
-								or 내용</option>
-						</select> &nbsp; 
-						<input class="input" name="keyword" value="${pageMaker.cri.keyword}"> 
-						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> 
-						<input type="hidden" name="amount" value="${pageMaker.cri.amount}">&nbsp;
-						<button class="custom-btn btn-primary" onclick="$('[name=pageNum]').val(1)">검색</button>
-					</form>
-				</div>
-
+								<c:out value="${pageMaker.cri.type eq 'TC' ? 'selected':''}"/>>제목 or 내용</option>
+						</select> &nbsp;
+					</div>
+					<input class="input" name="keyword" value="${pageMaker.cri.keyword}"> 
+					<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> 
+					<input type="hidden" name="amount" value="${param.getOrDefault("amount", pagination.cri.amount)}">&nbsp;
+					<button class="custom-btn btn-primary" onclick="$('[name=pageNum]').val(1)">검색</button>
+				</form>
 			</div>
+			
+			
 			<div class="table-responsive">
 				<table class="table table-striped">
 					<thead>
 						<tr align="center">
 							<th class="col-1">글번호</th>
 							<th class="col-6">제목</th>
-							<th class="col-1">작성자</th>
 							<th>작성일</th>
-							<th>수정일</th>
 							<th class="col-1">조회수</th>
 						</tr>
 					</thead>
@@ -117,10 +119,7 @@ tr:hover {
 							<tr align="center" onclick="readBoard(${notice.seq})">
 								<td>${notice.seq}</td>
 								<td align="left">${notice.title}</td>
-								<td>${notice.writer}</td>
 								<td><fmt:formatDate value="${notice.genDate}"
-										pattern="yy-MM-dd" /></td>
-								<td><fmt:formatDate value="${notice.uptDate}"
 										pattern="yy-MM-dd" /></td>
 								<td>${notice.views}</td>
 							</tr>
@@ -133,7 +132,7 @@ tr:hover {
 	</div>
 
 	<!-- 페이징 -->
-	<div id="pageButton" style="margin-top: 20px">
+	<%-- <div id="pageButton" style="margin-top: 20px">
 		<ul class="custom-pagination">
 			<c:if test="${pageMaker.prev }">
 				<li class="page-item"><a
@@ -150,11 +149,12 @@ tr:hover {
 				<!-- <span aria-hidden="true">&laquo;</span> -->
 			</c:if>
 		</ul>
-	</div>
+	</div> --%>
+	<jsp:include page="/pagination"></jsp:include>
 
 	<div align="right">
 		<button type="button" class="btn btn-primary"
-			onclick="location.href='insert?pageNum=${cri.pageNum}&amount=${cri.amount}'">등록</button>
+			onclick="location.href='insert?pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}'">등록</button>
 	</div>
 
 
@@ -172,6 +172,9 @@ tr:hover {
 	<br>
 </div>
 <script>
+var pageNum = ${param.getOrDefault("pageNum",1)};
+var amount = ${param.getOrDefault("amount", pagination.cri.amount)};
+
 $(document).ready(function() {
 	var insertResult = '<c:out value="${insertResult}"/>';
 	var deleteResult = '<c:out value="${deleteResult}"/>';
@@ -212,6 +215,6 @@ $(function() {
 });
 
 function readBoard(seq){
-	location.href = 'get?seq='+seq+'&pageNum='+$('input[name="pageNum"]').val()+'&amount='+$('input[name="amount"]').val();
+	location.href = 'get?seq='+seq+'&pageNum='+pageNum+'&amount='+amount;
 }
 </script>
