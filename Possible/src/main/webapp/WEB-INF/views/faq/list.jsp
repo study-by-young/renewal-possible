@@ -161,7 +161,6 @@
 	<div style="margin-top: 50px;">
 		<h2>FAQ</h2>
 		<br>
-
 		<div class="custom-input">
 			<form id="actionForm"
 				action="${pageContext.request.contextPath}/faq/list" method="get">
@@ -176,12 +175,32 @@
 					onclick="$('[name=pageNum]').val(1)">검색</button>
 			</form>
 		</div>
+		<!-- Light navbar demo -->
+		<div class="mb-4">
+			<div
+				class="navbar navbar-expand-xl navbar-light bg-light navbar-component rounded">
+				<div class="text-center d-xl-none w-100">
+					<button type="button" class="navbar-toggler dropdown-toggle"
+						data-toggle="collapse" data-target="#navbar-demo2-mobile">
+						<i class="icon-unfold mr-2"></i> Light navbar component
+					</button>
+				</div>
 
-
-
+				<div class="navbar-collapse collapse" id="navbar-demo2-mobile">
+					<ul id="category" class="nav navbar-nav tab">
+						<li class="nav-item tabmenu"><a href="#"
+							class="navbar-nav-link active">대여안내</a></li>
+						<li class="nav-item tabmenu" id="tab2"><a href="#" class="navbar-nav-link">인수/반납</a></li>
+						<li class="nav-item tabmenu" id="tab3"><a href="#" class="navbar-nav-link">자차보험</a></li>
+						<li class="nav-item tabmenu" id="tab4"><a href="#" class="navbar-nav-link">취소/환불</a></li>
+					</ul>
+					<div id="tabContent"></div>
+				</div>
+			</div>
+		</div>
 
 		<!-- 메뉴 -->
-		<div class="lr_bc_first_box_img_cont_wrapper">
+<!-- 		<div class="lr_bc_first_box_img_cont_wrapper">
 			<ul id="category" class="tab">
 				<li class="tabmenu">대여안내</li>
 				<li id="tab2" class="tabmenu">인수/반납</li>
@@ -189,7 +208,7 @@
 				<li id="tab4" class="tabmenu">취소/환불</li>
 			</ul>
 			<div id="tabContent"></div>
-		</div>
+		</div> -->
 
 		<div class="lr_bc_first_box_img_cont_wrapper categoryContent"></div>
 
