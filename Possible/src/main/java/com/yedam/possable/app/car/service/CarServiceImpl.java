@@ -2,6 +2,7 @@ package com.yedam.possable.app.car.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -121,5 +122,23 @@ public class CarServiceImpl implements CarService {
 	public int updateCarOptions(CarOptionVO vo) {
 		// TODO Auto-generated method stub
 		return carMapper.updateCarOptions(vo);
+	}
+
+	@Override
+	public int updateCarPrice(CarVO vo) {
+		// TODO Auto-generated method stub
+		return carMapper.updateCarPrice(vo);
+	}
+
+	@Override
+	public int comTotalCount(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq) {
+		// TODO Auto-generated method stub
+		return carMapper.comTotalCount(cri, cmpnSeq);
+	}
+
+	@Override
+	public List<CarVO> getCompanyCriList(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq) {
+		// TODO Auto-generated method stub
+		return carMapper.getCompanyCriList(cri, cmpnSeq);
 	}
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yedam.possable.app.car.domain.CarVO;
+import com.yedam.possable.app.car.domain.InsuranceOptionVO;
 import com.yedam.possable.app.common.code.domain.BrandCodeVO;
 import com.yedam.possable.app.common.code.domain.CodeSubVO;
 import com.yedam.possable.app.common.code.domain.ModelCodeVO;
@@ -38,6 +39,7 @@ public class RentHistoryVO {
     private String phone;
     private Date birth;
     private String email;
+    private String insuranceCode;
     private Long carSeq;
     private Long memSeq;
     private Long cmpnSeq;
@@ -48,6 +50,6 @@ public class RentHistoryVO {
     private CarVO carVO;
     private MemberVO memberVO;
     private CompanyVO companyVO;
-
+    private InsuranceOptionVO insuranceCodeVO;
 
 }

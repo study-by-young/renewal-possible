@@ -57,10 +57,11 @@ public class AdminController {
     @GetMapping("/maintenance/member")
     public String memberList(Model model,
                              @ModelAttribute("cri") Criteria cri) {
-
+    	
         int total = memberService.getTotalCount(cri);
         model.addAttribute("pageMaker", new PageVO(cri, total));
         model.addAttribute("memberList", memberService.memberList(cri));
+        System.out.println("memCri========" + cri);
 
         return "admin/maintenance/memberList";
     }
@@ -161,12 +162,11 @@ public class AdminController {
             companyList.add(voMap);
         }
         
-        System.out.println("cri========" + cri);
         int total = companyService.getTotalCount(cri);
-        System.out.println(companyService.companyList(cri));
         model.addAttribute("pageMaker", new PageVO(cri, total));
         model.addAttribute("companyList",companyList);
         // model.addAttribute("status", status);
+        System.out.println("cri========" + cri);
 
         return "admin/maintenance/cnfmCompanyList";
     }

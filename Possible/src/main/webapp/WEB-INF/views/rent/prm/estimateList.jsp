@@ -31,23 +31,27 @@
         <div class="row">
             <div class="col-12">
                 <div class="x_carbooking_right_section_wrapper float_left">
-                    <div class="row">
-                        <div class="col-6 align-self-center">
-                            <span>총 ${pagination.total}건</span>
-                            <%--                            <div class="d-inline-block">--%>
-                            <%--                                <select class="select">--%>
-                            <%--                                    <option>Sort by Price</option>--%>
-                            <%--                                    <option>12$</option>--%>
-                            <%--                                    <option>13$</option>--%>
-                            <%--                                    <option>14$</option>--%>
-                            <%--                                </select>--%>
-                            <%--                            </div>--%>
-                        </div>
-                        <div class="col-6">
-                            <div class="text-right">
-                                <a class="btn btn-primary" href="estimate/register"><i class="icon-pencil7 align-baseline"></i> 견적 요청</a>
+                    <div class="card">
+                        <div class="card-body row">
+                            <div class="col-6 align-self-center">
+                                <span>총 ${pagination.total}건</span>
+                                <%--                            <div class="d-inline-block">--%>
+                                <%--                                <select class="select">--%>
+                                <%--                                    <option>Sort by Price</option>--%>
+                                <%--                                    <option>12$</option>--%>
+                                <%--                                    <option>13$</option>--%>
+                                <%--                                    <option>14$</option>--%>
+                                <%--                                </select>--%>
+                                <%--                            </div>--%>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-right">
+                                    <a class="btn btn-primary" href="estimate/register"><i class="icon-pencil7 align-baseline"></i> 견적 요청</a>
+                                </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-12">
                             <div class="x_car_book_tabs_content_main_wrapper my-4">
                                 <div class="row">

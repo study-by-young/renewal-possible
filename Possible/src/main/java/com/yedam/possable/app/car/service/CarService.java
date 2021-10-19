@@ -62,4 +62,13 @@ public interface CarService {
     public int updateCarOptions(CarOptionVO vo);
 
     public int getTotalCount(Criteria cri);
+    
+    //차 가격 수정
+    public int updateCarPrice(CarVO vo);
+    
+    //전체 데이터 건수
+    public int comTotalCount(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq);
+    
+    // 업체 차량 리스트 조회
+    public List<CarVO> getCompanyCriList(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq);
 }
