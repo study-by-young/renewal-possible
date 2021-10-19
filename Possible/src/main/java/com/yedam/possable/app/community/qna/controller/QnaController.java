@@ -1,6 +1,7 @@
 package com.yedam.possable.app.community.qna.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,9 @@ import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.community.qna.domain.QnaVO;
 import com.yedam.possable.app.community.qna.service.QnaService;
+import com.yedam.possable.app.member.domain.MemberVO;
+import com.yedam.possable.app.member.service.MemberService;
+import com.yedam.possable.app.member.service.MemberService;
 
 @Controller
 @RequestMapping("/qna/*")
@@ -20,6 +24,8 @@ public class QnaController {
 
 	@Autowired
 	QnaService qnaService;
+	@Autowired
+	MemberService memberService;
 	
 	@GetMapping("/list")
 	public void list(Model model
@@ -31,17 +37,23 @@ public class QnaController {
 	
 	@GetMapping("/get")
 	public void get(Model model, QnaVO vo
-				  , @ModelAttribute("cri") Criteria cri) {
+				  , @ModelAttribute("cri") Criteria cri, Authentication authentication) {
 		model.addAttribute("qna", qnaService.read(vo));
 		int total = qnaService.getTotalCount(cri);
 		model.addAttribute("pagination", new PageVO(cri, total));
+		
+		MemberVO loginUser = memberService.getLoginMember(authentication);
+		model.addAttribute("user", memberService.memberOneSelect(loginUser));
 	}
 	
 	@GetMapping("/insert")
-	public void insertForm(Model model, @ModelAttribute("cri") Criteria cri) {
+	public void insertForm(Model model, @ModelAttribute("cri") Criteria cri, Authentication authentication) {
 		
 		int total = qnaService.getTotalCount(cri);
 		model.addAttribute("pagination", new PageVO(cri, total));
+		
+		MemberVO loginUser = memberService.getLoginMember(authentication);
+		model.addAttribute("user", memberService.memberOneSelect(loginUser));
 		
 	}
 	
@@ -58,11 +70,14 @@ public class QnaController {
 	
 	@GetMapping("/update")
 	public void updateForm(Model model, QnaVO vo
-						 , @ModelAttribute("cri") Criteria cri) {
+						 , @ModelAttribute("cri") Criteria cri, Authentication authentication) {
 		model.addAttribute("qna", qnaService.read(vo));
 		
 		int total = qnaService.getTotalCount(cri);
 		model.addAttribute("pagination", new PageVO(cri, total));
+		
+		MemberVO loginUser = memberService.getLoginMember(authentication);
+		model.addAttribute("user", memberService.memberOneSelect(loginUser));
 	}
 	
 	@PostMapping("/update")
