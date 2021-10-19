@@ -19,7 +19,7 @@
 
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h6 class="card-title">업체정보수정</h6>
+						<h6 class="card-title"></h6>
 						<div class="header-elements">
 							
 						</div>
@@ -33,26 +33,24 @@
 									
 										<div class="row">
 											<input type="hidden" name='seq' value="${company.seq}">
-										   	<div class="form-group col-md-6 col-sm-3">
-											   	<label for="InputId">업체명*</label>
+										   	<div class="form-group col-md-12">
+											   	<h5 class="font-weight-bold"><label for="InputId">업체명*</label></h5>
 											    <input type="text" class="form-control"  id="name" name="name" value="${company.name }" readonly>
 											</div>   
 										</div>
 										<div class="row">
-											<div class="form-group col-md-6 col-sm-3">
-												<label for="InputId">사업자번호*</label>
+											<div class="form-group col-md-6">
+													<h5 class="font-weight-bold"><label for="InputId">사업자번호*</label></h5>
 												<input type="text" class="form-control"  id="cmpnNum" name="cmpnNum" value="${company.cmpnNum }" readonly> 
 											</div>
-										</div>
-										<div class="row">
-											<div class="form-group col-md-6 col-sm-3">
-												<label for="InputId">업체전화번호*</label>
+											<div class="form-group col-md-6">
+													<h5 class="font-weight-bold"><label for="InputId">업체전화번호*</label></h5>
 												<input type="text" class="form-control"  id="tel" name="tel" value="${company.tel }">
 											</div>
 										</div>
 										
 										<!-- 우편번호 Start -->
-                      						<label for="InputAddr">주소*</label>	
+                      							<h5 class="font-weight-bold"><label for="InputAddr">주소*</label></h5>
                         				<div class="form-group"> 
                         					<input type="text" class="form-control" id="postal" name="postal" value="${company.postal }" style="width: 30%; display: inline;">
 											 <button type="button" class="btn btn-default" onclick="DaumPostcode();"><i class="fa fa-search"></i> 우편번호 찾기</button>                      

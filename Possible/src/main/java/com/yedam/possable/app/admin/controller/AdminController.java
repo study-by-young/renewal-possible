@@ -44,14 +44,12 @@ public class AdminController {
     @Autowired
 	QnaService qnaService;
 
-	
-
     @GetMapping("/dashboard")
     public String dashboard(HttpSession session,Model model, @ModelAttribute("cri") Criteria cri) {
 
 		model.addAttribute("notice", noticeService.getList(cri));
 		model.addAttribute("comRegList", companyService.companyRegList());
-		model.addAttribute("list",qnaService.getList(cri));
+		model.addAttribute("qnaList", qnaService.getList(cri));
 		return "admin/dashboard";
     }
 
@@ -61,8 +59,8 @@ public class AdminController {
                              @ModelAttribute("cri") Criteria cri) {
 
         int total = memberService.getTotalCount(cri);
-        model.addAttribute("memberList", memberService.memberList(cri));
         model.addAttribute("pageMaker", new PageVO(cri, total));
+        model.addAttribute("memberList", memberService.memberList(cri));
 
         return "admin/maintenance/memberList";
     }
@@ -72,7 +70,7 @@ public class AdminController {
     public String memberView(Model model,
                              MemberVO vo,
                              @ModelAttribute("cri") Criteria cri) {
-        model.addAttribute("member", memberService.memberOneSelect(vo));
+        model.addAttribute("memberView", memberService.memberOneSelect(vo));
         return "admin/maintenance/memberView";
     }
 
@@ -98,8 +96,10 @@ public class AdminController {
 
     // 미승인 업체 리스트
     @GetMapping("/maintenance/company")
-    public String nonConfirmCompanyList(Model model){
-        model.addAttribute("comRegList", companyService.companyRegList());
+    public String nonConfirmCompanyList(Model model,  @ModelAttribute("cri") Criteria cri){
+    	int total = companyService.getTotalCount(cri);
+    	model.addAttribute("comRegList", companyService.companyRegList());
+    	model.addAttribute("pageMaker", new PageVO(cri, total));
         return "admin/maintenance/companyList";
     }
 
@@ -152,7 +152,7 @@ public class AdminController {
                                      @ModelAttribute("cri") Criteria cri){
         List<Map<String, Object>> companyList = new LinkedList<>();
         List<CompanyVO> voList = companyService.companyList(cri);
-
+        
         for(CompanyVO vo : voList) {
             Map<String, Object> voMap = new HashMap<>();
             String status = codeService.getCodeByValue(vo.getStatus()).getName();
@@ -160,12 +160,12 @@ public class AdminController {
             voMap.put("status", status);
             companyList.add(voMap);
         }
-
+        
         System.out.println("cri========" + cri);
         int total = companyService.getTotalCount(cri);
-        model.addAttribute("companyList",companyList);
         System.out.println(companyService.companyList(cri));
         model.addAttribute("pageMaker", new PageVO(cri, total));
+        model.addAttribute("companyList",companyList);
         // model.addAttribute("status", status);
 
         return "admin/maintenance/cnfmCompanyList";
@@ -173,22 +173,47 @@ public class AdminController {
 
     // 승인 업체 상세
     @GetMapping("/maintenance/confirmCompany/view")
-    public String confirmCompanyView(){
+    public String confirmCompanyView(Model model,CompanyVO vo){
+    	
+    	vo = companyService.companyOneSelect(vo);
+    	   
+        String status = codeService.getCodeByValue(vo.getStatus()).getName();
+
+        model.addAttribute("comRegList", vo);
+        model.addAttribute("status", status);
         return "admin/maintenance/cnfmCompanyView";
     }
 
     // 승인 업체 미승인 처리
-    @GetMapping("/maintenance/confirmCompany/ban")
-    public String banConfirmCompany(){
-        return "redirect:/maintenance/confirmCompany";
+    @PostMapping("/maintenance/confirmCompany/ban")
+    public String banConfirmCompany(CompanyVO vo,
+            RedirectAttributes attributes){
+    	  int result = companyService.companyRegDelete(vo);
+          if (result == 1) {
+              attributes.addFlashAttribute("result", "success");
+          }
+        return "redirect:/admin/maintenance/confirmCompany";
+    }
+    
+    // 승인 업체 다시 승인 처리
+    @PostMapping("/maintenance/confirmCompany/update")
+    public String updateCompany(CompanyVO vo,
+                                 @RequestParam("memSeq") Long memSeq,
+                                 RedirectAttributes attributes){
+        MemberVO memVo = new MemberVO();
+        memVo.setSeq(memSeq);
+        memVo.setAuthor("ROLE_COMPANY");
+        vo.setMemberVO(memVo);
+        memberService.authorUpdate(memVo);
+
+        int result = companyService.companyRegUpdate(vo);
+        if (result == 1) {
+            attributes.addFlashAttribute("result", "success");
+        }
+        return "redirect:/admin/maintenance/confirmCompany";
     }
 
-    // 승인 업체 정보 수정
-    @RequestMapping("/maintenance/confirmCompany/update")
-    @ResponseBody
-    public String updateConfimCompany(){
-        return "";
-    }
+  
 
     // 신고 리스트
     @GetMapping("/maintenance/report")

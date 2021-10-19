@@ -43,6 +43,29 @@
 					</div>
 				</div>
 			</div>
+
+
+			<div class="col-sm-12" style="padding-left: 2.5rem">
+				<div class="d-flex">
+					<div align="left">
+						<form id="actionForm" action="member" method="get">
+							<select name="type" class="select">
+								<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
+								<option value="I" ${pageMaker.cri.type =='I'? 'selected' : "" }>아이디</option>
+								<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>이름</option>
+								<option value="P" ${pageMaker.cri.type =='P'? 'selected' : "" }>전화번호</option>
+								<option value="A" ${pageMaker.cri.type =='P'? 'selected' : "" }>권한</option>
+							</select> <input class="input" name="keyword"
+								value="${pageMaker.cri.keyword }"> <input type="hidden"
+								name="pageNum" value="1"> <input type="hidden"
+								name="amount" value="${pageMaker.cri.amount }">
+							<button class="btn btn-primary"
+								onclick="$('[name=pageNum]').val(1)">Search</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<br>
 			<hr style="margin: 0px">
 			<div class="card-body" style="padding: 0px">
 				<div class="table-responsive">
@@ -54,7 +77,7 @@
 								<th>전화번호</th>
 								<th>이름</th>
 								<th>권한</th>
-								<th>상세보기</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -75,26 +98,7 @@
 			</div>
 			<hr style="margin: 0px">
 			<br>
-			<div class="col-sm-12">
-				<div class="d-flex align-items-center justify-content-center mb-2">
-					<div align="center">
-						<form id="actionForm" action="member" method="get">
-							<select name="type" class="select">
-								<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
-								<option value="I" ${pageMaker.cri.type =='I'? 'selected' : "" }>아이디</option>
-								<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>이름</option>
-								<option value="P" ${pageMaker.cri.type =='P'? 'selected' : "" }>전화번호</option>
-								<option value="A" ${pageMaker.cri.type =='P'? 'selected' : "" }>권한</option>
-							</select> <input class="input" name="keyword"
-								value="${pageMaker.cri.keyword }"> <input type="hidden"
-								name="pageNum" value="1"> <input type="hidden"
-								name="amount" value="${pageMaker.cri.amount }">
-							<button class="btn btn-primary"
-								onclick="$('[name=pageNum]').val(1)">Search</button>
-						</form>
-					</div>
-				</div>
-			</div>
+
 
 
 			<div class="col-sm-12">
@@ -120,11 +124,11 @@
 				</div>
 			</div>
 
+
+
 		</div>
 	</div>
 
-</div>
-</div>
 </div>
 <script>
 	$(function() {

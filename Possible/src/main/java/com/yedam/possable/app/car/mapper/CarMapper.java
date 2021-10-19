@@ -52,11 +52,20 @@ public interface CarMapper {
 
     public int getTotalCount(Criteria cri);
 
+    //옵션 수정
+    public int updateCarOptions(CarOptionVO vo);
+    
+    // 차량 조회
+    public CarVO getCar_map(CarVO vo);
 
+    // 업체 차량 리스트 조회
+    public List<CarVO> getCompanyCarList_map(CompanyVO vo);
+    
     //차량 옵션 삭제
     public int deleteOption(CarOptionVO vo);
 
     //차량 보험 삭제
     public int deleteIns(InsuranceOptionVO vo);
+
 }
 

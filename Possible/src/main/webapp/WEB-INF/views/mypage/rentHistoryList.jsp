@@ -69,7 +69,7 @@
                                     </div>
 									 <div class="x_car_book_tabs_content_main_wrapper my-4">
 									 	 <div class="row">
-									 	 ${historyList }
+									 	 ${reviewList[0].seq }
 									 	 	 <c:forEach var="est" items="${historyList}" varStatus="status">
 												<div class="premium_rent_list_item col-12">
 													<div class="card">
@@ -95,13 +95,17 @@
                                                     				 		<button class="refundBtn" id="refundBtn" type="button" value="${est.merchantUid}">취소하기</button>
                                                                 		 </c:if>
                                                                 		 </div>
+                                                                		 
                                                     				 	 <div class="col-lg-3" style="padding-left: 40px;">
 	                                                                		<c:if test="${est.review eq '2' }"><!-- /rent/view/updateReview -->
+                                                                		 <c:forEach var="review" items="${reviewList}" varStatus="status">
 		                                                    					<a  class="btn btn-sm" 
-		                                                    						href="rent/view/updateReview?seq=${est.seq}"
+		                                                    						href="rent/view/updateReview?seq=${review.seq}"
 		                                                            					style="background: #4f5dec; color: #ffffff; ">
 		                                                        						후기수정
 		                                                    					</a>
+		                                                    					
+		                                                    				</c:forEach>
 		                                                    			    </c:if>
 		                                                    				
 		                                                    				

@@ -5,6 +5,10 @@
   Time: 오전 10:57
   To change this template use File | Settings | File Templates.
 --%>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <style>
 .card-body {
     padding: 50px;
@@ -14,8 +18,6 @@
 	width: 500px;
 }
 </style>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- Main content -->
 <div class="content-wrapper">
 	<!-- Content area -->
@@ -189,8 +191,7 @@
 												</label>
 											</li>
 											
-												
-											   <li class="col-md-12 my-3">
+											 <%--   <li class="col-md-12 my-3">
                                                 <label>차량 옵션</label>
                                                 <hr class="my-2">
                                               <div class="row">
@@ -202,7 +203,23 @@
                                             </div>
                                         </c:forEach>
                                     </div>
-                                            </li>
+                                    </li> --%>
+                                    
+                                    <li class="col-md-12 my-3">
+                                                <label>차량 옵션</label>
+                                                <hr class="my-2">
+                                                <div class="x_slider_checkbox_bottom_filter_use">
+                                                    <c:forEach var="opt" items="${opt}" varStatus="status">
+                                                        <label class="pr-3">
+                                                        <input name="options" class="options" type="checkbox" value="${opt.code}" <c:if test="${fn:contains(carOpt,opt.code)}"> checked="checked" </c:if>>
+                                                        ${opt.name}</label>
+                                                    </c:forEach>
+                                                    <script>
+                                                   // $(".options").val
+                                                    </script>
+                                                </div>
+                                    </li>
+                                    
   										</ul>
 									</div>
 										</div>
@@ -305,6 +322,26 @@
 
     }
     
+    $.ajax({
+        type : "POST",
+        url  : "/sample.do",
+        contentType: "application/json",
+        dataType:"json",
+        data     : JSON.stringify(params)    
+    })
+    .done(function (data, textStatus, xhr) {
+    	   $.ajax({
+    	        type : "POST",
+    	        url  : "/sample.do",
+    	        contentType: "application/json",
+    	        dataType:"json",
+    	        data     : JSON.stringify(params)    
+    	    })
+    })
+    .fail(function(data, textStatus, errorThrown){
+        console.log("fail in get addr");
+        callback(data);
+    });
  
     
   
