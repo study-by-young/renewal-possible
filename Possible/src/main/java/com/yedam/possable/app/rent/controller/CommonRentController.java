@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.yedam.possable.app.car.domain.InsuranceOptionVO;
+import com.yedam.possable.app.rent.service.RentHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
@@ -25,7 +26,6 @@ import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.domain.RentReviewVO;
-import com.yedam.possable.app.rent.service.PaymentService;
 import com.yedam.possable.app.rent.service.RentReviewService;
 
 import lombok.extern.java.Log;
@@ -38,7 +38,7 @@ public class CommonRentController {
     @Autowired
     private CodeService codeService;;
     @Autowired
-    private PaymentService paymentService;
+    private RentHistoryService rentHistoryService;
     @Autowired
     private CarService carService;
     @Autowired
@@ -144,13 +144,20 @@ public class CommonRentController {
         return "rent/comm/carBook";
     }
 
+    // 결제 데이터 DB 입력
+    @PostMapping("/payment")
+    @ResponseBody
+    public String payment(@RequestBody RentHistoryVO vo) {
+        return rentHistoryService.insertRentHistory(vo) != 0 ? "true" : "false";
+    }
+
+
     // 렌트카 예약 완료
     @GetMapping("/view/bookCmpl")
-    public String bookComplete(Model model, RentHistoryVO vo, CarVO carVo){
-    	vo.setSeq(paymentService.readSeq(vo.getMerchantUid()));
-    	carVo.setSeq(vo.getCarSeq());
-    	model.addAttribute("rent", paymentService.paymentOneSelect(vo.getSeq()));
-    	model.addAttribute("car", carService.getCar(carVo));
+    public String bookComplete(Model model,
+                               @RequestParam("merchantUid") String mUid){
+    	RentHistoryVO rentHistoryVO = rentHistoryService.getRentHistoryByMUid(mUid);
+    	model.addAttribute("rent", rentHistoryVO);
     	return "rent/comm/bookComplete";
     }
 }

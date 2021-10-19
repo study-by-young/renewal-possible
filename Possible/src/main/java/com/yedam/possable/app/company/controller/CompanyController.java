@@ -79,8 +79,8 @@ public class CompanyController {
         session.setAttribute("cmpnSeq", companyVO.getSeq());
         System.out.println(companyVO.getSeq());
 
-        model.addAttribute("salesList", rentHistoryService.getCompanySales(companyVO.getSeq()));
-        model.addAttribute("todayList",rentHistoryService.getCompanytodayCar(companyVO.getSeq()));
+        model.addAttribute("salesList", rentHistoryService.getLatestCompanySales(companyVO.getSeq()));
+        model.addAttribute("todayList",rentHistoryService.getCompanyTodayCar(companyVO.getSeq()));
         model.addAttribute("reviewList",rentReviewService.getCompanyReivewList(companyVO.getSeq()));
         return "company/dashboard";
     }
@@ -89,7 +89,7 @@ public class CompanyController {
     @GetMapping("salesList")
     public  String salesList(Locale locale, Model model,  CompanyVO vo) {
 		Gson gson = new Gson();
-		List<RentHistoryVO> list = rentHistoryService.getCompanySales(vo.getSeq());
+        HashMap<String, Object> list = rentHistoryService.getLatestCompanySales(vo.getSeq());
 		return gson.toJson(list);
 	}
 
@@ -383,7 +383,7 @@ public class CompanyController {
     // 렌트 내역 리스트
     @GetMapping("/rent")
     public String rentHistoryList(Model model, @RequestParam Long cmpnSeq){
-    	model.addAttribute("rentHistoryList", rentHistoryService.getRentHistoryList(cmpnSeq));
+    	model.addAttribute("rentHistoryList", rentHistoryService.getRentHistoryListByCmpnSeq(cmpnSeq));
 
         return "company/rentHistoryList";
     }
@@ -391,7 +391,7 @@ public class CompanyController {
     // 렌트 내역 상세
     @GetMapping("/rent/view")
     public String rentHistoryView(RentHistoryVO vo, Model model){
-    	model.addAttribute("rentHistory", rentHistoryService.getRentHistory(vo));
+    	model.addAttribute("rentHistory", rentHistoryService.getRentHistory(vo.getSeq()));
     	return "company/rentHistoryView";
     }
 

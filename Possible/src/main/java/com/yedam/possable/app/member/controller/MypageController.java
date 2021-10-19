@@ -1,9 +1,6 @@
 	package com.yedam.possable.app.member.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,7 +26,6 @@ import com.yedam.possable.app.member.service.MemberService;
 import com.yedam.possable.app.rent.domain.EstimateHistoryVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 import com.yedam.possable.app.rent.domain.RentReviewVO;
-import com.yedam.possable.app.rent.service.PaymentService;
 import com.yedam.possable.app.rent.service.PremiumRentService;
 import com.yedam.possable.app.rent.service.RentHistoryService;
 import com.yedam.possable.app.rent.service.RentReviewService;
@@ -47,11 +43,9 @@ public class MypageController {
     @Autowired
     CodeService codeService;
     @Autowired
-    PaymentService paymentService;
-    @Autowired
     CarService carService;
     @Autowired
-    RentHistoryService rentHistory;
+    RentHistoryService rentHistoryService;
     @Autowired
     PremiumRentService premiumRentService;
     @Autowired
@@ -73,7 +67,7 @@ public class MypageController {
     	rentVO.setSeq(memVO.getSeq());
     	// model.addAttribute("myCourse", courseBoardService.getMyCourse(courseVO));
     	model.addAttribute("myCourse", courseBoardService.getList(cri));
-    	model.addAttribute("historyList", rentHistory.MyPageRentHistoryList(cri, rentVO.getMemSeq()));
+    	model.addAttribute("historyList", rentHistoryService.getRentHistoryListForMyPage(cri, rentVO.getMemSeq()));
     	return "mypage/dashboard";
     }
 
@@ -208,10 +202,10 @@ public class MypageController {
     	System.out.println("======="+rentReviewService.getRentReviewListByMember(rVo.getMemSeq()));
 
     	//rentReviewService.get
-    	int total = rentHistory.getHistoryCount();
+    	int total = rentHistoryService.getTotalCount();
     	model.addAttribute("reviewList", rentReviewService.getRentReviewListByMember(rVo.getMemSeq()));
     	model.addAttribute("pagination", new PageVO(cri, total));
-    	model.addAttribute("historyList", rentHistory.MyPageRentHistoryList(cri, vo.getMemSeq()));
+    	model.addAttribute("historyList", rentHistoryService.getRentHistoryListForMyPage(cri, vo.getMemSeq()));
 
 
     	return "mypage/rentHistoryList";
@@ -222,7 +216,7 @@ public class MypageController {
     @PutMapping("/paymentCancel/{uid}")
     @ResponseBody
     public String paymentCancel(@PathVariable String uid, RedirectAttributes rttr) {
-    	paymentService.paymentCancel(uid);
+        rentHistoryService.refundRentHistory(uid);
     	return "redirect:/mypage/rentHistoryList";
     }
 
@@ -251,8 +245,8 @@ public class MypageController {
 
     	MemberVO mvo = memberService.getLoginMember(authentication);
 
-    	System.out.println("왜니는 null인데"+rentHistory.getRentHistoryInMypage(seq));
-    	model.addAttribute("historyList", rentHistory.getRentHistoryInMypage(seq));
+    	System.out.println("왜니는 null인데"+rentHistoryService.getRentHistoryForMypage(seq));
+    	model.addAttribute("historyList", rentHistoryService.getRentHistoryForMypage(seq));
     	List<CourseBoardVO> courseList = courseBoardService.getWriter(mvo.getId());
     	System.out.println(courseList+ "맞겠지?");
 
@@ -287,7 +281,7 @@ public class MypageController {
     	System.out.println("렌트안에 뭐가?"+seq);
     	System.out.println("넌 뭐니?"+rentReviewService.getRentReview(seq));
     	model.addAttribute("getRentReview", rentReviewService.getRentReview(seq));
-    	model.addAttribute("historyList", rentHistory.getRentHistoryInMypage(seq));
+    	model.addAttribute("historyList", rentHistoryService.getRentHistoryForMypage(seq));
     	List<CourseBoardVO> courseList = courseBoardService.getWriter(mvo.getId());
     	System.out.println(courseList+ "맞겠지?");
 
