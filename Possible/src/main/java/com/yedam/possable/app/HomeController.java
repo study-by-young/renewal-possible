@@ -42,8 +42,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/pagination")
-    public String pagination(@RequestParam(value = "pageNum", required = false) int pageNum,
-                             @RequestParam(value="amount", required = false) int amount){
+    public String pagination(){
 	    return "tiles/pagination";
     }
 
