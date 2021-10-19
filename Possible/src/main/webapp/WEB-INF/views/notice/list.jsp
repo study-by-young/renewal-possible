@@ -75,19 +75,16 @@ tr:hover {
 			<div class="card-header header-elements-inline">
 				<h2 class="card-title" style="font-weight: 600; padding-left: 20px;">공지사항</h2>
 				<div class="header-elements">
-					<div class="list-icons">
+					<div class="list-icons" style="padding-right: 20px;">
 						<a class="list-icons-item" data-action="collapse"></a> <a
-							class="list-icons-item" data-action="reload"></a> <a
-							class="list-icons-item" data-action="remove"></a>
+							class="list-icons-item" data-action="reload"></a>
 					</div>
 				</div>
 			</div>
 			
 			<div class="custom-input" style="padding: 20px; padding-top: 0px;">
-				<form id="actionForm"
-					action="${pageContext.request.contextPath}/notice/list"
-					method="get">
-					<div style="display: inline-flex; width: 12%; padding-left: 20px;">
+				<form id="actionForm" action="${pageContext.request.contextPath}/notice/list" method="get">
+					<div style="display: inline-flex; width: 15%; padding-left: 20px;">
 						<select name="type" class="select select-wrapper">
 							<option
 								<c:out value="${empty pageMaker.cri.type ? 'selected':''}"/>>선택</option>

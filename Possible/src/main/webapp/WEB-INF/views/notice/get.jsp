@@ -23,6 +23,10 @@
 	.card-footer {
 		background-color: white;
 	}
+	
+	.card {
+    margin-bottom: 3rem;
+    }
 </style>
 
 <div class="container">
@@ -71,8 +75,6 @@
 	</div>
 	
 </div>
-<br>
-<br>
 <script>
 	$('#deleteBtn').on('click', function() {
 

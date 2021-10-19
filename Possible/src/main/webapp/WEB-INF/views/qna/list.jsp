@@ -75,43 +75,42 @@ tr:hover {
 <div class="container">
 	<div style="margin-top: 50px;">
 		<!-- Striped rows -->
-		<div class="card">
+		<div class="card" style="padding: 20px 0px;">
 			<div class="card-header header-elements-inline">
-				<h2 class="card-title">1:1 문의</h2>
+				<h2 class="card-title" style="font-weight: 600; padding-left: 20px;">1:1 문의</h2>
 				<div class="header-elements">
-					<div class="list-icons">
+					<div class="list-icons" style="padding-right: 20px;">
 						<a class="list-icons-item" data-action="collapse"></a> <a
-							class="list-icons-item" data-action="reload"></a> <a
-							class="list-icons-item" data-action="remove"></a>
+							class="list-icons-item" data-action="reload"></a>
 					</div>
 				</div>
+			</div>
 
-				<div class="custom-input">
-					<form id="actionForm"
-						action="${pageContext.request.contextPath}/qna/list" method="get">
-						<select name="type" class="select">
+			<div class="custom-input" style="padding: 20px; padding-top: 0px;">
+				<form id="actionForm" action="${pageContext.request.contextPath}/qna/list" method="get">
+					<div style="display: inline-flex; width: 15%; padding-left: 20px;">
+						<select name="type" class="select select-wrapper">
 							<option value="T"
 								<c:out value="${pageMaker.cri.type eq 'T' ? 'selected':''}"/>>제목</option>
-						</select> &nbsp; <input class="input" name="keyword"
-							value="${pageMaker.cri.keyword}"> <input type="hidden"
-							name="pageNum" value="${pageMaker.cri.pageNum}"> <input
-							type="hidden" name="amount" value="${param.getOrDefault("amount", pagination.cri.amount)}">&nbsp;
-						<button class="custom-btn btn-primary"
-							onclick="$('[name=pageNum]').val(1)">검색</button>
-					</form>
-				</div>
-
+						</select> &nbsp; 
+					</div>
+					<input class="input" name="keyword"
+						value="${pageMaker.cri.keyword}"> <input type="hidden"
+						name="pageNum" value="${pageMaker.cri.pageNum}"> <input
+						type="hidden" name="amount" value="${param.getOrDefault("amount", pagination.cri.amount)}">&nbsp;
+					<button class="custom-btn btn-primary"
+						onclick="$('[name=pageNum]').val(1)">검색</button>
+				</form>
 			</div>
+
 			<div class="table-responsive">
 				<table class="table table-striped">
 					<thead>
 						<tr align="center">
 							<th class="col-1">글번호</th>
 							<th class="col-6">제목</th>
-							<th class="col-1">작성자</th>
 							<th>작성일</th>
-							<th>수정일</th>
-							<th class="col-1">답변상태</th>
+							<th class="col-2">답변상태</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -119,10 +118,7 @@ tr:hover {
 							<tr align="center" onclick="readBoard(${qna.seq})">
 								<td>${qna.seq}</td>
 								<td align="left">${qna.title}</td>
-								<td>${qna.writer}</td>
 								<td><fmt:formatDate value="${qna.genDate}"
-										pattern="yy-MM-dd" /></td>
-								<td><fmt:formatDate value="${qna.uptDate}"
 										pattern="yy-MM-dd" /></td>
 								<c:choose>
 									<c:when test="${qna.answerCnt>='1'}">
@@ -138,10 +134,31 @@ tr:hover {
 				</table>
 			</div>
 		</div>
-		<!-- /striped rows -->
 	</div>
+	<!-- /striped rows -->
+	<jsp:include page="/pagination"></jsp:include>
 
-	<!-- 페이징 -->
+	<div align="right">
+		<button type="button" class="btn btn-primary"
+			onclick="location.href='insert?pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}'">등록</button>
+	</div>
+	
+	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-laballedby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+</div>
+
+<!-- 페이징 -->
 <%-- 	<div id="pageButton" style="margin-top: 20px">
 		<ul class="custom-pagination">
 			<c:if test="${pageMaker.prev }">
@@ -158,27 +175,6 @@ tr:hover {
 			</c:if>
 		</ul>
 	</div> --%>
-	<jsp:include page="/pagination"></jsp:include>
-
-	<div align="right">
-		<button type="button" class="btn btn-primary"
-			onclick="location.href='insert?pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}'">등록</button>
-	</div>
-
-
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-		aria-laballedby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-body"></div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<br>
-</div>
 <script>
 
 var pageNum = ${param.getOrDefault("pageNum",1)};

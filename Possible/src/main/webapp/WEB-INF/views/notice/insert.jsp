@@ -24,9 +24,13 @@
 		width: 100%;
 		height: 50px;
 		border: 1px solid lightgray;
-		padding: 5px 8px;
+		padding: 10px 8px;
+		border-radius: 5px;
 	}
 	
+	.card {
+    margin-bottom: 3rem;
+    }
 </style>
 
 <div class="x_contact_title_main_wrapper float_left padding_tb_100">
@@ -52,7 +56,6 @@
 								<div class="contect_form2">
 									<input type="hidden" name="writer" placeholder="writer" value="admin" readonly="readonly">
 								</div>
-								<br>
 							</div>
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px; padding-right: 0px;">
 								<div class="contect_form4">
@@ -81,8 +84,6 @@
 </div>
 
 <script>
-	/* CKEDITOR.instances.content.getData() */
-
 	// ckeditor 유효성 검사 (작동안함ㅠ)
 	$("#insertBtn").on("click", function() {
 		check();
