@@ -129,7 +129,7 @@
                                             </div>
                                         </div>
                                     </c:forEach>
-                                    <jsp:include page="/pagination" />
+                                    <jsp:include page="/pagination"/>
                                 </div>
                             </div>
                         </div>

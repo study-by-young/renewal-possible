@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Handles requests for the application home page.
@@ -41,7 +42,7 @@ public class HomeController {
 	}
 
 	@RequestMapping("/pagination")
-    public String pagination(@ModelAttribute("pagination") PageVO pageVO){
+    public String pagination(){
 	    return "tiles/pagination";
     }
 
