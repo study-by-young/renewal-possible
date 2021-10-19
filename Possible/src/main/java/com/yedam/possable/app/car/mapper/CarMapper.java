@@ -2,6 +2,8 @@ package com.yedam.possable.app.car.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.yedam.possable.app.car.domain.CarOptionVO;
 import com.yedam.possable.app.car.domain.CarVO;
 import com.yedam.possable.app.car.domain.InsuranceOptionVO;
@@ -51,7 +53,7 @@ public interface CarMapper {
     public int insertCarOptions(List<CarOptionVO> list, Long carSeq);
 
     public int getTotalCount(Criteria cri);
-
+    
     //옵션 수정
     public int updateCarOptions(CarOptionVO vo);
     
@@ -66,5 +68,14 @@ public interface CarMapper {
 
     //차량 보험 삭제
     public int deleteIns(InsuranceOptionVO vo);
+    
+    //차 가격 수정
+    public int updateCarPrice(CarVO vo);
+    
+    //전체 데이터 건수
+    public int comTotalCount(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq);
+    
+    // 업체 차량 리스트 조회
+    public List<CarVO> getCompanyCriList(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq);
 }
 

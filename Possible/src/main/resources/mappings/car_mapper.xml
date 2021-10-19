@@ -107,7 +107,17 @@
 			AND PASSENGER >= #{passenger}
 		</if>
 	</sql>
-
+	
+	<sql id="companyCriteria">
+		<trim prefixOverrides="and">
+			<choose>
+				<when test="cri.type == 'B'.toString()">
+					BRAND LIKE '%' || #{cri.keyword} || '%'
+				</when>
+			</choose>
+		</trim>
+	</sql>
+	
     <select id="getCarList" resultMap="car">
         SELECT
             *
@@ -186,7 +196,6 @@
         DELETE
         FROM CAR
         WHERE SEQ = #{seq}
-
     </delete>
     <delete id="deleteOption">
     	DELETE
@@ -197,12 +206,16 @@
     	DELETE
     	FROM INSURANCE_OPTION
     	WHERE CAR_SEQ = #{carSeq}
-
     </delete>
     <update id="updateCarOptions">
     	UPDATE CAR_OPTION
     	SET OPT_CODE = #{optCode}
     	WHERE CAR_SEQ = #{carSeq}
+    </update>
+    <update id="updateCarPrice">
+    	UPDATE CAR
+    	SET PRICE = #{price}
+    	WHERE SEQ = #{seq}
     </update>
     <update id="updateCompanyCar">
         UPDATE car
@@ -413,5 +426,53 @@
         LEFT OUTER JOIN insurance_option IO ON C.seq = IO.car_seq
         )
         WHERE RN > (#{pageNum} - 1) * #{amount}
+    </select>
+    	
+    <select id="comTotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM CAR
+        <where>
+            <include refid="companyCriteria"/>
+             <![CDATA[
+              AND (CMPN_SEQ = #{cmpnSeq})]]>
+        </where>
+    </select>
+ 
+    
+      <select id="getCompanyCriList" resultType="CarVO">
+    	SELECT *
+		FROM 
+        (SELECT
+        /*+ INDEX_DESC(CAR IDX_CAR) */
+        ROWNUM RN, SEQ,
+					BRAND,
+					MODEL,
+					SEGMENT,
+					TRIM,
+					COLOR,
+					YEAR,
+					FUEL,
+					PASSENGER,
+					MISSION,
+					TRUNK,
+					DOOR,
+					KMPL,
+					PRICE,
+					STATUS,
+					IMG1,
+					IMG2,
+					IMG3,
+					GEN_DATE,
+					UPT_DATE,
+					CMPN_SEQ,
+					CAR_NUM
+        FROM CAR
+        <where>
+            <include refid="companyCriteria"/>
+            <![CDATA[
+            AND (CMPN_SEQ = #{cmpnSeq})
+            AND ROWNUM <= #{cri.pageNum} * #{cri.amount} ]]>
+        </where>)
+        WHERE RN > (#{cri.pageNum} - 1) * #{cri.amount}
     </select>
 </mapper>

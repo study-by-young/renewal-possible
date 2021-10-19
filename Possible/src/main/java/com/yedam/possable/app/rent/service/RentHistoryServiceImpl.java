@@ -17,8 +17,8 @@ public class RentHistoryServiceImpl implements RentHistoryService {
 	@Autowired RentHistoryMapper rentHistoryMapper;
 
 	@Override
-	public List<RentHistoryVO> getRentHistoryList(Long cmpnSeq) {
-		return rentHistoryMapper.getRentHistoryList(cmpnSeq);
+	public List<RentHistoryVO> getRentHistoryList(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq) {
+		return rentHistoryMapper.getRentHistoryList(cri, cmpnSeq);
 	}
 
 	@Override
@@ -60,6 +60,12 @@ public class RentHistoryServiceImpl implements RentHistoryService {
 	public List<RentHistoryVO> getCompanytodayCar(Long cmpnSeq) {
 		// TODO Auto-generated method stub
 		return rentHistoryMapper.getCompanytodayCar(cmpnSeq);
+	}
+
+	@Override
+	public int getTotalCount(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq) {
+		// TODO Auto-generated method stub
+		return rentHistoryMapper.getTotalCount(cri, cmpnSeq);
 	}
 
 

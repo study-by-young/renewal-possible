@@ -41,6 +41,23 @@
             </foreach>
         </trim>
     </sql>
+    
+     <sql id="checkCriteria">
+        <trim prefix="(" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'U'.toString()">
+                            AUTHOR LIKE '%' || 'ROLE_USER' || '%'
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            AUTHOR LIKE '%' || 'ROLE_COMPANY' || '%'
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
 
     <select id="getUserById" resultMap="member">
         SELECT *
@@ -65,8 +82,8 @@
         ROWNUM RN, SEQ, ID, EMAIL, PHONE, NAME, AUTHOR
         FROM MEMBER
         <where>
-            <include refid="criteria">
-            </include>
+            <include refid="criteria"/>
+            <include refid="checkCriteria"/>
             <![CDATA[   AND ROWNUM <= #{pageNum} * #{amount} ]]>
         </where>
         ORDER BY SEQ DESC

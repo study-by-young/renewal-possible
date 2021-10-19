@@ -11,7 +11,7 @@ import com.yedam.possable.app.rent.domain.RentHistoryVO;
 public interface RentHistoryService {
 	
 	//업체 렌트내역 리스트
-    public List<RentHistoryVO> getRentHistoryList(Long cmpnSeq);
+    public List<RentHistoryVO> getRentHistoryList(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq);
     
     //업체 렌트내역 한건
     public RentHistoryVO getRentHistory(RentHistoryVO vo);
@@ -31,5 +31,8 @@ public interface RentHistoryService {
  	
  	//투데이 렌트카 리스트
  	public List<RentHistoryVO> getCompanytodayCar(Long cmpnSeq);
+ 	
+    //전체 데이터 건수
+    public int getTotalCount(Criteria cri, Long cmpnSeq);
  	
 }

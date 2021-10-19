@@ -45,24 +45,23 @@
 				</div>
 			</div>
 
-<form id="actionForm" action="rent" method="get">
-		<%-- 	<div class="col-sm-12" style="padding-left: 2.5rem">
+		 <form id="actionForm" action="rent" method="get">
+		 	<div class="col-sm-12" style="padding-left: 2.5rem">
 				<div class="d-flex">
 					<div align="left">
-						
-							<select name="type" class="select">
-								<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
-								<option value="R" ${pageMaker.cri.type =='R'? 'selected' : "" }>수령자</option>
-							</select> <input class="input" name="keyword"
-								value="${pageMaker.cri.keyword }"> <input type="hidden"
-								name="pageNum" value="1"> <input type="hidden"
-								name="amount" value="${pageMaker.cri.amount }">
-							<button class="btn btn-primary"
-								onclick="$('[name=pageNum]').val(1)">Search</button>
-						
+						<select name="type" class="select">
+							<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
+							<option value="R" ${pageMaker.cri.type =='R'? 'selected' : "" }>수령자</option>
+						</select> 
+							<input class="input" name="keyword" value="${pageMaker.cri.keyword }"> 
+							<input type="hidden" name="pageNum" value="1"> 
+							<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+							<input type="hidden" name="cmpnSeq" value="${cmpnSeq }">
+						<button class="btn btn-primary"
+							onclick="$('[name=pageNum]').val(1)">Search</button>
 					</div>
 				</div>
-			</div> --%>
+			</div> 
 			</form>
 			<br>
 			<hr style="margin: 0px">
@@ -103,7 +102,7 @@
 			<hr style="margin: 0px">
 			<br>
 
-			<%-- <div class="col-sm-12">
+			 <div class="col-sm-12">
 				<div class="d-flex align-items-center justify-content-center mb-2">
 					<div id="pageButton">
 						<ul class="pagination pagination-flat align-self-center">
@@ -124,7 +123,7 @@
 						</ul>
 					</div>
 				</div>
-			</div> --%>
+			</div> 
 
 		</div>
 	</div>

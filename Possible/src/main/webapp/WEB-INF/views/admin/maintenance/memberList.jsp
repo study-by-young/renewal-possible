@@ -44,8 +44,8 @@
 				</div>
 			</div>
 
-
-			<div class="col-sm-12" style="padding-left: 2.5rem">
+			<div class="row">
+			<div class="col-sm-6" style="padding-left: 2.5rem">
 				<div class="d-flex">
 					<div align="left">
 						<form id="actionForm" action="member" method="get">
@@ -54,10 +54,10 @@
 								<option value="I" ${pageMaker.cri.type =='I'? 'selected' : "" }>아이디</option>
 								<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>이름</option>
 								<option value="P" ${pageMaker.cri.type =='P'? 'selected' : "" }>전화번호</option>
-								<option value="A" ${pageMaker.cri.type =='P'? 'selected' : "" }>권한</option>
+								<option value="A" ${pageMaker.cri.type =='A'? 'selected' : "" }>권한</option>
 							</select> <input class="input" name="keyword"
 								value="${pageMaker.cri.keyword }"> <input type="hidden"
-								name="pageNum" value="1"> <input type="hidden"
+								name="pageNum" value="${pageMaker.cri.pageNum }"> <input type="hidden"
 								name="amount" value="${pageMaker.cri.amount }">
 							<button class="btn btn-primary"
 								onclick="$('[name=pageNum]').val(1)">Search</button>
@@ -65,6 +65,21 @@
 					</div>
 				</div>
 			</div>
+			
+			<div class="col-sm-6" style="padding-right: 2.5rem">
+					<div align="right">
+						<form id="actionForm" action="member" method="get">
+								<input type="checkbox" name="type" value="U" ${pageMaker.cri.type =='U'? 'checked' : "" } >&nbsp;USER
+								<input type="checkbox" name="type"  value="C" ${pageMaker.cri.type =='C'? 'checked' : "" }>&nbsp;COMPANY
+								<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
+								<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+							<button class="btn alpha-pink border-pink-400 text-pink-800 btn-icon rounded-round ml-2" onclick="$('[name=pageNum]').val(1)"><i class="icon-search4"></i></button>
+						</form>
+					</div>
+				</div>
+			</div>
+			
 			<br>
 			<hr style="margin: 0px">
 			<div class="card-body" style="padding: 0px">
@@ -125,11 +140,10 @@
 			</div>
 
 
-
+			</div>
 		</div>
 	</div>
 
-</div>
 <script>
 	$(function() {
 		var actionForm = $("#actionForm");

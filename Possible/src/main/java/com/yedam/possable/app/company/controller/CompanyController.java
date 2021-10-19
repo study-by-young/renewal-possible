@@ -80,7 +80,6 @@ public class CompanyController {
 
         HttpSession session = request.getSession();
         session.setAttribute("cmpnSeq", companyVO.getSeq());
-        System.out.println(companyVO.getSeq());
 
         model.addAttribute("salesList", rentHistoryService.getCompanySales(companyVO.getSeq()));
         model.addAttribute("todayList",rentHistoryService.getCompanytodayCar(companyVO.getSeq()));
@@ -90,8 +89,11 @@ public class CompanyController {
 
     @ResponseBody
     @GetMapping("salesList")
-    public  String salesList(Locale locale, Model model,  CompanyVO vo) {
-		Gson gson = new Gson();
+    public  String salesList( Authentication authentication, Locale locale, Model model,  CompanyVO vo) {
+    	
+    	MemberVO loginUser = memberService.getLoginMember(authentication);
+    	vo = companyService.getCompanyByMemSeq(loginUser);
+    	Gson gson = new Gson();
 		List<RentHistoryVO> list = rentHistoryService.getCompanySales(vo.getSeq());
 		return gson.toJson(list);
 	}
@@ -146,11 +148,11 @@ public class CompanyController {
 
     //업체 보유 렌트카 리스트
     @GetMapping("/car")
-    public String companyCarList(CompanyVO vo,Model model, @RequestParam Long cmpnSeq){
+    public String companyCarList(CompanyVO vo,Model model, @ModelAttribute("cri") Criteria cri, @RequestParam Long cmpnSeq){
         vo.setSeq(cmpnSeq);
 
         List<Map<String, Object>> carList = new LinkedList<>();
-        List<CarVO> voList = carService.getCompanyCarList(vo);
+        List<CarVO> voList = carService.getCompanyCriList(cri, cmpnSeq);
 
         for(CarVO carVO : voList) {
             Map<String, Object> voMap = new HashMap<>();
@@ -165,7 +167,10 @@ public class CompanyController {
 
             carList.add(voMap);
         }
-       model.addAttribute("companyCarList", carList);
+        
+        int total = carService.comTotalCount(cri, cmpnSeq);
+        model.addAttribute("pageMaker", new PageVO(cri, total));
+        model.addAttribute("companyCarList", carList);
         return "company/carList";
     }
 
@@ -270,22 +275,34 @@ public class CompanyController {
 
     // 업체 렌트카 수정 처리
     @PostMapping("/car/update")
-    public String updateCar(CarVO vo, CarOptionVO optVO, CompanyVO comVO, Model model, RedirectAttributes attributes, @RequestParam Long cmpnSeq){
+    public String updateCar(CarVO vo, CarOptionVO optVO, CompanyVO comVO, Model model, RedirectAttributes rttr, @RequestParam Long cmpnSeq, @RequestParam("options") String[] optionsArr){
    	
+    	String r = "";
+    	
     	comVO.setSeq(cmpnSeq);
     	optVO.setCarSeq(vo.getSeq());
+    	
+    	System.out.println("======="+vo);
    	
-//    	int result = carService.updateCompanyCar(vo, comVO);
-//        if (result == 1) {
-//            attributes.addFlashAttribute("result", "success");
-//    }
-        
-        int result2 = carService.updateCarOptions(optVO);
-        if (result2 == 1) {
-            attributes.addFlashAttribute("result2", "success");
-    }
+    	int result = carService.updateCarPrice(vo);
+    	rttr.addFlashAttribute("result", result);
+    	
+    	int result1 = carService.deleteOption(optVO);
+    	rttr.addFlashAttribute("result1", result1);
+    	
+    	 int result2 = 0;
 
-    return "redirect:/";
+         for(String options : optionsArr) {
+         	 optVO.setCarSeq(vo.getSeq());
+         	 optVO.setOptCode(options);
+         	 System.out.println(optVO);
+         	 result2 = carService.insertCarOptions(optVO);
+         	}
+         
+         rttr.addFlashAttribute("result2", result2);
+         r = "redirect:/company/car?cmpnSeq="+cmpnSeq;
+
+    return r;
     }
 
 //    //옵션 삭제
@@ -388,9 +405,13 @@ public class CompanyController {
 
     // 렌트 내역 리스트
     @GetMapping("/rent")
-    public String rentHistoryList(Model model, @RequestParam Long cmpnSeq){
+    public String rentHistoryList(Model model, @RequestParam Long cmpnSeq, @ModelAttribute("cri") Criteria cri){
     	
-    	model.addAttribute("rentHistoryList", rentHistoryService.getRentHistoryList(cmpnSeq));
+    	int total = rentHistoryService.getTotalCount(cri,cmpnSeq);
+    	System.out.println("total=============="+total);
+    	model.addAttribute("rentHistoryList", rentHistoryService.getRentHistoryList(cri,cmpnSeq));
+    	model.addAttribute("pageMaker", new PageVO(cri, total));
+        System.out.println("rentCri========" + cri);
 
         return "company/rentHistoryList";
     }
