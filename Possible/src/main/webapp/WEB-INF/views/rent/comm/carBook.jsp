@@ -107,8 +107,8 @@
 					<div class="card-body">
                         <form id="payFrm" name="payFrm" class="billing-form">
                             <input type="hidden" name="rentType" value="일반렌트">
-                            <input type="hidden" name="start" value="'<fmt:formatDate value="${startDate}" pattern="yy/MM/dd" />'">
-                            <input type="hidden" name="end" value="'<fmt:formatDate value="${endDate}" pattern="yy/MM/dd" />'">
+                            <input type="hidden" name="start" value="<fmt:formatDate value="${startDate}" pattern="yy/MM/dd" />">
+                            <input type="hidden" name="end" value="<fmt:formatDate value="${endDate}" pattern="yy/MM/dd" />">
                             <input type="hidden" name="price" value="${(car.price + insurance.price) * during}">
                             <input type="hidden" name="cmpn_postal" value="${car.companyVO.postal}">
                             <input type="hidden" name="cmpn_addr1" value="${car.companyVO.addr1}">
@@ -417,7 +417,7 @@
 
 					// DB에 데이터 삽입
 					$.ajax({
-						url: '${pageContext.request.contextPath}/payment/comm',
+						url: '${pageContext.request.contextPath}/commonRent/payment',
 						type: 'POST',
 						dataType: 'text',
 						contentType: 'application/json',
@@ -439,7 +439,7 @@
 						}),
 						success: function(result) {
 						    if(result === 'true'){
-							    location.href = 'bookCmpl?merchantUid=' + merchantUid + "&carSeq=" + carSeq;
+							    location.href = 'bookCmpl?merchantUid=' + merchantUid;
                             }
 						},
 						error: function(xhr, status, message){

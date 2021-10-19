@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.possable.app.rent.mapper.RentHistoryMapper">
-	
 	<resultMap id="rentHistory" type="RentHistoryVO">
 		<id property="seq" column="seq" />
 		<result property="rentType" column="rent_type" />
@@ -21,159 +20,178 @@
 		<result property="phone" column="phone" />
 		<result property="birth" column="birth" />
 		<result property="email" column="email" />
-		<result property="receiverB" column="receiver_b" />
-		<result property="phoneB" column="phone_b" />
-		<result property="birthB" column="birth_b" />
-		<result property="emailB" column="email_b" />
-		<result property="carBrand" column="car_brand"/>
-		<result property="carModel" column="car_model"/>
-		<result property="carSegment" column="car_segment"/>
-		<result property="cmpnName" column="cmpn_name"/>
-        <result property="cmpnTel" column="cmpn_tel"/>
-		<association property="carVO"
-	    			 column= "car_seq"	
-	    			 select="com.yedam.possable.app.car.mapper.CarMapper.getCar"
-	    			 javaType="CarVO"/>
-	    			  
-		<association property="memberVO"
-	                 column="mem_seq"
-	                 select="com.yedam.possable.app.member.mapper.MemberMapper.memberOneSelect"
-	                 javaType="MemberVO"/>
-	                 
-		<association property="companyVO"
+        <result property="carSeq" column="car_seq"/>
+        <result property="memSeq" column="mem_seq"/>
+        <result property="cmpnSeq" column="cmpn_seq"/>
+	</resultMap>
+    <resultMap id="rentHistoryAllData" type="RentHistoryVO">
+        <id property="seq" column="seq" />
+        <result property="rentType" column="rent_type" />
+        <result property="startDate" column="start_date" />
+        <result property="endDate" column="end_date" />
+        <result property="receiver" column="receiver" />
+        <result property="price" column="price" />
+        <result property="estimate" column="estimate" />
+        <result property="status" column="status" />
+        <result property="genDate" column="gen_date" />
+        <result property="uptDate" column="upt_date" />
+        <result property="takePlaceCode" column="take_place_code" />
+        <result property="takePlaceBasic" column="take_place_basic" />
+        <result property="takePlaceDetail" column="take_place_detail" />
+        <result property="merchantUid" column="merchant_uid" />
+        <result property="payMethod" column="pay_method" />
+        <result property="phone" column="phone" />
+        <result property="birth" column="birth" />
+        <result property="email" column="email" />
+        <association property="carVO"
+                     column= "car_seq"
+                     select="com.yedam.possable.app.car.mapper.CarMapper.getCar"
+                     javaType="CarVO"/>
+        <association property="memberVO"
+                     column="mem_seq"
+                     select="com.yedam.possable.app.member.mapper.MemberMapper.memberOneSelect"
+                     javaType="MemberVO"/>
+        <association property="companyVO"
                      column="cmpn_seq"
                      select="com.yedam.possable.app.company.mapper.CompanyMapper.companyOneSelect"
                      javaType="CompanyVO"/>
-        
-        <association property="brandCodeVO"
-                     column="brand"
-                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getBrand"
-                     javaType="BrandCodeVO"/>
-        
-        <association property="segmentCodeVO"
-                     column="segment"
-                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
-                     javaType="CodeSubVO"/>
-        
-        <association property="modelCodeVO"
-                     column="model"
-                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getModel"
-                     javaType="ModelCodeVO"/>
-        
-        <association property="trimCodeVO"
-                     column="trim"
-                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getTrim"
-                     javaType="TrimCodeVO"/>
-                                  
-	</resultMap>
-	
+    </resultMap>
+
+    <!-- 어드민 전용 렌트 내역 리스트-->
+    <select id="getRentHistoryList" resultMap="rentHistoryAllData">
+        SELECT
+            /*+ INDEX_DESC(RENT_HISTORY IDX_RENT_HISTORY) */
+            *
+        FROM rent_history
+    </select>
+
 	<!-- 업체 렌트내역 리스트 -->
-	<select id="getRentHistoryList" resultMap="rentHistory">
-             SELECT
+	<select id="getRentHistoryListByCmpnSeq" resultMap="rentHistoryAllData">
+        SELECT
              /*+ INDEX_DESC(RENT_HISTORY IDX_RENT_HISTORY) */
-             ROWNUM RN, SEQ,
-						CAR_SEQ,
-						MEM_SEQ,
-						RENT_TYPE,
-						START_DATE,
-						END_DATE,
-						RECEIVER,
-						TAKE_PLACE_CODE,
-						PRICE,
-						ESTIMATE,
-						STATUS,
-						GEN_DATE,
-						UPT_DATE,
-						TAKE_PLACE_DETAIL,
-						TAKE_PLACE_BASIC,
-						MERCHANT_UID,
-						PAY_METHOD,
-						CMPN_SEQ
+             ROWNUM RN,
+             RENT_HISTORY.*
              FROM RENT_HISTORY
              WHERE CMPN_SEQ = #{cmpnSeq}
 	</select>
-	
+
 	<!-- 업체 렌트내역 한건 -->
-	<select id="getRentHistory" resultMap="rentHistory">
-             SELECT		SEQ,
-						CAR_SEQ,
-						MEM_SEQ,
-						RENT_TYPE,
-						START_DATE,
-						END_DATE,
-						RECEIVER,
-						TAKE_PLACE_CODE,
-						PRICE,
-						ESTIMATE,
-						STATUS,
-						GEN_DATE,
-						UPT_DATE,
-						TAKE_PLACE_DETAIL,
-						TAKE_PLACE_BASIC,
-						MERCHANT_UID,
-						PAY_METHOD
+	<select id="getRentHistory" resultMap="rentHistoryAllData">
+             SELECT
+                 *
              FROM RENT_HISTORY
              WHERE SEQ = #{seq}
 	</select>
-	<!-- 마이페이지 한건 조회 -->
-	<select id="getRentHistoryInMypage" resultMap="rentHistory">
-		SELECT * FROM 
-		RENT_HISTORY
-        WHERE SEQ = #{seq}
-      
-	</select>
-	
-	<select id="getHistoryCount" resultType="int">
+
+	<select id="getTotalCount" resultType="int">
         SELECT COUNT(*)
         FROM RENT_HISTORY
     </select>
-    <select id="MyPageRentHistoryList" resultMap="rentHistory">
-    	SELECT * 
+
+    <select id="getRentHistoryListForMyPage" resultMap="rentHistoryAllData">
+    	SELECT *
 		FROM(
-        	SELECT  
+        	SELECT
         	/*+ INDEX_DESC(RENT_HISTORY IDX_RENT_HISTORY) */
        		ROWNUM RN,
-       		rh.SEQ,
-       		rh.TAKE_PLACE_BASIC,
-       		rh.TAKE_PLACE_DETAIL,
-	        rh.PAY_METHOD,
-	        rh.PRICE,
-	        rh.MERCHANT_UID,
-	        rh.START_DATE,
-	        rh.END_DATE,
-	        rh.STATUS,
-	        a.brand AS car_brand,
-	        a.model AS car_model,
-	        a.segment AS car_segment,
-	        c.name  AS cmpn_name,
-	        c.TEl AS cmpn_tel,
-       		<![CDATA[case When (SELECT count(*) FROM RENT_REVIEW where HISTORY_SEQ = rh.seq) > 0 	THEN '2'
-						  When trunc(END_DATE) < trunc(sysdate) then '1' 
-						  else '0' end]]> AS review 
-	       FROM RENT_HISTORY rh INNER JOIN MEMBER m
-	       ON rh.MEM_SEQ = m.seq
-	             INNER JOIN COMPANY c
-	       ON rh.CMPN_SEQ = c.SEQ      
-	             INNER JOIN CAR a
-	       ON rh.CAR_SEQ= a.SEQ
+            RENT_HISTORY.*,
+       		<![CDATA[case When (SELECT count(*) FROM RENT_REVIEW where HISTORY_SEQ = RENT_HISTORY.seq) > 0 	THEN '2'
+						  When trunc(END_DATE) < trunc(sysdate) then '1'
+						  else '0' end]]> AS review
+	       FROM RENT_HISTORY
        <where>
+           and mem_seq = #{seq}
        		<![CDATA[   AND ROWNUM <= #{cri.pageNum} * #{cri.amount} ]]>
        </where>
-       and rh.mem_seq = #{seq}
       )
       	WHERE RN > (#{cri.pageNum} - 1) * #{cri.amount}
     </select>
-    
+
     <!-- 하루 수익을 이렇게 구하나..? -->
-    <select id="getCompanySales" resultType="RentHistoryVO">
-    	select sum(price) as price, cmpn_seq, TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD') as uptDate from rent_history where cmpn_seq = 241 and status = '예약완료' group by cmpn_seq,TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD') order by TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD')    
+    <select id="getLatestCompanySales" resultType="hashmap">
+        SELECT
+            *
+        FROM (select
+                 sum(price) as earn,
+                 TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD') as uptDate
+         from rent_history
+         where cmpn_seq = 241
+           and status = '예약완료'
+         group by cmpn_seq,TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD')
+         order by TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD')
+         )
+        <![CDATA[WHERE ROWNUM <= 5]]>
+
     </select>
-    
-    <select id="getCompanytodayCar" resultType="RentHistoryVO">
-    	select * from rent_history 
+
+    <select id="getCompanyTodayCar" resultMap="rentHistoryAllData">
+    	select
+            *
+        from rent_history
 		where cmpn_seq = #{cmpnSeq}
-		and status = '예약완료' 
+		and status = '예약완료'
 		and TO_TIMESTAMP(trunc(start_date),'YYYY-MM-DD') = TO_TIMESTAMP(trunc(sysdate),'YYYY-MM-DD')
     </select>
-    
+
+	<insert id="insertRentHistory">
+        <selectKey keyProperty="seq" resultType="Long" order="BEFORE">
+            SELECT SEQ_RENT_HISTORY.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO RENT_HISTORY(
+        SEQ
+        , RENT_TYPE
+        , START_DATE
+        , END_DATE
+        , RECEIVER
+        , PRICE
+        , STATUS
+        , TAKE_PLACE_CODE
+        , TAKE_PLACE_BASIC
+        , TAKE_PLACE_DETAIL
+        , MERCHANT_UID
+        , PAY_METHOD
+        , CAR_SEQ
+        , MEM_SEQ
+        , cmpn_seq
+        , gen_date
+        )
+        VALUES(
+        #{seq}
+        , #{rentType}
+        , #{startDate}
+        , #{endDate}
+        , #{receiver}
+        , #{price}
+        , #{status}
+        , #{takePlaceCode}
+        , #{takePlaceBasic}
+        , #{takePlaceDetail}
+        , #{merchantUid}
+        , #{payMethod}
+        , #{carSeq}
+        , #{memSeq}
+        , #{cmpnSeq}
+        , SYSDATE
+        )
+    </insert>
+
+	<select id="getRentHistoryForMypage" resultMap="rentHistoryAllData">
+        SELECT *
+        FROM RENT_HISTORY
+        WHERE MEM_SEQ = #{seq}
+          AND STATUS = 'RST02'
+    </select>
+
+	<update id="refundRentHistory">
+        UPDATE RENT_HISTORY
+        SET STATUS = 'RST04'
+        WHERE MERCHANT_UID = #{merchantUid}
+    </update>
+
+	<select id="getRentHistoryByMUid" resultMap="rentHistoryAllData">
+        SELECT
+            *
+        FROM rent_history
+        WHERE merchant_uid = #{merchantUid}
+    </select>
 </mapper>

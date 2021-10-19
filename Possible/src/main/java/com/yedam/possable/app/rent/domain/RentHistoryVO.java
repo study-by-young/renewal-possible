@@ -44,21 +44,10 @@ public class RentHistoryVO {
 
     private String review;
 
-
-    private String carBrand;
-    private String carModel;
-    private String carSegment;
-    private String cmpnName;
-    private String cmpnTel;
-
     // 211014 추가
     private CarVO carVO;
     private MemberVO memberVO;
     private CompanyVO companyVO;
-    private BrandCodeVO brandCodeVO;
-    private CodeSubVO segmentCodeVO;
-    private ModelCodeVO modelCodeVO;
-    private TrimCodeVO trimCodeVO;
 
 
 }
