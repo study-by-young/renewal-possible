@@ -12,12 +12,17 @@ import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.member.domain.MemberVO;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Data
 public class RentHistoryVO {
     private Long seq;
 	private String rentType; /* 구분 */
+    @JsonFormat(pattern = "yy/MM/dd")
+    @DateTimeFormat(pattern = "yy/MM/dd")
 	private Date startDate; /* 시작일자 */
+    @JsonFormat(pattern = "yy/MM/dd")
+    @DateTimeFormat(pattern = "yy/MM/dd")
 	private Date endDate; /* 끝일자 */
     private String receiver;
     private Long price;
@@ -30,19 +35,22 @@ public class RentHistoryVO {
     private String takePlaceDetail;
     private String merchantUid;
     private String payMethod;
-    
+    private String phone;
+    private Date birth;
+    private String email;
     private Long carSeq;
     private Long memSeq;
     private Long cmpnSeq;
-    private String review; 
-    
-    
+
+    private String review;
+
+
     private String carBrand;
     private String carModel;
     private String carSegment;
     private String cmpnName;
     private String cmpnTel;
-    
+
     // 211014 추가
     private CarVO carVO;
     private MemberVO memberVO;
@@ -51,13 +59,6 @@ public class RentHistoryVO {
     private CodeSubVO segmentCodeVO;
     private ModelCodeVO modelCodeVO;
     private TrimCodeVO trimCodeVO;
-    
-    
-    private String phone;
-    private Date birth;
-    private String email;
-    private String receiverB;
-    private String phoneB;
-    private Date birthB;
-    private String emailB;
+
+
 }

@@ -60,6 +60,11 @@ tr:hover {
 	background: #007bff;
 }
 
+.col-12 {
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
 </style>
 
 
@@ -133,7 +138,7 @@ tr:hover {
 	</div>
 
 	<!-- 페이징 -->
-	<div id="pageButton" style="margin-top: 20px">
+	<%-- <div id="pageButton" style="margin-top: 20px">
 		<ul class="custom-pagination">
 			<c:if test="${pageMaker.prev }">
 				<li class="page-item"><a
@@ -150,11 +155,12 @@ tr:hover {
 				<!-- <span aria-hidden="true">&laquo;</span> -->
 			</c:if>
 		</ul>
-	</div>
+	</div> --%>
+	<jsp:include page="/pagination"></jsp:include>
 
 	<div align="right">
 		<button type="button" class="btn btn-primary"
-			onclick="location.href='insert?pageNum=${cri.pageNum}&amount=${cri.amount}'">등록</button>
+			onclick="location.href='insert?pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}'">등록</button>
 	</div>
 
 
@@ -172,6 +178,9 @@ tr:hover {
 	<br>
 </div>
 <script>
+var pageNum = ${param.getOrDefault("pageNum",1)};
+var amount = ${param.getOrDefault("amount", pagination.cri.amount)};
+
 $(document).ready(function() {
 	var insertResult = '<c:out value="${insertResult}"/>';
 	var deleteResult = '<c:out value="${deleteResult}"/>';
@@ -212,6 +221,6 @@ $(function() {
 });
 
 function readBoard(seq){
-	location.href = 'get?seq='+seq+'&pageNum='+$('input[name="pageNum"]').val()+'&amount='+$('input[name="amount"]').val();
+	location.href = 'get?seq='+seq+'&pageNum='+pageNum+'&amount='+amount;
 }
 </script>

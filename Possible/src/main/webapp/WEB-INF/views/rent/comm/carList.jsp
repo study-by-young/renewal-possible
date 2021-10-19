@@ -221,23 +221,32 @@
                                                                 <div class="card-body">
                                                                     <div class="row">
                                                                         <div class="col-12">
-                                                                            <a href="#" onclick="moveToView(${car.seq})" class="text-dark">
-                                                                                <div>
-                                                                                    <span class="h5">${car.companyVO.name}</span>
-                                                                                    <div class="float-right">
-                                                                                        <div style="width:70px;">
-                                                                                            <span class="rentList-score-bg">
-                                                                                                <span class="rentList-score" style="width:80%"></span>
-                                                                                            </span>
-                                                                                        </div>
+                                                                            <div>
+                                                                                <span class="h5">${car.companyVO.name}</span>
+                                                                                <div class="float-right">
+                                                                                    <div style="width:70px;">
+                                                                                        <span class="rentList-score-bg">
+                                                                                            <span class="rentList-score" style="width:80%"></span>
+                                                                                        </span>
                                                                                     </div>
                                                                                 </div>
-                                                                                <hr class="my-2">
-                                                                                <div>
-                                                                                    <span>${car.trimCodeVO.name} / ${car.year} / ${car.colorCodeVO.name}</span>
-                                                                                    <h6 class="float-right text-primary font-weight-bold">${car.price}원</h6>
+                                                                            </div>
+                                                                            <hr class="my-2">
+                                                                            <div>
+                                                                                <span>${car.trimCodeVO.name} / ${car.year} / ${car.colorCodeVO.name}</span>
+                                                                                <div class="float-right text-right">
+                                                                                    <c:forEach var="insurance" items="${car.insuranceList}">
+                                                                                        <div class="py-1">
+                                                                                            <a href="#" onclick="moveToView(${car.seq}, '${insurance.optCode}')" class="text-dark">
+                                                                                                <span class="pr-2 text-warning-400 font-weight-bold">${insurance.optName}</span>
+                                                                                                <span class="h5 text-primary font-weight-bold">
+                                                                                                    ${(car.price+ insurance.price) * during}원
+                                                                                                </span>
+                                                                                            </a>
+                                                                                        </div>
+                                                                                    </c:forEach>
                                                                                 </div>
-                                                                            </a>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -265,26 +274,26 @@
         initPickadate();
     })
 
-    function moveToView(seq){
+    function moveToView(seq, insCode){
         let searchForm = $('[name="searchCar"]');
         let filterForm = $('[name="filterForm"]');
 
         searchForm.find('#start').val('');
         searchForm.find('#end').val('');
         searchForm.append($('<input/>').attr('name','seq').attr('value',seq).attr('type','hidden'));
+        searchForm.append($('<input/>').attr('name','insCode').attr('value',insCode).attr('type','hidden'));
         let data = $(searchForm[0], filterForm[0]).serialize();
         location.href = "commonRent/view?" + data;
     }
 
     function initPickadate(){
-        let now = new Date();
         let startPicker = $("#start").pickadate('picker');
         let endPicker = $("#end").pickadate('picker');
 
-        startPicker.set('select', now);
+        startPicker.set('select', new Date('<fmt:formatDate value="${startDate}" pattern="yyyy/MM/dd" />'));
         endPicker.set({
             min : 1,
-            select : 1
+            select : new Date('<fmt:formatDate value="${endDate}" pattern="yyyy/MM/dd" />')
         });
 
         startPicker.on('close', function(){
