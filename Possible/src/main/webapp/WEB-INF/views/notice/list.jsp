@@ -99,7 +99,7 @@ tr:hover {
 						</select> &nbsp; 
 						<input class="input" name="keyword" value="${pageMaker.cri.keyword}"> 
 						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> 
-						<input type="hidden" name="amount" value="${pageMaker.cri.amount}">&nbsp;
+						<input type="hidden" name="amount" value="${param.getOrDefault("amount", pagination.cri.amount)}">&nbsp;
 						<button class="custom-btn btn-primary" onclick="$('[name=pageNum]').val(1)">검색</button>
 					</form>
 				</div>
