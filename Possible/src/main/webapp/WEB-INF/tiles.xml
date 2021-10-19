@@ -44,6 +44,9 @@
     <definition name="member/*" extends="Template">
         <put-attribute name="content" value="/WEB-INF/views/member/{1}.jsp" />
     </definition>
+    <definition name="notice/*" extends="Template">
+        <put-attribute name="content" value="/WEB-INF/views/notice/{1}.jsp" />
+    </definition>
 
 
     <!-- 어드민 및 업체 관리 페이지 설정 -->

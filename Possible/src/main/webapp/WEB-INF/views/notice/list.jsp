@@ -133,7 +133,7 @@ tr:hover {
 	</div>
 
 	<!-- 페이징 -->
-	<div id="pageButton" style="margin-top: 20px">
+	<%-- <div id="pageButton" style="margin-top: 20px">
 		<ul class="custom-pagination">
 			<c:if test="${pageMaker.prev }">
 				<li class="page-item"><a
@@ -150,7 +150,8 @@ tr:hover {
 				<!-- <span aria-hidden="true">&laquo;</span> -->
 			</c:if>
 		</ul>
-	</div>
+	</div> --%>
+	<jsp:include page="/pagination"></jsp:include>
 
 	<div align="right">
 		<button type="button" class="btn btn-primary"
