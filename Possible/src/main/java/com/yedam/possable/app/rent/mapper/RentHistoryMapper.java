@@ -25,6 +25,10 @@ public interface RentHistoryMapper {
 
     //전체 데이터 건수
     public int getTotalCount(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq);
+
+    //전체 데이터 건수
+    public int getTotalCount();
+
 	//수익
 	public HashMap<String, Object> getLatestCompanySales(Long cmpnSeq);
 

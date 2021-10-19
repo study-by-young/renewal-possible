@@ -23,6 +23,9 @@ public interface CarMapper {
     // 차량 보험 조회
     public List<InsuranceOptionVO> getCarInsurance(CarVO vo);
 
+    // 차량 보험 단건 조회
+    public InsuranceOptionVO getCarInsuranceByCode(@Param("seq") String seq, @Param("code") String insCode);
+
     // 차량 상태 변경
     public int updateStatus(CarVO vo);
 

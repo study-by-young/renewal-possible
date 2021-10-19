@@ -407,7 +407,7 @@ public class CompanyController {
 
     	int total = rentHistoryService.getTotalCount(cri,cmpnSeq);
     	System.out.println("total=============="+total);
-    	model.addAttribute("rentHistoryList", rentHistoryService.getRentHistoryList(cri,cmpnSeq));
+    	model.addAttribute("rentHistoryList", rentHistoryService.getRentHistoryListByCmpnSeq(cri,cmpnSeq));
     	model.addAttribute("pageMaker", new PageVO(cri, total));
         System.out.println("rentCri========" + cri);
 

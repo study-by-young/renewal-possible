@@ -412,9 +412,6 @@
 
 			}, function(rsp) {
 				if (rsp.success) {
-					let msg = '결제가 완료되었습니다.';
-					customAlert("결제 완료", msg);
-
 					// DB에 데이터 삽입
 					$.ajax({
 						url: '${pageContext.request.contextPath}/commonRent/payment',
@@ -439,7 +436,10 @@
 						}),
 						success: function(result) {
 						    if(result === 'true'){
-							    location.href = 'bookCmpl?merchantUid=' + merchantUid;
+                                let msg = '결제가 완료되었습니다.';
+                                customConfirm("결제 완료", msg, function(){
+                                    location.href = 'bookCmpl?merchantUid=' + merchantUid;
+                                });
                             }
 						},
 						error: function(xhr, status, message){

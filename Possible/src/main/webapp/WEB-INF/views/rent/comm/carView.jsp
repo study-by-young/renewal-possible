@@ -55,8 +55,8 @@
                             </div>
                             <div class="x_slider_form_input_wrapper float_left">
                                 <h6>예상 결제액</h6>
-                                <div class="text-right font-weight-bold text-primary">
-                                    <h6>${(car.price + insurance.price) * during}원</h6>
+                                <div>
+                                    <h6 class="text-right font-weight-bold text-primary">${(car.price + insurance.price) * during}원</h6>
                                 </div>
                             </div>
                         </div>

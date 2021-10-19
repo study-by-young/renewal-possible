@@ -388,4 +388,14 @@
         </where>)
         WHERE RN > (#{cri.pageNum} - 1) * #{cri.amount}
     </select>
+
+    <select id="getCarInsuranceByCode" resultMap="insuranceOption">
+        SELECT IO.opt_code,
+               IO.price,
+               CS.name AS opt_name
+        FROM insurance_option IO
+                     INNER JOIN code_sub CS ON CS.code = IO.opt_code
+        WHERE car_seq = #{seq}
+            AND opt_code = #{code}
+    </select>
 </mapper>

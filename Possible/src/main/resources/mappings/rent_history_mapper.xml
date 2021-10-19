@@ -20,6 +20,7 @@
 		<result property="phone" column="phone" />
 		<result property="birth" column="birth" />
 		<result property="email" column="email" />
+        <result property="insuranceCode" column="insurance_code" />
         <result property="carSeq" column="car_seq"/>
         <result property="memSeq" column="mem_seq"/>
         <result property="cmpnSeq" column="cmpn_seq"/>
@@ -43,6 +44,10 @@
         <result property="phone" column="phone" />
         <result property="birth" column="birth" />
         <result property="email" column="email" />
+        <association property="insuranceCodeVO"
+                     column="{seq=car_seq,code=insurance_code}"
+                     select="com.yedam.possable.app.car.mapper.CarMapper.getCarInsuranceByCode"
+                     javaType="InsuranceOptionVO" />
         <association property="carVO"
                      column= "car_seq"
                      select="com.yedam.possable.app.car.mapper.CarMapper.getCar"
