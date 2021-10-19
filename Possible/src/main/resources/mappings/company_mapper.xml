@@ -46,11 +46,11 @@
             <foreach collection="typeArr" item="type">
                 <trim prefix="OR">
                     <choose>
-                        <when test="type == 'U'.toString()">
-                            AUTHOR LIKE '%' || 'ROLE_USER' || '%'
+                        <when test="type == 'Y'.toString()">
+                            STATUS LIKE '%' || 'PST01' || '%'
                         </when>
-                        <when test="type == 'C'.toString()">
-                            AUTHOR LIKE '%' || 'ROLE_COMPANY' || '%'
+                        <when test="type == 'D'.toString()">
+                            STATUS LIKE '%' || 'PST03' || '%'
                         </when>
                     </choose>
                 </trim>
@@ -138,6 +138,7 @@
         FROM COMPANY
         <where>
             <include refid="criteria"/>
+            <include refid="checkCriteria"/>
             <![CDATA[
             AND (STATUS = 'PST01' OR STATUS = 'PST03')
             AND ROWNUM <= #{pageNum} * #{amount} ]]>

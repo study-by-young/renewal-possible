@@ -47,7 +47,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-12" style="padding-left:2.5rem">
+			<div class="row">
+			<div class="col-sm-6" style="padding-left:2.5rem">
 						<div class="d-flex">
 							<div align="center">
 								<form id="actionForm" action="confirmCompany" method="get">
@@ -74,6 +75,20 @@
 							</div>
 						</div>
 					</div>
+					
+					<div class="col-sm-6" style="padding-right: 2.5rem">
+					<div align="right">
+						<form id="actionForm" action="confirmCompany" method="get">
+								<input type="checkbox" name="type" value="Y" ${pageMaker.cri.type =='Y'? 'checked' : "" } >&nbsp;승인
+								<input type="checkbox" name="type"  value="D" ${pageMaker.cri.type =='N'? 'checked' : "" }>&nbsp;승인거부
+								<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
+								<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+							<button class="btn alpha-pink border-pink-400 text-pink-800 btn-icon rounded-round ml-2" onclick="$('[name=pageNum]').val(1)"><i class="icon-search4"></i></button>
+						</form>
+					</div>
+				</div>
+				</div>
 					<br>
 			<hr style="margin: 0px">
 			<div class="card-body" style="padding: 0px">

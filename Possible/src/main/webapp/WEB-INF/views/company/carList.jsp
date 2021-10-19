@@ -1,70 +1,102 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: admin
-  Date: 2021-10-08
-  Time: 오전 10:56
-  To change this template use File | Settings | File Templates.
---%>
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <style type="text/css">
-    .stateBanner {
-        text-align: center;
-        font-size: 18px;
-        border-radius: 0px;
-        position: relative;
-        width: 100%;
-    }
+.select {
+	width: 70px; /* 원하는 너비설정 */
+	padding: .5em .4em; /* 여백으로 높이 설정 */
+	border: 1px solid #999;
+	font-family: inherit; /* 폰트 상속 */
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */
+	border-radius: .5em;
+	-moz-appearance: none;
+	appearance: none;
+}
+
+.input {
+	width: 200px; /* 원하는 너비설정 */
+	padding: .5em .4em; /* 여백으로 높이 설정 */
+	border: 1px solid #999;
+	font-family: inherit; /* 폰트 상속 */
+	-webkit-appearance: none; /* 네이티브 외형 감추기 */
+	border-radius: .5em;
+	-moz-appearance: none;
+	appearance: none;
+}
 </style>
 <!-- Main content -->
-		<div class="content-wrapper">
+<div class="content-wrapper">
+
 	<!-- Content area -->
-			<div class="content">
-	
-	 <form id="actionForm" action="car" method="get">
-		 	<div class="col-sm-12" style="padding-left: 2.5rem">
-				<div class="d-flex">
-					<div align="left">
-						<select name="type" class="select">
-							<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
-							<option value="B" ${pageMaker.cri.type =='B'? 'selected' : "" }>수령자</option>
-						</select> 
-							<input class="input" name="keyword" value="${pageMaker.cri.keyword }"> 
-							<input type="hidden" name="pageNum" value="1"> 
-							<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
-							<input type="hidden" name="cmpnSeq" value="${cmpnSeq }">
-						<button class="btn btn-primary"
-							onclick="$('[name=pageNum]').val(1)">Search</button>
+	<div class="content">
+
+		<div class="card">
+			<div class="card-header header-elements-inline">
+				<h4 class="card-title">
+					<a
+						href="${pageContext.request.contextPath}/company/car"
+						class="nav-link">보유렌트카리스트</a>
+				</h4>
+				<div class="header-elements">
+					<div class="list-icons">
+						<a class="list-icons-item" data-action="collapse"></a>
 					</div>
 				</div>
-			</div> 
-			</form>
-		
-		<input type="hidden" name="cmpnSeq" value="${cmpnSeq}">
-    <div class="row">
-        <c:forEach var="companyCarList" items="${companyCarList }">
-        	<c:set var="car" value="${companyCarList.get('carVO')}" />
-				<div class="card" style="width: 400px; margin:5px">
-						<h4 class="card-title"><a href="${pageContext.request.contextPath}/company/car/view?seq=${car.seq}&cmpn=${car.cmpnSeq}">
-                                ${companyCarList.get('brand')},
-                                ${companyCarList.get('model') },
-                                ${car.year }
-                        </a></h4>
-					<img class="card-img-top" src="${pageContext.request.contextPath}/resources/images/cars/Hyundai/santafe.png" alt="Card image"
-						style="width: 100%">
-					<div class="card-body">
-				 <div class="stateBanner badge-primary">${companyCarList.get('status') }</div>
+			</div>
+
+			<div class="row">
+			<%-- <div class="col-sm-6" style="padding-right: 2.5rem">
+					<div align="right">
+						<form id="actionForm" action="member" method="get">
+								<input type="checkbox" name="type" value="U" ${pageMaker.cri.type =='U'? 'checked' : "" } >&nbsp;USER
+								<input type="checkbox" name="type"  value="C" ${pageMaker.cri.type =='C'? 'checked' : "" }>&nbsp;COMPANY
+								<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
+								<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+							<button class="btn alpha-pink border-pink-400 text-pink-800 btn-icon rounded-round ml-2" onclick="$('[name=pageNum]').val(1)"><i class="icon-search4"></i></button>
+						</form>
 					</div>
+				</div> --%>
+			</div>
+			<input type="hidden" name="cmpnSeq" value="${cmpnSeq}">
+			<br>
+			<hr style="margin: 0px">
+			<div class="card-body" style="padding: 0px">
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>아이디</th>
+								<th>전화번호</th>
+								<th>이름</th>
+								<th>권한</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							   <c:forEach var="companyCarList" items="${companyCarList }">
+							       <c:set var="car" value="${companyCarList.get('carVO')}" />
+								<tr>
+									<td>${car.seq}</td>
+									<td>${companyCarList.get('brand')},</td>
+									<td>${companyCarList.get('model') }</td>
+									<td>${car.year }</td>
+									<td>${companyCarList.get('status') }</td>
+									<td><a class="move" href="${pageContext.request.contextPath}/company/car/view?seq=${car.seq}&cmpn=${car.cmpnSeq}">상세보기</a></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+
 				</div>
-        </c:forEach>
-    </div>
-        <span style="float:right; padding-left:5px;"><button type="button" class="btn btn-primary" onclick="location.href='car/register?=${cmpnSeq}'">등록</button></span>    
-     </div>
-     
-     <div class="col-sm-12">
+			</div>
+			<hr style="margin: 0px">
+			<br>
+
+
+
+			<div class="col-sm-12">
 				<div class="d-flex align-items-center justify-content-center mb-2">
 					<div id="pageButton">
 						<ul class="pagination pagination-flat align-self-center">
@@ -85,15 +117,18 @@
 						</ul>
 					</div>
 				</div>
-			</div> 
+			</div>
 
-</div>
+   <span style="float:right; padding-left:5px;"><button type="button" class="btn btn-primary" onclick="location.href='car/register?=${cmpnSeq}'">등록</button></span>    
+			</div>
+		</div>
+	</div>
 
 <script>
 	$(function() {
 		var actionForm = $("#actionForm");
 
-
+	
 		$("#pageButton a").on("click", function(e) {
 			e.preventDefault(); //a, submit 경우에 쓸 수 있음 태그의 원래기능을 막고 정의한 함수 실행
 			var p = $(this).attr("href");
