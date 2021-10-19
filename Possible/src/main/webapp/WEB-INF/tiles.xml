@@ -49,6 +49,7 @@
     </definition>
     <definition name="qna/*" extends="Template">
         <put-attribute name="content" value="/WEB-INF/views/qna/{1}.jsp" />
+    </definition>
     <definition name="community/tour/*" extends="Template">
         <put-attribute name="content" value="/WEB-INF/views/community/tour/{1}.jsp" />
     </definition>

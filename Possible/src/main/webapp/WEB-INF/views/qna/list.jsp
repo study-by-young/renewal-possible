@@ -110,8 +110,7 @@ tr:hover {
 							<th class="col-6">제목</th>
 							<th class="col-1">작성자</th>
 							<th>작성일</th>
-							<th>수정일</th>
-							<th class="col-1">답변상태</th>
+							<th class="col-2">답변상태</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -121,8 +120,6 @@ tr:hover {
 								<td align="left">${qna.title}</td>
 								<td>${qna.writer}</td>
 								<td><fmt:formatDate value="${qna.genDate}"
-										pattern="yy-MM-dd" /></td>
-								<td><fmt:formatDate value="${qna.uptDate}"
 										pattern="yy-MM-dd" /></td>
 								<c:choose>
 									<c:when test="${qna.answerCnt>='1'}">

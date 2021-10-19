@@ -47,6 +47,40 @@
 					</div>
 				</div>
 			</form>
+				<div
+					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="contect_form1">
+						<input type="text" name="title" placeholder="제목 *"
+							required="required">
+					</div>
+				</div>
+				<div
+					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="contect_form2">
+						<input type="text" name="writer" placeholder="Writer"
+							value="admin" readonly="readonly">
+					</div>
+					<br>
+				</div>
+				<div
+					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="contect_form4">
+						<textarea name="content" id="content" class="ckeditor"
+							required="required"></textarea>
+					</div>
+					<br>
+				</div>
+				<div
+					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+					align="right">
+					<button id="insertBtn" type="button" class="btn btn-primary">등록</button>
+					<button type="button" class="btn btn-dark"
+						onclick="location.href='list?pageNum=${cri.pageNum}&amount=${cri.amount}'">목록</button>
+				</div>
+			</div>
+		<div class="form-group">
+			<label>첨부파일</label><input type="file" class="form-control" id="uploadFile" name="uploadFile" multiple="multiple">
+			<button type="button" id="uploadBtn" class="btn btn-default">첨부파일 등록</button>
 		</div>
 	</div>
 </div>
