@@ -3,6 +3,8 @@
 <!-- 일반 렌트: 렌터카 목록 페이지 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
+<c:set var="during" value="${endDate.date - startDate.date}"/>
 <div class="btc_tittle_main_wrapper">
     <div class="mb-3">
         <div class="page-header page-header-dark bg-primary-600 text-dark">
@@ -25,8 +27,9 @@
 			<div class="col-xl-3 col-lg-4">
                 <form id="payFrm" action="${pageContext.request.contextPath}/commonRent/view/book" method="get">
                     <input type="hidden" name="seq" value="${car.seq}">
-                    <input type="hidden" name="startDate" value="<fmt:formatDate value="${start}" pattern="yyyy/MM/dd" />">
-                    <input type="hidden" name="endDate" value="<fmt:formatDate value="${end}" pattern="yyyy/MM/dd" />">
+                    <input type="hidden" name="ins" value="${insurance.optCode}">
+                    <input type="hidden" name="startDate" value="<fmt:formatDate value="${startDate}" pattern="yyyy/MM/dd" />">
+                    <input type="hidden" name="endDate" value="<fmt:formatDate value="${endDate}" pattern="yyyy/MM/dd" />">
                     <div class="x_car_book_left_siderbar_wrapper float_left card">
                         <div class="fee-information card-header bg-white car_booking_onliy_side">
                             <h5 class="card-title">결제정보</h5>
@@ -34,20 +37,26 @@
                         <div class="card-body">
                             <div class="x_slider_form_input_wrapper float_left form-group">
                                 <h6>대여요금(자차보험 미포함)</h6>
-                                <div class="text-right font-weight-bold text-primary">
-                                    <h6>${car.price}원</h6>
+                                <div>
+                                    <span class="small text-muted">
+                                        ${car.price}원 * ${during}일
+                                    </span>
+                                    <span class="h6 float-right font-weight-bold text-primary">${car.price * during}원</span>
                                 </div>
                             </div>
                             <div class="x_slider_form_input_wrapper float_left form-group">
                                 <h6>자차보험</h6>
-                                <div class="text-right font-weight-bold text-primary">
-                                    <h6>${car.price}원</h6>
+                                <div>
+                                    <span class="small text-muted">
+                                        ${insurance.price}원 * ${during}일
+                                    </span>
+                                    <span class="h6 float-right font-weight-bold text-primary">${insurance.price * during}원</span>
                                 </div>
                             </div>
                             <div class="x_slider_form_input_wrapper float_left">
                                 <h6>예상 결제액</h6>
                                 <div class="text-right font-weight-bold text-primary">
-                                    <h6>${car.price + car.price}원</h6>
+                                    <h6>${(car.price + insurance.price) * during}원</h6>
                                 </div>
                             </div>
                         </div>
@@ -82,10 +91,10 @@
                                         <div class="form-sec-header text-center">
                                             <label class="h6">렌트 시작</label>
                                             <p class="form-control w-75 mx-auto bg-primary text-white h-auto"
-                                                    style="border-radius: 5rem;"><fmt:formatDate value="${start}" pattern="yy/MM/dd (EEE)"/></p>
+                                                    style="border-radius: 5rem;"><fmt:formatDate value="${startDate}" pattern="yy/MM/dd (EEE)"/></p>
                                         </div>
                                     </div>
-                                    <div class="col-md-1 align-self-end">
+                                    <div class="col-md-2 align-self-end">
                                         <div class="form-sec-header text-center">
                                             <p class="text-grey-600"><i class="icon-arrow-right8 icon-2x"></i></p>
                                         </div>
@@ -94,7 +103,7 @@
                                         <div class="form-sec-header text-center">
                                             <label class="h6">렌트 종료</label>
                                             <p class="form-control w-75 mx-auto bg-primary text-white h-auto"
-                                                    style="border-radius: 5rem;"><fmt:formatDate value="${end}" pattern="yy/MM/dd (EEE)"/></p>
+                                                    style="border-radius: 5rem;"><fmt:formatDate value="${endDate}" pattern="yy/MM/dd (EEE)"/></p>
                                         </div>
                                     </div>
                                 </div>

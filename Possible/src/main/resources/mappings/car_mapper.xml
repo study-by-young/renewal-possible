@@ -63,11 +63,11 @@
                      javaType="CompanyVO"/>
         <collection property="optionList"
                     column="seq"
-                    resultMap="carOption"
+                    select="getCarOptions"
                     ofType="CarOptionVO"/>
         <collection property="insuranceList"
                     column="seq"
-                    resultMap="insuranceOption"
+                    select="getCarInsurance"
                     ofType="InsuranceOptionVO"/>
     </resultMap>
 

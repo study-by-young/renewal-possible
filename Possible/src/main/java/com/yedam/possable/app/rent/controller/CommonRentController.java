@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.yedam.possable.app.car.domain.InsuranceOptionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
@@ -28,6 +29,7 @@ import com.yedam.possable.app.rent.service.PaymentService;
 import com.yedam.possable.app.rent.service.RentReviewService;
 
 import lombok.extern.java.Log;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Log
 @Controller
@@ -68,7 +70,6 @@ public class CommonRentController {
 		if(endDate.compareTo(startDate) == 0){
 			endDate.setDate(startDate.getDate() + 1);
 		}
-		log.info(modelList.toString());
     	// 차 모델별(car.model)로 업체 리스트를 뽑고 여기서 뽑은 차 SEQ랑 업체 SEQ로
     	// 차 SEQ(modelList.seq)를 가지고 차가 가진 보험 목록을 뽑고
     	// 업체 SEQ(modelList.cmpn_seq)를 가지고 업체에 달린 후기 개수를 뽑고
@@ -90,14 +91,21 @@ public class CommonRentController {
     @GetMapping("/view")
     public String rentCarView(Model model,
                               CarVO vo,
-                              @RequestParam("startDate")
+                              @RequestParam("insCode") String insuranceCode,
+                              @ModelAttribute("startDate")
                                   @DateTimeFormat(pattern = "yyyy/MM/dd") Date startDate,
-                              @RequestParam("endDate")
+                              @ModelAttribute("endDate")
                                   @DateTimeFormat(pattern = "yyyy/MM/dd") Date endDate,
                               @ModelAttribute("cri") Criteria cri) {
-    	model.addAttribute("car", carService.getCar(vo));
-        model.addAttribute("start", startDate);
-        model.addAttribute("end", endDate);
+        CarVO carVO = carService.getCar(vo);
+        for(InsuranceOptionVO insVO : carVO.getInsuranceList()){
+            if(insVO.getOptCode().equals(insuranceCode)){
+                model.addAttribute("insurance", insVO);
+                break;
+            }
+        }
+
+        model.addAttribute("car", carVO);
         model.addAttribute("reviewList",rentReviewService.getReviewListByCmpnSeq(vo));
 
     	// 넘어와야 하는 값
@@ -110,26 +118,30 @@ public class CommonRentController {
     @GetMapping("/view/book")
     public String rentCarBook(CarVO carVO,
                               Authentication authentication,
-                              @RequestParam("startDate")
+                              RedirectAttributes attributes,
+                              @RequestParam("ins") String insuranceCode,
+                              @ModelAttribute("startDate")
                               @DateTimeFormat(pattern = "yyyy/MM/dd") Date startDate,
-                              @RequestParam("endDate")
+                              @ModelAttribute("endDate")
                                   @DateTimeFormat(pattern = "yyyy/MM/dd") Date endDate,
                               Model model) {
         MemberVO loginUser = memberService.getLoginMember(authentication);
 
+        if(loginUser == null){
+            attributes.addFlashAttribute("alertMsg", "로그인 후 이용 가능합니다.");
+            return "redirect:/login";
+        }
+        carVO = carService.getCar(carVO);
+        for(InsuranceOptionVO insVO : carVO.getInsuranceList()){
+            if(insVO.getOptCode().equals(insuranceCode)){
+                model.addAttribute("insurance", insVO);
+                break;
+            }
+        }
         model.addAttribute("car", carService.getCar(carVO));
-        model.addAttribute("start", startDate);
-        model.addAttribute("end", endDate);
     	model.addAttribute("user", loginUser);
 
         return "rent/comm/carBook";
-    }
-
-    // 결제데이터 DB 입력
-    @PostMapping("/view/payment")
-    @ResponseBody
-    public void payment(@RequestBody RentHistoryVO vo) {
-		paymentService.paymentInsert(vo);
     }
 
     // 렌트카 예약 완료

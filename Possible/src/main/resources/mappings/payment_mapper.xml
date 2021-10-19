@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.possable.app.rent.mapper.PaymentMapper">
+    <resultMap id="rentHistory" type="RentHistoryVO">
+        <id property="seq" column="seq" />
+        <result property="rentType" column="rent_type"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="receiver" column="receiver"/>
+        <result property="price" column="price"/>
+        <result property="takePlaceCode" column="take_place_code"/>
+        <result property="takePlaceBasic" column="take_place_basic"/>
+        <result property="takePlaceDetail" column="take_place_detail"/>
+        <result property="status" column="status"/>
+        <result property="genDate" column="gen_date"/>
+        <result property="uptDate" column="upt_date"/>
+        <result property="estimate" column="estimate"/>
+        <result property="merchantUid" column="merchant_uid"/>
+        <result property="payMethod" column="pay_method"/>
+        <result property="phone" column="phone"/>
+        <result property="birth" column="birth"/>
+        <result property="email" column="email"/>
+    </resultMap>
+
+    <resultMap id="rentHistoryAllData" type="RentHistoryVO">
+    </resultMap>
 
 	<!-- 결제정보 DB 입력 -->
-	<insert id="paymentInsert">
+	<insert id="insertPayment">
 		<selectKey keyProperty="seq" resultType="Long" order="BEFORE">
 			SELECT SEQ_RENT_HISTORY.nextval FROM DUAL
 		</selectKey>
@@ -14,7 +37,6 @@
 					, END_DATE
 					, RECEIVER
 					, PRICE
-					, ESTIMATE
 					, STATUS
 					, TAKE_PLACE_CODE
 					, TAKE_PLACE_BASIC
@@ -23,6 +45,8 @@
 					, PAY_METHOD
 					, CAR_SEQ
 					, MEM_SEQ
+                    , cmpn_seq
+                    , gen_date
 		)
 		VALUES(
 				#{seq}
@@ -31,7 +55,6 @@
 				, #{endDate}
 				, #{receiver}
 				, #{price}
-				, #{estimate}
 				, #{status}
 				, #{takePlaceCode}
 				, #{takePlaceBasic}
@@ -40,36 +63,38 @@
 				, #{payMethod}
 				, #{carSeq}
 				, #{memSeq}
+                , #{cmpnSeq}
+                , SYSDATE
 		)
 	</insert>
 
 	<!-- 결제완료 후 내역 조회(rent_history seq를 이용해 단건조회) -->
-	<select id="paymentOneSelect" resultType="RentHistoryVO">
-		SELECT * 
+	<select id="paymentOneSelect" resultMap="rentHistory">
+		SELECT *
 		FROM RENT_HISTORY
 		WHERE SEQ = #{seq}
 	</select>
-	
+
 	<!-- 렌트히스토리 조회 -->
 	<select id="paymentList" resultType="RentHistoryVO">
-		SELECT * 
+		SELECT *
 		FROM RENT_HISTORY
 		WHERE MEM_SEQ = 2
 		AND STATUS = '예약중'
 	</select>
-	
+
 	<!-- 결제취소 시 RENT_HISTORY 테이블 처리 -->
 	<update id="paymentCancel">
 		UPDATE RENT_HISTORY
 		SET STATUS = '예약취소'
 		WHERE MERCHANT_UID = #{merchantUid}
 	</update>
-	
+
 	<!-- 렌트 내역 가장 최근 seq 조회 -->
 	<select id="readSeq" resultType="Long">
-		SELECT SEQ 
+		SELECT SEQ
 		FROM RENT_HISTORY
 		WHERE MERCHANT_UID = #{merchantUid}
 	</select>
-	
+
 </mapper>

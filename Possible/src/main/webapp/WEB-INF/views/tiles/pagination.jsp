@@ -7,33 +7,20 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<c:if test="${pagination.startPage == 0}">
-    <div class="col-12">
-        <div class="card card-body text-center">
-            <ul class="pagination pagination-flat align-self-center">
-                    <li class="page-item active">
-                        <a href="?pageNum=1&amount=${pagination.cri.amount}" class="page-link">1</a>
-                    </li>
-            </ul>
-        </div>
-    </div>
-</c:if>
-<c:if test="${pagination.startPage != 0}">
 <div class="col-12">
     <div class="card card-body text-center">
         <ul class="pagination pagination-flat align-self-center">
             <li class="page-item">
-                <a class="page-link" href="?pageNum=${pagination.startPage-1}&amount=${pagination.cri.amount}" <c:if test="${!pagination.prev }">style="display: none"</c:if>><i class="fas fa-chevron-left"></i></a>
+                <a class="page-link" href="?pageNum=${pagination.startPage}&amount=${pagination.cri.amount}" <c:if test="${!pagination.prev }">style="display: none"</c:if>><i class="fas fa-chevron-left"></i></a>
             </li>
-            <c:forEach begin="${pagination.startPage }" end="${pagination.endPage }" var="num">
+            <c:forEach begin="${pagination.startPage + 1}" end="${pagination.endPage +1}" var="num">
                 <li class="page-item <c:if test="${param.getOrDefault('pageNum',1) == num}"> active</c:if>">
                     <a href="?pageNum=${num }&amount=${pagination.cri.amount}" class="page-link">${num }</a>
                 </li>
             </c:forEach>
             <li class="page-item">
-                <a class="page-link" href="?pageNum=${pagination.endPage+1}&amount=${pagination.cri.amount}" <c:if test="${!pagination.next }">style="display: none"</c:if>><i class="fas fa-chevron-right"></i></a>
+                <a class="page-link" href="?pageNum=${pagination.endPage+2}&amount=${pagination.cri.amount}" <c:if test="${!pagination.next }">style="display: none"</c:if>><i class="fas fa-chevron-right"></i></a>
             </li>
         </ul>
     </div>
 </div>
-</c:if>
