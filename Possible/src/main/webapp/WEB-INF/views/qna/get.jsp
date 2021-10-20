@@ -63,11 +63,11 @@
 		</div>
 		<div class="card-footer lr_bc_first_box_img_cont_wrapper" align="right" style="border-bottom: 0px;">
 			<!-- <button class="btn btn-primary" type="button" id="list_btn">목록</button> -->
+			<button class="btn btn-primary" type="button" id="list_btn" >목록</button>
 			<button class="btn btn-dark" type="button" id="update_btn">수정</button>
 			<button id="deleteBtn" type="button" class="btn btn-dark">삭제</button>
 		</div>
-		<form id="intoForm"
-			action="${pageContext.request.contextPath}/qna/update" method="get">
+		<form id="intoForm" action="${pageContext.request.contextPath}/qna/update" method="get">
 			<input type="hidden" id="seq" name="seq"
 				value='<c:out value="${qna.seq}"/>'> <input type="hidden"
 				id="pageNum" name="pageNum" value='<c:out value="${cri.pageNum}"/>'>
@@ -206,14 +206,12 @@
 		var result = confirm('삭제 하시겠습니까?');
 
 		if (result == true) {
-			location.href = 'delete?seq=${qna.seq}';
+			location.href = '${pageContext.request.contextPath}/qna/delete?seq=${qna.seq}';
 			form.find("#seq").remove();
-			form.attr("action",
-					"${pageContext.request.contextPath}/qna/list?pageNum="
-							+ $('#pageNum').val() + "&amount="
-							+ $('#amount').val());
+			form.attr("action", "${pageContext.request.contextPath}/mypage/qna");
+			//form.attr("action", "${pageContext.request.contextPath}/qna/list?pageNum=" + $('#pageNum').val() + "&amount=" + $('#amount').val());
 			form.submit();
-		} else {
+		} else { 
 			return;
 		}
 	})
@@ -223,10 +221,8 @@
 
 	$("#list_btn").on("click", function(e) {
 		form.find("#seq").remove();
-		form.attr("action",
-				"${pageContext.request.contextPath}/qna/list?pageNum="
-						+ $('#pageNum').val() + "&amount="
-						+ $('#amount').val());
+		form.attr("action", "${pageContext.request.contextPath}/mypage/qna");
+		// /qna/list?pageNum=" + $('#pageNum').val() + "&amount=" + $('#amount').val());
 		form.submit();
 	})
 

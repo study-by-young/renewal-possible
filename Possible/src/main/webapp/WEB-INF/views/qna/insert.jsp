@@ -66,8 +66,8 @@
 						<div class="card-footer col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"
 							align="right">
 							<button id="insertBtn" type="button" class="btn btn-primary">등록</button>
-							<button type="button" class="btn btn-dark"
-								onclick="location.href='list?pageNum=${cri.pageNum}&amount=${cri.amount}'">목록</button>
+							<%-- <button type="button" class="btn btn-dark"
+								onclick="location.href='list?pageNum=${cri.pageNum}&amount=${cri.amount}'">목록</button> --%>
 						</div>
 					</div>
 				</div>

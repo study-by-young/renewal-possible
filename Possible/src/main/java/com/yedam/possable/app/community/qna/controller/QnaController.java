@@ -16,7 +16,6 @@ import com.yedam.possable.app.community.qna.domain.QnaVO;
 import com.yedam.possable.app.community.qna.service.QnaService;
 import com.yedam.possable.app.member.domain.MemberVO;
 import com.yedam.possable.app.member.service.MemberService;
-import com.yedam.possable.app.member.service.MemberService;
 
 @Controller
 @RequestMapping("/qna/*")
@@ -120,7 +119,7 @@ public class QnaController {
 		int total = qnaService.getTotalCount(cri);
 		model.addAttribute("pagination", new PageVO(cri, total));
 		
-		return "redirect:/qna/list";
+		return "redirect:/mypage/qna";
 	}
 	
 }
