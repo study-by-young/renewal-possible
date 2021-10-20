@@ -58,17 +58,38 @@
 										<div class="form-group">
 											<input type="hidden" class="form-control" name='seq' value='<c:out value="${report.seq}"/>'readonly="readonly">
 										</div>
-																			
+										
+										<div class="row">
+										<div class="col-sm-6">									
 										<div class="form-group">
 											<h5 class="font-weight-bold"><label>게시글 번호</label></h5> 
-											<a href="${pageContext.request.contextPath}/community/course/view?seq=${report.target}"><input type="text" class="form-control" name='target' value='<c:out value="${report.target}"/>' readonly="readonly" style="color:red"></a>
+											<input type="text" class="form-control" name='target' value='<c:out value="${report.target}"/>' readonly="readonly" style="color:red">
+										</div>
 										</div>
 										
-										<div class="form-group">
-											<h5 class="font-weight-bold"><label>게시글 작성자</label></h5> 
-											  <button id="mem" data-toggle="modal" data-target="#myModal"><input type="text" id="writer" class="form-control" name='writer' value='<c:out value="${report.writer}"/>' readonly="readonly"></button>
+										<div class="col-sm-6">	
+												<div class="form-group">
+													<h5 class="font-weight-bold"><label></label></h5> 
+													<a href="${pageContext.request.contextPath}/community/course/view?seq=${report.target}"><i class="icon-square-up-right mr-3 icon-2x"></i></a>
+												</div>
+											</div>
 										</div>
 										
+										<div class="row">
+											<div class="col-sm-6">	
+												<div class="form-group">
+													<h5 class="font-weight-bold"><label>게시글 작성자</label></h5> 
+													  <input type="text" id="writer" class="form-control" name='writer' value='<c:out value="${report.writer}"/>' readonly="readonly">
+												</div>
+											</div>
+											
+											<div class="col-sm-6">	
+												<div class="form-group">
+													<h5 class="font-weight-bold"><label></label></h5> 
+													<a href="${pageContext.request.contextPath}/admin/maintenance/member/view?seq=${report.memSeq}"><i class="icon-square-up-right mr-3 icon-2x"></i></a>
+												</div>
+											</div>
+										</div>
 										<div class="form-group">
 											<h5 class="font-weight-bold"><label>신고자</label></h5> 
 											<input type="text" class="form-control" name='reason' value='<c:out value="${report.reporter}"/>' readonly="readonly">
@@ -107,53 +128,8 @@
 
 				</div>
 </div>
-
- <!-- The Modal -->
-  <div class="modal" id="myModal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-          제명하시겠습니까?
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-       	  <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-        </div>
-        
-      </div>
-    </div>
-  </div>
   
-<script>
-$(document).ready(function() {
 
-	$('#mem').click(function(){
-	
-	var id = $('#writer').val();
-	console.log(id);
-	
-	$.ajax({
-        url: "getInfo"      
-        type: "get",
-        data:{id : id},
-        dataType:'json', 
-        success:function(data) {
-           console.log(data)
-    	}
-	});
-}
-}
-</script>
 
 
 

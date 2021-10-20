@@ -94,7 +94,7 @@ public class CompanyController {
     	MemberVO loginUser = memberService.getLoginMember(authentication);
     	vo = companyService.getCompanyByMemSeq(loginUser);
     	Gson gson = new Gson();
-        HashMap<String, Object> list = rentHistoryService.getLatestCompanySales(vo.getSeq());
+        List<Map<String, Object>> list = rentHistoryService.getLatestCompanySales(vo.getSeq());
 		return gson.toJson(list);
 	}
 
@@ -220,8 +220,9 @@ public class CompanyController {
 
     // 업체 렌트카 등록 처리
     @PostMapping("/car/register")
-    public String registerCar(CarVO vo, HttpServletRequest request, CarOptionVO optVO,  @RequestParam("options") String[] optionsArr, RedirectAttributes rttr) throws IllegalStateException, IOException{
-
+    public String registerCar(CarVO vo, @RequestParam Long cmpnSeq, HttpServletRequest request, CarOptionVO optVO,  @RequestParam("options") String[] optionsArr, RedirectAttributes rttr) throws IllegalStateException, IOException{
+    	String r = "";
+    	
        HttpSession session = request.getSession();
         String root_path = session.getServletContext().getRealPath("/");
         String attach_path = "resources/images";
@@ -241,7 +242,6 @@ public class CompanyController {
         rttr.addFlashAttribute("result", result);
 
         int result2 = 0;
-
         for(String options : optionsArr) {
         	 optVO.setCarSeq(vo.getSeq());
         	 optVO.setOptCode(options);
@@ -250,8 +250,9 @@ public class CompanyController {
         	}
 
         rttr.addFlashAttribute("result2", result2);
+        r = "redirect:/company/car?cmpnSeq="+cmpnSeq;
 
-        return "redirect:/company/dashboard";
+        return r;
     }
 
     // 업체 렌트카 수정 폼
@@ -303,24 +304,12 @@ public class CompanyController {
     return r;
     }
 
-//    //옵션 삭제
-//    @ResponseBody
-//    @PostMapping("deleteOpt")
-//    public boolean deleteOption(CarOptionVO optVO, RedirectAttributes rttr) {
-//
-//    	int result = carService.deleteOption(optVO);
-//		if(result == 1) {
-//			rttr.addFlashAttribute("result", "success");
-//		}
-//
-//		return result==1 ? true : false;
-//    }
-
     // 업체 렌트카 삭제 처리
     @ResponseBody
     @PostMapping("/car/delete")
-    public String deleteCar(CarVO vo, CarOptionVO optVO, InsuranceOptionVO insVO, @RequestParam Long seq, RedirectAttributes rttr){
-
+    public String deleteCar(CarVO vo, CarOptionVO optVO, InsuranceOptionVO insVO, @RequestParam Long seq, @RequestParam Long cmpnSeq, RedirectAttributes rttr){
+    	String r = "";
+    	
     	vo.setSeq(seq);
     	optVO.setCarSeq(seq);
     	insVO.setCarSeq(seq);
@@ -331,7 +320,10 @@ public class CompanyController {
 		if(result == 1) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		return "redirect:/company/dashboard";
+		
+		r = "redirect:/company/car?cmpnSeq="+cmpnSeq;
+				
+		return r;
     }
 
     // 견적 제출 리스트
@@ -405,10 +397,21 @@ public class CompanyController {
     @GetMapping("/rent")
     public String rentHistoryList(Model model, @RequestParam Long cmpnSeq, @ModelAttribute("cri") Criteria cri){
 
+    	List<Map<String, Object>> rentList = new LinkedList<>();
+        List<RentHistoryVO> voList = rentHistoryService.getRentHistoryListByCmpnSeq(cri, cmpnSeq);
+        
+        for(RentHistoryVO vo : voList) {
+            Map<String, Object> voMap = new HashMap<>();
+            String status = codeService.getCodeByValue(vo.getStatus()).getName();
+            voMap.put("rentHistoryVO", vo);
+            voMap.put("status", status);
+            rentList.add(voMap);
+        }
+    	
     	int total = rentHistoryService.getTotalCount(cri,cmpnSeq);
     	System.out.println("total=============="+total);
-    	model.addAttribute("rentHistoryList", rentHistoryService.getRentHistoryListByCmpnSeq(cri,cmpnSeq));
     	model.addAttribute("pageMaker", new PageVO(cri, total));
+    	model.addAttribute("rentHistoryList", rentList);
         System.out.println("rentCri========" + cri);
 
         return "company/rentHistoryList";

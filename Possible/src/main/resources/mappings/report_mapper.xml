@@ -48,14 +48,12 @@
 	
 	<!-- 신고글 한건 -->
 	<select id="getReport" resultType="ReportVO">
-		SELECT SEQ,
-				TARGET,
-				WRITER,
-				REASON,
-				GEN_DATE,
-				REPORTER
-		FROM REPORT_BOARD
-		WHERE SEQ = #{seq}
+		SELECT r.SEQ,r.TARGET,r.WRITER,
+				r.REASON,
+				r.GEN_DATE,
+				r.REPORTER,
+                m.seq memSeq
+		FROM REPORT_BOARD r join member m on r.writer = m.id where r.seq = #{seq}
 	</select>
 	
 	<insert id="insert">

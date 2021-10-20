@@ -109,7 +109,7 @@
 							<a
 								href="../../../../global_assets/images/placeholders/placeholder.jpg">
 								<img
-								src="${pageContext.request.contextPath}/resources/images/bonobono.jpg"
+								src="${pageContext.request.contextPath}/resources/images/user.png"
 								class="rounded-circle" width="40" height="40" alt="">
 							</a>
 						</div>
@@ -135,9 +135,9 @@
 	$.getJSON("salesList", function(data) {
 
 		$.each(data, function(inx, obj) {
-			chartLabels.push(moment(obj.uptDate).format("YYYY-MM-DD"));
-			chartData.push(obj.price);
-
+			chartLabels.push(obj.UPTDATE);
+			chartData.push(obj.EARN);
+			console.log(moment(obj.uptDate).format("YYYY-MM-DD"));
 		});
 
 		createChart();
@@ -159,6 +159,7 @@
 			pointStrokeColor : "#fff",
 			pointHighlightFill : "#fff",
 			pointHighlightStroke : "rgba(220,220,220,1)",
+			
 			data : chartData
 		} ]
 	}

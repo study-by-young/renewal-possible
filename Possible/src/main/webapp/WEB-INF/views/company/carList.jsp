@@ -43,21 +43,23 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="row">
-			<%-- <div class="col-sm-6" style="padding-right: 2.5rem">
+			
+			<div class="col-sm-12" style="padding-right: 2.5rem">
 					<div align="right">
-						<form id="actionForm" action="member" method="get">
-								<input type="checkbox" name="type" value="U" ${pageMaker.cri.type =='U'? 'checked' : "" } >&nbsp;USER
-								<input type="checkbox" name="type"  value="C" ${pageMaker.cri.type =='C'? 'checked' : "" }>&nbsp;COMPANY
+						<form id="actionForm" action="car" method="get">
+							<label><input type="checkbox" name="type" value="A" ${pageMaker.cri.type =='A'? 'checked' : "" } >&nbsp;대기</label>
+							<label><input type="checkbox" name="type"  value="B" ${pageMaker.cri.type =='B'? 'checked' : "" }>&nbsp;예약</label>
+							<label><input type="checkbox" name="type" value="C" ${pageMaker.cri.type =='C'? 'checked' : "" } >&nbsp;사용</label>
+							<label><input type="checkbox" name="type"  value="D" ${pageMaker.cri.type =='D'? 'checked' : "" }>&nbsp;수리</label>
 								<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
 								<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+								<input type="hidden" name="cmpnSeq" value="${cmpnSeq }">
 							<button class="btn alpha-pink border-pink-400 text-pink-800 btn-icon rounded-round ml-2" onclick="$('[name=pageNum]').val(1)"><i class="icon-search4"></i></button>
 						</form>
 					</div>
-				</div> --%>
-			</div>
+				</div>
+			
 			<input type="hidden" name="cmpnSeq" value="${cmpnSeq}">
 			<br>
 			<hr style="margin: 0px">
@@ -67,10 +69,10 @@
 						<thead>
 							<tr>
 								<th>번호</th>
-								<th>아이디</th>
-								<th>전화번호</th>
-								<th>이름</th>
-								<th>권한</th>
+								<th>브랜드</th>
+								<th>모델</th>
+								<th>연식</th>
+								<th>상태</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -79,7 +81,7 @@
 							       <c:set var="car" value="${companyCarList.get('carVO')}" />
 								<tr>
 									<td>${car.seq}</td>
-									<td>${companyCarList.get('brand')},</td>
+									<td>${companyCarList.get('brand')}</td>
 									<td>${companyCarList.get('model') }</td>
 									<td>${car.year }</td>
 									<td>${companyCarList.get('status') }</td>
@@ -119,8 +121,16 @@
 				</div>
 			</div>
 
-   <span style="float:right; padding-left:5px;"><button type="button" class="btn btn-primary" onclick="location.href='car/register?=${cmpnSeq}'">등록</button></span>    
+			<div class="col-sm-12" style="padding-right: 2.5rem">
+				<div align="right">
+					<div style="padding-left: 5px; margin-bottom:20px;">
+						<button type="button" class="btn btn-primary"
+							onclick="location.href='car/register?=${cmpnSeq}'">등록</button>
+					</div>
+				</div>
 			</div>
+
+		</div>
 		</div>
 	</div>
 

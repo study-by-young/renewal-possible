@@ -24,7 +24,7 @@
 	<!-- Striped rows -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title"><a href="${pageContext.request.contextPath}/admin/maintenance/company">미승인 업체(최신 3개)</a>&nbsp;<span class="badge bg-pink badge-pill">New</span></h5>
+						<h5 class="card-title"><a href="${pageContext.request.contextPath}/admin/maintenance/company">미승인 업체</a>&nbsp;<span class="badge bg-pink badge-pill">New</span></h5>
 						<div class="header-elements">
 							<div class="list-icons">
 		                		<a class="list-icons-item" data-action="collapse"></a>
@@ -68,7 +68,7 @@
 <!-- Striped rows -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title"><a href="${pageContext.request.contextPath}/qna/list">1:1문의(5개)</a></h5>
+						<h5 class="card-title"><a href="${pageContext.request.contextPath}/qna/list">1:1문의</a></h5>
 						<div class="header-elements">
 							<div class="list-icons">
 		                		<a class="list-icons-item" data-action="collapse"></a>
@@ -118,7 +118,7 @@
 	<!-- Striped rows -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title"><a href="${pageContext.request.contextPath}/notice/list">공지사항(최신 3개)</a></h5>
+						<h5 class="card-title"><a href="${pageContext.request.contextPath}/notice/list">공지사항</a></h5>
 						<div class="header-elements">
 							<div class="list-icons">
 		                		<a class="list-icons-item" data-action="collapse"></a>

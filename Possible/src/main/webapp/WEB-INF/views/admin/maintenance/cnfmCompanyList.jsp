@@ -63,8 +63,6 @@
 											${pageMaker.cri.type =='C'? 'selected' : "" }>사업자번호</option>
 										<option value="T"
 											${pageMaker.cri.type =='T'? 'selected' : "" }>대표번호</option>
-										<option value="S"
-											${pageMaker.cri.type =='S'? 'selected' : "" }>상태</option>
 									</select> <input class="input" name="keyword"
 										value="${pageMaker.cri.keyword }"> <input type="hidden"
 										name="pageNum" value="1"> <input type="hidden" name="amount"
@@ -79,8 +77,8 @@
 					<div class="col-sm-6" style="padding-right: 2.5rem">
 					<div align="right">
 						<form id="actionForm" action="confirmCompany" method="get">
-								<input type="checkbox" name="type" value="Y" ${pageMaker.cri.type =='Y'? 'checked' : "" } >&nbsp;승인
-								<input type="checkbox" name="type"  value="D" ${pageMaker.cri.type =='N'? 'checked' : "" }>&nbsp;승인거부
+								<label><input type="checkbox" name="type" value="Y" ${pageMaker.cri.type =='Y'? 'checked' : "" } >&nbsp;승인</label>
+								<label><input type="checkbox" name="type"  value="D" ${pageMaker.cri.type =='N'? 'checked' : "" }>&nbsp;승인거부</label>
 								<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
 								<input type="hidden" name="amount" value="${pageMaker.cri.amount }">

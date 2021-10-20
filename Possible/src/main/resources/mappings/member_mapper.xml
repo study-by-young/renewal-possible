@@ -33,9 +33,6 @@
                         <when test="type == 'P'.toString()">
                             PHONE LIKE '%' || #{keyword} || '%'
                         </when>
-                        <when test="type == 'A'.toString()">
-                            AUTHOR LIKE UPPER('%' || #{keyword} || '%')
-                        </when>
                     </choose>
                 </trim>
             </foreach>

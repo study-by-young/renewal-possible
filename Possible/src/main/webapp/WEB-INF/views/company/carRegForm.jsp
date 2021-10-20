@@ -32,13 +32,13 @@
 										<div class="row">
 										<ul class="list-unstyled row">
 											<li class="col-md-4">
-												<label class="d-block">IMG1
+												<h5 class="font-weight-bold"><label class="d-block">IMG1
 													<input type="file" name="uploadFile" onchange="setThumbnail(event)"/>
-												</label>
+												</label></h5>
 											</li>
 											<li id="image_container"></li>
 											<li class="col-md-4">
-												<label class="d-block">브랜드 
+												<h5 class="font-weight-bold"><label class="d-block">브랜드 
 												<select name="brand" id="brand" class="form-control select-fixed-single" onchange="searchModelByBrand()" required>
 															<optgroup label="브랜드">
 																<option>브랜드를 선택하세요</option>
@@ -47,10 +47,10 @@
 																</c:forEach>
 															</optgroup>
 												</select>
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">모델 
+												<h5 class="font-weight-bold"><label class="d-block">모델 
 												<select name="model" id="model" class="form-control select-fixed-single" onchange="searchTrimByModel()" required>
 															<optgroup label="모델명">
 																<option>모델을 선택하세요</option>
@@ -59,20 +59,20 @@
 																</c:forEach>
 															</optgroup>
 												</select>
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">등급
+												<h5 class="font-weight-bold"><label class="d-block">등급
 														<select name="trim" id="trim" class="form-control select-fixed-single" onchange="searchByBrand()" required>
 															<optgroup label="트림">
 																<option>등급을 선택하세요</option>
 															</optgroup>
 													</select>
-												</label>
+												</label></h5>
 											<br>
 											</li>
 												<li class="col-md-4">
-												<label class="d-block">세그먼트 
+												<h5 class="font-weight-bold"><label class="d-block">세그먼트 
 												<select name="segment" id="segment" class="form-control select-fixed-single" onchange="searchByBrand()" required>
 															<optgroup label="세그먼트">
 																<option>세그먼트를 선택하세요</option>
@@ -81,10 +81,10 @@
 																</c:forEach>
 															</optgroup>
 												</select>
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">연료 
+												<h5 class="font-weight-bold"><label class="d-block">연료 
 												<select name="fuel" id="fuel" class="form-control select-fixed-single" required>
 															<optgroup label="연료">
 																<option>연료를 선택하세요</option>
@@ -93,10 +93,10 @@
 																</c:forEach>
 															</optgroup>
 													</select>
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">연식 
+												<h5 class="font-weight-bold"><label class="d-block">연식 
 												<select name="year" id="year" class="form-control select-fixed-single" required>
 															<optgroup label="연식">
 																<option value="">연식을 선택하세요</option>
@@ -109,11 +109,11 @@
 																	<option value="2016">2016년</option>
 															</optgroup>
 													</select>
-												</label>
+												</label></h5>
 											<br>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">색깔
+												<h5 class="font-weight-bold"><label class="d-block">색깔
 												<select name="color" id="color" class="form-control select-fixed-single" required>
 															<optgroup label="색깔">
 																<option value="">색깔을 선택하세요</option>
@@ -126,11 +126,11 @@
 																	<option value="적색">적색</option>
 															</optgroup>
 													</select>
-												</label>
+												</label></h5>
 											
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">인원
+												<h5 class="font-weight-bold"><label class="d-block">인원
 												<select name="passenger" id="passenger" class="form-control select-fixed-single" required>
 															<optgroup label="인원">
 																<option value="">인원을 선택하세요</option>
@@ -143,10 +143,10 @@
 																	<option value="1">1</option>
 															</optgroup>
 													</select>
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">기어
+												<h5 class="font-weight-bold"><label class="d-block">기어
 												<select name="mission" id="mission" class="form-control select-fixed-single" required>
 															<optgroup label="기어">
 																<option value="">기어를 선택하세요</option>
@@ -154,11 +154,11 @@
 																	<option value="수동">수동</option>
 															</optgroup>
 													</select>
-												</label>
+												</label></h5>
 												<br>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">트렁크
+												<h5 class="font-weight-bold"><label class="d-block">트렁크
 												<select name="trunk" id="trunk" class="form-control select-fixed-single" required>
 															<optgroup label="트렁크">
 																<option value="">트렁크를 선택하세요</option>
@@ -166,32 +166,32 @@
 																	<option value="300">300</option>
 															</optgroup>
 													</select>
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">도어
+												<h5 class="font-weight-bold"><label class="d-block">도어
 													<input type="text" class="form-control" name='door' placeholder="도어를 입력해주세요">
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">연비
+												<h5 class="font-weight-bold"><label class="d-block">연비
 													<input type="text" class="form-control" name='kmpl' placeholder="연비를 입력해주세요">
-												</label>
+												</label></h5>
 											<br>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">가격
+												<h5 class="font-weight-bold"><label class="d-block">가격
 													<input type="text" class="form-control" name='price' placeholder="가격을 입력해주세요">
-												</label>
+												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<label class="d-block">차 번호
+												<h5 class="font-weight-bold"><label class="d-block">차 번호
 													<input type="text" class="form-control" name='carNum' placeholder="차 번호를 입력해주세요">
-												</label>
+												</label></h5>
 											</li>
 										
 										<li class="col-md-12 my-3">
-                                                <label>차량 옵션</label>
+                                                <h5 class="font-weight-bold"><label>차량 옵션</label></h5>
                                                 <hr class="my-2">
                                                 <div class="x_slider_checkbox_bottom_filter_use">
                                                     <c:forEach var="option" items="${carOpt}" varStatus="status">
