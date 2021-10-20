@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.yedam.possable.app.common.code.domain.BrandCodeVO;
 import com.yedam.possable.app.common.code.domain.ModelCodeVO;
@@ -14,11 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.car.domain.CarVO;
@@ -60,6 +57,19 @@ public class PremiumRentController {
         model.addAttribute("pagination", new PageVO(cri, listCount));
 
         return "rent/prm/estimateList";
+    }
+
+    @ResponseBody
+    @GetMapping("estimate/registerCheck")
+    public int estimateRegisterAJax(Authentication authentication){
+        MemberVO loginMember = memberService.getLoginMember(authentication);
+        if(authentication == null){
+            return 0;
+        } else if(loginMember.getAuthor().equals("ROLE_USER") || loginMember.getAuthor().equals("ROLE_ADMIN")){
+            return 1;
+        } else {
+            return 2;
+        }
     }
 
     // 견적 요청 작성
@@ -120,6 +130,21 @@ public class PremiumRentController {
 
         return "redirect:/premiumRent/estimate/view";
     }
+
+    @ResponseBody
+    @GetMapping("/estimate/viewCheck")
+    public String viewCheck(Authentication authentication, HttpServletResponse response){
+        response.setCharacterEncoding("UTF-8");
+        MemberVO loginMember = memberService.getLoginMember(authentication);
+        if(authentication == null){
+            return "customAlert('알림','로그인 후 이용 가능합니다.');";
+        } else if(loginMember.getAuthor().equals("ROLE_USER") || loginMember.getAuthor().equals("ROLE_ADMIN")){
+            return "location.href='estimate/register';";
+        } else {
+            return "customAlert('알림','일반회원만 이용 가능합니다.');";
+        }
+    }
+
 
     // 견적 요청 상세
     @GetMapping("/estimate/view")

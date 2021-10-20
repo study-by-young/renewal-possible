@@ -15,7 +15,7 @@
 <h2><a href="${pageContext.request.contextPath}/company/car?cmpnSeq=${cmpnSeq}">업체 보유 렌트카 리스트</a></h2>
 <h2><a href="${pageContext.request.contextPath}/company/rent?cmpnSeq=${cmpnSeq}">렌트 내역 관리 페이지 </a></h2>
  --%>
- 
+
 <!-- Main content -->
 <div class="content-wrapper">
 	<!-- Content area -->
@@ -71,7 +71,7 @@
 						<tbody>
 							<c:forEach var="todayList" end="4" items="${todayList }">
 								<tr>
-									<td width="100">${todayList.rentType}</td> 
+									<td width="100">${todayList.rentType}</td>
 									<td width="200" style="text-align:center">${todayList.receiver }</td>
 									<td>${todayList.phone }</td>
 									<td><fmt:formatDate pattern="yyyy/MM/dd"
@@ -115,8 +115,8 @@
 						</div>
 
 						<div class="media-body">
-							<div class="media-chat-item" style="background-color: #6e9cee; color:#fff;"> 
-								${reviewList.content} - 
+							<div class="media-chat-item" style="background-color: #6e9cee; color:#fff;">
+								${reviewList.content} -
 								${reviewList.name} 님
 							</div>
 						</div>

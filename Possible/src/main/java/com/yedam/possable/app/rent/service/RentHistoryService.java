@@ -7,7 +7,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
-import com.yedam.possable.app.rent.domain.CompEstiListJoinVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 
 public interface RentHistoryService {

@@ -24,6 +24,7 @@
 									<h6 class="text-dark">지역</h6>
 									<div class="form-group">
 										<select id="searchArea" name="searchArea" class="form-control select">
+                                            <option value="">전체</option>
 											<c:forEach var="area" items="${areaCodes}">
 												<option value="${area.code}">${area.name}</option>
 											</c:forEach>
@@ -193,71 +194,73 @@
                         <!-- 차량 목록 파트 -->
                         <div class="col-12">
                             <c:forEach var="model" items="${modelList}">
-                                <div class="x_car_offer_main_boxes_wrapper card">
-                                    <div class="row">
-                                        <div class="col-lg-5">
-                                            <div class="card-img-actions p-3">
-                                                <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${model.modelCodeVO.img}" alt="">
-                                                <div class="x_car_offer_heading x_car_offer_heading_list float_left pt-3">
-                                                    <h5 class="font-weight-bold">
-                                                            ${model.brandCodeVO.name} ${model.modelCodeVO.name}
-                                                    </h5>
-                                                    <p class="text-muted small">
-                                                        <span class="d-inline-block pr-2"><i class="fas fa-car"></i> 5인</span>
-                                                        <span class="d-inline-block pr-2"><i class="fas fa-car"></i> 오토</span>
-                                                        <span class="d-inline-block pr-2"><i class="fas fa-car"></i> 300L</span>
-                                                        <span class="d-inline-block pr-2"><i class="fas fa-car"></i> 4개</span>
-                                                        <span class="d-inline-block pr-2"><i class="fas fa-car"></i> 에어컨</span>
-                                                    </p>
+                                <c:if test="${carList.get(model.model).size() != 0}">
+                                    <div class="x_car_offer_main_boxes_wrapper card">
+                                        <div class="row">
+                                            <div class="col-lg-5">
+                                                <div class="card-img-actions p-3">
+                                                    <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${model.modelCodeVO.img}" alt="">
+                                                    <div class="x_car_offer_heading x_car_offer_heading_list float_left pt-3">
+                                                        <h5 class="font-weight-bold">
+                                                                ${model.brandCodeVO.name} ${model.modelCodeVO.name}
+                                                        </h5>
+                                                        <p class="text-muted small">
+                                                            <span class="d-inline-block pr-2"><i class="fas fa-car"></i> 5인</span>
+                                                            <span class="d-inline-block pr-2"><i class="fas fa-car"></i> 오토</span>
+                                                            <span class="d-inline-block pr-2"><i class="fas fa-car"></i> 300L</span>
+                                                            <span class="d-inline-block pr-2"><i class="fas fa-car"></i> 4개</span>
+                                                            <span class="d-inline-block pr-2"><i class="fas fa-car"></i> 에어컨</span>
+                                                        </p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-7">
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <c:forEach var="car" items="${carList.get(model.model)}">
-                                                        <div class="col-12">
-                                                            <div class="card border-primary-300 border-1 rounded  mb-1">
-                                                                <div class="card-body">
-                                                                    <div class="row">
-                                                                        <div class="col-12">
-                                                                            <div>
-                                                                                <span class="h5">${car.companyVO.name}</span>
-                                                                                <div class="float-right">
-                                                                                    <div style="width:70px;">
+                                            <div class="col-lg-7">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <c:forEach var="car" items="${carList.get(model.model)}">
+                                                            <div class="col-12">
+                                                                <div class="card border-primary-300 border-1 rounded  mb-1">
+                                                                    <div class="card-body">
+                                                                        <div class="row">
+                                                                            <div class="col-12">
+                                                                                <div>
+                                                                                    <span class="h5">${car.companyVO.name}</span>
+                                                                                    <div class="float-right">
+                                                                                        <div style="width:70px;">
                                                                                         <span class="rentList-score-bg">
                                                                                             <span class="rentList-score" style="width:80%"></span>
                                                                                         </span>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
-                                                                            <hr class="my-2">
-                                                                            <div>
-                                                                                <span>${car.trimCodeVO.name} / ${car.year} / ${car.colorCodeVO.name}</span>
-                                                                                <div class="float-right text-right">
-                                                                                    <c:forEach var="insurance" items="${car.insuranceList}">
-                                                                                        <div class="py-1">
-                                                                                            <a href="#" onclick="moveToView(${car.seq}, '${insurance.optCode}')" class="text-dark">
-                                                                                                <span class="pr-2 text-warning-400 font-weight-bold">${insurance.optName}</span>
-                                                                                                <span class="h5 text-primary font-weight-bold">
+                                                                                <hr class="my-2">
+                                                                                <div>
+                                                                                    <span>${car.trimCodeVO.name} / ${car.year} / ${car.colorCodeVO.name}</span>
+                                                                                    <div class="float-right text-right">
+                                                                                        <c:forEach var="insurance" items="${car.insuranceList}">
+                                                                                            <div class="py-1">
+                                                                                                <a href="#" onclick="moveToView(${car.seq}, '${insurance.optCode}')" class="text-dark">
+                                                                                                    <span class="pr-2 text-warning-400 font-weight-bold">${insurance.optName}</span>
+                                                                                                    <span class="h5 text-primary font-weight-bold">
                                                                                                     ${(car.price+ insurance.price) * during}원
                                                                                                 </span>
-                                                                                            </a>
-                                                                                        </div>
-                                                                                    </c:forEach>
+                                                                                                </a>
+                                                                                            </div>
+                                                                                        </c:forEach>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </c:forEach>
+                                                        </c:forEach>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </c:if>
                             </c:forEach>
                         </div>
                         <!-- 페이징 -->
