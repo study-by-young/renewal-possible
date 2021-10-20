@@ -63,13 +63,16 @@ public class MypageController {
     public String dashboard(HttpSession session, Model model,
     					Authentication authentication,
     					CourseBoardVO courseVO, RentHistoryVO rentVO,
+    					RentReviewVO rentReviewVO,
     					@ModelAttribute("cri") Criteria cri) {
     	MemberVO memVO = memberService.getLoginMember(authentication);
     	
     	System.out.println(memVO.getId());
     	courseVO.setWriter(memVO.getId());
     	rentVO.setMemSeq(memVO.getSeq());
+    	rentReviewVO.setMemSeq(memVO.getSeq());
     	
+    	model.addAttribute("reviewList", rentReviewService.getRentReviewListByMember(rentReviewVO.getMemSeq()));
     	model.addAttribute("myCourse", courseBoardService.getUserCourseList(memVO.getId(),cri));
     	model.addAttribute("historyList", rentHistoryService.getRentHistoryListForMyPage(cri, rentVO.getMemSeq()));
     	return "mypage/dashboard";
@@ -215,6 +218,7 @@ public class MypageController {
 
     	//rentReviewService.get
     	int total = rentHistoryService.getTotalCount();
+    	
     	model.addAttribute("reviewList", rentReviewService.getRentReviewListByMember(rVo.getMemSeq()));
     	model.addAttribute("pagination", new PageVO(cri, total));
     	model.addAttribute("historyList", rentHistoryService.getRentHistoryListForMyPage(cri, vo.getMemSeq()));
