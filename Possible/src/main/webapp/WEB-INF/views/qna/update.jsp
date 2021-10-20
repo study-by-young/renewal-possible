@@ -69,8 +69,8 @@
 								type="hidden" name="amount" value="${cri.amount }">
 							<button type="submit" class="btn btn-primary">수정</button>
 							<button type="button" class="btn btn-dark" onclick="location.href='get?seq=${qna.seq}&pageNum=${cri.pageNum}&amount=${cri.amount}'">취소</button>
-							<button type="button" class="btn btn-dark"
-								onclick="location.href='list?pageNum=${cri.pageNum}&amount=${cri.amount}'">목록</button>
+							<%-- <button type="button" class="btn btn-dark"
+								onclick="location.href='list?pageNum=${cri.pageNum}&amount=${cri.amount}'">목록</button> --%>
 						</div>
 					</div>
 				</div>

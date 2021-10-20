@@ -1,9 +1,6 @@
 package com.yedam.possable.app.rent.controller;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.yedam.possable.app.car.domain.InsuranceOptionVO;
 import com.yedam.possable.app.rent.service.RentHistoryService;
@@ -51,21 +48,31 @@ public class CommonRentController {
     // 렌트카 리스트
     @GetMapping
     public String rentCarList(Model model,
+							  @ModelAttribute("searchArea") String areaCode,
 							  @ModelAttribute("startDate")
 								  @DateTimeFormat(pattern = "yyyy/MM/dd") Date startDate,
 							  @ModelAttribute("endDate")
 								  @DateTimeFormat(pattern = "yyyy/MM/dd") Date endDate,
 							  @ModelAttribute("cri") Criteria cri) {
-    	// 자동차 SEQ -> 업체SEQ -> 업체정보, 리뷰개수
-    	// 자동차 SEQ -> 보험
     	List<CarVO> modelList = carService.getDistinctCarList(cri);
+
+        if(!areaCode.isEmpty()){
+            cri.setType("A");
+            cri.setKeyword(areaCode);
+        }
+        List<CompanyVO> companies = companyService.companyList(cri);
+
 		Map<String, List<CarVO>> carListByModel = new HashMap<>();
-        int countOfModelList = modelList.size();// carService.getTotalCount(cri);  차량 모델 갯수
 
     	for(CarVO modelInfo : modelList) {
-    		List<CarVO> carListInModel = carService.getCarByModel(modelInfo);
+            List<CarVO> carListInModel = new ArrayList<>();
+    	    for(CompanyVO company : companies){
+    	        modelInfo.setCmpnSeq(company.getSeq());
+    	        carListInModel.addAll(carService.getCarByModelAndCmpnSeq(modelInfo));
+            }
             carListByModel.put(modelInfo.getModel(),carListInModel);
     	}
+        int countOfModelList = carListByModel.size();// carService.getTotalCount(cri);  차량 모델 갯수
 
 		if(endDate.compareTo(startDate) == 0){
 			endDate.setDate(startDate.getDate() + 1);

@@ -98,6 +98,23 @@
 		WHERE RN > (#{pageNum} - 1) * #{amount}
 	</select>
 	
+	<!-- 마이페이지 나의 코스 리스트 조회 -->
+	<select id="getUserCourseList" resultType="CourseBoardVO">
+		SELECT B.SEQ, B.TITLE, B.WRITER, B.CONTENT, B.VIEWS, B.START_DATE, B.END_DATE, B.PEOPLE, B.GEN_DATE, B.UPT_DATE, J.FIRSTIMAGE
+		FROM (
+			SELECT /*+ INDEX_DESC(COURSE_BOARD IDX_COURSE_BOARD) */ 
+			ROWNUM RN, SEQ, TITLE, WRITER, CONTENT, VIEWS, START_DATE, END_DATE, PEOPLE, GEN_DATE, UPT_DATE
+			FROM COURSE_BOARD
+			 <where>
+            	<![CDATA[ ROWNUM <= #{cri.pageNum} * #{cri.amount} ]]>
+            </where>
+             AND WRITER = #{writer}
+			) B
+		LEFT JOIN (SELECT * FROM (SELECT C.COURSE_SEQ, T.FIRSTIMAGE, ROW_NUMBER() OVER (PARTITION BY C.COURSE_SEQ ORDER BY C.COURSE_SEQ DESC) AS RankNo FROM COURSE C JOIN TOUR T ON C.CONTENTID = T.CONTENTID WHERE T.FIRSTIMAGE IS NOT NULL) WHERE RankNo = 1) J
+		ON B.SEQ = J.COURSE_SEQ
+		WHERE RN > (#{cri.pageNum} - 1) * #{cri.amount}
+	</select>
+	
 	<select id="read" resultType="CourseBoardVO">
 		SELECT * FROM COURSE_BOARD WHERE SEQ = #{seq}
 	</select>

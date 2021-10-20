@@ -33,7 +33,6 @@
                     <img src="${pageContext.request.contextPath}${estimate.modelCodeVO.img}" alt="fresh_food_img">
                 </div>
             </div>
-            ${estimate.seq }
             <div class="card-header border-bottom">
                 <div class="x_slider_form_input_wrapper float_left">
                     <h2 class="text-center font-weight-bold">

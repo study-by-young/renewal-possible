@@ -23,7 +23,21 @@
 		border-bottom: 2px solid #1E88E5; 
 		transition: width 350ms ease-in-out; 
 		left: auto; width: auto;} 
-.nav-tabs-bottom .nav-link:hover::after {width: 100%;  left: 0; }         
+.nav-tabs-bottom .nav-link:hover::after {width: 100%;  left: 0; }  
+
+.dash{
+	background: #ffffff;
+    box-shadow: 0px 0 8px rgb(0 0 0 / 10%);
+    float: left;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 0px;
+    margin-bottom: 70px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}       
 </style>
 <div class="btc_tittle_main_wrapper">
     <div class="mb-3">
@@ -31,7 +45,7 @@
             <div class="container py-2">
                 <div class="page-header-content header-elements-inline">
                     <div class="page-title">
-                        <h1 class="font-weight-bold">프리미엄 견적관리</h1>
+                        <h1 class="font-weight-bold">마이페이지</h1>
                     </div>
                 </div>
             </div>
@@ -133,23 +147,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="lr_bc_first_box_main_wrapper">
-                                <!-- 메뉴 -->
-                                 <ul class="nav nav-tabs nav-tabs-bottom border-bottom-0 border-top-0 ">
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/dashboard"  class="nav-link">홈</a></li>
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/editProfile"  class="nav-link">회원정보수정</a></li>
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/estimate" data-toggle="nav_link" class="nav-link">견적관리</a></li>
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/rent" class="nav-link" >렌트관리</a></li>
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/community" class="nav-link" >커뮤니티관리</a></li>
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/qna" class="nav-link" >나의문의</a></li>
-								 </ul>
                                 <!-- 견적관리 -->
-                                <div class="col-md-12">
-                                    <div class="blog_single_comment_heading">
-                                        <h4>나의 프리미엄 견적 신청 내역</h4>
-                                    </div>
-                                </div>
+                                <div class="col-md-12"></div>
                                 <c:if test="${!empty estimate}">
-                              
                                 <div class="col-md-12">
                                 	<div class="x_car_book_tabs_content_main_wrapper my-4">
 						            	<div class="row">  
@@ -161,6 +161,7 @@
                                                             		<img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${estimate.modelCodeVO.img}" alt="">
                                                         		</div>
 						            						</div>
+						            						
 						            						<div class="col-lg-8 border-left">
 						            							<div class="card-body">
 						            								<div class="row">
@@ -173,8 +174,8 @@
                                                                 		</div>
                                                                 		<div class="col-lg-3">
                                                                     		<a class="btn btn-block btn-primary"
-                                                                      		   href="estimate/view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">
-                                                                        	 	상세보기
+                                                                      		   href="${pageContext.request.contextPath}/premiumRent/estimate/view/update?seq=${estimate.seq}">
+                                                                        	 	수정하기
                                                                    			 </a>
                                                                 		</div>
                                                                 		<div class="col-12">

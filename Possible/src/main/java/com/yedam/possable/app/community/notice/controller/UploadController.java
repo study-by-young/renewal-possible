@@ -28,6 +28,7 @@ public class UploadController {
 		List<NoticeFileVO> list = new ArrayList<NoticeFileVO>();
 		String path = "c:/upload";
 		for (int i = 0; i < uploadFile.length; i++) {
+			System.out.println("=======================================" + uploadFile.length);
 			MultipartFile ufile = uploadFile[i];
 			if (!ufile.isEmpty() && ufile.getSize() > 0) {
 				String fileName = ufile.getOriginalFilename();

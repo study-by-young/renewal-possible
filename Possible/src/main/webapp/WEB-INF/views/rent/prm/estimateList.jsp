@@ -46,7 +46,8 @@
                             </div>
                             <div class="col-6">
                                 <div class="text-right">
-                                    <a class="btn btn-primary" href="estimate/register"><i class="icon-pencil7 align-baseline"></i> 견적 요청</a>
+                                    <button type="button" class="btn btn-primary" onclick="loginCheck()">견적 요청</button>
+<%--                                    <a class="btn btn-primary" href="estimate/register"><i class="icon-pencil7 align-baseline"></i> 견적 요청</a>--%>
                                 </div>
                             </div>
                         </div>
@@ -75,10 +76,11 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3">
-                                                                    <a class="btn btn-block btn-primary"
-                                                                       href="estimate/view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">
-                                                                        상세보기
-                                                                    </a>
+                                                                    <button type="button" class="btn btn-block btn-primary" onclick="viewCheck()">상세보기</button>
+<%--                                                                    <a class="btn btn-block btn-primary"--%>
+<%--                                                                       href="estimate/view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">--%>
+<%--                                                                        상세보기--%>
+<%--                                                                    </a>--%>
                                                                 </div>
                                                                 <div class="col-12">
                                                                     <hr class="my-2">
@@ -145,7 +147,31 @@
 </div>
 <!-- x car book sidebar section Wrapper End -->
 <script>
-    $(function () {
+    function viewCheck() {
+        $.ajax({
+            url:'estimate/viewCheck',
+            success: function(result){
+                window['customAlert']('test','testest');
+            }
+        })
+    }
+
+    function loginCheck() {
+        $.ajax({
+            url:'estimate/registerCheck',
+            success: function(result){
+                if(result === 0) {
+                    customAlert("알림", "로그인 후 이용 가능합니다.");
+                } else if(result === 1){
+                    location.href="estimate/register";
+                } else {
+                    customAlert("알림", "일반회원만 이용 가능합니다.");
+                }
+            }
+        })
+    }
+
+$(function () {
         $('.page-arrow').on('click', function(e){
             if(this.value == null){
                 e.preventDefault();

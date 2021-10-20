@@ -38,11 +38,11 @@
 
 		<div class="card">
 			<div class="card-header header-elements-inline">
-				<h6 class="card-title">
+				<h5 class="card-title">
 					<a
 						href="${pageContext.request.contextPath}/admin/maintenance/report"
 						class="nav-link">신고글리스트</a>
-				</h6>
+				</h5>
 				<div class="header-elements">
 					<div class="list-icons">
 						<a class="list-icons-item" data-action="collapse"></a>
@@ -77,9 +77,9 @@
 						<thead>
 							<tr>
 								<th width="40">번호</th>
-								<th width="100">제목</th>
-								<th width="100">내용</th>
-								<th width="100">작성자</th>
+								<th width="100">게시글 번호</th>
+								<th width="100">신고일자</th>
+								<th width="100">신고자</th>
 								<th width="40"></th>
 
 							</tr>
@@ -89,8 +89,8 @@
 								<tr>
 									<td>${reportList.seq }</td>
 									<td>${reportList.target}</td>
-									<td>${reportList.writer }</td>
 									<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${reportList.genDate}"/></td>
+									<td>${reportList.reporter }</td>
 									<td><a class="move" href="${reportList.seq }">상세보기</a></td>
 								</tr>
 							</c:forEach>
@@ -128,7 +128,6 @@
 	</div>
 
 </div>
-
 
 <script>
 	$(function() {

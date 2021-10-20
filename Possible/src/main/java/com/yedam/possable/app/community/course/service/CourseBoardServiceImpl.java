@@ -2,6 +2,7 @@ package com.yedam.possable.app.community.course.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -107,6 +108,12 @@ public class CourseBoardServiceImpl implements CourseBoardService {
 	@Override
 	public List<CourseBoardVO> getWriter(String writer) {
 		return courseBoardMapper.getWriter(writer);
+	}
+
+	@Override
+	public List<CourseBoardVO> getUserCourseList(@Param("writer")String writer, @Param("cri")Criteria cri) {
+		//마이페이지 나의 여행코스 조회
+		return courseBoardMapper.getUserCourseList(writer,cri);
 	}
 
 }

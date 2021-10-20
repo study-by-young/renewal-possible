@@ -14,6 +14,9 @@ public interface MemberMapper {
 
 	//회원 한건조회
 	public MemberVO memberOneSelect(MemberVO vo);
+	
+	//게시글 피신고자 단건 조회
+	public MemberVO reportOneSelect(String id);
 
 	//회원 등록
 	public int memberInsert(MemberVO vo);

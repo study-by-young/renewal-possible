@@ -49,7 +49,7 @@
 							</div>
 							<div class="card-header col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px 0px;">
 								<div class="contect_form1">
-									<input class="input_title" type="text" name="title" placeholder="제목을 입력해주세요." required="required">
+									<input class="input_title" type="text" name="title" placeholder=" 제목을 입력해주세요. *" required="required">
 								</div>
 							</div>
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -66,7 +66,7 @@
 						</div>
 						<div class="form-group" style="padding-left: 20px; padding-right: 20px;">
 							<input type="file" class="form-control" id="uploadFile" name="uploadFile" multiple="multiple">
-							<button type="button" id="uploadBtn" class="btn btn-default">첨부파일 등록</button>
+							<button type="button" id="uploadBtn" class="btn btn-primary">첨부파일 등록</button>
 						</div>
 						<ul id="uploaded" style="list-style: none;"></ul>
 						<input type="hidden" id="noticeSeq" value="${file.noticeSeq}">
@@ -79,40 +79,6 @@
 					</div>
 				</div>
 			</form>
-				<div
-					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="contect_form1">
-						<input type="text" name="title" placeholder="제목 *"
-							required="required">
-					</div>
-				</div>
-				<div
-					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="contect_form2">
-						<input type="text" name="writer" placeholder="Writer"
-							value="admin" readonly="readonly">
-					</div>
-					<br>
-				</div>
-				<div
-					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="contect_form4">
-						<textarea name="content" id="content" class="ckeditor"
-							required="required"></textarea>
-					</div>
-					<br>
-				</div>
-				<div
-					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12"
-					align="right">
-					<button id="insertBtn" type="button" class="btn btn-primary">등록</button>
-					<button type="button" class="btn btn-dark"
-						onclick="location.href='list?pageNum=${cri.pageNum}&amount=${cri.amount}'">목록</button>
-				</div>
-			</div>
-		<div class="form-group">
-			<label>첨부파일</label><input type="file" class="form-control" id="uploadFile" name="uploadFile" multiple="multiple">
-			<button type="button" id="uploadBtn" class="btn btn-default">첨부파일 등록</button>
 		</div>
 	</div>
 </div>
@@ -159,7 +125,7 @@
 		$("#uploadBtn").on("click", function(e) {
 			e.preventDefault();
 			// alert("click");
-			var formData = new FormData(document.insertForm);
+			var formData = new FormData();
 			var inputFile = $("input[name='uploadFile']");
 			var files = inputFile[0].files;
 			console.log(files);
@@ -194,6 +160,8 @@
 						// str += "<img src='../resources/img/attach.png'></a>";
 						str += "</div>";
 						str + "</li>";
+						
+						console.log(str);
 					}
 					
 					$("#uploaded").html(str);
