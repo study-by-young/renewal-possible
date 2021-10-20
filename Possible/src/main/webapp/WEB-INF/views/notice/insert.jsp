@@ -66,7 +66,7 @@
 						</div>
 						<div class="form-group" style="padding-left: 20px; padding-right: 20px;">
 							<input type="file" class="form-control" id="uploadFile" name="uploadFile" multiple="multiple">
-							<button type="button" id="uploadBtn" class="btn btn-default">첨부파일 등록</button>
+							<button type="button" id="uploadBtn" class="btn btn-primary">첨부파일 등록</button>
 						</div>
 						<ul id="uploaded" style="list-style: none;"></ul>
 						<input type="hidden" id="noticeSeq" value="${file.noticeSeq}">
@@ -125,7 +125,7 @@
 		$("#uploadBtn").on("click", function(e) {
 			e.preventDefault();
 			// alert("click");
-			var formData = new FormData(document.insertForm);
+			var formData = new FormData();
 			var inputFile = $("input[name='uploadFile']");
 			var files = inputFile[0].files;
 			console.log(files);
@@ -160,6 +160,8 @@
 						// str += "<img src='../resources/img/attach.png'></a>";
 						str += "</div>";
 						str + "</li>";
+						
+						console.log(str);
 					}
 					
 					$("#uploaded").html(str);
