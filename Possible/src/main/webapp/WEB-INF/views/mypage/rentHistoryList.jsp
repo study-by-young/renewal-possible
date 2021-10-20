@@ -133,13 +133,14 @@
                                     </div>
 									 <div class="x_car_book_tabs_content_main_wrapper my-4">
 									 	 <div class="row">
+									 	 
 									 	 	 <c:forEach var="est" items="${historyList}" varStatus="status">
 												<div class="premium_rent_list_item col-12">
 													<div class="card">
 														<div class="row">
 															  <div class="col-lg-3 align-self-center">
                                                         		<div class="card-img-actions p-3">
-                                                        			<img class="card-img-top img-fluid" src="${pageContext.request.contextPath}/resources/images/cars/Hyundai/santafe.png" alt="img" >
+                                                        			<img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${est.carVO.modelCodeVO.img}" alt="img" >
                                                         		</div>
                                                     		</div>
                                                     		<div class="col-lg-9 border-left">
@@ -262,17 +263,24 @@
 									 </div>
 								 </div>
                                 <!-- 렌트내역상세 -->
-                                <div class="col-md-12">	
-                           	      	<div class="card-body">
-					           			<div class="row">
-						                    <c:if test="${empty historyList}">
-						                        <div class="col-12 text-center">
-						                            <h6 class="py-5">아직 랜트 내역이 없습니다!<br>여행갈카 렌트 서비스를 이용해 여행을 떠나보세요! </h6>
-						                        </div>
-						                    </c:if>
-						                </div>
-					            	</div>
-                                </div>
+                                <div class="col-md-12">
+									<div class="card">
+							    	<c:if test="${empty historyList}">
+							    		<div class="card-header border-bottom mb-3">
+							        		<div class="x_slider_form_input_wrapper float_left">
+							            		<h3 class="font-weight-bold mb-0">렌트 내역</h3>
+							        		</div>
+							    		</div>
+								        <div class="card-body">
+								            <div class="row">
+								               <div class="col-12 text-center">
+							                   	<h6 class="py-5">아직 랜트 내역이 없습니다!<br>여행갈카 렌트 서비스를 이용해 여행을 떠나보세요! </h6>
+							                   </div>
+								            </div>
+								        </div>
+							    	</c:if>
+									</div>
+								</div>
                             </div>
                         </div>
                     </div>

@@ -17,6 +17,110 @@
     -moz-border-radius: 10px;
     border-radius: 10px;
 }
+.btc_team_bot_cont_main_wrapper {
+    box-shadow: 0px 0 8px rgba(0, 0, 0, 0.1);
+    float: left;
+    width: 100%;
+    margin-top: 30px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+.btc_team_img_bot_wrapper {
+    float: left;
+    width: 100%;
+    position: relative;
+
+}
+.btc_team_img_bot_wrapper img {
+    width: 100%;
+    -webkit-border-top-left-radius: 5px;
+    -moz-border-top-left-radius: 5px;
+    border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.btc_team_img_bot_cont_wrapper {
+    float: left;
+    width: 100%;
+    background: #ffffff;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    z-index: 1;
+    position: relative;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    -moz-border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.btc_team_img_bot_cont_wrapper h4 {
+    font-size: 16px;
+    font-weight: 800;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+}
+.btc_team_img_bot_cont_wrapper p {
+    color: #4f5dec;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.btc_team_img_bot_cont_wrapper h4 a {
+    color: #000000;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.btc_team_social_tb_wrapper {
+    float: left;
+    width: 80%;
+    left: 0;
+    right: 0;
+    margin: 0px auto;
+    background: #4f5dec;
+    position: absolute;
+    bottom: -50px;
+    padding-top: 15px;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+    text-align: center;
+    -webkit-border-top-left-radius: 5px;
+    -moz-border-top-left-radius: 5px;
+    border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.btc_team_social_tb_wrapper h5 {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-weight: 800;
+}
+.btc_team_bot_cont_main_wrapper:hover .btc_team_social_tb_wrapper {
+    bottom: 0;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
 </style>
 <div class="btc_tittle_main_wrapper">
     <div class="mb-3">
@@ -126,30 +230,42 @@
                <div class="row">
                   <div class="col-md-12">
                      <div class="lr_bc_first_box_main_wrapper">
-                        <!-- 메뉴 -->
-                         <%-- <ul class="nav nav-tabs nav-tabs-bottom border-bottom-0 border-top-0 ">
-							<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/dashboard"  class="nav-link">홈</a></li>
-							<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/editProfile"  class="nav-link">회원정보수정</a></li>
-							<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/estimate" data-toggle="nav_link" class="nav-link">견적관리</a></li>
-							<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/rent" class="nav-link" >렌트관리</a></li>
-							<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/community" class="nav-link" >커뮤니티관리</a></li>
-							<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/qna" class="nav-link" >나의문의</a></li>
-						</ul> --%>
                         <!-- 렌트현황,후기,여행코스 제목 누르면 관련 페이지로 이동 -->
-                        <div class="col-md-12">
                         
+                        <div class="col-md-12">
+                        	
+						</div>
                            <div class="blog_single_comment_heading">
                               <h4><a href="">렌트내역</a></h4>
                            </div>
-                              <div class="dash">
-                                 <table class="table">
-                                       <tr>
-                                          <td>지역</td>
-                                          <td>날짜</td>
-                                          <td>모델명</td>
-                                       </tr>
-                                 </table>
-                              </div>
+                           <div class="card">
+							<div class="card-header bg-white header-elements-inline">
+								<h6 class="card-title"></h6>
+								
+							</div>
+								${historyList }
+							<c:forEach var="historyList" items="${historyList}" varStatus="status">
+							</c:forEach>
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>차량</th>
+											<th>대여업체</th>
+											<th>수령장소</th>
+											<th>상세보기</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td></td>
+											<td>Otto</td>
+											<td>@mdo</td>
+											<td>@mdo</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
                         </div>
 
                        <div class="col-md-12">
@@ -164,42 +280,65 @@
 	                                 </table>
                               </div>
                         </div>
-
 								<div class="col-md-12">
 									<div class="blog_single_comment_heading">
 										<h4>
-											<a href="${pageContext.request.contextPath}/community">나의
-												여행코스</a>
+											<a href="${pageContext.request.contextPath}/mypage/community">나의
+												여행코스(최대4건)</a>
 										</h4>
 									</div>
 									<div class="row">
-										
-										<c:forEach var="myCourse" items="${myCourse}">
-											<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
+										<c:forEach var="myCourse" end="3" items="${myCourse}">
+											<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12" style="margin-bottom: 15px;">
 												<div class="btc_team_bot_cont_main_wrapper">
 													<div class="btc_team_img_bot_wrapper">
-														<img
-															src="${pageContext.request.contextPath}/resources/images/tb1.jpg"
-															alt="team_img1">
+														<c:if test="${myCourse.firstImage ne null }">
+															<img
+																src="${myCourse.firstImage}"
+																alt="Course">
+															</c:if>
+															<c:if test="${myCourse.firstImage eq null }">
+															<img
+																src="${pageContext.request.contextPath}/resources/images/no_image.jpg"
+																alt="Course">
+															</c:if>
 														<div class="btc_team_social_tb_wrapper">
-															<h3>
+															<h5>
 																<fmt:formatDate value="${myCourse.startDate }"
 																	pattern="yyyy-MM-dd" />
 																~
 																<fmt:formatDate value="${myCourse.endDate }"
 																	pattern="yyyy-MM-dd" />
-															</h3>
+															</h5>
 														</div>
 													</div>
 													<div class="btc_team_img_bot_cont_wrapper">
 														<h4>
 															<a
-																href="${pageContext.request.contextPath}/community/course/view?seq=${myCourse.seq }">${myCourse.title }</a>
+																href="${pageContext.request.contextPath}/community/course/view?seq=${myCourse.seq}">${myCourse.title }</a>
 														</h4>
 													</div>
 												</div>
 											</div>
 										</c:forEach>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="card">
+							    		<c:if test="${empty myCourse}">
+							    		<div class="card-header border-bottom mb-3">
+							        		<div class="x_slider_form_input_wrapper float_left">
+							            		<h3 class="font-weight-bold mb-0">여행 리스트</h3>
+							        		</div>
+							    		</div>
+							        <div class="card-body">
+							            <div class="row">
+							                <div class="col-12 text-center">
+							                    <h6 class="py-5">아직 등록하신 여행코스가 없으세요!</h6>
+							                </div>
+							            </div>
+							        </div>
+							    		</c:if>
 									</div>
 								</div>
 							</div>
@@ -213,6 +352,7 @@
       </div>
    </div>
 </div>
+
   <c:if test="${denyMsg != null}">
 		alert(denyMsg);
 	</c:if>

@@ -65,11 +65,12 @@ public class MypageController {
     					CourseBoardVO courseVO, RentHistoryVO rentVO,
     					@ModelAttribute("cri") Criteria cri) {
     	MemberVO memVO = memberService.getLoginMember(authentication);
+    	
     	System.out.println(memVO.getId());
     	courseVO.setWriter(memVO.getId());
-    	rentVO.setSeq(memVO.getSeq());
-    	// model.addAttribute("myCourse", courseBoardService.getMyCourse(courseVO));
-    	model.addAttribute("myCourse", courseBoardService.getList(cri));
+    	rentVO.setMemSeq(memVO.getSeq());
+    	
+    	model.addAttribute("myCourse", courseBoardService.getUserCourseList(memVO.getId(),cri));
     	model.addAttribute("historyList", rentHistoryService.getRentHistoryListForMyPage(cri, rentVO.getMemSeq()));
     	return "mypage/dashboard";
     }
