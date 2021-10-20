@@ -25,7 +25,7 @@
             <div class="container py-2">
                 <div class="page-header-content header-elements-inline">
                     <div class="page-title">
-                        <h1 class="font-weight-bold">나의문의</h1>
+                        <h1 class="font-weight-bold">마이페이지</h1>
                     </div>
                 </div>
             </div>
@@ -126,17 +126,22 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="lr_bc_first_box_main_wrapper">
+								<div class="col-md-12">
+									<div class="dash"style="margin-bottom: 20px; padding-bottom: 10px;">
+										<div class="blog_single_comment_heading">
+											<h4 style="font-weight: 600; padding-left: 20px;">
+												나의 1:1 문의
+											</h4>
+										</div>
+									</div>
+								</div>
 								
-								
-		                         
 								<!-- 나의문의 -->
 								<div class="col-md-12">
-									<div class="blog_single_comment_heading">
-										<h4>
-											나의 문의
-										</h4>
-									</div>
 									<div class="dash">
+										<!-- <div class="blog_single_comment_heading">
+											<h4 style="font-weight: 600; padding-left: 20px;">나의 1:1 문의 </h4>
+										</div> -->
 										<table class="table table-hover">
 											<thead>
 												<tr>
