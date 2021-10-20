@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <!--favicon-->
 <link rel="shortcut icon" type="image/png" href="images/fevicon.png" />
@@ -31,9 +33,33 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 %
 {
 -webkit-transform
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -43,10 +69,46 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 translateY
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 (
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -56,7 +118,31 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 )
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -67,9 +153,33 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 %
 {
 -webkit-transform
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -79,10 +189,46 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 translateY
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 (
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -92,7 +238,31 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 )
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ;
@@ -108,9 +278,33 @@ keyframes bounce { 0%, 20%, 50%, 80%, 100% {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 %
 {
 transform
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -120,10 +314,46 @@ transform
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 translateY
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 (
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -133,7 +363,31 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 )
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ;
@@ -143,9 +397,33 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 %
 {
 transform
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -155,10 +433,46 @@ transform
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 translateY
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 (
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -168,7 +482,31 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 )
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ;
@@ -206,9 +544,7 @@ translateY
 				</div>
 				<div>
 					<span style="margin-right: 30px;"> <c:if
-							test="${user eq null}">
-							<i id="heart" class="far fa-heart">&nbsp;</i>
-						</c:if> <c:if test="${checkLike eq 0}">
+							test="${checkLike eq 0}">
 							<i id="heart" class="far fa-heart">&nbsp;</i>
 						</c:if> <c:if test="${checkLike eq 1}">
 							<i id="heart" class="fa fa-heart-o" style="color: red">&nbsp;</i>
@@ -265,20 +601,27 @@ translateY
 					<!-- x booking Wrapper Start -->
 					<div
 						style="margin-top: 30px; padding: 20px; background-color: white; border: 1px solid blue; border-radius: 10px;">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="panel-heading">
-									<form id="answerForm">
-										<input type="hidden" id="qnaSeq" name="qnaSeq"
-											value="${qna.seq}"> <input id="writer" name="writer"
-											value="${id }"> 
-										<input id="content" name="content" size="30">
-										<!-- 버튼 -->
-										<button type="button" id="saveAnswer">답변등록</button>
-										<button type="button" id="updateAnswer">수정</button>
-									</form>
-								</div>
-							</div>
+						ㅎㅎ</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<ul class="chat">
+							<c:forEach var="cmt" items="${cmt }">
+										${cmt.writer }<br>
+										${cmt.content }<br>
+										${cmt.genDate }<br>
+								<input type="hidden" id="cmtSeq" name="cmtSeq"
+									value="${cmt.seq }">
+								<i id="cmtDelete" class="fa fa-times-circle"></i>
+								<br>
+							</c:forEach>
+						</ul>
+					</div>
+					<div class="col-md-12">
+						<div class="panel-heading">
+							<input id="content" name="content" size="30">
+							<!-- 버튼 -->
+							<button type="button" id="cmtInsert">등록</button>
 						</div>
 					</div>
 				</div>
@@ -292,14 +635,10 @@ translateY
 					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 x_slider_checout_right">
 					<input type="hidden" id="seq" name="seq" value="${board.seq }">
 					<ul>
-						<c:if test="${id eq board.writer}">
-							<li><a href="javascript:void(0);" onclick="boardDelete();">삭제</a></li>
-						</c:if>
+						<li><a href="javascript:void(0);" onclick="boardDelete();">삭제</a></li>
 						<li><a href="../course">목록</a></li>
-						<c:if test="${id ne board.writer}">
-							<li><button type="button" id="reportBtn"
-									class="btn btn-danger">신고</button></li>
-						</c:if>
+						<li><button type="button" id="reportBtn"
+								class="btn btn-danger">신고</button></li>
 					</ul>
 				</div>
 			</div>
@@ -354,12 +693,14 @@ translateY
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 				<button id="reportSubmit" type="button" class="btn btn-danger">접수</button>
 			</div>
+
 		</div>
 	</div>
 </div>
 
 <script>
-
+	let loginUser = '';
+	
 	$(function() {
 		var container = $('#takePlaceMap')[0]; //지도를 담을 영역의 DOM 레퍼런스
 	    var option = { //지도를 생성할 때 필요한 기본 옵션
@@ -423,46 +764,46 @@ translateY
 	console.log(user);
 	$(function() {
 		$("#heart").on("click", function() {
-			if (user != "") {// 로그인 여부 확인
-				if ($("#heart").attr("class") == "far fa-heart"){ // 빈 하트 일 시
-					$.ajax({
-						type : 'POST',
-						url : 'plusLike',
-						data : JSON.stringify({
-							boardSeq : ${board.seq },
-							memberSeq : user
-						}),
-						dataType : 'json',
-						contentType : 'application/json; charset=utf-8',
-						success : function(data) {
+			if ($("#heart").attr("class") == "far fa-heart"){ // 빈 하트 일 시
+				$.ajax({
+					type : 'POST',
+					url : 'plusLike',
+					data : JSON.stringify({
+						boardSeq : ${board.seq },
+					}),
+					dataType : 'json',
+					contentType : 'application/json; charset=utf-8',
+					success : function(data) {
+						if (data == 1) {
 							$("#heart").attr("class", "fa fa-heart-o bounce").css("color","red");
 							$("#likeCnt").text(Number($("#likeCnt").text())+data);
 							console.log(data);
+						} else {
+							alert("로그인이 필요한 서비스입니다.");
+							location.href="${pageContext.request.contextPath}/login";
 						}
-					})
-				} else {
-					$.ajax({
-						type : 'POST',
-						url : 'minusLike',
-						data : JSON.stringify({
-							boardSeq : ${board.seq },
-							memberSeq : user
-						}),
-						dataType : 'json',
-						contentType : 'application/json; charset=utf-8',
-						success : function(data) {
+					}
+				})
+			} else {
+				$.ajax({
+					type : 'POST',
+					url : 'minusLike',
+					data : JSON.stringify({
+						boardSeq : ${board.seq },
+					}),
+					dataType : 'json',
+					contentType : 'application/json; charset=utf-8',
+					success : function(data) {
+						if (data == 1) {
 							$("#heart").attr("class", "far fa-heart").css("color","");
 							$("#likeCnt").text(Number($("#likeCnt").text())-data);
 							console.log(data);
+						} else {
+							alert("로그인이 필요한 서비스입니다.");
+							location.href="${pageContext.request.contextPath}/login";
 						}
-					})
-				}
-			} else {
-				if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
-					location.href="${pageContext.request.contextPath}/login"; 
-				} else {
-					return;
-				}
+					}
+				})
 			}
 		});
 	});
@@ -477,18 +818,22 @@ translateY
 	}
 	
 	$("#reportBtn").on("click", function() {
-		if (user != "") {
+		<sec:authorize access="isAuthenticated()">
+			<sec:authentication property="principal.seq" var="loginUserSeq"/>
+			loginUser = ${loginUserSeq};
+		</sec:authorize>
+		if(loginUser == ''){
+			if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
+				location.href="${pageContext.request.contextPath}/login"; 
+			} else {
+				return;
+			}
+		} else {
 			if(reportCheck == 0) {
 				$("#reportBtn").attr("data-toggle", "modal")
 				$("#reportBtn").attr("data-target", "#exampleModal");
 			} else {
 				alert("이미 신고한 게시글입니다.");
-				return;
-			}
-		} else {
-			if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
-				location.href="${pageContext.request.contextPath}/login"; 
-			} else {
 				return;
 			}
 		}
@@ -551,6 +896,80 @@ translateY
 	        	$("#etcDetail").attr("disabled",true);
 	        }
 	    });
+	});
+	
+	/* $(function () {
+		
+		function makeLi(data) {
+			return '<li>'
+				+ '<div class="panel panel-default">'
+				+ '<input type="hidden" id="rno" value="' + data.seq + '"><div class="panel-heading">' + data.writer 
+				+ ' | ' + data.genDate + '<button type="button" onclick="replyDel()" class="btn btn-default" style="float: right;">삭제</button>'
+				+ '</div>'   
+				+ '<div class="panel-body">' + data.content + '</div>'
+				+ '</div>'
+				+ '</li>';
+		}
+		
+		var courseSeq = $("#seq");
+		//목록조회
+		$.ajax({
+			url: "../comment/",
+			data: {
+				courseSeq: courseSeq
+			}, 
+			dataType: "json",
+			success: function (datas) {
+				console.log(datas);
+				str = "";
+				for (i = 0; i < datas.list.length; i++) {
+					str += makeLi(datas.list[i]);
+					$(".chat").html(str);
+				}
+			}
+		});
+
+	}); */
+	
+	$("#cmtInsert").on("click", function() {
+		$.ajax({
+			type : 'POST',
+			url: "insertCmt",
+			data:  JSON.stringify({
+				content : $("#content").val(),
+				courseSeq : $("#seq").val()
+			}), 
+			dataType: "json",
+			contentType : 'application/json; charset=utf-8',
+			success: function (data) {
+				if(data == null) {
+					if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
+						location.href="${pageContext.request.contextPath}/login"; 
+					} else {
+						return;
+					}
+				} else {
+					$("#content").val("");
+					$(".chat").append(data.writer+'<br>'+data.content+'<br>'+data.genDate+'<input type="hidden" id="cmtSeq" value="'+data.seq+'">');
+				}
+			}
+		});
+	});
+	
+	$("#cmtDelete").on("click", function() {
+		$.ajax({
+			type : 'POST',
+			url: "deleteCmt",
+			data:  {
+				seq : $("#cmtSeq").val()
+			}, 
+			success: function (data) {
+				if(data == 1) {
+					alert("삭제 완");
+					// remove
+				} 
+			}
+		});
 	});
 
 	</script>
