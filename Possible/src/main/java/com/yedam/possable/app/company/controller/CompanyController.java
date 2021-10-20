@@ -94,7 +94,7 @@ public class CompanyController {
     	MemberVO loginUser = memberService.getLoginMember(authentication);
     	vo = companyService.getCompanyByMemSeq(loginUser);
     	Gson gson = new Gson();
-        HashMap<String, Object> list = rentHistoryService.getLatestCompanySales(vo.getSeq());
+        List<Map<String, Object>> list = rentHistoryService.getLatestCompanySales(vo.getSeq());
 		return gson.toJson(list);
 	}
 

@@ -142,12 +142,12 @@
             *
         FROM (select
                  sum(price) as earn,
-                 TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD') as uptDate
+                 TO_CHAR(upt_date,'YYYY-MM-DD') as uptDate
          from rent_history
-         where cmpn_seq = 241
-           and status = '예약완료'
-         group by cmpn_seq,TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD')
-         order by TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD')
+         where cmpn_seq = #{cmpnSeq}
+           and status = 'RST03'
+         group by cmpn_seq,TO_CHAR(upt_date,'YYYY-MM-DD')
+         order by TO_CHAR(upt_date,'YYYY-MM-DD')
          )
         <![CDATA[WHERE ROWNUM <= 5]]>
     </select>

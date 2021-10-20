@@ -53,7 +53,12 @@ public class CourseBoardController {
 
 	// 단건조회
 	@GetMapping("/view")
-	public String courseView(Model model, CourseBoardVO board, CourseVO course, CourseBoardLikeVO like, Authentication authentication, ReportVO report) {
+	public String courseView(Model model,
+                             CourseBoardVO board,
+                             CourseVO course,
+                             CourseBoardLikeVO like,
+                             Authentication authentication,
+                             ReportVO report) {
 		courseBoardService.plusViews(board);
 		model.addAttribute("board", courseBoardService.read(board));
 		model.addAttribute("cnt", courseBoardService.courseCnt(board));
@@ -80,19 +85,19 @@ public class CourseBoardController {
 		model.addAttribute("user", loginUser.getId());
 	    return "community/course/write";
 	}
-	
+
 	// 등록 처리
 	/*
 	 * @PostMapping("/write") public String courseWrite(Model model, CourseBoardVO
 	 * board, CourseVO course){ courseBoardService.insert(board);
-	 * 
+	 *
 	 * return "redirect:/community/course"; }
 	 */
-    
+
     @PostMapping("/write")
     @ResponseBody
     public String courseInsert(@RequestBody CourseBoardVO board) {
-    	System.out.println(board);	
+    	System.out.println(board);
     	courseBoardService.insert(board);
     	System.out.println(board.getSeq());
     	Long num = board.getSeq();
@@ -147,11 +152,18 @@ public class CourseBoardController {
 		List<TestVO> list = courseBoardService.tourList(cri);
 		return list;
 	}
-	
+
 	@RequestMapping(value = "/plusLike")
 	@ResponseBody
-	public int plusLike(@RequestBody CourseBoardLikeVO vo) {
+	public int plusLike(@RequestBody CourseBoardLikeVO vo,
+                        Authentication authentication) {
 		int i = 1;
+        if(authentication == null) {
+            return 0;
+        } else {
+            MemberVO loginMember = memberService.getLoginMember(authentication);
+            loginMember.getSeq();
+        }
 		courseBoardService.plusLike(vo);
 		return i;
 	}
@@ -163,11 +175,11 @@ public class CourseBoardController {
 		courseBoardService.minusLike(vo);
 		return i;
 	}
-	
+
 	@PostMapping("/report")
 	@ResponseBody
 	public int reportInsert(@RequestBody ReportVO report) {
 		return reportService.insert(report);
 	}
-	
+
 }

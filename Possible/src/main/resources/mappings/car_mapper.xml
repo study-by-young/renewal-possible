@@ -123,6 +123,7 @@
             *
         FROM car
 	</select>
+
     <!-- 차량 model 중복제거 리스트 조회 -->
     <select id="getDistinctCarList" resultMap="car">
 		SELECT
@@ -165,6 +166,16 @@
         WHERE CMPN_SEQ = #{seq}
         ORDER BY SEQ DESC
     </select>
+
+    <select id="getCompanyAvailableCarList" resultMap="car">
+        SELECT
+                *
+        FROM CAR
+        WHERE CMPN_SEQ = #{seq}
+            AND status = 'CST01'
+        ORDER BY SEQ DESC
+    </select>
+
     <select id="getCompanyCar" resultMap="car">
         SELECT
             *
@@ -258,6 +269,14 @@
             *
 		FROM CAR
 		WHERE MODEL = #{model}
+    </select>
+
+    <select id="getCarByModelAndCmpnSeq" resultMap="car">
+        SELECT
+                *
+        FROM CAR
+        WHERE MODEL = #{model}
+        AND cmpn_seq = #{cmpnSeq}
     </select>
 
     <!-- seq로 보험 조회하기 -->
@@ -398,4 +417,5 @@
         WHERE car_seq = #{seq}
             AND opt_code = #{code}
     </select>
+
 </mapper>
