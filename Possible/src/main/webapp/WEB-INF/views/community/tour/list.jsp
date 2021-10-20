@@ -51,7 +51,9 @@
 										class="text-muted">${list.zipCode }</a></li>
 								</ul>
 
-								<p class="mb-3" id="overview"></p>
+								<p class="mb-3" id="overview">
+									<!-- <a href="https://api.visitkorea.or.kr/guide/tourDetail.do?contentId=${list.contentId }&langtype=KOR&typeid=12&oper=area&burl=&contentTypeId=${list.contentTypeId}&areaCode=&sigunguCode=&cat1=&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A&numOfRows=12&pageNo=1">상세정보</a> -->
+								</p>
 							</div>
 						</div>
 					</div>
@@ -60,7 +62,6 @@
 		</div>
 	</div>
 </div>
-
 
 <!-- 페이징 -->
 <jsp:include page="/pagination" />
@@ -71,21 +72,6 @@
 		var p = $(this).attr("href");
 		$('[name="pageNum"]').val(p);
 		actionForm.submit();
-	});
-	
-	var list = ${list };
-	$(document).ready(function() {
-		for(var i=0;i<list.length;i++) {
-			$.ajax({
-				type : 'get',
-				url : 'http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=%2Bxd0HNP4Gd4KAuGtJitYZzafrxzKZ40VMcf3uX%2BQ7AfWFbNEvS2jj43sWtAeAlQPnB65kOz6PjhVjsUPnvkKtw%3D%3D&contentId='+${list.contentId }[i]+'&defaultYN=N&addrinfoYN=N&overviewYN=Y&MobileOS=ETC&MobileApp=AppTest',
-				dataType : 'json',
-				contentType : 'application/json; charset=utf-8',
-				success : function(data) {
-					$("#overview").html(data.overview)
-				}
-			})
-		}
 	});
 	
 </script>

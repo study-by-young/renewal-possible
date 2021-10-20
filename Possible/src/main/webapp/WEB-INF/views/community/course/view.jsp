@@ -45,9 +45,17 @@
 
 
 
+
+
+
+
 %
 {
 -webkit-transform
+
+
+
+
 
 
 
@@ -81,6 +89,10 @@
 
 
 
+
+
+
+
 translateY
 
 
@@ -96,7 +108,15 @@ translateY
 
 
 
+
+
+
+
 (
+
+
+
+
 
 
 
@@ -130,7 +150,15 @@ translateY
 
 
 
+
+
+
+
 )
+
+
+
+
 
 
 
@@ -165,9 +193,17 @@ translateY
 
 
 
+
+
+
+
 %
 {
 -webkit-transform
+
+
+
+
 
 
 
@@ -201,6 +237,10 @@ translateY
 
 
 
+
+
+
+
 translateY
 
 
@@ -216,7 +256,15 @@ translateY
 
 
 
+
+
+
+
 (
+
+
+
+
 
 
 
@@ -250,7 +298,15 @@ translateY
 
 
 
+
+
+
+
 )
+
+
+
+
 
 
 
@@ -290,9 +346,17 @@ keyframes bounce { 0%, 20%, 50%, 80%, 100% {
 
 
 
+
+
+
+
 %
 {
 transform
+
+
+
+
 
 
 
@@ -326,6 +390,10 @@ transform
 
 
 
+
+
+
+
 translateY
 
 
@@ -341,7 +409,15 @@ translateY
 
 
 
+
+
+
+
 (
+
+
+
+
 
 
 
@@ -375,7 +451,15 @@ translateY
 
 
 
+
+
+
+
 )
+
+
+
+
 
 
 
@@ -409,9 +493,17 @@ translateY
 
 
 
+
+
+
+
 %
 {
 transform
+
+
+
+
 
 
 
@@ -445,6 +537,10 @@ transform
 
 
 
+
+
+
+
 translateY
 
 
@@ -460,7 +556,15 @@ translateY
 
 
 
+
+
+
+
 (
+
+
+
+
 
 
 
@@ -494,7 +598,15 @@ translateY
 
 
 
+
+
+
+
 )
+
+
+
+
 
 
 
@@ -601,27 +713,35 @@ translateY
 					<!-- x booking Wrapper Start -->
 					<div
 						style="margin-top: 30px; padding: 20px; background-color: white; border: 1px solid blue; border-radius: 10px;">
-						ㅎㅎ</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<ul class="chat">
-							<c:forEach var="cmt" items="${cmt }">
-										${cmt.writer }<br>
-										${cmt.content }<br>
-										${cmt.genDate }<br>
-								<input type="hidden" id="cmtSeq" name="cmtSeq"
-									value="${cmt.seq }">
-								<i id="cmtDelete" class="fa fa-times-circle"></i>
-								<br>
-							</c:forEach>
-						</ul>
-					</div>
-					<div class="col-md-12">
-						<div class="panel-heading">
-							<input id="content" name="content" size="30">
-							<!-- 버튼 -->
-							<button type="button" id="cmtInsert">등록</button>
+						<div class="row">
+							<div class="col-md-12">
+								<h4>댓글</h4>
+								<hr>
+								<ul class="chat">
+									<c:forEach var="cmt" items="${cmt }">
+										<li style="margin-bottom: 20px">
+													${cmt.writer } | ${cmt.genDate }<br>
+													${cmt.content }
+											<input type="hidden" id="cmtSeq" name="cmtSeq"
+												value="${cmt.seq }">
+											<sec:authorize access="isAuthenticated()">
+												<sec:authentication property="principal.id" var="loginUserId" />
+												<c:if test="${loginUserId eq cmt.writer}">
+													<span style="float: right"><i id="cmtDelete" class="fa fa-times-circle"></i></span>
+												</c:if>
+											</sec:authorize>
+											<br>
+										</li>
+									</c:forEach>
+								</ul>
+							</div>
+							<div class="col-md-12">
+								<div class="panel-heading">
+									<input id="content" name="content" size="30">
+									<!-- 버튼 -->
+									<button type="button" id="cmtInsert">등록</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -635,7 +755,12 @@ translateY
 					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 x_slider_checout_right">
 					<input type="hidden" id="seq" name="seq" value="${board.seq }">
 					<ul>
-						<li><a href="javascript:void(0);" onclick="boardDelete();">삭제</a></li>
+						<sec:authorize access="isAuthenticated()">
+							<sec:authentication property="principal.id" var="loginUserId" />
+							<c:if test="${loginUserId eq board.writer}">
+								<li><a href="javascript:void(0);" onclick="boardDelete();">삭제</a></li>
+							</c:if>
+						</sec:authorize>
 						<li><a href="../course">목록</a></li>
 						<li><button type="button" id="reportBtn"
 								class="btn btn-danger">신고</button></li>
@@ -799,8 +924,11 @@ translateY
 							$("#likeCnt").text(Number($("#likeCnt").text())-data);
 							console.log(data);
 						} else {
-							alert("로그인이 필요한 서비스입니다.");
-							location.href="${pageContext.request.contextPath}/login";
+							if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
+								location.href="${pageContext.request.contextPath}/login"; 
+							} else {
+								return;
+							}
 						}
 					}
 				})
@@ -932,31 +1060,44 @@ translateY
 	}); */
 	
 	$("#cmtInsert").on("click", function() {
-		$.ajax({
-			type : 'POST',
-			url: "insertCmt",
-			data:  JSON.stringify({
-				content : $("#content").val(),
-				courseSeq : $("#seq").val()
-			}), 
-			dataType: "json",
-			contentType : 'application/json; charset=utf-8',
-			success: function (data) {
-				if(data == null) {
-					if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
-						location.href="${pageContext.request.contextPath}/login"; 
-					} else {
-						return;
-					}
-				} else {
-					$("#content").val("");
-					$(".chat").append(data.writer+'<br>'+data.content+'<br>'+data.genDate+'<input type="hidden" id="cmtSeq" value="'+data.seq+'">');
-				}
+		<sec:authorize access="isAuthenticated()">
+		<sec:authentication property="principal.seq" var="loginUserSeq"/>
+		loginUser = ${loginUserSeq};
+		</sec:authorize>
+		if(loginUser == '') {
+			if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
+				location.href="${pageContext.request.contextPath}/login"; 
+			} else {
+				return;
 			}
-		});
+		} else {
+			$.ajax({
+				type : 'POST',
+				url: "insertCmt",
+				data:  JSON.stringify({
+					content : $("#content").val(),
+					courseSeq : $("#seq").val()
+				}), 
+				dataType: "json",
+				contentType : 'application/json; charset=utf-8',
+				success: function (data) {
+					if(data == null) {
+						if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
+							location.href="${pageContext.request.contextPath}/login"; 
+						} else {
+							return;
+						}
+					} else {
+						$("#content").val("");
+						$(".chat").append('<li style="margin-bottom: 20px">'+data.writer+' | '+data.genDate+'<br>'+data.content+'<input type="hidden" id="cmtSeq" value="'+data.seq+'">'
+								+'<span style="float: right"><i id="cmtDelete" class="fa fa-times-circle"></i></span>');
+					}
+				}
+			});
+		}
 	});
 	
-	$("#cmtDelete").on("click", function() {
+	$(".chat").on("click", "i", function() {
 		$.ajax({
 			type : 'POST',
 			url: "deleteCmt",
