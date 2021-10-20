@@ -92,7 +92,7 @@
 
 	<!-- 답변 작성 폼 -->
 	
-	<c:if test="${user.author eq ROLE_ADMIN}">
+	<c:if test="${user.author eq 'ROLE_ADMIN'}">
 		<div class="card" style="margin-top: 50px; padding: 20px;">
 			<form id="answerForm">
 				<input type="hidden" id="qnaSeq" name="qnaSeq" value="${qna.seq}">
