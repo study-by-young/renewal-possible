@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!-- 일반 렌트: 렌터카 목록 페이지 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -225,30 +226,40 @@
                                                 </div>
                                             </div>
                                             <div class="mt-4">
-                                                <c:forEach var="review" begin="0" end="4">
+                                                <c:forEach var="review" items="${reviewList}">
                                                     <div class="card">
                                                         <div class="card-header">
                                                             <h5 class="card-title">
-                                                                {review.title}
+                                                                ${review.title}
                                                                 <span class="float-right">
                                                                     <span class="main-score-bg"><span class="main-score" style="width:80%"></span></span> (4/5)
                                                                 </span>
-                                                            </h5>
+                                                            </h5> 
                                                             <div class="text-muted mt-2">
                                                                 <span>
-                                                                    <i class="icon-calendar"></i> {startDate} ~ {endDate} <br>
-                                                                    <i class="icon-car"></i> {car.model}
+                                                                    <i class="icon-calendar"></i>&nbsp;&nbsp; <fmt:formatDate value="${reviews.rentHistoryVO.startDate}" pattern="yy/MM/dd"/> ~ <fmt:formatDate value="${reviews.rentHistoryVO.endDate}" pattern="yy/MM/dd"/> <br>
+                                                                    <i class="icon-car"></i>&nbsp;&nbsp; ${reviews.rentHistoryVO.carVO.modelCodeVO.name}
                                                                 </span>
                                                                 <span class="float-right">
-                                                                    <i class="icon-person"></i>{김**}
+                                                                    <i class="icon-person"></i>&nbsp;&nbsp; 
+                                                                    <c:if test="${reviews.rentHistoryVO.receiver ne null && reviews.rentHistoryVO.receiver != ''}">
+																    	<!-- 아이디의 앞 1자리까지 보여 주고 -->
+																    	${fn:substring(reviews.rentHistoryVO.receiver, 0, 2) }
+																    	<!-- 2자리부터 id의 길이만큼 *를 찍어줌 -->
+																    	<c:forEach begin="3" end="${fn:length(reviews.rentHistoryVO.receiver)}" step="1">
+																        	*
+																    	</c:forEach>
+																    </c:if>
                                                                 </span>
                                                             </div>
                                                         </div>
                                                         <div class="card-body">
                                                             <div>
-                                                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch.
+                                                                ${review.content}
                                                             </div>
-                                                            <button type="button" class="btn btn-primary mt-3">여행코스 보기</button>
+                                                            <c:if test="${!empty review.courseSeq}">
+                                                            	<button type="button" class="btn btn-primary mt-3" onclick="location.href='${pageContext.request.contextPath}/community/course/view?seq=${review.courseSeq}'">여행코스 보기</button>
+                                                        	</c:if>
                                                         </div>
                                                     </div>
                                                 </c:forEach>
@@ -421,5 +432,36 @@
         });
 	});
 
+	
+	let maskingFunc = {
+		    checkNull : function(str){
+		        if(typeof str == "undefined" || str == null || str == ""){
+		            return true;
+		        }
+		        else{
+		            return false;
+		        }
+		    },
+
+		    name : function(str){
+		        let originStr = str;
+		        let maskingStr;
+		        let strLength;
+
+		        if(this.checkNull(originStr) == true){
+		            return originStr;
+		        }
+
+		        strLength = originStr.length;
+		        if(strLength < 3){
+		            maskingStr = originStr.replace(/(?<=.{1})./gi, "*");
+		        }
+		        else{
+		            maskingStr = originStr.replace(/(?<=.{2})./gi, "*");
+		        }
+		        return maskingStr;
+		    }
+		}	
+	
 </script>
 <!-- x car book sidebar section Wrapper End -->
