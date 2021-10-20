@@ -21,7 +21,7 @@ input[type=file] {
 }
 
 .input_title {
-	width: 100%;
+	width: 108.5%;
 	height: 50px;
 	border: 1px solid lightgray;
 	padding: 10px 8px;

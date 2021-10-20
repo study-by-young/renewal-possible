@@ -272,9 +272,6 @@
 
 <script>
 	$(document).ready(
-
-			
-			
 			function() {
 				var insertResult = '<c:out value="${insertResult}"/>';
 				var updateResult = '<c:out value="${updateResult}"/>';
@@ -344,6 +341,8 @@
 		})
 	});
 
+	$("#category li:first").click();
+	
 	function makeLi(data) {
 		return '<div class="lr_bc_first_box_img_cont_wrapper firstWrap">'
 				+ '<button class="accordion">'
