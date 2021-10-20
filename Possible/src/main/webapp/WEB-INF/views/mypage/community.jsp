@@ -27,6 +27,111 @@
 
 }
 
+.btc_team_bot_cont_main_wrapper {
+    box-shadow: 0px 0 8px rgba(0, 0, 0, 0.1);
+    float: left;
+    width: 100%;
+    margin-top: 30px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+.btc_team_img_bot_wrapper {
+    float: left;
+    width: 100%;
+    position: relative;
+
+}
+.btc_team_img_bot_wrapper img {
+    width: 100%;
+    -webkit-border-top-left-radius: 5px;
+    -moz-border-top-left-radius: 5px;
+    border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.btc_team_img_bot_cont_wrapper {
+    float: left;
+    width: 100%;
+    background: #ffffff;
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    z-index: 1;
+    position: relative;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    -moz-border-bottom-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+.btc_team_img_bot_cont_wrapper h4 {
+    font-size: 16px;
+    font-weight: 800;
+    padding-bottom: 5px;
+    text-transform: uppercase;
+}
+.btc_team_img_bot_cont_wrapper p {
+    color: #4f5dec;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.btc_team_img_bot_cont_wrapper h4 a {
+    color: #000000;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+.btc_team_social_tb_wrapper {
+    float: left;
+    width: 80%;
+    left: 0;
+    right: 0;
+    margin: 0px auto;
+    background: #4f5dec;
+    position: absolute;
+    bottom: -50px;
+    padding-top: 15px;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+    text-align: center;
+    -webkit-border-top-left-radius: 5px;
+    -moz-border-top-left-radius: 5px;
+    border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+    -moz-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.btc_team_social_tb_wrapper h5 {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-weight: 800;
+}
+.btc_team_bot_cont_main_wrapper:hover .btc_team_social_tb_wrapper {
+    bottom: 0;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
 </style>
 <div class="btc_tittle_main_wrapper">
     <div class="mb-3">
@@ -136,6 +241,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="lr_bc_first_box_main_wrapper">
+							
 								<div class="col-md-12">
 									<div class="blog_single_comment_heading">
 										<h4>
@@ -154,32 +260,35 @@
 								<div class="col-md-12">
 									<div class="blog_single_comment_heading">
 										<h4>
-											<a href="${pageContext.request.contextPath}/community">나의
-												여행코스</a>
+											<a href="${pageContext.request.contextPath}/mypage/community">나의 여행코스</a>
 										</h4>
 									</div>
 									<div class="row">
-
 										<c:forEach var="myCourse" items="${myCourse}">
-											<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12">
+											<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12" style="margin-bottom: 15px;">
 												<div class="btc_team_bot_cont_main_wrapper">
 													<div class="btc_team_img_bot_wrapper">
-														<img
-															src="${pageContext.request.contextPath}/resources/images/tb1.jpg"
-															alt="team_img1">
+														<c:if test="${myCourse.firstImage ne null }">
+															<img src="${myCourse.firstImage}" style="height: 120px;"
+																alt="Course">
+															</c:if>
+															<c:if test="${myCourse.firstImage eq null }">
+															<img src="${pageContext.request.contextPath}/resources/images/no_image.jpg" style="height: 120px;" alt="Course">
+															</c:if>
 														<div class="btc_team_social_tb_wrapper">
-															<h3>
+															<h5>
 																<fmt:formatDate value="${myCourse.startDate }"
 																	pattern="yyyy-MM-dd" />
 																~
 																<fmt:formatDate value="${myCourse.endDate }"
 																	pattern="yyyy-MM-dd" />
-															</h3>
+															</h5>
 														</div>
 													</div>
 													<div class="btc_team_img_bot_cont_wrapper">
 														<h4>
-															<a href="${pageContext.request.contextPath}/community/course/view?seq=${myCourse.seq }">${myCourse.title }</a>
+															<a
+																href="${pageContext.request.contextPath}/community/course/view?seq=${myCourse.seq}">${myCourse.title }</a>
 														</h4>
 													</div>
 												</div>
@@ -187,6 +296,10 @@
 										</c:forEach>
 									</div>
 								</div>
+								
+								
+								
+								
 							</div>
 						</div>
 					</div>

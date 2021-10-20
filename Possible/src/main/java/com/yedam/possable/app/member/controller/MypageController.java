@@ -324,7 +324,8 @@ public class MypageController {
     	System.out.println(memVO.getId());
     	vo.setWriter(memVO.getId());
     	//model.addAttribute("myCourse", courseBoardService.getMyCourse(vo));
-    	model.addAttribute("myCourse", courseBoardService.getList(cri));
+    	//model.addAttribute("myCourse", courseBoardService.getList(cri));
+    	model.addAttribute("myCourse", courseBoardService.getUserCourseList(memVO.getId(),cri));
         return "mypage/community";
     }
 
