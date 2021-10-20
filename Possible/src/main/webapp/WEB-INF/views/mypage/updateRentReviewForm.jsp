@@ -171,7 +171,7 @@
 									                                                    <option value="${course.title}" selected>내가 작성한 여행코스</option>
 									                                                		<c:if test="${user.id eq course.writer}">
 									                                                		<c:forEach var="course" items="${courseList}">
-											                                                    <option value="">${course.title}</option>
+											                                                    <option value="${course.title}"></option>
 											                                                    <input type="hidden" id="courseSeq" name="courseSeq" value="${course.seq}">
 										                                                    </c:forEach>
 									                                                    </c:if>

@@ -59,6 +59,7 @@
 			RENT_REVIEW r INNER JOIN RENT_HISTORY h
 			on r.HISTORY_SEQ = h.SEQ
 			WHERE r.MEM_SEQ = #{seq}
+            ORDER BY r.SEQ desc 
 	</select>
 
 	<!-- 단건 조회 -->
