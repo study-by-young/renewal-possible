@@ -34,7 +34,7 @@
 		border: 1px solid lightgray;
 		padding: 10px 8px;
 		border-radius: 5px;
-	}    
+	}  
 </style>
 
 <div class="container">
@@ -99,24 +99,25 @@
 				<div class="row">
 					<div class="col-lg-12 col-md-12">
 						<div class="card-header">
-							<div class="card-header col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-top: 0px; padding-left: 0px;">
+							<div class="card-header col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-top: 0px; padding-left: 0px; padding-bottom: 0px;">
 								<div class="contect_form1">
 									<h2 style="font-weight: 600;">문의 답변 등록</h2>
 								</div>
 							</div>
 							<div class="card-header col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px 0px;">
 								<div class="contect_form1">
-									<input class="input_title" type="text" id="title" name="title" value="RE: ${qna.title}" readonly="readonly">
+									<input class="input_title" type="hidden" id="title" name="title" value="RE: ${qna.title}" readonly="readonly">
 								</div>
 							</div>
-							<div class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="col-xl-12 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="contect_form2">
 									<input type="hidden" id="writer" name="writer" placeholder="writer" value="${user.id}" readonly="readonly">
 								</div>
 							</div>
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px; padding-right: 0px;">
 								<div class="contect_form4">
-									<textarea id="content" name="content" class="ckeditor" required="required"></textarea>
+									<!-- <textarea id="content" name="content" class="ckeditor" required="required"></textarea> -->
+									<textarea class="input_title" id="content" name="content" required="required" style="width: 100%; height: 250px;"></textarea>
 								</div>
 								<br>
 							</div>
@@ -175,7 +176,7 @@
 	</div>
 --%>	
  
-	<c:choose>
+<%-- 	<c:choose>
 		<c:when test="${qna.answerCnt>='1'}">
 		 	<!-- 답변 보여주는 위치 -->
 		  	<div class="card">
@@ -186,15 +187,15 @@
 		<c:otherwise>
 			<div></div>
 		</c:otherwise>
-	</c:choose>
+	</c:choose> --%>
  
-<%--  	<c:if test="${qna.answerCnt>='1'}">
- 	<!-- 답변 보여주는 위치 -->
-  	<div class="card">
-  		<ul class="chat" style="padding-left: 0px;">
-  		</ul>
-	</div>
-	</c:if> --%>
+  	<c:if test="${qna.answerCnt>='1'}">
+	 	<!-- 답변 보여주는 위치 -->
+	  	<div class="card">
+	  		<ul class="chat" style="padding-left: 0px;">
+	  		</ul>
+		</div>
+	</c:if>
 	
 </div>
 
@@ -259,7 +260,6 @@
 		qnaAnswerList();
 		
 		$('#saveAnswer').on('click', function() {
-			console.log(CKEDITOR.instances.content.getData());
 			qnaAnswerService.add(function(data) {
 				$('.chat').append(makeLi(data));
 			});
@@ -320,7 +320,9 @@
 				+	'	</div>'
 				+	'	<div class="card-footer lr_bc_first_box_img_cont_wrapper" align="right" style="border-bottom: 0px;">'
 /* 				+	'		<button class="btn btn-primary" type="button" id="readQnaAnswer">보기</button>' */
-				+	'		<button class="btn btn-dark" type="button" id="deleteQnaAnswer">삭제</button>'
+ 				+	'		<c:if test="${user.author eq 'ROLE_ADMIN'}">'
+				+	'			<button class="btn btn-dark" type="button" id="deleteQnaAnswer">삭제</button>'
+				+	'		</c:if>'
 				+	'	</div>'	
 				+	'</li>'
 		}
@@ -341,13 +343,12 @@
 		
 		function qnaAnswerSelectResult(data) {
 			$('input:text[name="writer"]').val(data.writer);
-			CKEDITOR.instances.content.getData(data.content);
-			/* $('input:text[name="content"]').val(data.content); */
+			$('input:text[name="content"]').val(data.content);
 		}
 		
 		$('body').on('click', '#updateAnswer', function() {
 			var writer = $('input:text[name="writer"]').val();
-			var content = CKEDITOR.instances.content.getData(); //$('input:text[name="content"]').val();
+			var content = $('input:text[name="content"]').val();
 
 			$.ajax({
 				url : '../answer/',
@@ -433,6 +434,7 @@
 	      dataType: 'json',
 	      success: function(data){
 	         if(callback) callback(data);
+	         window.location.reload();
 	      },
 	      error: function(){ if(error) error(); }
 	   });
