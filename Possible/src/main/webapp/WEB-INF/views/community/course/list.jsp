@@ -60,6 +60,8 @@
 								<c:out value="${pagination.cri.type eq 'T' ? 'selected':''}"/>>제목</option>
 							<option value="C"
 								<c:out value="${pagination.cri.type eq 'C' ? 'selected':''}"/>>내용</option>
+							<option value="W"
+								<c:out value="${pagination.cri.type eq 'W' ? 'selected':''}"/>>작성자</option>
 							<option value="TC"
 								<c:out value="${pagination.cri.type eq 'TC' ? 'selected':''}"/>>제목
 								or 내용</option>

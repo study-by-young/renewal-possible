@@ -13,6 +13,8 @@
 						<select name="type" class="select">
 							<option value="T"
 								<c:out value="${pagination.cri.type eq 'T' ? 'selected':''}"/>>제목</option>
+							<option value="A"
+								<c:out value="${pagination.cri.type eq 'A' ? 'selected':''}"/>>주소</option>
 						</select> &nbsp; <input class="input" name="keyword"
 							value="${pagination.cri.keyword}"> <input type="hidden"
 							name="pageNum" value="${pagination.cri.pageNum}"> <input

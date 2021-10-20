@@ -43,6 +43,9 @@
 				        <when test="type == 'C'.toString()">
 				        	CONTENT LIKE '%' || #{keyword} || '%'
 				        </when>
+				        <when test="type == 'W'.toString()">
+				        	WRITER LIKE '%' || #{keyword} || '%'
+				        </when>
             		</choose>
             	</trim>
             </foreach>
