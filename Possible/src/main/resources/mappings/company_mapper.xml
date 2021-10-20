@@ -34,9 +34,6 @@
                         <when test="type == 'T'.toString()">
                             TEL LIKE '%' || #{keyword} || '%'
                         </when>
-                        <when test="type == 'S'.toString()">
-                            STATUS LIKE '%' || #{keyword} || '%'
-                        </when>
                     </choose>
         </trim>
     </sql>

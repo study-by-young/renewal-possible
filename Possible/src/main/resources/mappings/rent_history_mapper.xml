@@ -71,6 +71,48 @@
 			</choose>
 		</trim>
 	</sql>
+	
+	<!-- <sql id="checkCriteria">
+        <trim prefixOverrides="and">
+                    <choose>
+                        <when test="cri.type == 'A'.toString()">
+                            STATUS LIKE '%' || 'RST01' || '%'
+                        </when>
+                        <when test="cri.type == 'B'.toString()">
+                            STATUS LIKE '%' || 'RST02' || '%'
+                        </when>
+                           <when test="cri.type == 'C'.toString()">
+                            STATUS LIKE '%' || 'RST03' || '%'
+                        </when>
+                        <when test="cri.type == 'D'.toString()">
+                            STATUS LIKE '%' || 'RST04' || '%'
+                        </when>
+                    </choose>
+        </trim>
+    </sql> -->
+    
+    <sql id="checkCriteria">
+        <trim prefix="(" suffix=")" prefixOverrides="OR">
+            <foreach collection="cri.typeArr" item="cri.type">
+                <trim prefix="OR">
+                    <choose>
+                          <when test="cri.type == 'A'.toString()">
+                            STATUS LIKE '%' || 'RST01' || '%'
+                        </when>
+                        <when test="cri.type == 'B'.toString()">
+                            STATUS LIKE '%' || 'RST02' || '%'
+                        </when>
+                           <when test="cri.type == 'C'.toString()">
+                            STATUS LIKE '%' || 'RST03' || '%'
+                        </when>
+                        <when test="cri.type == 'D'.toString()">
+                            STATUS LIKE '%' || 'RST04' || '%'
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
 
     <!-- 어드민 전용 렌트 내역 리스트-->
     <select id="getRentHistoryList" resultMap="rentHistoryAllData">
@@ -89,11 +131,11 @@
              FROM RENT_HISTORY
                   <where>
                   	<include refid="criteria"/>
+                  	<include refid="checkCriteria"/>
                      <![CDATA[
                      AND (CMPN_SEQ = #{cmpnSeq})
                      AND ROWNUM <= #{cri.pageNum} * #{cri.amount} ]]>
-                 </where>)
-                    WHERE RN > (#{cri.pageNum} - 1) * #{cri.amount}
+                 </where>
 	</select>
 
 	<!-- 업체 렌트내역 한건 -->
@@ -132,7 +174,7 @@
 <!--     <select id="getCompanySales" resultType="RentHistoryVO">
     	select sum(price) as price, cmpn_seq, TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD') as uptDate
     	from rent_history where cmpn_seq = #{cmpnSeq}
-    	and status = '예약완료'
+    	and status = 'RST03'
     	group by cmpn_seq,TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD')
     	order by TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD')     -->
 
@@ -141,13 +183,13 @@
         SELECT
             *
         FROM (select
-                 sum(price) as earn,
-                 TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD') as uptDate
+                 sum(price) as earn, cmpn_seq,
+                 TO_CHAR(upt_date,'YYYY-MM-DD') as uptDate
          from rent_history
-         where cmpn_seq = 241
-           and status = '예약완료'
-         group by cmpn_seq,TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD')
-         order by TO_TIMESTAMP(trunc(upt_date),'YYYY-MM-DD')
+         where cmpn_seq = #{cmpnSeq}
+           and status = 'RST03'
+         group by cmpn_seq,TO_CHAR(upt_date,'YYYY-MM-DD')
+         order by TO_CHAR(upt_date,'YYYY-MM-DD')
          )
         <![CDATA[WHERE ROWNUM <= 5]]>
     </select>
@@ -157,7 +199,7 @@
             *
         from rent_history
 		where cmpn_seq = #{cmpnSeq}
-		and status = '예약완료'
+		and status = 'RST03'
 		and TO_TIMESTAMP(trunc(start_date),'YYYY-MM-DD') = TO_TIMESTAMP(trunc(sysdate),'YYYY-MM-DD')
     </select>
 

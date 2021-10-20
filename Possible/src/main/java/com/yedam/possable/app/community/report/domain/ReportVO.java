@@ -13,4 +13,5 @@ public class ReportVO {
     private String code;
     private Date genDate;
     private String reporter;
+    private Long memSeq;
 }

@@ -111,8 +111,17 @@
 	<sql id="companyCriteria">
 		<trim prefixOverrides="and">
 			<choose>
+				<when test="cri.type == 'A'.toString()">
+					STATUS LIKE '%' || 'CST01' || '%'
+				</when>
 				<when test="cri.type == 'B'.toString()">
-					BRAND LIKE '%' || #{cri.keyword} || '%'
+					STATUS LIKE '%' || 'CST02' || '%'
+				</when>
+				<when test="cri.type == 'C'.toString()">
+					STATUS LIKE '%' || 'CST03' || '%'
+				</when>
+				<when test="cri.type == 'D'.toString()">
+					STATUS LIKE '%' || 'CST04' || '%'
 				</when>
 			</choose>
 		</trim>

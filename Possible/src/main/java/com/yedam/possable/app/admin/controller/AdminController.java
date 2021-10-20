@@ -237,4 +237,12 @@ public class AdminController {
 
         return "admin/maintenance/reportView";
     }
+    
+    //신고 게시글작성자 정보 불러우기
+    @GetMapping("getInfo")
+    @ResponseBody
+    public MemberVO reportOneSelect(String id, MemberVO vo) {
+    	vo.setId(id);
+    	return memberService.reportOneSelect(id);
+    }
 }
