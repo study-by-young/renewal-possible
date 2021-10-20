@@ -11,6 +11,7 @@ public class CourseBoardCmtVO {
     private String writer;
     private Date genDate;
     private Date uptDate;
+    private Long courseSeq;
 
-    private CourseBoardVO courseBoardVO;
+    private CourseBoardVO board;
 }

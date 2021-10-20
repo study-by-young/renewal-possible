@@ -52,7 +52,7 @@ public class TourController {
 				"%2Bxd0HNP4Gd4KAuGtJitYZzafrxzKZ40VMcf3uX%2BQ7AfWFbNEvS2jj43sWtAeAlQPnB65kOz6PjhVjsUPnvkKtw%3D%3D",
 				"UTF-8")); /* 공공데이터포털에서 발급받은 인증키 */
 		urlBuilder.append(
-				"&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("1942", "UTF-8")); /* 한 페이지 결과수 */
+				"&" + URLEncoder.encode("numOfRows", "UTF-8") + "=" + URLEncoder.encode("10129", "UTF-8")); /* 한 페이지 결과수 */
 		urlBuilder.append(
 				"&" + URLEncoder.encode("pageNo", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /* 현재 페이지 번호 */
 		urlBuilder.append("&" + URLEncoder.encode("MobileOS", "UTF-8") + "="
@@ -67,7 +67,7 @@ public class TourController {
 													 * Q=수정일순, R=생성일순)
 													 */
 		urlBuilder.append("&" + URLEncoder.encode("contentTypeId", "UTF-8") + "="
-				+ URLEncoder.encode("14", "UTF-8")); /* 관광타입 12=관광지 */
+				+ URLEncoder.encode("12", "UTF-8")); /* 관광타입 12=관광지 */
 		urlBuilder.append("&" + URLEncoder.encode("_type", "UTF-8") + "=" + URLEncoder.encode("json", "UTF-8"));
 		URL url = new URL(urlBuilder.toString());
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
