@@ -49,7 +49,7 @@
 							</div>
 							<div class="card-header col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px 0px;">
 								<div class="contect_form1">
-									<input class="input_title" type="text" name="title" placeholder="제목을 입력해주세요." required="required">
+									<input class="input_title" type="text" name="title" placeholder=" 제목을 입력해주세요. *" required="required">
 								</div>
 							</div>
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
