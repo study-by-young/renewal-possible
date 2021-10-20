@@ -58,14 +58,18 @@ public class QnaController {
 	}
 	
 	@PostMapping("/insert")
-	public String insert(Model model, RedirectAttributes rttr, QnaVO vo, @ModelAttribute("cri") Criteria cri) {
+	public String insert(Model model, RedirectAttributes rttr, QnaVO vo, @ModelAttribute("cri") Criteria cri, Authentication authentication) {
 		qnaService.insert(vo);
 		rttr.addFlashAttribute("insertResult", vo.getSeq());
 		
 		int total = qnaService.getTotalCount(cri);
 		model.addAttribute("pagination", new PageVO(cri, total));
 		
-		return "redirect:/qna/list";
+		MemberVO loginUser = memberService.getLoginMember(authentication);
+		model.addAttribute("user", memberService.memberOneSelect(loginUser));
+		
+		// 1:1문의글을 작성한 후 마이페이지 내 문의글 확인으로 이동
+		return "redirect:/mypage/qna";
 	}
 	
 	@GetMapping("/update")

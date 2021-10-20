@@ -127,6 +127,7 @@
 						<div class="col-md-12">
 							<div class="lr_bc_first_box_main_wrapper">
 								
+								
 		                         
 								<!-- 나의문의 -->
 								<div class="col-md-12">
@@ -139,23 +140,22 @@
 										<table class="table table-hover">
 											<thead>
 												<tr>
-													<th align="center">제목</th>
-													<th>작성일</th>
-													<th>답변상태</th>
+													<th class="col-8" style="text-align: center;">제목</th>
+													<th class="col-2" style="text-align: center;">작성일</th>
+													<th class="col-2" style="text-align: center;">답변상태</th>
 												</tr>
 											</thead>
 											<tbody>
 												<c:forEach var="myQna" items="${myQna}">
 													<tr>
 														<td><a href="${pageContext.request.contextPath}/qna/get?seq=${myQna.seq }">${myQna.title}</a></td>
-														<td><fmt:formatDate pattern="yyyy/MM/dd"
-																value="${myQna.genDate }" /></td>
+														<td style="text-align: center;"><fmt:formatDate pattern="yy-MM-dd" value="${myQna.genDate }" /></td>
 														<c:choose>
 															<c:when test="${myQna.answerCnt>='1'}">
-																<td style="color: blue">답변완료</td>
+																<td style="color: blue; text-align: center;">답변완료</td>
 															</c:when>
 															<c:otherwise>
-																<td style="color: red">답변대기</td>
+																<td style="color: red; text-align: center;">답변대기</td>
 															</c:otherwise>
 														</c:choose>
 													</tr>

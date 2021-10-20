@@ -365,6 +365,7 @@ public class MypageController {
 
     	System.out.println(memVO.getSeq());
     	model.addAttribute("myQna",qnaService.getMyQna(memVO.getSeq()));
+    	System.out.println("-----------" + qnaService.getMyQna(memVO.getSeq()));
         return "mypage/qna";
     }
 

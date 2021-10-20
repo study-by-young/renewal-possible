@@ -47,7 +47,7 @@
 						<a href="${pageContext.request.contextPath}/notice/list" class="dropdown-item"> 공지사항</a>
 						<a href="${pageContext.request.contextPath}/community/course" class="dropdown-item"> 여행코스</a>
 						<a href="${pageContext.request.contextPath}/community/tour" class="dropdown-item"> 여행지</a>
-						<a href="${pageContext.request.contextPath}/qna/list" class="dropdown-item"> 1:1 문의</a>
+						<a href="${pageContext.request.contextPath}/qna/insert" class="dropdown-item"> 1:1 문의</a>
 						<a href="${pageContext.request.contextPath}/faq/list" class="dropdown-item"> FAQ</a>
 					</div>
 				</li>

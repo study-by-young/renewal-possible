@@ -62,7 +62,7 @@
 			<div class="card-body">${qna.content}</div>
 		</div>
 		<div class="card-footer lr_bc_first_box_img_cont_wrapper" align="right" style="border-bottom: 0px;">
-			<button class="btn btn-primary" type="button" id="list_btn">목록</button>
+			<!-- <button class="btn btn-primary" type="button" id="list_btn">목록</button> -->
 			<button class="btn btn-dark" type="button" id="update_btn">수정</button>
 			<button id="deleteBtn" type="button" class="btn btn-dark">삭제</button>
 		</div>

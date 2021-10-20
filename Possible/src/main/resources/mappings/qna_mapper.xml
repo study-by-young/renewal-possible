@@ -75,11 +75,13 @@
 		INSERT INTO QNA ( SEQ
 						, TITLE
 						, CONTENT
-						, WRITER)
+						, WRITER
+						, MEM_SEQ)
 		VALUES ( #{seq}
 			   , #{title}
 			   , #{content}
-			   , #{writer})
+			   , #{writer}
+			   , #{memSeq})
 	</insert>
 
 	<update id="update">
