@@ -92,49 +92,51 @@
 
 	<!-- 답변 작성 폼 -->
 	
-	<div class="card" style="margin-top: 50px; padding: 20px;">
-		<form id="answerForm">
-			<input type="hidden" id="qnaSeq" name="qnaSeq" value="${qna.seq}">
-			<div class="row">
-				<div class="col-lg-12 col-md-12">
-					<div class="card-header">
-						<div class="card-header col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-top: 0px; padding-left: 0px;">
-							<div class="contect_form1">
-								<h2 style="font-weight: 600;">문의 답변 등록(얘는 관리자만 보이게)</h2>
+	<c:if test="${user.author eq 'ROLE_ADMIN'}">
+		<div class="card" style="margin-top: 50px; padding: 20px;">
+			<form id="answerForm">
+				<input type="hidden" id="qnaSeq" name="qnaSeq" value="${qna.seq}">
+				<div class="row">
+					<div class="col-lg-12 col-md-12">
+						<div class="card-header">
+							<div class="card-header col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-top: 0px; padding-left: 0px;">
+								<div class="contect_form1">
+									<h2 style="font-weight: 600;">문의 답변 등록</h2>
+								</div>
 							</div>
+							<div class="card-header col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px 0px;">
+								<div class="contect_form1">
+									<input class="input_title" type="text" id="title" name="title" value="RE: ${qna.title}" readonly="readonly">
+								</div>
+							</div>
+							<div class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="contect_form2">
+									<input type="hidden" id="writer" name="writer" placeholder="writer" value="${user.id}" readonly="readonly">
+								</div>
+							</div>
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px; padding-right: 0px;">
+								<div class="contect_form4">
+									<textarea id="content" name="content" class="ckeditor" required="required"></textarea>
+								</div>
+								<br>
+							</div>
+					<!-- 		<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px; padding-right: 0px;">
+								<div class="contect_form4">
+									<input id="content" name="content" required="required">
+								</div>
+								<br>
+							</div> -->
 						</div>
-						<div class="card-header col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px 0px;">
-							<div class="contect_form1">
-								<input class="input_title" type="text" id="title" name="title" placeholder="제목을 입력해주세요." required="required">
-							</div>
+						<div class="card-footer col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+							align="right">
+							<button type="button" id="saveAnswer" class="btn btn-primary">답변등록</button>
+							<!-- <button type="button" id="updateAnswer" class="btn btn-dark">수정</button> -->
 						</div>
-						<div class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<div class="contect_form2">
-								<input type="hidden" id="writer" name="writer" placeholder="writer" value="${user.id}" readonly="readonly">
-							</div>
-						</div>
-						<!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px; padding-right: 0px;">
-							<div class="contect_form4">
-								<textarea id="content" name="content" class="ckeditor" required="required"></textarea>
-							</div>
-							<br>
-						</div> -->
-						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px; padding-right: 0px;">
-							<div class="contect_form4">
-								<input id="content" name="content" required="required">
-							</div>
-							<br>
-						</div>
-					</div>
-					<div class="card-footer col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"
-						align="right">
-						<button type="button" id="saveAnswer" class="btn btn-primary">답변등록</button>
-						<button type="button" id="updateAnswer" class="btn btn-dark">수정</button>
 					</div>
 				</div>
-			</div>
-		</form>
-	</div>	
+			</form>
+		</div>	
+	</c:if>
 	
 <%-- 	<div class="row">
 		<div class="panel-heading">
@@ -151,6 +153,7 @@
 	</div> --%>
 
 
+<%-- 
 	<!-- 답변 보여주는 위치 -->
 	<div class="row">
 		<div class="col-lg-12">
@@ -170,12 +173,29 @@
 		</div>
 		<!-- end row -->
 	</div>
-	
+--%>	
  
+	<c:choose>
+		<c:when test="${qna.answerCnt>='1'}">
+		 	<!-- 답변 보여주는 위치 -->
+		  	<div class="card">
+		  		<ul class="chat" style="padding-left: 0px;">
+		  		</ul>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div></div>
+		</c:otherwise>
+	</c:choose>
+ 
+<%--  	<c:if test="${qna.answerCnt>='1'}">
  	<!-- 답변 보여주는 위치 -->
-<!--  	<div class="chat">
-
-	</div>	 -->
+  	<div class="card">
+  		<ul class="chat" style="padding-left: 0px;">
+  		</ul>
+	</div>
+	</c:if> --%>
+	
 </div>
 
 <script>
@@ -200,21 +220,20 @@
 	// 게시글 수정
 	let form = $("#intoForm");
 
-	$("#list_btn").on(
-			"click",
-			function(e) {
-				form.find("#seq").remove();
-				form.attr("action",
-						"${pageContext.request.contextPath}/qna/list?pageNum="
-								+ $('#pageNum').val() + "&amount="
-								+ $('#amount').val());
-				form.submit();
-			})
+	$("#list_btn").on("click", function(e) {
+		form.find("#seq").remove();
+		form.attr("action",
+				"${pageContext.request.contextPath}/qna/list?pageNum="
+						+ $('#pageNum').val() + "&amount="
+						+ $('#amount').val());
+		form.submit();
+	})
 
 	$("#update_btn").on("click", function(e) {
 		form.attr("action", "${pageContext.request.contextPath}/qna/update")
 		form.submit();
 	})
+	
 	
 	$(document).ready(function(){
 		var updateResult = '<c:out value="${updateResult}"/>';
@@ -233,31 +252,6 @@
 	
 	
 	
-/* 	$(function() {
-		
-		$('#saveAnswer').click(function() {
-			console.log("들어오겠냐?");
-			var content = $('#content').val();
-			var	writer = $('#writer').val();
-			var	seq = $('#seq').val();
-			
-			$.ajax({
-				url : '../answer/',
-				type : 'POST',
-				dataType : 'json',
-				success : function(result) {
-					qnaAnswerList();
-					$('#content').val('');
-					$('#writer').val('');
-				},
-				error : function(error) {
-					console.log("에러 : " + error);
-				}
-			})
-		})
-	}) */
-	
-	
  	const qnaSeq = "${qna.seq}";
 	
 	$(document).ready(function() {
@@ -265,6 +259,7 @@
 		qnaAnswerList();
 		
 		$('#saveAnswer').on('click', function() {
+			console.log(CKEDITOR.instances.content.getData());
 			qnaAnswerService.add(function(data) {
 				$('.chat').append(makeLi(data));
 			});
@@ -292,7 +287,7 @@
 			});
 		}
 		
- 		function makeLi(data) {
+/*  		function makeLi(data) {
 			return '<li data-seq="' + data.seq + '"class="left clearfix">'
 					+ '	<div>'
 					+ '		<div class="header">'
@@ -310,13 +305,13 @@
 					+ '</p>'
 					+ '			<p align="right"><button id="readQnaAnswer">보기</button>&nbsp;<button id="deleteQnaAnswer">삭제</button></p>'
 					+ '		</div>' + '	</div>' + '</li>'
-		}
+		} */
 		
-		
-/* 		function makeLi (data) {
-			return	'<div class="chat" style="margin-top: 50px; padding: 20px;">'
-				+	'	<div class="card-header lr_bc_first_box_img_cont_wrapper">''
-				+	'		<h2 style="font-weight: 600; margin-bottom: 25px;" data-seq="' + data.seq + '">' + data.title + '</h2>'
+
+		function makeLi (data) {
+			return	'<li data-seq="' + data.seq + '" style="padding: 20px;">'
+				+	'	<div class="card-header lr_bc_first_box_img_cont_wrapper">'
+				+	'		<h2 style="font-weight: 600; margin-bottom: 25px;">' + data.title + '</h2>'
 				+	'		<ul style="padding-left: 5px;">'
 				+	'			<li><i class="fa fa-user"></i>&nbsp; <a>관리자</a></li>'
 				+	'		</ul>'
@@ -324,66 +319,53 @@
 				+	'		<div class="card-body">' + data.content + '</div>'
 				+	'	</div>'
 				+	'	<div class="card-footer lr_bc_first_box_img_cont_wrapper" align="right" style="border-bottom: 0px;">'
-				+	'		<button class="btn btn-primary" type="button" id="readQnaAnswer">보기</button>'
+/* 				+	'		<button class="btn btn-primary" type="button" id="readQnaAnswer">보기</button>' */
 				+	'		<button class="btn btn-dark" type="button" id="deleteQnaAnswer">삭제</button>'
 				+	'	</div>'	
-				+	'</div>';
-		} */
+				+	'</li>'
+		}
 		
-		$('body')
-		.on(
-				'click',
-				'#readQnaAnswer',
-				function() {
-					var seq = $(this).closest('li')
-							.data('seq');
-					$.ajax({
-						url : '../answer/' + seq,
-						type : 'GET',
-						dataType : 'json',
-						error : function(xhr, status,
-								msg) {
-							alert("상태값 :" + status
-									+ " Http에러메시지 :"
-									+ msg);
-						},
-						success : qnaAnswerSelectResult
-					});
-				});		
+		
+		$('body').on('click', '#readQnaAnswer', function() {
+			var seq = $(this).closest('li').data('seq');
+			$.ajax({
+				url : '../answer/' + seq,
+				type : 'GET',
+				dataType : 'json',
+				error : function(xhr, status, msg) {
+					alert("상태값 : " + status + " Http에러메시지 : " + msg);
+				},
+				success : qnaAnswerSelectResult
+			});
+		});		
 		
 		function qnaAnswerSelectResult(data) {
 			$('input:text[name="writer"]').val(data.writer);
-			$('input:text[name="content"]').val(data.content);
+			CKEDITOR.instances.content.getData(data.content);
+			/* $('input:text[name="content"]').val(data.content); */
 		}
 		
 		$('body').on('click', '#updateAnswer', function() {
-			var writer = $(
-					'input:text[name="writer"]')
-					.val();
-			var content = $(
-					'input:text[name="content"]')
-					.val();
+			var writer = $('input:text[name="writer"]').val();
+			var content = CKEDITOR.instances.content.getData(); //$('input:text[name="content"]').val();
 
-					$.ajax({
-						url : '../answer/',
-						type : 'put',
-						dataType : 'json',
-						data : JSON.stringify({
-							writer : writer,
-							content : content
-						}),
-						contentType : 'application/json',
-						error : function(xhr,
-								status, msg) {
-							alert("상태값 :"
-									+ status
-									+ " Http에러메시지 :"
-									+ msg);
-						},
-						success : function(data) {
-							qnaAnswerList();
-						}
-					});
+			$.ajax({
+				url : '../answer/',
+				type : 'put',
+				dataType : 'json',
+				data : JSON.stringify({
+					writer : writer,
+					content : content
+				}),
+				contentType : 'application/json',
+				error : function(xhr, status, msg) {
+					alert("상태값 : " + status + " Http에러메시지 : " + msg);
+				},
+				success : function(data) {
+					qnaAnswerList();
+				}
+			});
+			
 		});		
 		
 		$('body').on('click', '#deleteQnaAnswer', function() {
@@ -393,29 +375,20 @@
 			var li = $(this).closest('li');
 			if (result) {
 				$.ajax({
-							url : '../answer/'
-									+ seq,
-							type : 'DELETE',
-							dataType : 'json',
-							error : function(
-									xhr,
-									status, msg) {
-								console
-										.log("상태값 :"
-												+ status
-												+ " Http에러메시지 :"
-												+ msg);
-							},
-							success : function(
-									xhr) {
-								if (xhr == true) {
-									console
-											.log(xhr.result);
-									li.remove();
-									alert("삭제완료");
-								}
-							}
-						}); // ajax 끝
+					url : '../answer/' + seq,
+					type : 'DELETE',
+					dataType : 'json',
+					error : function(xhr, status, msg) {
+						console.log("상태값 : " + status + " Http에러메시지 : " + msg);
+					},
+					success : function(xhr) {
+						if (xhr == true) {
+							console.log(xhr.result);
+							li.remove();
+							alert("삭제완료");
+						}
+					}
+				}); // ajax 끝
 			} // if
 		}); // 삭제버튼 클릭		
 	
@@ -452,38 +425,38 @@
 	const qnaAnswerService = (function(){
    
    // 댓글 등록
-   function add(callback, error) { 
-      $.ajax({
-         url: '../answer/',
-         data: $('#answerForm').serialize(),
-         method: 'POST',
-         dataType: 'json',
-         success: function(data){
-            if(callback) callback(data);
-         },
-         error: function(){ if(error) error(); }
-      });
-   }
+	function add(callback, error) { 
+	   $.ajax({
+	      url: '../answer/',
+	      data: $('#answerForm').serialize(),
+	      method: 'POST',
+	      dataType: 'json',
+	      success: function(data){
+	         if(callback) callback(data);
+	      },
+	      error: function(){ if(error) error(); }
+	   });
+	}
    
    
-   // 목록 조회
-   function getList(param, callback, error) {
-   
-      $.ajax({
-         url: '../answer/',
-         data: param,
-         dataType: 'json',
-         success: function(data){
-            if(callback)
-            // callback(data)
-            callback(data);
-         },
-         error: function(){ if(error) error(); }      
-      });      
-   }
-   
-
-   return {add:add, getList:getList}
+    // 목록 조회
+	function getList(param, callback, error) {
+	
+	   $.ajax({
+	      url: '../answer/',
+	      data: param,
+	      dataType: 'json',
+	      success: function(data){
+	         if(callback)
+	         // callback(data)
+	         callback(data);
+	      },
+	      error: function(){ if(error) error(); }      
+	   });      
+	}
+	
+	
+	return {add: add, getList: getList}
    
 })();
  
