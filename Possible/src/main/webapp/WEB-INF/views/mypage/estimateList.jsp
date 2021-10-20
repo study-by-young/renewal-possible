@@ -133,15 +133,6 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="lr_bc_first_box_main_wrapper">
-                                <!-- 메뉴 -->
-                                 <ul class="nav nav-tabs nav-tabs-bottom border-bottom-0 border-top-0 ">
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/dashboard"  class="nav-link">홈</a></li>
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/editProfile"  class="nav-link">회원정보수정</a></li>
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/estimate" data-toggle="nav_link" class="nav-link">견적관리</a></li>
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/rent" class="nav-link" >렌트관리</a></li>
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/community" class="nav-link" >커뮤니티관리</a></li>
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/qna" class="nav-link" >나의문의</a></li>
-								 </ul>
                                 <!-- 견적관리 -->
                                 <div class="col-md-12">
                                     <div class="blog_single_comment_heading">
@@ -161,6 +152,7 @@
                                                             		<img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${estimate.modelCodeVO.img}" alt="">
                                                         		</div>
 						            						</div>
+						            						${estimate }
 						            						<div class="col-lg-8 border-left">
 						            							<div class="card-body">
 						            								<div class="row">
@@ -173,8 +165,8 @@
                                                                 		</div>
                                                                 		<div class="col-lg-3">
                                                                     		<a class="btn btn-block btn-primary"
-                                                                      		   href="estimate/view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">
-                                                                        	 	상세보기
+                                                                      		   href="${pageContext.request.contextPath}/premiumRent/estimate/view/update?seq=${estimate.seq}">
+                                                                        	 	수정하기
                                                                    			 </a>
                                                                 		</div>
                                                                 		<div class="col-12">

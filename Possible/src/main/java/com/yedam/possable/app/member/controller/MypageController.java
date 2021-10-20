@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.yedam.possable.app.car.service.CarService;
+import com.yedam.possable.app.common.code.domain.BrandCodeVO;
+import com.yedam.possable.app.common.code.domain.ModelCodeVO;
+import com.yedam.possable.app.common.code.domain.TrimCodeVO;
 import com.yedam.possable.app.common.code.service.CodeService;
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
@@ -144,33 +147,41 @@ public class MypageController {
     // 견적 요청 수정
     @GetMapping("/estiamte/update")
     public String estimateUpdateForm(@RequestParam Long seq,
-							          HttpServletRequest request,
-							          RedirectAttributes attributes,
-							          Authentication authentication,
-							          Model model){
+						             Authentication authentication,
+						             HttpServletRequest request,
+						             RedirectAttributes attributes,
+						             Model model) {   
+    	
+		if (authentication == null) {
+			attributes.addFlashAttribute("alertMsg", "잘못된 접근입니다.");
+			return "redirect:" + request.getHeader("REFERER");
+		}
 
-    	 EstimateHistoryVO vo = premiumRentService.getEstimate(seq);
-    	 MemberVO mvo = memberService.getLoginMember(authentication);
-    	 //String user = ((MemberVO) principal).getId();
+		EstimateHistoryVO estimate = premiumRentService.getEstimate(seq);
+		MemberVO loginMember = memberService.getLoginMember(authentication);
 
-         String writer = vo.getMemberVO().getSeq().toString();
-         String user = mvo.getSeq().toString();
+		if (!estimate.getMemberVO().getId().equals(loginMember.getId())) {
+			if (!loginMember.getAuthor().equals("ROLE_ADMIN")) {
+				attributes.addFlashAttribute("alertMsg", "작성자만 수정 가능합니다.");
+				return "redirect:" + request.getHeader("REFERER");
+			}
+		}
 
-         String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
-         String itemOptCode = codeService.getMasterCodeByName("여행용품 옵션").getCode();
+		String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
+		String itemOptCode = codeService.getMasterCodeByName("여행용품 옵션").getCode();
+		List<BrandCodeVO> brands = codeService.getBrandList();
+		List<ModelCodeVO> models = codeService.getModelList(estimate.getBrand());
+		List<TrimCodeVO> trims = codeService.getTrimList(estimate.getTrim());
 
-         if (user == null || !user.equals(writer)) {
-             attributes.addFlashAttribute("updateMsg", "작성자만 수정 가능합니다.");
-             return "redirect:" + request.getHeader("REFERER");
-         }
-         model.addAttribute("brands", codeService.getBrandList());
-         model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
-         model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
+		model.addAttribute("brands", brands);
+		model.addAttribute("models", models);
+		model.addAttribute("trims", trims);
+		model.addAttribute("estimate", premiumRentService.getEstimate(seq));
+		model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
+		model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
 
-         model.addAttribute("estimate", premiumRentService.getEstimate(seq));
-
-        return "rent/prm/estimateRegForm";
-    }
+		return "rent/prm/estimateRegForm";
+	}
 
     // 견적 요청 수정 처리
     @PostMapping("/estimate/update")
