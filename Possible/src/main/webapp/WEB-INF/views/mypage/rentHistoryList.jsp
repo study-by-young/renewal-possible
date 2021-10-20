@@ -133,14 +133,14 @@
                                     </div>
 									 <div class="x_car_book_tabs_content_main_wrapper my-4">
 									 	 <div class="row">
-								
+									 	 
 									 	 	 <c:forEach var="est" items="${historyList}" varStatus="status">
 												<div class="premium_rent_list_item col-12">
 													<div class="card">
 														<div class="row">
 															  <div class="col-lg-3 align-self-center">
                                                         		<div class="card-img-actions p-3">
-                                                        			<img class="card-img-top img-fluid" src="${pageContext.request.contextPath}/resources/images/cars/Hyundai/santafe.png" alt="img" >
+                                                        			<img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${est.carVO.modelCodeVO.img}" alt="img" >
                                                         		</div>
                                                     		</div>
                                                     		<div class="col-lg-9 border-left">
@@ -188,7 +188,7 @@
                                                                 		 		<div class="card-body">
                                                                 		 			<div class="row align-items-center">
                                                                                 		<div class="col-4">
-                                                                                    		<i class="h3 icon-location4 pr-2 mb-0"></i> 수령장소 :
+                                                                                    		<i class="icon-location4 pr-2 mb-0"></i> 수령장소 :
                                                                                			</div>
                                                                                			 <div class="col-8" style="padding-left: 0px">
                                                                                     		<span class="list-unstyled mb-0">  ${est.takePlaceBasic} ${est.takePlaceDetail}</span>
@@ -198,20 +198,20 @@
                                                                                     		<i class="fa fa-car pr-2 mb-0"></i> 차량 :
                                                                                			</div>
                                                                                			<div class="col-8" style="padding-left: 0px">
-                                                                                    		<span class="list-unstyled mb-0"> ${est.carBrand } ${est.carModel }</span>
+                                                                                    		<span class="list-unstyled mb-0">  ${est.carVO.brandCodeVO.name } ${est.carVO.modelCodeVO.name }</span>
                                                                                 		</div>
                                                                                 		
                                                                                 		<div class="col-4">
                                                                                     		<i class="fa fa-building pr-2 mb-0" ></i> 대여업체:
                                                                                			</div>
                                                                                			 <div class="col-8" style="padding-left: 0px">
-                                                                                    		<span class="list-unstyled mb-0"> ${est.cmpnName }</span>
+                                                                                    		<span class="list-unstyled mb-0"> ${est.companyVO.name} </span>
                                                                                 		</div>
                                                                                 		<div class="col-4">
-                                                                                    		<i class="fa fa-phone pr-2 mb-0" ></i> 업체번호
+                                                                                    		<i class="fa fa-phone pr-2 mb-0" ></i> 업체전화번호
                                                                                			</div>
                                                                                			 <div class="col-8" style="padding-left: 0px">
-                                                                                    		<span class="list-unstyled mb-0"> ${est.cmpnTel }</span>
+                                                                                    		<span class="list-unstyled mb-0"> ${est.companyVO.tel }</span>
                                                                                 		</div>
                                                                 		 			</div>
                                                                 		 		</div>
@@ -220,7 +220,7 @@
                                                                 		 		<div class="card-body">
                                                                 		 			<div class="row align-items-center">
                                                                                 		<div class="col-4">
-                                                                                    		<i class="h3 icon-location4 pr-2 mb-0"></i> 결제금액 
+                                                                                    		<i class="icon-location4 pr-2 mb-0"></i> 결제금액 
                                                                                			</div>
                                                                                			 <div class="col-8" style="padding-left: 0px">
                                                                                     		<span class="list-unstyled mb-0"> ${est.price }원</span>
@@ -263,161 +263,24 @@
 									 </div>
 								 </div>
                                 <!-- 렌트내역상세 -->
-                                <div class="col-md-12">	
-                           	      	<div class="card-body">
-					           			<div class="row">
-						                    <c:if test="${empty historyList}">
-						                        <div class="col-12 text-center">
-						                            <h6 class="py-5">아직 랜트 내역이 없습니다!<br>여행갈카 렌트 서비스를 이용해 여행을 떠나보세요! </h6>
-						                        </div>
-						                    </c:if>
-						                </div>
-					            	</div>
-
-<%-- =======
-                                    <div class="blog_single_comment_heading">
-                                        <h4>렌트내역</h4>
-                                    </div>
-                                    	<c:forEach var="getView" items="${getView}" varStatus="status" >
-                                    <div class="dash x_car_offer_main_boxes_wrapper float_left">
-                                        <div class="x_car_offer_starts x_car_offer_starts_list_img float_left border-1">
-                                            <img src="${pageContext.request.contextPath}/resources/images/cars/Hyundai/santafe.png" alt="img" class="img-fluid">
-                                        </div>
-                                        <div class="x_car_offer_starts_list_img_cont border-left">
-											${getView.merchantUid }
-			
-			
-		
-                                            <div class="row">
-                                                <div class="col-8 x_car_offer_heading_listing float_left">
-                                                    <label for="inputRentOrReturn"class="h5">대여/반납일</label>
-                                                    <p class="h6">
-                                                    	<fmt:formatDate value="${getView.startDate}" pattern="yyyy/MM/dd"/> ~ <fmt:formatDate value="${getView.endDate}" pattern="yyyy/MM/dd" /> 
-                                                    </p>
-                                                </div>
-                                                <div class="col-2 x_car_offer_heading_listing float_left">
-                                                	<button type="button" class="btn btn-sm" data-toggle="modal" data-target="#rentInfoDetail${status.index } ">상세보기</button>
-                                                </div>
-                                                <div class="col-2 x_car_offer_heading_listing float_left">
-
-													<!-- 후기작성 기능 구현중 -->
-                                                    <button type="button" class="btn btn-sm"
-                                                    		onclick="location.href='rent/view/writeReview?seq=${getView.seq}&carSeq=${getView.carSeq}&cmpnSeq=${getView.cmpnSeq}'"
-                                                            style="background: #4f5dec; color: #ffffff;">
-                                                        후기작성
-                                                    </button>
-
-                                                    <c:if test="${getView.status eq '예약중' }">
-                                                    	<button class="refundBtn" id="refundBtn" type="button" value="${getView.merchantUid}">취소하기</button>
-	                                                   	
-	                                                    <c:if test="${getView.review eq '2' }">
-	                                                    	<button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
-	                                                            style="background: #4f5dec; color: #ffffff;  ">
-	                                                        후기수정
-	                                                    </button>
-	                                                    </c:if>
-	                                                    
-	                                                    <c:if test="${getView.review ne '2' }">
-	                                                    <button type="button" class="btn btn-sm" onclick="location.href='rent/view/writeReview'"
-	                                                            style="background: #4f5dec; color: #ffffff;"<c:if test="${getView.review eq '0' }"> disabled="disabled"</c:if>>
-	                                                        후기작성
-	                                                    </button>
-	                                                    </c:if>
-                                                    </c:if>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12 x_car_offer_heading x_car_offer_heading_listing float_left">
-                                                    <ul class="">
-                                                        <li>차량</li>
-                                                        <li style="text-align: right;">${car.brand } ${car.model }</li>
-                                                        <li>대여업체</li>
-                                                        <li style="text-align: right;">${company.name }</li>
-                                                        <li>보험</li>
-                                                        <li style="text-align: right;">완전자차</li>
-                                                        <li>수령장소</li>
-                                                        <li style="text-align: right;">${getView.takePlaceBasic } ${getView.takePlaceDetail }</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12 x_car_offer_heading x_car_offer_heading_listing float_left">
-                                                    <ul class="">
-                                                        <li>결제금액</li>
-                                                        <li style="text-align: right;">${getView.price }원</li>
-                                                        <li>결제방법</li>
-                                                        <li style="text-align: right;">${getView.payMethod }</li>
-                                                        <li>결제번호</li>
-                                                        <li style="text-align: right;">${getView.merchantUid }</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="modal fade " id="rentInfoDetail${status.index }" tabindex="-1" role="dialog" aria-labelledby="rentInfoDetail" aria-hidden="true">
-								 	<div class="modal-dialog modal-lg" role="document">
-									   	<div class="modal-content">
-									     	<div class="modal-header">
-									       		<button type="button" class="close"  id="PassCloseClick" data-dismiss="modal" aria-label="Close">
-									         		<span aria-hidden="true">&times;</span>
-									       		</button>
-									     	</div>
-									     <div class="modal-body">
-									     	<div class="container">
-										 		<div class="sub_title font-weight-bold ">
-													<h3>렌트내역조회</h3>
-												</div>
-												<div id="passwordChange" >
-													<table class="table">
-														<tr class="h6">
-															<th>결제상태</th>
-															<th>결제금액</th>
-															<th>결제번호</th>
-															<th>예약자명</th>
-															<th>렌트타입</th>
-														</tr>
-														<tr>
-															<td>${getView.status }</td>
-															<td>${getView.price }원</td>
-															<td>${getView.merchantUid }</td>
-															<td>${getView.receiver}</td>
-															<td>${getView.rentType}</td>
-															<td>${i.index }</td>
-														</tr>
-													</table>
-												</div>
-											</div>
-									     	<!-- 모달 BodyEnd -->
-										  </div>
-										</div>
+                                <div class="col-md-12">
+									<div class="card">
+							    	<c:if test="${empty historyList}">
+							    		<div class="card-header border-bottom mb-3">
+							        		<div class="x_slider_form_input_wrapper float_left">
+							            		<h3 class="font-weight-bold mb-0">렌트 내역</h3>
+							        		</div>
+							    		</div>
+								        <div class="card-body">
+								            <div class="row">
+								               <div class="col-12 text-center">
+							                   	<h6 class="py-5">아직 랜트 내역이 없습니다!<br>여행갈카 렌트 서비스를 이용해 여행을 떠나보세요! </h6>
+							                   </div>
+								            </div>
+								        </div>
+							    	</c:if>
 									</div>
 								</div>
-                                	</c:forEach>--%>
-                                	
-								    
-								   <%--  
-=======
->>>>>>> refs/remotes/origin/sub_main
-                                    <div class="pager_wrapper prs_blog_pagi_wrapper">
-                                        <ul class="pagination">
-                                         <c:if test="${not empty historyList}">
-                                            <li>
-                                                <a class="page-arrow" href="?pageNum=${page.startPage-1}&amount=${page.cri.amount}" <c:if test="${!page.prev }">style="display: none"</c:if>><i class="flaticon-left-arrow"></i></a>
-                                            </li>
-                                            <c:forEach begin="${page.startPage }" end="${page.endPage }" var="num">
-                                                <li class="btc_shop_pagi">
-                                                    <a href="?pageNum=${num }&amount=${page.cri.amount}"
-                                                       <c:if test="${param.getOrDefault('pageNum',1) == num}">class="active"</c:if>
-                                                    >${num }</a>
-                                                </li>
-                                            </c:forEach>
-                                            <li>
-                                                <a class="page-arrow" href="?pageNum=${page.endPage+1}&amount=${page.cri.amount}" <c:if test="${!page.next }">style="display: none"</c:if>><i class="flaticon-right-arrow"></i></a>
-                                            </li>
-                                        </c:if>
-                                        </ul>
-                                    </div> --%>
-                                </div>
                             </div>
                         </div>
                     </div>

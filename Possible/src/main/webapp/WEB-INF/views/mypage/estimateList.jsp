@@ -152,7 +152,7 @@
                                                             		<img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${estimate.modelCodeVO.img}" alt="">
                                                         		</div>
 						            						</div>
-						            						${estimate }
+						            						
 						            						<div class="col-lg-8 border-left">
 						            							<div class="card-body">
 						            								<div class="row">
