@@ -38,7 +38,17 @@
 								<div class="col-md-12">
 										<div class="row">
 										<ul class="list-unstyled row">
-											<li class="col-md-4">
+
+										<li class="col-md-12" style="margin-bottom:10px;" >
+											<h5 class="font-weight-bold">
+												<label class="d-block" > <img 
+													src="${pageContext.request.contextPath}/resources/images/${car.img1}"
+													class="thumbImg" />
+												</label>
+											</h5>
+										</li>
+										
+										<li class="col-md-4">
 												<h5 class="font-weight-bold"><label class="d-block">브랜드
 											 	<input type="hidden" class="form-control" name='brand' value='${car.brand}' >
 											 	<input type="hidden" class="form-control" name='model' value='${car.model}' >
@@ -187,12 +197,7 @@
 													<input type="text" class="form-control" name='carNum' value='${car.carNum}'>
 												</label></h5>
 											</li>
-											<li class="col-md-4">
-											<h5 class="font-weight-bold">	<label class="d-block">IMG1
-													<input type="text" class="form-control" name="img1" value='${car.img1}'>
-													 <img src="c:/upload/${car.img1}"  class="thumbImg"/> 
-												</label></h5>
-											</li>
+											
 											
 											 <%--   <li class="col-md-12 my-3">
                                                 <label>차량 옵션</label>

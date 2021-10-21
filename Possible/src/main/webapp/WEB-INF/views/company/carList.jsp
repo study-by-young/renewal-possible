@@ -13,6 +13,10 @@
 	appearance: none;
 }
 
+.thumbImg{
+	width: 100px;
+}
+
 .input {
 	width: 200px; /* 원하는 너비설정 */
 	padding: .5em .4em; /* 여백으로 높이 설정 */
@@ -68,7 +72,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>번호</th>
+								<th></th>
 								<th>브랜드</th>
 								<th>모델</th>
 								<th>연식</th>
@@ -80,7 +84,10 @@
 							   <c:forEach var="companyCarList" items="${companyCarList }">
 							       <c:set var="car" value="${companyCarList.get('carVO')}" />
 								<tr>
-									<td>${car.seq}</td>
+									<td><label class="d-block" > <img 
+													src="${pageContext.request.contextPath}/resources/images/${car.img1}"
+													class="thumbImg" />
+												</label></td>
 									<td>${companyCarList.get('brand')}</td>
 									<td>${companyCarList.get('model') }</td>
 									<td>${car.year }</td>

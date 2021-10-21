@@ -229,7 +229,7 @@ public class CompanyController {
     	
        HttpSession session = request.getSession();
         String root_path = session.getServletContext().getRealPath("/");
-        String attach_path = "resources/images";
+        String attach_path = "resources/images/";
         String fileName=null;
       MultipartFile uploadFile = vo.getUploadFile();
 
