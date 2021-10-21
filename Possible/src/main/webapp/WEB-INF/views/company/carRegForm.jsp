@@ -252,7 +252,7 @@
                     		.text(item['segCode']);
                     
                     model.children('optgroup').append(opt);
-                    model.childern('optgroup').append(seg);
+                    model.children('optgroup').append(seg);
                     
                 });
 

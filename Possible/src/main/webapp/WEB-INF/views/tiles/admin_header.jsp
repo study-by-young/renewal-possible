@@ -15,7 +15,7 @@
 	<div class="navbar navbar-dark navbar-expand-md bg-indigo content-boxed">
 		<div class="navbar-brand wmin-200">
 			<a href="${pageContext.request.contextPath}/" class="d-inline-block">
-				<img src="${pageContext.request.contextPath}/resources/images/Logo.svg" alt="" style="height: 1.8rem;">
+				<img src="${pageContext.request.contextPath}/resources/images/logo_white.svg" alt="" style="height: 3.0rem;">
 			</a>
 		</div>
 

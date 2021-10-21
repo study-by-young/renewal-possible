@@ -52,7 +52,7 @@
 						<div class="d-flex">
 							<div align="center">
 								<form id="actionForm" action="confirmCompany" method="get">
-									<select name="type" class="select">
+									<select name="type" class="select" style="cursor:pointer">
 										<option value=""
 											${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
 										<option value="N"
@@ -77,8 +77,8 @@
 					<div class="col-sm-6" style="padding-right: 2.5rem">
 					<div align="right">
 						<form id="actionForm" action="confirmCompany" method="get">
-								<label><input type="checkbox" name="type" value="Y" ${pageMaker.cri.type =='Y'? 'checked' : "" } >&nbsp;승인</label>
-								<label><input type="checkbox" name="type"  value="D" ${pageMaker.cri.type =='N'? 'checked' : "" }>&nbsp;승인거부</label>
+								<label style="cursor:pointer"><input type="checkbox" name="type" value="Y" ${pageMaker.cri.type =='Y'? 'checked' : "" } >&nbsp;승인</label>
+								<label style="cursor:pointer"><input type="checkbox" name="type"  value="D" ${pageMaker.cri.type =='N'? 'checked' : "" }>&nbsp;승인거부</label>
 								<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
 								<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
@@ -96,13 +96,12 @@
 							<table class="table table-hover">
 								<thead>
 									<tr>
-										<th>번호</th>
-										<th>업체명</th>
-										<th>사업자번호</th>
-										<th>사업자주소</th>
-										<th>대표번호</th>
-										<th>상태</th>
-										<th></th>
+										<th class="col-1">번호</th>
+										<th class="col-2">업체명</th>
+										<th class="col-2">사업자번호</th>
+										<th class="col-4">사업자주소</th>
+										<th class="col-1">상태</th>
+										<th class="col-1"></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -112,8 +111,7 @@
 											<td>${cmpn.seq }</td>
 											<td>${cmpn.name}</td>
 											<td>${cmpn.cmpnNum }</td>
-											<td>${cmpn.addr1 }${cmpn.addr2 }${cmpn.area }</td>
-											<td>${cmpn.tel }</td>
+											<td>${cmpn.addr1 }&nbsp;${cmpn.addr2 }</td>
 											<c:choose>
 												<c:when test="${company.get('status') eq '승인'}">
 													<td style="color: blue">${company.get('status')}</td>

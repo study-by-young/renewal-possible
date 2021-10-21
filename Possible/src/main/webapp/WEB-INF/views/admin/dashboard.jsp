@@ -40,10 +40,10 @@
 							<thead>
 								<tr align="center">
 									<th class="col-1">번호</th>
-									<th class="col-3" style="text-align:center">업체명</th>
+									<th class="col-2" style="text-align:center">업체명</th>
 									<th class="col-3">대표번호</th>
 									<th class="col-1">등록일자</th>
-									<th class="col-1"></th>
+									<th class="col-2"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -68,7 +68,7 @@
 <!-- Striped rows -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title"><a href="${pageContext.request.contextPath}/qna/list">1:1문의</a></h5>
+						<h5 class="card-title"><a href="${pageContext.request.contextPath}/qna/list">1:1문의</a>&nbsp;<span class="badge badge-primary badge-pill">5</span></h5>
 						<div class="header-elements">
 							<div class="list-icons">
 		                		<a class="list-icons-item" data-action="collapse"></a>
@@ -82,13 +82,12 @@
 					<div class="table-responsive">
 				<table class="table table-striped">
 					<thead>
-						<tr align="center">
+						<tr>
 							<th class="col-1">번호</th>
-							<th class="col-6">제목</th>
-							<th class="col-1">작성자</th>
+							<th class="col-3">제목</th>
+							<th class="col-4">작성자</th>
 							<th>작성일</th>
-							<th>수정일</th>
-							<th class="col-1">답변상태</th>
+							<th class="col-3" style="text-align:right">답변상태</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -96,13 +95,11 @@
 						<c:if test="${qna.answerCnt<'1'}">
 							<tr align="center" onclick="readBoard(${qna.seq})">
 								<td>${qna.seq}</td>
-								<td align="left">${qna.title}</td>
+								<td>${qna.title}</td>
 								<td>${qna.writer}</td>
 								<td><fmt:formatDate value="${qna.genDate}"
-										pattern="yy-MM-dd" /></td>
-								<td><fmt:formatDate value="${qna.uptDate}"
-										pattern="yy-MM-dd" /></td>
-										<td><a style="color: red" href="${pageContext.request.contextPath}/qna/get?seq=${qna.seq}">답변대기</a></td>
+										pattern="yyyy/MM/dd" /></td>
+								<td style="text-align:right"><a style="color: red" href="${pageContext.request.contextPath}/qna/get?seq=${qna.seq}">답변대기</a></td>
 							</tr>
 						</c:if>
 						</c:forEach>
@@ -118,7 +115,7 @@
 	<!-- Striped rows -->
 				<div class="card">
 					<div class="card-header header-elements-inline">
-						<h5 class="card-title"><a href="${pageContext.request.contextPath}/notice/list">공지사항</a></h5>
+						<h5 class="card-title"><a href="${pageContext.request.contextPath}/notice/list">공지사항</a>&nbsp;<span class="badge badge-primary badge-pill">3</span></h5>
 						<div class="header-elements">
 							<div class="list-icons">
 		                		<a class="list-icons-item" data-action="collapse"></a>
@@ -136,7 +133,6 @@
 									<th class="col-1">번호</th>
 									<th class="col-6" style="text-align:center">제목</th>
 									<th class="col-1">작성일자</th>
-									<th class="col-1">수정일자</th>							
 								</tr>
 							</thead>
 							<tbody>
@@ -145,7 +141,6 @@
 									<td style="text-align:center">${notice.seq}</td>
 									<td><a href="${pageContext.request.contextPath}/notice/get?seq=${notice.seq }">${notice.title }</a></td>
 									<td style="text-align:center"><fmt:formatDate pattern = "yyyy/MM/dd" value= "${notice.genDate }"/></td>
-									<td style="text-align:center"><fmt:formatDate pattern = "yyyy/MM/dd" value= "${notice.uptDate }"/></td>
 								</tr>
 								</c:forEach>
 							</tbody>

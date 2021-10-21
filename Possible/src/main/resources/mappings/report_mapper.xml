@@ -10,11 +10,8 @@
 				             	<when test="type == 'T'.toString()">
 				                   TARGET LIKE '%' || #{keyword} || '%'
 				                </when>
-				                <when test="type == 'W'.toString()">
-				                   WRITER LIKE '%' || #{keyword} || '%'
-				                </when>
-				                <when test="type == 'G'.toString()">
-				                   GEN_DATE LIKE '%' || #{keyword} || '%'
+				                <when test="type == 'R'.toString()">
+				                   REPORTER LIKE '%' || #{keyword} || '%'
 				                </when>
              				</choose>
              			</trim>

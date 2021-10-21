@@ -420,7 +420,12 @@ public class CompanyController {
     // 렌트 내역 상세
     @GetMapping("/rent/view")
     public String rentHistoryView(RentHistoryVO vo, Model model){
-    	model.addAttribute("rentHistory", rentHistoryService.getRentHistory(vo.getSeq()));
+    	
+    	vo = rentHistoryService.getRentHistory(vo.getSeq());
+    	String status = codeService.getCodeByValue(vo.getStatus()).getName();
+    	
+    	model.addAttribute("rentHistory", vo);
+    	model.addAttribute("status", status);
     	return "company/rentHistoryView";
     }
 

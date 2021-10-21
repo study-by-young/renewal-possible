@@ -59,37 +59,20 @@
 											<input type="hidden" class="form-control" name='seq' value='<c:out value="${report.seq}"/>'readonly="readonly">
 										</div>
 										
-										<div class="row">
-										<div class="col-sm-6">									
+										<div class="form-group">									
 										<div class="form-group">
-											<h5 class="font-weight-bold"><label>게시글 번호</label></h5> 
+											<h5 class="font-weight-bold"><label>게시글 번호&nbsp;<span><a href="${pageContext.request.contextPath}/community/course/view?seq=${report.target}"><i class="icon-square-up-right mr-3 icon-1x"></i></a></span></label></h5> 
 											<input type="text" class="form-control" name='target' value='<c:out value="${report.target}"/>' readonly="readonly" style="color:red">
 										</div>
 										</div>
+				
 										
-										<div class="col-sm-6">	
+											<div class="form-group">	
 												<div class="form-group">
-													<h5 class="font-weight-bold"><label></label></h5> 
-													<a href="${pageContext.request.contextPath}/community/course/view?seq=${report.target}"><i class="icon-square-up-right mr-3 icon-2x"></i></a>
-												</div>
-											</div>
-										</div>
-										
-										<div class="row">
-											<div class="col-sm-6">	
-												<div class="form-group">
-													<h5 class="font-weight-bold"><label>게시글 작성자</label></h5> 
+													<h5 class="font-weight-bold"><label>게시글 작성자&nbsp;<span><a href="${pageContext.request.contextPath}/admin/maintenance/member/view?seq=${report.memSeq}"><i class="icon-square-up-right mr-3 icon-1x"></i></a></span></label></h5>
 													  <input type="text" id="writer" class="form-control" name='writer' value='<c:out value="${report.writer}"/>' readonly="readonly">
 												</div>
 											</div>
-											
-											<div class="col-sm-6">	
-												<div class="form-group">
-													<h5 class="font-weight-bold"><label></label></h5> 
-													<a href="${pageContext.request.contextPath}/admin/maintenance/member/view?seq=${report.memSeq}"><i class="icon-square-up-right mr-3 icon-2x"></i></a>
-												</div>
-											</div>
-										</div>
 										<div class="form-group">
 											<h5 class="font-weight-bold"><label>신고자</label></h5> 
 											<input type="text" class="form-control" name='reason' value='<c:out value="${report.reporter}"/>' readonly="readonly">
@@ -101,7 +84,7 @@
 										</div>
 										
 										<div class="row">
-										<div class="col-md-6">
+										<div class="col-md-12">
 										<div class="form-group">
 											<h5 class="font-weight-bold"><label>신고일자</label></h5> 
 											<input class="form-control" name='genDate' value='<fmt:formatDate pattern = "yyyy/MM/dd" value= "${report.genDate }"/>' readonly="readonly">				
