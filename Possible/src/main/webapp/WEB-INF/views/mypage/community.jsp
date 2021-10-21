@@ -139,7 +139,7 @@
             <div class="container py-2">
                 <div class="page-header-content header-elements-inline">
                     <div class="page-title">
-                        <h1 class="font-weight-bold">커뮤니티</h1>
+                        <h1 class="font-weight-bold">마이페이지</h1>
                     </div>
                 </div>
             </div>
@@ -243,12 +243,19 @@
 							<div class="lr_bc_first_box_main_wrapper">
 							
 								<div class="col-md-12">
-									<div class="blog_single_comment_heading">
-										<h4>
-											<a href="${pageContext.request.contextPath}/review">나의 후기</a>
-										</h4>
+									<div class="dash"style="margin-bottom: 20px; padding-bottom: 10px;">
+										<div class="blog_single_comment_heading">
+											<h4 style="font-weight: 600; padding-left: 20px;">
+												나의 이용후기
+											</h4>
+										</div>
 									</div>
+								</div>
+								<div class="col-md-12">
 									<div class="dash">
+										<!-- <div class="blog_single_comment_heading">
+											<h4 style="font-weight: 600; padding-left: 20px;">나의 이용후기</h4>
+										</div> -->
 										<table class="table">
 											<tr>
 												<td>후기테이블</td>
@@ -258,11 +265,16 @@
 								</div>
 
 								<div class="col-md-12">
-									<div class="blog_single_comment_heading">
+									<div class="dash" style="margin-bottom: 20px; padding-bottom: 10px;">
+										<div class="blog_single_comment_heading">
+											<h4 style="font-weight: 600; padding-left: 20px;">나의 여행코스</h4>
+										</div>
+									</div>
+									<%-- <div class="blog_single_comment_heading">
 										<h4>
 											<a href="${pageContext.request.contextPath}/mypage/community">나의 여행코스</a>
 										</h4>
-									</div>
+									</div> --%>
 									<div class="row">
 										<c:forEach var="myCourse" items="${myCourse}">
 											<div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-12" style="margin-bottom: 15px;">
@@ -294,6 +306,26 @@
 												</div>
 											</div>
 										</c:forEach>
+										
+										<div class="col-md-12">
+											<div class="card">
+												<c:if test="${empty myCourse}">
+												<!-- <div class="card-header border-bottom mb-3">
+									        		<div class="x_slider_form_input_wrapper float_left">
+									            		<h3 class="font-weight-bold mb-0">여행 리스트</h3>
+									        		</div>
+									    		</div> -->
+													<div class="card-body">
+														<div class="row">
+															<div class="col-12 text-center">
+																<h6 class="py-5">아직 등록한 여행코스가 없습니다!</h6>
+															</div>
+														</div>
+													</div>
+												</c:if>
+											</div>
+										</div>
+										
 									</div>
 								</div>
 								
