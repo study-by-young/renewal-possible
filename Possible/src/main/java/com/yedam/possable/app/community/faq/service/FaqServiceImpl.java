@@ -34,9 +34,9 @@ public class FaqServiceImpl implements FaqService {
 	}
 
 	@Override
-	public int delete(FaqVO vo) {
+	public int delete(Long seq) {
 		// TODO Auto-generated method stub
-		return faqMapper.delete(vo);
+		return faqMapper.delete(seq);
 	}
 
 	@Override

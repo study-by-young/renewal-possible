@@ -54,6 +54,7 @@
                <div class="row">
 				<%-- <sec:authentication property=""/> --%>
                   <div class="col-md-12">
+                  	<!-- 사이드바 -->
 					<div class="card card-body text-center">
 						<a href="#" class="d-inline-block mb-3" style="margin-top: 20px;">
 							<img src="${pageContext.request.contextPath}/resources/images/avatar.jpg" class="rounded-round" width="150" height="150" alt="">
@@ -241,7 +242,7 @@
                                                                                     		<i class="icon-location4 pr-2 mb-0"></i> 결제금액 
                                                                                			</div>
                                                                                			 <div class="col-8" style="padding-left: 0px">
-                                                                                    		<span class="list-unstyled mb-0"> ${est.price }원</span>
+                                                                                    		<span class="list-unstyled mb-0"> <fmt:formatNumber value="${est.price }" pattern="#,###"/>원</span>
                                                                                 		</div>
                                                                                 		
                                                                 		 				<div class="col-4">
@@ -270,13 +271,13 @@
                                                     				 </div><!-- row -->
                                                     			</div>
                                                     		</div>
-                                                    		<c:if test="${historyList.size() > 5}">
-								    							<jsp:include page="/pagination"/>
-								   							</c:if>
 														</div>
 													</div>
 												</div>									 	 	 
 									 	 	 </c:forEach>
+                                            <c:if test="${historyList.size() > 5}">
+				    							<jsp:include page="/pagination"/>
+				   							</c:if>
 									 	 </div>
 									 </div>
 								 </div>

@@ -81,7 +81,6 @@ public class CommonRentController {
     	// 차 SEQ(modelList.seq)를 가지고 차가 가진 보험 목록을 뽑고
     	// 업체 SEQ(modelList.cmpn_seq)를 가지고 업체에 달린 후기 개수를 뽑고
 
-
     	// 모델별로 대표 하나만 보여주기
 		model.addAttribute("modelList", modelList);
     	model.addAttribute("carList", carListByModel);
@@ -98,6 +97,8 @@ public class CommonRentController {
     @GetMapping("/view")
     public String rentCarView(Model model,
                               CarVO vo,
+                              CompanyVO cVo,
+                              RentReviewVO rVo,
                               @RequestParam("insCode") String insuranceCode,
                               @ModelAttribute("startDate")
                                   @DateTimeFormat(pattern = "yyyy/MM/dd") Date startDate,
@@ -111,9 +112,25 @@ public class CommonRentController {
                 break;
             }
         }
-
+        
+        
+        CompanyVO cmpnVO = companyService.companyOneSelect(carVO.getCompanyVO());
+        rVo.setCompanyVO(cmpnVO);
         model.addAttribute("car", carVO);
-        model.addAttribute("reviewList",rentReviewService.getReviewListByCmpnSeq(vo));
+        model.addAttribute("reviewList", rentReviewService.getRentReviewListByCompany(rVo));
+        
+        List<RentReviewVO> reviews = rentReviewService.getRentReviewListByCompany(rVo);
+        System.out.println("-------------------" + rentReviewService.getRentReviewListByCompany(rVo));
+        
+        for(int i=0; i<reviews.size(); i++) {
+        	model.addAttribute("history", rentHistoryService.getRentHistory(reviews.get(i).getHistorySeq()));
+        	rVo.setRentHistoryVO(rentHistoryService.getRentHistory(reviews.get(i).getHistorySeq()));
+        	System.out.println("++++++his" + rentHistoryService.getRentHistory(reviews.get(i).getHistorySeq()));
+        	System.out.println("제발 마지막" + rVo);
+        }
+        model.addAttribute("reviews", rVo);
+        
+        
 
     	// 넘어와야 하는 값
     	// startDate, endDate, searchArea, carSeq, cmpnSeq

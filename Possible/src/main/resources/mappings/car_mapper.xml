@@ -138,9 +138,11 @@
 		SELECT
             *
 		FROM (SELECT /*+ INDEX_DESC(CAR IDX_CAR) */ ROWNUM RN, a.*
-		        FROM (SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.* FROM CAR) a
+		        FROM (SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.* FROM CAR
 		        <where>
-                	<include refid="criteria" />
+		        	<include refid="criteria" />
+		        </where>) a
+		        <where>
                     AND CNT = 1
                     <![CDATA[ AND ROWNUM <= #{pageNum} * #{amount}) ]]>
                 </where>

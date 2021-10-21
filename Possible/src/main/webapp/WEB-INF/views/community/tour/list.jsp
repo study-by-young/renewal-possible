@@ -13,6 +13,8 @@
 						<select name="type" class="select">
 							<option value="T"
 								<c:out value="${pagination.cri.type eq 'T' ? 'selected':''}"/>>제목</option>
+							<option value="A"
+								<c:out value="${pagination.cri.type eq 'A' ? 'selected':''}"/>>주소</option>
 						</select> &nbsp; <input class="input" name="keyword"
 							value="${pagination.cri.keyword}"> <input type="hidden"
 							name="pageNum" value="${pagination.cri.pageNum}"> <input
@@ -51,7 +53,9 @@
 										class="text-muted">${list.zipCode }</a></li>
 								</ul>
 
-								<p class="mb-3" id="overview"></p>
+								<p class="mb-3" id="overview">
+									<!-- <a href="https://api.visitkorea.or.kr/guide/tourDetail.do?contentId=${list.contentId }&langtype=KOR&typeid=12&oper=area&burl=&contentTypeId=${list.contentTypeId}&areaCode=&sigunguCode=&cat1=&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A&numOfRows=12&pageNo=1">상세정보</a> -->
+								</p>
 							</div>
 						</div>
 					</div>
@@ -60,7 +64,6 @@
 		</div>
 	</div>
 </div>
-
 
 <!-- 페이징 -->
 <jsp:include page="/pagination" />

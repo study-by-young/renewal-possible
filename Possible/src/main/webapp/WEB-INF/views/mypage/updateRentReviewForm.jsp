@@ -50,271 +50,240 @@
 		transition: width 350ms ease-in-out; 
 		left: auto; width: auto;} 
 .nav-tabs-bottom .nav-link:hover::after {width: 100%;  left: 0; } 
+
+.input_title {
+	width: 100%;
+	border: 1px solid lightgray;
+	padding: 10px 8px;
+	border-radius: 5px;
+}
+
 </style>
+
 <div class="btc_tittle_main_wrapper">
-    <div class="mb-3">
-        <div class="page-header page-header-dark bg-primary-600">
-            <div class="container py-2">
-                <div class="page-header-content header-elements-inline">
-                    <div class="page-title">
-                        <h1 class="font-weight-bold">후기수정</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="mb-3">
+		<div class="page-header page-header-dark bg-primary-600">
+			<div class="container py-2">
+				<div class="page-header-content header-elements-inline">
+					<div class="page-title">
+						<h1 class="font-weight-bold">마이페이지</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <!-- x blog main and sidebar Wrapper Start -->
 <div class="x_blog_sidebar_main_wrapper float_left padding_tb_100">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-                <div class="x_blog_left_side_wrapper float_left">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="lr_bc_first_box_main_wrapper">
-	                             <!-- 메뉴 -->
-		                         <ul class="nav nav-tabs nav-tabs-bottom border-bottom-0 border-top-0 ">
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/dashboard"  class="nav-link">홈</a></li>
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/editProfile"  class="nav-link">회원정보수정</a></li>
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/estimate" data-toggle="nav_link" class="nav-link">견적관리</a></li>
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/rent" class="nav-link" >렌트관리</a></li>
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/community" class="nav-link" >커뮤니티관리</a></li>
-									<li class="nav-item h5"><a href="${pageContext.request.contextPath}/mypage/qna" class="nav-link" >나의문의</a></li>
-								 </ul>
-                                <div class="col-md-12">
-                                    <div class="blog_single_comment_heading">
-                                        <h4>후기 수정</h4>
-                                    </div>
-                                    <!-- 내역 -->
-                                   	<div class="col-md-12">
-                                		<div class="x_car_book_tabs_content_main_wrapper my-4">
-						            		<div class="row">  
-						            			<div class="premium_rent_list_item col-12" >
-						            				<div class="card">
-						            					<div class="row">
-						            						<div class="col-lg-4 aling-self-center" style="margin-top: 65px;">
-						            							<div class="card-img-actions p-3">
-                                                            		<img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${getRentReview.rentHistoryVO.carVO.modelCodeVO.img}" alt="">
-                                                        		</div>
-						            						</div>
-						            						<div class="col-lg-8 border-left">
-						            							<div class="card-body">
-						            								<div class="row">
-						            									<div class="col-lg-12">
-                                                                    		<div class="x_car_offer_heading x_car_offer_heading_list float_left">
-                                                                        		<h5 class="font-weight-bold">
-                                                                                ${getRentReview.rentHistoryVO.carVO.brandCodeVO.name } ${getRentReview.rentHistoryVO.carVO.modelCodeVO.name}(${getRentReview.rentHistoryVO.carVO.segmentCodeVO.name })<br><small>${historyList.carVO.trimCodeVO.name}</small>
-                                                                        		</h5>
-                                                                    		</div>
-                                                                		</div>
-                                                                		<div class="col-12">
-                                                                    		<hr class="my-2">
-                                                                    		<p class="text-grey-600">
-                                                                        		<i class="h3 icon-calendar pr-2 mb-0"></i>
-                                                                        		<fmt:formatDate value="${getRentReview.rentHistoryVO.startDate}" pattern="yy년 MM월 dd일" /> ~ <fmt:formatDate value="${getRentReview.rentHistoryVO.endDate}" pattern="yy년 MM월 dd일" />
-                                                                    		</p>
-                                                                   			<p class="text-grey-600">
-                                                                        		<i class="h3 icon-location4 pr-2 mb-0"></i> ${getRentReview.rentHistoryVO.takePlaceBasic} ${getRentReview.rentHistoryVO.takePlaceDetail}
-                                                                    		</p>
-                                                                		</div>
-                                                                		<div class="col-12">
-                                                                    		<div class="card border-primary-300 border-1">
-                                                                        		<div class="card-body">
-                                                                            		<div class="row align-items-center">
-                                                                         				<div class="col-4">
-                                                                                    		<i class="icon-checkmark4"></i> 대여 업체
-                                                                                		</div>
-                                                                                		<div class="col-8">
-                                                                                    		${getRentReview.rentHistoryVO.carVO.companyVO.name}
-                                                                                		</div>
-                                                                                		<div class="col-4">
-                                                                                    		<i class="icon-checkmark4"></i> 업체 번호
-                                                                                		</div>
-                                                                                		<div class="col-8">
-                                                                                    		${getRentReview.rentHistoryVO.carVO.companyVO.tel }
-                                                                                		</div>
-                                                                            		</div>
-                                                                        		</div>
-                                                                    		</div>
-                                                                		</div>
-						            								</div>
-						            							</div>
-						            						</div>
-						            					</div>
-						            				</div>
-						            			</div>
-						            		</div>             	
-                                		</div>
-                                	</div>
-                                       ${getRentReview.rentHistoryVO.seq }
-                                    <!-- 후기작성 -->
-                                    <div class="col-md-12">
-                                	<div class="x_car_book_tabs_content_main_wrapper my-4">
-						            	<div class="row">  
-						            			<div class="premium_rent_list_item col-12" >
-						            				<div class="card">
-						            					<div class="row">
-						            						<div class="col-lg-12">
-						            							<div class="card-body" style="padding-bottom: 15px;">
-						            								<form id="writeReviewForm" name="writeReviewForm" action="updateReview" method="post">
-						            								<div class="row">
-						            									<div class="col-lg-12">
-                                                                			<div class="row align-items-center">
-                                                                				<textarea id="title" name="title" rows="1" placeholder="제목을 입력해주세요!" class="contect_form4" style="margin-top: 0px;margin-bottom: 20px;">${getRentReview.title }</textarea>
-                                                                			</div>
-                                                                		</div>
-                                                               			<div class="col-lg-12" style="margin-top: 0px;padding-left: 0px; margin-bottom: 15px;">
-					            											<div class="row align-items-center">
-						            											<div class="col-3">
-	                                                                    		 	<select id="course" name="course" class="selectpicker">
-									                                                    <option value="${course.title}" selected>내가 작성한 여행코스</option>
-									                                                		<c:if test="${user.id eq course.writer}">
-									                                                		<c:forEach var="course" items="${courseList}">
-											                                                    <option value="${course.title}"></option>
-											                                                    <input type="hidden" id="courseSeq" name="courseSeq" value="${course.seq}">
-										                                                    </c:forEach>
-									                                                    </c:if>
-									                                                    	<c:if test="${user.id ne course.writer}">
-									                                                    	<option value="">작성한 여행코스가 없습니다.</option>
-									                                                    </c:if>
-				                                                					</select>
-		                                                						</div>
-		                                                						<div class="col-3">
-				                                                					 <select id="score" name="score" class="selectpicker">
-									                                                    <option value="" selected>${getRentReview.score }</option>
-									                                                    <option value="5">5</option>
-									                                                    <option value="4">4</option>
-									                                                    <option value="3">3</option>
-									                                                    <option value="2">2</option>
-									                                                    <option value="1">1</option>
-									                                                </select>
-							                                                	</div>
-                                                               				</div>
-                                                               			</div>
-                                                                		<!--  -->
-						            								
-                                                                		<div class="col-lg-12">
-                                                                			<div class="row align-items-center">
-                                                                				<textarea id="content" name="content" rows="4" placeholder="후기 내용을 적어주세요!" class="ckeditor" >${getRentReview.content }</textarea>
-                                                                			</div>
-                                                                		</div>
-                                                                	</div>
-		                                                                	<input type="hidden" name="memSeq" id="memSeq"value="${getRentReview.memberVO.seq }">
-		                                									<input type="hidden" name="historySeq" id="historySeq"value="${getRentReview.rentHistoryVO.seq }">
-		                                									<input type="hidden" name="cmpnSeq" id="cmpnSeq" value="${getRentReview.companyVO.seq }"> 	
-		                                									<input type="hidden" name="seq" id="seq" value="${getRentReview.seq }"> 	
-                                                                		<div class="col-lg-12" style="margin-top: 20px;">
-								            								<div class="text-center">
-					                        									<button type="button" class="btn btn-primary" id="updateBtn"
-					                        											style="background: #4f5dec; color: #ffffff;">수정하기 <i class="icon-paperplane ml-2"></i></button>
-					                        								</div>
-			                        									</div>
-						            								</form>
-						            							</div>
-						            						</div>
-						            					</div>
-						            				</div>
-						            			</div>
-						            		</div>             	
-                                		</div>
-                                	</div><!--  -->
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 사이드바 -->
-            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-                <div class="x_blog_right_side_wrapper float_left">
-                    <div class="row">
-
-                        <div class="col-md-12">
-                            <div
-                                    class="jp_rightside_job_categories_wrapper jp_rightside_job_categories_wrapper2">
-
-                                <div>
-                                    <br><br>
-                                    <div align="center">
-                                        <img style="border-radius: 50%;"
-                                             src="${pageContext.request.contextPath}/resources/images/comment_img1.jpg"
-                                             alt="comment_img" class="img-responsive img-circle" />
-                                    </div>
-                                    <br>
-                                    <div align="center">
-                                        <h3>
-                                            <sec:authorize access="isAuthenticated()">
-                                                <a class="menu-button" href="#"><sec:authentication
-                                                        property="principal.name"/>님</a>
-                                                <input type="hidden" name="${_csrf.parameterName }"
-                                                       value="${_csrf.token }">
-                                            </sec:authorize>
-
-                                        </h3>
-                                    </div>
-
-                                </div>
-                                <div class="jp_rightside_job_categories_content">
-                                    <ul>
-                                        <li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
-                                                href="#">예약완료 </a></li>
-                                        <li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
-                                                href="#">쿠폰함 </a></li>
-                                        <li><i class="fa fa-long-arrow-right"></i> &nbsp;&nbsp;<a
-                                                href="#">포인트 </a></li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div
-                                    class="jp_rightside_job_categories_wrapper jp_rightside_job_categories_wrapper2">
-                                <div >
-                                    <br><br>
-                                    <div align="center">
-                                        <h4>고객센터</h4>
-                                        <br>
-                                        <div>
-                                            <img style="border-radius: 50%;"
-                                                 src="${pageContext.request.contextPath}/resources/images/comment_img1.jpg"
-                                                 alt="comment_img" class="img-responsive img-circle" />
-                                        </div>
-                                        <br>
-                                        <div align="center">
-                                            <h3>1544-1544</h3>
-                                        </div>
-                                        <hr>
-                                    </div>
-                                </div>
-                                <br>
-                                <div align="center">
-                                    <h4>카카오톡 1:1 상담</h4>
-                                    <br>
-                                    <div>
-                                        <img style="border-radius: 50%;"
-                                             src="${pageContext.request.contextPath}/resources/images/comment_img1.jpg"
-                                             alt="comment_img" class="img-responsive img-circle" />
-                                    </div>
-                                </div>
-
-                                <br>
-                                <div class="jp_rightside_career_main_content"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+	<div class="container">
+		<div class="row">
+			<!-- 사이드바 -->
+			<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+				<div class="x_blog_left_side_wrapper float_left">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card card-body text-center">
+								<a href="#" class="d-inline-block mb-3"
+									style="margin-top: 20px;"> <img
+									src="${pageContext.request.contextPath}/resources/images/avatar.jpg"
+									class="rounded-round" width="150" height="150" alt="">
+								</a>
+								<div class="card-header bg-transparent h2">
+									<sec:authorize access="isAuthenticated()">
+										<a class="menu-button"
+											href="${pageContext.request.contextPath}/mypage/dashboard"><sec:authentication
+												property="principal.name" />님</a>
+										<input type="hidden" name="${_csrf.parameterName }"
+											value="${_csrf.token }">
+									</sec:authorize>
+								</div>
+								<div class="card-header h5"
+									style="padding-top: 10px; padding-bottom: 10px; padding-right: 10px; padding-left: 10px;">
+									<ul class="nav nav-sidebar" data-nav-type="accordion">
+										<c:if test="${member.author eq 'ROLE_USER'}">
+											<li class="nav-item"><i class="fa fa-building pr-2 mb-0"></i><a
+												href="${pageContext.request.contextPath}/mypage/chngRole">업체
+													전환 신청하기 </a></li>
+										</c:if>
+										<c:if test="${member.author eq 'ROLE_COMPANY'}">
+											<li class="nav-item"><i class="fa fa-building pr-2 mb-0"></i><a
+												href="${pageContext.request.contextPath}/company/dashboard">업체페이지로
+													이동 </a></li>
+										</c:if>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="card mb-2">
+								<div class="card-header bg-transparent header-elements-inline">
+									<span class="text-uppercase font-size-sm font-weight-semibold">메뉴</span>
+									<div class="header-elements">
+										<div class="list-icons">
+											<a class="list-icons-item" data-action="collapse"></a>
+										</div>
+									</div>
+								</div>
+								<div class="card-body p-0">
+									<ul class="nav nav-sidebar nav-tabs-vertical"
+										data-nav-type="accordion">
+										<li class="nav-item h5"><a
+											href="${pageContext.request.contextPath}/mypage/editProfile"
+											class="nav-link text-grey-700 h6"><i
+												class="icon-googleplus5"></i>회원정보 수정</a></li>
+										<li class="nav-item"><a
+											href="${pageContext.request.contextPath}/mypage/estimate"
+											class="nav-link text-grey-700 h6"><i
+												class="icon-portfolio"></i>견적관리</a></li>
+										<li class="nav-item"><a
+											href="${pageContext.request.contextPath}/mypage/rent"
+											class="nav-link text-grey-700 h6"><i class="icon-compose"></i>렌트관리</a>
+										</li>
+										<li class="nav-item"><a
+											href="${pageContext.request.contextPath}/mypage/community"
+											class="nav-link text-grey-700 h6"><i
+												class="icon-collaboration"></i>커뮤니티 관리</a></li>
+										<li class="nav-item"><a
+											href="${pageContext.request.contextPath}/mypage/qna"
+											class="nav-link text-grey-700 h6"><i
+												class="icon-files-empty"></i>나의 문의</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12">
+							<div class="card card-body text-center">
+								<div class="mb-3">
+									<h3 class="font-weight-semibold mb-0 mt-1">고객센터</h3>
+								</div>
+								<a class="d-inline-block mb-3"> <img
+									src="${pageContext.request.contextPath}/resources/images/cs_icon_b2.png"
+									class="rounded-round" width="150" height="150" alt="">
+								</a>
+								<div class="mb-3">
+									<h4 class="font-weight-semibold mb-0 mt-1">고객센터 이용안내</h4>
+									<h2 class="d-block text-muted">
+										<strong>1544-2460</strong>
+									</h2>
+									<span class="d-block text-muted">평일 09:00~17:50</span> <span
+										class="d-block text-muted">(점심 12:30~13:40)</span>
+								</div>
+								<button class="btn btn-block btn-primary" type="button"
+									id="custom-button">1:1 상담하러 가기</button>
+							</div>
+						</div>
+						<div class="col-md-12"></div>
+					</div>
+				</div>
+			</div> 
+			<!-- 사이드바 종료 -->
+			
+			
+			<!-- 후기작성 -->
+			<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+				<div class="x_blog_left_side_wrapper float_left">
+					<div class="row">
+					
+						<input type="hidden" id="" name="" value="${historyList.carVO.brandCodeVO.name}">
+						<input type="hidden" id="" name="" value="${historyList.carVO.modelCodeVO.name}">
+						<input type="hidden" id="" name="" value="${historyList.carVO.segmentCodeVO.name}">
+						<input type="hidden" id="" name="" value="${historyList.startDate}">${historyList.startDate}
+						<input type="hidden" id="" name="" value="${historyList.endDate}">${historyList.endDate}
+						<input type="hidden" id="" name="" value="${historyList.takePlaceBasic}">
+						<input type="hidden" id="" name="" value="${historyList.takePlaceDetail}">
+						<input type="hidden" id="" name="" value="${historyList.companyVO.name}">
+						<input type="hidden" id="" name="" value="${historyList.companyVO.tel}">
+					
+						<div class="col-lg-12 col-md-12">
+							<div class="lr_bc_first_box_main_wrapper">
+								<div class="col-md-12">
+									<div class="dash" style="margin-bottom: 20px; padding-bottom: 10px;">
+										<div class="blog_single_comment_heading">
+											<h4 style="font-weight: 600; padding-left: 20px;">이용후기 수정</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-lg-12 col-md-12">
+							<div class="lr_bc_first_box_main_wrapper">
+								<div class="col-md-12">
+									<div class="card dash" style="margin-bottom: 20px; padding-bottom: 10px;">
+									
+										<div class="card-body" style="padding-bottom: 15px; margin-left: 15px; margin-right: 15px;">
+											<form id="writeReviewForm" action="writeReview" method="post">
+												<div class="row">
+													<div class="col-lg-12" style="margin-bottom: 15px;">
+														<div class="row align-items-center">
+															<input class="input_title" type="text" id="title" name="title" value="${getRentReview.title}" placeholder="제목을 입력해주세요. *" required="required">
+														</div>
+													</div>
+													<div class="col-lg-12" style="margin-top: 0px; padding-left: 0px; margin-bottom: 15px;">
+														<div class="row align-items-center">
+															<div class="col-3">
+																<select id="course" name="course" class="selectpicker input_title">
+																	<option value="${course.title}" selected>내가 작성한 여행코스</option>
+																	<c:if test="${user.id eq course.writer}">
+																		<c:forEach var="course" items="${courseList}">
+								                                            <option value="">${course.title}</option>
+																			<input type="hidden" id="courseSeq" name="courseSeq" value="${course.seq}">
+																		</c:forEach>
+																	</c:if>
+																	<c:if test="${user.id ne course.writer}">
+																		<option value="">작성한 여행코스가 없습니다.</option>
+																	</c:if>
+																</select>
+															</div>
+															<div class="col-2">
+																<select id="score" name="score" class="selectpicker input_title">
+																	<option value="" selected>${getRentReview.score}</option>
+																	<option value="5">5</option>
+																	<option value="4">4</option>
+																	<option value="3">3</option>
+																	<option value="2">2</option>
+																	<option value="1">1</option>
+																</select>
+															</div>
+														</div>
+													</div>
+													<!--  -->
+		
+													<div class="col-lg-12">
+														<div class="row align-items-center">
+															<textarea id="content" name="content" rows="4" placeholder="내용을 입력해주세요. *" class="ckeditor">${getRentReview.content}</textarea>
+														</div>
+													</div>
+												</div>
+												
+												<input type="hidden" name="memSeq" id="memSeq"value="${getRentReview.memberVO.seq }">
+              									<input type="hidden" name="historySeq" id="historySeq"value="${getRentReview.rentHistoryVO.seq }">
+              									<input type="hidden" name="cmpnSeq" id="cmpnSeq" value="${getRentReview.companyVO.seq }"> 	
+              									<input type="hidden" name="seq" id="seq" value="${getRentReview.seq }"> 	
+                                            	
+                                            	<div class="col-lg-12" style="margin-top: 20px;">
+													<div class="text-center">
+         												<button type="button" class="btn btn-primary" id="updateBtn"
+         													style="background: #4f5dec; color: #ffffff; float: right;">수정 <i class="icon-paperplane ml-2"></i></button>
+         											</div>
+       											</div>
+											</form>
+										</div>
+									</div>
+								</div><!-- row -->
+							</div>
+						</div>						
+						
+					</div><!-- row -->
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>			
+                            
 <script>
 	// 데이터 가져오기
-	
-	
 	 $(function() {
 		$("#updateBtn").on("click",function(){
 			var result = confirm("정말로 수정 하시겠습니까?");
@@ -355,5 +324,3 @@
 		
 	}); */
 </script>
-<!-- x blog main and sidebar Wrapper End -->
-
