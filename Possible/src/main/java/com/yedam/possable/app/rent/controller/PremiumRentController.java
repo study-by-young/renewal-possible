@@ -133,16 +133,20 @@ public class PremiumRentController {
 
     @ResponseBody
     @GetMapping("/estimate/viewCheck")
-    public String viewCheck(Authentication authentication, HttpServletResponse response){
-        response.setCharacterEncoding("UTF-8");
+    public int viewCheck(Authentication authentication, @RequestParam("estimateSeq") Long seq){
+        int result = 0;
         MemberVO loginMember = memberService.getLoginMember(authentication);
-        if(authentication == null){
-            return "customAlert('알림','로그인 후 이용 가능합니다.');";
-        } else if(loginMember.getAuthor().equals("ROLE_USER") || loginMember.getAuthor().equals("ROLE_ADMIN")){
-            return "location.href='estimate/register';";
-        } else {
-            return "customAlert('알림','일반회원만 이용 가능합니다.');";
+        if(loginMember != null){
+            if(loginMember.getAuthor().equals("ROLE_USER") || loginMember.getAuthor().equals("ROLE_ADMIN")){
+                result = 1;
+                if(!loginMember.getSeq().equals(premiumRentService.getEstimate(seq).getMemberVO().getSeq())){
+                    result = 3;
+                }
+            } else {
+                result = 2;
+            }
         }
+        return result;
     }
 
 
@@ -298,8 +302,6 @@ public class PremiumRentController {
         cri.setAmount(5);
         cri.setPageNum(submitPageNum);
         List<EstiSubmitHistoryVO> submitList = premiumRentService.getEstSubmitListByEstiSeq(cri, seq);
-        log.info(submitList.toString());
-        log.info(cri.toString());
         model.addAttribute("submitList",submitList);
         model.addAttribute("pagination", new PageVO(cri,submitCount));
 
