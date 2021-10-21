@@ -1,9 +1,5 @@
 package com.yedam.possable.app.rent.domain;
 
-import com.yedam.possable.app.common.code.domain.BrandCodeVO;
-import com.yedam.possable.app.common.code.domain.CodeSubVO;
-import com.yedam.possable.app.common.code.domain.ModelCodeVO;
-import com.yedam.possable.app.common.code.domain.TrimCodeVO;
 import com.yedam.possable.app.community.course.domain.CourseBoardVO;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.member.domain.MemberVO;

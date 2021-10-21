@@ -54,6 +54,7 @@
                <div class="row">
 				<%-- <sec:authentication property=""/> --%>
                   <div class="col-md-12">
+                  	<!-- 사이드바 -->
 					<div class="card card-body text-center">
 						<a href="#" class="d-inline-block mb-3" style="margin-top: 20px;">
 							<img src="${pageContext.request.contextPath}/resources/images/avatar.jpg" class="rounded-round" width="150" height="150" alt="">
