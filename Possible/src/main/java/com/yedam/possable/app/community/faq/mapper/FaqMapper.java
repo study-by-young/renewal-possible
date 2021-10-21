@@ -15,7 +15,7 @@ public interface FaqMapper {
 	
 	public int update(FaqVO vo);
 	
-	public int delete(FaqVO vo);
+	public int delete(Long seq);
 	
 	public List<FaqVO> getList(Criteria cri);
 	

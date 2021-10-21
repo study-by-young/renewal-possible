@@ -35,7 +35,7 @@
 }
 </style>
       <!-- Main content -->
-      <div class="content-wrapper">
+      <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
 
          <!-- Content area -->
          <div class="content">

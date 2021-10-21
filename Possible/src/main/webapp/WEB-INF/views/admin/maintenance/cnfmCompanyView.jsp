@@ -105,7 +105,7 @@
 										</div>
 																			
 												<div class="form-group">
-												<h5 class="font-weight-bold"><label>상태</label></h5>
+												<h5 class="font-weight-bold"><label style="color: blue">상태</label></h5>
 													<input type="hidden" class="form-control" name='status' value='<c:out value="${comRegList.status}"/>' readonly="readonly">
 													<input type="text" class="form-control" value='<c:out value="${status}"/>' readonly="readonly">
 												</div>
@@ -129,10 +129,10 @@
 							<div class="text-right">
 							<c:if test="${comRegList.status eq 'PST02'}">
 								<button id="reg" class="btn btn-primary">승인</button>
-								<button id="del" formaction="ban" class="btn btn-primary">거부</button>
+								<button id="del" formaction="ban" class="btn btn-danger">거부</button>
 							</c:if>
 							<c:if test="${comRegList.status eq 'PST01'}">
-								<button id="del" formaction="ban" class="btn btn-primary">거부</button>
+								<button id="del" formaction="ban" class="btn btn-danger">거부</button>
 								<a class="btn btn-primary" id="list_btn" href="${pageContext.request.contextPath}/admin/maintenance/confirmCompany">목록</a>
 							</c:if>
 							<c:if test="${comRegList.status eq 'PST03'}">

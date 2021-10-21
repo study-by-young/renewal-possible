@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!--favicon-->
 <link rel="shortcut icon" type="image/png" href="images/fevicon.png" />
@@ -45,9 +46,17 @@
 
 
 
+
+
+
+
 %
 {
 -webkit-transform
+
+
+
+
 
 
 
@@ -81,6 +90,10 @@
 
 
 
+
+
+
+
 translateY
 
 
@@ -96,7 +109,15 @@ translateY
 
 
 
+
+
+
+
 (
+
+
+
+
 
 
 
@@ -130,7 +151,15 @@ translateY
 
 
 
+
+
+
+
 )
+
+
+
+
 
 
 
@@ -165,9 +194,17 @@ translateY
 
 
 
+
+
+
+
 %
 {
 -webkit-transform
+
+
+
+
 
 
 
@@ -201,6 +238,10 @@ translateY
 
 
 
+
+
+
+
 translateY
 
 
@@ -216,7 +257,15 @@ translateY
 
 
 
+
+
+
+
 (
+
+
+
+
 
 
 
@@ -250,7 +299,15 @@ translateY
 
 
 
+
+
+
+
 )
+
+
+
+
 
 
 
@@ -290,9 +347,17 @@ keyframes bounce { 0%, 20%, 50%, 80%, 100% {
 
 
 
+
+
+
+
 %
 {
 transform
+
+
+
+
 
 
 
@@ -326,6 +391,10 @@ transform
 
 
 
+
+
+
+
 translateY
 
 
@@ -341,7 +410,15 @@ translateY
 
 
 
+
+
+
+
 (
+
+
+
+
 
 
 
@@ -375,7 +452,15 @@ translateY
 
 
 
+
+
+
+
 )
+
+
+
+
 
 
 
@@ -409,9 +494,17 @@ translateY
 
 
 
+
+
+
+
 %
 {
 transform
+
+
+
+
 
 
 
@@ -445,6 +538,10 @@ transform
 
 
 
+
+
+
+
 translateY
 
 
@@ -460,7 +557,15 @@ translateY
 
 
 
+
+
+
+
 (
+
+
+
+
 
 
 
@@ -494,7 +599,15 @@ translateY
 
 
 
+
+
+
+
 )
+
+
+
+
 
 
 
@@ -518,6 +631,10 @@ translateY
 	-webkit-animation-name: bounce;
 	animation-name: bounce;
 }
+.badge-custom {
+    color: #fff;
+    background-color: #007bff;
+}
 </style>
 
 <div class="x_inner_team_main_wrapper float_left padding_tb_100">
@@ -532,7 +649,7 @@ translateY
 				<div
 					class="x_offer_car_heading_wrapper x_offer_car_tb_heading_wrapper float_left">
 					<h3>
-						<span class="badge badge-pill badge-primary">${cnt }코스</span>
+						<span class="badge badge-pill badge-custom">${cnt }코스</span>
 						${board.title }
 					</h3>
 					<p>
@@ -584,7 +701,7 @@ translateY
 															alt="tourImg" style="height: 200px;">
 													</c:if>
 												</div>
-												<div class="btc_team_img_cont_wrapper">
+												<div class="btc_team_img_cont_wrapper" style="height: 150px;">
 													<h4>
 														<a>${course.title}</a>
 													</h4>
@@ -601,27 +718,35 @@ translateY
 					<!-- x booking Wrapper Start -->
 					<div
 						style="margin-top: 30px; padding: 20px; background-color: white; border: 1px solid blue; border-radius: 10px;">
-						ㅎㅎ</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<ul class="chat">
-							<c:forEach var="cmt" items="${cmt }">
-										${cmt.writer }<br>
-										${cmt.content }<br>
-										${cmt.genDate }<br>
-								<input type="hidden" id="cmtSeq" name="cmtSeq"
-									value="${cmt.seq }">
-								<i id="cmtDelete" class="fa fa-times-circle"></i>
-								<br>
-							</c:forEach>
-						</ul>
-					</div>
-					<div class="col-md-12">
-						<div class="panel-heading">
-							<input id="content" name="content" size="30">
-							<!-- 버튼 -->
-							<button type="button" id="cmtInsert">등록</button>
+						<div class="row">
+							<div class="col-md-12">
+								<h4>댓글</h4>
+								<hr>
+								<ul class="chat">
+									<c:forEach var="cmt" items="${cmt }">
+										<li data-seq="${cmt.seq }" style="margin-bottom: 20px">
+													${cmt.writer } | <fmt:formatDate pattern = "yyyy/MM/dd" value= "${cmt.genDate }"/><br>
+													${cmt.content }
+											<%-- <input type="hidden" id="cmtSeq" name="cmtSeq"
+												value="${cmt.seq }"> --%>
+											<sec:authorize access="isAuthenticated()">
+												<sec:authentication property="principal.id" var="loginUserId" />
+												<c:if test="${loginUserId eq cmt.writer}">
+													<span style="float: right"><i id="cmtDelete" class="fa fa-times-circle"></i></span>
+												</c:if>
+											</sec:authorize>
+											<br>
+										</li>
+									</c:forEach>
+								</ul>
+							</div>
+							<div class="col-md-12">
+								<div class="panel-heading">
+									<input id="content" name="content" size="30">
+									<!-- 버튼 -->
+									<button type="button" id="cmtInsert">등록</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -635,10 +760,15 @@ translateY
 					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 x_slider_checout_right">
 					<input type="hidden" id="seq" name="seq" value="${board.seq }">
 					<ul>
-						<li><a href="javascript:void(0);" onclick="boardDelete();">삭제</a></li>
-						<li><a href="../course">목록</a></li>
+						<sec:authorize access="isAuthenticated()">
+							<sec:authentication property="principal.id" var="loginUserId" />
+							<c:if test="${loginUserId eq board.writer}">
+								<li><a href="javascript:void(0);" onclick="boardDelete();">삭제</a></li>
+							</c:if>
+						</sec:authorize>
 						<li><button type="button" id="reportBtn"
 								class="btn btn-danger">신고</button></li>
+						<li><span style="float: right;"><a href="../course">목록</a></span></li>
 					</ul>
 				</div>
 			</div>
@@ -705,7 +835,7 @@ translateY
 		var container = $('#takePlaceMap')[0]; //지도를 담을 영역의 DOM 레퍼런스
 	    var option = { //지도를 생성할 때 필요한 기본 옵션
 	        center: new kakao.maps.LatLng(35.86911924611688, 128.5932113110608), // 지도의 중심좌표
-	        level: 8 // 지도의 확대 레벨
+	        level: 10 // 지도의 확대 레벨
 	    };
 
 		var map = new kakao.maps.Map(container, option); // 지도를 생성합니다
@@ -719,15 +849,29 @@ translateY
 		    },
 		    </c:forEach>
 		];
+		
+		var markerImage;
+		var marker;
 		for (var i = 0; i < positions.length; i ++) {
+			var imageSrc = 'https://korean.visitkorea.or.kr/resources/images/sub/icon_map_num'+(i+1)+'.png', // 마커이미지의 주소입니다    
+		    imageSize = new kakao.maps.Size(30, 45), // 마커이미지의 크기입니다
+		      
+			// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+			markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
 			// 마커를 생성합니다
-		    var marker = new kakao.maps.Marker({
+		    marker = new kakao.maps.Marker({
 		        map: map, // 마커를 표시할 지도
 		        position: positions[i].latlng, // 마커를 표시할 위치
 		        title : positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+		        image: markerImage
 		    });
+			
+			//클릭 이벤트 등록
+		    kakao.maps.event.addListener(marker, 'click', moveToCenter(marker, map));
 		}
+		
 
+		
 		// 이동할 위도 경도 위치를 생성합니다 
 		var moveLatLon = new kakao.maps.LatLng(positions[0].latlng.getLat(), positions[0].latlng.getLng());
 
@@ -746,7 +890,7 @@ translateY
 		polyline = new kakao.maps.Polyline({
 			path : linePath, // 선을 구성하는 좌표배열 입니다
 			strokeWeight : 5, // 선의 두께 입니다
-			strokeColor : '#9999FF', // 선의 색깔입니다
+			strokeColor : '#FF3333', // 선의 색깔입니다
 			strokeOpacity : 0.7, // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
 			strokeStyle : 'solid' // 선의 스타일입니다
 		});
@@ -757,8 +901,18 @@ translateY
 		var strArr = $("#courseAddr").eq(0).text().split(' ');
 		$("#coursePlace").text(strArr[0]+" "+strArr[1]);
 		$("#courseKm").text(Math.round((distance / 1000)*100)/100);
-
 	});
+	
+	function moveToCenter(marker, map){
+		return function() {
+	    	// 이동할 위도 경도 위치를 생성합니다 
+			var move = new kakao.maps.LatLng(marker.getPosition().getLat(), marker.getPosition().getLng());
+			// 지도 중심을 부드럽게 이동시킵니다
+			// 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+			map.panTo(move);
+			/* map.setLevel(6, {animate: true}, {anchor: new kakao.maps.LatLng(marker.getPosition().getLat(), marker.getPosition().getLng())}); */
+	  	};
+	}
 	
 	var user = $("#memSeq").val();
 	console.log(user);
@@ -779,8 +933,11 @@ translateY
 							$("#likeCnt").text(Number($("#likeCnt").text())+data);
 							console.log(data);
 						} else {
-							alert("로그인이 필요한 서비스입니다.");
-							location.href="${pageContext.request.contextPath}/login";
+							if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
+								location.href="${pageContext.request.contextPath}/login"; 
+							} else {
+								return;
+							}
 						}
 					}
 				})
@@ -799,8 +956,11 @@ translateY
 							$("#likeCnt").text(Number($("#likeCnt").text())-data);
 							console.log(data);
 						} else {
-							alert("로그인이 필요한 서비스입니다.");
-							location.href="${pageContext.request.contextPath}/login";
+							if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
+								location.href="${pageContext.request.contextPath}/login"; 
+							} else {
+								return;
+							}
 						}
 					}
 				})
@@ -932,41 +1092,56 @@ translateY
 	}); */
 	
 	$("#cmtInsert").on("click", function() {
-		$.ajax({
-			type : 'POST',
-			url: "insertCmt",
-			data:  JSON.stringify({
-				content : $("#content").val(),
-				courseSeq : $("#seq").val()
-			}), 
-			dataType: "json",
-			contentType : 'application/json; charset=utf-8',
-			success: function (data) {
-				if(data == null) {
-					if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
-						location.href="${pageContext.request.contextPath}/login"; 
-					} else {
-						return;
-					}
-				} else {
-					$("#content").val("");
-					$(".chat").append(data.writer+'<br>'+data.content+'<br>'+data.genDate+'<input type="hidden" id="cmtSeq" value="'+data.seq+'">');
-				}
+		<sec:authorize access="isAuthenticated()">
+		<sec:authentication property="principal.seq" var="loginUserSeq"/>
+		loginUser = ${loginUserSeq};
+		</sec:authorize>
+		if(loginUser == '') {
+			if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
+				location.href="${pageContext.request.contextPath}/login"; 
+			} else {
+				return;
 			}
-		});
+		} else {
+			$.ajax({
+				type : 'POST',
+				url: "insertCmt",
+				data:  JSON.stringify({
+					content : $("#content").val(),
+					courseSeq : $("#seq").val()
+				}), 
+				dataType: "json",
+				contentType : 'application/json; charset=utf-8',
+				success: function (data) {
+					if(data == null) {
+						if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
+							location.href="${pageContext.request.contextPath}/login"; 
+						} else {
+							return;
+						}
+					} else {
+						$("#content").val("");
+						$(".chat").append('<li data-seq="'+data.seq+'" style="margin-bottom: 20px">'+data.writer+' | '+data.genDate+'<br>'+data.content+'<input type="hidden" id="cmtSeq" value="'+data.seq+'">'
+								+'<span style="float: right"><i id="cmtDelete" class="fa fa-times-circle"></i></span>');
+					}
+				}
+			});
+		}
 	});
 	
-	$("#cmtDelete").on("click", function() {
+	$(".chat").on("click", "i", function() {
+		var dataSeq = $(this).parent().parent().attr("data-seq");
+		console.log($(this).parent().parent().attr("data-seq"));
 		$.ajax({
 			type : 'POST',
 			url: "deleteCmt",
 			data:  {
-				seq : $("#cmtSeq").val()
+				seq : $(this).parent().parent().attr("data-seq")
 			}, 
 			success: function (data) {
 				if(data == 1) {
 					alert("삭제 완");
-					// remove
+					$("[data-seq="+dataSeq+"]").remove()
 				} 
 			}
 		});

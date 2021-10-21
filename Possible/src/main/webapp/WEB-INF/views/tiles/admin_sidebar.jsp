@@ -10,7 +10,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 	<!-- Page content -->
-	<div class="page-content content-boxed pt-0">
+	<div class="page-content container pt-0">
 
 		<!-- Main sidebar -->
 		<div class="sidebar sidebar-light sidebar-main sidebar-expand-md align-self-start">
