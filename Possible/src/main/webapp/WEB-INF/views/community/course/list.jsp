@@ -42,8 +42,8 @@
 	height: 50px;
 	overflow: hidden;
 	word-break: keep-all;
-	margin-left: 2px;
-	margin-right: 2px;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 </style>
 
@@ -89,12 +89,12 @@
 							<c:if test="${list.firstImage ne null }">
 							<img
 								src="${list.firstImage}"
-								alt="Course">
+								alt="Course" style="height: 180px;">
 							</c:if>
 							<c:if test="${list.firstImage eq null }">
 							<img
 								src="${pageContext.request.contextPath}/resources/images/no_image.jpg"
-								alt="Course">
+								alt="Course" style="height: 180px;">
 							</c:if>
 							<div class="btc_team_social_tb_wrapper">
 								<h3>
@@ -104,7 +104,7 @@
 								</h3>
 							</div>
 						</div>
-						<div class="btc_team_img_bot_cont_wrapper">
+						<div class="btc_team_img_bot_cont_wrapper" style="height: 100px;">
 							<h4>
 								<a class="cTitle"
 									href="${pageContext.request.contextPath}/community/course/view?seq=${list.seq}">${list.title }</a>
