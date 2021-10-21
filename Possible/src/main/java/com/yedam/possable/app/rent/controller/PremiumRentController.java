@@ -62,14 +62,19 @@ public class PremiumRentController {
     @ResponseBody
     @GetMapping("estimate/registerCheck")
     public int estimateRegisterAJax(Authentication authentication){
+        int result = 0; // 로그인 후 이용 가능합니다.
         MemberVO loginMember = memberService.getLoginMember(authentication);
-        if(authentication == null){
-            return 0;
-        } else if(loginMember.getAuthor().equals("ROLE_USER") || loginMember.getAuthor().equals("ROLE_ADMIN")){
-            return 1;
-        } else {
-            return 2;
+        if(authentication != null) {
+            if (loginMember.getAuthor().equals("ROLE_USER") || loginMember.getAuthor().equals("ROLE_ADMIN")) {
+                result = 1; // ACCESS
+                if(premiumRentService.isRegistered(loginMember.getSeq())){
+                    result = 4; // 이미 작성한 견적이 있습니다.
+                }
+            } else {
+                result = 2; // 일반 회원만 이용 가능합니다.
+            }
         }
+        return result;
     }
 
     // 견적 요청 작성
@@ -134,16 +139,16 @@ public class PremiumRentController {
     @ResponseBody
     @GetMapping("/estimate/viewCheck")
     public int viewCheck(Authentication authentication, @RequestParam("estimateSeq") Long seq){
-        int result = 0;
+        int result = 0; // 로그인 후 이용 가능합니다.
         MemberVO loginMember = memberService.getLoginMember(authentication);
         if(loginMember != null){
             if(loginMember.getAuthor().equals("ROLE_USER") || loginMember.getAuthor().equals("ROLE_ADMIN")){
-                result = 1;
+                result = 1; // ACCESS
                 if(!loginMember.getSeq().equals(premiumRentService.getEstimate(seq).getMemberVO().getSeq())){
-                    result = 3;
+                    result = 3; // 본인 견적만 조회 가능합니다.
                 }
             } else {
-                result = 2;
+                result = 2; // 일반 회원만 이용 가능합니다.
             }
         }
         return result;

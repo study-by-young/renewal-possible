@@ -64,7 +64,7 @@
 
 	<select id="getLatestList" resultType="TestVO">
 		<![CDATA[
-		SELECT ROWNUM, t.* FROM (SELECT * FROM tour_board ORDER BY contentid) t
+		SELECT ROWNUM, t.* FROM (SELECT * FROM tour WHERE firstimage IS NOT NULL ORDER BY contentid) t
 		WHERE ROWNUM < 10
 		]]>
 	</select>
