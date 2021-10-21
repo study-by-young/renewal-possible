@@ -76,7 +76,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-lg-3">
-                                                                    <button type="button" class="btn btn-block btn-primary" onclick="viewCheck()">상세보기</button>
+                                                                    <button type="button" class="btn btn-block btn-primary" onclick="viewCheck(this)" data-seq="${estimate.seq}">상세보기</button>
 <%--                                                                    <a class="btn btn-block btn-primary"--%>
 <%--                                                                       href="estimate/view?seq=${estimate.seq}&pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}">--%>
 <%--                                                                        상세보기--%>
@@ -147,11 +147,20 @@
 </div>
 <!-- x car book sidebar section Wrapper End -->
 <script>
-    function viewCheck() {
+    function viewCheck(btn) {
         $.ajax({
             url:'estimate/viewCheck',
+            data: {estimateSeq : $(btn).data("seq")},
             success: function(result){
-                window['customAlert']('test','testest');
+                if(result === 0) {
+                    customAlert("알림", "로그인 후 이용 가능합니다.");
+                } else if(result === 1){
+                    location.href="estimate/view?seq="+ $(btn).data("seq") +"&pageNum=${param.getOrDefault('pageNum',1)}&amount=${param.getOrDefault('amount', pagination.cri.amount)}";
+                } else if(result === 3){
+                    customAlert("알림", "본인 견적만 조회 가능합니다.");
+                } else {
+                    customAlert("알림", "일반회원만 이용 가능합니다.");
+                }
             }
         })
     }
