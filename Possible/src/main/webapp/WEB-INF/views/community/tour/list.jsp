@@ -72,7 +72,7 @@
 		$('[name="pageNum"]').val(p);
 		actionForm.submit();
 	});
-	
+
 	var list = ${list };
 	$(document).ready(function() {
 		for(var i=0;i<list.length;i++) {
@@ -87,5 +87,5 @@
 			})
 		}
 	});
-	
+
 </script>

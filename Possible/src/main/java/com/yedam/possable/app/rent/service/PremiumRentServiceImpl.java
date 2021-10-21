@@ -55,6 +55,11 @@ public class PremiumRentServiceImpl implements PremiumRentService{
     }
 
     @Override
+    public boolean isRegistered(Long seq) {
+        return premiumRentMapper.isRegistered(seq);
+    }
+
+    @Override
     public int insertEstimate(EstimateHistoryVO vo) {
         return premiumRentMapper.insertEstimate(vo);
     }

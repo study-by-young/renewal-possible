@@ -107,9 +107,9 @@
         SELECT
             *
         FROM trim_code
-        <!--        <if test="modelCode != null">-->
-        <!--            WHERE model_code = #{modelCode}-->
-        <!--        </if>-->
+        <if test="modelCode != null">
+            WHERE model_code = #{modelCode}
+        </if>
     </select>
 
     <select id="getTrim" resultMap="trim">

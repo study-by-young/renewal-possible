@@ -96,7 +96,7 @@ public class NoticeController {
 		rttr.addAttribute("seq", vo.getSeq());
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
-		
+
 		int total = noticeService.getTotalCount(cri);
 		model.addAttribute("pagination", new PageVO(cri, total));
 
@@ -113,7 +113,7 @@ public class NoticeController {
 
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
-		
+
 		int total = noticeService.getTotalCount(cri);
 		model.addAttribute("pagination", new PageVO(cri, total));
 
