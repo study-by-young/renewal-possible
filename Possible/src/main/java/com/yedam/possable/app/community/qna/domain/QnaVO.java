@@ -13,4 +13,8 @@ public class QnaVO {
     private String status;
     private Date genDate;
     private Date uptDate;
+    private Long memSeq;
+    
+    // 답변 수 카운트
+    private Long answerCnt;
 }

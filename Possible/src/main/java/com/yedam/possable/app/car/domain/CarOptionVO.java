@@ -6,5 +6,6 @@ import lombok.Data;
 public class CarOptionVO {
     private String optCode;
 
-    private CarVO carVO;
+    private String optName;
+    private Long carSeq;
 }

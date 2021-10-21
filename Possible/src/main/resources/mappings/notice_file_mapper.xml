@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.possable.app.community.notice.mapper.NoticeFileMapper">
+	
+	<insert id="insert">
+		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
+				SELECT SEQ_NOTICE_FILE.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO NOTICE_FILE (SEQ
+							  , FILE_NO
+							  , NAME
+							  , ORG_NAME
+							  , FILE_TYPE
+							  , FILE_SIZE
+							  , GEN_DATE
+							  , UPT_DATE
+							  , NOTICE_SEQ
+							  , UPLOAD_PATH)
+		VALUES ( #{seq}
+			   , #{fileNo}
+			   , #{name}
+			   , #{orgName}
+			   , #{fileType}
+			   , #{fileSize}
+			   , SYSDATE
+			   , SYSDATE
+			   , #{noticeSeq}
+			   , #{uploadPath})
+	</insert>
+	
+	<delete id="delete">
+		DELETE FROM NOTICE_FILE
+		WHERE NAME = #{name}
+	</delete>
+	
+	<select id="findBySeq" resultType="NoticeFileVO">
+		SELECT *
+		FROM NOTICE_FILE
+		WHERE NOTICE_SEQ = #{noticeSeq}
+	</select>
+	
+	<select id="attachRead" resultType="NoticeFileVO" >
+		SELECT *
+		FROM NOTICE_FILE
+		WHERE NAME = #{name}
+	</select>
+	
+	<delete id="deleteAll">
+		DELETE NOTICE_FILE
+		WHERE NOTICE_SEQ = #{noticeSeq}
+	</delete>
+	
+</mapper>

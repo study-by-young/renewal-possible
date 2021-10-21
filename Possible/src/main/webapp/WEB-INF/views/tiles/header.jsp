@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+
+
 <%--<div id="preloader">--%>
 <%--    <div id="status">--%>
 <%--        <img src="${pageContext.request.contextPath}/resources/images/loader.gif" id="preloader_image" alt="loader">--%>
@@ -23,21 +26,30 @@
                     </a>
                 </div>
             </div>
-            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
+            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12 h6">
                 <div class="hs_navi_cart_wrapper  d-none d-sm-none d-xs-none d-md-block d-lg-block d-xl-block">
                     <div class="dropdown-wrapper menu-button menu_button_end">
-                        <a class="menu-button" href="${pageContext.request.contextPath}/login">로그인</a>
+                        <sec:authorize access="isAnonymous()">
+                        	<a class="menu-button" href="${pageContext.request.contextPath}/login">로그인</a>
+						</sec:authorize>
 
+                        <sec:authorize access="isAuthenticated()">
+                        		<a class="menu-button"><sec:authentication property="principal.name"/>님</a>
+										<form action="${pageContext.request.contextPath}/logout" method="post" id="logoutFrm" name="logoutFrm">
+	                        				<input type="hidden" name="${_csrf.parameterName }" value="${_csrf.token }" >
+												<a class="menu-button" href="#" id="logOutBtn" >logout</a>
+										</form>
+						</sec:authorize>
                     </div>
                 </div>
                 <nav class="hs_main_menu d-none d-sm-none d-xs-none d-md-block float-left">
                     <ul>
                         <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/">홈</a></li>
-                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/">일반 렌트</a></li>
-                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/">프리미엄 렌트</a></li>
-                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/">공지사항</a></li>
-                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/">커뮤니티</a></li>
-                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/">마이페이지</a></li>
+                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/commonRent">일반 렌트</a></li>
+                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/premiumRent/estimate">프리미엄 렌트</a></li>
+                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/notice/list">공지사항</a></li>
+                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/community/course">커뮤니티</a></li>
+                        <li> <a class="menu-button single_menu" href="${pageContext.request.contextPath}/mypage/dashboard">마이페이지</a></li>
                     </ul>
                 </nav>
                 <header class="mobail_menu d-none d-block d-xs-block d-sm-block d-md-none d-lg-none d-xl-none">
@@ -65,11 +77,11 @@
                                     </h2>
                                     <a href="#0" class="cd-close">Close</a>
                                     <ul class="cd-dropdown-content">
-                                        <li> <a href="#">홈</a></li>
-                                        <li> <a href="#">일반 렌트</a></li>
-                                        <li> <a href="about.html">프리미엄 렌트</a></li>
-                                        <li> <a href="team.html">공지사항</a></li>
-                                        <li class="has-children"> <a href="services.html">커뮤니티</a>
+                                        <li> <a href="${pageContext.request.contextPath}/">홈</a></li>
+                                        <li> <a href="${pageContext.request.contextPath}/commonRent">일반 렌트</a></li>
+                                        <li> <a href="${pageContext.request.contextPath}/premiumRent/estimate/list">프리미엄 렌트</a></li>
+                                        <li> <a href="${pageContext.request.contextPath}/notice/list">공지사항</a></li>
+                                        <li class="has-children">커뮤니티
                                             <ul class="cd-secondary-dropdown is-hidden">
                                                 <li class="go-back"><a href="#0">Menu</a>
                                                 </li>
@@ -95,3 +107,12 @@
         </div>
     </div>
 </div>
+
+<script>
+$(function(){
+	$('#logOutBtn').css('cursor','pointer');
+	$('#logOutBtn').on("click",function(){
+		logoutFrm.submit();
+	});
+});
+</script>

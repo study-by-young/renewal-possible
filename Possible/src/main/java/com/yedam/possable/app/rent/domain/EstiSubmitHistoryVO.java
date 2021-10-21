@@ -5,6 +5,7 @@ import com.yedam.possable.app.company.domain.CompanyVO;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class EstiSubmitHistoryVO {
@@ -14,8 +15,13 @@ public class EstiSubmitHistoryVO {
     private String memo;
     private Date genDate;
     private Date uptDate;
+    private String status;
+    private List<String> itemsList;
 
     private EstimateHistoryVO estimateHistoryVO;
     private CompanyVO companyVO;
     private CarVO carVO;
+//    private Long estiSeq;
+//    private Long cmpnSeq;
+//    private Long carSeq;
 }

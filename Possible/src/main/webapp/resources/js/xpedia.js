@@ -109,8 +109,23 @@ $(document).ready(function() {
   /*----------------------------------------------------------------------------------*/
   /* 		Date and Tiem Picker
 /*-----------------------------------------------------------------------------------*/
-  $('.datepicker').datepicker({ dateFormat: 'D dd M yy' });
-  $('.horizontal-datepicker').datepicker({ dateFormat: 'dd M yy' });
+  $.datepicker.setDefaults({
+    dateFormat: 'yy-mm-dd',
+    closeText: "닫기",
+    currentText: "오늘",
+    prevText: '이전 달',
+    nextText: '다음 달',
+    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+    dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+    weekHeader: "주",
+    yearSuffix: '년',
+    showMonthAfterYear: true,
+  });
+  $('.datepicker').datepicker();
+  $('.horizontal-datepicker').datepicker();
 
   $(document).ready(function() {
     $('.btc_team_slider_wrapper .owl-carousel').owlCarousel({
@@ -144,7 +159,7 @@ $(document).ready(function() {
 
   $(document).ready(function() {
     $('.btc_ln_slider_wrapper .owl-carousel').owlCarousel({
-      loop: true,
+      loop: false,
       margin: 10,
       autoplay: false,
       responsiveClass: true,
@@ -165,7 +180,7 @@ $(document).ready(function() {
         1000: {
           items: 3,
           nav: true,
-          loop: true,
+          loop: false,
           margin: 20,
         },
       },

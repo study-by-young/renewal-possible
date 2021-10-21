@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.possable.app.rent.mapper.RentReviewMapper">
+
+	<resultMap id="rentReview" type="RentReviewVO">
+		<id property="seq" column="seq" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="score" column="score" />
+
+		<association property="rentHistoryVO"
+	                 column="history_seq"
+	                 select="com.yedam.possable.app.rent.mapper.RentHistoryMapper.getRentHistory"
+	                 javaType="RentHistoryVO"/>
+
+	    <association property="memberVO"
+	                 column="mem_seq"
+	                 select="com.yedam.possable.app.member.mapper.MemberMapper.memberOneSelect"
+	                 javaType="MemberVO"/>
+
+	    <association property="courseBoardVO"
+	                 column="course_seq"
+	                 resultMap="com.yedam.possable.app.community.course.mapper.CourseBoardMapper.courseBoard"
+	                 javaType="CourseBoardVO"/>
+
+	    <association property="companyVO"
+	    			 column="cmpn_seq"
+	    			 select="com.yedam.possable.app.company.mapper.CompanyMapper.companyOneSelect"
+	    			 javaType="CompanyVO"/>
+		
+		
+	</resultMap>
+
+	<!-- 업체별 후기 목록 (commonRent/list) -->
+	<select id="getReviewListByCmpnSeq" resultType="RentReviewVO">
+		<![CDATA[SELECT CMPN_SEQ, COUNT(CMPN_SEQ) AS CNT
+		FROM RENT_REVIEW
+		WHERE CMPN_SEQ = #{cmpnSeq}
+		GROUP BY CMPN_SEQ]]>
+	</select>
+
+	<!-- 업체별 리뷰 조회 -->
+	<select id="getRentReviewListByCompany" resultType="RentReviewVO">
+		SELECT SEQ
+			, TITLE
+			, CONTENT
+			, SCORE
+			, HISTORY_SEQ
+			, MEM_SEQ
+			, COURSE_SEQ
+			, CMPN_SEQ
+		FROM RENT_REVIEW
+		WHERE CMPN_SEQ = #{companyVO.seq}
+	</select>
+
+	<!-- 마이페이지 내가 쓴 리뷰 조회 -->
+	<select id="getRentReviewListByMember" resultMap="rentReview">
+			SELECT r.* FROM 
+			RENT_REVIEW r INNER JOIN RENT_HISTORY h
+			on r.HISTORY_SEQ = h.SEQ
+			WHERE r.MEM_SEQ = #{seq}
+            ORDER BY r.SEQ desc 
+	</select>
+
+	<!-- 단건 조회 -->
+	<select id="getRentReview" resultMap="rentReview">
+		SELECT SEQ
+			, TITLE
+			, CONTENT
+			, SCORE
+			, HISTORY_SEQ
+			, MEM_SEQ
+			, COURSE_SEQ
+			, CMPN_SEQ
+		FROM RENT_REVIEW
+		WHERE SEQ = #{seq}
+	</select>
+
+	<!-- 등록 -->
+	<insert id="insertRentReview">
+		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
+			SELECT SEQ_RENT_REVIEW.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO RENT_REVIEW ( SEQ
+								, TITLE
+								, CONTENT
+								, SCORE
+								, HISTORY_SEQ
+								, MEM_SEQ
+								, COURSE_SEQ
+								, CMPN_SEQ )
+		VALUES ( #{seq}
+				, #{title}
+				, #{content}
+				, #{score}
+				, #{rentHistoryVO.seq}
+				, #{memberVO.seq}
+				, #{courseBoardVO.seq}
+				, #{companyVO.seq} )
+	</insert>
+
+	<!-- 수정 -->
+	<update id="updateRentReview">
+		UPDATE RENT_REVIEW
+		SET TITLE = #{title}
+			, CONTENT = #{content}
+			, SCORE = #{score}
+		WHERE SEQ = #{seq}
+	</update>
+
+	<!-- 삭제 -->
+	<delete id="deleteRentReview">
+		DELETE FROM RENT_REVIEW
+		WHERE SEQ = #{seq}
+	</delete>
+
+	<!-- 업체관리자 리뷰조회 -->
+	<select id="getCompanyReivewList" resultType="RentReviewVO">
+		select r.seq, r.title, r.content, r.score, r.cmpn_seq, r.mem_seq, m.name
+		from rent_review r  inner join member m
+		on r.mem_seq = m.seq
+		where r.cmpn_seq = #{cmpnSeq}
+	</select>
+</mapper>

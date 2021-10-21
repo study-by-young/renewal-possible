@@ -13,5 +13,5 @@ public class QnaAnswerVO {
     private Date genDate;
     private Date uptDate;
 
-    private QnaVO qnaVO;
+    private Long qnaSeq;
 }

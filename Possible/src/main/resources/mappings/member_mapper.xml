@@ -1,76 +1,228 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.possable.app.member.mapper.MemberMapper">
-	
-	<sql id="criteria">
-				<trim prefix="(" suffix=")" prefixOverrides="OR">
-             		<foreach collection="typeArr" item="type">
-             			<trim prefix="OR">
-             				<choose>
-				             	<when test="type == 'I'.toString()">
-				                   ID LIKE '%' || #{keyword} || '%'
-				                </when>
-				                <when test="type == 'N'.toString()">
-				                   NAME LIKE '%' || #{keyword} || '%'
-				                </when>
-				                <when test="type == 'P'.toString()">
-				                   PHONE LIKE '%' || #{keyword} || '%'
-				                </when>
-             				</choose>
-             			</trim>
-             		</foreach>
-             	</trim>
-	</sql>
-	
-	<select id="getTotalCount" resultType="int">
-			SELECT COUNT(*) 
-			FROM MEMBER
-				<where>
-					<include refid="criteria"></include>
-				</where>
-	</select>
-	
-	<select id="memberList" resultType="MemberVO">
-   
-      SELECT * 
-      FROM (
-             SELECT 
-             /*+ INDEX_DESC(IDX_MEMBER) */ 
-             ROWNUM RN, SEQ, ID, EMAIL, PHONE, NAME
-             FROM MEMBER
-             <where> 
-                <include refid="criteria"></include>
-                <![CDATA[   AND ROWNUM <= #{pageNum} * #{amount} ]]>
-             </where>
-          )
-      WHERE RN > (#{pageNum} - 1) * #{amount}
-   
-   </select>
-	
-	<select id="memberOneSelect" resultType="MemberVO"	parameterType="MemberVO">
-	SELECT 	SEQ,
-			ID,
-			PASSWORD,
-			NAME,
-			BIRTH,
-			EMAIL,
-			PHONE,
-			ADDR_CODE,
-			AUTHOR,
-			STATUS,
-			GEN_DATE,
-			UPT_DATE,
-			ADDR_BASIC,
-			ADDR_DETAIL
-		FROM MEMBER
-		WHERE SEQ = #{seq}
-	</select>
-	
-	<update id="memberUpdate">
-		UPDATE MEMBER
-		SET STATUS = #{status},
-			UPT_DATE = sysdate
-			WHERE SEQ = #{seq}
-	</update>
-	
+    <resultMap id="member" type="MemberVO">
+        <id property="seq" column="seq"/>
+        <result property="id" column="id"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="birth" column="birth"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="addrCode" column="addr_code"/>
+        <result property="addrBasic" column="addr_basic"/>
+        <result property="addrDetail" column="addr_detail"/>
+        <result property="author" column="author"/>
+        <result property="status" column="status"/>
+        <result property="genDate" column="gen_date"/>
+        <result property="uptDate" column="upt_date"/>
+        <result property="loginStatus" column="login_status"/>
+    </resultMap>
+    <!-- 검색 기능 -->
+    <sql id="criteria">
+        <trim prefix="(" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'I'.toString()">
+                            ID LIKE '%' || #{keyword} || '%'
+                        </when>
+                        <when test="type == 'N'.toString()">
+                            NAME LIKE '%' || #{keyword} || '%'
+                        </when>
+                        <when test="type == 'P'.toString()">
+                            PHONE LIKE '%' || #{keyword} || '%'
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
+    
+     <sql id="checkCriteria">
+        <trim prefix="(" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'U'.toString()">
+                            AUTHOR LIKE '%' || 'ROLE_USER' || '%'
+                        </when>
+                        <when test="type == 'C'.toString()">
+                            AUTHOR LIKE '%' || 'ROLE_COMPANY' || '%'
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
+
+    <select id="getUserById" resultMap="member">
+        SELECT *
+        FROM MEMBER
+        WHERE ID = #{id}
+    </select>
+
+    <!-- 전체 수 계산기능 -->
+    <select id="getTotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM MEMBER
+        <where>
+            <include refid="criteria" />
+        </where>
+    </select>
+    <!-- 회원갈카 회원 전체조회 -->
+    <select id="memberList" resultMap="member">
+        SELECT *
+        FROM (
+        SELECT
+        /*+ INDEX_DESC(MEMBER IDX_MEMBER) */
+        ROWNUM RN, SEQ, ID, EMAIL, PHONE, NAME, AUTHOR
+        FROM MEMBER
+        <where>
+            <include refid="criteria"/>
+            <include refid="checkCriteria"/>
+            <![CDATA[   AND ROWNUM <= #{pageNum} * #{amount} ]]>
+        </where>
+        ORDER BY SEQ DESC
+        )
+        WHERE RN > (#{pageNum} - 1) * #{amount}
+    </select>
+    <!-- 단건 조회 -->
+    <select id="memberOneSelect" resultMap="member">
+        SELECT
+            *
+        FROM MEMBER
+        WHERE SEQ = #{seq}
+    </select>
+     <!-- 게시글 피신고자 단건 조회 -->
+    <select id="reportOneSelect" resultMap="member">
+        SELECT
+            *
+        FROM MEMBER
+        WHERE ID = #{ID}
+    </select>
+    <!-- 아이디 중복 체크  -->
+    <select id="idChk" resultType="int">
+        SELECT COUNT(*)
+        FROM MEMBER
+        WHERE ID = #{id}
+    </select>
+    <!-- 카카오 아이디 체크 -->
+    <select id="kakaoIdCheck" resultType="int">
+        SELECT COUNT(*)
+        FROM MEMBER
+        WHERE id = #{id}
+          and login_Status = 'kakao'
+    </select>
+    <!-- 아이디 찾기 -->
+    <select id="idFind" resultType="String">
+        SELECT NVL(id, '0')
+        FROM MEMBER
+        WHERE name = #{name}
+          AND birth = #{birth}
+          AND status = 'Y'
+    </select>
+
+    <!-- 회원등록 -->
+    <insert id="memberInsert">
+        <selectKey keyProperty="seq" resultType="Long" order="BEFORE">
+            SELECT SEQ_MEMBER.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO MEMBER(SEQ,
+        ID,
+        PASSWORD,
+        NAME,
+        BIRTH,
+        EMAIL,
+        PHONE,
+        ADDR_CODE,
+        STATUS,
+        GEN_DATE,
+        ADDR_BASIC,
+        ADDR_DETAIL)
+        VALUES(#{seq},
+        #{id},
+        #{password},
+        #{name},
+        #{birth},
+        #{email},
+        #{phone},
+        #{addrCode},
+        'Y',
+        sysdate,
+        #{addrBasic},
+        #{addrDetail} )
+    </insert>
+
+    <!-- 카카오 추가 회원가입 -->
+    <insert id="kakaoInsert">
+        <selectKey keyProperty="seq" resultType="Long" order="BEFORE">
+            SELECT SEQ_MEMBER.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO MEMBER(SEQ,
+        ID,
+        PASSWORD,
+        NAME,
+        BIRTH,
+        EMAIL,
+        PHONE,
+        ADDR_CODE,
+        STATUS,
+        GEN_DATE,
+        ADDR_BASIC,
+        ADDR_DETAIL,
+        LOGIN_STATUS)
+        VALUES(#{seq},
+        #{id},
+        #{password},
+        #{name},
+        #{birth},
+        #{email},
+        #{phone},
+        #{addrCode},
+        'Y',
+        sysdate,
+        #{addrBasic},
+        #{addrDetail},
+        'kakao')
+    </insert>
+
+    <!-- 관리자 직접 회원 수정 -->
+    <update id="memberUpdate">
+        UPDATE MEMBER
+        SET STATUS   = #{status},
+            UPT_DATE = sysdate
+        WHERE SEQ = #{seq}
+    </update>
+    <!-- 회원 비밀번호 찾기 변경 -->
+    <update id="passFindUpdate">
+        UPDATE MEMBER
+        SET password = #{password}
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 회원권한변경 -->
+    <update id="authorUpdate">
+        UPDATE MEMBER
+        SET AUTHOR   = #{author},
+            UPT_DATE = sysdate
+        WHERE SEQ = #{seq}
+    </update>
+
+    <!-- 회원 내정보수정 비밀번호변경 -->
+    <update id="memberPassUpdate">
+        UPDATE MEMBER
+        SET PASSWORD = #{password}
+        WHERE ID = #{id}
+    </update>
+
+    <!-- 회원 내정보수정(휴대폰번호,이메일,주소) -->
+    <update id="memberInfoUpdate">
+        UPDATE MEMBER
+        SET PHONE       = #{phone},
+            EMAIL       = #{email},
+            ADDR_BASIC  = #{addrBasic},
+            ADDR_DETAIL = #{addrDetail}
+        WHERE ID = #{id}
+    </update>
 </mapper>

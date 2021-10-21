@@ -247,3 +247,5 @@
 			<p>Copyright © 2018 Expedia. All rights reserved.</p>
 		</div>
 	</div>
+<script>
+</script>

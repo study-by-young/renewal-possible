@@ -1,9 +1,16 @@
 package com.yedam.possable.app.rent.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.yedam.possable.app.common.code.domain.BrandCodeVO;
+import com.yedam.possable.app.common.code.domain.CodeSubVO;
+import com.yedam.possable.app.common.code.domain.ModelCodeVO;
+import com.yedam.possable.app.common.code.domain.TrimCodeVO;
 import com.yedam.possable.app.member.domain.MemberVO;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class EstimateHistoryVO {
@@ -14,16 +21,25 @@ public class EstimateHistoryVO {
     private String trim;
     private String options;
     private String items;
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
+    @JsonFormat(pattern = "yyyy/MM/dd")
     private Date startDate;
+    @JsonFormat(pattern = "yyyy/MM/dd")
+    @DateTimeFormat(pattern = "yyyy/MM/dd")
     private Date endDate;
+    private String memo;
     private String takePlaceCode;
-    private String takePlaceBasicAddr;
-    private String takePlaceDetailAddr;
-    private String destinationCode;
-    private String destinationBasicAddr;
-    private String destinationDetailAddr;
+    private String takePlaceBasic;
+    private String takePlaceDetail;
     private Date genDate;
     private Date uptDate;
+    private List<String> itemList;
+    private List<String> optionList;
 
+    private BrandCodeVO brandCodeVO;
+    private CodeSubVO segmentCodeVO;
+    private ModelCodeVO modelCodeVO;
+    private TrimCodeVO trimCodeVO;
     private MemberVO memberVO;
+//    private Long memSeq;
 }

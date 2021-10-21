@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.possable.app.company.mapper.CompanyMapper">
+    <resultMap id="company" type="CompanyVO">
+        <id property="seq" column="seq" />
+        <result property="name" column="name" />
+        <result property="postal" column="postal" />
+        <result property="cmpnNum" column="cmpn_num" />
+        <result property="tel" column="tel" />
+        <result property="status" column="status" />
+        <result property="genDate" column="gen_date"/>
+        <result property="uptDate" column="upt_date"/>
+        <result property="addr1" column="addr1"/>
+        <result property="addr2" column="addr2"/>
+        <result property="area" column="area"/>
+        <result property="memSeq" column="mem_seq"/>
+    </resultMap>
+    <resultMap id="companyAllData" type="CompanyVO" extends="company">
+        <association property="areaCodeVO"
+                     column="area"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        <association property="statusCodeVO"
+                     column="status"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        <association property="memberVO"
+                     column="mem_seq"
+                     columnPrefix="mem_"
+                     resultMap="com.yedam.possable.app.member.mapper.MemberMapper.member"
+                     javaType="com.yedam.possable.app.member.domain.MemberVO"/>
+    </resultMap>
+    <sql id="criteria">
+        <trim  prefixOverrides="and">
+            <choose>
+                <when test="type == 'N'.toString()">
+                    NAME LIKE '%' || #{keyword} || '%'
+                </when>
+                <when test="type == 'A'.toString()">
+                    AREA LIKE '%' || #{keyword} || '%'
+                </when>
+                <when test="type == 'C'.toString()">
+                    CMPN_NUM LIKE '%' || #{keyword} || '%'
+                </when>
+                <when test="type == 'T'.toString()">
+                    TEL LIKE '%' || #{keyword} || '%'
+                </when>
+                <when test="type == 'S'.toString()">
+                    STATUS LIKE '%' || #{keyword} || '%'
+                </when>
+            </choose>
+        </trim>
+    </sql>
+
+     <sql id="checkCriteria">
+        <trim prefix="(" suffix=")" prefixOverrides="OR">
+            <foreach collection="typeArr" item="type">
+                <trim prefix="OR">
+                    <choose>
+                        <when test="type == 'Y'.toString()">
+                            STATUS LIKE '%' || 'PST01' || '%'
+                        </when>
+                        <when test="type == 'D'.toString()">
+                            STATUS LIKE '%' || 'PST03' || '%'
+                        </when>
+                    </choose>
+                </trim>
+            </foreach>
+        </trim>
+    </sql>
+
+    <select id="getTotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM COMPANY
+        <where>
+            <include refid="criteria">
+            </include>
+        </where>
+    </select>
+
+    <!-- 업체 등록 -->
+    <insert id="companyReg">
+        <selectKey keyProperty="seq" resultType="long" order="BEFORE">
+            SELECT SEQ_COMPANY.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO COMPANY(
+        SEQ,
+        NAME,
+        POSTAL,
+        CMPN_NUM,
+        TEL,
+        STATUS,
+        GEN_DATE,
+        UPT_DATE,
+        MEM_SEQ,
+        ADDR1,
+        ADDR2,
+        AREA)
+        VALUES(
+        #{seq},
+        #{name},
+        #{postal},
+        #{cmpnNum},
+        #{tel},
+        'PST02',
+        sysdate,
+        sysdate,
+        #{memberVO.seq},
+        #{addr1},
+        #{addr2},
+        #{area}
+        )
+    </insert>
+
+    <!-- 업체 미승인 리스트 -->
+    <select id="companyRegList" resultType="CompanyVO">
+        SELECT
+                /*+ INDEX_DESC (COMPANY IDX_COMPANY) */
+                ROWNUM RN,
+                SEQ,
+                MEM_SEQ,
+                NAME,
+                POSTAL,
+                CMPN_NUM,
+                ADDR1,
+                ADDR2,
+                AREA,
+                TEL,
+                GEN_DATE
+        FROM COMPANY
+        WHERE STATUS = 'PST02'
+    </select>
+
+    <!-- 업체 승인 리스트 -->
+    <select id="companyList" resultType="CompanyVO">
+     SELECT SEQ, NAME, POSTAL, CMPN_NUM, ADDR1, ADDR2, AREA, TEL, STATUS
+	FROM
+        (SELECT
+        /*+ INDEX_DESC(COMPANY IDX_COMPANY) */
+        ROWNUM RN, SEQ,
+        NAME,
+        POSTAL,
+        CMPN_NUM,
+        ADDR1,
+        ADDR2,
+        AREA,
+        TEL,
+        STATUS
+        FROM COMPANY
+        <where>
+            <include refid="criteria"/>
+            <include refid="checkCriteria"/>
+            <![CDATA[
+            AND (STATUS = 'PST01' OR STATUS = 'PST03')
+            AND ROWNUM <= #{pageNum} * #{amount} ]]>
+        </where>)
+        WHERE RN > (#{pageNum} - 1) * #{amount}
+    </select>
+
+    <!-- 업체 한건-->
+    <select id="companyOneSelect" resultType="CompanyVO">
+        SELECT SEQ,
+               MEM_SEQ,
+               NAME,
+               POSTAL,
+               CMPN_NUM,
+               TEL,
+               ADDR1,
+               ADDR2,
+               AREA,
+               STATUS,
+               GEN_DATE,
+               UPT_DATE
+        FROM COMPANY
+        WHERE SEQ = #{seq}
+    </select>
+
+    <!-- 업체 한건-->
+    <select id="companySelect" resultType="CompanyVO">
+        SELECT SEQ,
+               MEM_SEQ,
+               NAME,
+               POSTAL,
+               CMPN_NUM,
+               TEL,
+               ADDR1,
+               ADDR2,
+               AREA,
+               STATUS,
+               GEN_DATE,
+               UPT_DATE
+        FROM COMPANY
+        WHERE SEQ = #{seq}
+    </select>
+
+    <!-- 업체 승인 변경 -->
+    <update id="companyRegUpdate">
+        UPDATE COMPANY
+        SET STATUS   = 'PST01',
+            UPT_DATE = sysdate
+        WHERE SEQ = #{seq}
+    </update>
+
+    <!-- 업체 승인 거부 -->
+    <update id="companyRegDelete">
+        UPDATE COMPANY
+        SET STATUS   = 'PST03',
+            UPT_DATE = sysdate
+        WHERE SEQ = #{seq}
+    </update>
+
+    <select id="getCompanyByMemSeq" resultType="CompanyVO">
+        SELECT *
+        FROM company
+        WHERE mem_seq = #{seq}
+    </select>
+
+    <select id="getCompanyItems" resultType="string">
+        SELECT opt_code
+        FROM item_option
+        WHERE cmpn_seq = #{seq}
+    </select>
+
+    <!-- 업체 업체정보수정(휴대폰번호,이메일,주소) -->
+	<update id="companyInfoUpdate">
+	UPDATE COMPANY SET
+				  TEL = #{tel},
+                  ADDR1 = #{addr1},
+                  ADDR2 = #{addr2},
+                  AREA = #{area}
+	WHERE SEQ = #{seq}
+	</update>
+
+	<!-- 업체 탈퇴 -->
+	<delete id="deleteCompany">
+	DELETE FROM COMPANY
+	WHERE SEQ = #{seq}
+	</delete>
+
+</mapper>

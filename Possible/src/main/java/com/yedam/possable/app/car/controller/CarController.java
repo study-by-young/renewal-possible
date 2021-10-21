@@ -1,39 +1,39 @@
 package com.yedam.possable.app.car.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import java.util.List;
 
-@Controller
-@RequestMapping("/car/*")
+import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.yedam.possable.app.car.domain.CarOptionVO;
+import com.yedam.possable.app.car.domain.CarVO;
+import com.yedam.possable.app.car.service.CarService;
+
+@Log
+@RestController
+@RequestMapping("/car")
 public class CarController {
-    @GetMapping("/list")
-    public String list() {
-        return "car/list";
+    @Autowired
+    CarService carService;
+
+    @GetMapping("/{seq}/options")
+    public String getCarOptions(@PathVariable("seq") Long carSeq) throws JsonProcessingException {
+        CarVO vo = new CarVO();
+        vo.setSeq(carSeq);
+        List<CarOptionVO> carOptions = carService.getCarOptions(vo);
+
+        return new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(carOptions);
     }
 
-    @GetMapping("/rentFin")
-    public String rentFin() {
-        return "car/rentFin";
-    }
+    @GetMapping("/{seq}")
+    public CarVO getCar(@PathVariable("seq") Long carSeq){
+        CarVO vo = new CarVO();
+        vo.setSeq(carSeq);
 
-    @GetMapping("/info")
-    public String info() {
-        return "car/info";
-    }
-
-    @GetMapping("/rent")
-    public String rent() {
-        return "car/rent";
-    }
-
-    @GetMapping("/registration")
-    public String registration() {
-        return "car/registration";
-    }
-
-    @GetMapping("/listbackup")
-    public String listbackup() {
-        return "car/listbackup";
+        return carService.getCar(vo);
     }
 }

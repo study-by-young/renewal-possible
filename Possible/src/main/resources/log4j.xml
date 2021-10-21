@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
 	<!-- Appenders -->
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p: %c{2} (%L) %d - %m%n" />
+			<param name="ConversionPattern" value="%-5p: %c (%L) %d - %m%n" />
 		</layout>
 	</appender>
 
@@ -26,9 +26,28 @@
 	<logger name="jdbc.connection">
 		<level value="warn" />
 	</logger>
+	
+	<logger name="org.apache.commons.digester">
+		<level value="error" />
+	</logger>
+	<logger name="org.apache.ibatis">
+		<level value="error" />
+	</logger>
+	<logger name="log4jdbc.debug">
+		<level value="error" />
+	</logger>
+
+<!-- 
+org.springframework.security
+org.springframework.jndi
+-->
 
 
 	<!-- 3rdparty Loggers -->
+	<logger name="org.springframework.jdbc">
+		<level value="info" />
+	</logger>
+	
 	<logger name="org.springframework.core">
 		<level value="info" />
 	</logger>
@@ -52,3 +71,4 @@
 	</root>
 
 </log4j:configuration>
+

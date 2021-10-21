@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yedam.possable.app.car.mapper.CarMapper">
+    <resultMap id="car" type="CarVO">
+        <id property="seq" column="seq" />
+        <result property="cmpnSeq" column="cmpn_seq"/>
+        <result property="carNum" column="car_num" />
+        <result property="brand" column="brand" />
+        <result property="segment" column="segment" />
+        <result property="model" column="model"/>
+        <result property="trim" column="trim"/>
+        <result property="color" column="color" />
+        <result property="year" column="year" />
+        <result property="fuel" column="fuel" />
+        <result property="passenger" column="passenger" />
+        <result property="mission" column="mission" />
+        <result property="trunk" column="trunk" />
+        <result property="door" column="door" />
+        <result property="kmpl" column="kmpl" />
+        <result property="price" column="price" />
+        <result property="status" column="status" />
+        <result property="img1" column="img1" />
+        <result property="img2" column="img2" />
+        <result property="img3" column="img3" />
+        <result property="genDate" column="gen_date" />
+        <result property="uptDate" column="upt_date" />
+        <association property="brandCodeVO"
+                     column="brand"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getBrand"
+                     javaType="BrandCodeVO"/>
+        <association property="modelCodeVO"
+                     column="model"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getModel"
+                     javaType="ModelCodeVO"/>
+        <association property="trimCodeVO"
+                     column="trim"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getTrim"
+                     javaType="TrimCodeVO"/>
+        <association property="segmentCodeVO"
+                     column="segment"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        <association property="missionCodeVO"
+                     column="mission"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        <association property="colorCodeVO"
+                     column="color"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        <association property="fuelCodeVO"
+                     column="fuel"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        <association property="statusCodeVO"
+                     column="status"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        <association property="companyVO"
+                     column="cmpn_seq"
+                     select="com.yedam.possable.app.company.mapper.CompanyMapper.companyOneSelect"
+                     javaType="CompanyVO"/>
+        <collection property="optionList"
+                    column="seq"
+                    select="getCarOptions"
+                    ofType="CarOptionVO"/>
+        <collection property="insuranceList"
+                    column="seq"
+                    select="getCarInsurance"
+                    ofType="InsuranceOptionVO"/>
+    </resultMap>
+
+    <resultMap id="carOption" type="CarOptionVO">
+        <id property="optCode" column="opt_code"/>
+        <result property="optName" column="opt_name"/>
+        <result property="carSeq" column="car_seq"/>
+    </resultMap>
+    <resultMap id="insuranceOption" type="InsuranceOptionVO">
+        <id property="optCode" column="opt_code"/>
+        <result property="optName" column="opt_name"/>
+        <result property="price" column="price"/>
+        <result property="carSeq" column="car_seq"/>
+    </resultMap>
+
+	<!-- 검색 기능 -->
+	<sql id="criteria">
+		<if test="model != null and model != ''">
+			AND MODEL LIKE '%' || #{model} || '%'
+		</if>
+		<if test="segment != null and segment != ''">
+			AND SEGMENT = #{segment}
+		</if>
+		<if test="fuel != null and fuel != ''">
+			AND FUEL = #{fuel}
+		</if>
+		<if test="year != null and year != ''">
+			AND YEAR = #{year}
+		</if>
+		<if test="brand != null and brand != ''">
+			AND BRAND = #{brand}
+		</if>
+		<if test="passenger != null and passenger != ''">
+			AND PASSENGER = #{passenger}
+		</if>
+		<if test="passenger = 5">
+			AND PASSENGER >= #{passenger}
+		</if>
+	</sql>
+
+	<sql id="companyCriteria">
+		<trim prefixOverrides="and">
+			<choose>
+				<when test="cri.type == 'A'.toString()">
+					STATUS LIKE '%' || 'CST01' || '%'
+				</when>
+				<when test="cri.type == 'B'.toString()">
+					STATUS LIKE '%' || 'CST02' || '%'
+				</when>
+				<when test="cri.type == 'C'.toString()">
+					STATUS LIKE '%' || 'CST03' || '%'
+				</when>
+				<when test="cri.type == 'D'.toString()">
+					STATUS LIKE '%' || 'CST04' || '%'
+				</when>
+			</choose>
+		</trim>
+	</sql>
+
+    <select id="getCarList" resultMap="car">
+        SELECT
+            *
+        FROM car
+	</select>
+
+    <!-- 차량 model 중복제거 리스트 조회 -->
+    <select id="getDistinctCarList" resultMap="car">
+		SELECT
+            *
+		FROM (SELECT /*+ INDEX_DESC(CAR IDX_CAR) */ ROWNUM RN, a.*
+		        FROM (SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.* FROM CAR) a
+		        <where>
+                	<include refid="criteria" />
+                    AND CNT = 1
+                    <![CDATA[ AND ROWNUM <= #{pageNum} * #{amount}) ]]>
+                </where>
+		WHERE RN > (#{pageNum} - 1) * #{amount}
+    </select>
+
+    <select id="getCar" resultMap="car">
+        SELECT
+            *
+        FROM car
+        WHERE seq = #{seq}
+    </select>
+    <select id="getCarOptions" resultMap="carOption">
+        SELECT CO.opt_code,
+               CS.name AS opt_name
+        FROM car_option CO
+            INNER JOIN code_sub CS ON CS.code = CO.opt_code
+        WHERE car_seq = #{seq}
+    </select>
+    <select id="getCarInsurance" resultMap="insuranceOption">
+        SELECT IO.opt_code,
+               IO.price,
+                CS.name AS opt_name
+        FROM insurance_option IO
+            INNER JOIN code_sub CS ON CS.code = IO.opt_code
+        WHERE car_seq = #{seq}
+    </select>
+    <select id="getCompanyCarList" resultMap="car">
+        SELECT
+            *
+        FROM CAR
+        WHERE CMPN_SEQ = #{seq}
+        ORDER BY SEQ DESC
+    </select>
+
+    <select id="getCompanyAvailableCarList" resultMap="car">
+        SELECT
+                *
+        FROM CAR
+        WHERE CMPN_SEQ = #{seq}
+            AND status = 'CST01'
+        ORDER BY SEQ DESC
+    </select>
+
+    <select id="getCompanyCar" resultMap="car">
+        SELECT
+            *
+        FROM CAR
+        WHERE SEQ = #{seq}
+        AND cmpn_seq = #{companyVO.seq}
+        ORDER BY SEQ
+    </select>
+    <delete id="deleteCompanyCar">
+        DELETE
+        FROM CAR
+        WHERE SEQ = #{seq}
+    </delete>
+    <delete id="deleteOption">
+    	DELETE
+    	FROM CAR_OPTION
+    	WHERE CAR_SEQ = #{carSeq}
+    </delete>
+    <delete id="deleteIns">
+    	DELETE
+    	FROM INSURANCE_OPTION
+    	WHERE CAR_SEQ = #{carSeq}
+    </delete>
+    <update id="updateCarOptions">
+    	UPDATE CAR_OPTION
+    	SET OPT_CODE = #{optCode}
+    	WHERE CAR_SEQ = #{carSeq}
+    </update>
+    <update id="updateCarPrice">
+    	UPDATE CAR
+    	SET PRICE = #{price}
+    	WHERE SEQ = #{seq}
+    </update>
+    <update id="updateCompanyCar">
+        UPDATE car
+        <set>
+            <if test="carNum != null">
+                car_num = #{car.carNum}
+            </if>
+            <if test="brand != null">
+                brand = #{car.brand}
+            </if>
+            <if test="model != null">
+                model = #{car.model}
+            </if>
+            <if test="segment != null">
+                segment = #{car.segment}
+            </if>
+            <if test="trim != null">
+                trim = #{car.trim}
+            </if>
+            <if test="color != null">
+                color = #{car.color}
+            </if>
+            <if test="year != null">
+                year = #{car.year}
+            </if>
+            <if test="fuel != null">
+                fuel = #{car.fuel}
+            </if>
+            <if test="passenger != null">
+                passenger = #{car.passenger}
+            </if>
+            <if test="mission != null">
+                mission = #{car.mission}
+            </if>
+            <if test="trunk != null">
+                trunk = #{car.trunk}
+            </if>
+            <if test="kmpl != null">
+                kmpl = #{car.kmpl}
+            </if>
+            <if test="price != null">
+                price = #{car.price}
+            </if>
+            upt_date = SYSDATE
+        </set>
+        WHERE seq = #{seq}
+        AND cmpn_seq = #{companyVO.seq}
+        AND status NOT IN('CST02, CST03')
+    </update>
+    <update id="updateStatus">
+        UPDATE car
+        SET status = #{status},
+            upt_date = SYSDATE
+        WHERE seq = #{seq}
+    </update>
+    <!-- 해당 model을 보유한 업체 리스트 뽑아내기 위한 리스트 -->
+    <select id="getCarByModel" resultMap="car">
+    	SELECT
+            *
+		FROM CAR
+		WHERE MODEL = #{model}
+    </select>
+
+    <select id="getCarByModelAndCmpnSeq" resultMap="car">
+        SELECT
+                *
+        FROM CAR
+        WHERE MODEL = #{model}
+        AND cmpn_seq = #{cmpnSeq}
+    </select>
+
+    <!-- seq로 보험 조회하기 -->
+   <!--  <select id="getInsuranceByCar" resultType="CarVO">
+    SELECT CAR.SEQ, INSURANCE_OPTION.OPT_CODE, INSURANCE_OPTION.PRICE
+	FROM CAR JOIN INSURANCE_OPTION
+	ON CAR.SEQ = INSURANCE_OPTION.CAR_SEQ
+	WHERE SEQ = #{seq}
+    </select> -->
+
+    <insert id="insertCompanyCar">
+    	<selectKey keyProperty="seq" resultType="long" order="BEFORE">
+			SELECT SEQ_CAR.NEXTVAL FROM DUAL
+		</selectKey>
+    	INSERT INTO CAR(
+				    	SEQ,
+						BRAND,
+						MODEL,
+						SEGMENT,
+						TRIM,
+						COLOR,
+						YEAR,
+						FUEL,
+						PASSENGER,
+						MISSION,
+						TRUNK,
+						DOOR,
+						KMPL,
+						PRICE,
+						STATUS,
+						IMG1,
+						IMG2,
+						IMG3,
+						GEN_DATE,
+						UPT_DATE,
+						CMPN_SEQ,
+						CAR_NUM
+						)
+			 VALUES (
+						#{seq},
+						#{brand},
+						#{model},
+						#{segment},
+						#{trim},
+						#{color},
+						#{year},
+						#{fuel},
+						#{passenger},
+						#{mission},
+						#{trunk},
+						#{door},
+						#{kmpl},
+						#{price},
+						'CST01',
+						#{img1},
+						#{img2},
+						#{img3},
+						sysdate,
+						sysdate,
+						#{cmpnSeq},
+						#{carNum}
+					)
+    </insert>
+
+    <insert id="insertCarOptions">
+    	INSERT INTO CAR_OPTION(
+    						 OPT_CODE,
+    						 CAR_SEQ
+							)
+					VALUES(
+							#{optCode},
+							#{carSeq}
+						  )
+    </insert>
+
+    <select id="getTotalCount" resultType="int">
+        SELECT /*+ INDEX_DESC(CAR IDX_CAR) */ COUNT(*)
+        FROM (SELECT ROW_NUMBER() OVER(PARTITION BY MODEL ORDER BY SEQ ) CNT, CAR.* FROM CAR)
+		<where>
+            AND CNT = 1
+			<include refid="criteria" />
+		</where>
+	</select>
+
+    <select id="comTotalCount" resultType="int">
+        SELECT COUNT(*)
+        FROM CAR
+        <where>
+            <include refid="companyCriteria"/>
+             <![CDATA[
+              AND (CMPN_SEQ = #{cmpnSeq})]]>
+        </where>
+    </select>
+
+      <select id="getCompanyCriList" resultType="CarVO">
+    	SELECT *
+		FROM
+        (SELECT
+        /*+ INDEX_DESC(CAR IDX_CAR) */
+        ROWNUM RN, SEQ,
+					BRAND,
+					MODEL,
+					SEGMENT,
+					TRIM,
+					COLOR,
+					YEAR,
+					FUEL,
+					PASSENGER,
+					MISSION,
+					TRUNK,
+					DOOR,
+					KMPL,
+					PRICE,
+					STATUS,
+					IMG1,
+					IMG2,
+					IMG3,
+					GEN_DATE,
+					UPT_DATE,
+					CMPN_SEQ,
+					CAR_NUM
+        FROM CAR
+        <where>
+            <include refid="companyCriteria"/>
+            <![CDATA[
+            AND (CMPN_SEQ = #{cmpnSeq})
+            AND ROWNUM <= #{cri.pageNum} * #{cri.amount} ]]>
+        </where>)
+        WHERE RN > (#{cri.pageNum} - 1) * #{cri.amount}
+    </select>
+
+    <select id="getCarInsuranceByCode" resultMap="insuranceOption">
+        SELECT IO.opt_code,
+               IO.price,
+               CS.name AS opt_name
+        FROM insurance_option IO
+                     INNER JOIN code_sub CS ON CS.code = IO.opt_code
+        WHERE car_seq = #{seq}
+            AND opt_code = #{code}
+    </select>
+
+</mapper>

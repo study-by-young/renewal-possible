@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.possable.app.community.course.mapper.CourseMapper">
+
+	<insert id="insert">
+
+		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
+			SELECT SEQ_COURSE.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO COURSE VALUES (#{courseSeq}, #{seq}, #{placeNo}, #{contentId})
+	</insert>
+	
+<!-- 	<insert id="insert" parameterType="CourseVO">
+		<foreach item="item" index="index" collection="java.util.List" separator=" " open="INSERT ">
+			INTO COURSE
+			VALUES (1, #{item.id},#{item.passwd},#{item.name})
+		</foreach>
+	</insert> -->
+	
+	<select id="courseCnt" resultType="int">
+		SELECT COUNT(*) FROM COURSE WHERE COURSE_SEQ = #{seq}
+	</select>
+	
+</mapper>

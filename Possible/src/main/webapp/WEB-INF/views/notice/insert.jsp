@@ -1,104 +1,196 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<!-- 
-Template Name: Xpedia
-Version: 1.0.0
 
--->
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
-<html lang="zxx">
-<!--[endif]-->
+<style>
+	.card-header+.card-footer {
+		border-bottom: 0px;
+	}
+	
+	.card-footer {
+		background-color: white;
+		border-top: 0px;
+	}
+	
+	input[type=file] {
+	    display: inline;
+	    width: 20%;
+	}
+	
+	.btn {
+		padding: .4rem .65rem;
+	}
+	
+	.input_title {
+		width: 100%;
+		height: 50px;
+		border: 1px solid lightgray;
+		padding: 10px 8px;
+		border-radius: 5px;
+	}
+	
+	.card {
+    margin-bottom: 3rem;
+    }
+</style>
 
-<head>
-<meta charset="utf-8" />
-<title>공지사항 등록</title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-<meta name="description" content="Xpedia" />
-<meta name="keywords" content="Xpedia" />
-<meta name="author" content="" />
-<meta name="MobileOptimized" content="320" />
-<!--Template style -->
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/css/xpedia.css" />
-<!--favicon-->
-<link rel="shortcut icon" type="image/png" href="images/fevicon.png" />
-</head>
-
-<body>
-	<div class="x_contact_title_main_wrapper float_left padding_tb_100">
-		<div class="container">
-			<form id="insertForm" role="form"
+<div class="x_contact_title_main_wrapper float_left padding_tb_100">
+	<div class="container">
+		<div class="card" style="margin-top: 50px; padding: 20px;">
+			<form id="insertForm" name="insertForm" role="form"
 				action="${pageContext.request.contextPath}/notice/insert"
-				method="post">
+				method="post" enctype="multipart/form-data">
 				<div class="row">
-					<div class="col-md-12">
-						<div
-							class="x_offer_car_heading_wrapper x_offer_car_heading_wrapper_contact float_left">
-							<h3>공지사항 등록</h3>
+					<div class="col-lg-12 col-md-12">
+						<div class="card-header">
+							<div class="card-header col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-top: 0px; padding-left: 0px;">
+								<div class="contect_form1">
+									<h2 style="font-weight: 600;">공지사항 등록</h2>
+								</div>
+							</div>
+							<div class="card-header col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px 0px;">
+								<div class="contect_form1">
+									<input class="input_title" type="text" name="title" placeholder=" 제목을 입력해주세요. *" required="required">
+								</div>
+							</div>
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+								<div class="contect_form2">
+									<input type="hidden" name="writer" placeholder="writer" value="admin" readonly="readonly">
+								</div>
+							</div>
+							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px; padding-right: 0px;">
+								<div class="contect_form4">
+									<textarea name="content" id="content" class="ckeditor" required="required"></textarea>
+								</div>
+								<br>
+							</div>
 						</div>
-					</div>
-					<div
-						class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="contect_form1">
-							<input type="text" name="title" placeholder="제목 무조끈 *" required="required">
+						<div class="form-group" style="padding-left: 20px; padding-right: 20px;">
+							<input type="file" class="form-control" id="uploadFile" name="uploadFile" multiple="multiple">
+							<button type="button" id="uploadBtn" class="btn btn-primary">첨부파일 등록</button>
 						</div>
-					</div>
-					<div
-						class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="contect_form2">
-							<input type="text" name="writer" placeholder="Writer"
-								value="admin" readonly="readonly">
+						<ul id="uploaded" style="list-style: none;"></ul>
+						<input type="hidden" id="noticeSeq" value="${file.noticeSeq}">
+						<div class="card-footer col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+							align="right">
+							<button id="insertBtn" type="button" class="btn btn-primary">등록</button>
+							<button type="button" class="btn btn-dark"
+								onclick="location.href='list?pageNum=${cri.pageNum}&amount=${cri.amount}'">목록</button>
 						</div>
-					</div>
-					<div
-						class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						<div class="contect_form4">
-							<textarea rows="10" name="content" placeholder="내용을 입력해주세요." required="required"></textarea>
-						</div>
-						<br>
-					</div>
-					<div class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12" align="right">
-						<button type="submit" class="btn btn-primary">등록</button>
-						<button type="reset" class="btn btn-dark">취소</button>
-						<button type="button" class="btn btn-dark"
-							onclick="location.href='list'">목록</button>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
-	0
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery-3.3.1.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/bootstrap.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/modernizr.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/select2.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.menu-aim.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery-ui.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.nice-select.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/owl.carousel.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/own-menu.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.countTo.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.inview.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.bxslider.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/resources/js/jquery.magnific-popup.js"></script>
-	<script src="${pageContext.request.contextPath}/resources/js/xpedia.js"></script>
+</div>
 
-</body>
+<script>
+	// ckeditor 유효성 검사 (작동안함ㅠ)
+	$("#insertBtn").on("click", function() {
+		check();
+	});
 
-</html>
+	function check() {
+		if (CKEDITOR.instances.content.getData() == "" || CKEDITOR.instances.content.getData().length == 0) {
+			alert("내용을 입력해주세요.");
+			CKEDITOR.instances.content.focus();
+			return false;
+		} else {
+			$("#insertForm").submit();
+		}
+	}
+
+	var noticeSeq = $('#noticeSeq').val();
+	// 첨부파일 업로드
+	$(function() {
+		var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+		var maxSize = 5242880; //5MB
+
+		// 파일 사이즈 및 종류 필터
+		function checkExtension(fileName, fileSize) {
+
+			if (fileSize >= maxSize) {
+				alert("파일 사이즈 초과");
+				return false;
+			}
+
+			if (regex.test(fileName)) {
+				alert("해당 종류의 파일은 업로드할 수 없습니다.");
+				return false;
+			}
+			return true;
+		}
+		
+		
+		// 첨부파일 등록 버튼 클릭 시 이벤트 (교재 502페이지)
+		$("#uploadBtn").on("click", function(e) {
+			e.preventDefault();
+			// alert("click");
+			var formData = new FormData();
+			var inputFile = $("input[name='uploadFile']");
+			var files = inputFile[0].files;
+			console.log(files);
+			
+			for (i = 0; i < files.length; i++) {
+				if (!checkExtension(files[i].name, files[i].size)) {
+					return;
+				}
+				formData.append("uploadFile", files[i]);
+			}
+			
+			// formData
+			$.ajax({
+				url : "${pageContext.request.contextPath}/uploadAjaxAction",
+				processData : false,
+				contentType : false,
+				data : formData,
+				method : "POST",
+				success : function(datas) {
+					console.log(datas);
+					var str = "";
+					for (i = 0; i < datas.length; i++) {
+						var obj = datas[i];
+						var fileCallPath = encodeURIComponent(obj.uploadPath + "/" + obj.name + "_" + obj.orgName);
+						var fileLink = fileCallPath.replace(new RegExp(/\\/g),"/");
+
+						str += "<li "
+          				str += "data-path='" + obj.uploadPath + "'data-name='" + obj.name + "' data-orgname='" + obj.orgName+"' data-type='" + obj.image + "' ><div>";
+						str += "<span>" + obj.orgName + "</span>&nbsp;&nbsp;";
+						str += "<button type='button' data-file=\'" + fileCallPath + "\' data-type='file'"; 
+         				str += "class='btn btn-primary btn-circle'><i class='fa fa-times'></i></button><br>";
+						// str += "<img src='../resources/img/attach.png'></a>";
+						str += "</div>";
+						str + "</li>";
+						
+						console.log(str);
+					}
+					
+					$("#uploaded").html(str);
+					alert("첨부파일이 등록되었습니다.");
+				},
+				error: function(reject){
+	            	console.error(reject);
+	            }
+			});
+		});
+		
+		//등록버튼 이벤트
+		$("#insertBtn").on("click", function() {
+			var str = "";
+			$("#uploaded li").each(function(i, obj) {
+				var jobj = $(obj);
+				str += "<input type='hidden' name='attachList[" + i + "].orgName' value='" + jobj.data("orgname") + "'>";
+				str += "<input type='hidden' name='attachList[" + i + "].name' value='" + jobj.data("name") + "'>";
+				str += "<input type='hidden' name='attachList[" + i + "].uploadPath' value='" + jobj.data("path") + "'>";
+				str += "<input type='hidden' name='attachList[" + i + "].noticeSeq' value='" + noticeSeq + "'>";
+			});
+			$("#insertForm").append(str).submit();
+		})
+
+		$("#uploaded").on("click", "button", function(e) {
+			if (confirm("이 파일을 삭제하시겠습니까?")) {
+				var targetLi = $(this).closest("li");
+				targetLi.remove();
+			}
+		})
+	});
+</script>

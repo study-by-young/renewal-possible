@@ -2,20 +2,25 @@ package com.yedam.possable.app.community.course.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.yedam.possable.app.common.criteria.domain.Criteria;
+import com.yedam.possable.app.community.course.domain.CourseBoardLikeVO;
 import com.yedam.possable.app.community.course.domain.CourseBoardVO;
+import com.yedam.possable.app.community.course.domain.CourseVO;
 import com.yedam.possable.app.community.course.mapper.CourseBoardMapper;
+import com.yedam.possable.app.community.tour.domain.TestVO;
 
 @Service
 public class CourseBoardServiceImpl implements CourseBoardService {
-	
+
 	@Autowired CourseBoardMapper courseBoardMapper;
 
 	@Override
-	public List<CourseBoardVO> getList() {
-		return courseBoardMapper.getList();
+	public List<CourseBoardVO> getList(Criteria cri) {
+		return courseBoardMapper.getList(cri);
 	}
 
 	@Override
@@ -36,6 +41,79 @@ public class CourseBoardServiceImpl implements CourseBoardService {
 	@Override
 	public int delete(CourseBoardVO vo) {
 		return courseBoardMapper.delete(vo);
+	}
+
+	@Override
+	public List<TestVO> tourList() {
+		return courseBoardMapper.tourList();
+	}
+
+	@Override
+	public int getTotalCount(Criteria cri) {
+		return courseBoardMapper.getTotalCount(cri);
+	}
+
+	@Override
+	public List<TestVO> tourList(Criteria cri) {
+		return courseBoardMapper.tourList(cri);
+	}
+
+	@Override
+	public int courseCnt(CourseBoardVO vo) {
+		return courseBoardMapper.courseCnt(vo);
+	}
+
+	@Override
+	public List<TestVO> courseSelect(CourseBoardVO vo) {
+		return courseBoardMapper.courseSelect(vo);
+	}
+
+	@Override
+	public int courseInsert(List<CourseVO> list, Long num) {
+		long cnt = 1;
+		for (CourseVO course : list) {
+			course.setCourseSeq(num);
+			course.setPlaceNo(cnt++);
+			courseBoardMapper.courseInsert(course);
+		}
+		System.out.println(list.toString());
+		return 0;
+	}
+
+	@Override
+	public boolean plusViews(CourseBoardVO vo) {
+		return courseBoardMapper.plusViews(vo);
+	}
+
+	@Override
+	public int plusLike(CourseBoardLikeVO vo) {
+		return courseBoardMapper.plusLike(vo);
+	}
+
+	@Override
+	public int minusLike(CourseBoardLikeVO vo) {
+		return courseBoardMapper.minusLike(vo);
+	}
+
+	@Override
+	public int countLike(CourseBoardVO vo) {
+		return courseBoardMapper.countLike(vo);
+	}
+
+	@Override
+	public int checkLike(CourseBoardLikeVO vo) {
+		return courseBoardMapper.checkLike(vo);
+	}
+
+	@Override
+	public List<CourseBoardVO> getWriter(String writer) {
+		return courseBoardMapper.getWriter(writer);
+	}
+
+	@Override
+	public List<CourseBoardVO> getUserCourseList(@Param("writer")String writer, @Param("cri")Criteria cri) {
+		//마이페이지 나의 여행코스 조회
+		return courseBoardMapper.getUserCourseList(writer,cri);
 	}
 
 }
