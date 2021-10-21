@@ -60,12 +60,6 @@ public interface CarMapper {
     //옵션 수정
     public int updateCarOptions(CarOptionVO vo);
 
-    // 차량 조회
-    public CarVO getCar_map(CarVO vo);
-
-    // 업체 차량 리스트 조회
-    public List<CarVO> getCompanyCarList_map(CompanyVO vo);
-
     //차량 옵션 삭제
     public int deleteOption(CarOptionVO vo);
 
@@ -76,9 +70,14 @@ public interface CarMapper {
     public int updateCarPrice(CarVO vo);
 
     //전체 데이터 건수
-    public int comTotalCount(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq);
+    public int comTotalCount(@Param("cri") Criteria cri, @Param("cmpnSeq") Long cmpnSeq);
 
     // 업체 차량 리스트 조회
-    public List<CarVO> getCompanyCriList(@Param("cri") Criteria cri, @Param("cmpnSeq")Long cmpnSeq);
+    public List<CarVO> getCompanyCriList(@Param("cri") Criteria cri, @Param("cmpnSeq") Long cmpnSeq);
+
+    // 업체 사용 가능 차량 리스트
+    List<CarVO> getCompanyAvailableCarList(Long seq);
+
+    List<CarVO> getCarByModelAndCmpnSeq(CarVO vo);
 }
 

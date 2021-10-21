@@ -36,9 +36,7 @@
 <div class="x_contact_title_main_wrapper float_left padding_tb_100">
 	<div class="container">
 		<div class="card" style="margin-top: 50px; padding: 20px;">
-			<form id="insertForm" role="form"
-				action="${pageContext.request.contextPath}/qna/insert"
-				method="post">
+			<form id="insertForm" role="form" action="${pageContext.request.contextPath}/qna/insert" method="post">
 				<div class="row">
 					<div class="col-lg-12 col-md-12">
 						<div class="card-header">
@@ -63,12 +61,13 @@
 								</div>
 								<br>
 							</div>
+							<input type="hidden" id="memSeq" name="memSeq" value="${user.seq}">
 						</div>
 						<div class="card-footer col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"
 							align="right">
 							<button id="insertBtn" type="button" class="btn btn-primary">등록</button>
-							<button type="button" class="btn btn-dark"
-								onclick="location.href='list?pageNum=${cri.pageNum}&amount=${cri.amount}'">목록</button>
+							<%-- <button type="button" class="btn btn-dark"
+								onclick="location.href='list?pageNum=${cri.pageNum}&amount=${cri.amount}'">목록</button> --%>
 						</div>
 					</div>
 				</div>

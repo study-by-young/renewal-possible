@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yedam.possable.app.community.course.mapper.CourseBoardCmtMapper">
+
+	<sql id="criteria">
+		<trim prefix="(" suffix=")" prefixOverrides="OR">
+        	<foreach collection="typeArr" item="type">
+            	<trim prefix="OR">
+            		<choose>
+				    	<when test="type == 'T'.toString()">
+				        	TITLE LIKE '%' || #{keyword} || '%'
+				        </when>
+            		</choose>
+            	</trim>
+            </foreach>
+    	</trim>
+	</sql>
+	
+	<select id="getList" resultType="CourseBoardCmtVO">
+		SELECT SEQ, CONTENT, WRITER, GEN_DATE, UPT_DATE, COURSE_SEQ 
+		FROM (
+				 SELECT 
+             /*+ INDEX_ASC(COURSE_BOARD_CMT IDX_COURSE_BOARD_CMT) */ 
+             ROWNUM RN, SEQ, CONTENT, WRITER, GEN_DATE, UPT_DATE, COURSE_SEQ 
+             FROM COURSE_BOARD_CMT
+             WHERE COURSE_SEQ = #{vo.board.seq}
+			)
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+		SELECT COUNT(*)
+		FROM COURSE_BOARD_CMT
+			<where>
+				<include refid="criteria"></include>
+			</where>
+	</select>
+	
+	<insert id="insert">
+		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
+			SELECT SEQ_COURSE_BOARD_CMT.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO COURSE_BOARD_CMT VALUES (#{seq}, #{content}, #{writer}, SYSDATE, SYSDATE, #{courseSeq})
+	</insert>
+	
+	<select id="read" resultType="CourseBoardCmtVO">
+		SELECT SEQ, CONTENT, WRITER, GEN_DATE, UPT_DATE, COURSE_SEQ FROM COURSE_BOARD_CMT WHERE SEQ = #{seq}
+	</select>
+	
+	<delete id="delete">
+		DELETE FROM COURSE_BOARD_CMT WHERE SEQ = #{seq}
+	</delete>
+
+</mapper>

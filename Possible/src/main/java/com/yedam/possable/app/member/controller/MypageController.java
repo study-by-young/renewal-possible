@@ -63,13 +63,17 @@ public class MypageController {
     public String dashboard(HttpSession session, Model model,
     					Authentication authentication,
     					CourseBoardVO courseVO, RentHistoryVO rentVO,
+    					RentReviewVO rentReviewVO,
     					@ModelAttribute("cri") Criteria cri) {
     	MemberVO memVO = memberService.getLoginMember(authentication);
+    	
     	System.out.println(memVO.getId());
     	courseVO.setWriter(memVO.getId());
-    	rentVO.setSeq(memVO.getSeq());
-    	// model.addAttribute("myCourse", courseBoardService.getMyCourse(courseVO));
-    	model.addAttribute("myCourse", courseBoardService.getList(cri));
+    	rentVO.setMemSeq(memVO.getSeq());
+    	rentReviewVO.setMemSeq(memVO.getSeq());
+    	
+    	model.addAttribute("reviewList", rentReviewService.getRentReviewListByMember(rentReviewVO.getMemSeq()));
+    	model.addAttribute("myCourse", courseBoardService.getUserCourseList(memVO.getId(),cri));
     	model.addAttribute("historyList", rentHistoryService.getRentHistoryListForMyPage(cri, rentVO.getMemSeq()));
     	return "mypage/dashboard";
     }
@@ -214,6 +218,7 @@ public class MypageController {
 
     	//rentReviewService.get
     	int total = rentHistoryService.getTotalCount();
+    	
     	model.addAttribute("reviewList", rentReviewService.getRentReviewListByMember(rVo.getMemSeq()));
     	model.addAttribute("pagination", new PageVO(cri, total));
     	model.addAttribute("historyList", rentHistoryService.getRentHistoryListForMyPage(cri, vo.getMemSeq()));
@@ -323,7 +328,8 @@ public class MypageController {
     	System.out.println(memVO.getId());
     	vo.setWriter(memVO.getId());
     	//model.addAttribute("myCourse", courseBoardService.getMyCourse(vo));
-    	model.addAttribute("myCourse", courseBoardService.getList(cri));
+    	//model.addAttribute("myCourse", courseBoardService.getList(cri));
+    	model.addAttribute("myCourse", courseBoardService.getUserCourseList(memVO.getId(),cri));
         return "mypage/community";
     }
 
@@ -364,6 +370,7 @@ public class MypageController {
 
     	System.out.println(memVO.getSeq());
     	model.addAttribute("myQna",qnaService.getMyQna(memVO.getSeq()));
+    	System.out.println("-----------" + qnaService.getMyQna(memVO.getSeq()));
         return "mypage/qna";
     }
 

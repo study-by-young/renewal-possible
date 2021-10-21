@@ -51,11 +51,7 @@
 										class="text-muted">${list.zipCode }</a></li>
 								</ul>
 
-								<p class="mb-3">It prepare is ye nothing blushes up brought.
-									Or as gravity pasture limited evening on. Wicket around beauty
-									say she. Frankness resembled say not new smallness you
-									discovery. Noisier ferrars yet shyness weather ten colonel. Too
-									him himself engaged husband pursuit musical...</p>
+								<p class="mb-3" id="overview"></p>
 							</div>
 						</div>
 					</div>
@@ -76,4 +72,20 @@
 		$('[name="pageNum"]').val(p);
 		actionForm.submit();
 	});
+	
+	var list = ${list };
+	$(document).ready(function() {
+		for(var i=0;i<list.length;i++) {
+			$.ajax({
+				type : 'get',
+				url : 'http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=%2Bxd0HNP4Gd4KAuGtJitYZzafrxzKZ40VMcf3uX%2BQ7AfWFbNEvS2jj43sWtAeAlQPnB65kOz6PjhVjsUPnvkKtw%3D%3D&contentId='+${list.contentId }[i]+'&defaultYN=N&addrinfoYN=N&overviewYN=Y&MobileOS=ETC&MobileApp=AppTest',
+				dataType : 'json',
+				contentType : 'application/json; charset=utf-8',
+				success : function(data) {
+					$("#overview").html(data.overview)
+				}
+			})
+		}
+	});
+	
 </script>

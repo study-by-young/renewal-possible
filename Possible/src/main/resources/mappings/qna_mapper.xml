@@ -75,11 +75,13 @@
 		INSERT INTO QNA ( SEQ
 						, TITLE
 						, CONTENT
-						, WRITER)
+						, WRITER
+						, MEM_SEQ)
 		VALUES ( #{seq}
 			   , #{title}
 			   , #{content}
-			   , #{writer})
+			   , #{writer}
+			   , #{memSeq})
 	</insert>
 
 	<update id="update">
@@ -109,6 +111,7 @@
 	select seq, content, writer, status, gen_date, upt_date, title, answer_cnt, mem_seq 
 	from qna
 	where mem_seq = #{memSeq}
+	order by seq desc
 	</select>
 		
 </mapper>

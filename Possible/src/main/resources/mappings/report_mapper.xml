@@ -35,7 +35,7 @@
 	<select id="getReportList" resultType="ReportVO">
 		SELECT * FROM (
 		SELECT /*+ INDEX_DESC(REPORT_BOARD IDX_REPORT_BOARD) */
-		ROWNUM RN, SEQ, TARGET, WRITER, REASON, GEN_DATE
+		ROWNUM RN, SEQ, TARGET, WRITER, REASON, GEN_DATE, REPORTER
 		FROM REPORT_BOARD
 		<where>
 			<include refid="criteria"></include>
@@ -48,13 +48,12 @@
 	
 	<!-- 신고글 한건 -->
 	<select id="getReport" resultType="ReportVO">
-		SELECT SEQ,
-				TARGET,
-				WRITER,
-				REASON,
-				GEN_DATE
-		FROM REPORT_BOARD
-		WHERE SEQ = #{seq}
+		SELECT r.SEQ,r.TARGET,r.WRITER,
+				r.REASON,
+				r.GEN_DATE,
+				r.REPORTER,
+                m.seq memSeq
+		FROM REPORT_BOARD r join member m on r.writer = m.id where r.seq = #{seq}
 	</select>
 	
 	<insert id="insert">

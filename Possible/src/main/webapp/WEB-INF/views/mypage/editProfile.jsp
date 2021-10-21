@@ -37,7 +37,7 @@
             <div class="container py-2">
                 <div class="page-header-content header-elements-inline">
                     <div class="page-title">
-                        <h1 class="font-weight-bold">회원 정보 수정</h1>
+                        <h1 class="font-weight-bold">마이페이지</h1>
                     </div>
                 </div>
             </div>
@@ -141,10 +141,10 @@
                         <div class="col-md-12">
                             <div class="lr_bc_first_box_main_wrapper">
                                 <!-- 회원정보수정 -->
-                                <div class="blog_single_comment_heading">
-                                    <h4><a href="${pageContext.request.contextPath}/editInfo">회원정보수정</a></h4>
-                                </div>
                                 <div class="card ChangeRole">
+	                                <div class="blog_single_comment_heading">
+	                                    <h4 style="margin-bottom: 50px; font-weight: 600;">회원정보 수정</h4>
+	                                </div>
                                     <div class="card-body">
                                         <form id="memberInfofrm" name="memberInfofrm" method="post">
                                             <div class="row">

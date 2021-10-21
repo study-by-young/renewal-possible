@@ -44,7 +44,7 @@
 					</div>
 				</div>
 			</div>
-
+			
 		 <form id="actionForm" action="rent" method="get">
 		 	<div class="col-sm-12" style="padding-left: 2.5rem">
 				<div class="d-flex">
@@ -63,6 +63,23 @@
 				</div>
 			</div> 
 			</form>
+			
+			<div class="col-sm-12" style="padding-right: 2.5rem">
+					<div align="right">
+						<form id="actionForm" action="rent" method="get">
+								<label><input type="checkbox" name="type" value="A" ${pageMaker.cri.type =='A'? 'checked' : "" } >&nbsp;대기</label>
+								<label><input type="checkbox" name="type"  value="B" ${pageMaker.cri.type =='B'? 'checked' : "" }>&nbsp;진행</label>
+								<label><input type="checkbox" name="type" value="C" ${pageMaker.cri.type =='C'? 'checked' : "" } >&nbsp;완료</label>
+								<label><input type="checkbox" name="type"  value="D" ${pageMaker.cri.type =='D'? 'checked' : "" }>&nbsp;취소</label>
+								<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
+								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
+								<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+								<input type="hidden" name="cmpnSeq" value="${cmpnSeq }">
+							<button class="btn alpha-pink border-pink-400 text-pink-800 btn-icon rounded-round ml-2" onclick="$('[name=pageNum]').val(1)"><i class="icon-search4"></i></button>
+						</form>
+					</div>
+				</div>
+				
 			<br>
 			<hr style="margin: 0px">
 			<div class="card-body" style="padding: 0px">
@@ -81,17 +98,19 @@
 						</thead>
 						<tbody>
 							<c:forEach var="rentHistoryList" items="${rentHistoryList }">
+								<c:set var="rent" value="${rentHistoryList.get('rentHistoryVO')}" />
+								
 										<input type="hidden" class="form-control" name='carSeq' value="${rentHistoryList.carSeq}">
 										<input type="hidden" class="form-control" name='memSeq' value="${rentHistoryList.memSeq}">
 										<tr>
-											<td>${rentHistoryList.seq }</td>
-											<td>${rentHistoryList.rentType }</td>
-											<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${rentHistoryList.startDate }"/></td>
-											<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${rentHistoryList.endDate }"/></td>
-											<td>${rentHistoryList.receiver }</td>
-											<td>${rentHistoryList.status }</td>
-											<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${rentHistoryList.uptDate }"/></td>
-											<td><a class="move" href="${rentHistoryList.seq }">상세보기</a></td>
+											<td>${rent.seq }</td>
+											<td>${rent.rentType }</td>
+											<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${rent.startDate }"/></td>
+											<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${rent.endDate }"/></td>
+											<td>${rent.receiver }</td>
+											<td>${rentHistoryList.get('status') }</td>
+											<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${rent.uptDate }"/></td>
+											<td><a class="move" href="${rent.seq }">상세보기</a></td>
 										</tr>
 									</c:forEach>
 						</tbody>

@@ -1,5 +1,6 @@
 package com.yedam.possable.app.company.domain;
 
+import com.yedam.possable.app.common.code.domain.CodeSubVO;
 import com.yedam.possable.app.member.domain.MemberVO;
 import lombok.Data;
 
@@ -18,8 +19,10 @@ public class CompanyVO {
     private String status;
     private Date genDate;
     private Date uptDate;
-
-    private MemberVO memberVO;
     private Long memSeq;
+
+    private CodeSubVO areaCodeVO;
+    private CodeSubVO statusCodeVO;
+    private MemberVO memberVO;
 }
 

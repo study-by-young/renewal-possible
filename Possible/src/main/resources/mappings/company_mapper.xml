@@ -13,6 +13,17 @@
         <result property="addr1" column="addr1"/>
         <result property="addr2" column="addr2"/>
         <result property="area" column="area"/>
+        <result property="memSeq" column="mem_seq"/>
+    </resultMap>
+    <resultMap id="companyAllData" type="CompanyVO" extends="company">
+        <association property="areaCodeVO"
+                     column="area"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        <association property="statusCodeVO"
+                     column="status"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
         <association property="memberVO"
                      column="mem_seq"
                      columnPrefix="mem_"
@@ -21,26 +32,26 @@
     </resultMap>
     <sql id="criteria">
         <trim  prefixOverrides="and">
-                    <choose>
-                        <when test="type == 'N'.toString()">
-                            NAME LIKE '%' || #{keyword} || '%'
-                        </when>
-                        <when test="type == 'A'.toString()">
-                            AREA LIKE '%' || #{keyword} || '%'
-                        </when>
-                        <when test="type == 'C'.toString()">
-                            CMPN_NUM LIKE '%' || #{keyword} || '%'
-                        </when>
-                        <when test="type == 'T'.toString()">
-                            TEL LIKE '%' || #{keyword} || '%'
-                        </when>
-                        <when test="type == 'S'.toString()">
-                            STATUS LIKE '%' || #{keyword} || '%'
-                        </when>
-                    </choose>
+            <choose>
+                <when test="type == 'N'.toString()">
+                    NAME LIKE '%' || #{keyword} || '%'
+                </when>
+                <when test="type == 'A'.toString()">
+                    AREA LIKE '%' || #{keyword} || '%'
+                </when>
+                <when test="type == 'C'.toString()">
+                    CMPN_NUM LIKE '%' || #{keyword} || '%'
+                </when>
+                <when test="type == 'T'.toString()">
+                    TEL LIKE '%' || #{keyword} || '%'
+                </when>
+                <when test="type == 'S'.toString()">
+                    STATUS LIKE '%' || #{keyword} || '%'
+                </when>
+            </choose>
         </trim>
     </sql>
-    
+
      <sql id="checkCriteria">
         <trim prefix="(" suffix=")" prefixOverrides="OR">
             <foreach collection="typeArr" item="type">
@@ -123,7 +134,7 @@
     <!-- 업체 승인 리스트 -->
     <select id="companyList" resultType="CompanyVO">
      SELECT SEQ, NAME, POSTAL, CMPN_NUM, ADDR1, ADDR2, AREA, TEL, STATUS
-	FROM 
+	FROM
         (SELECT
         /*+ INDEX_DESC(COMPANY IDX_COMPANY) */
         ROWNUM RN, SEQ,

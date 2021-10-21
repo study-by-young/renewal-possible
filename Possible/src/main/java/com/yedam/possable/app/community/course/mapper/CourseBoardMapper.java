@@ -2,6 +2,8 @@ package com.yedam.possable.app.community.course.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.community.course.domain.CourseBoardLikeVO;
 import com.yedam.possable.app.community.course.domain.CourseBoardVO;
@@ -15,6 +17,9 @@ public interface CourseBoardMapper {
 	public CourseBoardVO read(CourseBoardVO vo);
 	
 	public List<CourseBoardVO> getWriter(String writer);
+	
+	//마이페이지 나의 여행코스 조회
+	public List<CourseBoardVO> getUserCourseList(@Param("writer")String writer,@Param("cri")Criteria cri);
 	
 	public int insert(CourseBoardVO vo);
 

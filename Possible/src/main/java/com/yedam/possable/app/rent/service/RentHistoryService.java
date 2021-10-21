@@ -2,11 +2,11 @@ package com.yedam.possable.app.rent.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.yedam.possable.app.common.criteria.domain.Criteria;
-import com.yedam.possable.app.rent.domain.CompEstiListJoinVO;
 import com.yedam.possable.app.rent.domain.RentHistoryVO;
 
 public interface RentHistoryService {
@@ -30,7 +30,7 @@ public interface RentHistoryService {
     public int getTotalCount(Criteria cri, Long cmpnSeq);
 
  	//수익
- 	public HashMap<String, Object> getLatestCompanySales(Long cmpnSeq);
+ 	public List<Map<String, Object>> getLatestCompanySales(Long cmpnSeq);
 
  	//투데이 렌트카 리스트
  	public List<RentHistoryVO> getCompanyTodayCar(Long cmpnSeq);
