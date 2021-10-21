@@ -100,13 +100,10 @@
 												<select name="year" id="year" class="form-control select-fixed-single" required>
 															<optgroup label="연식">
 																<option value="">연식을 선택하세요</option>
-																	<option value="2022">2022년</option>
 																	<option value="2021">2021년</option>
 																	<option value="2020">2020년</option>
 																	<option value="2019">2019년</option>
 																	<option value="2018">2018년</option>
-																	<option value="2017">2017년</option>
-																	<option value="2016">2016년</option>
 															</optgroup>
 													</select>
 												</label></h5>
@@ -162,9 +159,13 @@ COL02																<option value="COL01">화이트</option>
 												<select name="trunk" id="trunk" class="form-control select-fixed-single" required>
 															<optgroup label="트렁크">
 																<option value="">트렁크를 선택하세요</option>
-																	<option value="500">500</option>
-																	<option value="300">300</option>
-															</optgroup>
+																	<option value="7">7</option>
+																	<option value="6">6</option>
+																	<option value="5">5</option>
+																	<option value="4">4</option>
+																	<option value="3">3</option>
+																	<option value="2">2</option>
+														</optgroup>
 													</select>
 												</label></h5>
 											</li>

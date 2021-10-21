@@ -187,6 +187,8 @@ public class CompanyController {
        String segment = codeService.getCodeByValue(vo.getSegment()).getName();
        String trim = codeService.getTrim(vo.getTrim()).getName();
        String fuel = codeService.getCodeByValue(vo.getFuel()).getName();
+       String color = codeService.getCodeByValue(vo.getColor()).getName();
+       String mission = codeService.getCodeByValue(vo.getMission()).getName();
 
        String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
 
@@ -196,6 +198,8 @@ public class CompanyController {
        model.addAttribute("segment", segment);
        model.addAttribute("trim", trim);
        model.addAttribute("fuel", fuel);
+       model.addAttribute("color", color);
+       model.addAttribute("mission", mission);
 
        model.addAttribute("carOpt", carService.getCarOptions(vo));
 
