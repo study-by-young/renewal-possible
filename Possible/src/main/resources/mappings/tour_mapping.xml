@@ -32,6 +32,9 @@
 				    	<when test="type == 'T'.toString()">
 				        	TITLE LIKE '%' || #{keyword} || '%'
 				        </when>
+				        <when test="type == 'A'.toString()">
+				        	ADDR1 LIKE '%' || #{keyword} || '%'
+				        </when>
             		</choose>
             	</trim>
             </foreach>
@@ -42,7 +45,7 @@
 		SELECT DISTINCT ADDR1, AREACODE, CAT1, CAT2, CAT3, CONTENTID, CONTENTTYPEID, CREATEDTIME, FIRSTIMAGE, FIRSTIMAGE2, MAPX, MAPY, MLEVEL, MODIFIEDTIME, READCOUNT, SIGUNGUCODE, TITLE, ZIPCODE
 		FROM (
 				 SELECT 
-             /*+ INDEX_ASC(TOUR IDX_TOUR) */ 
+             /*+ INDEX_ASC(TOUR IDX_TOUR_BOARD) */ 
              ROWNUM RN, ADDR1, AREACODE, CAT1, CAT2, CAT3, CONTENTID, CONTENTTYPEID, CREATEDTIME, FIRSTIMAGE, FIRSTIMAGE2, MAPX, MAPY, MLEVEL, MODIFIEDTIME, READCOUNT, SIGUNGUCODE, TITLE, ZIPCODE
              FROM TOUR
              <where> 
