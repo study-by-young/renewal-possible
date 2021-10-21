@@ -117,13 +117,13 @@
 												<select name="color" id="color" class="form-control select-fixed-single" required>
 															<optgroup label="색깔">
 																<option value="">색깔을 선택하세요</option>
-																	<option value="검은색">검은색</option>
-																	<option value="흰색">흰색</option>
-																	<option value="은색">은색</option>
-																	<option value="청색">청색</option>
-																	<option value="자주">자주</option>
-																	<option value="회색">회색</option>
-																	<option value="적색">적색</option>
+COL02																<option value="COL01">화이트</option>
+																	<option value="COL02">실버</option>
+																	<option value="COL03">블랙</option>
+																	<option value="COL04">블루</option>
+																	<option value="COL05">레드</option>
+																	<option value="COL06">옐로우</option>
+																	<option value="COL07">그린</option>
 															</optgroup>
 													</select>
 												</label></h5>
@@ -150,8 +150,8 @@
 												<select name="mission" id="mission" class="form-control select-fixed-single" required>
 															<optgroup label="기어">
 																<option value="">기어를 선택하세요</option>
-																	<option value="자동">자동</option>
-																	<option value="수동">수동</option>
+																	<option value="MSS01">자동</option>
+																	<option value="MSS02">수동</option>
 															</optgroup>
 													</select>
 												</label></h5>
@@ -252,7 +252,7 @@
                     		.text(item['segCode']);
                     
                     model.children('optgroup').append(opt);
-                    model.childern('optgroup').append(seg);
+                    model.children('optgroup').append(seg);
                     
                 });
 

@@ -37,7 +37,7 @@
                     NAME LIKE '%' || #{keyword} || '%'
                 </when>
                 <when test="type == 'A'.toString()">
-                    AREA LIKE '%' || #{keyword} || '%'
+                    ADDR1 LIKE '%' || #{keyword} || '%'
                 </when>
                 <when test="type == 'C'.toString()">
                     CMPN_NUM LIKE '%' || #{keyword} || '%'

@@ -49,7 +49,7 @@
 		 	<div class="col-sm-12" style="padding-left: 2.5rem">
 				<div class="d-flex">
 					<div align="left">
-						<select name="type" class="select">
+						<select name="type" class="select" style="cursor:pointer">
 							<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
 							<option value="R" ${pageMaker.cri.type =='R'? 'selected' : "" }>수령자</option>
 						</select> 
@@ -67,10 +67,10 @@
 			<div class="col-sm-12" style="padding-right: 2.5rem">
 					<div align="right">
 						<form id="actionForm" action="rent" method="get">
-								<label><input type="checkbox" name="type" value="A" ${pageMaker.cri.type =='A'? 'checked' : "" } >&nbsp;대기</label>
-								<label><input type="checkbox" name="type"  value="B" ${pageMaker.cri.type =='B'? 'checked' : "" }>&nbsp;진행</label>
-								<label><input type="checkbox" name="type" value="C" ${pageMaker.cri.type =='C'? 'checked' : "" } >&nbsp;완료</label>
-								<label><input type="checkbox" name="type"  value="D" ${pageMaker.cri.type =='D'? 'checked' : "" }>&nbsp;취소</label>
+								<label style="cursor:pointer"><input type="checkbox" name="type" value="A" ${pageMaker.cri.type =='A'? 'checked' : "" } >&nbsp;대기</label>
+								<label style="cursor:pointer"><input type="checkbox" name="type"  value="B" ${pageMaker.cri.type =='B'? 'checked' : "" }>&nbsp;진행</label>
+								<label style="cursor:pointer"><input type="checkbox" name="type" value="C" ${pageMaker.cri.type =='C'? 'checked' : "" } >&nbsp;완료</label>
+								<label style="cursor:pointer"><input type="checkbox" name="type"  value="D" ${pageMaker.cri.type =='D'? 'checked' : "" }>&nbsp;취소</label>
 								<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
 								<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
@@ -93,7 +93,7 @@
 								<th>종료날짜</th>
 								<th>수령자</th>
 								<th>상태</th>
-								<th>갱신날짜</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -108,8 +108,20 @@
 											<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${rent.startDate }"/></td>
 											<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${rent.endDate }"/></td>
 											<td>${rent.receiver }</td>
-											<td>${rentHistoryList.get('status') }</td>
-											<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${rent.uptDate }"/></td>
+												<c:choose>
+													<c:when test="${rentHistoryList.get('status') eq '대기'}">
+														<td>${rentHistoryList.get('status')}</td>
+													</c:when>
+													<c:when test="${rentHistoryList.get('status') eq '진행'}">
+														<td style="color: blue">${rentHistoryList.get('status')}</td>
+													</c:when>
+													<c:when test="${rentHistoryList.get('status') eq '완료'}">
+														<td style="color: green">${rentHistoryList.get('status')}</td>
+													</c:when>
+													<c:otherwise>
+														<td style="color: red">${rentHistoryList.get('status')}</td>
+													</c:otherwise>
+												</c:choose>
 											<td><a class="move" href="${rent.seq }">상세보기</a></td>
 										</tr>
 									</c:forEach>

@@ -57,7 +57,7 @@ public class AdminController {
     @GetMapping("/maintenance/member")
     public String memberList(Model model,
                              @ModelAttribute("cri") Criteria cri) {
-    	
+
         int total = memberService.getTotalCount(cri);
         model.addAttribute("pageMaker", new PageVO(cri, total));
         model.addAttribute("memberList", memberService.memberList(cri));
@@ -108,9 +108,9 @@ public class AdminController {
     @GetMapping("/maintenance/company/view")
     public String nonConfirmCompanyView(Model model,
                                         CompanyVO vo){
-    	    	
+
     	vo = companyService.companyOneSelect(vo);
-   
+
         String status = codeService.getCodeByValue(vo.getStatus()).getName();
 
         model.addAttribute("comRegList", vo);
@@ -153,7 +153,7 @@ public class AdminController {
                                      @ModelAttribute("cri") Criteria cri){
         List<Map<String, Object>> companyList = new LinkedList<>();
         List<CompanyVO> voList = companyService.companyList(cri);
-        
+
         for(CompanyVO vo : voList) {
             Map<String, Object> voMap = new HashMap<>();
             String status = codeService.getCodeByValue(vo.getStatus()).getName();
@@ -161,7 +161,7 @@ public class AdminController {
             voMap.put("status", status);
             companyList.add(voMap);
         }
-        
+
         int total = companyService.getTotalCount(cri);
         model.addAttribute("pageMaker", new PageVO(cri, total));
         model.addAttribute("companyList",companyList);
@@ -174,9 +174,9 @@ public class AdminController {
     // 승인 업체 상세
     @GetMapping("/maintenance/confirmCompany/view")
     public String confirmCompanyView(Model model,CompanyVO vo){
-    	
+
     	vo = companyService.companyOneSelect(vo);
-    	   
+
         String status = codeService.getCodeByValue(vo.getStatus()).getName();
 
         model.addAttribute("comRegList", vo);
@@ -194,7 +194,7 @@ public class AdminController {
           }
         return "redirect:/admin/maintenance/confirmCompany";
     }
-    
+
     // 승인 업체 다시 승인 처리
     @PostMapping("/maintenance/confirmCompany/update")
     public String updateCompany(CompanyVO vo,
@@ -213,7 +213,7 @@ public class AdminController {
         return "redirect:/admin/maintenance/confirmCompany";
     }
 
-  
+
 
     // 신고 리스트
     @GetMapping("/maintenance/report")
@@ -237,7 +237,7 @@ public class AdminController {
 
         return "admin/maintenance/reportView";
     }
-    
+
     //신고 게시글작성자 정보 불러우기
     @GetMapping("getInfo")
     @ResponseBody

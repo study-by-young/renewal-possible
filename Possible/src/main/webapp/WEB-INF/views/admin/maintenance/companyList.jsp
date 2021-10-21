@@ -57,7 +57,6 @@
 					<th>업체명</th>
 					<th>사업자번호</th>
 					<th>사업자주소</th>
-					<th>대표번호</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -67,8 +66,7 @@
 					<td>${comRegList.seq }</td>
 					<td>${comRegList.name}</td>
 					<td>${comRegList.cmpnNum }</td>
-					<td>${comRegList.addr1 } ${comRegList.addr2 } ${comRegList.area }</td>
-					<td>${comRegList.tel }</td>
+					<td>${comRegList.addr1 }&nbsp;${comRegList.addr2 }</td>
 					<td>
 					 <a class="move" href="${comRegList.seq }">상세보기</a>
 

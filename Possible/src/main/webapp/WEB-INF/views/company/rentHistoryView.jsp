@@ -102,7 +102,7 @@
 										
 										<div class="form-group">
 											<h5 class="font-weight-bold"><label>상태</label></h5>
-											<input type="text" class="form-control" name='status' value='<c:out value="${rentHistory.status}"/>' readonly="readonly">
+											<input type="text" class="form-control" name='status' value='<c:out value="${status}"/>' readonly="readonly">
 										</div>
 										<div class="row">
 									 <div class="col-md-6">
@@ -118,34 +118,23 @@
 										</div>
 										</div>
 										</div>
-										<div class="form-group">
-											<h5 class="font-weight-bold"><label>takePlaceCode</label></h5>
-											<input type="text" class="form-control" name='takePlaceCode' value='<c:out value="${rentHistory.takePlaceCode}"/>' readonly="readonly">
-										</div>
 										
 										<div class="form-group">
-											<h5 class="font-weight-bold"><label>takePlaceBasic</label></h5>
+											<h5 class="font-weight-bold"><label>장소</label></h5>
 											<input type="text" class="form-control" name='takePlaceCode' value='<c:out value="${rentHistory.takePlaceBasic}"/>' readonly="readonly">
 										</div>
 										
 										<div class="form-group">
-											<h5 class="font-weight-bold"><label>takePlaceDetail</label></h5>
-											<input type="text" class="form-control" name='takePlaceDetail' value='<c:out value="${rentHistory.takePlaceDetail}"/>' readonly="readonly">
-										</div>
-										
-										<div class="form-group">
-											<h5 class="font-weight-bold"><label>merchantUid</label></h5>
-											<input type="text" class="form-control" name='merchantUid' value='<c:out value="${rentHistory.merchantUid}"/>' readonly="readonly">
-										</div>
-										
-										<div class="form-group">
-											<h5 class="font-weight-bold"><label>payMethod</label></h5>
+											<h5 class="font-weight-bold"><label>결제방법</label></h5>
 											<input type="text" class="form-control" name='payMethod' value='<c:out value="${rentHistory.payMethod}"/>' readonly="readonly">
 										</div>
 								</div>
 								</div>
 						
 						<br>
+						<div class="text-right">
+                          <a class="btn btn-primary" id="list_btn" style="margin-bottom:20px" href="${pageContext.request.contextPath}/company/rent?cmpnSeq=${cmpnSeq}">목록</a>
+                     </div>
 								</div>
 							</div>
 						</div>

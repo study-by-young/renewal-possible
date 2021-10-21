@@ -17,6 +17,9 @@ public interface PremiumRentMapper {
     // 견적 요청서  단건 조회
     public EstimateHistoryVO getEstimate(Long seq);
 
+    // 견적 작성 확인
+    public boolean isRegistered(Long seq);
+
     // 견적 요청서  작성
     public int insertEstimate(EstimateHistoryVO vo);
 
@@ -52,10 +55,10 @@ public interface PremiumRentMapper {
 
     // 업체 확인용 견적서 상세 리스트
     public List<CompEstiListJoinVO> compEstiSubmitList(Long seq);
-    
+
     // 회원 마이페이지 최근 한건 데이터 조회
     public EstimateHistoryVO getEstimateListInMyPage(Long seq);
-    
+
     // 업체 확인용 견적서 단건 조회
     public CompEstiListJoinVO compEstiSubmitOneSelect(Long seq);
 
