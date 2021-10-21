@@ -106,7 +106,7 @@
 					</div>
 					<div class="card-body">
                         <form id="payFrm" name="payFrm" class="billing-form">
-                            <input type="hidden" name="rentType" value="일반렌트">
+                            <input type="hidden" name="rentType" value="RTP01">
                             <input type="hidden" name="start" value="<fmt:formatDate value="${startDate}" pattern="yy/MM/dd" />">
                             <input type="hidden" name="end" value="<fmt:formatDate value="${endDate}" pattern="yy/MM/dd" />">
                             <input type="hidden" name="price" value="${(car.price + insurance.price) * during}">
@@ -116,6 +116,7 @@
                             <input type="hidden" name="car" value="${car.seq}">
                             <input type="hidden" name="user" value="${user.seq}">
                             <input type="hidden" name="cmpn" value="${car.companyVO.seq}">
+                            <input type="hidden" name="insuranceCode" value="${insurance.optCode}">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="card rounded-lg border-primary-300 border-1">
@@ -133,7 +134,7 @@
                                             </div>
                                             <div class="form-group position-relative">
                                                 <label>생년월일 <span class="text-danger">*</span></label>
-                                                <input type="text" name="birth" class="form-control pickadate-format" value="<fmt:formatDate value="${user.birth}" pattern="yyyy/MM/dd"/>">
+                                                <input type="text" name="birth" class="form-control pickadate-format" value="<fmt:formatDate value="${user.birth}" pattern="yyyy-MM-dd"/>">
                                             </div>
                                             <div class="form-group">
                                                 <label>이메일 <span class="text-danger">*</span></label>
@@ -354,9 +355,9 @@
 </div>
 
 <script>
-	$(function(){
+/* 	$(function(){
 		initPickadate();
-	})
+	}) */
 
 	function initPickadate(){
 		let startPicker = $("[name='birth']").pickadate('picker');
@@ -383,18 +384,21 @@
 			let merchantUid = 'm_' + Math.floor(Math.random() * 10000000000) + 1; /* 주문번호 */
 			let payMethod = $('input[name="pay"]:checked').val(); /* 결제방법 */
 
+			let carSeq = payFrm.car.value;
+			let memSeq = payFrm.user.value;
             let rentType = payFrm.rentType.value;
 			let startDate = payFrm.start.value;
 			let endDate = payFrm.end.value;
 			let receiver = payFrm.receiver.value;
-			let price = 100;// payFrm.price.value;
-			let email = payFrm.email.value;
-			// let estimate = $('#estimate').val();
 			let takePlaceCode = payFrm.cmpn_postal.value;
-			let takePlaceBasic = payFrm.cmpn_addr1.value;
+			let price = 100;// payFrm.price.value;
+			// let estimate = $('#estimate').val();
 			let takePlaceDetail = payFrm.cmpn_addr2.value;
-			let carSeq = payFrm.car.value;
-			let memSeq = payFrm.user.value;
+			let takePlaceBasic = payFrm.cmpn_addr1.value;
+			let phone = payFrm.phone.value;
+			let birth = payFrm.birth.value;
+			let email = payFrm.email.value;
+			let insuranceCode = payFrm.insuranceCode.value;
 			let cmpnSeq = payFrm.cmpn.value;
 
 			IMP.request_pay({
@@ -419,19 +423,23 @@
 						dataType: 'text',
 						contentType: 'application/json',
 						data: JSON.stringify({
+								carSeq : carSeq,
+								memSeq : memSeq,
 								rentType : rentType,
 								startDate : startDate,
 								endDate : endDate,
 								receiver : receiver,
+								takePlaceCode : takePlaceCode,
 								price : price,
 								status : 'RST01',
-								takePlaceCode : takePlaceCode,
-								takePlaceBasic : takePlaceBasic,
 								takePlaceDetail : takePlaceDetail,
+								takePlaceBasic : takePlaceBasic,
 								merchantUid : merchantUid,
 								payMethod : payMethod,
-								carSeq : carSeq,
-								memSeq : memSeq,
+								phone : phone,
+								birth : birth,
+								email : email,
+								insuranceCode : insuranceCode,
                                 cmpnSeq : cmpnSeq
 						}),
 						success: function(result) {
