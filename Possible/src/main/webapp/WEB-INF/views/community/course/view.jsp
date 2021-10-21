@@ -765,9 +765,11 @@ translateY
 							<c:if test="${loginUserId eq board.writer}">
 								<li><a href="javascript:void(0);" onclick="boardDelete();">삭제</a></li>
 							</c:if>
+						<c:if test="${loginUserId ne board.writer}">
+							<li><button type="button" id="reportBtn"
+									class="btn btn-danger">신고</button></li>
+						</c:if>
 						</sec:authorize>
-						<li><button type="button" id="reportBtn"
-								class="btn btn-danger">신고</button></li>
 						<li><span style="float: right;"><a href="../course">목록</a></span></li>
 					</ul>
 				</div>
@@ -914,8 +916,7 @@ translateY
 	  	};
 	}
 	
-	var user = $("#memSeq").val();
-	console.log(user);
+	console.log(${board.seq });
 	$(function() {
 		$("#heart").on("click", function() {
 			if ($("#heart").attr("class") == "far fa-heart"){ // 빈 하트 일 시
@@ -1011,14 +1012,15 @@ translateY
 					data : JSON.stringify({
 						target : $("#seq").val(),
 						writer : $("#writer").text(),
-						reason : $('.form-check-input:checked').val(),
-						reporter : $("#memId").val()
+						reason : $('.form-check-input:checked').val()
 					}),
 					dataType : 'text',
 					contentType : 'application/json; charset=utf-8',
 					success : function(data) {
-						alert('신고가 접수되었습니다.');
-						location.href = "../course";
+						if (data == 1) {
+							alert('신고가 접수되었습니다.');
+							location.href = "../course";
+						}
 					}
 				})
 			} else {

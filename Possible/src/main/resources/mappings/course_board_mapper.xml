@@ -155,7 +155,7 @@
 		<selectKey keyProperty="seq" resultType="long" order="BEFORE">
 			SELECT SEQ_COURSE_BOARD_LIKE.NEXTVAL FROM DUAL
 		</selectKey>
-		INSERT INTO COURSE_BOARD_LIKE VALUES(#{seq}, #{boardSeq}, #{memberSeq})
+		INSERT INTO COURSE_BOARD_LIKE VALUES(#{seq}, #{memberSeq}, #{boardSeq})
 	</insert>
 	
 	<delete id="minusLike">
