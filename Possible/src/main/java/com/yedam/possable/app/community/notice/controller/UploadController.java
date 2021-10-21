@@ -20,13 +20,16 @@ import com.yedam.possable.app.community.notice.service.NoticeService;
 public class UploadController {
 	
 	@Autowired NoticeService noticeService;
+	//@Value("#{global['path']}")
+	String path;
 	
 	@PostMapping("/uploadAjaxAction")
 	@ResponseBody
 	public List<NoticeFileVO> uploadAjaxAction(MultipartFile[] uploadFile, NoticeVO vo) throws IllegalStateException, IOException {
 		System.out.println(vo);
 		List<NoticeFileVO> list = new ArrayList<NoticeFileVO>();
-		String path = "c:/upload";
+		
+		path = "c:/upload";
 		for (int i = 0; i < uploadFile.length; i++) {
 			System.out.println("=======================================" + uploadFile.length);
 			MultipartFile ufile = uploadFile[i];

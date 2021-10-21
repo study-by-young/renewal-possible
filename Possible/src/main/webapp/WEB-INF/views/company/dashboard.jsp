@@ -45,7 +45,7 @@
 		<!-- 렌트 내역 (오늘 나가는 거 5개) -->
 		<div class="card">
 			<div class="card-header header-elements-inline">
-				<h5 class="card-title"><a href="${pageContext.request.contextPath}/company/dashboard">오늘 출발하는 렌트카(5개)</a></h5>
+				<h5 class="card-title"><a href="${pageContext.request.contextPath}/company/dashboard">오늘 출발하는 렌트카</a>&nbsp;<span class="badge badge-primary badge-pill">5</span></h5>
 				<div class="header-elements">
 					<div class="list-icons">
 						<a class="list-icons-item" data-action="collapse"></a> <a
@@ -60,8 +60,8 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th width="100">타입</th>
-								<th width="200" style="text-align:center">예약자</th>
+								<th>타입</th>
+								<th style="text-align:center">예약자</th>
 								<th>전화번호</th>
 								<th>출발일자</th>
 								<th>도착일자</th>
@@ -71,8 +71,8 @@
 						<tbody>
 							<c:forEach var="todayList" end="4" items="${todayList }">
 								<tr>
-									<td width="100">${todayList.rentType}</td>
-									<td width="200" style="text-align:center">${todayList.receiver }</td>
+									<td>${todayList.rentType}</td>
+									<td style="text-align:center">${todayList.receiver }</td>
 									<td>${todayList.phone }</td>
 									<td><fmt:formatDate pattern="yyyy/MM/dd"
 											value="${todayList.startDate }" /></td>
@@ -90,7 +90,7 @@
 		<!-- 후기 -->
 		<div class="card">
 			<div class="card-header header-elements-inline">
-				<h5 class="card-title"><a href="${pageContext.request.contextPath}/company/dashboard">후기(5개)</a></h5>
+				<h5 class="card-title"><a href="${pageContext.request.contextPath}/company/dashboard">후기</a>&nbsp;<span class="badge badge-primary badge-pill">5</span></h5>
 				<div class="header-elements">
 					<div class="list-icons ml-3">
 						<div class="list-icons-item dropdown">
@@ -153,12 +153,12 @@
 
 		{
 			label : "일별수익",
-			fillColor : "rgba(220,220,220,0.5)",
-			strokeColor : "rgba(220,220,220,1)",
-			pointColor : "rgba(220,220,220,1)",
+			fillColor : "rbga(151,187,205,0.2)",
+			strokeColor : "rbga(151,187,205,1)",
+			pointColor : "rbga(151,187,205,1)",
 			pointStrokeColor : "#fff",
 			pointHighlightFill : "#fff",
-			pointHighlightStroke : "rgba(220,220,220,1)",
+			pointHighlightStroke : "rbga(151,187,205,1)",
 			
 			data : chartData
 		} ]

@@ -408,4 +408,14 @@
 	    			  resultMap="com.yedam.possable.app.company.mapper.CompanyMapper.company"
 	    			  javaType="CompanyVO"/>
     </resultMap>
+
+    <select id="isRegistered" resultType="boolean">
+        SELECT
+            CASE
+            WHEN COUNT(*) > 0 THEN 1
+            ELSE 0
+            END AS result
+        FROM estimate_history
+        WHERE mem_seq = #{seq}
+    </select>
 </mapper>

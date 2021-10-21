@@ -53,11 +53,10 @@
 				<div class="d-flex">
 					<div align="center">
 						<form id="actionForm" action="report" method="get">
-							<select name="type" class="select">
+							<select name="type" class="select" style="cursor:pointer">
 								<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
-								<option value="T" ${pageMaker.cri.type =='T'? 'selected' : "" }>제목</option>
-								<option value="W" ${pageMaker.cri.type =='W'? 'selected' : "" }>작성자</option>
-								<option value="G" ${pageMaker.cri.type =='G'? 'selected' : "" }>등록일자</option>
+								<option value="T" ${pageMaker.cri.type =='T'? 'selected' : "" }>게시글 번호</option>
+								<option value="R" ${pageMaker.cri.type =='R'? 'selected' : "" }>신고자</option>
 							</select> <input class="input" name="keyword"
 								value="${pageMaker.cri.keyword }"> <input type="hidden"
 								name="pageNum" value="1"> <input type="hidden"

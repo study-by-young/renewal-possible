@@ -33,14 +33,20 @@
                         <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${submit.carVO.modelCodeVO.img}" alt="">
                     </div>
                     <div class="text-center shadow-1 p-2">
-                        <c:if test="${loginUserSeq == submit.companyVO.memberVO.seq}">
-                            <c:set var="during" value='${submit.estimateHistoryVO.endDate.date - submit.estimateHistoryVO.startDate.date}' />
+                        <c:set var="during" value='${submit.estimateHistoryVO.endDate.date - submit.estimateHistoryVO.startDate.date}' />
+                        <sec:authorize access="hasAnyRole('USER','ADMIN')">
                             <h2 class="font-weight-bold text-blue mb-0">${during * submit.price}원</h2>
                             <span>(${submit.price}원/일)</span>
-                        </c:if>
-                        <c:if test="${loginUserSeq != submit.companyVO.memberVO.seq}">
-                            <p>다른 업체의 가격은 볼 수 없습니다.</p>
-                        </c:if>
+                        </sec:authorize>
+                        <sec:authorize access="hasRole('COMPANY')">
+                            <c:if test="${loginUserSeq == submit.companyVO.memberVO.seq}">
+                                <h2 class="font-weight-bold text-blue mb-0">${during * submit.price}원</h2>
+                                <span>(${submit.price}원/일)</span>
+                            </c:if>
+                            <c:if test="${loginUserSeq != submit.companyVO.memberVO.seq}">
+                                <p>다른 업체의 가격은 볼 수 없습니다.</p>
+                            </c:if>
+                        </sec:authorize>
                     </div>
                 </div>
                 <div class="col-lg-9">
@@ -117,12 +123,17 @@
                                             <i class="icon-checkmark4"></i> 안내사항
                                         </div>
                                         <div class="col-10">
-                                            <c:if test="${loginUserSeq == submit.companyVO.memberVO.seq}">
+                                            <sec:authorize access="hasAnyRole('USER','ADMIN')">
                                                 ${submit.memo}
-                                            </c:if>
-                                            <c:if test="${loginUserSeq != submit.companyVO.memberVO.seq}">
-                                                <p>다른 업체의 내용은 볼 수 없습니다.</p>
-                                            </c:if>
+                                            </sec:authorize>
+                                            <sec:authorize access="hasRole('COMPANY')">
+                                                <c:if test="${loginUserSeq == submit.companyVO.memberVO.seq}">
+                                                    ${submit.memo}
+                                                </c:if>
+                                                <c:if test="${loginUserSeq != submit.companyVO.memberVO.seq}">
+                                                    <p>다른 업체의 내용은 볼 수 없습니다.</p>
+                                                </c:if>
+                                            </sec:authorize>
                                         </div>
                                     </div>
                                 </div>

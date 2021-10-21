@@ -84,20 +84,20 @@ public class FaqController {
 		return "redirect:/faq/list";
 	}
 	
-	@GetMapping("/delete")
-	public String delete(RedirectAttributes rttr, FaqVO vo
-						, @ModelAttribute("cri") Criteria cri) {
+	@ResponseBody
+	@RequestMapping(value = "/delete")
+	public int delete(@RequestParam(value = "seq") Long seq) {
 		
-		int result = faqService.delete(vo);
+		/*
+		 * int result = faqService.delete(vo);
+		 * 
+		 * if (result == 1) { rttr.addFlashAttribute("deleteResult", vo.getSeq()); }
+		 * 
+		 * rttr.addAttribute("pageNum", cri.getPageNum()); rttr.addAttribute("amount",
+		 * cri.getAmount());
+		 */
 		
-		if (result == 1) {
-			rttr.addFlashAttribute("deleteResult", vo.getSeq());
-		}
-		
-		rttr.addAttribute("pageNum", cri.getPageNum());
-		rttr.addAttribute("amount", cri.getAmount());
-		
-		return "redirect:/faq/list";
+		return faqService.delete(seq);
 	}
  	
 }

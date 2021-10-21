@@ -47,7 +47,7 @@
 							</div>
 							<div class="card-header col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding: 10px 0px;">
 								<div class="contect_form1">
-									<input class="input_title" type="text" name="title" placeholder=" 제목을 입력해주세요. *" required="required">
+									<input class="input_title" type="text" name="title" id="title" placeholder=" 제목을 입력해주세요. *">
 								</div>
 							</div>
 							<div class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -57,7 +57,7 @@
 							</div>
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding-left: 0px; padding-right: 0px;">
 								<div class="contect_form4">
-									<textarea name="content" id="content" class="ckeditor" required="required"></textarea>
+									<textarea name="content" id="content" class="ckeditor"></textarea>
 								</div>
 								<br>
 							</div>
@@ -77,7 +77,7 @@
 </div>
 
 <script>
-	$("#insertBtn").on("click", function() {
+/* 	$("#insertBtn").on("click", function() {
 		check();
 	});
 	
@@ -89,5 +89,21 @@
 		} else {
 			$("#insertForm").submit();
 		}
-	}
+	} */
+	
+	$("#insertBtn").on("click", function() {
+		//입력값 검증
+		if ($("#title").val().length == 0) {
+			alert("제목을 입력해주세요.")
+			$("#title").focus();
+			return false;
+		} else if (CKEDITOR.instances.content.getData().length == 0) {
+			alert("내용을 입력해주세요.")
+			CKEDITOR.instances.content.focus();
+			return false;
+		} else {
+			$("#insertForm").submit();
+		}
+
+	});
 </script>

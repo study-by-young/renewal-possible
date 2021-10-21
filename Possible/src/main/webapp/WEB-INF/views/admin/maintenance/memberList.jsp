@@ -49,7 +49,7 @@
 				<div class="d-flex">
 					<div align="left">
 						<form id="actionForm" action="member" method="get">
-							<select name="type" class="select">
+							<select name="type" class="select" style="cursor:pointer">
 								<option value="" ${empty pageMaker.cri.type ? 'selected' : "" }>선택</option>
 								<option value="I" ${pageMaker.cri.type =='I'? 'selected' : "" }>아이디</option>
 								<option value="N" ${pageMaker.cri.type =='N'? 'selected' : "" }>이름</option>
@@ -68,8 +68,8 @@
 			<div class="col-sm-6" style="padding-right: 2.5rem">
 					<div align="right">
 						<form id="actionForm" action="member" method="get">
-								<label><input type="checkbox" name="type" value="U" ${pageMaker.cri.type =='U'? 'checked' : "" } >&nbsp;회원</label>
-								<label><input type="checkbox" name="type"  value="C" ${pageMaker.cri.type =='C'? 'checked' : "" }>&nbsp;업체</label>
+								<label style="cursor:pointer"><input type="checkbox" name="type" value="U" ${pageMaker.cri.type =='U'? 'checked' : "" } >&nbsp;회원</label>
+								<label style="cursor:pointer"><input type="checkbox" name="type"  value="C" ${pageMaker.cri.type =='C'? 'checked' : "" }>&nbsp;업체</label>
 								<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
 								<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
@@ -130,7 +130,6 @@
 							<c:if test="${pageMaker.prev }">
 								<li class="page-item"><a class="page-link"
 									href="${pageMaker.startPage-1}">이전</a></li>
-								<span aria-hidden="true">&laquo;</span>
 							</c:if>
 							<c:forEach begin="${pageMaker.startPage }"
 								end="${pageMaker.endPage }" var="num">
@@ -139,7 +138,6 @@
 							<c:if test="${pageMaker.next }">
 								<li class="page-item"><a class="page-link"
 									href="${pageMaker.endPage+1}">다음</a></li>
-								<span aria-hidden="true">&laquo;</span>
 							</c:if>
 						</ul>
 					</div>
