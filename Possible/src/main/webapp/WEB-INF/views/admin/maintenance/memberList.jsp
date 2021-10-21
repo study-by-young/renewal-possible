@@ -130,7 +130,6 @@
 							<c:if test="${pageMaker.prev }">
 								<li class="page-item"><a class="page-link"
 									href="${pageMaker.startPage-1}">이전</a></li>
-								<span aria-hidden="true">&laquo;</span>
 							</c:if>
 							<c:forEach begin="${pageMaker.startPage }"
 								end="${pageMaker.endPage }" var="num">
@@ -139,7 +138,6 @@
 							<c:if test="${pageMaker.next }">
 								<li class="page-item"><a class="page-link"
 									href="${pageMaker.endPage+1}">다음</a></li>
-								<span aria-hidden="true">&laquo;</span>
 							</c:if>
 						</ul>
 					</div>
