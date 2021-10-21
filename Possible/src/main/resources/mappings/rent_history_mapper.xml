@@ -60,6 +60,10 @@
                      column="cmpn_seq"
                      select="com.yedam.possable.app.company.mapper.CompanyMapper.companyOneSelect"
                      javaType="CompanyVO"/>
+         <association property="statusCodeVO"
+                     column="status"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>             
     </resultMap>
 
 	<sql id="criteria">

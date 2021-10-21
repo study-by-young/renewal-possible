@@ -255,7 +255,7 @@
                                                                                     		<i class="icon-checkmark4 pr-2 mb-0" ></i> 예약상태
                                                                                			</div>
                                                                                			 <div class="col-8" style="padding-left: 0px">
-                                                                                    		<span class="list-unstyled mb-0"> ${est.status }</span>
+                                                                                    		<span class="list-unstyled mb-0"> ${est.statusCodeVO.name }</span>
                                                                                 		</div>
                                                                                 		<div class="col-4">
                                                                                     		<i class="icon-checkmark4 pr-2 mb-0" ></i> 예약번호
