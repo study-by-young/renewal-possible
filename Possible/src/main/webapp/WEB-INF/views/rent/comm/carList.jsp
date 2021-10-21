@@ -149,7 +149,7 @@
 							</div>
 							<!-- 연식 -->
 							<div class="x_car_book_fillter_select_box form-group">
-								<h5>차량연식</h5>
+								<h6>차량연식</h6>
 								<select class="select" id="year" name="year">
 									<option value="">전체</option>
 									<option value="2022">2022년</option>
@@ -162,7 +162,7 @@
 							</div>
 							<!-- 인원 -->
 							<div class="x_car_book_fillter_select_box form-group">
-								<h5>인원</h5>
+								<h6>인원</h6>
 								<select class="select" id="passenger" name="passenger">
 									<option value="">전체</option>
 									<option value="2">2인</option>
@@ -192,14 +192,14 @@
 									<form id="filterForm2" name="filterForm2" action="commonRent" method="get">
 										<ul class="nav">
 											<li class="nav-item px-1" style="margin-right: 7px;"><label class="mb-0"> <input
-													type="checkbox" value="" name="filter-seg" class="d-none">
+													type="checkbox" value="" name="filter_seg${status.index}" class="d-none">
 													<button type="button" class="btn btn-outline-primary rounded-pill">전체</button>
 											</label></li>
-											<c:forEach var="seg" items="${segments}">
+											<c:forEach var="seg" items="${segments}" varStatus="status">
 												<li class="nav-item px-1" style="margin-right: 7px;"><label class="mb-0"> <input
-														type="checkbox" value="${seg.code}" name="filter-seg"
-														class="d-none">
-														<button type="button" class="btn btn-outline-primary rounded-pill" onclick="searchCars2(${cri.pageNum}, ${cri.amount})">${seg.name}</button>
+														type="checkbox" value="${seg.code}" name="filter_seg${status.index}"
+														class="d-none">${status.index}
+														<button type="button" class="btn btn-outline-primary rounded-pill" onclick="searchCars2(${cri.pageNum}, ${cri.amount}, filter_seg${status.index})">${seg.name}</button>
 												</label></li>
 											</c:forEach>
 										</ul>
@@ -325,16 +325,18 @@
         filterForm.find('#segment').val();
         filterForm.find('#fuel').val();
         filterForm.find('#brand').val();
-        filterForm.find('#year').val()*1;
+        filterForm.find('#year').val(0);
         filterForm.find('#passenger').val()*1;
         let data = $(filterForm[0], searchForm[0]).serialize();
         location.href = "commonRent?" + data;
     }
     
-    function searchCars2(pageNum, amount) {
+    function searchCars2(pageNum, amount, seg) {
+    	console.log(seg);
         let searchForm = $('[name="searchCar"]');
         let filterForm2 = $('[name="filterForm2"]');
-		let segment = filterForm2.find('input[name="filter-seg"]').val();
+		var segment = filterForm2.find('input[name="' + seg + '"]').val();
+		console.log(segment);
 		
         searchForm.find('#searchArea').val();
         searchForm.find('#start').val();
@@ -346,8 +348,6 @@
         location.href = "commonRent?" + data;
     }    
 
-
-    
     function initPickadate(){
         let startPicker = $("#start").pickadate('picker');
         let endPicker = $("#end").pickadate('picker');
