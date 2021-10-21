@@ -48,7 +48,7 @@ input[type=file] {
 									<h2 style="font-weight: 600;">자주 묻는 질문 & 답변 등록</h2>
 								</div>
 							</div>
-							
+
 							<div
 								class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 								<div class="contect_form2">
@@ -59,11 +59,10 @@ input[type=file] {
 							<!-- <div
 								class="col-xl-5 offset-xl-1 col-lg-4 col-md-4 col-sm-12 col-xs-12"> -->
 							<div class="row">
-								<div
-									class="col-2"
+								<div class="col-2"
 									style="padding: 18px 0px; padding-left: 10px;">
 									<div class="contect_form2">
-										<select name="category" class="select">
+										<select name="category" id="category" class="select">
 											<option value="">카테고리선택</option>
 											<option value="대여안내">대여안내</option>
 											<option value="인수/반납">인수/반납</option>
@@ -71,21 +70,20 @@ input[type=file] {
 											<option value="취소/환불">취소/환불</option>
 										</select>
 									</div>
-								</div>&nbsp; &nbsp;
-								<div
-									class="col-9"
+								</div>
+								&nbsp; &nbsp;
+								<div class="col-9"
 									style="padding: 10px 0px; padding-right: 0px;">
 									<div class="contect_form1">
-										<input class="input_title" type="text" name="title"
-											placeholder=" 제목을 입력해주세요. *" required="required">
+										<input class="input_title" type="text" name="title" id="title"
+											placeholder=" 제목을 입력해주세요. *">
 									</div>
 								</div>
 							</div>
 							<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"
 								style="padding: 10px 0px;">
 								<div class="contect_form4">
-									<textarea name="content" id="content" class="ckeditor"
-										required="required"></textarea>
+									<textarea name="content" id="content" class="ckeditor"></textarea>
 								</div>
 								<br>
 							</div>
@@ -105,18 +103,38 @@ input[type=file] {
 </div>
 
 <script>
-	$("#insertBtn").on("click", function() {
-		check();
-	});
+	/* 	$("#insertBtn").on("click", function() {
+	 check();
+	 });
 
-	function check() {
-		if (CKEDITOR.instances.content.getData() == ""
-				|| CKEDITOR.instances.content.getData().length == 0) {
-			alert("내용을 입력해주세요.");
+	 function check() {
+	 if (CKEDITOR.instances.content.getData() == ""
+	 || CKEDITOR.instances.content.getData().length == 0) {
+	 alert("내용을 입력해주세요.");
+	 CKEDITOR.instances.content.focus();
+	 return false;
+	 } else {
+	 $("#insertForm").submit();
+	 }
+	 } */
+
+	$("#insertBtn").on("click", function() {
+		//입력값 검증
+		if ($("#title").val().length == 0) {
+			alert("제목을 입력해주세요.")
+			$("#title").focus();
+			return false;
+		} else if (CKEDITOR.instances.content.getData().length == 0) {
+			alert("내용을 입력해주세요.")
 			CKEDITOR.instances.content.focus();
+			return false;
+		} else if ($("#category").val().length == 0) {
+			alert("카테고리를 선택해주세요.")
+			$("#category").focus();
 			return false;
 		} else {
 			$("#insertForm").submit();
 		}
-	}
+
+	});
 </script>

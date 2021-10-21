@@ -353,10 +353,9 @@
 				+ data.content
 				+ '</p>'
 				+ '<div class="lr_bc_first_box_img_cont_wrapper" align="right">'
-				+ '<button class="btn btn-dark" type="button" onclick="location.href=update?seq='
-				+ data.seq
-				+ '">수정</button>&nbsp;'
-				+ '<button data-seq="'+data.seq+'" id="deleteBtn'+data.seq+'" type="button" class="btn btn-dark">삭제</button>'
+				+ '<button class="btn btn-dark" type="button" onclick="location.href='+"'"+'update?seq='+data.seq+"'"+'">수정</button>&nbsp;'
+				/* + '<button data-seq="'+data.seq+'" id="deleteBtn'+data.seq+'" type="button" class="btn btn-dark">삭제</button>' */
+				+ '<button data-seq="'+data.seq+'" id="deleteBtn" type="button" class="btn btn-dark">삭제</button>'
 				+ '<p></div></div></div>'
 		/* '<div class="col-md-6">'
 		+ '<div class="card mb-2"> <a class="text-default collapsed" data-toggle="collapse" href="update?seq='+ data.seq +'">
@@ -364,6 +363,35 @@
 		+ '<div id="question'+ data.seq +'" class="collapse"><div class="card-body">'+ data.content +'</div></div></div></div>'  */
 	}
 
+	
+	$('body').on('click', '#deleteBtn', function() {
+		var seq = $(this).attr('data-seq');
+		console.log(seq);
+		var result = confirm('정말로 삭제하시겠습니까?');
+		var tiki = $(this).parent().parent().parent();
+		if (result) {
+			$.ajax({
+				url : 'delete',
+				type : 'post',
+				dataType : 'json',
+				data : {
+					seq : seq
+				},
+				error : function(xhr, status, msg) {
+					console.log("상태값 : " + status + " Http에러메시지 : " + msg);
+				},
+				success : function(xhr) {
+					if (xhr == true) {
+						console.log(xhr.result);
+						tiki.remove();
+						alert("삭제완료");
+					}
+				}
+			}); // ajax 끝
+		} // if
+	}); // 삭제버튼 클릭	
+	
+	
 	function acc() {
 		/* 아코디언이,,,,,안,,,,,,ㅇ,,,,안열려요,,,,,,,,,,,,,,,,,,,,,,,,, */
 		var acc = document.getElementsByClassName("accordion");
