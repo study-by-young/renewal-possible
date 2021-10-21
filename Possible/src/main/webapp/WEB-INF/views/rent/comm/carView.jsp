@@ -40,24 +40,24 @@
                                 <h6>대여요금(자차보험 미포함)</h6>
                                 <div>
                                     <span class="small text-muted">
-                                        ${car.price}원 * ${during}일
+                                        <fmt:formatNumber value="${car.price}" pattern="#,###"/>원 * ${during}일
                                     </span>
-                                    <span class="h6 float-right font-weight-bold text-primary">${car.price * during}원</span>
+                                    <span class="h6 float-right font-weight-bold text-primary"><fmt:formatNumber value="${car.price * during}" pattern="#,###"/>원</span>
                                 </div>
                             </div>
                             <div class="x_slider_form_input_wrapper float_left form-group">
                                 <h6>자차보험</h6>
                                 <div>
                                     <span class="small text-muted">
-                                        ${insurance.price}원 * ${during}일
+                                        <fmt:formatNumber value="${insurance.price}" pattern="#,###"/>원 * ${during}일
                                     </span>
-                                    <span class="h6 float-right font-weight-bold text-primary">${insurance.price * during}원</span>
+                                    <span class="h6 float-right font-weight-bold text-primary"><fmt:formatNumber value="${insurance.price * during}" pattern="#,###"/>원</span>
                                 </div>
                             </div>
                             <div class="x_slider_form_input_wrapper float_left">
                                 <h6>예상 결제액</h6>
                                 <div>
-                                    <h6 class="text-right font-weight-bold text-primary">${(car.price + insurance.price) * during}원</h6>
+                                    <h6 class="text-right font-weight-bold text-primary"><fmt:formatNumber value="${car.price + insurance.price * during}" pattern="#,###"/>원</h6>
                                 </div>
                             </div>
                         </div>

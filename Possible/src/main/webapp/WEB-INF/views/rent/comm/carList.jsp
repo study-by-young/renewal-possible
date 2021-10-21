@@ -265,8 +265,7 @@
 																									class="text-dark"> <span
 																									class="pr-2 text-warning-400 font-weight-bold">${insurance.optName}</span>
 																									<span class="h5 text-primary font-weight-bold">
-																										${(car.price+ insurance.price) * during}원 </span>
-																									<%-- <fmt:formatNumber value="${car.price + insurance.price}" pattern="#,###"/> --%>
+																										<fmt:formatNumber value="${car.price + insurance.price * during}" pattern="#,###"/>원 </span>
 																								</a>
 																							</div>
 																						</c:forEach>
@@ -326,8 +325,8 @@
         filterForm.find('#segment').val();
         filterForm.find('#fuel').val();
         filterForm.find('#brand').val();
-        filterForm.find('#year').val(0);
-        filterForm.find('#passenger').val(0);
+        filterForm.find('#year').val()*1;
+        filterForm.find('#passenger').val()*1;
         let data = $(filterForm[0], searchForm[0]).serialize();
         location.href = "commonRent?" + data;
     }

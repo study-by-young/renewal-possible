@@ -241,7 +241,7 @@
                                                                                     		<i class="icon-location4 pr-2 mb-0"></i> 결제금액 
                                                                                			</div>
                                                                                			 <div class="col-8" style="padding-left: 0px">
-                                                                                    		<span class="list-unstyled mb-0"> ${est.price }원</span>
+                                                                                    		<span class="list-unstyled mb-0"> <fmt:formatNumber value="${est.price }" pattern="#,###"/>원</span>
                                                                                 		</div>
                                                                                 		
                                                                 		 				<div class="col-4">

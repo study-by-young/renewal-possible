@@ -44,8 +44,8 @@
 							<h6 class="font-weight-bold mt-2 mb-1">${car.brandCodeVO.name} ${car.modelCodeVO.name}</h6>
 							<p class="mb-0">${car.trimCodeVO.name}</p>
                             <hr>
-                            <p>대여가격<span class="h5 float-right text-primary font-weight-bold">${car.price * during}원</span></p><div class="clearfix"></div>
-                            <p>보험가격<span class="h5 float-right text-primary font-weight-bold">${insurance.price * during}원</span></p><div class="clearfix"></div>
+                            <p>대여가격<span class="h5 float-right text-primary font-weight-bold"><fmt:formatNumber value="${car.price * during}" pattern="#,###"/>원</span></p><div class="clearfix"></div>
+                            <p>보험가격<span class="h5 float-right text-primary font-weight-bold"><fmt:formatNumber value="${insurance.price * during}" pattern="#,###"/>원</span></p><div class="clearfix"></div>
 						</div>
 						<div class="card-body">
 							<div class="form-group position-relative">
@@ -94,7 +94,7 @@
 							</div>
 						</div>
 						<div class="x_car_acc_filter_bottom_total card-footer text-center">
-                            <h5>총 결제금액 <span class="h3 text-primary font-weight-bold pl-2">${(car.price + insurance.price) * during}원</span></h5>
+                            <h5>총 결제금액 <span class="h3 text-primary font-weight-bold pl-2"><fmt:formatNumber value="${car.price + insurance.price * during}" pattern="#,###"/>원</span></h5>
 						</div>
 					</div>
 				</div>
