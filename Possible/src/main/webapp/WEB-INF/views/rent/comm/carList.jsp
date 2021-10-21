@@ -193,13 +193,13 @@
 										<ul class="nav">
 											<li class="nav-item px-1" style="margin-right: 7px;"><label class="mb-0"> <input
 													type="checkbox" value="" name="filter_seg${status.index}" class="d-none">
-													<button type="button" class="btn btn-outline-primary rounded-pill">전체</button>
+													<button type="button" class="btn btn-outline-primary rounded-pill" onclick="location.href='${pageContext.request.contextPath}/commonRent'">전체</button>
 											</label></li>
 											<c:forEach var="seg" items="${segments}" varStatus="status">
 												<li class="nav-item px-1" style="margin-right: 7px;"><label class="mb-0"> <input
-														type="checkbox" value="${seg.code}" name="filter_seg${status.index}"
-														class="d-none">${status.index}
-														<button type="button" class="btn btn-outline-primary rounded-pill" onclick="searchCars2(${cri.pageNum}, ${cri.amount}, filter_seg${status.index})">${seg.name}</button>
+														type="checkbox" value="${seg.code}" id="filter_seg" name="filter_seg${status.index}"
+														class="d-none">
+														<button type="button" id="filter2" class="btn btn-outline-primary rounded-pill">${seg.name}</button>
 												</label></li>
 											</c:forEach>
 										</ul>
@@ -331,12 +331,12 @@
         location.href = "commonRent?" + data;
     }
     
-    function searchCars2(pageNum, amount, seg) {
+/*     function searchCars2(pageNum, amount, seg) {
     	console.log(seg);
         let searchForm = $('[name="searchCar"]');
         let filterForm2 = $('[name="filterForm2"]');
-		var segment = filterForm2.find('input[name="' + seg + '"]').val();
-		console.log(segment);
+		var segment = $(this).prev('#filter_seg').val();
+		console.log("============================" + segment);
 		
         searchForm.find('#searchArea').val();
         searchForm.find('#start').val();
@@ -346,8 +346,29 @@
         filterForm2.append($('<input/>').attr('name','segment').attr('value', segment).attr('type','hidden'));
         let data = $(filterForm2[0], searchForm[0]).serialize();
         location.href = "commonRent?" + data;
-    }    
+    }     */
+    
+    
+    
+    $(document).on('click', '#filter2', function(){
+        let searchForm = $('[name="searchCar"]');
+        let filterForm2 = $('[name="filterForm2"]');
+		var segment = $(this).prev('#filter_seg').val();
+		console.log("============================" + segment);
+		
+        searchForm.find('#searchArea').val();
+        searchForm.find('#start').val();
+        searchForm.find('#end').val();
+        let pageNum = $('[name="pageNum"]').val();
+        let amount = $('[name="amount"]').val();
+        filterForm2.append($('<input/>').attr('name','pageNum').attr('value', pageNum).attr('type','hidden'));
+        filterForm2.append($('<input/>').attr('name','amount').attr('value', amount).attr('type','hidden'));
+        filterForm2.append($('<input/>').attr('name','segment').attr('value', segment).attr('type','hidden'));
+        let data = $(filterForm2[0], searchForm[0]).serialize();
+        location.href = "commonRent?" + data;    	
+    });
 
+    
     function initPickadate(){
         let startPicker = $("#start").pickadate('picker');
         let endPicker = $("#end").pickadate('picker');
@@ -404,7 +425,6 @@
     		searchForm.submit();
     	});
     });
-
 
 </script>
 

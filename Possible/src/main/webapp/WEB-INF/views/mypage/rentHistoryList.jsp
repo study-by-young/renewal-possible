@@ -270,13 +270,13 @@
                                                     				 </div><!-- row -->
                                                     			</div>
                                                     		</div>
-                                                    		<c:if test="${historyList.size() > 5}">
-								    							<jsp:include page="/pagination"/>
-								   							</c:if>
 														</div>
 													</div>
 												</div>									 	 	 
 									 	 	 </c:forEach>
+                                            <c:if test="${historyList.size() > 5}">
+				    							<jsp:include page="/pagination"/>
+				   							</c:if>
 									 	 </div>
 									 </div>
 								 </div>
