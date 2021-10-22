@@ -156,21 +156,10 @@
         </where>)
         WHERE RN > (#{pageNum} - 1) * #{amount}
     </select>
-
+ 
     <!-- 업체 한건-->
-    <select id="companyOneSelect" resultType="CompanyVO">
-        SELECT SEQ,
-               MEM_SEQ,
-               NAME,
-               POSTAL,
-               CMPN_NUM,
-               TEL,
-               ADDR1,
-               ADDR2,
-               AREA,
-               STATUS,
-               GEN_DATE,
-               UPT_DATE
+    <select id="companyOneSelect" resultMap="companyAllData">
+        SELECT *
         FROM COMPANY
         WHERE SEQ = #{seq}
     </select>

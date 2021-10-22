@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: admin
-  Date: 2021-10-08
-  Time: 오전 10:30
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/security/tags"
@@ -303,9 +296,8 @@
 																						</div>
 																						<div class="col-8" style="padding-left: 0px">
 																							<span class="list-unstyled mb-0">
-																								${est.status}</span>
+																								${est.statusCodeVO.name }</span>
 																						</div>
-
 																						<div class="col-4">
 																							<i class="icon-checkmark4 pr-2 mb-0"></i> 예약번호
 																						</div>
@@ -436,6 +428,4 @@ $('.refundBtn').on('click', function(e){
     "pluginKey": "cca89d8e-722c-46c6-a330-10097ad5cd70",
     "customLauncherSelector": "#custom-button"
   });
-
-
 </script>

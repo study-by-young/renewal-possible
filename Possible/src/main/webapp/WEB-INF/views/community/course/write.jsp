@@ -260,7 +260,7 @@ response.setContentType("text/html; charset=utf-8");
 									var y1 = xy1.getLng();
 									var x2 = xy2.getLat();
 									var y2 = xy2.getLng();
-									// 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
+									/* // 선을 구성하는 좌표 배열입니다. 이 좌표들을 이어서 선을 표시합니다
 									var linePath = [
 											new kakao.maps.LatLng(x1, y1),
 											new kakao.maps.LatLng(x2, y2) ];
@@ -276,7 +276,7 @@ response.setContentType("text/html; charset=utf-8");
 
 									// 지도에 선을 표시합니다 
 									polyline.setMap(map);
-									lines.push(polyline);
+									lines.push(polyline); */
 									//console.log(lines);
 								}
 							} else {
@@ -301,7 +301,7 @@ response.setContentType("text/html; charset=utf-8");
 				lines[l].setMap(null);
 			}
 			console.log(markers);
- 			if (markers.length >= 2) {
+/*  			if (markers.length >= 2) {
 				for (var m=0 ; m < markers.length ; m++) {
 					var xy1 = markers[m]
 							.getPosition();
@@ -330,7 +330,7 @@ response.setContentType("text/html; charset=utf-8");
 					lines.push(polyline);
 					console.log(lines);
 				}
-			} 
+			}  */
 			console.log(lines);
 		});
 	});

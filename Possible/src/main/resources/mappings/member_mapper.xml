@@ -225,4 +225,10 @@
             ADDR_DETAIL = #{addrDetail}
         WHERE ID = #{id}
     </update>
+    <!-- 회원 탈퇴 -->
+    <update id="memberDelete">
+    	UPDATE MEMBER
+        SET STATUS = 'D'
+        WHERE SEQ = #{seq}
+    </update>
 </mapper>

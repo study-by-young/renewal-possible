@@ -172,6 +172,7 @@ public class CourseBoardController {
 			return 0;
 		} else {
 			MemberVO loginMember = memberService.getLoginMember(authentication);
+			System.out.println(loginMember.getSeq());
 			vo.setMemberSeq(loginMember.getSeq());
 			courseBoardService.plusLike(vo);
 			return i;
@@ -194,8 +195,15 @@ public class CourseBoardController {
 
 	@PostMapping("/report")
 	@ResponseBody
-	public int reportInsert(@RequestBody ReportVO report) {
-		return reportService.insert(report);
+	public int reportInsert(@RequestBody ReportVO report, Authentication authentication) {
+		if (authentication == null) {
+			return 0;
+		} else {
+			MemberVO loginMember = memberService.getLoginMember(authentication);
+			report.setReporter(loginMember.getId());
+			reportService.insert(report);
+			return reportService.insert(report);
+		}
 	}
 	
 	@RequestMapping(value = "/insertCmt")

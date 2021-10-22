@@ -51,5 +51,7 @@ public class RentHistoryVO {
     private MemberVO memberVO;
     private CompanyVO companyVO;
     private InsuranceOptionVO insuranceCodeVO;
+    private CodeSubVO statusCodeVO;
+   
 
 }
