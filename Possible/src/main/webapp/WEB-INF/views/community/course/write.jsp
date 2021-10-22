@@ -13,12 +13,58 @@ request.setCharacterEncoding("utf-8");
 response.setContentType("text/html; charset=utf-8");
 %>
 <style>
+
 .custom-div {
 	margin-top: 10px;
 	text-align: center;
 	height: 150px;
 	overflow: auto;
 }
+
+.custom-btn {
+	display: inline-block;
+	font-weight: 400;
+	text-align: center;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 1px solid transparent;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: .25rem;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out,
+		border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	color: #fff;
+	background-color: #6495ed;
+}
+
+.custom-input input {
+	/* width: 100%; */
+	height: 42px;
+	padding-left: 10px;
+	border: 1px solid #e8e8e8;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 5px;
+}
+
+.x_offer_car_heading_wrapper h3:after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    border: 2px solid #6495ed;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    left: 0;
+    right: 0;
+    bottom: -20px;
+    margin: 0px auto;
+}
+
 </style>
 <form id="frm" name="frm" role="form">
 	<div class="x_contact_title_main_wrapper float_left padding_tb_100">
@@ -85,7 +131,7 @@ response.setContentType("text/html; charset=utf-8");
 				<div
 					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12"
 					style="background-color: white; border: 1px solid lightgray; border-radius: 10px; margin-top: 30px;">
-					<div class="input-group mb-3" style="margin-top: 15px;">
+					<div class="input-group mb-3 custom-input" style="margin-top: 15px;">
 						<select id="type" name="type" class="select">
 							<option value="T" ${pageMaker.cri.type =='T'? 'selected' : "" }>선택</option>
 							<option value="A" ${pageMaker.cri.type =='A'? 'selected' : "" }>관광지</option>
@@ -95,8 +141,7 @@ response.setContentType("text/html; charset=utf-8");
 							placeholder="떠나고 싶은 장소를 검색해보세요."
 							aria-label="Recipient's username" aria-describedby="basic-addon2">
 						<div class="input-group-append">
-							<button id="tourSearch" class="btn btn-outline-secondary"
-								type="button">검색</button>
+							<button id="tourSearch" class="custom-btn" type="button">검색</button>
 						</div>
 						<div class="col-12 custom-div">
 							<ul id="tourList"
@@ -112,18 +157,15 @@ response.setContentType("text/html; charset=utf-8");
 					class="col-xl-12 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12"
 					style="margin: 10px">
 					<div class="contect_form4 col-12" align="center"
-						style="margin-up: 10px">
+						style="margin-up: 10px; margin-bottom: 20px;">
 						<textarea id="content" name="content" class="ckeditor"></textarea>
 						<!-- 	<textarea rows="5" placeholder="코스에 대한 간략한 설명을 기재할 수 있습니다. 쒸익"></textarea> -->
 					</div>
 				</div>
 				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="contect_btn contect_btn_contact">
-						<ul>
-							<li><a class="insert">등록 <i class="fa fa-arrow-right"></i></a></li>
-							<li><a class="returnList">취소 <i
-									class="fa fa-arrow-right"></i></a></li>
-						</ul>
+							<button type="button" class="custom-btn insert">등록</button>
+							<button type="button" class="custom-btn" style="background-color: red;" onclick="location.href='../course'">취소</button>
 					</div>
 				</div>
 			</div>
