@@ -407,8 +407,10 @@ public class CompanyController {
         for(RentHistoryVO vo : voList) {
             Map<String, Object> voMap = new HashMap<>();
             String status = codeService.getCodeByValue(vo.getStatus()).getName();
+            String type = codeService.getCodeByValue(vo.getRentType()).getName();
             voMap.put("rentHistoryVO", vo);
             voMap.put("status", status);
+            voMap.put("type", type);
             rentList.add(voMap);
         }
     	
@@ -427,9 +429,13 @@ public class CompanyController {
     	
     	vo = rentHistoryService.getRentHistory(vo.getSeq());
     	String status = codeService.getCodeByValue(vo.getStatus()).getName();
+        String type = codeService.getCodeByValue(vo.getRentType()).getName();
+
     	
     	model.addAttribute("rentHistory", vo);
     	model.addAttribute("status", status);
+    	model.addAttribute("type", type);
+
     	return "company/rentHistoryView";
     }
 

@@ -187,7 +187,7 @@
                  TO_CHAR(upt_date,'YYYY-MM-DD') as uptDate
          from rent_history
          where cmpn_seq = #{cmpnSeq}
-           and status = 'RST03'
+           and status = 'RST01'
          group by cmpn_seq,TO_CHAR(upt_date,'YYYY-MM-DD')
          order by TO_CHAR(upt_date,'YYYY-MM-DD')
          )
@@ -199,7 +199,7 @@
             *
         from rent_history
 		where cmpn_seq = #{cmpnSeq}
-		and status = 'RST03'
+		and status = 'RST01'
 		and TO_TIMESTAMP(trunc(start_date),'YYYY-MM-DD') = TO_TIMESTAMP(trunc(sysdate),'YYYY-MM-DD')
     </select>
 
