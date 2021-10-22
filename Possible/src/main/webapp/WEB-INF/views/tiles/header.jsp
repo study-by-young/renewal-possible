@@ -16,6 +16,22 @@
 	padding: 0
 }
 
+.h5 {
+	font-size: 1.0625rem;
+}
+
+.dropdown-toggle::after {
+	font-family: icomoon;
+	display: inline-block;
+	border: 0;
+	vertical-align: middle;
+	font-size: .6875rem;
+	margin-left: .46875rem;
+	line-height: 0;
+	position: relative;
+	content: ""
+}
+
 .headroom {
 	transition: box-shadow ease-in-out .2s, -webkit-transform ease-in-out
 		.2s;
@@ -1100,8 +1116,8 @@ input[class*=bg-]:not(.bg-light):not(.bg-white):not(.bg-transparent)+.form-contr
 }
 
 .dropdown-menu>.dropdown-submenu:focus>.dropdown-item:not(.dropdown-toggle)
-	~.dropdown-menu, .dropdown-menu>.dropdown-submenu:hover>.dropdown-item:not(.dropdown-toggle)
-	~.dropdown-menu {
+	 ~.dropdown-menu, .dropdown-menu>.dropdown-submenu:hover>.dropdown-item:not(.dropdown-toggle)
+	 ~.dropdown-menu {
 	display: block
 }
 
@@ -2911,8 +2927,8 @@ body {
 			<ul class="navbar-nav align-items-center ml-md-auto">
 				<sec:authorize access="isAnonymous()">
 					<li class="nav-item dropdown"><a
-						href="${pageContext.request.contextPath}/login"
-						class="m-0 h5 btn btn-primary shadow-1">로그인</a></li>
+						href="${pageContext.request.contextPath}/login" class="btn"
+						style="color: #fff; background-color: #6495ed;">로그인</a></li>
 				</sec:authorize>
 
 				<sec:authorize access="isAuthenticated()">
@@ -2920,10 +2936,11 @@ body {
 						class="navbar-nav-link d-flex align-items-center dropdown-toggle"
 						data-toggle="dropdown"> <img
 							src="${pageContext.request.contextPath}/resources/images/avatar.jpg"
-							class="rounded-circle mr-2" height="34" alt=""> <span><sec:authentication
-									property="name" /></span>
+							class="rounded-circle mr-2" height="34" alt=""> <span
+							style="color: #6495ed"><sec:authentication property="name" /></span>
 					</a>
-						<div class="dropdown-menu dropdown-menu-right">
+						<div class="dropdown-menu dropdown-menu-right"
+							style="padding: .5rem 1.5rem;">
 							<a href="#" class="dropdown-item"><i class="icon-user-plus"></i>
 								마이페이지</a>
 							<sec:authorize access="hasRole('COMPANY')">
