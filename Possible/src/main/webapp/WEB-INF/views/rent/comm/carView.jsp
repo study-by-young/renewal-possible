@@ -57,7 +57,7 @@
                             <div class="x_slider_form_input_wrapper float_left">
                                 <h6>예상 결제액</h6>
                                 <div>
-                                    <h6 class="text-right font-weight-bold text-primary"><fmt:formatNumber value="${car.price + insurance.price * during}" pattern="#,###"/>원</h6>
+                                    <h6 class="text-right font-weight-bold text-primary"><fmt:formatNumber value="${(car.price * during) + (insurance.price * during)}" pattern="#,###"/>원</h6>
                                 </div>
                             </div>
                         </div>

@@ -94,7 +94,7 @@
 							</div>
 						</div>
 						<div class="x_car_acc_filter_bottom_total card-footer text-center">
-                            <h5>총 결제금액 <span class="h3 text-primary font-weight-bold pl-2"><fmt:formatNumber value="${car.price + insurance.price * during}" pattern="#,###"/>원</span></h5>
+                            <h5>총 결제금액 <span class="h3 text-primary font-weight-bold pl-2"><fmt:formatNumber value="${(car.price * during) + (insurance.price * during)}" pattern="#,###"/>원</span></h5>
 						</div>
 					</div>
 				</div>
