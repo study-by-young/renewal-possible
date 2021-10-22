@@ -92,12 +92,9 @@ public class PremiumRentController {
             return "redirect:/premiumRent/estimate";
         }
 
-        String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
-        String itemOptCode = codeService.getMasterCodeByName("여행용품 옵션").getCode();
-
         model.addAttribute("brands", codeService.getBrandList());
-        model.addAttribute("carOpt", codeService.getCodesByParentCode(carOptCode));
-        model.addAttribute("itemOpt", codeService.getCodesByParentCode(itemOptCode));
+        model.addAttribute("carOpt", codeService.getCodesByParentCode("COP"));
+        model.addAttribute("itemOpt", codeService.getCodesByParentCode("ITO"));
 
         return "rent/prm/estimateRegForm";
     }

@@ -77,7 +77,8 @@
                                         <div class="form-group row">
                                             <label for="birth" class="col-form-label col-lg-4">생년월일 <span class="text-danger">*</span></label>
                                             <div class="col-lg-8">
-                                                <input name="birth" id="birth" type="text" class="form-control pickadate" required>
+                                                    <input name="birthday" id="birthday" type="date" class="form-control" required>
+<%--                                                <input name="birth" id="birth" type="text" class="form-control pickadate-format" required>--%>
                                             </div>
                                         </div>
                                     </div>
@@ -111,7 +112,7 @@
                                                 <div class="input-group">
                                                     <input name="addrCode" id="addrCode" type="text" class="form-control no-empty" placeholder="우편번호" required>
                                                     <div class="input-group-append">
-                                                        <button type="button" class="btn btn-primary" onclick="" >주소 검색</button>
+                                                        <button type="button" class="btn btn-primary" onclick="DaumPostcode()" >주소 검색</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -151,7 +152,11 @@
 
 <script>
     $(function(){
-
+        $('#birth').pickadate('picker').set({
+            selectYears: true,
+            selectMonths: true,
+            min: false
+        });
     })
     //지도 api
     function DaumPostcode() {
@@ -184,26 +189,26 @@
                         extraAddr = ' (' + extraAddr + ')';
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("extraAddress").value = extraAddr;
+                    // document.getElementById("extraAddress").value = extraAddr;
 
                 } else {
-                    document.getElementById("extraAddress").value = '';
+                    // document.getElementById("extraAddress").value = '';
                 }
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                $("[name=addrCode]").val(data.zonecode);
-                $("[name=addrBasic]").val(addr)
+                $("[name='addrCode']").val(data.zonecode);
+                $("[name='addrBasic']").val(addr)
                 // 커서를 상세주소 필드로 이동한다.
                 $('#addrDetail').focus();
             }
         }).open();
     }
     //아이디 중복체크
-	
-    
+
+
    $("#idChk").on("click",function(){
 	   var csrfHeaderName = "${_csrf.headerName}";
        var csrfTokenValue ="${_csrf.token}";
-      
+
        $.ajax({
            url : "../idChk",
            type: "post",
@@ -221,17 +226,17 @@
            }
        });
    });
-   /*  function fn_idChk(){
-        var csrfHeaderName = "${_csrf.headerName}";
-        var csrfTokenValue ="${_csrf.token}";
-	
+   function fn_idChk(){
+        <%--var csrfHeaderName = "${_csrf.headerName}";--%>
+        <%--var csrfTokenValue ="${_csrf.token}";--%>
+
         $.ajax({
             url : "../idChk",
             type: "post",
             dataType: "json",
-            beforeSend : function(xhr){
-                xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
-            },
+            // beforeSend : function(xhr){
+            //     xhr.setRequestHeader(csrfHeaderName,csrfTokenValue);
+            // },
             data : {"id" : $('#id').val()},
             success : function(data){
                 if(data == 1){
@@ -242,14 +247,13 @@
             }
         });
 
-    } */
+    }
 
     //회원가입이 빈틈
 
     //회원 등록
     $('#registerBtn').on("click", function(){
-        alert("회원가입이 완료되었습니다.")
         frm.submit();
     });
-	
+
 </script>

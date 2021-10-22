@@ -139,7 +139,7 @@
                                 <div class="col-12 mb-4">
                                     <h5>캠핑 옵션</h5>
                                     <div class="row">
-                                        <c:forEach var="option" items="${carOpt}" varStatus="status">
+                                        <c:forEach var="option" items="${itemOpt}" varStatus="status">
                                             <div class="mb-2 col-lg-3 col-md-4 col-6">
                                                 <div class="custom-control custom-checkbox custom-control-inline">
                                                     <input type="checkbox"
