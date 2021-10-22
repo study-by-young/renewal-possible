@@ -147,7 +147,7 @@
                                                            id="items${status.index}"
                                                            class="custom-control-input"
                                                            value="${option.name}"
-                                                           <c:if test="${estimate.optionList.contains(option.name)}">checked</c:if>>
+                                                           <c:if test="${estimate.itemList.contains(option.name)}">checked</c:if>>
                                                     <label class="custom-control-label" for="items${status.index}">${option.name}</label>
                                                 </div>
                                             </div>

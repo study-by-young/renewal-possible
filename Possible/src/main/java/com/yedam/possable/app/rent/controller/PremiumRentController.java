@@ -139,13 +139,11 @@ public class PremiumRentController {
         int result = 0; // 로그인 후 이용 가능합니다.
         MemberVO loginMember = memberService.getLoginMember(authentication);
         if(loginMember != null){
-            if(loginMember.getAuthor().equals("ROLE_USER") || loginMember.getAuthor().equals("ROLE_ADMIN")){
-                result = 1; // ACCESS
+            result = 1; // ACCESS
+            if(loginMember.getAuthor().equals("ROLE_USER")){
                 if(!loginMember.getSeq().equals(premiumRentService.getEstimate(seq).getMemberVO().getSeq())){
-                    result = 3; // 본인 견적만 조회 가능합니다.
+                    result = 2; // 본인 견적만 조회 가능합니다.
                 }
-            } else {
-                result = 2; // 일반 회원만 이용 가능합니다.
             }
         }
         return result;
@@ -394,6 +392,20 @@ public class PremiumRentController {
     public String submitBookComplete() {
         return "rent/prm/bookComplete";
     }
+
+    @ResponseBody
+    @GetMapping("submit/registerCheck")
+    public int submitRegisterAJax(@RequestParam("eSeq") Long estimateSeq,
+                                  Authentication authentication){
+        MemberVO loginMember = memberService.getLoginMember(authentication);
+        CompanyVO companyByMemSeq = companyService.getCompanyByMemSeq(loginMember);
+        int result = 1; // ACCESS
+        if(premiumRentService.isRegisteredSubmit(companyByMemSeq.getSeq(),estimateSeq)) {
+            result = 2; // 이미 작성한 견적이 있습니다.
+        }
+        return result;
+    }
+
 
     // 견적 제출 등록 폼
     @GetMapping("submit/register")

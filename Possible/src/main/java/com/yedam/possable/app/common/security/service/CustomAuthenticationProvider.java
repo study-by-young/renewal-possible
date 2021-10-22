@@ -21,7 +21,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = (String)authentication.getCredentials();
 
         UserDetails user = customUserDetailsService.loadUserByUsername(id);
-
+        System.out.println("=======" + password);
         if(!password.equals(user.getPassword())){
             throw new BadCredentialsException("miss match password");
         }

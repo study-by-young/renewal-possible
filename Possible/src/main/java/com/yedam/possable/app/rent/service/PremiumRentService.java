@@ -41,6 +41,9 @@ public interface PremiumRentService{
     // 견적서  작성
     public int insertEstSubmit(EstiSubmitHistoryVO vo);
 
+    // 견적서  작성
+    public boolean isRegisteredSubmit(Long companySeq, Long estimateSeq);
+
     // 견적서  수정
     public int updateEstSubmit(EstiSubmitHistoryVO vo);
 

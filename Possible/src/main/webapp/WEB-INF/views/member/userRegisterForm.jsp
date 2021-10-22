@@ -27,7 +27,7 @@
         <div class="row">
             <div class="col-lg-8 offset-lg-2 col-12">
                 <div class="card">
-                    <form id="registerForm" name="registerForm" method="post" class="form-validate-jquery">
+                    <form id="registerForm" name="registerForm" method="post" class="">
                         <div class="x_offer_car_heading_wrapper card-header bg-white">
                             <div class="text-center">
                                 <img src="${pageContext.request.contextPath}/resources/images/logo.png" class="img-responsive my-4" alt="logo" title="Logo" style="width: 120px;" />
@@ -53,7 +53,7 @@
                                         <div class="form-group row">
                                             <label for="password" class="col-form-label col-lg-2">비밀번호 <span class="text-danger">*</span></label>
                                             <div class="col-lg-10">
-                                                <input name="password" id="password" type="password" class="form-control password no-empty">
+                                                <input name="password" id="password" type="password" class="form-control no-empty">
                                             </div>
                                         </div>
                                     </div>

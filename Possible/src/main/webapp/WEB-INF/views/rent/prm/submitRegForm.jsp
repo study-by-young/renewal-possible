@@ -216,13 +216,13 @@
                     '</div>';
                 let carInfoWrapper = $('<div/>').append(htmlStr);
                 $('#selectCarInfo .card-body').html(carInfoWrapper);
-
+                console.log(result);
                 htmlStr = "";
-                for(let option in result.optionList){
+                for(let option of result.optionList){
                     htmlStr += '<div class="mb-2 col-lg-3 col-md-4 col-6">' +
                         '<div class="custom-control custom-checkbox custom-control-inline">' +
-                        '<input type="checkbox" class="custom-control-input">' +
-                        '<p class="custom-control-label">' + option.name + '<p>' +
+                        '<input type="checkbox" class="custom-control-input" checked>' +
+                        '<p class="custom-control-label">' + option.optName + '<p>' +
                         '</div>' +
                         '</div>';
                 }
