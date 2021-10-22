@@ -277,7 +277,7 @@
 													</div>
 												</div>
 											</div>
-
+												
 											<c:forEach var="est" items="${historyList}" end="0"
 												varStatus="status">
 												<div class="premium_rent_list_item col-12">
@@ -395,7 +395,7 @@
 																						</div>
 																						<div class="col-8" style="padding-left: 0px">
 																							<span class="list-unstyled mb-0">
-																								${est.status }</span>
+																								${est.statusCodeVO.name }</span>
 																						</div>
 																						<div class="col-4">
 																							<i class="icon-checkmark4 pr-2 mb-0"></i> 예약번호
