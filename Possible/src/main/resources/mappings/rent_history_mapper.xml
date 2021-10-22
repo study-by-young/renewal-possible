@@ -252,8 +252,7 @@
 	<select id="getRentHistoryForMypage" resultMap="rentHistoryAllData">
         SELECT *
         FROM RENT_HISTORY
-        WHERE MEM_SEQ = #{seq}
-          AND STATUS = 'RST02'
+        WHERE SEQ = #{seq}
     </select>
 
 	<update id="refundRentHistory">

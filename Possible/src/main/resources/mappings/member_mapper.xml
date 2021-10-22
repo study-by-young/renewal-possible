@@ -228,7 +228,7 @@
     <!-- 회원 탈퇴 -->
     <update id="memberDelete">
     	UPDATE MEMBER
-        SET STATUS = 'D'
+        SET LOGIN_STATUS = 'D'
         WHERE SEQ = #{seq}
     </update>
 </mapper>

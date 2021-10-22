@@ -149,7 +149,7 @@
 										</div>
 									</div>
 								</div>
-								
+								${historyList }
 								 <div class="col-12">
 									 <div class="x_car_book_tabs_content_main_wrapper my-4" style="margin-top: 0px !important">
 									 	<div class="row">
@@ -174,9 +174,11 @@
                                                                       		</p> 
                                                     				 	 </div>
                                                     				 	 <div class="col-lg-3">
-                                                    				 	 <c:if test="${est.status eq '예약중' }">
-                                                    				 		<button class="refundBtn" id="refundBtn" type="button" value="${est.merchantUid}">취소하기</button>
-                                                                		 </c:if>
+	                                                    				 	 <c:if test="${est.review eq '1' }">
+		                                                    				 	 <c:if test="${est.status eq '예약' }">
+		                                                    				 		<button class="refundBtn" id="refundBtn" type="button" value="${est.merchantUid}">취소하기</button>
+		                                                                		 </c:if>
+	                                                    				 	 </c:if>
                                                                 		 </div>
                                                                 		 
                                                     				 	 <div class="col-lg-3" style="padding-left: 40px;">
@@ -191,8 +193,7 @@
 		                                                    				</c:forEach>
 		                                                    			    </c:if>
 		                                                    				
-		                                                    				
-		                                                    				<c:if test="${est.review ne '2' }">
+		                                                    				<c:if test="${est.review eq '1' }">
 		                                                    					<a class="btn btn-sm" 
 		                                                    					   href="rent/view/writeReview?seq=${est.seq}"
 		                                                            					style="background: #4f5dec; color: #ffffff;"<c:if test="${est.review eq '0' }"> disabled="disabled"</c:if>>
