@@ -60,7 +60,6 @@
 					<table class="table table-striped">
 						<thead>
 							<tr>
-								<th>타입</th>
 								<th style="text-align:center">예약자</th>
 								<th>전화번호</th>
 								<th>출발일자</th>
@@ -71,7 +70,6 @@
 						<tbody>
 							<c:forEach var="todayList" end="4" items="${todayList }">
 								<tr>
-									<td>${todayList.rentType}</td>
 									<td style="text-align:center">${todayList.receiver }</td>
 									<td>${todayList.phone }</td>
 									<td><fmt:formatDate pattern="yyyy/MM/dd"

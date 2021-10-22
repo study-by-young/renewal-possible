@@ -104,10 +104,14 @@ public class MypageController {
     }
 
     // 회원 탈퇴 처리
-    @GetMapping("/delete")
-    public String deleteMember(){
+    @PostMapping("/delete")
+    public String deleteMember(MemberVO vo,Authentication authentication){
         // 로그아웃 후 db 삭제 후 메인으로 리다이렉트
-        return "home";
+    	MemberVO loginUser = memberService.getLoginMember(authentication);
+    	vo.setSeq(loginUser.getSeq());
+    	System.out.println("작동..?됨?"+memberService.memberDelete(vo));
+    	memberService.memberDelete(vo);
+        return "redirect:/";
     }
 
     // 견적 요청 리스트

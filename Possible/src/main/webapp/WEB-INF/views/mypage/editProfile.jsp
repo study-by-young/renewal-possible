@@ -22,6 +22,11 @@
         border-radius: 5px;
     }
   
+  .text-control {
+    background-clip: border-box;
+    /* border-width: 1px 0; */
+    /* border-top-color: transparent!important; */
+}
     .correct{
         color : green;
     }
@@ -222,6 +227,10 @@
                                     </div>
                                 </div>
                                 <!-- CARD END -->
+                                <div class="row" style="padding-left: 10px;">
+                                <span class="d-block text-muted" style="padding-top: 7px;">여행갈카를 더 이상 이용하지 않는다면</span>
+                              		<button type="button" class="btn btn-link" data-toggle="modal" data-target="#Withdrawal">회원탈퇴</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -233,6 +242,7 @@
 
 
 <!-- 비밀번호 변경 모달 -->
+
 <div class="modal fade" id="passChange" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -248,7 +258,7 @@
                     </div>
 
                     <div id="passwordChange" >
-                        <form id="passUpdatefrm" name="passUpdatefrm">
+                        <form id="passUpdatefrm" name="passUpdatefrm" >
                             <div class="row">
                                 <div class="form-group col-md-12 col-sm-6 col-xs-12">
                                     <label for="InputEmail">현재 비밀번호</label>
@@ -280,10 +290,87 @@
         </div>
     </div>
 </div>
+<!-- 회원탈퇴 -->
+<div class="modal fade" id="Withdrawal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close"  id="PassCloseClick" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="sub_title font-weight-bold my-2">
+                        <h3>회원 탈퇴</h3>
+                        <span>회원 탈퇴 사유를 알려주시면 보다 나은 서비스를 위해 소중한 정보로 활용하겠습니다.</span>
+                    </div>
+					<div>
+						<input type="hidden" value="<sec:authentication property="principal.seq"/>" >
+					</div>
+                    <div id="deleteUser" >
+                        <form id="deleteUserfrm" name="deleteUserfrm" action="delete" method="POST">
+                        <div class="row">
+                        	<div class="col-6">
+	                           <div class="form-check">
+	  								<input class="form-check-input" type="radio" name="content1" id="content1" >
+	  								<label class="form-check-label" for="flexRadioCheckedDisabled">
+	   								 	자주 이용하지 않음
+	  								</label>
+								</div>
+                        	</div>
+                        	<div class="col-6">
+								<div class="form-check">
+	  								<input class="form-check-input" type="radio" name="content2" id="content2" >
+	  								<label class="form-check-label" for="flexRadioCheckedDisabled">
+	   								 	새로운 계정으로 재가입
+	  								</label>
+	  							</div>
+  							</div>	
+                        </div>
+                          <div class="row">
+                        	<div class="col-6">
+	                           <div class="form-check">
+	  								<input class="form-check-input" type="radio" name="content3" id="content1" >
+	  								<label class="form-check-label" for="flexRadioCheckedDisabled">
+	   								 	렌트카 업체 및 차량에 대한 불만
+	  								</label>
+								</div>
+                        	</div>
+                        	<div class="col-6">
+								<div class="form-check">
+	  								<input class="form-check-input" type="radio" name="content4" id="content2" >
+	  								<label class="form-check-label" for="flexRadioCheckedDisabled">
+	   								 	예약시스템 이용이 불편함
+	  								</label>
+	  							</div>
+  							</div>	
+                        </div>
+						  <div class=" py-3">
+						 <!--    <label for="exampleFormControlTextarea1">기타의견</label>
+						    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" style=" border-width: 1px; border-top-color: lightgray;"></textarea> -->
+						  </div>
+						      
+    
+                          <div class="form-group">
+                          	<button id="DeleteBtn" name="DeleteBtn" type="button" class="btn btn-primary btn-block">회원 탈퇴</button>
+                          </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- 모달 BodyEnd -->
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Modal End -->
 <script>
     $(function(){
-
+		//회원탈퇴
+		$('#DeleteBtn').on("click",function(){
+			deleteUserfrm.submit();
+			alert("회원탈퇴 되었습니다. 여행갈카를 이용해주셔서 감사합니다.");
+		});
 
         var matchPass = "";
         var id = $('input[name=id]').val();

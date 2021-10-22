@@ -82,12 +82,12 @@
 					<div class="table-responsive">
 				<table class="table table-striped">
 					<thead>
-						<tr>
+						<tr align="center">
 							<th class="col-1">번호</th>
-							<th class="col-3">제목</th>
-							<th class="col-4">작성자</th>
-							<th>작성일</th>
-							<th class="col-3" style="text-align:right">답변상태</th>
+							<th class="col-4">제목</th>
+							<th class="col-2">작성자</th>
+							<th class="col-2">작성일</th>
+							<th class="col-2" style="text-align:right">답변상태</th>
 						</tr>
 					</thead>
 					<tbody>

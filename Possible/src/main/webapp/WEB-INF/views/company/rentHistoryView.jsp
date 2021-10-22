@@ -65,7 +65,7 @@
 
 										<div class="form-group">
 											<h5 class="font-weight-bold"><label>구분</label></h5>
-											<input type="text" class="form-control" name='name' value='<c:out value="${rentHistory.rentType}"/>'readonly="readonly">
+											<input type="text" class="form-control" name='rentType' value='<c:out value="${type}"/>'readonly="readonly">
 										</div>
 										
 										<div class="form-group">
