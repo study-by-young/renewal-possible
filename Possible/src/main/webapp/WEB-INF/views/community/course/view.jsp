@@ -899,6 +899,7 @@ translateY
 		
 		// 지도에 선을 표시합니다 
 		polyline.setMap(map); 
+		
 		var distance = polyline.getLength();
 		var strArr = $("#courseAddr").eq(0).text().split(' ');
 		$("#coursePlace").text(strArr[0]+" "+strArr[1]);

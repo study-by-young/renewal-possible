@@ -45,6 +45,7 @@
 	margin-left: 5px;
 	margin-right: 5px;
 }
+
 </style>
 
 <div class="x_inner_team_main_wrapper float_left padding_tb_100">
@@ -87,14 +88,13 @@
 					<div class="btc_team_bot_cont_main_wrapper">
 						<div class="btc_team_img_bot_wrapper">
 							<c:if test="${list.firstImage ne null }">
-							<img
-								src="${list.firstImage}"
-								alt="Course" style="height: 180px;">
+								<img src="${list.firstImage}" alt="Course"
+									style="height: 180px;">
 							</c:if>
 							<c:if test="${list.firstImage eq null }">
-							<img
-								src="${pageContext.request.contextPath}/resources/images/no_image.jpg"
-								alt="Course" style="height: 180px;">
+								<img
+									src="${pageContext.request.contextPath}/resources/images/no_image.jpg"
+									alt="Course" style="height: 180px;">
 							</c:if>
 							<div class="btc_team_social_tb_wrapper">
 								<h3>
