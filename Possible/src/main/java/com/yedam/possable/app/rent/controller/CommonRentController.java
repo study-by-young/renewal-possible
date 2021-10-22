@@ -60,16 +60,14 @@ public class CommonRentController {
             cri.setType("A");
             cri.setKeyword(areaCode);
         }
-        List<CompanyVO> companies = companyService.companyList(cri);
 
 		Map<String, List<CarVO>> carListByModel = new HashMap<>();
 
     	for(CarVO modelInfo : modelList) {
             List<CarVO> carListInModel = new ArrayList<>();
-    	    for(CompanyVO company : companies){
-    	        modelInfo.setCmpnSeq(company.getSeq());
-    	        carListInModel.addAll(carService.getCarByModelAndCmpnSeq(modelInfo));
-            }
+            CompanyVO company = new CompanyVO();
+            company.setSeq(modelInfo.getCmpnSeq());
+    	    carListInModel.addAll(carService.getCarByModelAndCmpnSeq(modelInfo));
             carListByModel.put(modelInfo.getModel(),carListInModel);
     	}
         int countOfModelList = carListByModel.size();// carService.getTotalCount(cri);  차량 모델 갯수
@@ -83,6 +81,7 @@ public class CommonRentController {
 
     	// 모델별로 대표 하나만 보여주기
 		model.addAttribute("modelList", modelList);
+		System.out.println("====================================modelList" + modelList);
     	model.addAttribute("carList", carListByModel);
     	model.addAttribute("segments",codeService.getCodesByParentCode("SEG"));
     	model.addAttribute("fuels", codeService.getCodesByParentCode("FUL"));

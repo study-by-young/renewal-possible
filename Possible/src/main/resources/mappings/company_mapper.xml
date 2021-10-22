@@ -156,7 +156,7 @@
         </where>)
         WHERE RN > (#{pageNum} - 1) * #{amount}
     </select>
-
+ 
     <!-- 업체 한건-->
     <select id="companyOneSelect" resultMap="companyAllData">
         SELECT *
