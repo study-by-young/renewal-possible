@@ -1060,7 +1060,7 @@ input[class*=bg-]:not(.bg-light):not(.bg-white):not(.bg-transparent)+.form-contr
 .dropdown-item.form-check .form-check-label {
 	-ms-flex: 1;
 	flex: 1;
-	padding: .5rem 1.5rem
+	padding: .5rem 1.25rem
 }
 
 .dropdown-item.form-check.form-check-right .form-check-label {
