@@ -89,7 +89,7 @@
                                             <p>대여가<span class="float-right"><fmt:formatNumber value="${rent.carVO.price}" pattern="#,###"/>원</span></p><div class="clearfix"></div>
                                             <p>보험가<span class="float-right"><fmt:formatNumber value="${rent.insuranceCodeVO.price}" pattern="#,###"/>원</span></p><div class="clearfix"></div>
                                             <p>대여일<span class="float-right">${during}일</span></p><div class="clearfix"></div>
-                                            <p>총계<span class="float-right"><fmt:formatNumber value="${(rent.carVO.price + rent.insuranceCodeVO.price) * during}" pattern="#,###"/>원</span></p><div class="clearfix"></div>
+                                            <p>총계<span class="float-right"><fmt:formatNumber value="${(rent.carVO.price * during) + (rent.insuranceCodeVO.price * during)}" pattern="#,###"/>원</span></p><div class="clearfix"></div>
                                         </div>
                                     </div>
                                 </div>

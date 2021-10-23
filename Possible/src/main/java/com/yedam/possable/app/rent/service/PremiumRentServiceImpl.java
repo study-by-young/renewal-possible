@@ -30,10 +30,10 @@ public class PremiumRentServiceImpl implements PremiumRentService{
 
         for(EstimateHistoryVO vo : premiumRentMapper.getEstimateList(cri)){
             if(vo.getOptions() != null){
-                vo.setItemList(List.of(strToArr(vo.getOptions())));
+                vo.setOptionList(List.of(strToArr(vo.getOptions())));
             }
             if(vo.getItems() != null){
-                vo.setOptionList(List.of(strToArr(vo.getItems())));
+                vo.setItemList(List.of(strToArr(vo.getItems())));
             }
             estimateList.add(vo);
         }
@@ -100,6 +100,11 @@ public class PremiumRentServiceImpl implements PremiumRentService{
     @Override
     public int insertEstSubmit(EstiSubmitHistoryVO vo) {
         return premiumRentMapper.insertEstSubmit(vo);
+    }
+
+    @Override
+    public boolean isRegisteredSubmit(Long companySeq, Long estimateSeq) {
+        return premiumRentMapper.isRegisteredSubmit(companySeq,estimateSeq);
     }
 
     @Override

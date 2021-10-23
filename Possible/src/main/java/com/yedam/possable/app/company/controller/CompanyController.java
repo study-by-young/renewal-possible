@@ -157,11 +157,12 @@ public class CompanyController {
             String status = codeService.getCodeByValue(carVO.getStatus()).getName();
             String brand = codeService.getBrand(carVO.getBrand()).getName();
             String model2 = codeService.getModel(carVO.getModel()).getName();
-
+            String carImg = codeService.getModel(carVO.getModel()).getImg();
             voMap.put("carVO", carVO);
             voMap.put("status", status);
             voMap.put("brand", brand);
             voMap.put("model", model2);
+            voMap.put("carImg",carImg);
 
             carList.add(voMap);
         }
@@ -187,6 +188,8 @@ public class CompanyController {
        String segment = codeService.getCodeByValue(vo.getSegment()).getName();
        String trim = codeService.getTrim(vo.getTrim()).getName();
        String fuel = codeService.getCodeByValue(vo.getFuel()).getName();
+       String color = codeService.getCodeByValue(vo.getColor()).getName();
+       String mission = codeService.getCodeByValue(vo.getMission()).getName();
 
        String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
 
@@ -196,6 +199,8 @@ public class CompanyController {
        model.addAttribute("segment", segment);
        model.addAttribute("trim", trim);
        model.addAttribute("fuel", fuel);
+       model.addAttribute("color", color);
+       model.addAttribute("mission", mission);
 
        model.addAttribute("carOpt", carService.getCarOptions(vo));
 
@@ -222,10 +227,10 @@ public class CompanyController {
     @PostMapping("/car/register")
     public String registerCar(CarVO vo, @RequestParam Long cmpnSeq, HttpServletRequest request, CarOptionVO optVO,  @RequestParam("options") String[] optionsArr, RedirectAttributes rttr) throws IllegalStateException, IOException{
     	String r = "";
-    	
+
        HttpSession session = request.getSession();
         String root_path = session.getServletContext().getRealPath("/");
-        String attach_path = "resources/images";
+        String attach_path = "resources/images/";
         String fileName=null;
       MultipartFile uploadFile = vo.getUploadFile();
 
@@ -309,7 +314,7 @@ public class CompanyController {
     @PostMapping("/car/delete")
     public String deleteCar(CarVO vo, CarOptionVO optVO, InsuranceOptionVO insVO, @RequestParam Long seq, @RequestParam Long cmpnSeq, RedirectAttributes rttr){
     	String r = "";
-    	
+
     	vo.setSeq(seq);
     	optVO.setCarSeq(seq);
     	insVO.setCarSeq(seq);
@@ -320,9 +325,9 @@ public class CompanyController {
 		if(result == 1) {
 			rttr.addFlashAttribute("result", "success");
 		}
-		
+
 		r = "redirect:/company/car?cmpnSeq="+cmpnSeq;
-				
+
 		return r;
     }
 
@@ -399,15 +404,17 @@ public class CompanyController {
 
     	List<Map<String, Object>> rentList = new LinkedList<>();
         List<RentHistoryVO> voList = rentHistoryService.getRentHistoryListByCmpnSeq(cri, cmpnSeq);
-        
+
         for(RentHistoryVO vo : voList) {
             Map<String, Object> voMap = new HashMap<>();
             String status = codeService.getCodeByValue(vo.getStatus()).getName();
+            String type = codeService.getCodeByValue(vo.getRentType()).getName();
             voMap.put("rentHistoryVO", vo);
             voMap.put("status", status);
+            voMap.put("type", type);
             rentList.add(voMap);
         }
-    	
+
     	int total = rentHistoryService.getTotalCount(cri,cmpnSeq);
     	System.out.println("total=============="+total);
     	model.addAttribute("pageMaker", new PageVO(cri, total));
@@ -420,12 +427,16 @@ public class CompanyController {
     // 렌트 내역 상세
     @GetMapping("/rent/view")
     public String rentHistoryView(RentHistoryVO vo, Model model){
-    	
+
     	vo = rentHistoryService.getRentHistory(vo.getSeq());
     	String status = codeService.getCodeByValue(vo.getStatus()).getName();
-    	
+        String type = codeService.getCodeByValue(vo.getRentType()).getName();
+
+
     	model.addAttribute("rentHistory", vo);
     	model.addAttribute("status", status);
+    	model.addAttribute("type", type);
+
     	return "company/rentHistoryView";
     }
 

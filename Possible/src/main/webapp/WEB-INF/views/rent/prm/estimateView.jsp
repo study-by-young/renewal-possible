@@ -130,9 +130,10 @@
             <div class="card-footer">
                 <div class="text-center">
                     <sec:authorize access="hasAnyRole('COMPANY','ADMIN')">
-                        <a href="${pageContext.request.contextPath}/premiumRent/submit/register?seq=${estimate.seq}" class="btn btn-primary btn-lg w-25">
-                            <h5 class="mb-0">견적 작성</h5>
-                        </a>
+                        <button type="button" class="btn btn-primary btn-lg w-25" onclick="chkRegisteredSubmit(${estimate.seq}, ${estimate.memberVO.seq})">견적 작성</button>
+<%--                        <a href="${pageContext.request.contextPath}/premiumRent/submit/register?seq=${estimate.seq}" class="btn btn-primary btn-lg w-25">--%>
+<%--                            <h5 class="mb-0">견적 작성</h5>--%>
+<%--                        </a>--%>
                     </sec:authorize>
                     <sec:authentication property="principal.seq" var="loginUserSeq" />
                     <sec:authorize access="hasRole('USER')">
@@ -154,7 +155,23 @@
 </div>
 <!-- x car book sidebar section Wrapper End -->
 <script>
-    $(function(){
+    function chkRegisteredSubmit(eSeq, mSeq) {
+        $.ajax({
+            url:'../submit/registerCheck',
+            data: {
+                eSeq : eSeq
+            },
+            success: function(result){
+                if(result === 2){
+                    customAlert("알림", "이미 작성한 견적이 있습니다.");
+                    return;
+                }
+                location.href='../submit/register?seq=' + eSeq;
+            }
+        })
+    }
+
+$(function(){
         var container = $('#takePlaceMap')[0]; //지도를 담을 영역의 DOM 레퍼런스
         var options = { //지도를 생성할 때 필요한 기본 옵션
             center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
@@ -167,7 +184,7 @@
         var geocoder = new kakao.maps.services.Geocoder();
 
         // 주소로 좌표를 검색합니다
-        geocoder.addressSearch('${est.takePlaceBasic}', function(result, status) {
+        geocoder.addressSearch('${estimate.takePlaceBasic}', function(result, status) {
 
             // 정상적으로 검색이 완료됐으면
             if (status === kakao.maps.services.Status.OK) {

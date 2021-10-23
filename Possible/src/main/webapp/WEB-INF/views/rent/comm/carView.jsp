@@ -57,7 +57,7 @@
                             <div class="x_slider_form_input_wrapper float_left">
                                 <h6>예상 결제액</h6>
                                 <div>
-                                    <h6 class="text-right font-weight-bold text-primary"><fmt:formatNumber value="${car.price + insurance.price * during}" pattern="#,###"/>원</h6>
+                                    <h6 class="text-right font-weight-bold text-primary"><fmt:formatNumber value="${(car.price * during) + (insurance.price * during)}" pattern="#,###"/>원</h6>
                                 </div>
                             </div>
                         </div>
@@ -185,7 +185,7 @@
                                                 <div>
                                                     <img src="${pageContext.request.contextPath}/resources/images/image-shuttle-jeju.svg" class="w-100 mb-3" alt="">
                                                     <ul class="list-unstyled">
-                                                        <li><i class="fa fa-check"></i> ${car.companyVO.area}공항에서 업체
+                                                        <li><i class="fa fa-check"></i> ${car.companyVO.areaCodeVO.name}공항에서 업체
                                                             차고지까지 편리하게 이동할 수 있도록 <strong>셔틀버스를 무료로 제공</strong>하고
                                                             있습니다.
                                                         </li>

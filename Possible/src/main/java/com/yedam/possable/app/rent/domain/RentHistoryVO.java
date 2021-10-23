@@ -18,6 +18,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Data
 public class RentHistoryVO {
     private Long seq;
+    private Long carSeq;
+    private Long memSeq;
 	private String rentType; /* 구분 */
     @JsonFormat(pattern = "yy/MM/dd")
     @DateTimeFormat(pattern = "yy/MM/dd")
@@ -26,22 +28,20 @@ public class RentHistoryVO {
     @DateTimeFormat(pattern = "yy/MM/dd")
 	private Date endDate; /* 끝일자 */
     private String receiver;
+    private String takePlaceCode;
     private Long price;
     private Long estimate;
     private String status;
     private Date genDate;
     private Date uptDate;
-    private String takePlaceCode;
-    private String takePlaceBasic;
     private String takePlaceDetail;
+    private String takePlaceBasic;
     private String merchantUid;
     private String payMethod;
     private String phone;
     private Date birth;
     private String email;
     private String insuranceCode;
-    private Long carSeq;
-    private Long memSeq;
     private Long cmpnSeq;
 
     private String review;
@@ -51,5 +51,7 @@ public class RentHistoryVO {
     private MemberVO memberVO;
     private CompanyVO companyVO;
     private InsuranceOptionVO insuranceCodeVO;
+    private CodeSubVO statusCodeVO;
+   
 
 }

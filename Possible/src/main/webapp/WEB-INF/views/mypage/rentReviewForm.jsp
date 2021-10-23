@@ -213,7 +213,7 @@
 								</div>
 							</div>
 						</div>
-						
+						${historyList }
 						<div class="col-lg-12 col-md-12">
 							<div class="lr_bc_first_box_main_wrapper">
 								<div class="col-md-12">
@@ -264,9 +264,9 @@
 													</div>
 												</div>
 												
-												<input type="hidden" name="memSeq" id="memSeq" value="${historyList.memberVO.seq }">
-												<input type="hidden" name="historySeq" id="historySeq" value="${historyList.seq }">
-												<input type="hidden" name="cmpnSeq" id="cmpnSeq" value="${historyList.companyVO.seq }">
+												<input type="text" name="historySeq" id="historySeq" value="${historyList.seq }">
+												<input type="text" name="memSeq" id="memSeq" value="${historyList.memberVO.seq }">
+												<input type="text" name="cmpnSeq" id="cmpnSeq" value="${historyList.companyVO.seq }">
 												
 												<div class="col-lg-12" style="margin-top: 20px;">
 													<div class="text-center">

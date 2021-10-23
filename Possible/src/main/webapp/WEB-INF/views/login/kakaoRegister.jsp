@@ -65,7 +65,6 @@
 
 <div class="x_partner_main_wrapper float_left padding_tb_100">
 		<div class="container">
-			${kakaoId }
 			<div class="row">
                <div class="col-xl-8 offset-xl-2 col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-12">
                    <div class="row">
@@ -77,13 +76,8 @@
 							</div>
                         	<div class="card-body">
                         		<form id="kakaofrm" name="kakaofrm" action="kakaoInsert" method="post">
-                        			
-                        			<div class="row">
-	                        			<div class="form-group col-md-12 col-sm-6 col-xs-12">
-	                                		<label for="InputEmail">카카오 아디</label>
-	                                    	<input type="text" id="id" name="id" value="${kakaoId.kakaoId }">
-	                               		</div>
-                        			</div>
+	                                <label for="InputEmail">카카오 아디</label>
+	                                <input type="hidden" id="id" name="id" value="${kakaoId.kakaoId }">
   									
   									<!-- 이름 Start -->
   									<div class="row">

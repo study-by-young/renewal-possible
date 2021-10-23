@@ -18,10 +18,9 @@
 	<div class="content">
 	<div class="card">
 			<div class="card-header header-elements-inline">
-				<h6 class="card-title">차량등록</h6>
+				<h6 class="card-title"></h6>
 				<div class="header-elements"></div>
 			</div>
-			<hr>
 			
 				<div class="card-body py-0">
 						<div class="row">
@@ -32,7 +31,7 @@
 										<div class="row">
 										<ul class="list-unstyled row">
 											<li class="col-md-4">
-												<h5 class="font-weight-bold"><label class="d-block">IMG1
+												<h5 class="font-weight-bold"><label class="d-block">이미지
 													<input type="file" name="uploadFile" onchange="setThumbnail(event)"/>
 												</label></h5>
 											</li>
@@ -100,13 +99,10 @@
 												<select name="year" id="year" class="form-control select-fixed-single" required>
 															<optgroup label="연식">
 																<option value="">연식을 선택하세요</option>
-																	<option value="2022">2022년</option>
 																	<option value="2021">2021년</option>
 																	<option value="2020">2020년</option>
 																	<option value="2019">2019년</option>
 																	<option value="2018">2018년</option>
-																	<option value="2017">2017년</option>
-																	<option value="2016">2016년</option>
 															</optgroup>
 													</select>
 												</label></h5>
@@ -117,7 +113,8 @@
 												<select name="color" id="color" class="form-control select-fixed-single" required>
 															<optgroup label="색깔">
 																<option value="">색깔을 선택하세요</option>
-COL02																<option value="COL01">화이트</option>
+	
+	 															<option value="COL01">화이트</option>
 																	<option value="COL02">실버</option>
 																	<option value="COL03">블랙</option>
 																	<option value="COL04">블루</option>
@@ -162,9 +159,13 @@ COL02																<option value="COL01">화이트</option>
 												<select name="trunk" id="trunk" class="form-control select-fixed-single" required>
 															<optgroup label="트렁크">
 																<option value="">트렁크를 선택하세요</option>
-																	<option value="500">500</option>
-																	<option value="300">300</option>
-															</optgroup>
+																	<option value="7">7</option>
+																	<option value="6">6</option>
+																	<option value="5">5</option>
+																	<option value="4">4</option>
+																	<option value="3">3</option>
+																	<option value="2">2</option>
+														</optgroup>
 													</select>
 												</label></h5>
 											</li>

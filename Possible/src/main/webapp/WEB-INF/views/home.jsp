@@ -176,32 +176,41 @@
     </div>
 
     <div class="row card-deck flex-wrap mb-sm-3 px-2">
-        <c:forEach begin="0" end="3">
-            <div class="col-lg-3 col-md-6">
-                <div class="card mx-0 mb-3" style="flex:none">
-                    <div class="card-img-actions mx-1 mt-1">
-                        <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}/resources/images/placeholder.jpg" alt="">
-                        <div class="card-img-actions-overlay card-img">
-                            <a href="${pageContext.request.contextPath}/resources/images/placeholder.jpg" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round" data-popup="lightbox" rel="group">
-                                <i class="icon-zoomin3"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <a href="#">너무 좋은 여행이었어요!</a>
-                        </h5>
-                        <p class="card-text">어디 갔는데 너무 좋았어요. 그냥 좋았어요~</p>
-                    </div>
-
-                    <div class="card-footer d-flex justify-content-between">
-                        <span class="text-muted"><i class="far fa-clock"></i> 21/10/09</span>
-                        <span class="float-right main-score-bg"><span class="main-score" style="width:80%"></span></span>
-                    </div>
+        <c:if test="${reviewList.size() == 0}">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="text-center">아직 작성된 후기가 없습니다!</h5>
                 </div>
             </div>
-        </c:forEach>
+        </c:if>
+        <c:if test="${reviewList.size() != 0}">
+            <c:forEach begin="0" end="3">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card mx-0 mb-3" style="flex:none">
+                        <div class="card-img-actions mx-1 mt-1">
+                            <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}/resources/images/placeholder.jpg" alt="">
+                            <div class="card-img-actions-overlay card-img">
+                                <a href="${pageContext.request.contextPath}/resources/images/placeholder.jpg" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round" data-popup="lightbox" rel="group">
+                                    <i class="icon-zoomin3"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="#">너무 좋은 여행이었어요!</a>
+                            </h5>
+                            <p class="card-text">어디 갔는데 너무 좋았어요. 그냥 좋았어요~</p>
+                        </div>
+
+                        <div class="card-footer d-flex justify-content-between">
+                            <span class="text-muted"><i class="far fa-clock"></i> 21/10/09</span>
+                            <span class="float-right main-score-bg"><span class="main-score" style="width:80%"></span></span>
+                        </div>
+                    </div>
+                </div>
+            </c:forEach>
+        </c:if>
     </div>
     <!-- /image grid -->
 </div>
@@ -218,7 +227,7 @@
         <!-- /questions title -->
 
         <div class="row">
-            <c:forEach var="faq" items="${faqList}" varStatus="status">
+            <c:forEach begin="1" end="6" var="faq" items="${faqList}" varStatus="status">
                 <div class="col-md-6">
                     <div class="card mb-2">
                         <a class="text-default collapsed" data-toggle="collapse" href="#question${status.index}">

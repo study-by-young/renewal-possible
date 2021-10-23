@@ -27,8 +27,8 @@
 	    			 column="cmpn_seq"
 	    			 select="com.yedam.possable.app.company.mapper.CompanyMapper.companyOneSelect"
 	    			 javaType="CompanyVO"/>
-		
-		
+
+
 	</resultMap>
 
 	<!-- 업체별 후기 목록 (commonRent/list) -->
@@ -55,11 +55,11 @@
 
 	<!-- 마이페이지 내가 쓴 리뷰 조회 -->
 	<select id="getRentReviewListByMember" resultMap="rentReview">
-			SELECT r.* FROM 
+			SELECT r.* FROM
 			RENT_REVIEW r INNER JOIN RENT_HISTORY h
 			on r.HISTORY_SEQ = h.SEQ
 			WHERE r.MEM_SEQ = #{seq}
-            ORDER BY r.SEQ desc 
+            ORDER BY r.SEQ desc
 	</select>
 
 	<!-- 단건 조회 -->
@@ -93,10 +93,10 @@
 				, #{title}
 				, #{content}
 				, #{score}
-				, #{rentHistoryVO.seq}
-				, #{memberVO.seq}
-				, #{courseBoardVO.seq}
-				, #{companyVO.seq} )
+				, #{historySeq}
+				, #{memSeq}
+				, #{courseSeq}
+				, #{cmpnSeq} )
 	</insert>
 
 	<!-- 수정 -->
@@ -121,4 +121,11 @@
 		on r.mem_seq = m.seq
 		where r.cmpn_seq = #{cmpnSeq}
 	</select>
+
+	<select id="getLatestReviewList" resultMap="rentReview">
+        SELECT
+            *
+        FROM rent_review
+        <![CDATA[WHERE ROWNUM < 5]]>
+    </select>
 </mapper>

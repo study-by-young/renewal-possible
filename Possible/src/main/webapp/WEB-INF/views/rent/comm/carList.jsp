@@ -18,16 +18,14 @@
 			<div class="container py-2">
 				<div class="page-header-content header-elements-inline">
 					<div class="page-title text-white">
-						<h1 class="font-weight-bold">렌트 견적 요청 목록</h1>
-						<h6>나만의 렌트카를 요청해보세요!</h6>
+						<h1 class="font-weight-bold">렌트</h1>
+						<h6>실시간으로 예약이 가능합니다!</h6>
 					</div>
 					<div class="x_title_inner_num_wrapper float_left py-3 my-0">
 						<form name="searchCar" action="commonRent" onsubmit=""
 							class="bg-white rounded-lg">
-							<input type="hidden" name="pageNum"
-								value="<c:out value="${cri.pageNum}" default="1"/>"> <input
-								type="hidden" name="amount"
-								value="<c:out value="${cri.amount}" default="5"/>">
+							<input type="hidden" name="pageNum" value="<c:out value="${cri.pageNum}" default="1"/>">
+							<input type="hidden" name="amount" value="<c:out value="${cri.amount}" default="5"/>">
 							<div class="row p-3">
 								<div class="col-md-3">
 									<h6 class="text-dark">지역</h6>
@@ -265,7 +263,7 @@
 																									class="text-dark"> <span
 																									class="pr-2 text-warning-400 font-weight-bold">${insurance.optName}</span>
 																									<span class="h5 text-primary font-weight-bold">
-																										<fmt:formatNumber value="${car.price + insurance.price * during}" pattern="#,###"/>원 </span>
+																										<fmt:formatNumber value="${(car.price * during) + (insurance.price * during)}" pattern="#,###"/>원 </span>
 																								</a>
 																							</div>
 																						</c:forEach>

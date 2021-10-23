@@ -14,8 +14,13 @@ public class RentReviewServiceImpl implements RentReviewService {
 
 	@Autowired
 	RentReviewMapper rentReviewMapper;
-	
-	@Override
+
+    @Override
+    public List<RentReviewVO> getLatestReviewList() {
+        return rentReviewMapper.getLatestReviewList();
+    }
+
+    @Override
 	public List<RentReviewVO> getReviewListByCmpnSeq(CarVO vo) {
 		return rentReviewMapper.getReviewListByCmpnSeq(vo);
 	}
@@ -24,11 +29,11 @@ public class RentReviewServiceImpl implements RentReviewService {
 	public List<RentReviewVO> getRentReviewListByCompany(RentReviewVO vo) {
 		return rentReviewMapper.getRentReviewListByCompany(vo);
 	}
-	
+
 	@Override
 	public List<RentReviewVO> getRentReviewListByMember(Long seq) {
 		return rentReviewMapper.getRentReviewListByMember(seq);
-	}	
+	}
 
 	@Override
 	public RentReviewVO getRentReview(Long seq ) {

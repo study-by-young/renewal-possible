@@ -124,7 +124,7 @@
 							onclick="$('[name=pageNum]').val(1)">검색</button>
 					</form>
 				</div>
-				<c:forEach var="list" items="${list }">
+				<c:forEach var="list" items="${list }" varStatus="status">
 					<div class="card card-body">
 						<div
 							class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
@@ -154,8 +154,7 @@
 										class="text-muted">${list.zipCode }</a></li>
 								</ul>
 
-								<p class="mb-3" id="overview">
-									<!-- <a href="https://api.visitkorea.or.kr/guide/tourDetail.do?contentId=${list.contentId }&langtype=KOR&typeid=12&oper=area&burl=&contentTypeId=${list.contentTypeId}&areaCode=&sigunguCode=&cat1=&cat2=&cat3=&listYN=Y&MobileOS=ETC&MobileApp=TourAPI3.0_Guide&arrange=A&numOfRows=12&pageNo=1">상세정보</a> -->
+								<p class="mb-3" id="overview${status.index}">
 								</p>
 							</div>
 						</div>
@@ -176,4 +175,25 @@
 		$('[name="pageNum"]').val(p);
 		actionForm.submit();
 	});
+	var list = [
+	<c:forEach var="item" items="${list}">
+        '${item.contentId}',
+    </c:forEach>
+    ];
+    $(document).ready(function() {
+        for(let i=0;i<list.length;i++) {
+            $.ajax({
+                method: 'get',
+                async : false,
+                url : 'http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?ServiceKey=%2Bxd0HNP4Gd4KAuGtJitYZzafrxzKZ40VMcf3uX%2BQ7AfWFbNEvS2jj43sWtAeAlQPnB65kOz6PjhVjsUPnvkKtw%3D%3D&contentId='+list[i]+'&defaultYN=N&addrinfoYN=N&overviewYN=Y&MobileOS=ETC&MobileApp=AppTest',
+                dataType : 'json',
+                success : function(data) {
+                    $("#overview" + i).html(data.response.body.items.item.overview);
+                },
+                error: function(error){
+                    console.log("error" + error);
+                }
+            })
+        }
+    });
 </script>

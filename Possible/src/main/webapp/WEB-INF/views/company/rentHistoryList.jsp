@@ -67,7 +67,7 @@
 			<div class="col-sm-12" style="padding-right: 2.5rem">
 					<div align="right">
 						<form id="actionForm" action="rent" method="get">
-								<label style="cursor:pointer"><input type="checkbox" name="type" value="A" ${pageMaker.cri.type =='A'? 'checked' : "" } >&nbsp;대기</label>
+								<label style="cursor:pointer"><input type="checkbox" name="type" value="A" ${pageMaker.cri.type =='A'? 'checked' : "" } >&nbsp;예약</label>
 								<label style="cursor:pointer"><input type="checkbox" name="type"  value="B" ${pageMaker.cri.type =='B'? 'checked' : "" }>&nbsp;진행</label>
 								<label style="cursor:pointer"><input type="checkbox" name="type" value="C" ${pageMaker.cri.type =='C'? 'checked' : "" } >&nbsp;완료</label>
 								<label style="cursor:pointer"><input type="checkbox" name="type"  value="D" ${pageMaker.cri.type =='D'? 'checked' : "" }>&nbsp;취소</label>
@@ -89,8 +89,8 @@
 							<tr>
 								<th>번호</th>
 								<th>구분</th>
-								<th>시작날짜</th>
-								<th>종료날짜</th>
+								<th>출발날짜</th>
+								<th>도착날짜</th>
 								<th>수령자</th>
 								<th>상태</th>
 								<th></th>
@@ -104,7 +104,7 @@
 										<input type="hidden" class="form-control" name='memSeq' value="${rentHistoryList.memSeq}">
 										<tr>
 											<td>${rent.seq }</td>
-											<td>${rent.rentType }</td>
+											<td>${rentHistoryList.get('type') }</td>
 											<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${rent.startDate }"/></td>
 											<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${rent.endDate }"/></td>
 											<td>${rent.receiver }</td>
