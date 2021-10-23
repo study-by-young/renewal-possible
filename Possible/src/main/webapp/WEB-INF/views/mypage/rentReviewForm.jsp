@@ -230,18 +230,14 @@
 													<div class="col-lg-12" style="margin-top: 0px; padding-left: 0px; margin-bottom: 15px;">
 														<div class="row align-items-center">
 															<div class="col-3">
-																<select id="course" name="course" class="selectpicker input_title">
-																	<option value="${course.title}" selected>내가 작성한 여행코스</option>
-																	<c:if test="${user.id eq course.writer}">
-																		<c:forEach var="course" items="${courseList}">
-								                                            <option value="">${course.title}</option>
-																			<input type="hidden" id="courseSeq" name="courseSeq" value="${course.seq}">
-																		</c:forEach>
-																	</c:if>
-																	<c:if test="${user.id ne course.writer}">
+																<select name="course" id="course"  class="selectpicker input_title">
+															      <c:forEach var="course" items="${courseList}" varStatus="i">
+															         <option value="${course.title}">${course.title}</option>
+															      </c:forEach>
+															      <c:if test="${user.id ne course.writer}">
 																		<option value="">작성한 여행코스가 없습니다.</option>
 																	</c:if>
-																</select>
+															   </select>
 															</div>
 															<div class="col-2">
 																<select id="score" name="score" class="selectpicker input_title">

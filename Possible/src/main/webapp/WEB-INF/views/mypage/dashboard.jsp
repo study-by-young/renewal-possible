@@ -433,6 +433,7 @@
 										</c:if>
 									</div>
 								</div>
+								
 								<div class="col-12">
 									<div class="x_car_book_tabs_content_main_wrapper my-2"
 										style="margin-top: 0px !important">
@@ -461,14 +462,6 @@
 																			<p class="text-grey-600">
 																				제목:${reviewList.title }
 																			</p>
-																				<%-- <p class="font-weight-bold text-grey-600">
-																					<fmt:formatDate value="${est.startDate}"
-																						pattern="yy년 MM월 dd일" />
-																					~
-																					<fmt:formatDate value="${est.endDate}"
-																						pattern="yy년 MM월 dd일" />
-																					<br>
-																				</p> --%>
 																		</div>
 																		<div class="col-lg-3">
 																		
@@ -497,17 +490,15 @@
 																			</p>
 																		</div>
 																		
-																		${reviewList.rentHistoryVO}
-																		
 																		<div class="col-12">
 																			<div class="card border-primary-300 border-1"
 																				style="margin-bottom: 15px;">
-																				<div class="card-body">
+																				<div class="card-body" style="padding-bottom: 10px;">
 																					<div class="row align-items-center">
-																						<div class="col-4">
+																						<div class="col-2" style="padding-bottom: 10px;">
 																							<i class="icon-checkmark4 pr-2 mb-0"></i> 내용 :
 																						</div>
-																						<div class="col-8" style="padding-left: 0px">
+																						<div class="col-10" style="padding-left: 0px">
 																							<span class="list-unstyled mb-0">
 																								${reviewList.content }
 																								</span>
@@ -522,7 +513,6 @@
 																					~
 																					<fmt:formatDate value="${reviewList.rentHistoryVO.endDate}"
 																						pattern="yyyy.MM.dd" />
-																					| 
 																				</i>
 																			</p>
 																		</div>
@@ -588,7 +578,7 @@
 															</h5>
 														</div>
 													</div>
-													<div class="btc_team_img_bot_cont_wrapper">
+													<div class="btc_team_img_bot_cont_wrapper" style="height :100px;">
 														<h4>
 															<a
 																href="${pageContext.request.contextPath}/community/course/view?seq=${myCourse.seq}">${myCourse.title }</a>

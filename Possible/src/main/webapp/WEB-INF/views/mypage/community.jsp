@@ -266,19 +266,9 @@
 																			<p class="text-grey-600">
 																				제목:${reviewList.title }
 																			</p>
-																				<%-- <p class="font-weight-bold text-grey-600">
-																					<fmt:formatDate value="${est.startDate}"
-																						pattern="yy년 MM월 dd일" />
-																					~
-																					<fmt:formatDate value="${est.endDate}"
-																						pattern="yy년 MM월 dd일" />
-																					<br>
-																				</p> --%>
 																		</div>
 																		<div class="col-lg-3">
-																		
 																		</div>
-
 																		<div class="col-lg-3" style="padding-left: 40px;">
 																			<c:if test="${reviewList.score eq '5'}">
 																				<span class="float-right main-score-bg"><span class="main-score" style="width:100%"></span></span>
@@ -384,7 +374,7 @@
 															</h5>
 														</div>
 													</div>
-													<div class="btc_team_img_bot_cont_wrapper">
+													<div class="btc_team_img_bot_cont_wrapper" style="height :100px" >
 														<h4>
 															<a
 																href="${pageContext.request.contextPath}/community/course/view?seq=${myCourse.seq}">${myCourse.title }</a>
