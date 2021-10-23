@@ -38,7 +38,17 @@
 								<div class="col-md-12">
 										<div class="row">
 										<ul class="list-unstyled row">
-											<li class="col-md-4">
+
+										<li class="col-md-12" style="margin-bottom:10px;" >
+											<h5 class="font-weight-bold">
+												<label class="d-block" > <img 
+													src="${pageContext.request.contextPath}/resources/images/${car.img1}"
+													class="thumbImg" />
+												</label>
+											</h5>
+										</li>
+										
+										<li class="col-md-4">
 												<h5 class="font-weight-bold"><label class="d-block">브랜드
 											 	<input type="hidden" class="form-control" name='brand' value='${car.brand}' >
 											 	<input type="hidden" class="form-control" name='model' value='${car.model}' >
@@ -110,14 +120,14 @@
 												<h5 class="font-weight-bold"><label class="d-block">색깔
 												<select name="color" id="color" class="form-control select-fixed-single" required>
 															<optgroup label="색깔">
-																<option value="">${car.color}</option>
-																	<option value="검은색">검은색</option>
-																	<option value="흰색">흰색</option>
-																	<option value="은색">은색</option>
-																	<option value="청색">청색</option>
-																	<option value="자주">자주</option>
-																	<option value="회색">회색</option>
-																	<option value="적색">적색</option>
+																<option value="">${color}</option>
+																	<option value="COL01">화이트</option>
+																	<option value="COL02">실버</option>
+																	<option value="COL03">블랙</option>
+																	<option value="COL04">블루</option>
+																	<option value="COL05">레드</option>
+																	<option value="COL06">옐로우</option>
+																	<option value="COL07">그린</option>
 															</optgroup>
 													</select>
 												</label></h5>
@@ -143,9 +153,9 @@
 												<h5 class="font-weight-bold"><label class="d-block">기어
 												<select name="mission" id="mission" class="form-control select-fixed-single" required>
 															<optgroup label="기어">
-																<option value="">${car.mission}</option>
-																	<option value="자동">자동</option>
-																	<option value="수동">수동</option>
+																<option value="">${mission}</option>
+																	<option value="MSS01">자동</option>
+																	<option value="MSS02">수동</option>
 															</optgroup>
 													</select>
 												</label></h5>
@@ -156,8 +166,12 @@
 												<select name="trunk" id="trunk" class="form-control select-fixed-single" required>
 															<optgroup label="트렁크">
 																<option value="">${car.trunk}</option>
-																	<option value="500">500</option>
-																	<option value="300">300</option>
+																	<option value="7">7</option>
+																	<option value="6">6</option>
+																	<option value="5">5</option>
+																	<option value="4">4</option>
+																	<option value="3">3</option>
+																	<option value="2">2</option>
 															</optgroup>
 													</select>
 												</label></h5>
@@ -183,12 +197,7 @@
 													<input type="text" class="form-control" name='carNum' value='${car.carNum}'>
 												</label></h5>
 											</li>
-											<li class="col-md-4">
-											<h5 class="font-weight-bold">	<label class="d-block">IMG1
-													<input type="text" class="form-control" name="img1" value='${car.img1}'>
-													 <img src="c:/upload/${car.img1}"  class="thumbImg"/> 
-												</label></h5>
-											</li>
+											
 											
 											 <%--   <li class="col-md-12 my-3">
                                                 <label>차량 옵션</label>

@@ -53,6 +53,9 @@
     <definition name="community/tour/*" extends="Template">
         <put-attribute name="content" value="/WEB-INF/views/community/tour/{1}.jsp" />
     </definition>
+<!--     <definition name="community/course/*" extends="Template">
+        <put-attribute name="content" value="/WEB-INF/views/community/course/{1}.jsp" />
+    </definition> -->
 	<definition name="mypage/*" extends="Template">
         <put-attribute name="content" value="/WEB-INF/views/mypage/{1}.jsp" />
     </definition>

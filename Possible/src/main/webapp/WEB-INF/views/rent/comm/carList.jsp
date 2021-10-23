@@ -265,7 +265,7 @@
 																									class="text-dark"> <span
 																									class="pr-2 text-warning-400 font-weight-bold">${insurance.optName}</span>
 																									<span class="h5 text-primary font-weight-bold">
-																										<fmt:formatNumber value="${car.price + insurance.price * during}" pattern="#,###"/>원 </span>
+																										<fmt:formatNumber value="${(car.price * during) + (insurance.price * during)}" pattern="#,###"/>원 </span>
 																								</a>
 																							</div>
 																						</c:forEach>
