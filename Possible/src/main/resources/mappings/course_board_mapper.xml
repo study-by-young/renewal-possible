@@ -80,7 +80,7 @@
 				AND ADDR1 IS NOT NULL AND CONTENTTYPEID=14 AND TITLE LIKE '%' || #{keyword} || '%'
 			</if>
 			<if test="type == 'T'.toString()">
-				AND ADDR1 IS NOT NULL AND TITLE LIKE '%' || #{keyword} || '%'
+				AND ADDR1 IS NOT NULL AND (TITLE LIKE '%' || #{keyword} || '%' OR ADDR1 LIKE '%' || #{keyword} || '%')
 			</if>
         </where>
 	</select>

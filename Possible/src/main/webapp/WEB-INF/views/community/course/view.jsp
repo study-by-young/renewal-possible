@@ -1327,7 +1327,7 @@ translateY
 		var container = $('#takePlaceMap')[0]; //지도를 담을 영역의 DOM 레퍼런스
 	    var option = { //지도를 생성할 때 필요한 기본 옵션
 	        center: new kakao.maps.LatLng(35.86911924611688, 128.5932113110608), // 지도의 중심좌표
-	        level: 10 // 지도의 확대 레벨
+	        level: 7 // 지도의 확대 레벨
 	    };
 
 		var map = new kakao.maps.Map(container, option); // 지도를 생성합니다
