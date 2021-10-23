@@ -390,23 +390,39 @@
     	<result property="memName" column="memName"/>
     	<result property="phone" column="phone"/>
 	    <result property="status" column="status"/>
-	     <association property="memberVO"
-	                  column="mem_seq"
-	                  columnPrefix="mem_"
-	                  resultMap="com.yedam.possable.app.member.mapper.MemberMapper.member"
-	                  javaType="MemberVO"/>
+	      <association property="estimateHistoryVO"
+                     column="esti_seq"
+                     select="getEstimate"
+                     javaType="EstimateHistoryVO"/>
+        <association property="companyVO"
+                     column="cmpn_seq"
+                     select="com.yedam.possable.app.company.mapper.CompanyMapper.companyOneSelect"
+                     javaType="CompanyVO"/>
+        <association property="carVO"
+                     column="car_seq"
+                     select="com.yedam.possable.app.car.mapper.CarMapper.getCar"
+                     javaType="CarVO"/>
 
-	     <association property="carVO"
-	    			  column= "car_seq"
-	    			  columnPrefix="car_"
-	    			  resultMap="com.yedam.possable.app.car.mapper.CarMapper.car"
-	    			  javaType="CarVO"/>
-
-	     <association property="companyVO"
-	    			  column="cmpn_seq"
-	    			  columnPrefix="cmpn_"
-	    			  resultMap="com.yedam.possable.app.company.mapper.CompanyMapper.company"
-	    			  javaType="CompanyVO"/>
+	    <association property="brandCodeVO"
+                     column="brand"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getBrand"
+                     javaType="BrandCodeVO"/>
+        <association property="segmentCodeVO"
+                     column="segment"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        <association property="modelCodeVO"
+                     column="model"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getModel"
+                     javaType="ModelCodeVO"/>
+        <association property="trimCodeVO"
+                     column="trim"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getTrim"
+                     javaType="TrimCodeVO"/>
+        <association property="memberVO"
+                     column="mem_seq"
+                     select="com.yedam.possable.app.member.mapper.MemberMapper.memberOneSelect"
+                     javaType="MemberVO"/>
     </resultMap>
 
     <select id="isRegistered" resultType="boolean">

@@ -42,11 +42,11 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td>${est.brand }${est.model }</td>
-									<td>${est.segment }</td>
-									<td>${est.color }</td>
+									<td>${est.brandCodeVO.name } ${est.modelCodeVO.name }</td>
+									<td>${est.segmentCodeVO.name}</td>
+									<td>${est.carVO.colorCodeVO.name}</td>
 									<td>${est.price }원</td>
-									<td>${est.fuel}</td>
+									<td>${est.carVO.fuelCodeVO.name}</td>
 									<td><a class="btn btn-primary" id="estView"  href="${pageContext.request.contextPath}/company/estSubmit/view?seq=${est.seq}">상세보기</a></td>
 								</tr>
 								
@@ -55,6 +55,26 @@
 					</div>
 				</div>
 			</c:forEach>
+			<div class="col-md-12">
+				<div class="card">
+					<c:if test="${empty estimate}">
+						<div class="card-header border-bottom mb-3">
+							<div class="x_slider_form_input_wrapper float_left">
+								<h3 class="font-weight-bold mb-0">렌트 내역</h3>
+							</div>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-12 text-center">
+									<h6 class="py-5">
+										아직 등록된 견적서가 없습니다.
+									</h6>
+								</div>
+							</div>
+						</div>
+					</c:if>
+				</div>
+			</div>
 		</div>
 	</div>
 <script>

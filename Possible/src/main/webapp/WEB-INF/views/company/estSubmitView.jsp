@@ -59,33 +59,33 @@ ul{
 								<form id="estimatefrm" name="estimatefrm" method="post" action="../estSubmit/update">
 									<div class="row down_margin">
 									<input type="hidden" name="seq" value="${est.seq }">
-									<input type="text" name="status" value=${est.status }>
+									
 										<div class="col-4">
 											<label class="font-weight-bold">외형 </label>
-											<input type="text" class="form-control" id="segment" name="segment" value="${est.segment }" disabled>
+											<input type="text" class="form-control" id="segment" name="segment" value="${est.segmentCodeVO.name}" disabled>
 										</div>
 										<div class="col-4">
 											<label class="font-weight-bold">브랜드 </label>
-											<input type="text" class="form-control" id="brand" name="brand" value="${est.brand }" disabled>
+											<input type="text" class="form-control" id="brand" name="brand" value="${est.brandCodeVO.name }" disabled>
 										</div>
 										<div class="col-4">
 											<label class="font-weight-bold">모델명 </label>
-											<input type="text" class="form-control" id="model" name="model" value="${est.model }" disabled>
+											<input type="text" class="form-control" id="model" name="model" value="${est.modelCodeVO.name }" disabled>
 										</div>
 									</div>
 									
 									<div class="row down_margin">
 										<div class="col-3">
 											<h5 class="font-weight-bold">연료 </h5>
-											<input type="text" class="form-control" id="model" name="model" value="${est.fuel }" >
+											<input type="text" class="form-control" id="model" name="model" value="${est.carVO.fuelCodeVO.name }" >
 										</div>
 										<div class="col-3">
 											<h5 class="font-weight-bold">차량색상 </h5>
-											<input type="text" class="form-control" id="color" name="color" value="${est.color }" >
+											<input type="text" class="form-control" id="color" name="color" value="${est.carVO.colorCodeVO.name }" >
 										</div>
 										<div class="col-3">
 											<h5 class="font-weight-bold">변속기 </h5>
-											<input type="text" class="form-control" id="mission" name="mission" value="${est.mission }" >
+											<input type="text" class="form-control" id="mission" name="mission" value="${est.carVO.missionCodeVO.name }" >
 										</div>
 										<div class="col-3">
 											<h5 class="font-weight-bold">승차인원 </h5>
@@ -117,8 +117,8 @@ ul{
                                                            name="options"
                                                            id="options${status.index}"
                                                            class="custom-control-input"
-                                                           value="${option.name}"
-                                                           <c:if test="${options.contains(option.name)}">checked</c:if>>
+                                                           value="${option.code}"
+                                                           <c:if test="${options.contains(option.code)}">checked</c:if>>
                                                     <label class="custom-control-label" for="options${status.index}">${option.name}</label>
                                                 </div>
                                             </div>
