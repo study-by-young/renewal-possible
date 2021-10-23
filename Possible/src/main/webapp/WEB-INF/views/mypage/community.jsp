@@ -235,7 +235,6 @@
                </div>
             </div>
          </div> <!-- 사이드바 종료 -->
-		
 			<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
 				<div class="x_blog_left_side_wrapper float_left">
 					<div class="row">
@@ -252,15 +251,16 @@
 									</div>
 								</div>
 								<div class="col-md-12">
-									<div class="dash">
-										<!-- <div class="blog_single_comment_heading">
-											<h4 style="font-weight: 600; padding-left: 20px;">나의 이용후기</h4>
-										</div> -->
-										<table class="table">
-											<tr>
-												<td>후기테이블</td>
-											</tr>
-										</table>
+									<div class="card">
+										<c:if test="${empty myCourse}">
+											<div class="card-body">
+												<div class="row">
+													<div class="col-12 text-center">
+														<h6 class="py-5">아직 등록한 후기가 없으세요!</h6>
+													</div>
+												</div>
+											</div>
+										</c:if>
 									</div>
 								</div>
 

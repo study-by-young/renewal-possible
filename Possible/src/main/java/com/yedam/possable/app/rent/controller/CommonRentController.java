@@ -48,40 +48,29 @@ public class CommonRentController {
     // 렌트카 리스트
     @GetMapping
     public String rentCarList(Model model,
-							  @ModelAttribute("searchArea") String areaCode,
 							  @ModelAttribute("startDate")
 								  @DateTimeFormat(pattern = "yyyy/MM/dd") Date startDate,
 							  @ModelAttribute("endDate")
 								  @DateTimeFormat(pattern = "yyyy/MM/dd") Date endDate,
 							  @ModelAttribute("cri") Criteria cri) {
+    	// 자동차 SEQ -> 업체SEQ -> 업체정보, 리뷰개수
+    	// 자동차 SEQ -> 보험
     	List<CarVO> modelList = carService.getDistinctCarList(cri);
-
-        if(!areaCode.isEmpty()){
-            cri.setType("A");
-            cri.setKeyword(areaCode);
-        }
-
 		Map<String, List<CarVO>> carListByModel = new HashMap<>();
-
+        int countOfModelList = modelList.size();// carService.getTotalCount(cri);  차량 모델 갯수
     	for(CarVO modelInfo : modelList) {
-            List<CarVO> carListInModel = new ArrayList<>();
-            CompanyVO company = new CompanyVO();
-            company.setSeq(modelInfo.getCmpnSeq());
-    	    carListInModel.addAll(carService.getCarByModelAndCmpnSeq(modelInfo));
+    		List<CarVO> carListInModel = carService.getCarByModel(modelInfo);
             carListByModel.put(modelInfo.getModel(),carListInModel);
     	}
-        int countOfModelList = carListByModel.size();// carService.getTotalCount(cri);  차량 모델 갯수
-
 		if(endDate.compareTo(startDate) == 0){
 			endDate.setDate(startDate.getDate() + 1);
 		}
+		log.info(modelList.toString());
     	// 차 모델별(car.model)로 업체 리스트를 뽑고 여기서 뽑은 차 SEQ랑 업체 SEQ로
     	// 차 SEQ(modelList.seq)를 가지고 차가 가진 보험 목록을 뽑고
     	// 업체 SEQ(modelList.cmpn_seq)를 가지고 업체에 달린 후기 개수를 뽑고
-
     	// 모델별로 대표 하나만 보여주기
 		model.addAttribute("modelList", modelList);
-		System.out.println("====================================modelList" + modelList);
     	model.addAttribute("carList", carListByModel);
     	model.addAttribute("segments",codeService.getCodesByParentCode("SEG"));
     	model.addAttribute("fuels", codeService.getCodesByParentCode("FUL"));
@@ -90,7 +79,7 @@ public class CommonRentController {
     	CodeMasterVO codeMasterVO = codeService.getMasterCodeByName("지역");
 		model.addAttribute("areaCodes",codeService.getCodesByParentCode(codeMasterVO.getCode()));
         return "rent/comm/carList";
-    }
+    }    
 
     // 렌트카 상세보기
     @GetMapping("/view")
