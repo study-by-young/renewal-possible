@@ -139,7 +139,7 @@
                                 <div class="col-12 mb-4">
                                     <h5>캠핑 옵션</h5>
                                     <div class="row">
-                                        <c:forEach var="option" items="${carOpt}" varStatus="status">
+                                        <c:forEach var="option" items="${itemOpt}" varStatus="status">
                                             <div class="mb-2 col-lg-3 col-md-4 col-6">
                                                 <div class="custom-control custom-checkbox custom-control-inline">
                                                     <input type="checkbox"
@@ -147,7 +147,7 @@
                                                            id="items${status.index}"
                                                            class="custom-control-input"
                                                            value="${option.name}"
-                                                           <c:if test="${estimate.optionList.contains(option.name)}">checked</c:if>>
+                                                           <c:if test="${estimate.itemList.contains(option.name)}">checked</c:if>>
                                                     <label class="custom-control-label" for="items${status.index}">${option.name}</label>
                                                 </div>
                                             </div>

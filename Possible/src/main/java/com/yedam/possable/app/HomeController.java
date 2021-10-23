@@ -10,6 +10,7 @@ import com.yedam.possable.app.common.criteria.domain.Criteria;
 import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.community.faq.service.FaqService;
 import com.yedam.possable.app.community.tour.service.TourService;
+import com.yedam.possable.app.rent.service.RentReviewService;
 import lombok.extern.java.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,8 @@ public class HomeController {
 	TourService tourService;
 	@Autowired
 	FaqService faqService;
+	@Autowired
+    RentReviewService rentReviewService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
@@ -43,6 +46,7 @@ public class HomeController {
 		model.addAttribute("areaCodes",codeService.getCodesByParentCode(codeMasterVO.getCode()));
 		model.addAttribute("tourList", tourService.getLatestList());
 		model.addAttribute("faqList", faqService.getList(new Criteria()));
+		model.addAttribute("reviewList", rentReviewService.getLatestReviewList());
 		return "home";
 	}
 
