@@ -418,4 +418,15 @@
         FROM estimate_history
         WHERE mem_seq = #{seq}
     </select>
+
+    <select id="isRegisteredSubmit" resultType="boolean">
+        SELECT
+            CASE
+            WHEN COUNT(*) > 0 THEN 1
+            ELSE 0
+            END AS result
+        FROM esti_submit_history
+        WHERE cmpn_seq = #{cmpnSeq}
+        AND esti_seq = #{estiSeq}
+    </select>
 </mapper>

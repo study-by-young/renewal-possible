@@ -62,7 +62,7 @@
                                                 <div class="row">
                                                     <div class="col-lg-3 align-self-center">
                                                         <div class="card-img-actions p-3">
-                                                            <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}/resources/images/cars/Genesis/genesis_g90.png" alt="">
+                                                            <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${estimate.modelCodeVO.img}" alt="">
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-9 border-left">
@@ -156,10 +156,8 @@
                     customAlert("알림", "로그인 후 이용 가능합니다.");
                 } else if(result === 1){
                     location.href="estimate/view?seq="+ $(btn).data("seq") +"&pageNum=${param.getOrDefault('pageNum',1)}&amount=${param.getOrDefault('amount', pagination.cri.amount)}";
-                } else if(result === 3){
+                } else if(result === 2){
                     customAlert("알림", "본인 견적만 조회 가능합니다.");
-                } else {
-                    customAlert("알림", "일반회원만 이용 가능합니다.");
                 }
             }
         })
@@ -173,6 +171,8 @@
                     customAlert("알림", "로그인 후 이용 가능합니다.");
                 } else if(result === 1){
                     location.href="estimate/register";
+                } else if(result === 4){
+                    customAlert("알림", "이미 작성한 견적이 있습니다.");
                 } else {
                     customAlert("알림", "일반회원만 이용 가능합니다.");
                 }

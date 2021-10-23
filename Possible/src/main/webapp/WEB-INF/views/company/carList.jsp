@@ -47,7 +47,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<div class="col-sm-12" style="padding-right: 2.5rem">
 					<div align="right">
 						<form id="actionForm" action="car" method="get">
@@ -56,14 +56,14 @@
 							<label style="cursor:pointer"><input type="checkbox" name="type" value="C" ${pageMaker.cri.type =='C'? 'checked' : "" } >&nbsp;사용</label>
 							<label style="cursor:pointer"><input type="checkbox" name="type"  value="D" ${pageMaker.cri.type =='D'? 'checked' : "" }>&nbsp;수리</label>
 								<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
-								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }"> 
+								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 								<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
 								<input type="hidden" name="cmpnSeq" value="${cmpnSeq }">
 							<button class="btn alpha-pink border-pink-400 text-pink-800 btn-icon rounded-round ml-2" onclick="$('[name=pageNum]').val(1)"><i class="icon-search4"></i></button>
 						</form>
 					</div>
 				</div>
-			
+
 			<input type="hidden" name="cmpnSeq" value="${cmpnSeq}">
 			<br>
 			<hr style="margin: 0px">
@@ -84,8 +84,8 @@
 							   <c:forEach var="companyCarList" items="${companyCarList }">
 							       <c:set var="car" value="${companyCarList.get('carVO')}" />
 								<tr>
-									<td><label class="d-block" > <img 
-													src="${pageContext.request.contextPath}/resources/images/${car.img1}"
+									<td><label class="d-block" > <img
+													src="${pageContext.request.contextPath}${companyCarList.get('carImg')}"
 													class="thumbImg" />
 												</label></td>
 									<td>${companyCarList.get('brand')}</td>
@@ -145,7 +145,7 @@
 	$(function() {
 		var actionForm = $("#actionForm");
 
-	
+
 		$("#pageButton a").on("click", function(e) {
 			e.preventDefault(); //a, submit 경우에 쓸 수 있음 태그의 원래기능을 막고 정의한 함수 실행
 			var p = $(this).attr("href");
@@ -153,10 +153,10 @@
 			actionForm.submit();
 		});
 	});
-	
+
 	   $(function(){
-		     var pageBtn = $("ul > li");   
-		      pageBtn.find("a").click(function(){   
+		     var pageBtn = $("ul > li");
+		      pageBtn.find("a").click(function(){
 		      pageBtn.removeClass("active");     // pageBtn 속에 (active) 클래스를 삭제.
 		      $(this).parent().addClass("active"); // 클릭한 a에 (active)클래스를 넣는다.
 		     })
