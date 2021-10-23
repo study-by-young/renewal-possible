@@ -220,7 +220,7 @@
 									<div class="card dash" style="margin-bottom: 20px; padding-bottom: 10px;">
 									
 										<div class="card-body" style="padding-bottom: 15px; margin-left: 15px; margin-right: 15px;">
-											<form id="writeReviewForm" action="writeReview" method="post">
+											<form id="writeReviewForm" name="writeReviewForm" action="writeReview" method="post">
 												<div class="row">
 													<div class="col-lg-12" style="margin-bottom: 15px;">
 														<div class="row align-items-center">
@@ -270,7 +270,7 @@
 												
 												<div class="col-lg-12" style="margin-top: 20px;">
 													<div class="text-center">
-														<button type="submit" class="btn btn-primary" style="background: #4f5dec; color: #ffffff; float: right;">
+														<button type="button" id="addBtn" class="btn btn-primary" style="background: #4f5dec; color: #ffffff; float: right;">
 															등록 <i class="icon-paperplane ml-2"></i>
 														</button>
 													</div>
@@ -295,6 +295,10 @@
 										
 										
 <script>
+$("#addBtn").on("click",function(){
+	writeReviewForm.submit();
+	alert("등록이 완료 되었습니다.");
+});
 	// 데이터 가져오기
 	CKEDITOR.instances.content.getData()
 </script>

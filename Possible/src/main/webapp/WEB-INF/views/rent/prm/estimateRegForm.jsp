@@ -26,7 +26,7 @@
 <!-- btc tittle Wrapper End -->
 <div class="x_car_book_sider_main_Wrapper my-4">
     <div class="container">
-        <form id="estimateForm" name="estimateForm" method="post">
+        <form id="estimateForm" name="estimateForm" method="post" class="form-validate-jquery">
             <input type="hidden" name="memberVO.Seq" id="memberVO.Seq" value="<sec:authentication property="principal.seq" />" >
             <div class="row">
                 <div class="col-lg-10 col-12 offset-lg-1 ">
@@ -46,7 +46,7 @@
                                             <div class="tab-pane fade show active">
                                                 <div class="row">
                                                     <div class="col-4 form-group">
-                                                        <label class="w-100">브랜드</label>
+                                                        <label for="brand" class="w-100">브랜드</label>
                                                         <select name="brand" id="brand" class="select form-control" onchange="searchModelByBrand()">
                                                             <option disabled selected>브랜드를 선택하세요</option>
                                                             <c:forEach var="brand" items="${brands}">
@@ -55,13 +55,13 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-4 form-group">
-                                                        <label  class="w-100">모델</label>
+                                                        <label for="model" class="w-100">모델</label>
                                                         <select name="model" id="model" class="select form-control" onchange="searchTrimByModel()">
                                                             <option disabled selected>브랜드를 선택하세요</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-4 form-group">
-                                                        <label class="w-100">트림</label>
+                                                        <label for="trim" class="w-100">트림</label>
                                                         <input type="hidden" name="segment" id="segment" value="">
                                                         <select name="trim" id="trim" class="select form-control" onchange="selectTrim(this)">
                                                             <option disabled selected>모델을 선택하세요</option>
@@ -116,7 +116,7 @@
                                 <div class="col-12 mb-4">
                                     <h5>캠핑 옵션</h5>
                                     <div class="row">
-                                        <c:forEach var="option" items="${carOpt}" varStatus="status">
+                                        <c:forEach var="option" items="${itemOpt}" varStatus="status">
                                             <div class="mb-2 col-lg-3 col-md-4 col-6">
                                                 <div class="custom-control custom-checkbox custom-control-inline">
                                                     <input type="checkbox" name="items" id="items${status.index}" class="custom-control-input" value="${option.name}">

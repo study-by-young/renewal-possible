@@ -218,7 +218,46 @@
                                 <img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/logo/css_logo.png" alt="img">
                             </figure>
                         </li>
-
+                        <li class="album-slider__item">
+                            <figure class="album">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/logo/java_logo.png" alt="img">
+                            </figure>
+                        </li>
+                        <li class="album-slider__item">
+                            <figure class="album">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/logo/html_logo.png" alt="img">
+                            </figure>
+                        </li>
+                        <li class="album-slider__item">
+                            <figure class="album">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/logo/js_logo.png" alt="img">
+                            </figure>
+                        </li>
+                        <li class="album-slider__item">
+                            <figure class="album">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/logo/css_logo.png" alt="img">
+                            </figure>
+                        </li>
+                        <li class="album-slider__item">
+                            <figure class="album">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/logo/java_logo.png" alt="img">
+                            </figure>
+                        </li>
+                        <li class="album-slider__item">
+                            <figure class="album">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/logo/html_logo.png" alt="img">
+                            </figure>
+                        </li>
+                        <li class="album-slider__item">
+                            <figure class="album">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/logo/js_logo.png" alt="img">
+                            </figure>
+                        </li>
+                        <li class="album-slider__item">
+                            <figure class="album">
+                                <img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/logo/css_logo.png" alt="img">
+                            </figure>
+                        </li>
                         <li class="album-slider__item">
                             <figure class="album">
                                 <img class="img-fluid" src="${pageContext.request.contextPath}/resources/images/logo/java_logo.png" alt="img">
@@ -301,12 +340,12 @@
     function initLogoSlider() {
         $('.album-slider').bxSlider({
             minSlides: 1,
-            maxSlides: 10,
+            maxSlides: 15,
             slideWidth: 150,
             slideMargin: 17,
             ticker: true,
             tickerHover: true,
-            speed: 30000,
+            speed: 100000,
             useCSS: false,
             infiniteLoop: false,
         });

@@ -167,7 +167,6 @@
 										</div>
 									</div>
 								</div>
-
 								<div class="col-12">
 									<div class="x_car_book_tabs_content_main_wrapper my-4"
 										style="margin-top: 0px !important">
@@ -216,12 +215,9 @@
 																						href="rent/view/updateReview?seq=${review.seq}"
 																						style="background: #4f5dec; color: #ffffff;">
 																						후기수정 </a>
-
 																				</c:forEach>
 																			</c:if>
-
-
-																			<c:if test="${est.review ne '2' }">
+																			<c:if test="${est.review eq '1' }">
 																				<a class="btn btn-sm"
 																					href="rent/view/writeReview?seq=${est.seq}"
 																					style="background: #4f5dec; color: #ffffff;"

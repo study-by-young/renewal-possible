@@ -184,16 +184,6 @@
 				<div class="x_blog_left_side_wrapper float_left">
 					<div class="row">
 					
-						<input type="hidden" id="" name="" value="${historyList.carVO.brandCodeVO.name}">
-						<input type="hidden" id="" name="" value="${historyList.carVO.modelCodeVO.name}">
-						<input type="hidden" id="" name="" value="${historyList.carVO.segmentCodeVO.name}">
-						<input type="hidden" id="" name="" value="${historyList.startDate}">${historyList.startDate}
-						<input type="hidden" id="" name="" value="${historyList.endDate}">${historyList.endDate}
-						<input type="hidden" id="" name="" value="${historyList.takePlaceBasic}">
-						<input type="hidden" id="" name="" value="${historyList.takePlaceDetail}">
-						<input type="hidden" id="" name="" value="${historyList.companyVO.name}">
-						<input type="hidden" id="" name="" value="${historyList.companyVO.tel}">
-					
 						<div class="col-lg-12 col-md-12">
 							<div class="lr_bc_first_box_main_wrapper">
 								<div class="col-md-12">
@@ -212,7 +202,7 @@
 									<div class="card dash" style="margin-bottom: 20px; padding-bottom: 10px;">
 									
 										<div class="card-body" style="padding-bottom: 15px; margin-left: 15px; margin-right: 15px;">
-											<form id="writeReviewForm" action="writeReview" method="post">
+											<form id="writeReviewForm" action="updateReview" method="post">
 												<div class="row">
 													<div class="col-lg-12" style="margin-bottom: 15px;">
 														<div class="row align-items-center">
@@ -237,7 +227,7 @@
 															</div>
 															<div class="col-2">
 																<select id="score" name="score" class="selectpicker input_title">
-																	<option value="" selected>${getRentReview.score}</option>
+																	<option value="${getRentReview.score}" selected>${getRentReview.score}</option>
 																	<option value="5">5</option>
 																	<option value="4">4</option>
 																	<option value="3">3</option>

@@ -41,6 +41,10 @@ public interface PremiumRentMapper {
     // 견적서  작성
     public int insertEstSubmit(EstiSubmitHistoryVO vo);
 
+    // 견적서  작성
+    public boolean isRegisteredSubmit(@Param("cmpnSeq")Long companySeq,
+                                  @Param("estiSeq") Long estimateSeq);
+
     // 견적서  수정
     public int updateEstSubmit(EstiSubmitHistoryVO vo);
 
