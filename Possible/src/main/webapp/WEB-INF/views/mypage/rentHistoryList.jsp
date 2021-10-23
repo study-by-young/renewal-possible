@@ -170,150 +170,130 @@
 									</div>
 								</div>
 
-								<div class="col-12">
-									<div class="x_car_book_tabs_content_main_wrapper my-4"
-										style="margin-top: 0px !important">
-										<div class="row">
-											<c:forEach var="est" items="${historyList}"
-												varStatus="status">
+								${historyList }
+								 <div class="col-12">
+									 <div class="x_car_book_tabs_content_main_wrapper my-4" style="margin-top: 0px !important">
+									 	<div class="row">
+									 	 	 <c:forEach var="est" items="${historyList}" varStatus="status">
 												<div class="premium_rent_list_item col-12">
 													<div class="card">
 														<div class="row">
+														
 															<div class="col-lg-3 align-self-center">
-																<div class="card-img-actions p-3">
-																	<img class="card-img-top img-fluid"
-																		src="${pageContext.request.contextPath}${est.carVO.modelCodeVO.img}"
-																		alt="img">
-																</div>
-															</div>
-															<div class="col-lg-9 border-left">
-																<div class="card-body">
-																	<div class="row">
-																		<div class="col-lg-6">
-																			<p class="text-grey-600">
-																				<i class="h3 icon-calendar pr-2 mb-0"> 대여/반납일</i>
-																			</p>
-																			<p class="font-weight-bold text-grey-600">
-																				<fmt:formatDate value="${est.startDate}"
-																					pattern="yy년 MM월 dd일" />
-																				~
-																				<fmt:formatDate value="${est.endDate}"
-																					pattern="yy년 MM월 dd일" />
-																				<br>
-																			</p>
-																		</div>
-																		<div class="col-lg-3">
-																			<c:if test="${est.status eq '예약중' }">
-																				<button class="refundBtn" id="refundBtn"
-																					type="button" value="${est.merchantUid}">취소하기</button>
-																			</c:if>
-																		</div>
-
-																		<div class="col-lg-3" style="padding-left: 40px;">
-																			<c:if test="${est.review eq '2' }">
-																				<!-- /rent/view/updateReview -->
-																				<c:forEach var="review" items="${reviewList}"
-																					varStatus="status">
-																					<a class="btn btn-sm"
-																						href="rent/view/updateReview?seq=${review.seq}"
-																						style="background: #4f5dec; color: #ffffff;">
-																						후기수정 </a>
-
-																				</c:forEach>
-																			</c:if>
-
-
-																			<c:if test="${est.review ne '2' }">
-																				<a class="btn btn-sm"
-																					href="rent/view/writeReview?seq=${est.seq}"
-																					style="background: #4f5dec; color: #ffffff;"
-																					<c:if test="${est.review eq '0' }"> disabled="disabled"</c:if>>
-																					후기작성 </a>
-																			</c:if>
-
-																		</div>
-
-																		<div class="col-12">
-																			<div class="card border-primary-300 border-1"
-																				style="margin-bottom: 15px;">
-																				<div class="card-body">
-																					<div class="row align-items-center">
-																						<div class="col-4">
-																							<i class="icon-location4 pr-2 mb-0"></i> 수령장소 :
-																						</div>
-																						<div class="col-8" style="padding-left: 0px">
-																							<span class="list-unstyled mb-0">
-																								${est.takePlaceBasic} ${est.takePlaceDetail}</span>
-																						</div>
-
-																						<div class="col-4">
-																							<i class="fa fa-car pr-2 mb-0"></i> 차량 :
-																						</div>
-																						<div class="col-8" style="padding-left: 0px">
-																							<span class="list-unstyled mb-0">
-																								${est.carVO.brandCodeVO.name }
-																								${est.carVO.modelCodeVO.name }</span>
-																						</div>
-
-																						<div class="col-4">
-																							<i class="fa fa-building pr-2 mb-0"></i> 대여업체:
-																						</div>
-																						<div class="col-8" style="padding-left: 0px">
-																							<span class="list-unstyled mb-0">
-																								${est.companyVO.name} </span>
-																						</div>
-																						<div class="col-4">
-																							<i class="fa fa-phone pr-2 mb-0"></i> 업체전화번호
-																						</div>
-																						<div class="col-8" style="padding-left: 0px">
-																							<span class="list-unstyled mb-0">
-																								${est.companyVO.tel }</span>
-																						</div>
-																					</div>
-																				</div>
-																			</div>
-																			<div class="card border-primary-300 border-1">
-																				<div class="card-body">
-																					<div class="row align-items-center">
-																						<div class="col-4">
-																							<i class="icon-location4 pr-2 mb-0"></i> 결제금액
-																						</div>
-																						<div class="col-8" style="padding-left: 0px">
-																							<span class="list-unstyled mb-0"> <fmt:formatNumber
-																									value="${est.price }" pattern="#,###" />원
-																							</span>
-																						</div>
-
-																						<div class="col-4">
-																							<i class="fa fa-credit-card pr-2 mb-0"></i> 결제방법
-																						</div>
-																						<div class="col-8" style="padding-left: 0px">
-																							<span class="list-unstyled mb-0">
-																								${est.payMethod }</span>
-																						</div>
-																						<div class="col-4">
-																							<i class="icon-checkmark4 pr-2 mb-0"></i> 예약상태
-																						</div>
-																						<div class="col-8" style="padding-left: 0px">
-																							<span class="list-unstyled mb-0">
-																								${est.statusCodeVO.name }</span>
-																						</div>
-																						<div class="col-4">
-																							<i class="icon-checkmark4 pr-2 mb-0"></i> 예약번호
-																						</div>
-																						<div class="col-8" style="padding-left: 0px">
-																							<span class="list-unstyled mb-0">
-																								${est.merchantUid }</span>
-																						</div>
-
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																	<!-- row -->
-																</div>
-															</div>
+                                                        		<div class="card-img-actions p-3">
+                                                        			<img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${est.carVO.modelCodeVO.img}" alt="img" >
+                                                        		</div>
+                                                    		</div>
+                                                    		<div class="col-lg-9 border-left">
+                                                    			<div class="card-body">
+                                                    				 <div class="row">
+                                                    				 	 <div class="col-lg-6">
+                                                                       		<p class="text-grey-600">
+                                                                       			<i class="h3 icon-calendar pr-2 mb-0"> 대여/반납일</i>
+                                                                  			</p>
+                                                                       		<p class="font-weight-bold text-grey-600">
+                                                                              	<fmt:formatDate value="${est.startDate}" pattern="yy년 MM월 dd일" /> ~ <fmt:formatDate value="${est.endDate}" pattern="yy년 MM월 dd일" /><br>
+                                                                      		</p> 
+                                                    				 	 </div>
+                                                    				 	 <div class="col-lg-3">
+	                                                    				 	 <c:if test="${est.review eq '1' }">
+		                                                    				 	 <c:if test="${est.status eq '예약' }">
+		                                                    				 		<button class="refundBtn" id="refundBtn" type="button" value="${est.merchantUid}">취소하기</button>
+		                                                                		 </c:if>
+	                                                    				 	 </c:if>
+                                                                		 </div>
+                                                                		 
+                                                    				 	 <div class="col-lg-3" style="padding-left: 40px;">
+	                                                                		<c:if test="${est.review eq '2' }"><!-- /rent/view/updateReview -->
+                                                                		 <c:forEach var="review" items="${reviewList}" varStatus="status">
+		                                                    					<a  class="btn btn-sm" 
+		                                                    						href="rent/view/updateReview?seq=${review.seq}"
+		                                                            					style="background: #4f5dec; color: #ffffff; ">
+		                                                        						후기수정
+		                                                    					</a>
+		                                                    					
+		                                                    				</c:forEach>
+		                                                    			    </c:if>
+		                                                    				
+		                                                    				<c:if test="${est.review eq '1' }">
+		                                                    					<a class="btn btn-sm" 
+		                                                    					   href="rent/view/writeReview?seq=${est.seq}"
+		                                                            					style="background: #4f5dec; color: #ffffff;"<c:if test="${est.review eq '0' }"> disabled="disabled"</c:if>>
+		                                                        						후기작성
+		                                                    					</a>
+	                                                    					</c:if>
+		                    
+                                                                		 </div>
+                                                                		
+                                                                		 <div class="col-12">
+                                                                		 	<div class="card border-primary-300 border-1"  style="margin-bottom: 15px;">
+                                                                		 		<div class="card-body">
+                                                                		 			<div class="row align-items-center">
+                                                                                		<div class="col-4">
+                                                                                    		<i class="icon-location4 pr-2 mb-0"></i> 수령장소 :
+                                                                               			</div>
+                                                                               			 <div class="col-8" style="padding-left: 0px">
+                                                                                    		<span class="list-unstyled mb-0">  ${est.takePlaceBasic} ${est.takePlaceDetail}</span>
+                                                                                		</div>
+                                                                                		
+                                                                		 				<div class="col-4">
+                                                                                    		<i class="fa fa-car pr-2 mb-0"></i> 차량 :
+                                                                               			</div>
+                                                                               			<div class="col-8" style="padding-left: 0px">
+                                                                                    		<span class="list-unstyled mb-0">  ${est.carVO.brandCodeVO.name } ${est.carVO.modelCodeVO.name }</span>
+                                                                                		</div>
+                                                                                		
+                                                                                		<div class="col-4">
+                                                                                    		<i class="fa fa-building pr-2 mb-0" ></i> 대여업체:
+                                                                               			</div>
+                                                                               			 <div class="col-8" style="padding-left: 0px">
+                                                                                    		<span class="list-unstyled mb-0"> ${est.companyVO.name} </span>
+                                                                                		</div>
+                                                                                		<div class="col-4">
+                                                                                    		<i class="fa fa-phone pr-2 mb-0" ></i> 업체전화번호
+                                                                               			</div>
+                                                                               			 <div class="col-8" style="padding-left: 0px">
+                                                                                    		<span class="list-unstyled mb-0"> ${est.companyVO.tel }</span>
+                                                                                		</div>
+                                                                		 			</div>
+                                                                		 		</div>
+                                                                		 	</div>
+                                                                		 	<div class="card border-primary-300 border-1">
+                                                                		 		<div class="card-body">
+                                                                		 			<div class="row align-items-center">
+                                                                                		<div class="col-4">
+                                                                                    		<i class="icon-location4 pr-2 mb-0"></i> 결제금액 
+                                                                               			</div>
+                                                                               			 <div class="col-8" style="padding-left: 0px">
+                                                                                    		<span class="list-unstyled mb-0"> <fmt:formatNumber value="${est.price }" pattern="#,###"/>원</span>
+                                                                                		</div>
+                                                                                		
+                                                                		 				<div class="col-4">
+                                                                                    		<i class="fa fa-credit-card pr-2 mb-0"></i> 결제방법 
+                                                                               			</div>
+                                                                               			<div class="col-8" style="padding-left: 0px">
+                                                                                    		<span class="list-unstyled mb-0"> ${est.payMethod }</span>
+                                                                                		</div>
+                                                                                		<div class="col-4">
+                                                                                    		<i class="icon-checkmark4 pr-2 mb-0" ></i> 예약상태
+                                                                               			</div>
+                                                                               			 <div class="col-8" style="padding-left: 0px">
+                                                                                    		<span class="list-unstyled mb-0"> ${est.statusCodeVO.name }</span>
+                                                                                		</div>
+                                                                                		<div class="col-4">
+                                                                                    		<i class="icon-checkmark4 pr-2 mb-0" ></i> 예약번호
+                                                                               			</div>
+                                                                               			 <div class="col-8" style="padding-left: 0px">
+                                                                                    		<span class="list-unstyled mb-0"> ${est.merchantUid }</span>
+                                                                                		</div>
+                                                                                		
+                                                                		 			</div>
+                                                                		 		</div>
+                                                                		 	</div>
+                                                                		 </div>
+                                                    				 </div><!-- row -->
+                                                    			</div>
+                                                    		</div>
 														</div>
 													</div>
 												</div>

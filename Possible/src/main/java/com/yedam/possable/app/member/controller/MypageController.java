@@ -105,11 +105,12 @@ public class MypageController {
 
     // 회원 탈퇴 처리
     @PostMapping("/delete")
-    public String deleteMember(MemberVO vo,Authentication authentication){
+    public String deleteMember(MemberVO vo,Authentication authentication, HttpSession session){
         // 로그아웃 후 db 삭제 후 메인으로 리다이렉트
     	MemberVO loginUser = memberService.getLoginMember(authentication);
     	vo.setSeq(loginUser.getSeq());
     	System.out.println("작동..?됨?"+memberService.memberDelete(vo));
+    	session.invalidate(); 
     	memberService.memberDelete(vo);
         return "redirect:/";
     }
@@ -265,7 +266,6 @@ public class MypageController {
 
     	MemberVO mvo = memberService.getLoginMember(authentication);
 
-    	System.out.println("왜니는 null인데"+rentHistoryService.getRentHistoryForMypage(seq));
     	model.addAttribute("historyList", rentHistoryService.getRentHistoryForMypage(seq));
     	List<CourseBoardVO> courseList = courseBoardService.getWriter(mvo.getId());
     	System.out.println(courseList+ "맞겠지?");
