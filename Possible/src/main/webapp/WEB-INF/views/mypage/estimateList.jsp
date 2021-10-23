@@ -153,6 +153,16 @@
                                 <div class="col-md-12">
                                 	<div class="x_car_book_tabs_content_main_wrapper my-4">
 						            	<div class="row">  
+						            	<div class="col-md-12">
+												<div class="dash"
+													style="margin-bottom: 20px; padding-bottom: 10px;">
+													<div class="blog_single_comment_heading">
+														<h4 style="font-weight: 600; padding-left: 20px;">
+															<a href="#">나의 프리미엄 렌트 견적</a>
+														</h4>
+													</div>
+												</div>
+											</div>
 						            			<div class="premium_rent_list_item col-12" >
 						            				<div class="card">
 						            					<div class="row">
