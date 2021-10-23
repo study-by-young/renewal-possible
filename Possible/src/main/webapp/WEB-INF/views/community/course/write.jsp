@@ -133,6 +133,7 @@ response.setContentType("text/html; charset=utf-8");
 					style="background-color: white; border: 1px solid lightgray; border-radius: 10px; margin-top: 30px;">
 					<div class="input-group mb-3 custom-input" style="margin-top: 15px;">
 						<select id="type" name="type" class="select">
+							<option value="R" ${pageMaker.cri.type =='R'? 'selected' : "" } style="margin-bottom: 1px solid gray">지역</option>
 							<option value="T" ${pageMaker.cri.type =='T'? 'selected' : "" }>선택</option>
 							<option value="A" ${pageMaker.cri.type =='A'? 'selected' : "" }>관광지</option>
 							<option value="C" ${pageMaker.cri.type =='C'? 'selected' : "" }>문화시설</option>

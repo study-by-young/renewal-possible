@@ -70,6 +70,9 @@
 	<select id="tourList" parameterType="Criteria" resultType="TestVO">
 		SELECT /*+ INDEX_ASC(TOUR IDX_TOUR)*/ * FROM TOUR
 		<where> 
+			<if test="type == 'R'.toString()">
+				AND ADDR1 IS NOT NULL AND ADDR1 LIKE '%' || #{keyword} || '%'
+			</if>
         	<if test="type == 'A'.toString()">
 				AND ADDR1 IS NOT NULL AND CONTENTTYPEID=12 AND TITLE LIKE '%' || #{keyword} || '%'
 			</if>
@@ -96,6 +99,7 @@
 		LEFT JOIN (SELECT * FROM (SELECT C.COURSE_SEQ, T.FIRSTIMAGE, ROW_NUMBER() OVER (PARTITION BY C.COURSE_SEQ ORDER BY C.COURSE_SEQ DESC) AS RankNo FROM COURSE C JOIN TOUR T ON C.CONTENTID = T.CONTENTID WHERE T.FIRSTIMAGE IS NOT NULL) WHERE RankNo = 1) J
 		ON B.SEQ = J.COURSE_SEQ
 		WHERE RN > (#{pageNum} - 1) * #{amount}
+		ORDER BY SEQ DESC
 	</select>
 	
 	<!-- 마이페이지 나의 코스 리스트 조회 -->
