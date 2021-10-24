@@ -66,9 +66,13 @@
 
 
 
+
+
 %
 {
 -webkit-transform
+
+
 
 
 
@@ -142,6 +146,8 @@
 
 
 
+
+
 translateY
 
 
@@ -177,7 +183,11 @@ translateY
 
 
 
+
+
 (
+
+
 
 
 
@@ -251,7 +261,11 @@ translateY
 
 
 
+
+
 )
+
+
 
 
 
@@ -326,9 +340,13 @@ translateY
 
 
 
+
+
 %
 {
 -webkit-transform
+
+
 
 
 
@@ -402,6 +420,8 @@ translateY
 
 
 
+
+
 translateY
 
 
@@ -437,7 +457,11 @@ translateY
 
 
 
+
+
 (
+
+
 
 
 
@@ -511,7 +535,11 @@ translateY
 
 
 
+
+
 )
+
+
 
 
 
@@ -591,9 +619,13 @@ keyframes bounce { 0%, 20%, 50%, 80%, 100% {
 
 
 
+
+
 %
 {
 transform
+
+
 
 
 
@@ -667,6 +699,8 @@ transform
 
 
 
+
+
 translateY
 
 
@@ -702,7 +736,11 @@ translateY
 
 
 
+
+
 (
+
+
 
 
 
@@ -776,7 +814,11 @@ translateY
 
 
 
+
+
 )
+
+
 
 
 
@@ -850,9 +892,13 @@ translateY
 
 
 
+
+
 %
 {
 transform
+
+
 
 
 
@@ -926,6 +972,8 @@ transform
 
 
 
+
+
 translateY
 
 
@@ -961,7 +1009,11 @@ translateY
 
 
 
+
+
 (
+
+
 
 
 
@@ -1035,7 +1087,11 @@ translateY
 
 
 
+
+
 )
+
+
 
 
 
@@ -1149,9 +1205,7 @@ translateY
 						</c:if> <c:if test="${checkLike eq 1}">
 							<i id="heart" class="fa fa-heart-o" style="color: red">&nbsp;</i>
 						</c:if> <span id="likeCnt">${likes }</span> LIKE
-					</span>
-					<!-- <span style="margin-right: 30px"><i class="fas fa-share-alt">&nbsp;10회</i></span> -->
-					<span style="float: right;"><i class="far fa-eye"></i>&nbsp;${board.views }
+					</span> <span style="float: right;"><i class="far fa-eye"></i>&nbsp;${board.views }
 						VIEWS</span>
 				</div>
 				<hr>
@@ -1210,8 +1264,7 @@ translateY
 									<c:forEach var="cmt" items="${cmt }">
 										<li data-seq="${cmt.seq }" style="margin-bottom: 20px">
 											${cmt.writer } | <fmt:formatDate pattern="yyyy/MM/dd"
-												value="${cmt.genDate }" /><br> ${cmt.content } <%-- <input type="hidden" id="cmtSeq" name="cmtSeq"
-												value="${cmt.seq }"> --%> <sec:authorize
+												value="${cmt.genDate }" /><br> ${cmt.content } <sec:authorize
 												access="isAuthenticated()">
 												<sec:authentication property="principal.id"
 													var="loginUserId" />
@@ -1362,8 +1415,6 @@ translateY
 		    kakao.maps.event.addListener(marker, 'click', moveToCenter(marker, map));
 		}
 		
-
-		
 		// 이동할 위도 경도 위치를 생성합니다 
 		var moveLatLon = new kakao.maps.LatLng(positions[0].latlng.getLat(), positions[0].latlng.getLng());
 
@@ -1407,7 +1458,6 @@ translateY
 	  	};
 	}
 	
-	console.log(${board.seq });
 	$(function() {
 		$("#heart").on("click", function() {
 			if ($("#heart").attr("class") == "far fa-heart"){ // 빈 하트 일 시
@@ -1589,6 +1639,13 @@ translateY
 		<sec:authentication property="principal.seq" var="loginUserSeq"/>
 		loginUser = ${loginUserSeq};
 		</sec:authorize>
+		
+		var today = new Date();   
+		var year = today.getFullYear(); // 년도
+		var month = today.getMonth() + 1;  // 월
+		var date = today.getDate();  // 날짜
+		var genDate = year + '/' + month + '/' + date;
+		
 		if(loginUser == '') {
 			if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
 				location.href="${pageContext.request.contextPath}/login"; 
@@ -1615,7 +1672,7 @@ translateY
 							}
 						} else {
 							$("#content").val("");
-							$(".chat").append('<li data-seq="'+data.seq+'" style="margin-bottom: 20px">'+data.writer+' | '+data.genDate+'<br>'+data.content+'<input type="hidden" id="cmtSeq" value="'+data.seq+'">'
+							$(".chat").append('<li data-seq="'+data.seq+'" style="margin-bottom: 20px">'+data.writer+' | '+genDate+'<br>'+data.content+'<input type="hidden" id="cmtSeq" value="'+data.seq+'">'
 									+'<span style="float: right"><i id="cmtDelete" class="fa fa-times-circle"></i></span>');
 						}
 					}
