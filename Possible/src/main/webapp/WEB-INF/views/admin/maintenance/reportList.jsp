@@ -87,7 +87,8 @@
 							<c:forEach var="reportList" items="${reportList }">
 								<tr>
 									<td>${reportList.seq }</td>
-									<td>${reportList.target}</td>
+									<c:if test="${empty reportList.target}"><td style="color:red">삭제된 게시글</td></c:if>
+									<c:if test="${not empty reportList.target}"><td>${reportList.target}</td></c:if>
 									<td><fmt:formatDate pattern = "yyyy/MM/dd" value= "${reportList.genDate}"/></td>
 									<td>${reportList.reporter }</td>
 									<td><a class="move" href="${reportList.seq }">상세보기</a></td>

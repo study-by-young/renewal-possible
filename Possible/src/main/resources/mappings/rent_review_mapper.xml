@@ -93,10 +93,10 @@
 				, #{title}
 				, #{content}
 				, #{score}
-				, #{rentHistoryVO.seq}
-				, #{memberVO.seq}
-				, #{courseBoardVO.seq}
-				, #{companyVO.seq} )
+				, #{historySeq}
+				, #{memSeq}
+				, #{courseSeq}
+				, #{cmpnSeq} )
 	</insert>
 
 	<!-- 수정 -->

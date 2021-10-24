@@ -263,7 +263,7 @@
 							<div class="lr_bc_first_box_main_wrapper">
 								<!-- 렌트현황,후기,여행코스 제목 누르면 관련 페이지로 이동 -->
 								<div class="col-12">
-									<div class="x_car_book_tabs_content_main_wrapper my-4"
+									<div class="x_car_book_tabs_content_main_wrapper my-2"
 										style="margin-top: 0px !important">
 										<div class="row">
 											<div class="col-md-12">
@@ -277,7 +277,6 @@
 													</div>
 												</div>
 											</div>
-												
 											<c:forEach var="est" items="${historyList}" end="0"
 												varStatus="status">
 												<div class="premium_rent_list_item col-12">
@@ -307,7 +306,7 @@
 																			</p>
 																		</div>
 																		<div class="col-lg-3">
-																			<c:if test="${est.status eq '예약중' }">
+																			<c:if test="${est.status eq '예약' }">
 																				<button class="refundBtn" id="refundBtn"
 																					type="button" value="${est.merchantUid}">취소하기</button>
 																			</c:if>
@@ -324,7 +323,7 @@
 																						후기수정 </a>
 																				</c:forEach>
 																			</c:if>
-																			<c:if test="${est.review ne '2' }">
+																			<c:if test="${est.review eq '1' }">
 																				<a class="btn btn-sm"
 																					href="rent/view/writeReview?seq=${est.seq}"
 																					style="background: #4f5dec; color: #ffffff;"
@@ -421,65 +420,127 @@
 										</div>
 									</div>
 								</div>
-								
-				<%-- 				<div class="col-md-12">			
+								<div class="col-md-12">
 									<div class="card">
-										<c:if test="${empty reviewList}">
-											<div class="card-header border-bottom mb-3">
-												<div class="x_slider_form_input_wrapper float_left">
-													<h3 class="font-weight-bold mb-0">최근 후기</h3>
-												</div>
-											</div>
+										<c:if test="${empty historyList}">
 											<div class="card-body">
 												<div class="row">
 													<div class="col-12 text-center">
-														<h6 class="py-5">아직 등록하신 후기가 없으세요!</h6>
-
+														<h6 class="py-5">아직 신청한 렌트내역이 없습니다!</h6>
 													</div>
 												</div>
 											</div>
 										</c:if>
 									</div>
-								</div> --%>
+								</div>
 								
-								<div class="col-md-12">
-									<div class="card">
-										<c:forEach var="reviewList" items="${reviewList}" end="0"
-											varStatus="status">
-											<div class="card-header border-bottom mb-3">
-												<div class="row">
-													<div class="col-4">
-														<div class="x_slider_form_input_wrapper float_left">
-															<h3 class="font-weight-bold mb-0">제목:${reviewList.title }</h3>
-														</div>
+								<div class="col-12">
+									<div class="x_car_book_tabs_content_main_wrapper my-2"
+										style="margin-top: 0px !important">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="dash"
+													style="margin-bottom: 20px; padding-bottom: 10px;">
+													<div class="blog_single_comment_heading">
+														<h4 style="font-weight: 600; padding-left: 20px;">
+															<a href="${pageContext.request.contextPath}/mypage/community">최근
+																리뷰</a>
+														</h4>
 													</div>
-													<div class="col-5"></div>
-													<div class="col-3">
-														<div class="x_slider_form_input_wrapper float_left">
-															<h5 class="font-weight-bold mb-0">별점:${reviewList.score }별만..추가부탁..</h5>
-														</div>
-													</div>
+												</div>
+											</div>
+											<c:forEach var="reviewList" items="${reviewList}" end="0"
+												varStatus="status">
+												<div class="premium_rent_list_item col-12">
+													<div class="card">
+														<div class="row">
+															
+															<div class="col-lg-12">
+																<div class="card-body">
+																	<div class="row">
+																		<div class="col-lg-6">
+																			<p class="text-grey-600">
+																				제목:${reviewList.title }
+																			</p>
+																		</div>
+																		<div class="col-lg-3">
+																		
+																		</div>
 
-												</div>
-											</div>
-											<div class="card-body">
-												<div class="card border-primary-300 border-1">
-													<div class="card-body">
-														<div class="row align-items-center">
-															<div class="col-2" style="margin-bottom: 10px;">
-																<i class="icon-checkmark4 pr-2 mb-0">내용:</i>
+																		<div class="col-lg-3" style="padding-left: 40px;">
+																			<c:if test="${reviewList.score eq '5'}">
+																				<span class="float-right main-score-bg"><span class="main-score" style="width:100%"></span></span>
+																			</c:if>
+																			
+																			<c:if test="${reviewList.score eq '4'}">
+																				<span class="float-right main-score-bg"><span class="main-score" style="width:80%"></span></span>
+																			</c:if>
+																			
+																			<c:if test="${reviewList.score eq '3'}">
+																				<span class="float-right main-score-bg"><span class="main-score" style="width:60%"></span></span>
+																			</c:if>
+																			<c:if test="${reviewList.score eq '2'}">
+																				<span class="float-right main-score-bg"><span class="main-score" style="width:40%"></span></span>
+																			</c:if>
+																			<c:if test="${reviewList.score eq '1'}">
+																				<span class="float-right main-score-bg"><span class="main-score" style="width:20%"></span></span>
+																			</c:if>
+																			<p class="text-grey-600">
+																				별점:
+																			</p>
+																		</div>
+																		
+																		<div class="col-12">
+																			<div class="card border-primary-300 border-1"
+																				style="margin-bottom: 15px;">
+																				<div class="card-body" style="padding-bottom: 10px;">
+																					<div class="row align-items-center">
+																						<div class="col-2" style="padding-bottom: 10px;">
+																							<i class="icon-checkmark4 pr-2 mb-0"></i> 내용 :
+																						</div>
+																						<div class="col-10" style="padding-left: 0px">
+																							<span class="list-unstyled mb-0">
+																								${reviewList.content }
+																								</span>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																			<p class="text-grey-600">
+																				<i class="icon-calendar pr-2 mb-0"> 
+																					<fmt:formatDate value="${reviewList.rentHistoryVO.startDate}"
+																						pattern="yyyy.MM.dd" />
+																					~
+																					<fmt:formatDate value="${reviewList.rentHistoryVO.endDate}"
+																						pattern="yyyy.MM.dd" />
+																				</i>
+																			</p>
+																		</div>
+																	</div>
+																	<!-- row -->
+																</div>
 															</div>
-															<div class="col-8" style="padding-left: 0px">
-																<span class="list-unstyled mb-0">${reviewList.content }</span>
-															</div>
+
 														</div>
 													</div>
 												</div>
-											</div>
-										</c:forEach>
+											</c:forEach>
+										</div>
 									</div>
 								</div>
-
+								<div class="col-md-12">
+									<div class="card">
+										<c:if test="${empty reviewList}">
+											<div class="card-body">
+												<div class="row">
+													<div class="col-12 text-center">
+														<h6 class="py-5">아직 등록하신 리뷰가 없습니다!</h6>
+													</div>
+												</div>
+											</div>
+										</c:if>
+									</div>
+								</div>
 								<div class="col-md-12">
 									<div class="blog_single_comment_heading">
 										<div class="dash"
@@ -517,7 +578,7 @@
 															</h5>
 														</div>
 													</div>
-													<div class="btc_team_img_bot_cont_wrapper">
+													<div class="btc_team_img_bot_cont_wrapper" style="height :100px;">
 														<h4>
 															<a
 																href="${pageContext.request.contextPath}/community/course/view?seq=${myCourse.seq}">${myCourse.title }</a>
@@ -531,11 +592,6 @@
 								<div class="col-md-12">
 									<div class="card">
 										<c:if test="${empty myCourse}">
-										<!-- <div class="card-header border-bottom mb-3">
-							        		<div class="x_slider_form_input_wrapper float_left">
-							            		<h3 class="font-weight-bold mb-0">여행 리스트</h3>
-							        		</div>
-							    		</div> -->
 											<div class="card-body">
 												<div class="row">
 													<div class="col-12 text-center">

@@ -318,7 +318,6 @@ public class CompanyController {
     }
 
     // 업체 렌트카 삭제 처리
-    @ResponseBody
     @PostMapping("/car/delete")
     public String deleteCar(CarVO vo, CarOptionVO optVO, InsuranceOptionVO insVO, @RequestParam Long seq, @RequestParam Long cmpnSeq, RedirectAttributes rttr){
     	String r = "";

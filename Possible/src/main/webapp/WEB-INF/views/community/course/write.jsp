@@ -13,12 +13,58 @@ request.setCharacterEncoding("utf-8");
 response.setContentType("text/html; charset=utf-8");
 %>
 <style>
+
 .custom-div {
 	margin-top: 10px;
 	text-align: center;
 	height: 150px;
 	overflow: auto;
 }
+
+.custom-btn {
+	display: inline-block;
+	font-weight: 400;
+	text-align: center;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 1px solid transparent;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: .25rem;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out,
+		border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	color: #fff;
+	background-color: #6495ed;
+}
+
+.custom-input input {
+	/* width: 100%; */
+	height: 42px;
+	padding-left: 10px;
+	border: 1px solid #e8e8e8;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 5px;
+}
+
+.x_offer_car_heading_wrapper h3:after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    border: 2px solid #6495ed;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    left: 0;
+    right: 0;
+    bottom: -20px;
+    margin: 0px auto;
+}
+
 </style>
 <form id="frm" name="frm" role="form">
 	<div class="x_contact_title_main_wrapper float_left padding_tb_100">
@@ -34,12 +80,6 @@ response.setContentType("text/html; charset=utf-8");
 					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<div class="contect_form1">
 						<input id="title" name="title" type="text" placeholder="Title *">
-					</div>
-				</div>
-				<div
-					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<div class="contect_form1">
-						<button id="minusPeople" type="button" class="btn btn-outline-light text-dark">-</button><span id="people">1</span><button id="plusPeople" type="button" class="btn btn-outline-light text-dark">+</button>
 					</div>
 				</div>
 				<div
@@ -70,9 +110,29 @@ response.setContentType("text/html; charset=utf-8");
 						<br>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-xl-1"></div>
+					<div
+						class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+						style="margin: 0px">
+						<div class="contect_form4 col-12" align="center"
+							style="margin-top: 10px; margin-bottom: 15px;">
+							<textarea id="content" name="content" class="ckeditor"></textarea>
+							<!-- 	<textarea rows="5" placeholder="코스에 대한 간략한 설명을 기재할 수 있습니다. 쒸익"></textarea> -->
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12" 
+					style="background-color: white; border: 1px solid lightgray; border-radius: 10px; margin-top: 20px; margin-right: 5px; box-shadow: 0px 0 8px rgba(0, 0, 0, 0.1);">
+						<hr style="border: 0; height: 3px; background: #ccc;">
+						<div class="contect_form2">
+							<h3>인원</h3><span style="float: right; margin-top: -35px;"><button id="minusPeople" type="button" class="btn btn-outline-light text-dark">-</button><span id="people">1</span><button id="plusPeople" type="button" class="btn btn-outline-light text-dark">+</button></span>
+						</div>
+						<hr style="border: 0; height: 3px; background: #ccc;">
+				</div>
 				<div
 					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12"
-					style="background-color: white; border: 1px solid lightgray; border-radius: 10px;">
+					style="background-color: white; border: 1px solid lightgray; border-radius: 10px; margin-top: 20px; margin-right: 5px; box-shadow: 0px 0 8px rgba(0, 0, 0, 0.1);">
 					<hr style="border: 0; height: 3px; background: #ccc;">
 					<h3>코스</h3>
 					<div id="takePlaceMap"
@@ -84,10 +144,11 @@ response.setContentType("text/html; charset=utf-8");
 				</div>
 				<div
 					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12"
-					style="background-color: white; border: 1px solid lightgray; border-radius: 10px; margin-top: 30px;">
-					<div class="input-group mb-3" style="margin-top: 15px;">
+					style="background-color: white; border: 1px solid lightgray; border-radius: 10px; margin-top: 30px; box-shadow: 0px 0 8px rgba(0, 0, 0, 0.1);">
+					<div class="input-group mb-3 custom-input" style="margin-top: 20px;">
 						<select id="type" name="type" class="select">
 							<option value="T" ${pageMaker.cri.type =='T'? 'selected' : "" }>선택</option>
+							<option value="R" ${pageMaker.cri.type =='R'? 'selected' : "" } style="margin-bottom: 1px solid gray">지역</option>
 							<option value="A" ${pageMaker.cri.type =='A'? 'selected' : "" }>관광지</option>
 							<option value="C" ${pageMaker.cri.type =='C'? 'selected' : "" }>문화시설</option>
 						</select> <input type="text" id="loc" name="loc"
@@ -95,8 +156,7 @@ response.setContentType("text/html; charset=utf-8");
 							placeholder="떠나고 싶은 장소를 검색해보세요."
 							aria-label="Recipient's username" aria-describedby="basic-addon2">
 						<div class="input-group-append">
-							<button id="tourSearch" class="btn btn-outline-secondary"
-								type="button">검색</button>
+							<button id="tourSearch" class="custom-btn" type="button">검색</button>
 						</div>
 						<div class="col-12 custom-div">
 							<ul id="tourList"
@@ -108,22 +168,10 @@ response.setContentType("text/html; charset=utf-8");
 						</div>
 					</div>
 				</div>
-				<div
-					class="col-xl-12 offset-xl-1 col-lg-12 col-md-12 col-sm-12 col-xs-12"
-					style="margin: 10px">
-					<div class="contect_form4 col-12" align="center"
-						style="margin-up: 10px">
-						<textarea id="content" name="content" class="ckeditor"></textarea>
-						<!-- 	<textarea rows="5" placeholder="코스에 대한 간략한 설명을 기재할 수 있습니다. 쒸익"></textarea> -->
-					</div>
-				</div>
-				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top: 30px;">
 					<div class="contect_btn contect_btn_contact">
-						<ul>
-							<li><a class="insert">등록 <i class="fa fa-arrow-right"></i></a></li>
-							<li><a class="returnList">취소 <i
-									class="fa fa-arrow-right"></i></a></li>
-						</ul>
+							<button type="button" class="custom-btn insert">등록</button>
+							<button type="button" class="custom-btn" style="background-color: red;" onclick="location.href='../course'">취소</button>
 					</div>
 				</div>
 			</div>

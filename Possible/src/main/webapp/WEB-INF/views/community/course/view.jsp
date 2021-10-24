@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!--favicon-->
 <link rel="shortcut icon" type="image/png" href="images/fevicon.png" />
@@ -50,9 +50,41 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 %
 {
 -webkit-transform
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -94,6 +126,22 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 translateY
 
 
@@ -113,7 +161,39 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 (
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -155,7 +235,39 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -198,9 +310,41 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 %
 {
 -webkit-transform
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -242,6 +386,22 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 translateY
 
 
@@ -261,7 +421,39 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 (
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -303,7 +495,39 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -351,9 +575,41 @@ keyframes bounce { 0%, 20%, 50%, 80%, 100% {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 %
 {
 transform
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -395,6 +651,22 @@ transform
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 translateY
 
 
@@ -414,7 +686,39 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 (
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -456,7 +760,39 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -498,9 +834,41 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 %
 {
 transform
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -542,6 +910,22 @@ transform
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 translateY
 
 
@@ -561,7 +945,39 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 (
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -603,7 +1019,39 @@ translateY
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -631,9 +1079,44 @@ translateY
 	-webkit-animation-name: bounce;
 	animation-name: bounce;
 }
+
 .badge-custom {
-    color: #fff;
-    background-color: #007bff;
+	color: #fff;
+	background-color: #007bff;
+}
+
+.x_offer_car_heading_wrapper h3:after {
+	border: 2px solid #6495ed;
+}
+
+.custom-input input {
+	/* width: 100%; */
+	height: 42px;
+	padding-left: 10px;
+	border: 1px solid #e8e8e8;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 5px;
+}
+
+.custom-btn {
+	display: inline-block;
+	font-weight: 400;
+	text-align: center;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 1px solid transparent;
+	padding: .375rem .75rem;
+	font-size: 1rem;
+	line-height: 1.5;
+	border-radius: .25rem;
+	transition: color .15s ease-in-out, background-color .15s ease-in-out,
+		border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	color: #fff;
+	background-color: #6495ed;
 }
 </style>
 
@@ -649,8 +1132,8 @@ translateY
 				<div
 					class="x_offer_car_heading_wrapper x_offer_car_tb_heading_wrapper float_left">
 					<h3>
-						<span class="badge badge-pill badge-custom">${cnt }코스</span>
-						${board.title }
+						<span class="badge badge-pill badge-custom"
+							style="background-color: #6495ed">${cnt }코스</span> ${board.title }
 					</h3>
 					<p>
 						<i class="fa fa-map" aria-hidden="true"></i> : <span
@@ -701,7 +1184,8 @@ translateY
 															alt="tourImg" style="height: 200px;">
 													</c:if>
 												</div>
-												<div class="btc_team_img_cont_wrapper" style="height: 150px;">
+												<div class="btc_team_img_cont_wrapper"
+													style="height: 150px;">
 													<h4>
 														<a>${course.title}</a>
 													</h4>
@@ -717,7 +1201,7 @@ translateY
 					<!--js Start-->
 					<!-- x booking Wrapper Start -->
 					<div
-						style="margin-top: 30px; padding: 20px; background-color: white; border: 1px solid blue; border-radius: 10px;">
+						style="margin-top: 30px; padding: 20px; background-color: white; border: 1px solid #6495ed; border-radius: 10px;">
 						<div class="row">
 							<div class="col-md-12">
 								<h4>댓글</h4>
@@ -725,26 +1209,26 @@ translateY
 								<ul class="chat">
 									<c:forEach var="cmt" items="${cmt }">
 										<li data-seq="${cmt.seq }" style="margin-bottom: 20px">
-													${cmt.writer } | <fmt:formatDate pattern = "yyyy/MM/dd" value= "${cmt.genDate }"/><br>
-													${cmt.content }
-											<%-- <input type="hidden" id="cmtSeq" name="cmtSeq"
-												value="${cmt.seq }"> --%>
-											<sec:authorize access="isAuthenticated()">
-												<sec:authentication property="principal.id" var="loginUserId" />
+											${cmt.writer } | <fmt:formatDate pattern="yyyy/MM/dd"
+												value="${cmt.genDate }" /><br> ${cmt.content } <%-- <input type="hidden" id="cmtSeq" name="cmtSeq"
+												value="${cmt.seq }"> --%> <sec:authorize
+												access="isAuthenticated()">
+												<sec:authentication property="principal.id"
+													var="loginUserId" />
 												<c:if test="${loginUserId eq cmt.writer}">
-													<span style="float: right"><i id="cmtDelete" class="fa fa-times-circle"></i></span>
+													<span style="float: right"><i id="cmtDelete"
+														class="fa fa-times-circle"></i></span>
 												</c:if>
-											</sec:authorize>
-											<br>
+											</sec:authorize> <br>
 										</li>
 									</c:forEach>
 								</ul>
 							</div>
 							<div class="col-md-12">
-								<div class="panel-heading">
+								<div class="panel-heading custom-input">
 									<input id="content" name="content" size="30">
 									<!-- 버튼 -->
-									<button type="button" id="cmtInsert">등록</button>
+									<button type="button" class="custom-btn" id="cmtInsert">등록</button>
 								</div>
 							</div>
 						</div>
@@ -759,19 +1243,25 @@ translateY
 				<div
 					class="col-xl-10 offset-xl-1 col-lg-12 col-md-12 x_slider_checout_right">
 					<input type="hidden" id="seq" name="seq" value="${board.seq }">
-					<ul>
+					<div class="col-12">
+						<sec:authorize access="isAuthenticated()">
+							<sec:authentication property="principal.id" var="loginUserId" />
+							<c:if test="${loginUserId ne board.writer}">
+								<button type="button" id="reportBtn" class="btn btn-danger">신고</button>
+							</c:if>
+						</sec:authorize>
+						<button type="button" class="custom-btn"
+							onclick="location.href='../course'"
+							style="float: right; margin-left: 5px;">목록</button>
 						<sec:authorize access="isAuthenticated()">
 							<sec:authentication property="principal.id" var="loginUserId" />
 							<c:if test="${loginUserId eq board.writer}">
-								<li><a href="javascript:void(0);" onclick="boardDelete();">삭제</a></li>
+								<button type="button" class="custom-btn"
+									style="background-color: red; float: right;"
+									onclick="boardDelete();">삭제</button>
 							</c:if>
-						<c:if test="${loginUserId ne board.writer}">
-							<li><button type="button" id="reportBtn"
-									class="btn btn-danger">신고</button></li>
-						</c:if>
 						</sec:authorize>
-						<li><span style="float: right;"><a href="../course">목록</a></span></li>
-					</ul>
+					</div>
 				</div>
 			</div>
 		</form>
@@ -837,7 +1327,7 @@ translateY
 		var container = $('#takePlaceMap')[0]; //지도를 담을 영역의 DOM 레퍼런스
 	    var option = { //지도를 생성할 때 필요한 기본 옵션
 	        center: new kakao.maps.LatLng(35.86911924611688, 128.5932113110608), // 지도의 중심좌표
-	        level: 10 // 지도의 확대 레벨
+	        level: 7 // 지도의 확대 레벨
 	    };
 
 		var map = new kakao.maps.Map(container, option); // 지도를 생성합니다
@@ -1106,29 +1596,33 @@ translateY
 				return;
 			}
 		} else {
-			$.ajax({
-				type : 'POST',
-				url: "insertCmt",
-				data:  JSON.stringify({
-					content : $("#content").val(),
-					courseSeq : $("#seq").val()
-				}), 
-				dataType: "json",
-				contentType : 'application/json; charset=utf-8',
-				success: function (data) {
-					if(data == null) {
-						if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
-							location.href="${pageContext.request.contextPath}/login"; 
+			if($("#content").val() != null) {
+				$.ajax({
+					type : 'POST',
+					url: "insertCmt",
+					data:  JSON.stringify({
+						content : $("#content").val(),
+						courseSeq : $("#seq").val()
+					}), 
+					dataType: "json",
+					contentType : 'application/json; charset=utf-8',
+					success: function (data) {
+						if(data == null) {
+							if(confirm("로그인이 필요한 서비스 입니다.")==true) { //확인 시 로그인 페이지, 취소 시 return
+								location.href="${pageContext.request.contextPath}/login"; 
+							} else {
+								return;
+							}
 						} else {
-							return;
+							$("#content").val("");
+							$(".chat").append('<li data-seq="'+data.seq+'" style="margin-bottom: 20px">'+data.writer+' | '+data.genDate+'<br>'+data.content+'<input type="hidden" id="cmtSeq" value="'+data.seq+'">'
+									+'<span style="float: right"><i id="cmtDelete" class="fa fa-times-circle"></i></span>');
 						}
-					} else {
-						$("#content").val("");
-						$(".chat").append('<li data-seq="'+data.seq+'" style="margin-bottom: 20px">'+data.writer+' | '+data.genDate+'<br>'+data.content+'<input type="hidden" id="cmtSeq" value="'+data.seq+'">'
-								+'<span style="float: right"><i id="cmtDelete" class="fa fa-times-circle"></i></span>');
 					}
-				}
-			});
+				});
+			} else {
+				alert("내용을 입력해주세요.");
+			}
 		}
 	});
 	
@@ -1143,7 +1637,7 @@ translateY
 			}, 
 			success: function (data) {
 				if(data == 1) {
-					alert("삭제 완");
+					alert("삭제되었습니다.");
 					$("[data-seq="+dataSeq+"]").remove()
 				} 
 			}

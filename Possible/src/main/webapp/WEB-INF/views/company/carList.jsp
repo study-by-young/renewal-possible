@@ -53,8 +53,8 @@
 						<form id="actionForm" action="car" method="get">
 							<label style="cursor:pointer"><input type="checkbox" name="type" value="A" ${pageMaker.cri.type =='A'? 'checked' : "" } >&nbsp;대기</label>
 							<label style="cursor:pointer"><input type="checkbox" name="type"  value="B" ${pageMaker.cri.type =='B'? 'checked' : "" }>&nbsp;예약</label>
-							<label style="cursor:pointer"><input type="checkbox" name="type" value="C" ${pageMaker.cri.type =='C'? 'checked' : "" } >&nbsp;사용</label>
-							<label style="cursor:pointer"><input type="checkbox" name="type"  value="D" ${pageMaker.cri.type =='D'? 'checked' : "" }>&nbsp;수리</label>
+							<label style="cursor:pointer"><input type="checkbox" name="type" value="C" ${pageMaker.cri.type =='C'? 'checked' : "" } >&nbsp;출고</label>
+							<label style="cursor:pointer"><input type="checkbox" name="type"  value="D" ${pageMaker.cri.type =='D'? 'checked' : "" }>&nbsp;정비</label>
 								<input type="hidden" name="keyword" value="${pageMaker.cri.keyword }">
 								<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
 								<input type="hidden" name="amount" value="${pageMaker.cri.amount }">

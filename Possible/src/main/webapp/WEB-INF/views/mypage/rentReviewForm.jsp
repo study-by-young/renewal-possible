@@ -195,8 +195,8 @@
 						<input type="hidden" id="" name="" value="${historyList.carVO.brandCodeVO.name}">
 						<input type="hidden" id="" name="" value="${historyList.carVO.modelCodeVO.name}">
 						<input type="hidden" id="" name="" value="${historyList.carVO.segmentCodeVO.name}">
-						<input type="hidden" id="" name="" value="${historyList.startDate}">${historyList.startDate}
-						<input type="hidden" id="" name="" value="${historyList.endDate}">${historyList.endDate}
+						<input type="hidden" id="" name="" value="${historyList.startDate}">
+						<input type="hidden" id="" name="" value="${historyList.endDate}">
 						<input type="hidden" id="" name="" value="${historyList.takePlaceBasic}">
 						<input type="hidden" id="" name="" value="${historyList.takePlaceDetail}">
 						<input type="hidden" id="" name="" value="${historyList.companyVO.name}">
@@ -213,14 +213,13 @@
 								</div>
 							</div>
 						</div>
-						
 						<div class="col-lg-12 col-md-12">
 							<div class="lr_bc_first_box_main_wrapper">
 								<div class="col-md-12">
 									<div class="card dash" style="margin-bottom: 20px; padding-bottom: 10px;">
 									
 										<div class="card-body" style="padding-bottom: 15px; margin-left: 15px; margin-right: 15px;">
-											<form id="writeReviewForm" action="writeReview" method="post">
+											<form id="writeReviewForm" name="writeReviewForm" action="writeReview" method="post">
 												<div class="row">
 													<div class="col-lg-12" style="margin-bottom: 15px;">
 														<div class="row align-items-center">
@@ -230,18 +229,14 @@
 													<div class="col-lg-12" style="margin-top: 0px; padding-left: 0px; margin-bottom: 15px;">
 														<div class="row align-items-center">
 															<div class="col-3">
-																<select id="course" name="course" class="selectpicker input_title">
-																	<option value="${course.title}" selected>내가 작성한 여행코스</option>
-																	<c:if test="${user.id eq course.writer}">
-																		<c:forEach var="course" items="${courseList}">
-								                                            <option value="">${course.title}</option>
-																			<input type="hidden" id="courseSeq" name="courseSeq" value="${course.seq}">
-																		</c:forEach>
-																	</c:if>
-																	<c:if test="${user.id ne course.writer}">
+																<select name="course" id="course"  class="selectpicker input_title">
+															      <c:forEach var="course" items="${courseList}" varStatus="i">
+															         <option value="${course.title}">${course.title}</option>
+															      </c:forEach>
+															      <c:if test="${user.id ne course.writer}">
 																		<option value="">작성한 여행코스가 없습니다.</option>
 																	</c:if>
-																</select>
+															   </select>
 															</div>
 															<div class="col-2">
 																<select id="score" name="score" class="selectpicker input_title">
@@ -264,13 +259,13 @@
 													</div>
 												</div>
 												
-												<input type="hidden" name="memSeq" id="memSeq" value="${historyList.memberVO.seq }">
-												<input type="hidden" name="historySeq" id="historySeq" value="${historyList.seq }">
-												<input type="hidden" name="cmpnSeq" id="cmpnSeq" value="${historyList.companyVO.seq }">
+												<%-- <input type="text" name="historySeq" id="historySeq" value="${historyList.seq }">
+												<input type="text" name="memSeq" id="memSeq" value="${historyList.memberVO.seq }">
+												<input type="text" name="cmpnSeq" id="cmpnSeq" value="${historyList.companyVO.seq }"> --%>
 												
 												<div class="col-lg-12" style="margin-top: 20px;">
 													<div class="text-center">
-														<button type="submit" class="btn btn-primary" style="background: #4f5dec; color: #ffffff; float: right;">
+														<button type="button" id="addBtn" class="btn btn-primary" style="background: #4f5dec; color: #ffffff; float: right;">
 															등록 <i class="icon-paperplane ml-2"></i>
 														</button>
 													</div>
@@ -295,6 +290,10 @@
 										
 										
 <script>
+$("#addBtn").on("click",function(){
+	writeReviewForm.submit();
+	alert("등록이 완료 되었습니다.");
+});
 	// 데이터 가져오기
 	CKEDITOR.instances.content.getData()
 </script>

@@ -36,6 +36,8 @@
 	border-radius: .25rem;
 	transition: color .15s ease-in-out, background-color .15s ease-in-out,
 		border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+	color: #fff;
+	background-color: #6495ed;
 }
 
 .cTitle {
@@ -46,37 +48,68 @@
 	margin-right: 5px;
 }
 
+.x_offer_car_heading_wrapper h3:after {
+	content: '';
+	position: absolute;
+	width: 30px;
+	border: 2px solid #6495ed;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border-radius: 2px;
+	left: 0;
+	right: 0;
+	bottom: -20px;
+	margin: 0px auto;
+}
+
+.btc_team_social_tb_wrapper {
+	background: #6495ed;
+}
+
+.x_slider_checout_right li a {
+	margin-top: -14px;
+	float: left;
+	width: 150px;
+	height: 50px;
+	line-height: 45px;
+	text-align: center;
+	background: #6495ed;
+	color: #ffffff;
+	border: 1px solid transparent;
+	text-transform: uppercase;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.pagination>li>a {
+    line-height: 30px;
+}
+
+.pagination>li>a:hover,
+.pagination>li>span:hover,
+.pagination>li>a:focus,
+.pagination>li>span:focus,
+.pagination>li>a.active{
+    z-index: 2;
+    color: #fff;
+    background-color: #6495ed;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
 </style>
 
 <div class="x_inner_team_main_wrapper float_left padding_tb_100">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="custom-input" style="margin-bottom: 50px;">
-					<form id="actionForm"
-						action="${pageContext.request.contextPath}/community/course"
-						method="get">
-						<select name="type" class="select">
-							<option value="T"
-								<c:out value="${pagination.cri.type eq 'T' ? 'selected':''}"/>>제목</option>
-							<option value="C"
-								<c:out value="${pagination.cri.type eq 'C' ? 'selected':''}"/>>내용</option>
-							<option value="W"
-								<c:out value="${pagination.cri.type eq 'W' ? 'selected':''}"/>>작성자</option>
-							<option value="TC"
-								<c:out value="${pagination.cri.type eq 'TC' ? 'selected':''}"/>>제목
-								or 내용</option>
-						</select> &nbsp; <input class="input" name="keyword"
-							value="${pagination.cri.keyword}"> <input type="hidden"
-							name="pageNum" value="${pagination.cri.pageNum}"> <input
-							type="hidden" name="amount" value="${pagination.cri.amount}">&nbsp;
-						<button class="custom-btn btn-primary"
-							onclick="$('[name=pageNum]').val(1)">검색</button>
-					</form>
-				</div>
 				<div
 					class="x_offer_car_heading_wrapper x_offer_car_tb_heading_wrapper float_left">
-					<h4>Tour Course</h4>
+					<h4 style="color: #6495ed">Tour Course</h4>
 					<h3>나만의 여행 코스</h3>
 					<p>
 						우리, 여행갈카? <br> '여행갈카'와 함께한 나만의 여행 코스를 공유해주세요.
@@ -109,16 +142,57 @@
 								<a class="cTitle"
 									href="${pageContext.request.contextPath}/community/course/view?seq=${list.seq}">${list.title }</a>
 							</h4>
-							<p>${list.writer }</p>
+							<p style="color: #6495ed">${list.writer }</p>
 						</div>
 					</div>
 				</div>
 			</c:forEach>
 		</div>
 		<!-- 페이징 -->
-		<jsp:include page="/pagination" />
+		<div class="col-md-12">
+			<div class="pager_wrapper prs_blog_pagi_wrapper">
+				<ul class="pagination">
+					<li><a class="page-link"
+						href="?pageNum=${pagination.startPage-1}&amount=${pagination.cri.amount}"
+						<c:if test="${!pagination.prev }">style="display: none"</c:if>><i
+							class="fas fa-chevron-left"></i></a></li>
+					<c:forEach begin="${pagination.startPage}"
+						end="${pagination.endPage}" var="num">
+						<li
+							class="btc_shop_pagi <c:if test="${param.getOrDefault('pageNum',1) == (num )}"> active</c:if>"><a
+							href="?pageNum=${num }&amount=${pagination.cri.amount}<c:if test="${pagination.cri.type != null}">&type=${pagination.cri.type }</c:if><c:if test="${pagination.cri.keyword != null}">&keyword=${pagination.cri.keyword }</c:if>"
+							class="page-link">${num }</a></li>
+					</c:forEach>
+					<li><a
+						href="?pageNum=${pagination.endPage+1}&amount=${pagination.cri.amount}"
+						<c:if test="${!pagination.next }">style="display: none"</c:if>><i
+							class="fas fa-chevron-right"></i></a></li>
+				</ul>
+			</div>
+		</div>
+
 		<div class="row" style="margin-top: 10px">
-			<div class="col-12 x_slider_checout_right">
+			<div class="custom-input col-10"
+				style="margin-top: 20px; margin-bottom: 20px;">
+				<form id="actionForm"
+					action="${pageContext.request.contextPath}/community/course"
+					method="get">
+					<select name="type" class="select">
+						<option value="T"
+							<c:out value="${pagination.cri.type eq 'T' ? 'selected':''}"/>>제목</option>
+						<option value="C"
+							<c:out value="${pagination.cri.type eq 'C' ? 'selected':''}"/>>내용</option>
+						<option value="W"
+							<c:out value="${pagination.cri.type eq 'W' ? 'selected':''}"/>>작성자</option>
+					</select> &nbsp; <input class="input" name="keyword"
+						value="${pagination.cri.keyword}"> <input type="hidden"
+						name="pageNum" value="${pagination.cri.pageNum}"> <input
+						type="hidden" name="amount" value="${pagination.cri.amount}">&nbsp;
+					<button class="custom-btn btn-primary"
+						onclick="$('[name=pageNum]').val(1)">검색</button>
+				</form>
+			</div>
+			<div class="col-2 x_slider_checout_right">
 				<ul>
 					<c:if test="${user ne null}">
 						<li><a href="course/write">등록</a></li>

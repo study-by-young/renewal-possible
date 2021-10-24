@@ -152,10 +152,12 @@ tr:hover {
 	</div> --%>
 	<jsp:include page="/pagination"></jsp:include>
 
-	<div align="right">
-		<button type="button" class="btn btn-primary"
-			onclick="location.href='insert?pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}'">등록</button>
-	</div>
+	<c:if test="${user.author eq 'ROLE_ADMIN'}">
+		<div align="right">
+			<button type="button" class="btn btn-primary"
+				onclick="location.href='insert?pageNum=${param.getOrDefault("pageNum",1)}&amount=${param.getOrDefault("amount", pagination.cri.amount)}'">등록</button>
+		</div>
+	</c:if>
 
 
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
