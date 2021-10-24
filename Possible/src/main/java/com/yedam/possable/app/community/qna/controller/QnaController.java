@@ -28,10 +28,14 @@ public class QnaController {
 	
 	@GetMapping("/list")
 	public void list(Model model
-				   , @ModelAttribute("cri") Criteria cri) {
+				   , @ModelAttribute("cri") Criteria cri
+				   , Authentication authentication) {
 		int total = qnaService.getTotalCount(cri);
 		model.addAttribute("list", qnaService.getList(cri));
 		model.addAttribute("pagination", new PageVO(cri, total));
+		
+		MemberVO loginUser = memberService.getLoginMember(authentication);
+        model.addAttribute("user", memberService.memberOneSelect(loginUser));
 	}
 	
 	@GetMapping("/get")

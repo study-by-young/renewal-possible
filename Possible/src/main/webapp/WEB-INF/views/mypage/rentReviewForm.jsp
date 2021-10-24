@@ -195,8 +195,8 @@
 						<input type="hidden" id="" name="" value="${historyList.carVO.brandCodeVO.name}">
 						<input type="hidden" id="" name="" value="${historyList.carVO.modelCodeVO.name}">
 						<input type="hidden" id="" name="" value="${historyList.carVO.segmentCodeVO.name}">
-						<input type="hidden" id="" name="" value="${historyList.startDate}">${historyList.startDate}
-						<input type="hidden" id="" name="" value="${historyList.endDate}">${historyList.endDate}
+						<input type="hidden" id="" name="" value="${historyList.startDate}">
+						<input type="hidden" id="" name="" value="${historyList.endDate}">
 						<input type="hidden" id="" name="" value="${historyList.takePlaceBasic}">
 						<input type="hidden" id="" name="" value="${historyList.takePlaceDetail}">
 						<input type="hidden" id="" name="" value="${historyList.companyVO.name}">
@@ -213,7 +213,6 @@
 								</div>
 							</div>
 						</div>
-						${historyList }
 						<div class="col-lg-12 col-md-12">
 							<div class="lr_bc_first_box_main_wrapper">
 								<div class="col-md-12">
@@ -260,9 +259,9 @@
 													</div>
 												</div>
 												
-												<input type="text" name="historySeq" id="historySeq" value="${historyList.seq }">
+												<%-- <input type="text" name="historySeq" id="historySeq" value="${historyList.seq }">
 												<input type="text" name="memSeq" id="memSeq" value="${historyList.memberVO.seq }">
-												<input type="text" name="cmpnSeq" id="cmpnSeq" value="${historyList.companyVO.seq }">
+												<input type="text" name="cmpnSeq" id="cmpnSeq" value="${historyList.companyVO.seq }"> --%>
 												
 												<div class="col-lg-12" style="margin-top: 20px;">
 													<div class="text-center">

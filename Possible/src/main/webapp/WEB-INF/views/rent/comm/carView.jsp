@@ -232,7 +232,21 @@
                                                             <h5 class="card-title">
                                                                 ${review.title}
                                                                 <span class="float-right">
-                                                                    <span class="main-score-bg"><span class="main-score" style="width:80%"></span></span> (4/5)
+                                                                    <c:if test="${review.score eq '5'}">
+                                                                    	<span class="main-score-bg"><span class="main-score" style="width:100%"></span></span>
+                                                                    </c:if>
+                                                                    <c:if test="${review.score eq '4'}">
+                                                                    	<span class="main-score-bg"><span class="main-score" style="width:80%"></span></span>
+                                                                    </c:if>
+                                                                    <c:if test="${review.score eq '3'}">
+                                                                    	<span class="main-score-bg"><span class="main-score" style="width:60%"></span></span>
+                                                                    </c:if>
+                                                                    <c:if test="${review.score eq '2'}">
+                                                                    	<span class="main-score-bg"><span class="main-score" style="width:40%"></span></span>
+                                                                    </c:if>
+                                                                    <c:if test="${review.score eq '1'}">
+                                                                    	<span class="main-score-bg"><span class="main-score" style="width:20%"></span></span>
+                                                                    </c:if>
                                                                 </span>
                                                             </h5> 
                                                             <div class="text-muted mt-2">
