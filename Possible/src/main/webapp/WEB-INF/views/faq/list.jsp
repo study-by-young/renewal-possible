@@ -233,11 +233,12 @@
 
 
 		</div>
-
-		<div align="right">
-			<button type="button" class="btn btn-primary"
-				onclick="location.href='insert'">등록</button>
-		</div>
+		<c:if test="${user.author eq 'ROLE_ADMIN'}">
+			<div align="right">
+				<button type="button" class="btn btn-primary"
+					onclick="location.href='insert'">등록</button>
+			</div>
+		</c:if>
 
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 			aria-laballedby="myModalLabel" aria-hidden="true">
@@ -353,9 +354,11 @@
 				+ data.content
 				+ '</p>'
 				+ '<div class="lr_bc_first_box_img_cont_wrapper" align="right">'
+				+ '<c:if test="${user.author eq 'ROLE_ADMIN'}">'
 				+ '<button class="btn btn-dark" type="button" onclick="location.href='+"'"+'update?seq='+data.seq+"'"+'">수정</button>&nbsp;'
 				/* + '<button data-seq="'+data.seq+'" id="deleteBtn'+data.seq+'" type="button" class="btn btn-dark">삭제</button>' */
 				+ '<button data-seq="'+data.seq+'" id="deleteBtn" type="button" class="btn btn-dark">삭제</button>'
+				+ '</c:if>'
 				+ '<p></div></div></div>'
 		/* '<div class="col-md-6">'
 		+ '<div class="card mb-2"> <a class="text-default collapsed" data-toggle="collapse" href="update?seq='+ data.seq +'">
