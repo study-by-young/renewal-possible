@@ -68,18 +68,37 @@
 
 .x_slider_checout_right li a {
 	margin-top: -14px;
-    float: left;
-    width: 150px;
-    height: 50px;
-    line-height: 45px;
-    text-align: center;
-    background: #6495ed;
-    color: #ffffff;
-    border: 1px solid transparent;
-    text-transform: uppercase;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
+	float: left;
+	width: 150px;
+	height: 50px;
+	line-height: 45px;
+	text-align: center;
+	background: #6495ed;
+	color: #ffffff;
+	border: 1px solid transparent;
+	text-transform: uppercase;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.pagination>li>a {
+    line-height: 30px;
+}
+
+.pagination>li>a:hover,
+.pagination>li>span:hover,
+.pagination>li>a:focus,
+.pagination>li>span:focus,
+.pagination>li>a.active{
+    z-index: 2;
+    color: #fff;
+    background-color: #6495ed;
+    -webkit-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
 }
 
 </style>
@@ -130,7 +149,28 @@
 			</c:forEach>
 		</div>
 		<!-- 페이징 -->
-		<jsp:include page="/pagination" />
+		<div class="col-md-12">
+			<div class="pager_wrapper prs_blog_pagi_wrapper">
+				<ul class="pagination">
+					<li><a class="page-link"
+						href="?pageNum=${pagination.startPage-1}&amount=${pagination.cri.amount}"
+						<c:if test="${!pagination.prev }">style="display: none"</c:if>><i
+							class="fas fa-chevron-left"></i></a></li>
+					<c:forEach begin="${pagination.startPage}"
+						end="${pagination.endPage}" var="num">
+						<li
+							class="btc_shop_pagi <c:if test="${param.getOrDefault('pageNum',1) == (num )}"> active</c:if>"><a
+							href="?pageNum=${num }&amount=${pagination.cri.amount}<c:if test="${pagination.cri.type != null}">&type=${pagination.cri.type }</c:if><c:if test="${pagination.cri.keyword != null}">&keyword=${pagination.cri.keyword }</c:if>"
+							class="page-link">${num }</a></li>
+					</c:forEach>
+					<li><a
+						href="?pageNum=${pagination.endPage+1}&amount=${pagination.cri.amount}"
+						<c:if test="${!pagination.next }">style="display: none"</c:if>><i
+							class="fas fa-chevron-right"></i></a></li>
+				</ul>
+			</div>
+		</div>
+
 		<div class="row" style="margin-top: 10px">
 			<div class="custom-input col-10"
 				style="margin-top: 20px; margin-bottom: 20px;">

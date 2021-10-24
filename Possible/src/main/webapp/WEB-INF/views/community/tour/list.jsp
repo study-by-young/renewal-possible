@@ -154,7 +154,7 @@
 										class="text-muted">${list.zipCode }</a></li>
 								</ul>
 
-								<p class="mb-3" id="overview${status.index}">
+								<p class="mb-3" id="overview${status.index}" style="color: gray;">
 								</p>
 							</div>
 						</div>
