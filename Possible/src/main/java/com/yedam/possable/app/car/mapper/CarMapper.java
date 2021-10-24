@@ -2,6 +2,7 @@ package com.yedam.possable.app.car.mapper;
 
 import java.util.List;
 
+import com.yedam.possable.app.company.domain.CompanyItemVO;
 import org.apache.ibatis.annotations.Param;
 
 import com.yedam.possable.app.car.domain.CarOptionVO;

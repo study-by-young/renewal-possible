@@ -26,7 +26,7 @@
 </div>
 
 <!-- x car book sidebar section Wrapper Start -->
-<div class="x_car_book_sider_main_Wrapper float_left mt-5">
+<div class="x_car_book_sider_main_Wrapper float_left">
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -35,19 +35,10 @@
                         <div class="card-body row">
                             <div class="col-6 align-self-center">
                                 <span>총 ${pagination.total}건</span>
-                                <%--                            <div class="d-inline-block">--%>
-                                <%--                                <select class="select">--%>
-                                <%--                                    <option>Sort by Price</option>--%>
-                                <%--                                    <option>12$</option>--%>
-                                <%--                                    <option>13$</option>--%>
-                                <%--                                    <option>14$</option>--%>
-                                <%--                                </select>--%>
-                                <%--                            </div>--%>
                             </div>
                             <div class="col-6">
                                 <div class="text-right">
                                     <button type="button" class="btn btn-primary" onclick="loginCheck()">견적 요청</button>
-<%--                                    <a class="btn btn-primary" href="estimate/register"><i class="icon-pencil7 align-baseline"></i> 견적 요청</a>--%>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +50,12 @@
                                     <c:forEach var="estimate" items="${estList}" varStatus="status">
                                         <div class="premium_rent_list_item col-12">
                                             <div class="card">
-                                                <div class="row">
+                                                <div class="row position-relative">
+                                                    <sec:authorize access="isAuthenticated()">
+                                                        <sec:authorize access="authentication.principal.seq == ${estimate.memberVO.seq}">
+                                                            <span class="badge badge-info badge-pill position-absolute top-0 left-0 mt-2 ml-3">나의 견적</span>
+                                                        </sec:authorize>
+                                                    </sec:authorize>
                                                     <div class="col-lg-3 align-self-center">
                                                         <div class="card-img-actions p-3">
                                                             <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${estimate.modelCodeVO.img}" alt="">

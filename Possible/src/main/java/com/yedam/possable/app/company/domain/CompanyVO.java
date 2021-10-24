@@ -5,6 +5,7 @@ import com.yedam.possable.app.member.domain.MemberVO;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class CompanyVO {
@@ -24,5 +25,6 @@ public class CompanyVO {
     private CodeSubVO areaCodeVO;
     private CodeSubVO statusCodeVO;
     private MemberVO memberVO;
+    private List<CodeSubVO> itemList;
 }
 

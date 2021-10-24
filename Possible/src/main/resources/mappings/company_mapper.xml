@@ -26,9 +26,16 @@
                      javaType="CodeSubVO"/>
         <association property="memberVO"
                      column="mem_seq"
-                     columnPrefix="mem_"
-                     resultMap="com.yedam.possable.app.member.mapper.MemberMapper.member"
+                     select="com.yedam.possable.app.member.mapper.MemberMapper.memberOneSelect"
                      javaType="com.yedam.possable.app.member.domain.MemberVO"/>
+        <collection property="itemList"
+                    column="seq"
+                    select="getCompanyItems"
+                    ofType="CompanyItemVO"/>
+    </resultMap>
+    <resultMap id="companyItem" type="CompanyItemVO">
+        <id property="optCode" column="opt_code"/>
+        <result property="optName" column="opt_name"/>
     </resultMap>
     <sql id="criteria">
         <trim  prefixOverrides="and">
@@ -156,7 +163,7 @@
         </where>)
         WHERE RN > (#{pageNum} - 1) * #{amount}
     </select>
- 
+
     <!-- 업체 한건-->
     <select id="companyOneSelect" resultMap="companyAllData">
         SELECT *
@@ -204,9 +211,11 @@
         WHERE mem_seq = #{seq}
     </select>
 
-    <select id="getCompanyItems" resultType="string">
-        SELECT opt_code
-        FROM item_option
+    <select id="getCompanyItems" resultMap="companyItem">
+        SELECT IO.opt_code,
+               CS.name AS opt_name
+        FROM item_option IO
+            INNER JOIN code_sub CS ON IO.opt_code = CS.code
         WHERE cmpn_seq = #{seq}
     </select>
 
@@ -226,4 +235,21 @@
 	WHERE SEQ = #{seq}
 	</delete>
 
+    <delete id="deleteCompanyItems">
+        DELETE FROM item_option
+        WHERE cmpn_seq = #{cmpnSeq}
+    </delete>
+
+    <insert id="insertCompanyItem">
+        INSERT INTO item_option(opt_code,
+                                cmpn_seq)
+        VALUES( #{optCode},
+                #{cmpnSeq})
+    </insert>
+
+    <select id="getCompanyItemCodes" resultType="java.lang.String">
+        SELECT opt_code
+        FROM item_option
+        WHERE cmpn_seq = #{seq}
+    </select>
 </mapper>

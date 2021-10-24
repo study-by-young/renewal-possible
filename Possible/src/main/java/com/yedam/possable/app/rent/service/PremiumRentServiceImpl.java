@@ -83,11 +83,13 @@ public class PremiumRentServiceImpl implements PremiumRentService{
     public List<EstiSubmitHistoryVO> getEstSubmitListByEstiSeq(Criteria cri, Long seq) {
         List<EstiSubmitHistoryVO> estSubmitList = premiumRentMapper.getEstSubmitListByEstiSeq(cri, seq);
         for(EstiSubmitHistoryVO vo : estSubmitList){
-            List<String> itemList = new ArrayList<>();
-            for(String item : strToArr(vo.getItems())){
-                itemList.add(codeMapper.getCodeByValue(item).getName());
+            if(vo.getItems() != null){
+                List<String> itemList = new ArrayList<>();
+                for(String item : strToArr(vo.getItems())){
+                    itemList.add(codeMapper.getCodeByValue(item).getName());
+                }
+                vo.setItemsList(itemList);
             }
-            vo.setItemsList(itemList);
         }
         return estSubmitList;
     }

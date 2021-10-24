@@ -10,6 +10,8 @@ import com.yedam.possable.app.common.code.domain.BrandCodeVO;
 import com.yedam.possable.app.common.code.domain.ModelCodeVO;
 import com.yedam.possable.app.common.code.domain.TrimCodeVO;
 import com.yedam.possable.app.member.service.MemberService;
+import com.yedam.possable.app.rent.domain.RentHistoryVO;
+import com.yedam.possable.app.rent.service.RentHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -47,6 +49,8 @@ public class PremiumRentController {
     CarService carService;
     @Autowired
     MemberService memberService;
+    @Autowired
+    RentHistoryService rentHistoryService;
 
     // 견적 요청 리스트
     @GetMapping("/estimate")
@@ -290,6 +294,30 @@ public class PremiumRentController {
         attributes.addAttribute("sPageNum", 1);
 
         return "redirect:/premiumRent/estimate/view";
+    }
+
+    @GetMapping("/estimate/payForm")
+    public String estimatePayForm(Long seq,
+                                  Long eSeq,
+                                  Model model){
+
+        model.addAttribute("submit", premiumRentService.getEstSubmit(seq));
+        model.addAttribute("estimate", premiumRentService.getEstimate(eSeq));
+        return "rent/prm/estimateBook";
+    }
+
+    @PostMapping("/estimate/payment")
+    @ResponseBody
+    public String payment(@RequestBody RentHistoryVO vo) {
+        return rentHistoryService.insertRentHistory(vo) != 0 ? "true" : "false";
+    }
+
+    @GetMapping("/estimate/bookCmpl")
+    public String estimatePayComplete(Model model,
+                                      @RequestParam("merchantUid") String mUid){
+        RentHistoryVO rentHistoryVO = rentHistoryService.getRentHistoryByMUid(mUid);
+        model.addAttribute("rent", rentHistoryVO);
+        return "rent/prm/bookComplete";
     }
 
     // 견적 제출 리스트

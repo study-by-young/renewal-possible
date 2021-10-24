@@ -13,6 +13,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.yedam.possable.app.company.domain.CompanyItemVO;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -104,6 +105,8 @@ public class CompanyController {
 
         vo.setSeq(cmpnSeq);
         model.addAttribute("company", companyService.companyOneSelect(vo));
+        model.addAttribute("companyItemList", companyService.getCompanyItemCodes(vo));
+        model.addAttribute("itemList", codeService.getCodesByParentCode("ITO"));
 
         return "company/editInfo";
     }
@@ -117,11 +120,16 @@ public class CompanyController {
     // 업체 정보 수정 처리
     @PostMapping("/editInfo/complete")
     public String editCompanyInfo(CompanyVO vo,
+                                  @RequestParam("items") String[] itemList,
                                   Model model,
                                   RedirectAttributes attributes){
     	String r = "";
         int result = companyService.companyInfoUpdate(vo);
         if (result == 1) {
+            companyService.deleteCompanyItems(vo.getSeq());
+            for(String item : itemList){
+                companyService.insertCompanyItem(item,vo.getSeq());
+            }
             attributes.addFlashAttribute("result", "success");
             r = "redirect:/company/editInfo?cmpnSeq="+vo.getSeq();
         }

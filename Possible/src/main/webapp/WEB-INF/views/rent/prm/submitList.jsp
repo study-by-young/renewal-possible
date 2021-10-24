@@ -27,7 +27,12 @@
     <sec:authentication property="principal.seq" var="loginUserSeq"/>
     <c:forEach var="submit" items="${submitList}" varStatus="status">
         <div class="card-body">
-            <div class="row">
+            <div class="row position-relative">
+                <sec:authorize access="isAuthenticated()">
+                    <sec:authorize access="authentication.principal.seq == ${submit.companyVO.memberVO.seq}">
+                        <span class="badge badge-info badge-pill position-absolute top-0 left-0 mt-2 ml-3">나의 견적</span>
+                    </sec:authorize>
+                </sec:authorize>
                 <div class="col-lg-3 align-self-center mb-4">
                     <div class="card-img-actions p-3">
                         <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}${submit.carVO.modelCodeVO.img}" alt="">
@@ -60,7 +65,7 @@
                         </div>
                         <div class="col-lg-7 mb-3 text-right">
                             <sec:authorize access="hasAnyRole('USER','ADMIN')">
-                                <button type="button" class="btn px-3 btn-primary" onclick="testpaymentFnc(this)">결제하기</button>
+                                <button type="button" class="btn px-3 btn-primary" onclick="chkPay(${submit.seq})">결제하기</button>
                             </sec:authorize>
                             <c:if test="${loginUserSeq == submit.companyVO.memberVO.seq}">
                                 <a class="btn px-3 btn-outline-primary"
@@ -145,12 +150,21 @@
         </div>
     </c:forEach>
     <div>
-        <c:if test="${historyList.size() > 5}">
+        <c:if test="${submitList.size() > 5}">
         <jsp:include page="/pagination"/>
         </c:if>
     </div>
 </div>
 <script>
+    function chkPay(seq){
+        customConfirm('결제하기',
+            '결제를 진행하시겠습니까?',
+            function(result){
+                if(result){
+                    location.href = "${pageContext.request.contextPath}/premiumRent/estimate/payForm?seq=" + seq + "&eSeq=" + ${estimate.seq};
+                }
+            });
+    }
     function confirmSubmitDelete(seq){
         customConfirm('삭제 요청',
             '정말 삭제하시겠습니까?',
