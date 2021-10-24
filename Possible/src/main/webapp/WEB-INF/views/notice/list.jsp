@@ -185,10 +185,10 @@ $(document).ready(function() {
 			return;
 		}
 		if (parseInt(insertResult) > 0) {
-			$('.modal-body').html(parseInt(insertResult) + " 번 게시글이 등록되었습니다.");
+			$('.modal-body').html("게시글 등록이 완료되었습니다.");
 		}
 		if (parseInt(deleteResult) > 0) {
-			$('.modal-body').html(parseInt(deleteResult) + " 번 게시글의 삭제가 완료되었습니다.");
+			$('.modal-body').html("게시글 삭제가 완료되었습니다.");
 		}
 		$('#myModal').modal('show');
 	} 	
