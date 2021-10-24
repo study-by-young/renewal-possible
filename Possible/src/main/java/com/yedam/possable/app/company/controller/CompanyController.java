@@ -356,6 +356,7 @@ public class CompanyController {
     public String estSubmitView(Model model,@RequestParam Long seq ){
 
     	String carOptCode = codeService.getMasterCodeByName("차량 옵션").getCode();
+    	
     	System.out.println("========="+carOptCode);
 
         System.out.println("seq 값 들고오지 그치? ㅎ"+ seq);
@@ -379,22 +380,19 @@ public class CompanyController {
 			  					  RedirectAttributes attributes){
     	System.out.println(status);
     	vo.setItems(Arrays.toString(itemsArr));
-    	String message = "";
-    	String r = "";
-    	if (status.equals("대기중")) {
+    	String message;
+    	int UpdateResult = premiumRentService.CompEstimateUpdate(vo);
+    	if (UpdateResult == 1) {
     		message = "견적이 수정 되었습니다.";
-    		System.out.println(message);
-    		r = "redirect:/company/estSubmit?cmpnSeq=" + vo.getSeq();
-    		 premiumRentService.CompEstimateUpdate(vo);
+    		log.info(message);
     	} else {
-    		message = "결제가 완료된 견적입니다.";
+    		message = "견적 수정이 실패했습니다. /n 잠시후 다시 시도해주세요.";
     		System.out.println(message);
-    		r = "redirect:/company/estSubmit/view?seq="+vo.getSeq();
     	}
     	attributes.addFlashAttribute("message" , message);
     	attributes.addAttribute("seq", vo.getSeq());
 
-    	return r;
+    	return "redirect:/company/estSubmit/view?seq="+vo.getSeq();
     }
 
     // 렌트 내역 리스트

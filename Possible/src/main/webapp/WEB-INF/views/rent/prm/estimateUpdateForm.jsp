@@ -24,6 +24,7 @@
         </div>
     </div>
 </div>
+
 <!-- btc tittle Wrapper End -->
 <div class="x_car_book_sider_main_Wrapper my-4">
     <div class="container">
@@ -42,7 +43,7 @@
                                         <ul class="nav nav-tabs nav-tabs-highlight nav-justified mb-0">
                                             <li class="nav-item"><a class="nav-link active">차종 선택</a></li>
                                         </ul>
-
+		
                                         <div class="tab-content card card-body border border-top-0 rounded-top-0 shadow-0 mb-0">
                                             <div class="tab-pane fade show active">
                                                 <div class="row">

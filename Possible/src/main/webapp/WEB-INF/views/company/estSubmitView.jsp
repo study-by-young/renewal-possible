@@ -106,19 +106,19 @@ ul{
 											<input type="text" class="form-control" id="price" name="price" value="${est.price }원" disabled>
 										</div>
 									</div>
-									
+									${est}
 									<div class="col-12 mb-4">
                                     <h5 class="font-weight-bold">차량 옵션</h5>
                                     <div class="row">
-                                        <c:forEach var="option" items="${carOpt}" varStatus="status">
+                                         <c:forEach var="option" items="${carOpt}" varStatus="status">
                                             <div class="mb-2 col-lg-3 col-md-4 col-6">
                                                 <div class="custom-control custom-checkbox custom-control-inline">
                                                     <input type="checkbox"
                                                            name="options"
                                                            id="options${status.index}"
                                                            class="custom-control-input"
-                                                           value="${option.code}"
-                                                           <c:if test="${options.contains(option.code)}">checked</c:if>>
+                                                           value="${option.name}"
+                                                           <c:if test="${est.estimateHistoryVO.options.contains(option.name)}">checked</c:if>>
                                                     <label class="custom-control-label" for="options${status.index}">${option.name}</label>
                                                 </div>
                                             </div>

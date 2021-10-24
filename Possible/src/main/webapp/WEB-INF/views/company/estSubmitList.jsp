@@ -14,7 +14,7 @@
  <div class="content-wrapper">
 			<!-- Content area -->
 			<div class="content">
-			<c:forEach var="est" items="${estimate}">
+			
 				<div class="card">
 					<div class="card-header header-elements-inline">
 						<h5 class="card-title">업체 견적서 제출 리스트</h5>
@@ -40,6 +40,7 @@
 									<th>상태</th>
 								</tr>
 							</thead>
+							<c:forEach var="est" items="${estimate}">
 							<tbody>
 								<tr>
 									<td>${est.brandCodeVO.name } ${est.modelCodeVO.name }</td>
@@ -49,12 +50,11 @@
 									<td>${est.carVO.fuelCodeVO.name}</td>
 									<td><a class="btn btn-primary" id="estView"  href="${pageContext.request.contextPath}/company/estSubmit/view?seq=${est.seq}">상세보기</a></td>
 								</tr>
-								
+							</c:forEach>
 							</tbody>
 						</table>
 					</div>
 				</div>
-			</c:forEach>
 			<div class="col-md-12">
 				<div class="card">
 					<c:if test="${empty estimate}">
