@@ -64,9 +64,13 @@
 
 
 
+
+
 %
 {
 -webkit-transform
+
+
 
 
 
@@ -136,6 +140,8 @@
 
 
 
+
+
 translateY
 
 
@@ -169,7 +175,11 @@ translateY
 
 
 
+
+
 (
+
+
 
 
 
@@ -239,7 +249,11 @@ translateY
 
 
 
+
+
 )
+
+
 
 
 
@@ -310,9 +324,13 @@ translateY
 
 
 
+
+
 %
 {
 -webkit-transform
+
+
 
 
 
@@ -382,6 +400,8 @@ translateY
 
 
 
+
+
 translateY
 
 
@@ -415,7 +435,11 @@ translateY
 
 
 
+
+
 (
+
+
 
 
 
@@ -485,7 +509,11 @@ translateY
 
 
 
+
+
 )
+
+
 
 
 
@@ -561,9 +589,13 @@ keyframes bounce { 0%, 20%, 50%, 80%, 100% {
 
 
 
+
+
 %
 {
 transform
+
+
 
 
 
@@ -633,6 +665,8 @@ transform
 
 
 
+
+
 translateY
 
 
@@ -666,7 +700,11 @@ translateY
 
 
 
+
+
 (
+
+
 
 
 
@@ -736,7 +774,11 @@ translateY
 
 
 
+
+
 )
+
+
 
 
 
@@ -806,9 +848,13 @@ translateY
 
 
 
+
+
 %
 {
 transform
+
+
 
 
 
@@ -878,6 +924,8 @@ transform
 
 
 
+
+
 translateY
 
 
@@ -911,7 +959,11 @@ translateY
 
 
 
+
+
 (
+
+
 
 
 
@@ -981,7 +1033,11 @@ translateY
 
 
 
+
+
 )
+
+
 
 
 
@@ -1189,16 +1245,19 @@ translateY
 					<input type="hidden" id="seq" name="seq" value="${board.seq }">
 					<div class="col-12">
 						<sec:authorize access="isAuthenticated()">
+							<sec:authentication property="principal.id" var="loginUserId" />
 							<c:if test="${loginUserId ne board.writer}">
 								<button type="button" id="reportBtn" class="btn btn-danger">신고</button>
 							</c:if>
 						</sec:authorize>
 						<button type="button" class="custom-btn"
-							onclick="location.href='../course'" style="float: right; margin-left: 5px;">목록</button>
+							onclick="location.href='../course'"
+							style="float: right; margin-left: 5px;">목록</button>
 						<sec:authorize access="isAuthenticated()">
 							<sec:authentication property="principal.id" var="loginUserId" />
 							<c:if test="${loginUserId eq board.writer}">
-								<button type="button" class="custom-btn" style="background-color: red; float: right;"
+								<button type="button" class="custom-btn"
+									style="background-color: red; float: right;"
 									onclick="boardDelete();">삭제</button>
 							</c:if>
 						</sec:authorize>
@@ -1268,7 +1327,7 @@ translateY
 		var container = $('#takePlaceMap')[0]; //지도를 담을 영역의 DOM 레퍼런스
 	    var option = { //지도를 생성할 때 필요한 기본 옵션
 	        center: new kakao.maps.LatLng(35.86911924611688, 128.5932113110608), // 지도의 중심좌표
-	        level: 10 // 지도의 확대 레벨
+	        level: 7 // 지도의 확대 레벨
 	    };
 
 		var map = new kakao.maps.Map(container, option); // 지도를 생성합니다

@@ -428,5 +428,4 @@
         WHERE car_seq = #{seq}
             AND opt_code = #{code}
     </select>
-
 </mapper>

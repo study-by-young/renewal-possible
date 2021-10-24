@@ -129,15 +129,12 @@
 						<div
 							class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
 							<div class="mr-lg-3 mb-3 mb-lg-0">
-								<a
-									href="../../../../global_assets/images/placeholders/placeholder.jpg"
-									data-popup="lightbox"> <c:if
-										test="${list.firstImage ne null}">
+								<a href="../../../../global_assets/images/placeholders/placeholder.jpg" data-popup="lightbox">
+									<c:if test="${list.firstImage ne null}">
 										<img src="${list.firstImage }" width="300" alt="">
-									</c:if> <c:if test="${list.firstImage eq null}">
-										<img
-											src="${pageContext.request.contextPath}/resources/images/no_image.jpg"
-											width="300" alt="">
+									</c:if>
+									<c:if test="${list.firstImage eq null}">
+										<img src="${pageContext.request.contextPath}/resources/images/no_image.jpg" width="300" alt="">
 									</c:if>
 								</a>
 							</div>
@@ -154,19 +151,19 @@
 										class="text-muted">${list.zipCode }</a></li>
 								</ul>
 
-								<p class="mb-3" id="overview${status.index}">
+								<p class="mb-3" id="overview${status.index}" style="color: gray;">
 								</p>
 							</div>
 						</div>
 					</div>
 				</c:forEach>
 			</div>
+			<!-- 페이징 -->
+			<jsp:include page="/pagination" />
 		</div>
 	</div>
 </div>
 
-<!-- 페이징 -->
-<jsp:include page="/pagination" />
 
 <script type="text/javascript">
 	$("#pageButton a").on("click", function(e) {

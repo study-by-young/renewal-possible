@@ -83,8 +83,26 @@ public class CompanyServiceImpl implements CompanyService {
 	}
 
 	@Override
+	public int insertCompanyItem(String code, Long cmpnSeq) {
+		CompanyItemVO vo = new CompanyItemVO();
+		vo.setOptCode(code);
+		vo.setCmpnSeq(cmpnSeq);
+		return companyMapper.insertCompanyItem(vo);
+	}
+
+	@Override
+	public int deleteCompanyItems(Long seq) {
+		return companyMapper.deleteCompanyItems(seq);
+	}
+
+	@Override
 	public CompanyVO companySelect(Long cmpnSeq) {
 		return companyMapper.companySelect(cmpnSeq);
+	}
+
+	@Override
+	public List<String> getCompanyItemCodes(CompanyVO vo){
+		return companyMapper.getCompanyItemCodes(vo);
 	}
 }
 

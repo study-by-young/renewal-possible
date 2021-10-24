@@ -75,11 +75,11 @@
                                 <li class="col-md-12 my-3">
                                     <h5>캠핑 옵션</h5>
                                     <div class="x_slider_checkbox_bottom_filter_use item-option row">
-                                        <c:forEach var="option" items="${carOpt}" varStatus="status">
+                                        <c:forEach var="option" items="${itemOpt}" varStatus="status">
                                             <div class="mb-2 col-lg-3 col-md-4 col-6">
                                                 <div class="custom-control custom-checkbox custom-control-inline">
-                                                    <input type="checkbox" name="items" id="items${status.index}" class="custom-control-input" value="${option.code}">
-                                                    <label class="custom-control-label" for="items${status.index}">${option.name}</label>
+                                                    <input type="checkbox" name="items" id="items${status.index}" class="custom-control-input" value="${option.optCode}">
+                                                    <label class="custom-control-label" for="items${status.index}">${option.optName}</label>
                                                 </div>
                                             </div>
                                         </c:forEach>
@@ -152,6 +152,7 @@
             url: "${pageContext.request.contextPath}/car/" + carSeq,
             dataType: 'json',
             success: function(result){
+                resultJson = result;
                 let genDate = new Date(result.genDate);
                 let htmlStr = '<div class="row">' +
                     '<div class="col-lg-3 align-self-center">' +

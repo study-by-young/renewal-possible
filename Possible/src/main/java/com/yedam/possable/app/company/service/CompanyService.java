@@ -46,4 +46,9 @@ public interface CompanyService {
     //업체탈퇴
     public int deleteCompany(CompanyVO vo);
 
+    public int insertCompanyItem(String code, Long cmpnSeq);
+
+    public int deleteCompanyItems(Long seq);
+
+    public List<String> getCompanyItemCodes(CompanyVO vo);
 }

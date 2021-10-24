@@ -220,7 +220,7 @@
                                             <!-- csrf토큰 -->
                                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                                             <div class="row justify-content-end">
-                                                <button type="button" class="btn btn-primary" id="registerBtn" >수정하기</button>
+                                                <button type="button" class="btn btn-primary" id="registerBtn" style="margin-right: 10px;">수정하기</button>
                                                 <button type="reset" class="btn btn-danger">취소</button>
                                             </div>
                                         </form>
@@ -353,7 +353,7 @@
 						      
     
                           <div class="form-group">
-                          	<button id="DeleteBtn" name="DeleteBtn" type="button" class="btn btn-primary btn-block">회원 탈퇴</button>
+                          	<button id="DeleteBtn" name="DeleteBtn" type="button" class="btn btn-danger btn-block">회원 탈퇴</button>
                           </div>
                         </form>
                     </div>
