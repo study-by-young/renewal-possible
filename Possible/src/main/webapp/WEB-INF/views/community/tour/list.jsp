@@ -161,12 +161,12 @@
 					</div>
 				</c:forEach>
 			</div>
+			<!-- 페이징 -->
+			<jsp:include page="/pagination" />
 		</div>
 	</div>
 </div>
 
-<!-- 페이징 -->
-<jsp:include page="/pagination" />
 
 <script type="text/javascript">
 	$("#pageButton a").on("click", function(e) {
