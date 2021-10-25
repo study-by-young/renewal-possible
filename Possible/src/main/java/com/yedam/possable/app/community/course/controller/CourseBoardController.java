@@ -44,7 +44,7 @@ public class CourseBoardController {
 	@Autowired
 	ReportService reportService;
 
-	// 전체조회
+	//전체조회
 	@GetMapping
 	public String courseList(Model model, Authentication authentication, @ModelAttribute("cri") Criteria cri) {
 		int total = courseBoardService.getTotalCount(cri);
@@ -56,13 +56,13 @@ public class CourseBoardController {
 		return "community/course/list";
 	}
 
-	// 단건조회
+	//단건조회
 	@GetMapping("/view")
 	public String courseView(Model model, CourseBoardVO board, CourseVO course, CourseBoardLikeVO like,
 			Authentication authentication, ReportVO report, @ModelAttribute("cri") Criteria cri, CourseBoardCmtVO cmt) {
 		courseBoardService.plusViews(board);
 		model.addAttribute("board", courseBoardService.read(board));
-		model.addAttribute("cnt", courseBoardService.courseCnt(board));
+		model.addAttribute("cnt", courseBoardService.courseCnt(board)); 
 		model.addAttribute("likes", courseBoardService.countLike(board));
 		model.addAttribute("course", courseBoardService.courseSelect(board));
 		MemberVO loginUser = memberService.getLoginMember(authentication);
@@ -77,13 +77,7 @@ public class CourseBoardController {
 		}
 		model.addAttribute("checkLike", likeSearchResult);
 		model.addAttribute("reportCheck", reportSearchResult);
-		
-//		model.addAttribute("user", loginUser.getSeq());
-//		model.addAttribute("id", loginUser.getId());
 		like.setBoardSeq(board.getSeq());
-//		like.setMemberSeq(loginUser.getSeq());
-		
-//		report.setReporter(loginUser.getId());
 		int total = courseBoardService.getTotalCount(cri);
 		cmt.setBoard(board);
 		System.out.println(cmt.toString());
@@ -92,7 +86,7 @@ public class CourseBoardController {
 		return "community/course/view";
 	}
 
-	// 등록폼
+	//등록폼
 	@GetMapping("/write")
 	public String courseWriteForm(Model model, Authentication authentication) {
 		MemberVO loginUser = memberService.getLoginMember(authentication);
@@ -100,14 +94,7 @@ public class CourseBoardController {
 		return "community/course/write";
 	}
 
-	// 등록 처리
-	/*
-	 * @PostMapping("/write") public String courseWrite(Model model, CourseBoardVO
-	 * board, CourseVO course){ courseBoardService.insert(board);
-	 * 
-	 * return "redirect:/community/course"; }
-	 */
-
+	//등록 처리
 	@PostMapping("/write")
 	@ResponseBody
 	public String courseInsert(@RequestBody CourseBoardVO board) {
@@ -119,19 +106,7 @@ public class CourseBoardController {
 		return "success";
 	}
 
-	// 수정 폼
-	@GetMapping("/view/update")
-	public String courseUpdateForm() {
-		return "community/course/write";
-	}
-
-	// 수정 처리
-	@PostMapping("/view/update")
-	public String courseUpdate() {
-		return "redirect:/view";
-	}
-
-	// 코스 삭제
+	//삭제
 	@PostMapping("/view/delete")
 	public String courseDelete(CourseBoardVO board) {
 		System.out.println(board.toString());
@@ -139,31 +114,19 @@ public class CourseBoardController {
 		return "redirect:/community/course";
 	}
 
-	// 코스 댓글 작성
-	@GetMapping("/view/writeCmt")
-	public String courseCommentWrite() {
-		return "community/course/writeCmt";
-	}
-
-	// 코스 신고
-	@RequestMapping("/view/report")
-	public String courseReport() {
-		return "community/report";
-	}
-
+	//코스 등록
 	@GetMapping("/tourSearch/{type}/{keyword}")
 	@ResponseBody
 	public List<TestVO> tourSearch(Model model, @PathVariable String type, @PathVariable String keyword, Criteria cri) {
 		cri.setKeyword(keyword);
 		cri.setType(type);
 		System.out.println("cri========" + cri);
-		// int total = courseBoardService.getTotalCount(cri);
 		model.addAttribute("tourList", courseBoardService.tourList(cri));
-		// model.addAttribute("pageMaker", new PageVO(cri, total));
 		List<TestVO> list = courseBoardService.tourList(cri);
 		return list;
 	}
-
+	
+	//좋아요 등록
 	@RequestMapping(value = "/plusLike")
 	@ResponseBody
 	public int plusLike(@RequestBody CourseBoardLikeVO vo, Authentication authentication) {
@@ -178,7 +141,8 @@ public class CourseBoardController {
 			return i;
 		}
 	}
-
+	
+	//좋아요 취소
 	@RequestMapping(value = "/minusLike")
 	@ResponseBody
 	public int minusLike(@RequestBody CourseBoardLikeVO vo, Authentication authentication) {
@@ -193,6 +157,7 @@ public class CourseBoardController {
 		return i;
 	}
 
+	//신고 등록
 	@PostMapping("/report")
 	@ResponseBody
 	public int reportInsert(@RequestBody ReportVO report, Authentication authentication) {
@@ -201,11 +166,11 @@ public class CourseBoardController {
 		} else {
 			MemberVO loginMember = memberService.getLoginMember(authentication);
 			report.setReporter(loginMember.getId());
-			reportService.insert(report);
 			return reportService.insert(report);
 		}
 	}
 	
+	//댓글 등록
 	@RequestMapping(value = "/insertCmt")
 	@ResponseBody
 	public CourseBoardCmtVO insertCmt(@RequestBody CourseBoardCmtVO vo, Authentication authentication) {
@@ -219,6 +184,7 @@ public class CourseBoardController {
 		}
 	}
 	
+	//댓글 삭제
 	@RequestMapping(value = "/deleteCmt")
 	@ResponseBody
 	public int deleteCmt(@RequestParam(value = "seq") Long seq, CourseBoardCmtVO vo) {
