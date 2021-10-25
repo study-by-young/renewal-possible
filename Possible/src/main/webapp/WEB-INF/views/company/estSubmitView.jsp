@@ -117,7 +117,7 @@ ul{
                                                            name="options"
                                                            id="options${status.index}"
                                                            class="custom-control-input"
-                                                           value="${option.name}"
+                                                           value="${option.code}"
                                                            <c:if test="${est.estimateHistoryVO.options.contains(option.name)}">checked</c:if>>
                                                     <label class="custom-control-label" for="options${status.index}">${option.name}</label>
                                                 </div>
@@ -160,7 +160,7 @@ $("#updateBtn").on("click",function(){
 	var message = '${message}';
 	if(text){
 		estimatefrm.submit();
-		alert(message);
+		alert("수정이 완료 되었습니다.");
 	}else{
 		
 	}

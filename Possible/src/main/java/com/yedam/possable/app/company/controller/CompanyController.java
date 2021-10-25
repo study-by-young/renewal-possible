@@ -375,10 +375,10 @@ public class CompanyController {
 
     // 견적 제출 수정 처리
     @PostMapping("/estSubmit/update")
-    public String updateEstSubmit(CompEstiListJoinVO vo, @RequestParam Long seq, @RequestParam String status,
+    public String updateEstSubmit(CompEstiListJoinVO vo, @RequestParam Long seq, 
 			  					  @RequestParam("options") String[] itemsArr,
 			  					  RedirectAttributes attributes){
-    	System.out.println(status);
+    	
     	vo.setItems(Arrays.toString(itemsArr));
     	String message;
     	int UpdateResult = premiumRentService.CompEstimateUpdate(vo);
