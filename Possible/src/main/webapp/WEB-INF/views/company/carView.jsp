@@ -27,27 +27,27 @@
 				<h6 class="card-title"></h6>
 				<div class="header-elements"></div>
 			</div>
-			
+
 				<div class="card-body py-0">
 						<div class="row">
 							<div class="col-sm-12">
 							<form id="frm" name="frm" action="update" method="post" enctype="multipart/form-data">
 								<input type="hidden" class="form-control" name='cmpnSeq' value='${cmpnSeq}'>
 								<input type="hidden" class="form-control" name='seq' value='${car.seq}'>
-								
+
 								<div class="col-md-12">
 										<div class="row">
 										<ul class="list-unstyled row">
 
 										<li class="col-md-12" style="margin-bottom:10px;" >
 											<h5 class="font-weight-bold">
-												<label class="d-block" > <img 
-													src="${pageContext.request.contextPath}/resources/images/${car.img1}"
+												<label class="d-block" > <img
+													src="${pageContext.request.contextPath}${car.modelCodeVO.img}"
 													class="thumbImg" />
 												</label>
 											</h5>
 										</li>
-										
+
 										<li class="col-md-4">
 												<h5 class="font-weight-bold"><label class="d-block">브랜드
 											 	<input type="hidden" class="form-control" name='brand' value='${car.brand}' >
@@ -63,7 +63,7 @@
 												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<h5 class="font-weight-bold"><label class="d-block">모델 
+												<h5 class="font-weight-bold"><label class="d-block">모델
 												<select name="model" id="model" class="form-control select-fixed-single" onchange="searchTrimByModel()" required>
 															<optgroup label="모델명">
 																<option>${model2}</option>
@@ -82,7 +82,7 @@
 											<br>
 											</li>
 												<li class="col-md-4">
-												<h5 class="font-weight-bold"><label class="d-block">세그먼트 
+												<h5 class="font-weight-bold"><label class="d-block">세그먼트
 												<select name="segment" id="segment" class="form-control select-fixed-single" required>
 															<optgroup label="세그먼트">
 																<option>${segment}</option>
@@ -91,7 +91,7 @@
 												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<h5 class="font-weight-bold"><label class="d-block">연료 
+												<h5 class="font-weight-bold"><label class="d-block">연료
 												<select name="fuel" id="fuel" class="form-control select-fixed-single" required>
 															<optgroup label="연료">
 																<option>${fuel}</option>
@@ -100,7 +100,7 @@
 												</label></h5>
 											</li>
 											<li class="col-md-4">
-												<h5 class="font-weight-bold"><label class="d-block">연식 
+												<h5 class="font-weight-bold"><label class="d-block">연식
 												<select name="year" id="year" class="form-control select-fixed-single" required>
 															<optgroup label="연식">
 																<option value="">${car.year}</option>
@@ -131,7 +131,7 @@
 															</optgroup>
 													</select>
 												</label></h5>
-											
+
 											</li>
 											<li class="col-md-4">
 												<h5 class="font-weight-bold"><label class="d-block">인원
@@ -197,8 +197,8 @@
 													<input type="text" class="form-control" name='carNum' value='${car.carNum}'>
 												</label></h5>
 											</li>
-											
-											
+
+
 											 <%--   <li class="col-md-12 my-3">
                                                 <label>차량 옵션</label>
                                                 <hr class="my-2">
@@ -212,7 +212,7 @@
                                         </c:forEach>
                                     </div>
                                     </li> --%>
-                                    
+
                                     <li class="col-md-12 my-3">
                                                 <h5 class="font-weight-bold"><label>차량 옵션</label></h5>
                                                 <hr class="my-2">
@@ -227,7 +227,7 @@
                                                     </script>
                                                 </div>
                                     </li>
-                                    
+
   										</ul>
 									</div>
 										</div>
@@ -235,11 +235,11 @@
 										<button id="up" class="btn btn-primary" style="float:right; margin-bottom:15px;">수정</button>
 								</form>
 									</div>
-								
+
 									<br>
 									<!-- card BODY END -->
 								</div>
-								<!-- 업체등록 END -->	
+								<!-- 업체등록 END -->
 								</div>
 						</div>
 	</div>
@@ -253,7 +253,7 @@
 			return false;
 		}
 	});
-	
+
 	$("#del").on("click", function(){
 		if(confirm("삭제하시겠습니까?") == true ){
 			document.form.submit();
@@ -329,13 +329,13 @@
     function updateCarInfo(){
 
     }
-    
+
     $.ajax({
         type : "POST",
         url  : "/sample.do",
         contentType: "application/json",
         dataType:"json",
-        data     : JSON.stringify(params)    
+        data     : JSON.stringify(params)
     })
     .done(function (data, textStatus, xhr) {
     	   $.ajax({
@@ -343,14 +343,14 @@
     	        url  : "/sample.do",
     	        contentType: "application/json",
     	        dataType:"json",
-    	        data     : JSON.stringify(params)    
+    	        data     : JSON.stringify(params)
     	    })
     })
     .fail(function(data, textStatus, errorThrown){
         console.log("fail in get addr");
         callback(data);
     });
- 
-    
-  
+
+
+
 </script>
