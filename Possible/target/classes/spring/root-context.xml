@@ -17,7 +17,7 @@
 
     <context:property-placeholder location="classpath:properties/*.properties"/>
 
-	<!-- <util:properties id="global" location="classpath:properties/*.properties" /> -->
+	<util:properties id="global" location="classpath:properties/global.properties" />
 
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
           destroy-method="close">
