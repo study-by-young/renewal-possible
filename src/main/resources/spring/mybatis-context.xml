@@ -11,8 +11,8 @@
     <!-- SqlSession setup for MyBatis Database Layer Spring과 Mybatis 연동 설정 -->
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="configLocation" value="classpath:mapper-config.xml"/>
-        <property name="mapperLocations" value="classpath:/mappings/*.xml"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <property name="mapperLocations" value="classpath:/com.possible/*.xml"/>
     </bean>
 
     <!-- SqlSessionTemplate -->
@@ -22,5 +22,5 @@
 
     <!-- MapperConfigurer setup for MyBatis Database Layer
      with @MapperScan("boardMapper") in BoardMapper Interface -->
-    <mybatis-spring:scan base-package="com.yedam.possable.app.**.mapper"/>
+    <mybatis-spring:scan base-package="com.possible.**.mapper"/>
 </beans>

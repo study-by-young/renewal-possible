@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration debug="true">
+
+	<property name="LOG_DIR" value="/Users/log"/>
+	<property name="LOG_PATH_NAME" value="${LOG_DIR}/logback.log"/>
+	<property name="LOG_LEVEL" value="DEBUG"/>
+
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>%d %5p [%c] %m%n</Pattern>
+		</encoder>
+	</appender>
+	<appender name="console-infolog" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<Pattern>%d %5p %m%n</Pattern>
+		</encoder>
+	</appender>
+	<!-- 파일에 로그를 남긴다. -->
+	<appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/logback.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} [%-5level] %logger{36} - %msg%n
+			</Pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/logback/logback.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+	</appender>
+	<!-- 파일에 로그를 남긴다. (Roling) -->
+	<appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_DIR}/archived/logback_roling.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5level] %logger{36} - %msg%n</Pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<!-- 10MB가 넘으면 새로운 압축파일 생성 -->
+		<triggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>10MB</MaxFileSize>
+		</triggeringPolicy>
+		<!-- 파일을 덮어쓰는 정책 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<FileNamePattern>${LOG_DIR}/archived/logback_roling.%i.log.zip</FileNamePattern>
+			<!-- 10MB 단위로 로그 압축 파일이 생성 (1 ~ 10), 10개가 넘어가면 오래된 순으로 덮어쓰기 -->
+			<MinIndex>1</MinIndex>
+			<MaxIndex>10</MaxIndex>
+		</rollingPolicy>
+	</appender>
+	<!-- 에러 시 파일에 로그를 남긴다. -->
+	<appender name="Error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>error</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter>
+		<file>${LOG_DIR}/logback-error.log</file>
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>
+				%d{yyyy-MM-dd HH:mm:ss} [%-5level] %logger{36} - %msg%n
+			</Pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_DIR}/logback/logback-error.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+	</appender>
+
+	<!-- Logger -->
+	<logger name="biz.m24365" level="DEBUG" appender-ref="console"/>
+	<logger name="jdbc.sqlonly" level="INFO" appender-ref="console-infolog"/>
+	<logger name="jdbc.resultsettable" level="INFO" appender-ref="console-infolog"/>
+	<logger name="org.springframework.web" level="INFO" additivity="false">
+		<appender-ref ref="File"/>
+		<appender-ref ref="Error"/>
+	</logger>
+	<logger name="org.apache.ibatis" level="DEBUG" additivity="false">
+		<appender-ref ref="RollingFile"/>
+		<appender-ref ref="Error"/>
+	</logger>
+
+	<!-- Root Logger -->
+	<root level="Error">
+		<appender-ref ref="console"/>
+		<appender-ref ref="File"/>
+		<appender-ref ref="Error"/>
+	</root>
+
+</configuration>
