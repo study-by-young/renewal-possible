@@ -122,7 +122,7 @@
 				return;
 			}
 			if (parseInt(updateResult) > 0) {
-				$('.modal-body').html(parseInt(updateResult) + " 번 게시글의 수정이 완료되었습니다.");
+				$('.modal-body').html("게시글 수정이 완료되었습니다.");
 			}
 			$('#myModal').modal('show');
 		}
