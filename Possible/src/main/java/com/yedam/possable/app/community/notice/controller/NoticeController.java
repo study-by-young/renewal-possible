@@ -45,6 +45,7 @@ public class NoticeController {
 	@Autowired
 	MemberService memberService;
 
+	// 공지사항 전체 리스트 조회
 	@GetMapping("/list")
 	public void list(Model model, @ModelAttribute("cri") Criteria cri
 					, Authentication authentication) {
@@ -57,33 +58,35 @@ public class NoticeController {
         model.addAttribute("user", memberService.memberOneSelect(loginUser));
 	}
 
+	// 공지사항 상세 조회
 	@GetMapping("/get")
 	public void get(Model model, NoticeVO vo, @ModelAttribute("cri") Criteria cri
 					,Authentication authentication) {
 		noticeService.plusViews(vo);
 		model.addAttribute("notice", noticeService.read(vo));
 		int total = noticeService.getTotalCount(cri);
+		// 페이징 값이 함께 넘어가도록 모델에 담아주기
 		model.addAttribute("pagination", new PageVO(cri, total));
 		
 		MemberVO loginUser = memberService.getLoginMember(authentication);
         model.addAttribute("user", memberService.memberOneSelect(loginUser));
 	}
 
+	// 공지사항 등록 폼
 	@GetMapping("/insert")
 	public void insertForm(Model model, @ModelAttribute("cri") Criteria cri) {
 		int total = noticeService.getTotalCount(cri);
 		model.addAttribute("pagination", new PageVO(cri, total));
 	}
 
+	// 공지사항 등록
 	@PostMapping("/insert")
-	public String insert(Model model, RedirectAttributes rttr
-				, NoticeVO vo, NoticeFileVO filevo
-				, MultipartFile[] uploadFile, @ModelAttribute("cri") Criteria cri) {
-		//vo.setAttachList(list);
+	public String insert(Model model, RedirectAttributes rttr, NoticeVO vo, NoticeFileVO filevo,
+			MultipartFile[] uploadFile, @ModelAttribute("cri") Criteria cri) {
 		noticeService.insert(vo);
 		vo.setSeq(noticeService.readSeq());
 		filevo.setNoticeSeq(vo.getSeq());
-			log.info(filevo.toString());
+		log.info(filevo.toString());
 		model.addAttribute("file", filevo);
 		rttr.addFlashAttribute("insertResult", vo.getSeq());
 		int total = noticeService.getTotalCount(cri);
@@ -92,6 +95,7 @@ public class NoticeController {
 		return "redirect:/notice/list";
 	}
 
+	// 공지사항 수정 폼
 	@GetMapping("/update")
 	public void updateForm(Model model, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
 		model.addAttribute("notice", noticeService.read(vo));
@@ -99,10 +103,11 @@ public class NoticeController {
 		model.addAttribute("pagination", new PageVO(cri, total));
 	}
 
+	// 공지사항 수정
 	@PostMapping("/update")
 	public String update(Model model, RedirectAttributes rttr, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
 		int result = noticeService.update(vo);
-		if (result == 1) { /*+ INDEX_DESC(IDX_NOTICE) */
+		if (result == 1) {
 			rttr.addFlashAttribute("updateResult", vo.getSeq());
 		}
 
@@ -116,10 +121,10 @@ public class NoticeController {
 		return "redirect:/notice/get";
 	}
 
+	// 공지사항 삭제
 	@GetMapping("/delete")
 	public String delete(Model model, RedirectAttributes rttr, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
 		int result = noticeService.delete(vo);
-
 		if (result == 1) {
 			rttr.addFlashAttribute("deleteResult", vo.getSeq());
 		}
@@ -133,6 +138,7 @@ public class NoticeController {
 		return "redirect:/notice/list";
 	}
 
+	// 첨부파일 다중 업로드
 	@RequestMapping(value = "/download")
 	public void cvplFileDownload(@RequestParam Map<String, Object> commandMap, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
@@ -150,7 +156,6 @@ public class NoticeController {
 			response.setContentType(mimetype);
 			response.setHeader("Content-Disposition",
 					"attachment;filename=\"" + URLEncoder.encode(fileName, "utf-8") + "\""); // 한글깨짐방지
-			// setDisposition(atchFileId, request, response);
 			BufferedInputStream in = null;
 			BufferedOutputStream out = null;
 			try {
@@ -175,6 +180,5 @@ public class NoticeController {
 			printwriter.flush();
 			printwriter.close();
 		}
-
 	}
 }
