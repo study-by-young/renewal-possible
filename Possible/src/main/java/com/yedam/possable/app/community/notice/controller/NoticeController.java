@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -29,6 +30,8 @@ import com.yedam.possable.app.common.criteria.domain.PageVO;
 import com.yedam.possable.app.community.notice.domain.NoticeFileVO;
 import com.yedam.possable.app.community.notice.domain.NoticeVO;
 import com.yedam.possable.app.community.notice.service.NoticeService;
+import com.yedam.possable.app.member.domain.MemberVO;
+import com.yedam.possable.app.member.service.MemberService;
 
 import lombok.extern.java.Log;
 
@@ -39,21 +42,31 @@ public class NoticeController {
 
 	@Autowired
 	NoticeService noticeService;
+	@Autowired
+	MemberService memberService;
 
 	@GetMapping("/list")
-	public void list(Model model, @ModelAttribute("cri") Criteria cri) {
+	public void list(Model model, @ModelAttribute("cri") Criteria cri
+					, Authentication authentication) {
 		// System.out.println("cri=====" + cri);
 		int total = noticeService.getTotalCount(cri);
 		model.addAttribute("list", noticeService.getList(cri));
 		model.addAttribute("pagination", new PageVO(cri, total));
+		
+		MemberVO loginUser = memberService.getLoginMember(authentication);
+        model.addAttribute("user", memberService.memberOneSelect(loginUser));
 	}
 
 	@GetMapping("/get")
-	public void get(Model model, NoticeVO vo, @ModelAttribute("cri") Criteria cri) {
+	public void get(Model model, NoticeVO vo, @ModelAttribute("cri") Criteria cri
+					,Authentication authentication) {
 		noticeService.plusViews(vo);
 		model.addAttribute("notice", noticeService.read(vo));
 		int total = noticeService.getTotalCount(cri);
 		model.addAttribute("pagination", new PageVO(cri, total));
+		
+		MemberVO loginUser = memberService.getLoginMember(authentication);
+        model.addAttribute("user", memberService.memberOneSelect(loginUser));
 	}
 
 	@GetMapping("/insert")

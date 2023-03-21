@@ -1,10 +1,15 @@
 package com.yedam.possable.app.rent.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.yedam.possable.app.car.domain.CarVO;
+import com.yedam.possable.app.common.code.domain.BrandCodeVO;
+import com.yedam.possable.app.common.code.domain.CodeSubVO;
+import com.yedam.possable.app.common.code.domain.ModelCodeVO;
+import com.yedam.possable.app.common.code.domain.TrimCodeVO;
 import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.member.domain.MemberVO;
 
@@ -44,10 +49,16 @@ public class CompEstiListJoinVO {
 	    private Long cmpnSeq;
 	    //private Long carSeq;
 	    private String status;
-	    
-		private MemberVO memberVO;
-		private CarVO carVO;
-		private CompanyVO companyVO;
-		
+	    private List<String> itemList;
+	    private List<String> optionList;
+
+	    private BrandCodeVO brandCodeVO;
+	    private CodeSubVO segmentCodeVO;
+	    private ModelCodeVO modelCodeVO;
+	    private TrimCodeVO trimCodeVO;
+	    private MemberVO memberVO;
+	    private CarVO carVO;
+	    private CompanyVO companyVO;
+	    private EstimateHistoryVO estimateHistoryVO;
 		//String[] itemsArr;
 }

@@ -7,7 +7,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
+<style>
+ .correct{
+        color : green;
+    }
+  .incorrect{
+        color : red;
+    }
+</style>
 <div class="container my-5">
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
@@ -96,8 +103,18 @@
                                                     <input id="validNumber" name="validNumber" type="text" placeholder="인증번호를 입력하세요" class="form-control">
                                                     <span class="input-group-append">
 												<button id="checkVaild" class="btn btn-light" type="button">인증번호 받기</button>
+												
 											</span>
                                                 </div>
+                                            </div>
+                                            <span id="mail_check_input_box_warn"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                        	<div class="col-md-2"></div>
+                                            <div class="col-md-10">
+                                            	<span id="mail_check_input_box_warn" style="padding-left: 120px;"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -145,4 +162,42 @@
             }
         });
     } // end of idFind()
+    
+    var code = "";
+    var inputCode = $('#numberInput').val();
+    //인증번호 이메일 전송
+    $("#checkVaild").on("click", function () {
+        var email = $("#resetPwEmail").val();
+        var id = $("#resetPwId").val();
+        var numberInput = $("#validNumber");
+        var boxWrap = $(".mail_check_input_box");
+        $.ajax({
+
+            type: 'GET',
+            url: 'mailCheck?email=' + email,
+
+            success: function (data) {
+                alert("인증메일이 발송 되었습니다.");
+                console.log("값은?" + data);
+                numberInput.attr("disabled", false);
+                boxWrap.attr("id", "mail_check_input_box_true");
+                code = data;
+            }
+        });
+    });
+    //인증코드 결과
+    $("#validNumber").blur(function () {
+
+        var validNumber = $('#validNumber').val(); //인증번호 입력란
+        var checkResult = $("#mail_check_input_box_warn");    // 비교 결과
+
+        if (validNumber == code) {
+            checkResult.html("인증번호가 일치합니다.");
+            checkResult.attr("class", "correct");
+        } else {
+            checkResult.html("인증번호를 다시 확인해주세요.");
+            checkResult.attr("class", "incorrect");
+        }
+    });
+
 </script>

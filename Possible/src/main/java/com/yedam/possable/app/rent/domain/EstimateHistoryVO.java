@@ -5,6 +5,7 @@ import com.yedam.possable.app.common.code.domain.BrandCodeVO;
 import com.yedam.possable.app.common.code.domain.CodeSubVO;
 import com.yedam.possable.app.common.code.domain.ModelCodeVO;
 import com.yedam.possable.app.common.code.domain.TrimCodeVO;
+import com.yedam.possable.app.company.domain.CompanyVO;
 import com.yedam.possable.app.member.domain.MemberVO;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -41,5 +42,6 @@ public class EstimateHistoryVO {
     private ModelCodeVO modelCodeVO;
     private TrimCodeVO trimCodeVO;
     private MemberVO memberVO;
+    private CompanyVO companyVO;
 //    private Long memSeq;
 }

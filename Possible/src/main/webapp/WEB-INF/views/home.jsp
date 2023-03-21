@@ -184,11 +184,11 @@
             </div>
         </c:if>
         <c:if test="${reviewList.size() != 0}">
-            <c:forEach begin="0" end="3">
+            
                 <div class="col-lg-3 col-md-6">
                     <div class="card mx-0 mb-3" style="flex:none">
                         <div class="card-img-actions mx-1 mt-1">
-                            <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}/resources/images/placeholder.jpg" alt="">
+                            <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}/resources/images/yeosu.jpg" alt="">
                             <div class="card-img-actions-overlay card-img">
                                 <a href="${pageContext.request.contextPath}/resources/images/placeholder.jpg" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round" data-popup="lightbox" rel="group">
                                     <i class="icon-zoomin3"></i>
@@ -200,7 +200,57 @@
                             <h5 class="card-title">
                                 <a href="#">너무 좋은 여행이었어요!</a>
                             </h5>
-                            <p class="card-text">어디 갔는데 너무 좋았어요. 그냥 좋았어요~</p>
+                            <p class="card-text">여행갈카를 이용해서 여수를 다녀왔는데 너무 좋았어요.</p>
+                        </div>
+
+                        <div class="card-footer d-flex justify-content-between">
+                            <span class="text-muted"><i class="far fa-clock"></i> 21/10/09</span>
+                            <span class="float-right main-score-bg"><span class="main-score" style="width:90%"></span></span>
+                        </div>
+                    </div>
+                </div>
+                
+           		<div class="col-lg-3 col-md-6">
+                    <div class="card mx-0 mb-3" style="flex:none">
+                        <div class="card-img-actions mx-1 mt-1">
+                            <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}/resources/images/busan.jpg" alt="" style="height: 170px;">
+                            <div class="card-img-actions-overlay card-img">
+                                <a href="${pageContext.request.contextPath}/resources/images/placeholder.jpg" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round" data-popup="lightbox" rel="group">
+                                    <i class="icon-zoomin3"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="#">가슴 설레는 여행이 되었어요</a>
+                            </h5>
+                            <p class="card-text">부산여행을 하는데 여행갈카를 이용해 더 활기찬 여행이 되어서 좋았습니다.</p>
+                        </div>
+
+                        <div class="card-footer d-flex justify-content-between">
+                            <span class="text-muted"><i class="far fa-clock"></i> 21/10/09</span>
+                            <span class="float-right main-score-bg"><span class="main-score" style="width:100%"></span></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="card mx-0 mb-3" style="flex:none">
+                        <div class="card-img-actions mx-1 mt-1">
+                            <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}/resources/images/seocahn.jpg" alt="" style="height: 170px;">
+                            <div class="card-img-actions-overlay card-img">
+                                <a href="${pageContext.request.contextPath}/resources/images/placeholder.jpg" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round" data-popup="lightbox" rel="group">
+                                    <i class="icon-zoomin3"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="#">향긋한 여행이 되었습니다</a>
+                            </h5>
+                            <p class="card-text">가족들과 함께 서천 여행을 떠나서 좋은 경험을 쌓았네요</p>
                         </div>
 
                         <div class="card-footer d-flex justify-content-between">
@@ -209,7 +259,31 @@
                         </div>
                     </div>
                 </div>
-            </c:forEach>
+                
+                 <div class="col-lg-3 col-md-6">
+                    <div class="card mx-0 mb-3" style="flex:none">
+                        <div class="card-img-actions mx-1 mt-1">
+                            <img class="card-img-top img-fluid" src="${pageContext.request.contextPath}/resources/images/kimchan.jpg" alt="" style="height: 170px;">
+                            <div class="card-img-actions-overlay card-img">
+                                <a href="${pageContext.request.contextPath}/resources/images/placeholder.jpg" class="btn btn-outline bg-white text-white border-white border-2 btn-icon rounded-round" data-popup="lightbox" rel="group">
+                                    <i class="icon-zoomin3"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="#">여행갈카와 함께한 향긋한 여행</a>
+                            </h5>
+                            <p class="card-text">김천 연화지에 가서 여자친구와 이쁜 명소를 구경했네요. </p>
+                        </div>
+
+                        <div class="card-footer d-flex justify-content-between">
+                            <span class="text-muted"><i class="far fa-clock"></i> 21/10/09</span>
+                            <span class="float-right main-score-bg"><span class="main-score" style="width:80%"></span></span>
+                        </div>
+                    </div>
+                </div>
         </c:if>
     </div>
     <!-- /image grid -->
