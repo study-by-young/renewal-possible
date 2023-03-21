@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yedam.possable.app.rent.mapper.PremiumRentMapper">
+    <resultMap id="estimateHistory" type="EstimateHistoryVO">
+        <id property="seq" column="seq"/>
+        <result property="options" column="options"/>
+        <result property="items" column="items"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="memo" column="memo"/>
+        <result property="takePlaceCode" column="take_place_code"/>
+        <result property="takePlaceBasic" column="take_place_basic"/>
+        <result property="takePlaceDetail" column="take_place_detail"/>
+        <result property="genDate" column="gen_date"/>
+        <result property="uptDate" column="upt_date"/>
+        <association property="brandCodeVO"
+                     column="brand"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getBrand"
+                     javaType="BrandCodeVO"/>
+        <association property="segmentCodeVO"
+                     column="segment"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        <association property="modelCodeVO"
+                     column="model"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getModel"
+                     javaType="ModelCodeVO"/>
+        <association property="trimCodeVO"
+                     column="trim"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getTrim"
+                     javaType="TrimCodeVO"/>
+        <association property="memberVO"
+                     column="mem_seq"
+                     select="com.yedam.possable.app.member.mapper.MemberMapper.memberOneSelect"
+                     javaType="MemberVO"/>
+    </resultMap>
+
+    <resultMap id="estiSubmitHistory" type="EstiSubmitHistoryVO">
+        <id property="seq" column="seq"/>
+        <result property="items" column="items"/>
+        <result property="price" column="price"/>
+        <result property="memo" column="memo"/>
+        <result property="status" column="status"/>
+        <result property="genDate" column="gen_date"/>
+        <result property="uptDate" column="upt_date"/>
+        <association property="estimateHistoryVO"
+                     column="esti_seq"
+                     select="getEstimate"
+                     javaType="EstimateHistoryVO"/>
+        <association property="companyVO"
+                     column="cmpn_seq"
+                     select="com.yedam.possable.app.company.mapper.CompanyMapper.companyOneSelect"
+                     javaType="CompanyVO"/>
+        <association property="carVO"
+                     column="car_seq"
+                     select="com.yedam.possable.app.car.mapper.CarMapper.getCar"
+                     javaType="CarVO"/>
+    </resultMap>
+
+    <select id="getEstimateList" resultMap="estimateHistory">
+        SELECT
+            *
+        FROM (SELECT
+        ROWNUM RN,
+        EH.*
+        FROM ( SELECT
+        /*+ INDEX_DESC(ESTIMATE_HISTORY IDX_ESTIMATE_HISTORY) */
+        *
+        FROM estimate_history
+        <where>
+            <![CDATA[ ROWNUM <= #{pageNum} * #{amount} ]]>
+        </where>
+        ) EH
+        )
+        WHERE RN > (#{pageNum} - 1) * #{amount}
+    </select>
+
+    <select id="getEstimate" resultMap="estimateHistory">
+        SELECT
+            *
+        FROM estimate_history
+        WHERE seq = #{seq}
+    </select>
+
+    <insert id="insertEstimate">
+        <selectKey keyProperty="seq" resultType="long" order="BEFORE">
+            SELECT SEQ_ESTIMATE_HISTORY.NEXTVAL FROM dual
+        </selectKey>
+        INSERT INTO estimate_history(
+        seq,
+        brand,
+        segment,
+        model,
+        trim,
+        start_date,
+        end_date,
+        options,
+        items,
+        memo,
+        take_place_code,
+        take_place_basic,
+        take_place_detail,
+        mem_seq
+        ) VALUES(
+        #{seq},
+        #{brand},
+        #{segment},
+        #{model},
+        #{trim},
+        #{startDate},
+        #{endDate},
+        #{options},
+        #{items},
+        #{memo},
+        #{takePlaceCode},
+        #{takePlaceBasic},
+        #{takePlaceDetail},
+        #{memberVO.seq}
+        )
+    </insert>
+
+    <update id="updateEstimate">
+        UPDATE estimate_history
+        <set>
+            <if test="brand != null">
+                brand = #{brand},
+            </if>
+            <if test="segment != null">
+                segment = #{segment},
+            </if>
+            <if test="model != null">
+                model = #{model},
+            </if>
+            <if test="trim != null">
+                trim = #{trim},
+            </if>
+            <if test="startDate != null">
+                start_date = #{startDate},
+            </if>
+            <if test="endDate != null">
+                end_date = #{endDate},
+            </if>
+            <if test="options != null">
+                options = #{options},
+            </if>
+            <if test="items != null">
+                items = #{items},
+            </if>
+            <if test="memo != null">
+                memo = #{memo},
+            </if>
+            <if test="takePlaceCode != null">
+                take_place_code = #{takePlaceCode},
+            </if>
+            <if test="takePlaceBasic != null">
+                take_place_basic = #{takePlaceBasic},
+            </if>
+            <if test="takePlaceDetail != null">
+                take_place_detail = #{takePlaceDetail},
+            </if>
+            upt_date = SYSDATE
+        </set>
+        WHERE seq = #{seq}
+    </update>
+
+    <delete id="deleteEstimate">
+        DELETE
+        FROM estimate_history
+        WHERE seq = #{seq}
+    </delete>
+
+    <select id="getEstimateCount" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM estimate_history
+    </select>
+
+    <!-- 마이페이지 유저 프리미엄 견적 요청 조회 -->
+    <select id="getEstimateListByMemSeq" resultMap="estimateHistory">
+        SELECT
+            *
+        FROM (SELECT
+        ROWNUM RN,
+        EH.*
+        FROM (SELECT
+        /*+ INDEX_DESC(ESTIMATE_HISTORY IDX_ESTIMATE_HISTORY) */
+        *
+        FROM estimate_history
+        <where>
+            mem_seq = #{seq}
+            AND <![CDATA[ ROWNUM <= #{cri.pageNum} * #{cri.amount} ]]>
+        </where>
+        ) EH
+        )
+        WHERE RN > (#{cri.pageNum} - 1) * #{cri.amount}
+    </select>
+	<!--  -->
+	<select id="getEstimateListInMyPage" resultMap="estimateHistory">
+	select * FROM(
+              select eh.*
+             /*+ INDEX_DESC(ESTIMATE_HISTORY IDX_ESTIMATE_HISTORY) */
+             from estimate_history eh INNER JOIN Member m
+             ON eh.MEM_SEQ = m.SEQ
+             where m.SEQ = #{seq}
+             ORDER  BY eh.SEQ DESC)
+             WHERE ROWNUM = 1
+	</select>
+
+    <!-- 업체용 견적 제출 확인 리스트 -->
+    <select id="compEstiSubmitList" resultMap="CompEstiListJoin">
+        SELECT e.SEQ,
+               e.ESTI_SEQ,
+               e.CAR_SEQ,
+               e.CMPN_SEQ,
+               eh.MEM_SEQ,
+               c.BRAND,
+               c.MODEL,
+               c.SEGMENT,
+               c.COLOR,
+               c.KMPL,
+               c.FUEL,
+               c.TRUNK,
+               c.DOOR,
+               c.MISSION,
+               c.YEAR,
+               e.ITEMS,
+               e.PRICE,
+               e.STATUS,
+               e.MEMO,
+               e.GEN_DATE,
+               e.UPT_DATE,
+               com.NAME,
+               com.TEL
+        FROM esti_submit_history e
+                     INNER JOIN CAR c
+                ON c.seq = e.car_seq
+                     INNER JOIN COMPANY com
+                ON com.seq = c.cmpn_seq
+                     JOIN estimate_history eh
+                ON e.esti_seq = eh.seq
+        WHERE e.cmpn_seq = #{seq}
+    </select>
+
+    <!--프리미엄 렌트카 한건 조회 -->
+    <select id="compEstiSubmitOneSelect" resultMap="CompEstiListJoin">
+        SELECT e.SEQ,
+               e.ESTI_SEQ,
+               e.CAR_SEQ,
+               e.CMPN_SEQ,
+               eh.MEM_SEQ,
+               c.BRAND,
+               c.MODEL,
+               c.SEGMENT,
+               c.COLOR,
+               c.KMPL,
+               c.FUEL,
+               c.TRUNK,
+               c.DOOR,
+               c.MISSION,
+               c.PASSENGER,
+               c.YEAR,
+               e.ITEMS,
+               e.PRICE,
+               e.STATUS,
+               e.MEMO,
+               e.GEN_DATE,
+               e.UPT_DATE,
+               com.NAME,
+               com.TEL,
+               mem.NAME as memName,
+               mem.PHONE as phone
+        FROM esti_submit_history e
+                     INNER JOIN CAR c
+                ON c.seq = e.car_seq
+                     INNER JOIN COMPANY com
+                ON com.seq = c.cmpn_seq
+                     INNER JOIN estimate_history eh
+                ON e.esti_seq = eh.seq
+                	INNER JOIN Member mem
+                ON eh.mem_seq = mem.seq
+        WHERE e.seq = #{seq}
+    </select>
+
+    <select id="getEstSubmitListByEstiSeq" resultMap="estiSubmitHistory">
+        SELECT
+            *
+        FROM (SELECT
+        ROWNUM RN,
+        ESH.*
+        FROM ( SELECT
+        /*+ INDEX_DESC(ESTI_SUBMIT_HISTORY IDX_ESTI_SUBMIT_HISTORY) */
+        *
+        FROM esti_submit_history
+        <where>
+            esti_seq = #{seq}
+            AND <![CDATA[ ROWNUM <= #{cri.pageNum} * #{cri.amount} ]]>
+        </where>
+        ) ESH
+        )
+        WHERE RN > (#{cri.pageNum} - 1) * #{cri.amount}
+    </select>
+
+    <select id="getEstSubmit" resultMap="estiSubmitHistory">
+        SELECT
+        /*+ INDEX_DESC(ESTI_SUBMIT_HISTORY IDX_ESTI_SUBMIT_HISTORY) */
+        *
+        FROM esti_submit_history
+        WHERE seq = #{seq}
+    </select>
+
+    <insert id="insertEstSubmit">
+        <selectKey keyProperty="seq" resultType="long" order="BEFORE">
+            SELECT SEQ_ESTI_SUBMIT_HISTORY.nextval FROM dual
+        </selectKey>
+        INSERT INTO esti_submit_history(
+        seq,
+        items,
+        price,
+        memo,
+        esti_seq,
+        cmpn_seq,
+        car_seq,
+        status,
+        gen_date
+        ) VALUES(
+        #{seq},
+        #{items},
+        #{price},
+        #{memo},
+        #{estimateHistoryVO.seq},
+        #{companyVO.seq},
+        #{carVO.seq},
+        'CST01',
+        SYSDATE
+        )
+    </insert>
+
+    <update id="updateEstSubmit">
+        UPDATE esti_submit_history
+        SET
+            items = #{items},
+            <if test="price != null">
+                price = #{price},
+            </if>
+            memo = #{memo},
+            upt_date = SYSDATE,
+            car_seq = #{carVO.seq}
+        WHERE seq = #{seq}
+    </update>
+
+    <delete id="deleteEstSubmit">
+        DELETE
+        FROM esti_submit_history
+        WHERE seq = #{seq}
+    </delete>
+
+    <select id="getEstSubmitCount" resultType="int">
+        SELECT
+                COUNT(*)
+        FROM esti_submit_history
+        WHERE esti_seq = #{seq}
+    </select>
+
+	<update id="CompEstimateUpdate" >
+		UPDATE ESTI_SUBMIT_HISTORY
+		SET ITEMS = #{items}
+		WHERE SEQ = #{seq}
+    </update>
+
+    <resultMap type="CompEstiListJoinVO" id="CompEstiListJoin">
+    	<id property="seq" column="seq"/>
+    	<result property="items" column="items"/>
+    	<result property="price" column="price"/>
+    	<result property="memo" column="memo"/>
+    	<result property="genDate" column="gen_date"/>
+    	<result property="uptDate" column="upt_date"/>
+    	<result property="carNum" column="car_num"/>
+    	<result property="brand" column="brand"/>
+    	<result property="segment" column="segment"/>
+    	<result property="model" column="model"/>
+    	<result property="trim" column="trim"/>
+    	<result property="color" column="color"/>
+    	<result property="year" column="year"/>
+    	<result property="fuel" column="fuel"/>
+    	<result property="passenger" column="passenger"/>
+    	<result property="mission" column="mission"/>
+    	<result property="trunk" column="trunk"/>
+    	<result property="door" column="door"/>
+    	<result property="kmpl" column="kmpl"/>
+    	<result property="memName" column="memName"/>
+    	<result property="phone" column="phone"/>
+	    <result property="status" column="status"/>
+	      <association property="estimateHistoryVO"
+                     column="esti_seq"
+                     select="getEstimate"
+                     javaType="EstimateHistoryVO"/>
+        <association property="companyVO"
+                     column="cmpn_seq"
+                     select="com.yedam.possable.app.company.mapper.CompanyMapper.companyOneSelect"
+                     javaType="CompanyVO"/>
+        <association property="carVO"
+                     column="car_seq"
+                     select="com.yedam.possable.app.car.mapper.CarMapper.getCar"
+                     javaType="CarVO"/>
+
+	    <association property="brandCodeVO"
+                     column="brand"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getBrand"
+                     javaType="BrandCodeVO"/>
+        <association property="segmentCodeVO"
+                     column="segment"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getCodeByValue"
+                     javaType="CodeSubVO"/>
+        <association property="modelCodeVO"
+                     column="model"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getModel"
+                     javaType="ModelCodeVO"/>
+        <association property="trimCodeVO"
+                     column="trim"
+                     select="com.yedam.possable.app.common.code.mapper.CodeMapper.getTrim"
+                     javaType="TrimCodeVO"/>
+        <association property="memberVO"
+                     column="mem_seq"
+                     select="com.yedam.possable.app.member.mapper.MemberMapper.memberOneSelect"
+                     javaType="MemberVO"/>
+    </resultMap>
+
+    <select id="isRegistered" resultType="boolean">
+        SELECT
+            CASE
+            WHEN COUNT(*) > 0 THEN 1
+            ELSE 0
+            END AS result
+        FROM estimate_history
+        WHERE mem_seq = #{seq}
+    </select>
+
+    <select id="isRegisteredSubmit" resultType="boolean">
+        SELECT
+            CASE
+            WHEN COUNT(*) > 0 THEN 1
+            ELSE 0
+            END AS result
+        FROM esti_submit_history
+        WHERE cmpn_seq = #{cmpnSeq}
+        AND esti_seq = #{estiSeq}
+    </select>
+</mapper>
