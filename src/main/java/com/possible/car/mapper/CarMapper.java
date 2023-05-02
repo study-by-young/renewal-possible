@@ -3,6 +3,7 @@ package com.possible.car.mapper;
 import com.possible.car.domain.CarOptionVO;
 import com.possible.car.domain.CarVO;
 import com.possible.car.domain.InsuranceOptionVO;
+import com.possible.car.domain.entity.Car;
 import com.possible.common.criteria.domain.Criteria;
 import com.possible.company.domain.CompanyVO;
 import org.apache.ibatis.annotations.Param;
@@ -10,6 +11,41 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface CarMapper {
+
+    void createCar() throws Exception; // 차량 등록
+
+    void updateCar() throws Exception; // 차량 수정
+
+    void deleteCar() throws Exception; // 차량 삭제
+
+    Car readCar() throws Exception; // 차량 조회
+
+    List<Car> readCarList() throws Exception; // 차량 목록
+
+    void updateCarStatus() throws Exception; // 차량 상태 변경
+
+    void updateCarPrice() throws Exception; // 차량 가격 변경
+
+    List<Car> readCarListByCompany() throws Exception; // 업체별 차량 목록
+
+    void createCarOptions() throws Exception; // 차량 옵션 추가
+
+    void updateCarOptions() throws Exception; // 차량 옵션 수정
+
+    void deleteCarOptions() throws Exception; // 차량 옵션 삭제
+
+    List<CarOptionVO> readCarOptions() throws Exception; // 차량 옵션 조회
+
+    List<InsuranceOptionVO> readCarInsurance() throws Exception; // 차량 보험 조회
+
+    void deleteCarInsurance() throws Exception; // 차량 보험 삭제
+
+
+
+
+
+
+    // -------------------------------------------------추후 정리
     // 차량 목록 조회
     public List<CarVO> getCarList();
 
