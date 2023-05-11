@@ -9,7 +9,7 @@ import com.possible.common.criteria.domain.Criteria;
 import com.possible.common.criteria.domain.PageVO;
 import com.possible.community.course.domain.CourseBoardVO;
 import com.possible.community.course.service.CourseBoardService;
-import com.possible.community.qna.service.QnaService;
+import com.possible.community.qna_finish_delete.service.QnaService;
 import com.possible.company.domain.CompanyVO;
 import com.possible.company.service.CompanyService;
 import com.possible.member.service.MemberService;
