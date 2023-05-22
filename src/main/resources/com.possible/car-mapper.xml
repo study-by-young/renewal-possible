@@ -5,34 +5,68 @@
 
     <insert id="createCar" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
-        CAR (
-            ID,
-            BRAND,
-            MODEL,
-            COLOR,
-            YEAR,
-            FUEL,
-            PASSENGER,
-            PRICE,
-            STATUS,
-            CAR_NUMBER,
-            COMPANY_ID
+        CAR ( id
+            , brand
+            , model
+            , color
+            , year
+            , fuel
+            , passenger
+            , price
+            , status
+            , car_number
+            , company_id
 
         )
-        VALUES (
-            #{id},
-            #{brand},
-            #{model},
-            #{color},
-            #{year},
-            #{fuel},
-            #{passenger},
-            #{price},
-            '상태값코드(추후수정)',
-            #{car_number},
-            #{company_id}
+        VALUES
+            ( #{id}
+            , #{brand}
+            , #{model}
+            , #{color}
+            , #{year}
+            , #{fuel}
+            , #{passenger}
+            , #{price}
+            , '상태값코드(추후수정)'
+            , #{carNumber}
+            , #{companyId}
         )
     </insert>
+
+    <update id="updateCar">
+        UPDATE CAR
+        SET brand = #{brand}
+          , model = #{model}
+          , color = #{color}
+          , year = #{year}
+          , fuel = #{fuel}
+          , passenger = #{passenger}
+          , price = #{price}
+          , car_number = #{carNumber}
+          , upt_date = #{uptDate}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateCarStatus">
+        UPDATE CAR
+        SET status = #{status}
+          , upt_date = #{uptDate}
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateCarPrice">
+        UPDATE CAR
+        SET price = #{price}
+          , upt_date = #{uptDate}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteCar">
+        DELETE FROM CAR
+        WHERE id = #{id}
+    </delete>
+
+
 
 
 
@@ -250,11 +284,7 @@
     	SET OPT_CODE = #{optCode}
     	WHERE CAR_SEQ = #{carSeq}
     </update>
-    <update id="updateCarPrice">
-    	UPDATE CAR
-    	SET PRICE = #{price}
-    	WHERE SEQ = #{seq}
-    </update>
+
     <update id="updateCompanyCar">
         UPDATE car
         <set>
@@ -303,12 +333,7 @@
         AND cmpn_seq = #{companyVO.seq}
         AND status NOT IN('CST02, CST03')
     </update>
-    <update id="updateStatus">
-        UPDATE car
-        SET status = #{status},
-            upt_date = SYSDATE
-        WHERE seq = #{seq}
-    </update>
+
     <!-- 해당 model을 보유한 업체 리스트 뽑아내기 위한 리스트 -->
     <select id="getCarByModel" resultMap="car">
     	SELECT
