@@ -6,6 +6,7 @@ import com.possible.car.domain.InsuranceOptionVO;
 import com.possible.car.mapper.CarMapper;
 import com.possible.common.criteria.domain.Criteria;
 import com.possible.company.domain.CompanyVO;
+import lombok.RequiredArgsConstructor;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CarServiceImpl implements CarService {
     /*
      * 차량 상태 코드
@@ -20,8 +22,59 @@ public class CarServiceImpl implements CarService {
      *
      */
 
-    @Autowired
-	CarMapper carMapper;
+    private final CarMapper carMapper;
+
+
+	/**
+	 * 차량 등록
+	 * @param
+	 * @throws Exception
+	 */
+	public void createCar() throws Exception {
+		carMapper.createCar();
+	}
+
+	/**
+	 * 차량 정보 수정
+	 * @param
+	 * @throws Exception
+	 */
+	public void updateCar() throws Exception {
+		carMapper.updateCar();
+	}
+
+	/**
+	 * 차량 상태 변경
+	 * @param
+	 * @throws Exception
+	 */
+	public void updateCarStatus() throws Exception {
+		carMapper.updateCarStatus();
+	}
+
+	/**
+	 * 차량 가격 변경
+	 * @param
+	 * @throws Exception
+	 */
+	public void updateCarPrice() throws Exception {
+		carMapper.updateCarPrice();
+	}
+
+	/**
+	 * 차량 삭제
+	 * @param
+	 * @throws Exception
+	 */
+	public void deleteCar() throws Exception {
+		carMapper.deleteCar();
+	}
+
+
+
+
+
+
 
     @Override
     public List<CarVO> getCarList() {

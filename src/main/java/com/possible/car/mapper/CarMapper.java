@@ -12,19 +12,21 @@ import java.util.List;
 
 public interface CarMapper {
 
-    void createCar() throws Exception; // 차량 등록
+    void createCar() throws Exception;
 
-    void updateCar() throws Exception; // 차량 수정
+    void updateCar() throws Exception;
 
-    void deleteCar() throws Exception; // 차량 삭제
+    void updateCarStatus() throws Exception;
+
+    void updateCarPrice() throws Exception;
+
+    void deleteCar() throws Exception;
 
     Car readCar() throws Exception; // 차량 조회
 
     List<Car> readCarList() throws Exception; // 차량 목록
 
-    void updateCarStatus() throws Exception; // 차량 상태 변경
 
-    void updateCarPrice() throws Exception; // 차량 가격 변경
 
     List<Car> readCarListByCompany() throws Exception; // 업체별 차량 목록
 
