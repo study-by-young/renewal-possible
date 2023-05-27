@@ -5,8 +5,8 @@
 
     <insert id="createCar" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
-        CAR ( id
-            , brand
+        CAR
+            ( brand
             , model
             , color
             , year
@@ -19,8 +19,7 @@
 
         )
         VALUES
-            ( #{id}
-            , #{brand}
+            ( #{brand}
             , #{model}
             , #{color}
             , #{year}
