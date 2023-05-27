@@ -5,8 +5,8 @@
 
     <insert id="createCar" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
-        CAR ( id
-            , brand
+        CAR
+            ( brand
             , model
             , color
             , year
@@ -19,8 +19,7 @@
 
         )
         VALUES
-            ( #{id}
-            , #{brand}
+            ( #{brand}
             , #{model}
             , #{color}
             , #{year}
@@ -65,6 +64,59 @@
         DELETE FROM CAR
         WHERE id = #{id}
     </delete>
+
+    <resultMap type="ResCar" id="carMap">
+        <result property="carId" column="id" />
+        <result property="brand" column="brand" />
+        <result property="model" column="model"/>
+        <result property="color" column="color" />
+        <result property="year" column="year" />
+        <result property="fuel" column="fuel" />
+        <result property="passenger" column="passenger" />
+        <result property="price" column="price" />
+        <result property="status" column="status" />
+        <result property="carNumber" column="car_number"/>
+        <result property="regDate" column="reg_date" />
+        <result property="uptDate" column="upt_date" />
+        <collection property="company" resultMap="companyMap" />
+    </resultMap>
+
+    <resultMap id="companyMap" type="Company">
+        <result property="companyId" column="id" />
+        <result property="name" column="name" />
+        <result property="comNumber" column="com_number" />
+        <result property="tel" column="tel" />
+        <result property="status" column="status" />
+        <result property="memberId" column="member_id" />
+        <result property="postalCode" column="postal_code" />
+        <result property="address" column="address" />
+    </resultMap>
+
+    <select id="readCar" resultMap="carMap">
+        SELECT c.id AS carId
+             , brand
+             , model
+             , color
+             , year
+             , fuel
+             , passenger
+             , price
+             , c.status
+             , car_number
+             , c.reg_date
+             , c.upt_date
+             , cm.id AS companyId
+             , name
+             , com_number
+             , tel
+             , cm.status
+             , member_id
+             , postal_code
+             , address
+        FROM CAR c
+        LEFT OUTER JOIN COMPANY cm ON c.company_id = cm.id
+        WHERE c.id = #{id}
+    </select>
 
 
 

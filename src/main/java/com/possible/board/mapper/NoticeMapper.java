@@ -9,6 +9,11 @@ import java.util.List;
 @Mapper
 public interface NoticeMapper {
 
+    void createNotice() throws Exception;
+
+    void updateNotice() throws Exception;
+
+
 
     public NoticeVO read(NoticeVO vo);
 

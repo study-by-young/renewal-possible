@@ -1,10 +1,10 @@
 package com.possible.board.service;
 
+import com.possible.board.mapper.NoticeMapper;
 import com.possible.common.criteria.domain.Criteria;
 import com.possible.community.notice_finish_delete.domain.NoticeFileVO;
 import com.possible.community.notice_finish_delete.domain.NoticeVO;
 import com.possible.community.notice_finish_delete.mapper.NoticeFileMapper;
-import com.possible.community.notice_finish_delete.mapper.NoticeMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,37 +18,43 @@ public class NoticeService {
     private final NoticeFileMapper noticeFileMapper;
 
     /**
-     * --
+     * 공지 등록
      *
-     * @param vo
+     * @param
      * @return
      * @throws Exception
      */
+    public void createNotice() throws Exception {
+        noticeMapper.createNotice();
+        // 첨부파일 관련 코드 추후 추가 및 수정
+//        if(vo.getAttachList() == null) {
+//            return 1;
+//        } else {
+//            for(NoticeFileVO attach : vo.getAttachList()) {
+//                // attach.setSeq(vo.getSeq());
+//                attach.setNoticeSeq(vo.getSeq());
+//                noticeFileMapper.insert(attach);
+//            }
+//        }
+    }
+
+    /**
+     * 공지 수정
+     *
+     * @param
+     * @throws Exception
+     */
+    public void updateNotice() throws Exception {
+        noticeMapper.updateNotice();
+    }
+
+
+
     public NoticeVO read(NoticeVO vo) {
         // TODO Auto-generated method stub
         vo = noticeMapper.read(vo);
         vo.setAttachList(noticeFileMapper.findBySeq(vo.getSeq()));
         return vo;
-    }
-
-    public int insert(NoticeVO vo) {
-        // TODO Auto-generated method stub
-        noticeMapper.insert(vo);
-        if(vo.getAttachList() == null) {
-            return 1;
-        } else {
-            for(NoticeFileVO attach : vo.getAttachList()) {
-                // attach.setSeq(vo.getSeq());
-                attach.setNoticeSeq(vo.getSeq());
-                noticeFileMapper.insert(attach);
-            }
-        }
-        return 1;
-    }
-
-    public int update(NoticeVO vo) {
-        // TODO Auto-generated method stub
-        return noticeMapper.update(vo);
     }
 
     public int delete(NoticeVO vo) {
